@@ -1,0 +1,24 @@
+Package: ggvega
+Title: Translator from 'ggplot2' to 'Vega-Lite' 
+Version: 0.0.0.9000
+Authors@R:
+    c(
+      person(given = "Haley",
+             family = "Jeppson",
+             role = c("aut", "cre"),
+             email = "hjeppson@iastate.edu"),
+      person(given = "Wenyu",
+             family = "Yang",
+             role = c("aut"),
+             email = "wenyuyang@gwmail.gwu.edu"),
+      person(given = "Ian J",
+             family = "Lyttle",
+             role = c("aut"),
+             email = "ian.lyttle@schneider-electric.com",
+             comment = c(ORCID = "0000-0001-9962-4849"))    
+    )
+
+Description: This package aspires to do for 'Vega-Lite' what the 'plotly' package does for 'plotly'.
+License: What license it uses
+Encoding: UTF-8
+LazyData: true
