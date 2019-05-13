@@ -17,8 +17,7 @@ Authors@R:
              email = "ian.lyttle@schneider-electric.com",
              comment = c(ORCID = "0000-0001-9962-4849"))    
     )
-
 Description: This package aspires to do for 'Vega-Lite' what the 'plotly' package does for 'plotly'.
-License: What license it uses
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
