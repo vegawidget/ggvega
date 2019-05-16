@@ -1,0 +1,26 @@
+Package: ggschema
+Title: Supports Translation from 'ggplot2' Objects 
+Version: 0.0.0.9000
+Authors@R: 
+    c(
+      person(given = "Haley",
+             family = "Jeppson",
+             role = c("aut", "cre"),
+             email = "hjeppson@iastate.edu"),
+      person(given = "Wenyu",
+             family = "Yang",
+             role = c("aut"),
+             email = "wenyuyang@gwmail.gwu.edu"),
+      person(given = "Ian J",
+             family = "Lyttle",
+             role = c("aut"),
+             email = "ian.lyttle@schneider-electric.com",
+             comment = c(ORCID = "0000-0001-9962-4849"))    
+    )
+Description: The first step in translating from 'ggplot2' to another graphics
+  system is to distill the meanings within the ggplot object.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
