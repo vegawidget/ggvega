@@ -3,14 +3,14 @@ Title: Translator from 'ggplot2' to 'Vega-Lite'
 Version: 0.0.0.9000
 Authors@R:
     c(
-      person(given = "Haley",
-             family = "Jeppson",
-             role = c("aut", "cre"),
-             email = "hjeppson@iastate.edu"),
       person(given = "Wenyu",
              family = "Yang",
              role = c("aut"),
              email = "wenyuyang@gwmail.gwu.edu"),
+      person(given = "Haley",
+             family = "Jeppson",
+             role = c("aut", "cre"),
+             email = "hjeppson@iastate.edu"),
       person(given = "Ian J",
              family = "Lyttle",
              role = c("aut"),
@@ -21,3 +21,5 @@ Description: This package aspires to do for 'Vega-Lite' what the 'plotly' packag
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+URL: https://github.com/vegawidget/ggvega
+BugReports: https://github.com/vegawidget/ggvega/issues
