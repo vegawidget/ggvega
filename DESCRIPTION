@@ -1,4 +1,4 @@
-Package: ggschema
+Package: ggspec
 Title: Supports Translation from 'ggplot2' Objects 
 Version: 0.0.0.9000
 Authors@R: 
@@ -24,3 +24,5 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
+Suggests: 
+    testthat
