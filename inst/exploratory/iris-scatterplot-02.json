@@ -1,0 +1,26 @@
+{
+  "data": {
+    "data-00": {
+      "metadata": {},
+      "observations": [{}, {}]
+    }
+  },
+  "layers": [
+    {
+      "data": "data-00",
+      "geom": {"class": "GeomPoint"},
+      "mapping": {
+        "x": {"field": "Petal.Width", "type": "quantitative"},
+        "y": {"field": "Petal.Length", "type": "quantitative"},
+        "colour": {"field": "Species", "type": "nominal"}
+      }
+    }
+  ],
+  "scales": [],
+  "labels": {
+    "title": "Hello World",
+    "x": "Petal.Width",
+    "y": "Petal.Length",
+    "colour": "Species"
+  }
+}
