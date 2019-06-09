@@ -3,8 +3,6 @@ First components of the ggspec function
 
 <br/>
 
------
-
 ## Extracting elements
 
 <br/>
@@ -21,8 +19,6 @@ p
 ![](01-ggspec-components_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 <br/>
-
------
 
 ### Extracting data
 
@@ -62,7 +58,9 @@ data_int <- function(data_plt, layers_plt) {
 }
 ```
 
-#### Helper functions
+<br/>
+
+Helper functions:
 
 `format_data_int()` will format each list of data so that it contains:
 
@@ -101,6 +99,8 @@ format_data_int <- function(dat) {
 # 
 ```
 
+<br/>
+
 Example of the function in use:
 
 ``` r
@@ -128,6 +128,8 @@ str(data_int(p$data, p$layers))
     ##   .. ..$ Petal.Width : num [1:150] 0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
     ##   .. ..$ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
     ##   ..$ hash     : chr "d3c5d071001b61a9f6131d3004fd0988"
+
+<br/>
 
 This intermediate-form could be used to generate the ggspec-form; it
 could also be useful later.
@@ -173,11 +175,7 @@ str(data_spc(data_int(p$data, p$layers)), max.level = 2)
 
 <br/>
 
------
-
 ### Extracting layers
-
-<br/>
 
 Within each layer-object, we need:
 
@@ -191,10 +189,10 @@ Within each layer-object, we need:
 
 <br/>
 
+#### Intermediate layers step
+
 The ggspec layers are a function of the ggplot layers, but also of the
 data and scales:
-
-#### Intermediate layers step
 
 `layer_int()` calls `get_layers()` for each layer. `get_layers()`
 returns …
@@ -231,6 +229,8 @@ layer_int <- function(layer_plt) {
 }
 ```
 
+<br/>
+
 Helper functions:
 
 ``` r
@@ -240,6 +240,8 @@ get_mappings <- function(aes) {
   ) 
 }
 ```
+
+<br/>
 
 Example of function being used:
 
@@ -278,6 +280,8 @@ str(layer_int(p$layers))
     ##   ..$ stat      :List of 1
     ##   .. ..$ class: chr "StatIdentity"
 
+<br/>
+
 #### FInal layers step
 
 In `layer_spc()` we will compare the layer data with `data_int` and
@@ -292,11 +296,13 @@ layer_spc <- function(layer_int, data_int, scales_spc) {
 }
 ```
 
+<br/>
+
 Example of function being used:
 
-### Extracting scales
-
 <br/>
+
+### Extracting scales
 
 I think that scales will be one-to-one:
 
@@ -339,8 +345,6 @@ str(scale_spc(p$scales$scales))
 
 <br/>
 
------
-
 ### Extracting labels
 
 Finally, labels:
@@ -382,9 +386,9 @@ p_scale <- ggplot(iris) +
 
 <br/>
 
------
+## All together now\!
 
-## Put it all together\!
+<br/>
 
 ``` r
 ggspec <- function(plt){
@@ -397,6 +401,8 @@ ggspec <- function(plt){
   )
 }
 ```
+
+<br/>
 
 Try it out:
 
@@ -436,6 +442,8 @@ str(ggspec(p), max.level = 3)
     ##  $ labels:List of 2
     ##   ..$ x: chr "Petal.Width"
     ##   ..$ y: chr "Petal.Length"
+
+<br/> <br/>
 
 ``` r
 pp <- ggplot(iris) + 

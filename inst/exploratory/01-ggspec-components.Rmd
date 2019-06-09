@@ -29,7 +29,6 @@ is.waive <- function(x) inherits(x, "waiver")
 <br/>
 
 
----
 
 ## Extracting elements
 
@@ -46,7 +45,7 @@ p
 
 <br/>
 
----
+
 
 
 ### Extracting data
@@ -83,8 +82,9 @@ data_int <- function(data_plt, layers_plt) {
 }
 ```
 
+<br/>
 
-#### Helper functions
+Helper functions:
 
 `format_data_int()` will format each list of data so that it contains:  
 
@@ -122,12 +122,15 @@ format_data_int <- function(dat) {
 # 
 ```
 
+<br/>
+
 Example of the function in use:
 
 ```{r}
 str(data_int(p$data, p$layers))
 ```
 
+<br/>
 
 This intermediate-form could be used to generate the ggspec-form; it could also be useful later.
 
@@ -161,11 +164,9 @@ str(data_spc(data_int(p$data, p$layers)), max.level = 2)
 
 <br/>
 
----
+
 
 ### Extracting layers
-
-<br/>
 
 Within each layer-object, we need:  
 
@@ -180,9 +181,9 @@ Within each layer-object, we need:
 
 <br/>
 
-The ggspec layers are a function of the ggplot layers, but also of the data and scales:
-
 #### Intermediate layers step
+
+The ggspec layers are a function of the ggplot layers, but also of the data and scales:
 
 `layer_int()` calls `get_layers()` for each layer. `get_layers()` returns ...
 
@@ -215,6 +216,8 @@ layer_int <- function(layer_plt) {
 }
 ```
 
+<br/>
+
 Helper functions:
 
 ```{r}
@@ -225,11 +228,15 @@ get_mappings <- function(aes) {
 }
 ```
 
+<br/>
+
 Example of function being used:
 
 ```{r}
 str(layer_int(p$layers))
 ```
+
+<br/>
 
 #### FInal layers step 
 
@@ -244,6 +251,7 @@ layer_spc <- function(layer_int, data_int, scales_spc) {
 ```
 
 
+<br/>
 
 
 Example of function being used:
@@ -252,10 +260,12 @@ Example of function being used:
 
 ```
 
+<br/>
+
 
 ### Extracting scales  
 
-<br/>
+
 
 I think that scales will be one-to-one:
 
@@ -291,9 +301,9 @@ str(scale_spc(p$scales$scales))
 
 <br/>
 
----
 
 ### Extracting labels  
+
 
 Finally, labels:
 
@@ -342,9 +352,10 @@ p_scale <- ggplot(iris) +
 
 <br/>
 
----
 
-## Put it all together!
+## All together now!
+
+<br/>
 
 ```{r}
 ggspec <- function(plt){
@@ -358,6 +369,8 @@ ggspec <- function(plt){
 }
 ```
 
+<br/>
+
 
 Try it out:
 
@@ -368,6 +381,8 @@ str(ggspec(p), max.level = 3)
 ```
 
 
+<br/>
+<br/>
 
 ```{r eval = FALSE}
 pp <- ggplot(iris) + 
