@@ -3,9 +3,6 @@ First components of the ggspec function
 
 <br/>
 
-This document builds off `01-ggspec-components` and incorporates Ian’s
-[architecture ideas](https://github.com/vegawidget/ggspec/issues/1).
-
 -----
 
 ## Extracting elements
@@ -33,6 +30,8 @@ The first move will be to create the list `data` where all of the data
 will live.
 
 <!-- QUESTION: what to do about `waiver()` objects? -->
+
+#### Intermediate data step
 
 `data_int()` will create an intermediate-form for the data. The inputs
 are the plot data and the plot layers. The result is a named list of
@@ -65,19 +64,6 @@ data_int <- function(data_plt, layers_plt) {
 
 #### Helper functions
 
-`create_meta_levels()`
-
-``` r
-# create_meta_levels <- function(dat){
-#   loc <- purrr::detect_index(dat, is.factor)
-#   levels <- purrr::pluck(dat, loc, levels)
-#   meta <- list(levels) ## How to evaluate the name first??
-#   names(meta) <- names(dat)[loc]
-#   meta
-# }
-# 
-```
-
 `format_data_int()` will format each list of data so that it contains:
 
   - `metadata`, could be a named list, using names of variables:
@@ -100,6 +86,19 @@ format_data_int <- function(dat) {
     )
   }
 }
+```
+
+`create_meta_levels()`
+
+``` r
+# create_meta_levels <- function(dat){
+#   loc <- purrr::detect_index(dat, is.factor)
+#   levels <- purrr::pluck(dat, loc, levels)
+#   meta <- list(levels) ## How to evaluate the name first??
+#   names(meta) <- names(dat)[loc]
+#   meta
+# }
+# 
 ```
 
 Example of the function in use:
@@ -130,10 +129,12 @@ str(data_int(p$data, p$layers))
     ##   .. ..$ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
     ##   ..$ hash     : chr "d3c5d071001b61a9f6131d3004fd0988"
 
-<br/>
-
 This intermediate-form could be used to generate the ggspec-form; it
 could also be useful later.
+
+<br/>
+
+#### Final data step
 
 `data_spc()` will return a named list of datasets, named `data-00`,
 `data-01`, … . Each list will have:
@@ -192,6 +193,8 @@ Within each layer-object, we need:
 
 The ggspec layers are a function of the ggplot layers, but also of the
 data and scales:
+
+#### Intermediate layers step
 
 `layer_int()` calls `get_layers()` for each layer. `get_layers()`
 returns …
@@ -274,6 +277,8 @@ str(layer_int(p$layers))
     ##   .. ..$ colour: chr "firebrick"
     ##   ..$ stat      :List of 1
     ##   .. ..$ class: chr "StatIdentity"
+
+#### FInal layers step
 
 In `layer_spc()` we will compare the layer data with `data_int` and
 determine the types of the variable by comparing with `data_int` and
@@ -375,6 +380,10 @@ p_scale <- ggplot(iris) +
   scale_y_log10("new lab") 
 ```
 
+<br/>
+
+-----
+
 ## Put it all together\!
 
 ``` r
@@ -435,67 +444,5 @@ pp <- ggplot(iris) +
   scale_y_log10("new lab") 
 
 str(ggspec(p_scale), max.level = 3)
-```
-
-    ## List of 4
-    ##  $ data  :List of 1
-    ##   ..$ :List of 2
-    ##   .. ..$ metadata    : Named chr [1:5] "numeric" "numeric" "numeric" "numeric" ...
-    ##   .. .. ..- attr(*, "names")= chr [1:5] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width" ...
-    ##   .. ..$ observations:List of 150
-    ##  $ layers:List of 2
-    ##   ..$ :List of 5
-    ##   .. ..$ data      : list()
-    ##   .. ..$ geom      :List of 1
-    ##   .. ..$ mapping   :List of 2
-    ##   .. ..$ aes_params: NULL
-    ##   .. ..$ stat      :List of 1
-    ##   ..$ :List of 5
-    ##   .. ..$ data      : list()
-    ##   .. ..$ geom      :List of 1
-    ##   .. ..$ mapping   :List of 2
-    ##   .. ..$ aes_params:List of 1
-    ##   .. ..$ stat      :List of 1
-    ##  $ scales:List of 1
-    ##   ..$ :List of 4
-    ##   .. ..$ name      : chr "new lab"
-    ##   .. ..$ class     : chr "ScaleContinuousPosition"
-    ##   .. ..$ aesthetics: chr [1:10] "y" "ymin" "ymax" "yend" ...
-    ##   .. ..$ transform :List of 1
-    ##  $ labels:List of 2
-    ##   ..$ x: chr "Petal.Width"
-    ##   ..$ y: chr "Petal.Length"
-
-``` r
 str(ggspec(pp), max.level = 3)
 ```
-
-    ## List of 4
-    ##  $ data  :List of 1
-    ##   ..$ :List of 2
-    ##   .. ..$ metadata    : Named chr [1:5] "numeric" "numeric" "numeric" "numeric" ...
-    ##   .. .. ..- attr(*, "names")= chr [1:5] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width" ...
-    ##   .. ..$ observations:List of 150
-    ##  $ layers:List of 2
-    ##   ..$ :List of 5
-    ##   .. ..$ data      : list()
-    ##   .. ..$ geom      :List of 1
-    ##   .. ..$ mapping   :List of 3
-    ##   .. ..$ aes_params: NULL
-    ##   .. ..$ stat      :List of 1
-    ##   ..$ :List of 5
-    ##   .. ..$ data      : list()
-    ##   .. ..$ geom      :List of 1
-    ##   .. ..$ mapping   :List of 2
-    ##   .. ..$ aes_params:List of 2
-    ##   .. ..$ stat      :List of 1
-    ##  $ scales:List of 1
-    ##   ..$ :List of 4
-    ##   .. ..$ name      : chr "new lab"
-    ##   .. ..$ class     : chr "ScaleContinuousPosition"
-    ##   .. ..$ aesthetics: chr [1:10] "y" "ymin" "ymax" "yend" ...
-    ##   .. ..$ transform :List of 1
-    ##  $ labels:List of 3
-    ##   ..$ x     : chr "Petal.Width"
-    ##   ..$ y     : chr "Petal.Length"
-    ##   ..$ colour: chr "Species"

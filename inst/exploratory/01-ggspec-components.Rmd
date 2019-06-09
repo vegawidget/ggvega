@@ -28,8 +28,6 @@ is.waive <- function(x) inherits(x, "waiver")
 
 <br/>
 
-This document builds off `01-ggspec-components` and incorporates Ian's [architecture ideas](https://github.com/vegawidget/ggspec/issues/1).
-
 
 ---
 
@@ -57,6 +55,7 @@ The first move will be to create the list `data` where all of the data will live
 
 <!-- QUESTION: what to do about `waiver()` objects? -->
 
+#### Intermediate data step
 
 `data_int()` will create an intermediate-form for the data. The inputs are the plot data and the plot layers. The result is a named list of datasets, named `data-00`, `data-01`, ..., where each list contains the elements `metadata`, `variables`, and `hash`.
 
@@ -87,20 +86,6 @@ data_int <- function(data_plt, layers_plt) {
 
 #### Helper functions
 
-`create_meta_levels()`
-
-```{r}
-
-# create_meta_levels <- function(dat){
-#   loc <- purrr::detect_index(dat, is.factor)
-#   levels <- purrr::pluck(dat, loc, levels)
-#   meta <- list(levels) ## How to evaluate the name first??
-#   names(meta) <- names(dat)[loc]
-#   meta
-# }
-# 
-```
-
 `format_data_int()` will format each list of data so that it contains:  
 
 - `metadata`, could be a named list, using names of variables:  
@@ -123,6 +108,19 @@ format_data_int <- function(dat) {
 }
 ```
 
+`create_meta_levels()`
+
+```{r}
+
+# create_meta_levels <- function(dat){
+#   loc <- purrr::detect_index(dat, is.factor)
+#   levels <- purrr::pluck(dat, loc, levels)
+#   meta <- list(levels) ## How to evaluate the name first??
+#   names(meta) <- names(dat)[loc]
+#   meta
+# }
+# 
+```
 
 Example of the function in use:
 
@@ -131,10 +129,12 @@ str(data_int(p$data, p$layers))
 ```
 
 
+This intermediate-form could be used to generate the ggspec-form; it could also be useful later.
 
 <br/> 
 
-This intermediate-form could be used to generate the ggspec-form; it could also be useful later.
+#### Final data step
+
 
 `data_spc()` will return a named list of datasets, named `data-00`, `data-01`, ... . Each list will have:  
 
@@ -182,6 +182,8 @@ Within each layer-object, we need:
 
 The ggspec layers are a function of the ggplot layers, but also of the data and scales:
 
+#### Intermediate layers step
+
 `layer_int()` calls `get_layers()` for each layer. `get_layers()` returns ...
 
 - if `layer_plt` has no data, use `data-00`  
@@ -228,6 +230,8 @@ Example of function being used:
 ```{r}
 str(layer_int(p$layers))
 ```
+
+#### FInal layers step 
 
 In `layer_spc()` we will compare the layer data with `data_int` and determine the types of the variable by comparing with `data_int` and `scales_spc`
 
@@ -336,7 +340,9 @@ p_scale <- ggplot(iris) +
 ```
 
 
+<br/>
 
+---
 
 ## Put it all together!
 
@@ -363,7 +369,7 @@ str(ggspec(p), max.level = 3)
 
 
 
-```{r}
+```{r eval = FALSE}
 pp <- ggplot(iris) + 
   geom_point(aes(x = Petal.Width, y = Petal.Length, color = Species)) + 
   geom_point(aes(x = Petal.Width, y = Petal.Length), color = "firebrick", size = 1) +
