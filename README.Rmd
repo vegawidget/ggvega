@@ -20,7 +20,9 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-The goal of ggspec is to ...
+The goal of ggspec is to convert a ggplot2 object into a JSON-serializable list.
+
+
 
 ## Installation
 

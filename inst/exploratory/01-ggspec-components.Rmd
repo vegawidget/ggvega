@@ -37,7 +37,7 @@ is.waive <- function(x) inherits(x, "waiver")
 ```{r}
 p <- ggplot(data = iris) + 
   geom_point(aes(x = Petal.Width, y = Petal.Length)) + 
-  geom_point(data = iris, aes(x = Petal.Width, y = Petal.Length), color = "firebrick") +
+  geom_point(aes(x = Petal.Width, y = Petal.Length, color = Species), shape = 21, fill = "white") +
   scale_y_log10()
 
 p
@@ -57,6 +57,16 @@ The first move will be to create the list `data` where all of the data will live
 #### Intermediate data step
 
 `data_int()` will create an intermediate-form for the data. The inputs are the plot data and the plot layers. The result is a named list of datasets, named `data-00`, `data-01`, ..., where each list contains the elements `metadata`, `variables`, and `hash`.
+
+**TO - DO**:  
+
+- Need to name the datasets but will need to check for matching hashsums and remove `NULL`s  
+  - Would like only the default data to be able to be named `data-00`  
+  - The other data sets will be named `data-01`, `data-02`, and so on.  
+- `metadata` will be a named list (names are variable names) of 3 (1 required, 2 optional)
+  - `type` = variable type (required)
+  - `levels` = levels of factor (optional)
+  - `timezone` = timezone of `date` or `POSIXct` (optional)
 
 ```{r}
 name_data <- function(dat) {
@@ -88,11 +98,9 @@ Helper functions:
 
 `format_data_int()` will format each list of data so that it contains:  
 
-- `metadata`, could be a named list, using names of variables:  
-    - `type`, first pass at `"quantitative"`, ..., based on class, etc.  
-    - `levels`, optional, vector of strings, used for factor-levels  
-- `variables`, the data frame itself  
-- `hash`, the md5 hash of the data frame
+- `metadata`: discussed below
+- `variables`: the data frame itself  
+- `hash`: the md5 hash of the data frame
 
 
 ```{r}
@@ -100,7 +108,7 @@ format_data_int <- function(dat) {
   if(is.waive(dat) || is.null(dat)) return(NULL) 
   else {
     list(
-      metadata = purrr::map_chr(dat, class),
+      metadata = purrr::pluck(dat) %>% purrr::map(create_meta_levels),
       variables = dat,
       hash = digest::digest(dat)
     )
@@ -108,18 +116,45 @@ format_data_int <- function(dat) {
 }
 ```
 
-`create_meta_levels()`
+`create_meta_levels()` will create the names list of 3
+
+- `metadata`: could be a named list, using names of variables:  
+    - `type`: first pass at `"quantitative"`, ..., based on class, etc.  
+    - `levels`: optional, vector of strings, used for factor-levels  
+    - `timezone`: optional, timezone of `date` or `POSIXct`
+
+`case_type_vl()` converts the type into a Vega-lite type
 
 ```{r}
+case_type_vl <- function(type) {
+  case_when(
+    type == "Date" | type == "POSIXct" ~ "temporal",
+    type == "factor" | type == "character" | type == "logical" ~ "nominal",
+    type == "ordered" ~ "ordinal",
+    type == "numeric" ~ "quantitative"
+  )
+}
 
-# create_meta_levels <- function(dat){
-#   loc <- purrr::detect_index(dat, is.factor)
-#   levels <- purrr::pluck(dat, loc, levels)
-#   meta <- list(levels) ## How to evaluate the name first??
-#   names(meta) <- names(dat)[loc]
-#   meta
-# }
-# 
+create_meta_levels <- function(dat){
+  type = class(dat)
+  if(type == "factor" | type == "ordered") {
+    meta <- list(
+      type = case_type_vl(type),
+      levels = levels(dat)
+    )
+  } else if (type == "date" | type == "POSIXct") {
+    meta <- list(
+      type = case_type_vl(type),
+      timezone = NULL # use lubridate::tz or ??
+    )
+  } else {
+    meta <- list(
+      type = case_type_vl(type)
+    )
+  }
+  meta
+}
+
 ```
 
 <br/>
@@ -127,7 +162,8 @@ format_data_int <- function(dat) {
 Example of the function in use:
 
 ```{r}
-str(data_int(p$data, p$layers))
+test <- data_int(p$data, p$layers)
+str(test)
 ```
 
 <br/>
@@ -346,7 +382,7 @@ p_scale <- ggplot(iris) +
   geom_point(aes(x = Petal.Width, y = Petal.Length), color = "firebrick") +
   scale_y_log10("new lab") 
 
-
+ps <- ggplot_build(p_scale)
 ```
 
 

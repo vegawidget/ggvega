@@ -10,7 +10,7 @@ First components of the ggspec function
 ``` r
 p <- ggplot(data = iris) + 
   geom_point(aes(x = Petal.Width, y = Petal.Length)) + 
-  geom_point(data = iris, aes(x = Petal.Width, y = Petal.Length), color = "firebrick") +
+  geom_point(aes(x = Petal.Width, y = Petal.Length, color = Species), shape = 21, fill = "white") +
   scale_y_log10()
 
 p
@@ -33,6 +33,22 @@ will live.
 are the plot data and the plot layers. The result is a named list of
 datasets, named `data-00`, `data-01`, …, where each list contains the
 elements `metadata`, `variables`, and `hash`.
+
+**TO - DO**:
+
+  - Need to name the datasets but will need to check for matching
+    hashsums and remove `NULL`s
+      - Would like only the default data to be able to be named
+        `data-00`  
+      - The other data sets will be named `data-01`, `data-02`, and so
+        on.  
+  - `metadata` will be a named list (names are variable names) of 3 (1
+    required, 2 optional)
+      - `type` = variable type (required)
+      - `levels` = levels of factor (optional)
+      - `timezone` = timezone of `date` or `POSIXct` (optional)
+
+<!-- end list -->
 
 ``` r
 name_data <- function(dat) {
@@ -64,12 +80,9 @@ Helper functions:
 
 `format_data_int()` will format each list of data so that it contains:
 
-  - `metadata`, could be a named list, using names of variables:
-      - `type`, first pass at `"quantitative"`, …, based on class,
-        etc.  
-      - `levels`, optional, vector of strings, used for factor-levels  
-  - `variables`, the data frame itself  
-  - `hash`, the md5 hash of the data frame
+  - `metadata`: discussed below
+  - `variables`: the data frame itself  
+  - `hash`: the md5 hash of the data frame
 
 <!-- end list -->
 
@@ -78,7 +91,7 @@ format_data_int <- function(dat) {
   if(is.waive(dat) || is.null(dat)) return(NULL) 
   else {
     list(
-      metadata = purrr::map_chr(dat, class),
+      metadata = purrr::pluck(dat) %>% purrr::map(create_meta_levels),
       variables = dat,
       hash = digest::digest(dat)
     )
@@ -86,17 +99,45 @@ format_data_int <- function(dat) {
 }
 ```
 
-`create_meta_levels()`
+`create_meta_levels()` will create the names list of 3
+
+  - `metadata`: could be a named list, using names of variables:
+      - `type`: first pass at `"quantitative"`, …, based on class,
+        etc.  
+      - `levels`: optional, vector of strings, used for factor-levels  
+      - `timezone`: optional, timezone of `date` or `POSIXct`
+
+`case_type_vl()` converts the type into a Vega-lite type
 
 ``` r
-# create_meta_levels <- function(dat){
-#   loc <- purrr::detect_index(dat, is.factor)
-#   levels <- purrr::pluck(dat, loc, levels)
-#   meta <- list(levels) ## How to evaluate the name first??
-#   names(meta) <- names(dat)[loc]
-#   meta
-# }
-# 
+case_type_vl <- function(type) {
+  case_when(
+    type == "Date" | type == "POSIXct" ~ "temporal",
+    type == "factor" | type == "character" | type == "logical" ~ "nominal",
+    type == "ordered" ~ "ordinal",
+    type == "numeric" ~ "quantitative"
+  )
+}
+
+create_meta_levels <- function(dat){
+  type = class(dat)
+  if(type == "factor" | type == "ordered") {
+    meta <- list(
+      type = case_type_vl(type),
+      levels = levels(dat)
+    )
+  } else if (type == "date" | type == "POSIXct") {
+    meta <- list(
+      type = case_type_vl(type),
+      timezone = NULL # use lubridate::tz or ??
+    )
+  } else {
+    meta <- list(
+      type = case_type_vl(type)
+    )
+  }
+  meta
+}
 ```
 
 <br/>
@@ -104,23 +145,24 @@ format_data_int <- function(dat) {
 Example of the function in use:
 
 ``` r
-str(data_int(p$data, p$layers))
+test <- data_int(p$data, p$layers)
+str(test)
 ```
 
-    ## List of 2
+    ## List of 1
     ##  $ :List of 3
-    ##   ..$ metadata : Named chr [1:5] "numeric" "numeric" "numeric" "numeric" ...
-    ##   .. ..- attr(*, "names")= chr [1:5] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width" ...
-    ##   ..$ variables:'data.frame':    150 obs. of  5 variables:
-    ##   .. ..$ Sepal.Length: num [1:150] 5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
-    ##   .. ..$ Sepal.Width : num [1:150] 3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
-    ##   .. ..$ Petal.Length: num [1:150] 1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
-    ##   .. ..$ Petal.Width : num [1:150] 0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
-    ##   .. ..$ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-    ##   ..$ hash     : chr "d3c5d071001b61a9f6131d3004fd0988"
-    ##  $ :List of 3
-    ##   ..$ metadata : Named chr [1:5] "numeric" "numeric" "numeric" "numeric" ...
-    ##   .. ..- attr(*, "names")= chr [1:5] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width" ...
+    ##   ..$ metadata :List of 5
+    ##   .. ..$ Sepal.Length:List of 1
+    ##   .. .. ..$ type: chr "quantitative"
+    ##   .. ..$ Sepal.Width :List of 1
+    ##   .. .. ..$ type: chr "quantitative"
+    ##   .. ..$ Petal.Length:List of 1
+    ##   .. .. ..$ type: chr "quantitative"
+    ##   .. ..$ Petal.Width :List of 1
+    ##   .. .. ..$ type: chr "quantitative"
+    ##   .. ..$ Species     :List of 2
+    ##   .. .. ..$ type  : chr "nominal"
+    ##   .. .. ..$ levels: chr [1:3] "setosa" "versicolor" "virginica"
     ##   ..$ variables:'data.frame':    150 obs. of  5 variables:
     ##   .. ..$ Sepal.Length: num [1:150] 5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
     ##   .. ..$ Sepal.Width : num [1:150] 3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
@@ -163,14 +205,9 @@ data_spc <- function(data_int) {
 str(data_spc(data_int(p$data, p$layers)), max.level = 2)
 ```
 
-    ## List of 2
+    ## List of 1
     ##  $ :List of 2
-    ##   ..$ metadata    : Named chr [1:5] "numeric" "numeric" "numeric" "numeric" ...
-    ##   .. ..- attr(*, "names")= chr [1:5] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width" ...
-    ##   ..$ observations:List of 150
-    ##  $ :List of 2
-    ##   ..$ metadata    : Named chr [1:5] "numeric" "numeric" "numeric" "numeric" ...
-    ##   .. ..- attr(*, "names")= chr [1:5] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width" ...
+    ##   ..$ metadata    :List of 5
     ##   ..$ observations:List of 150
 
 <br/>
@@ -268,15 +305,19 @@ str(layer_int(p$layers))
     ##   ..$ data      : list()
     ##   ..$ geom      :List of 1
     ##   .. ..$ class: chr "GeomPoint"
-    ##   ..$ mapping   :List of 2
-    ##   .. ..$ x:List of 2
+    ##   ..$ mapping   :List of 3
+    ##   .. ..$ x     :List of 2
     ##   .. .. ..$ field: symbol Petal.Width
     ##   .. .. ..$ type : NULL
-    ##   .. ..$ y:List of 2
+    ##   .. ..$ y     :List of 2
     ##   .. .. ..$ field: symbol Petal.Length
     ##   .. .. ..$ type : NULL
-    ##   ..$ aes_params:List of 1
-    ##   .. ..$ colour: chr "firebrick"
+    ##   .. ..$ colour:List of 2
+    ##   .. .. ..$ field: symbol Species
+    ##   .. .. ..$ type : NULL
+    ##   ..$ aes_params:List of 2
+    ##   .. ..$ shape: num 21
+    ##   .. ..$ fill : chr "white"
     ##   ..$ stat      :List of 1
     ##   .. ..$ class: chr "StatIdentity"
 
@@ -382,6 +423,8 @@ p_scale <- ggplot(iris) +
   geom_point(aes(x = Petal.Width, y = Petal.Length)) + 
   geom_point(aes(x = Petal.Width, y = Petal.Length), color = "firebrick") +
   scale_y_log10("new lab") 
+
+ps <- ggplot_build(p_scale)
 ```
 
 <br/>
@@ -411,14 +454,9 @@ str(ggspec(p), max.level = 3)
 ```
 
     ## List of 4
-    ##  $ data  :List of 2
+    ##  $ data  :List of 1
     ##   ..$ :List of 2
-    ##   .. ..$ metadata    : Named chr [1:5] "numeric" "numeric" "numeric" "numeric" ...
-    ##   .. .. ..- attr(*, "names")= chr [1:5] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width" ...
-    ##   .. ..$ observations:List of 150
-    ##   ..$ :List of 2
-    ##   .. ..$ metadata    : Named chr [1:5] "numeric" "numeric" "numeric" "numeric" ...
-    ##   .. .. ..- attr(*, "names")= chr [1:5] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width" ...
+    ##   .. ..$ metadata    :List of 5
     ##   .. ..$ observations:List of 150
     ##  $ layers:List of 2
     ##   ..$ :List of 5
@@ -430,8 +468,8 @@ str(ggspec(p), max.level = 3)
     ##   ..$ :List of 5
     ##   .. ..$ data      : list()
     ##   .. ..$ geom      :List of 1
-    ##   .. ..$ mapping   :List of 2
-    ##   .. ..$ aes_params:List of 1
+    ##   .. ..$ mapping   :List of 3
+    ##   .. ..$ aes_params:List of 2
     ##   .. ..$ stat      :List of 1
     ##  $ scales:List of 1
     ##   ..$ :List of 4
@@ -439,9 +477,10 @@ str(ggspec(p), max.level = 3)
     ##   .. ..$ class     : chr "ScaleContinuousPosition"
     ##   .. ..$ aesthetics: chr [1:10] "y" "ymin" "ymax" "yend" ...
     ##   .. ..$ transform :List of 1
-    ##  $ labels:List of 2
-    ##   ..$ x: chr "Petal.Width"
-    ##   ..$ y: chr "Petal.Length"
+    ##  $ labels:List of 3
+    ##   ..$ x     : chr "Petal.Width"
+    ##   ..$ y     : chr "Petal.Length"
+    ##   ..$ colour: chr "Species"
 
 <br/> <br/>
 

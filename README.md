@@ -12,7 +12,8 @@ status](https://www.r-pkg.org/badges/version/ggspec)](https://cran.r-project.org
 
 <!-- badges: end -->
 
-The goal of ggspec is to …
+The goal of ggspec is to convert a ggplot2 object into a
+JSON-serializable list.
 
 ## Installation
 
