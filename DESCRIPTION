@@ -5,11 +5,11 @@ Authors@R:
     c(
       person(given = "Wenyu",
              family = "Yang",
-             role = c("aut"),
+             role = c("aut","cre"),
              email = "wenyuyang@gwmail.gwu.edu"),
       person(given = "Haley",
              family = "Jeppson",
-             role = c("aut", "cre"),
+             role = c("aut"),
              email = "hjeppson@iastate.edu"),
       person(given = "Ian J",
              family = "Lyttle",
