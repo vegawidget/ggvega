@@ -2,8 +2,7 @@ Package: ggvega
 Title: Translator from 'ggplot2' to 'Vega-Lite' 
 Version: 0.0.0.9000
 Authors@R:
-    c(
-      person(given = "Wenyu",
+    c(person(given = "Wenyu",
              family = "Yang",
              role = c("aut","cre"),
              email = "wenyuyang@gwmail.gwu.edu"),
@@ -23,3 +22,5 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/vegawidget/ggvega
 BugReports: https://github.com/vegawidget/ggvega/issues
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
