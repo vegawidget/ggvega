@@ -15,6 +15,11 @@ status](https://travis-ci.org/vegawidget/ggvega.svg?branch=master)](https://trav
 
 The goal of ggvega is to translate ggplot2 object to vega-lite spec.
 
+``` r
+library(ggvega)
+ggvega(ggspec_iris01)
+```
+
 ## Installation
 
 You can install the development version from

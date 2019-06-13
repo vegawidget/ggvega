@@ -10,7 +10,7 @@ ggvega(ggspec)
 \item{ggspec}{\code{list}, ggspec object}
 }
 \value{
-S3 object of class \code{vegaspec}
+An object with S3 class \code{vegaspec}
 }
 \description{
 Translate a ggspec

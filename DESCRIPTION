@@ -28,7 +28,8 @@ Depends:
     R (>= 2.10)
 Imports: 
     V8 (>= 2.2),
-    vegawidget,
+    vegawidget (>= 0.2.0.9007),
     jsonlite
 Suggests: 
     pkgdown
+Remotes: vegawidget/vegawidget
