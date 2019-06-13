@@ -26,3 +26,4 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 Imports: 
     V8 (>= 2.2)
+NeedsCompilation: no
