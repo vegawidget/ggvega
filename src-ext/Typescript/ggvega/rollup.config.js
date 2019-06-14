@@ -15,7 +15,7 @@ export function disallowedImports() {
 export default {
   input: 'js/compile.js',
   output: {
-    file: 'build/compile.js',
+    file: 'build/ggvega.js',
     format: 'umd',
     sourcemap: true,
     name: 'ggvega'
