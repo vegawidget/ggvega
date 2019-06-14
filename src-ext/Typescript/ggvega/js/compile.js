@@ -6,6 +6,7 @@ import * as vlspec from './vlspec';
  */
 export function gg2vl(ggJSON) {
     var data = {
+        name: 'data-00',
         values: ggJSON['data']['data-00']['observations']
     };
     var layers = [];
@@ -24,6 +25,7 @@ export function gg2vl(ggJSON) {
 function gg2layer(layer, ggJSON) {
     var layerspec = {
         data: {
+            name: layer['data'],
             values: ggJSON['data'][layer['data']]['observations']
         },
         mark: gg2mark(layer['geom'], layer['aes_params']),

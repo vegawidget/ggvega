@@ -1040,6 +1040,7 @@
      */
     function gg2vl(ggJSON) {
         var data = {
+            name: 'data-00',
             values: ggJSON['data']['data-00']['observations']
         };
         var layers = [];
@@ -1058,6 +1059,7 @@
     function gg2layer(layer, ggJSON) {
         var layerspec = {
             data: {
+                name: layer['data'],
                 values: ggJSON['data'][layer['data']]['observations']
             },
             mark: gg2mark(layer['geom'], layer['aes_params']),
