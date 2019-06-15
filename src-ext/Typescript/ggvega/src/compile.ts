@@ -165,7 +165,7 @@ function gg2xclass(layer: any, ggJSON: any): vlspec.XClass {
 
   const type: vlspec.StandardType = ggJSON['data'][layer['data']]['metadata'][field]['type'];
 
-  let scale: vlspec.Scale = {};
+  let scale: vlspec.Scale | undefined;
 
   let title: string = ggJSON['labels']['x'];
 
@@ -196,13 +196,13 @@ function gg2yclass(layer: any, ggJSON: any): vlspec.YClass {
 
   const type: vlspec.StandardType = ggJSON['data'][layer['data']]['metadata'][field]['type'];
 
-  let scale: vlspec.Scale = {};
+  let scale: vlspec.Scale | undefined;
 
   let title: string = ggJSON['labels']['y'];
 
   for (const ggScale of ggJSON['scales']) {
     if (ggScale['aesthetics'][0] == 'y') {
-      scale = ggScale['transform'];
+      scale = gg2scale(ggScale['transform']);
 
       if (ggScale['name']) {
         title = ggScale['name'];
@@ -299,4 +299,8 @@ function gg2shape(layer: any, ggJSON: any): vlspec.ValueDefWithConditionMarkProp
   }
 
   return shape;
+}
+
+function gg2scale(transform: any): vlspec.Scale {
+  return transform;
 }

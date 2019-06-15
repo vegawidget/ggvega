@@ -1166,7 +1166,7 @@
     function gg2xclass(layer, ggJSON) {
         var field = layer['mapping']['x']['field'];
         var type = ggJSON['data'][layer['data']]['metadata'][field]['type'];
-        var scale = {};
+        var scale;
         var title = ggJSON['labels']['x'];
         for (var _i = 0, _a = ggJSON['scales']; _i < _a.length; _i++) {
             var ggScale = _a[_i];
@@ -1189,12 +1189,12 @@
     function gg2yclass(layer, ggJSON) {
         var field = layer['mapping']['y']['field'];
         var type = ggJSON['data'][layer['data']]['metadata'][field]['type'];
-        var scale = {};
+        var scale;
         var title = ggJSON['labels']['y'];
         for (var _i = 0, _a = ggJSON['scales']; _i < _a.length; _i++) {
             var ggScale = _a[_i];
             if (ggScale['aesthetics'][0] == 'y') {
-                scale = ggScale['transform'];
+                scale = gg2scale(ggScale['transform']);
                 if (ggScale['name']) {
                     title = ggScale['name'];
                 }
@@ -1266,6 +1266,9 @@
             };
         }
         return shape;
+    }
+    function gg2scale(transform) {
+        return transform;
     }
 
     exports.gg2vl = gg2vl;
