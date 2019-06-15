@@ -98,16 +98,16 @@
     "AnyMark": {
       "anyOf": [
         {
-          "$ref": "#/definitions/CompositeMark"
-        },
-        {
-          "$ref": "#/definitions/CompositeMarkDef"
-        },
-        {
           "$ref": "#/definitions/Mark"
         },
         {
           "$ref": "#/definitions/MarkDef"
+        },
+        {
+          "$ref": "#/definitions/CompositeMark"
+        },
+        {
+          "$ref": "#/definitions/CompositeMarkDef"
         }
       ]
     },
@@ -1762,7 +1762,8 @@
     },
     "BoxPlot": {
       "enum": [
-        "boxplot"
+        "boxplot",
+        "test"
       ],
       "type": "string"
     },

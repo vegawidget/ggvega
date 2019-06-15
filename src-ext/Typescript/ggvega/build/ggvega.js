@@ -1039,19 +1039,19 @@
      * @param ggJSON
      */
     function gg2vl(ggJSON) {
-        var data = {
-            name: 'data-00',
-            values: ggJSON['data']['data-00']['observations']
-        };
         var layers = [];
         for (var _i = 0, _a = ggJSON['layers']; _i < _a.length; _i++) {
             var layer = _a[_i];
             layers.push(gg2layer(layer, ggJSON));
         }
+        var datasets = {};
+        for (var dataset in ggJSON['data']) {
+            datasets[dataset] = ggJSON['data'][dataset]['observations'];
+        }
         var vl = {
             $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
             title: ggJSON['labels']['title'],
-            data: data,
+            datasets: datasets,
             layer: layers
         };
         return vl;
@@ -1059,8 +1059,7 @@
     function gg2layer(layer, ggJSON) {
         var layerspec = {
             data: {
-                name: layer['data'],
-                values: ggJSON['data'][layer['data']]['observations']
+                name: layer['data']
             },
             mark: gg2mark(layer['geom'], layer['aes_params']),
             encoding: gg2encoding(layer, ggJSON)

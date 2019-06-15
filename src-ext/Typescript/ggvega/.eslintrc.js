@@ -13,7 +13,7 @@ module.exports = {
     node: true
   },
   parserOptions: {
-    // project: "tsconfig.json", // makes things slow, see https://github.com/typescript-eslint/typescript-eslint/issues/389
+    project: "tsconfig.json", // makes things slow, see https://github.com/typescript-eslint/typescript-eslint/issues/389
     ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
     sourceType: "module" // Allows for the use of imports
   },

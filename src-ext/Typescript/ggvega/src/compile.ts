@@ -6,21 +6,22 @@ import * as vlspec from './vlspec';
  * @param ggJSON
  */
 export function gg2vl(ggJSON: any): vlspec.VlSpec {
-  const data: vlspec.Data = {
-    name: 'data-00',
-    values: ggJSON['data']['data-00']['observations']
-  };
-
   const layers: vlspec.LayerSpec[] = [];
 
   for (const layer of ggJSON['layers']) {
     layers.push(gg2layer(layer, ggJSON));
   }
 
+  const datasets: any = {};
+
+  for (const dataset in ggJSON['data']) {
+    datasets[dataset] = ggJSON['data'][dataset]['observations'];
+  }
+
   const vl: vlspec.VlSpec = {
     $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
     title: ggJSON['labels']['title'],
-    data: data,
+    datasets: datasets,
     layer: layers
   };
 
@@ -30,8 +31,7 @@ export function gg2vl(ggJSON: any): vlspec.VlSpec {
 function gg2layer(layer: any, ggJSON: any): vlspec.LayerSpec {
   const layerspec: vlspec.LayerSpec = {
     data: {
-      name: layer['data'],
-      values: ggJSON['data'][layer['data']]['observations']
+      name: layer['data']
     },
     mark: gg2mark(layer['geom'], layer['aes_params']),
     encoding: gg2encoding(layer, ggJSON)
