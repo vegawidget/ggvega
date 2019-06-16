@@ -78,8 +78,8 @@
 <p>The goal of ggvega is to translate ggplot2 object to vega-lite spec.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggvega)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="reference/ggvega.html">ggvega</a></span>(ggspec_iris01)</a></code></pre></div>
-<div id="htmlwidget-ea1d9dea085650a80be2" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ea1d9dea085650a80be2">{"x":{
+<div id="htmlwidget-c8426da6ce8f560f2bed" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c8426da6ce8f560f2bed">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "title": "Hello World",
@@ -1143,8 +1143,7 @@
           "name": "data-00"
         },
         "mark": {
-          "type": "point",
-          "color": "red"
+          "type": "point"
         },
         "encoding": {
           "x": {
@@ -1160,6 +1159,9 @@
               "type": "log",
               "base": 10
             }
+          },
+          "color": {
+            "value": "red"
           }
         }
       }
