@@ -127,9 +127,11 @@ function TranslateSize(
 
   if (layer['aes_params']) {
     if (layer['aes_params']['size']) {
-      size = {
-        value: layer['aes_params']['size'][`value`] * 20
-      };
+      if (layer['aes_params']['size']['value']) {
+        size = {
+          value: layer['aes_params']['size']['value'] * 20
+        };
+      }
     }
   }
 
@@ -164,9 +166,11 @@ function TranslateShape(
 
   if (layer['aes_params']) {
     if (layer['aes_params']['shape']) {
-      shape = {
-        value: Number2Shape(layer['aes_params']['shape']['value'], layer[`geom`])
-      };
+      if (layer['aes_params']['shape']['value']) {
+        shape = {
+          value: Number2Shape(layer['aes_params']['shape']['value'], layer[`geom`])
+        };
+      }
     }
   }
 
@@ -204,7 +208,11 @@ function TranslateStroke(
 
   if (layer['aes_params']) {
     if (layer['aes_params']['colour']) {
-      stroke = layer['aes_params']['colour'];
+      if (layer['aes_params']['colour']['value']) {
+        stroke = {
+          value: layer['aes_params']['colour']['value']
+        };
+      }
     }
   }
 
@@ -238,9 +246,11 @@ function TranslateStrokeWidth(
 
   if (layer['aes_params']) {
     if (layer['aes_params']['stroke']) {
-      strokeWidth = {
-        value: layer['aes_params']['stroke'][`value`]
-      };
+      if (layer['aes_params']['stroke']['value']) {
+        strokeWidth = {
+          value: layer['aes_params']['stroke']['value']
+        };
+      }
     }
   }
 
@@ -274,9 +284,11 @@ function TranslateOpacity(
 
   if (layer['aes_params']) {
     if (layer['aes_params']['alpha']) {
-      opacity = {
-        value: layer['aes_params']['alpha'][`value`]
-      };
+      if (layer['aes_params']['alpha']['value']) {
+        opacity = {
+          value: layer['aes_params']['alpha']['value']
+        };
+      }
     }
   }
 
@@ -310,7 +322,11 @@ function TranslateFill(
 
   if (layer['aes_params']) {
     if (layer['aes_params']['fill']) {
-      fill = layer['aes_params']['fill'];
+      if (layer['aes_params']['fill']['value']) {
+        fill = {
+          value: layer['aes_params']['fill']['value']
+        };
+      }
     }
   }
   if (layer['mapping']['fill']) {
