@@ -180,7 +180,7 @@
             data: 'data-00',
             geom: {class: 'GeomPoint'},
             mapping: {x: {field: 'Petal.Width'}, y: {field: 'Petal.Length'}},
-            aes_params: {colour: {value: 'red'}}
+            aes_params: {colour: {value: 'red'}, size: {value: 3}}
           }
         ],
         scales: [
@@ -205,7 +205,71 @@
         labels: {title: 'Hello World', x: 'Petal.Width', y: 'Petal.Length'}
       };
 
-      var vl = ggvega.gg2vl(iris01);
+      var ggplot01 = {
+        data: {
+          'data-00': {
+            metadata: {gp: {type: 'ordinal'}, y: {type: 'quantitative'}},
+            observations: [
+              {gp: 'a', y: 0.161},
+              {gp: 'a', y: 1.0838},
+              {gp: 'a', y: 2.344},
+              {gp: 'a', y: -0.8246},
+              {gp: 'a', y: -0.0416},
+              {gp: 'a', y: 0.2258},
+              {gp: 'a', y: -1.0379},
+              {gp: 'a', y: -0.4892},
+              {gp: 'a', y: 0.3525},
+              {gp: 'a', y: 1.0647},
+              {gp: 'b', y: -0.8035},
+              {gp: 'b', y: 0.2556},
+              {gp: 'b', y: -0.3582},
+              {gp: 'b', y: -0.9},
+              {gp: 'b', y: 0.5802},
+              {gp: 'b', y: 1.1418},
+              {gp: 'b', y: 0.153},
+              {gp: 'b', y: -1.139},
+              {gp: 'b', y: -1.3168},
+              {gp: 'b', y: 0.3069},
+              {gp: 'c', y: 0.4843},
+              {gp: 'c', y: 2.2707},
+              {gp: 'c', y: 2.116},
+              {gp: 'c', y: 0.0329},
+              {gp: 'c', y: -1.083},
+              {gp: 'c', y: 1.2036},
+              {gp: 'c', y: 0.8076},
+              {gp: 'c', y: -1.0903},
+              {gp: 'c', y: 1.2127},
+              {gp: 'c', y: -1.2066}
+            ]
+          },
+          'data-01': {
+            metadata: {gp: {type: 'ordinal'}, y: {type: 'quantitative'}, mean: {type: 'quantitative'}},
+            observations: [
+              {gp: 'a', mean: 0.2838, sd: 1.0108},
+              {gp: 'b', mean: -0.208, sd: 0.8169},
+              {gp: 'c', mean: 0.4748, sd: 1.2912}
+            ]
+          }
+        },
+        layers: [
+          {
+            data: 'data-00',
+            geom: {class: 'GeomPoint'},
+            mapping: {x: {field: 'gp', type: 'ordinal'}, y: {field: 'y', type: 'quantitative'}},
+            aes_params: {colour: {}, size: {}}
+          },
+          {
+            data: 'data-01',
+            geom: {class: 'GeomPoint'},
+            mapping: {x: {field: 'gp', type: 'ordinal'}, y: {field: 'mean', type: 'quantitative'}},
+            aes_params: {colour: {value: 'red'}, size: {value: 3}}
+          }
+        ],
+        scales: [],
+        labels: {x: 'gp', y: 'y'}
+      };
+
+      var vl = ggvega.gg2vl(ggplot01);
 
       alert(JSON.stringify(vl));
 

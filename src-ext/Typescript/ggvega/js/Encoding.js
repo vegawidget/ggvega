@@ -92,10 +92,12 @@ function TranslateYClass(layer, labels, layerData, scales) {
  */
 function TranslateSize(layer, labels, layerData) {
     var size;
-    if (layer['aes_params']['size']) {
-        size = {
-            value: layer['aes_params']['size']["value"] * 20
-        };
+    if (layer['aes_params']) {
+        if (layer['aes_params']['size']) {
+            size = {
+                value: layer['aes_params']['size']["value"] * 20
+            };
+        }
     }
     if (layer['mapping']['size']) {
         if (!layer['mapping']['size']['field']) {
@@ -115,10 +117,12 @@ function TranslateSize(layer, labels, layerData) {
 }
 function TranslateShape(layer, labels, layerData) {
     var shape;
-    if (layer['aes_params']['shape']) {
-        shape = {
-            value: Number2Shape(layer['aes_params']['shape']['value'], layer["geom"])
-        };
+    if (layer['aes_params']) {
+        if (layer['aes_params']['shape']) {
+            shape = {
+                value: Number2Shape(layer['aes_params']['shape']['value'], layer["geom"])
+            };
+        }
     }
     if (layer['mapping']['shape']) {
         if (!layer['mapping']['shape']['field']) {
@@ -140,8 +144,10 @@ function TranslateScale(transform) {
 }
 function TranslateStroke(layer, labels, layerData) {
     var stroke;
-    if (layer['aes_params']['colour']) {
-        stroke = layer['aes_params']['colour'];
+    if (layer['aes_params']) {
+        if (layer['aes_params']['colour']) {
+            stroke = layer['aes_params']['colour'];
+        }
     }
     if (layer['mapping']['colour']) {
         if (!layer['mapping']['colour']['field']) {
@@ -160,10 +166,12 @@ function TranslateStroke(layer, labels, layerData) {
 }
 function TranslateStrokeWidth(layer, labels, layerData) {
     var strokeWidth;
-    if (layer['aes_params']['stroke']) {
-        strokeWidth = {
-            value: layer['aes_params']['stroke']["value"]
-        };
+    if (layer['aes_params']) {
+        if (layer['aes_params']['stroke']) {
+            strokeWidth = {
+                value: layer['aes_params']['stroke']["value"]
+            };
+        }
     }
     if (layer['mapping']['stroke']) {
         if (!layer['mapping']['stroke']['field']) {
@@ -182,10 +190,12 @@ function TranslateStrokeWidth(layer, labels, layerData) {
 }
 function TranslateOpacity(layer, labels, layerData) {
     var opacity;
-    if (layer['aes_params']['alpha']) {
-        opacity = {
-            value: layer['aes_params']['alpha']["value"]
-        };
+    if (layer['aes_params']) {
+        if (layer['aes_params']['alpha']) {
+            opacity = {
+                value: layer['aes_params']['alpha']["value"]
+            };
+        }
     }
     if (layer['mapping']['alpha']) {
         if (!layer['mapping']['alpha']['field']) {
@@ -204,8 +214,10 @@ function TranslateOpacity(layer, labels, layerData) {
 }
 function TranslateFill(layer, labels, layerData) {
     var fill;
-    if (layer['aes_params']['fill']) {
-        fill = layer['aes_params']['fill'];
+    if (layer['aes_params']) {
+        if (layer['aes_params']['fill']) {
+            fill = layer['aes_params']['fill'];
+        }
     }
     if (layer['mapping']['fill']) {
         if (!layer['mapping']['fill']['field']) {

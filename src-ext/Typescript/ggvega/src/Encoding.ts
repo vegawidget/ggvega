@@ -125,10 +125,12 @@ function TranslateSize(
 ): vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
   let size: vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
-  if (layer['aes_params']['size']) {
-    size = {
-      value: layer['aes_params']['size'][`value`] * 20
-    };
+  if (layer['aes_params']) {
+    if (layer['aes_params']['size']) {
+      size = {
+        value: layer['aes_params']['size'][`value`] * 20
+      };
+    }
   }
 
   if (layer['mapping']['size']) {
@@ -160,10 +162,12 @@ function TranslateShape(
 ): vlspec.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined {
   let shape: vlspec.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined;
 
-  if (layer['aes_params']['shape']) {
-    shape = {
-      value: Number2Shape(layer['aes_params']['shape']['value'], layer[`geom`])
-    };
+  if (layer['aes_params']) {
+    if (layer['aes_params']['shape']) {
+      shape = {
+        value: Number2Shape(layer['aes_params']['shape']['value'], layer[`geom`])
+      };
+    }
   }
 
   if (layer['mapping']['shape']) {
@@ -198,8 +202,10 @@ function TranslateStroke(
 ): vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
   let stroke: vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 
-  if (layer['aes_params']['colour']) {
-    stroke = layer['aes_params']['colour'];
+  if (layer['aes_params']) {
+    if (layer['aes_params']['colour']) {
+      stroke = layer['aes_params']['colour'];
+    }
   }
 
   if (layer['mapping']['colour']) {
@@ -230,10 +236,12 @@ function TranslateStrokeWidth(
 ): vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
   let strokeWidth: vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
-  if (layer['aes_params']['stroke']) {
-    strokeWidth = {
-      value: layer['aes_params']['stroke'][`value`]
-    };
+  if (layer['aes_params']) {
+    if (layer['aes_params']['stroke']) {
+      strokeWidth = {
+        value: layer['aes_params']['stroke'][`value`]
+      };
+    }
   }
 
   if (layer['mapping']['stroke']) {
@@ -264,10 +272,12 @@ function TranslateOpacity(
 ): vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
   let opacity: vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
-  if (layer['aes_params']['alpha']) {
-    opacity = {
-      value: layer['aes_params']['alpha'][`value`]
-    };
+  if (layer['aes_params']) {
+    if (layer['aes_params']['alpha']) {
+      opacity = {
+        value: layer['aes_params']['alpha'][`value`]
+      };
+    }
   }
 
   if (layer['mapping']['alpha']) {
@@ -298,10 +308,11 @@ function TranslateFill(
 ): vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
   let fill: vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 
-  if (layer['aes_params']['fill']) {
-    fill = layer['aes_params']['fill'];
+  if (layer['aes_params']) {
+    if (layer['aes_params']['fill']) {
+      fill = layer['aes_params']['fill'];
+    }
   }
-
   if (layer['mapping']['fill']) {
     if (!layer['mapping']['fill']['field']) {
       return fill;
