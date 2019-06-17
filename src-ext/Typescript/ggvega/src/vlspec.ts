@@ -3,7 +3,7 @@
  * This is the root class for all Vega-Lite specifications.
  * (The json schema is generated from this type.)
  */
-export interface VlSpec {
+export interface TopLevelSpec {
   /**
    * URL to [JSON schema](http://json-schema.org/) for a Vega-Lite specification. Unless you
    * have a reason to change this, use `https://vega.github.io/schema/vega-lite/v3.json`.
@@ -149,7 +149,7 @@ export interface VlSpec {
    * `"area"`, `"point"`, `"rule"`, `"geoshape"`, and `"text"`) or a [mark definition
    * object](https://vega.github.io/vega-lite/docs/mark.html#mark-def).
    */
-  mark?: BoxPlotDefClass | BoxPlot;
+  mark?: MarkDefClass | Mark;
   /**
    * Name of the visualization for later reference.
    */
@@ -586,7 +586,7 @@ export interface SpecClass {
    * `"area"`, `"point"`, `"rule"`, `"geoshape"`, and `"text"`) or a [mark definition
    * object](https://vega.github.io/vega-lite/docs/mark.html#mark-def).
    */
-  mark?: BoxPlotDefClass | BoxPlot;
+  mark?: MarkDefClass | Mark;
   /**
    * A key-value mapping between selection names and definitions.
    */
@@ -775,7 +775,7 @@ export interface Spec {
    * `"area"`, `"point"`, `"rule"`, `"geoshape"`, and `"text"`) or a [mark definition
    * object](https://vega.github.io/vega-lite/docs/mark.html#mark-def).
    */
-  mark?: BoxPlotDefClass | BoxPlot;
+  mark?: MarkDefClass | Mark;
   /**
    * Name of the visualization for later reference.
    */
@@ -930,6 +930,10 @@ export interface Data {
    */
   sequence?: SequenceParams;
   /**
+   * Generate sphere GeoJSON data for the full globe.
+   */
+  sphere?: boolean;
+  /**
    * Generate graticule GeoJSON data for geographic reference lines.
    */
   graticule?: boolean | GraticuleParams;
@@ -1005,9 +1009,9 @@ export interface DataFormat {
  * If no extension is detected, `"json"` will be used by default.
  */
 export enum DataFormatType {
-  CSV = 'csv',
+  Csv = 'csv',
   Dsv = 'dsv',
-  JSON = 'json',
+  Json = 'json',
   Topojson = 'topojson',
   Tsv = 'tsv'
 }
@@ -2821,18 +2825,18 @@ export interface ScaleInterpolateParams {
 export enum ScaleInterpolateParamsType {
   Cubehelix = 'cubehelix',
   CubehelixLong = 'cubehelix-long',
-  RGB = 'rgb'
+  Rgb = 'rgb'
 }
 
 export enum ScaleInterpolate {
   Cubehelix = 'cubehelix',
   CubehelixLong = 'cubehelix-long',
-  HCL = 'hcl',
-  HCLLong = 'hcl-long',
+  Hcl = 'hcl',
+  HclLong = 'hcl-long',
   Hsl = 'hsl',
   HslLong = 'hsl-long',
   Lab = 'lab',
-  RGB = 'rgb'
+  Rgb = 'rgb'
 }
 
 export interface NiceClass {
@@ -2915,7 +2919,7 @@ export enum ScaleType {
   Symlog = 'symlog',
   Threshold = 'threshold',
   Time = 'time',
-  UTC = 'utc'
+  Utc = 'utc'
 }
 
 /**
@@ -6769,7 +6773,7 @@ export interface LayerSpec {
    * `"area"`, `"point"`, `"rule"`, `"geoshape"`, and `"text"`) or a [mark definition
    * object](https://vega.github.io/vega-lite/docs/mark.html#mark-def).
    */
-  mark?: BoxPlotDefClass | BoxPlot;
+  mark?: MarkDefClass | Mark;
   /**
    * A key-value mapping between selection names and definitions.
    */
@@ -6975,165 +6979,7 @@ export interface LayerEncoding {
   yError2?: Latitude2Class;
 }
 
-export interface BoxPlotDefClass {
-  box?: boolean | MarkConfig;
-  /**
-   * Whether a composite mark be clipped to the enclosing group’s width and height.
-   *
-   * Whether a mark be clipped to the enclosing group’s width and height.
-   */
-  clip?: boolean;
-  /**
-   * Default color.  Note that `fill` and `stroke` have higher precedence than `color` and
-   * will override `color`.
-   *
-   * __Default value:__ <span style="color: #4682b4;">&#9632;</span> `"#4682b4"`
-   *
-   * __Note:__ This property cannot be used in a [style
-   * config](https://vega.github.io/vega-lite/docs/mark.html#style-config).
-   */
-  color?: string;
-  /**
-   * The extent of the whiskers. Available options include:
-   * - `"min-max"`: min and max are the lower and upper whiskers respectively.
-   * - A number representing multiple of the interquartile range.  This number will be
-   * multiplied by the IQR to determine whisker boundary, which spans from the smallest data
-   * to the largest data within the range _[Q1 - k * IQR, Q3 + k * IQR]_ where _Q1_ and _Q3_
-   * are the first and third quartiles while _IQR_ is the interquartile range (_Q3-Q1_).
-   *
-   * __Default value:__ `1.5`.
-   *
-   * The extent of the rule. Available options include:
-   * - `"ci"`: Extend the rule to the confidence interval of the mean.
-   * - `"stderr"`: The size of rule are set to the value of standard error, extending from the
-   * mean.
-   * - `"stdev"`: The size of rule are set to the value of standard deviation, extending from
-   * the mean.
-   * - `"iqr"`: Extend the rule to the q1 and q3.
-   *
-   * __Default value:__ `"stderr"`.
-   *
-   * The extent of the band. Available options include:
-   * - `"ci"`: Extend the band to the confidence interval of the mean.
-   * - `"stderr"`: The size of band are set to the value of standard error, extending from the
-   * mean.
-   * - `"stdev"`: The size of band are set to the value of standard deviation, extending from
-   * the mean.
-   * - `"iqr"`: Extend the band to the q1 and q3.
-   *
-   * __Default value:__ `"stderr"`.
-   */
-  extent?: number | ExtentExtent;
-  median?: boolean | MarkConfig;
-  /**
-   * The opacity (value between [0,1]) of the mark.
-   *
-   * The overall opacity (value between [0,1]).
-   *
-   * __Default value:__ `0.7` for non-aggregate plots with `point`, `tick`, `circle`, or
-   * `square` marks or layered `bar` charts and `1` otherwise.
-   */
-  opacity?: number;
-  /**
-   * Orientation of the box plot.  This is normally automatically determined based on types of
-   * fields on x and y channels. However, an explicit `orient` be specified when the
-   * orientation is ambiguous.
-   *
-   * __Default value:__ `"vertical"`.
-   *
-   * Orientation of the error bar.  This is normally automatically determined, but can be
-   * specified when the orientation is ambiguous and cannot be automatically determined.
-   *
-   * Orientation of the error band. This is normally automatically determined, but can be
-   * specified when the orientation is ambiguous and cannot be automatically determined.
-   *
-   * The orientation of a non-stacked bar, tick, area, and line charts.
-   * The value is either horizontal (default) or vertical.
-   * - For bar, rule and tick, this determines whether the size of the bar and tick
-   * should be applied to x or y dimension.
-   * - For area, this property determines the orient property of the Vega output.
-   * - For line and trail marks, this property determines the sort order of the points in the
-   * line
-   * if `config.sortLineBy` is not specified.
-   * For stacked charts, this is always determined by the orientation of the stack;
-   * therefore explicitly specified value will be ignored.
-   */
-  orient?: Orientation;
-  outliers?: boolean | MarkConfig;
-  rule?: boolean | MarkConfig;
-  /**
-   * Size of the box and median tick of a box plot
-   *
-   * Default size for marks.
-   * - For `point`/`circle`/`square`, this represents the pixel area of the marks. For
-   * example: in the case of circles, the radius is determined in part by the square root of
-   * the size value.
-   * - For `bar`, this represents the band size of the bar, in pixels.
-   * - For `text`, this represents the font size, in pixels.
-   *
-   * __Default value:__ `30` for point, circle, square marks; `rangeStep` - 1 for bar marks
-   * with discrete dimensions; `5` for bar marks with continuous dimensions; `11` for text
-   * marks.
-   */
-  size?: number;
-  ticks?: boolean | MarkConfig;
-  /**
-   * The mark type. This could a primitive mark type
-   * (one of `"bar"`, `"circle"`, `"square"`, `"tick"`, `"line"`,
-   * `"area"`, `"point"`, `"geoshape"`, `"rule"`, and `"text"`)
-   * or a composite mark type (`"boxplot"`, `"errorband"`, `"errorbar"`).
-   */
-  type: BoxPlot;
-  band?: boolean | MarkConfig;
-  borders?: boolean | MarkConfig;
-  /**
-   * The line interpolation method for the error band. One of the following:
-   * - `"linear"`: piecewise linear segments, as in a polyline.
-   * - `"linear-closed"`: close the linear segments to form a polygon.
-   * - `"step"`: a piecewise constant function (a step function) consisting of alternating
-   * horizontal and vertical lines. The y-value changes at the midpoint of each pair of
-   * adjacent x-values.
-   * - `"step-before"`: a piecewise constant function (a step function) consisting of
-   * alternating horizontal and vertical lines. The y-value changes before the x-value.
-   * - `"step-after"`: a piecewise constant function (a step function) consisting of
-   * alternating horizontal and vertical lines. The y-value changes after the x-value.
-   * - `"basis"`: a B-spline, with control point duplication on the ends.
-   * - `"basis-open"`: an open B-spline; may not intersect the start or end.
-   * - `"basis-closed"`: a closed B-spline, as in a loop.
-   * - `"cardinal"`: a Cardinal spline, with control point duplication on the ends.
-   * - `"cardinal-open"`: an open Cardinal spline; may not intersect the start or end, but
-   * will intersect other control points.
-   * - `"cardinal-closed"`: a closed Cardinal spline, as in a loop.
-   * - `"bundle"`: equivalent to basis, except the tension parameter is used to straighten the
-   * spline.
-   * - `"monotone"`: cubic interpolation that preserves monotonicity in y.
-   *
-   * The line interpolation method to use for line and area marks. One of the following:
-   * - `"linear"`: piecewise linear segments, as in a polyline.
-   * - `"linear-closed"`: close the linear segments to form a polygon.
-   * - `"step"`: alternate between horizontal and vertical segments, as in a step function.
-   * - `"step-before"`: alternate between vertical and horizontal segments, as in a step
-   * function.
-   * - `"step-after"`: alternate between horizontal and vertical segments, as in a step
-   * function.
-   * - `"basis"`: a B-spline, with control point duplication on the ends.
-   * - `"basis-open"`: an open B-spline; may not intersect the start or end.
-   * - `"basis-closed"`: a closed B-spline, as in a loop.
-   * - `"cardinal"`: a Cardinal spline, with control point duplication on the ends.
-   * - `"cardinal-open"`: an open Cardinal spline; may not intersect the start or end, but
-   * will intersect other control points.
-   * - `"cardinal-closed"`: a closed Cardinal spline, as in a loop.
-   * - `"bundle"`: equivalent to basis, except the tension parameter is used to straighten the
-   * spline.
-   * - `"monotone"`: cubic interpolation that preserves monotonicity in y.
-   */
-  interpolate?: Interpolate;
-  /**
-   * The tension parameter for the interpolation type of the error band.
-   *
-   * Depending on the interpolation type, sets the tension parameter (for line and area marks).
-   */
-  tension?: number;
+export interface MarkDefClass {
   /**
    * The horizontal alignment of the text. One of `"left"`, `"right"`, `"center"`.
    */
@@ -7155,6 +7001,22 @@ export interface BoxPlotDefClass {
    * __Default value:__ `1`
    */
   binSpacing?: number;
+  /**
+   * Whether a mark be clipped to the enclosing group’s width and height.
+   *
+   * Whether a composite mark be clipped to the enclosing group’s width and height.
+   */
+  clip?: boolean;
+  /**
+   * Default color.  Note that `fill` and `stroke` have higher precedence than `color` and
+   * will override `color`.
+   *
+   * __Default value:__ <span style="color: #4682b4;">&#9632;</span> `"#4682b4"`
+   *
+   * __Note:__ This property cannot be used in a [style
+   * config](https://vega.github.io/vega-lite/docs/mark.html#style-config).
+   */
+  color?: string;
   /**
    * The radius in pixels of rounded rectangle corners.
    *
@@ -7233,6 +7095,48 @@ export interface BoxPlotDefClass {
    */
   href?: string;
   /**
+   * The line interpolation method to use for line and area marks. One of the following:
+   * - `"linear"`: piecewise linear segments, as in a polyline.
+   * - `"linear-closed"`: close the linear segments to form a polygon.
+   * - `"step"`: alternate between horizontal and vertical segments, as in a step function.
+   * - `"step-before"`: alternate between vertical and horizontal segments, as in a step
+   * function.
+   * - `"step-after"`: alternate between horizontal and vertical segments, as in a step
+   * function.
+   * - `"basis"`: a B-spline, with control point duplication on the ends.
+   * - `"basis-open"`: an open B-spline; may not intersect the start or end.
+   * - `"basis-closed"`: a closed B-spline, as in a loop.
+   * - `"cardinal"`: a Cardinal spline, with control point duplication on the ends.
+   * - `"cardinal-open"`: an open Cardinal spline; may not intersect the start or end, but
+   * will intersect other control points.
+   * - `"cardinal-closed"`: a closed Cardinal spline, as in a loop.
+   * - `"bundle"`: equivalent to basis, except the tension parameter is used to straighten the
+   * spline.
+   * - `"monotone"`: cubic interpolation that preserves monotonicity in y.
+   *
+   * The line interpolation method for the error band. One of the following:
+   * - `"linear"`: piecewise linear segments, as in a polyline.
+   * - `"linear-closed"`: close the linear segments to form a polygon.
+   * - `"step"`: a piecewise constant function (a step function) consisting of alternating
+   * horizontal and vertical lines. The y-value changes at the midpoint of each pair of
+   * adjacent x-values.
+   * - `"step-before"`: a piecewise constant function (a step function) consisting of
+   * alternating horizontal and vertical lines. The y-value changes before the x-value.
+   * - `"step-after"`: a piecewise constant function (a step function) consisting of
+   * alternating horizontal and vertical lines. The y-value changes after the x-value.
+   * - `"basis"`: a B-spline, with control point duplication on the ends.
+   * - `"basis-open"`: an open B-spline; may not intersect the start or end.
+   * - `"basis-closed"`: a closed B-spline, as in a loop.
+   * - `"cardinal"`: a Cardinal spline, with control point duplication on the ends.
+   * - `"cardinal-open"`: an open Cardinal spline; may not intersect the start or end, but
+   * will intersect other control points.
+   * - `"cardinal-closed"`: a closed Cardinal spline, as in a loop.
+   * - `"bundle"`: equivalent to basis, except the tension parameter is used to straighten the
+   * spline.
+   * - `"monotone"`: cubic interpolation that preserves monotonicity in y.
+   */
+  interpolate?: Interpolate;
+  /**
    * The maximum length of the text mark in pixels. The text value will be automatically
    * truncated if the rendered size exceeds the limit.
    *
@@ -7252,10 +7156,44 @@ export interface BoxPlotDefClass {
    */
   line?: boolean | OverlayMarkDef;
   /**
+   * The overall opacity (value between [0,1]).
+   *
+   * __Default value:__ `0.7` for non-aggregate plots with `point`, `tick`, `circle`, or
+   * `square` marks or layered `bar` charts and `1` otherwise.
+   *
+   * The opacity (value between [0,1]) of the mark.
+   */
+  opacity?: number;
+  /**
    * For line and trail marks, this `order` property can be set to `null` or `false` to make
    * the lines use the original order in the data sources.
    */
   order?: boolean | null;
+  /**
+   * The orientation of a non-stacked bar, tick, area, and line charts.
+   * The value is either horizontal (default) or vertical.
+   * - For bar, rule and tick, this determines whether the size of the bar and tick
+   * should be applied to x or y dimension.
+   * - For area, this property determines the orient property of the Vega output.
+   * - For line and trail marks, this property determines the sort order of the points in the
+   * line
+   * if `config.sortLineBy` is not specified.
+   * For stacked charts, this is always determined by the orientation of the stack;
+   * therefore explicitly specified value will be ignored.
+   *
+   * Orientation of the box plot.  This is normally automatically determined based on types of
+   * fields on x and y channels. However, an explicit `orient` be specified when the
+   * orientation is ambiguous.
+   *
+   * __Default value:__ `"vertical"`.
+   *
+   * Orientation of the error bar.  This is normally automatically determined, but can be
+   * specified when the orientation is ambiguous and cannot be automatically determined.
+   *
+   * Orientation of the error band. This is normally automatically determined, but can be
+   * specified when the orientation is ambiguous and cannot be automatically determined.
+   */
+  orient?: Orientation;
   /**
    * A flag for overlaying points on top of line or area marks, or an object defining the
    * properties of the overlayed points.
@@ -7291,6 +7229,21 @@ export interface BoxPlotDefClass {
    * __Default value:__ `"circle"`
    */
   shape?: string;
+  /**
+   * Default size for marks.
+   * - For `point`/`circle`/`square`, this represents the pixel area of the marks. For
+   * example: in the case of circles, the radius is determined in part by the square root of
+   * the size value.
+   * - For `bar`, this represents the band size of the bar, in pixels.
+   * - For `text`, this represents the font size, in pixels.
+   *
+   * __Default value:__ `30` for point, circle, square marks; `rangeStep` - 1 for bar marks
+   * with discrete dimensions; `5` for bar marks with continuous dimensions; `11` for text
+   * marks.
+   *
+   * Size of the box and median tick of a box plot
+   */
+  size?: number;
   /**
    * Default Stroke Color.  This has higher precedence than `config.color`
    *
@@ -7347,6 +7300,13 @@ export interface BoxPlotDefClass {
    */
   style?: string[] | string;
   /**
+   * Depending on the interpolation type, sets the tension parameter (for line and area
+   * marks).
+   *
+   * The tension parameter for the interpolation type of the error band.
+   */
+  tension?: number;
+  /**
    * Placeholder text if the `text` channel is not specified
    */
   text?: string;
@@ -7374,6 +7334,13 @@ export interface BoxPlotDefClass {
    * - If set to `null`, then no tooltip will be used.
    */
   tooltip?: TooltipContent | null | string;
+  /**
+   * The mark type. This could a primitive mark type
+   * (one of `"bar"`, `"circle"`, `"square"`, `"tick"`, `"line"`,
+   * `"area"`, `"point"`, `"geoshape"`, `"rule"`, and `"text"`)
+   * or a composite mark type (`"boxplot"`, `"errorband"`, `"errorbar"`).
+   */
+  type: Mark;
   /**
    * X coordinates of the marks, or width of horizontal `"bar"` and `"area"` without `x2`.
    */
@@ -7406,6 +7373,44 @@ export interface BoxPlotDefClass {
    * Offset for y-position.
    */
   yOffset?: number;
+  box?: boolean | MarkConfig;
+  /**
+   * The extent of the whiskers. Available options include:
+   * - `"min-max"`: min and max are the lower and upper whiskers respectively.
+   * - A number representing multiple of the interquartile range.  This number will be
+   * multiplied by the IQR to determine whisker boundary, which spans from the smallest data
+   * to the largest data within the range _[Q1 - k * IQR, Q3 + k * IQR]_ where _Q1_ and _Q3_
+   * are the first and third quartiles while _IQR_ is the interquartile range (_Q3-Q1_).
+   *
+   * __Default value:__ `1.5`.
+   *
+   * The extent of the rule. Available options include:
+   * - `"ci"`: Extend the rule to the confidence interval of the mean.
+   * - `"stderr"`: The size of rule are set to the value of standard error, extending from the
+   * mean.
+   * - `"stdev"`: The size of rule are set to the value of standard deviation, extending from
+   * the mean.
+   * - `"iqr"`: Extend the rule to the q1 and q3.
+   *
+   * __Default value:__ `"stderr"`.
+   *
+   * The extent of the band. Available options include:
+   * - `"ci"`: Extend the band to the confidence interval of the mean.
+   * - `"stderr"`: The size of band are set to the value of standard error, extending from the
+   * mean.
+   * - `"stdev"`: The size of band are set to the value of standard deviation, extending from
+   * the mean.
+   * - `"iqr"`: Extend the band to the q1 and q3.
+   *
+   * __Default value:__ `"stderr"`.
+   */
+  extent?: number | ExtentExtent;
+  median?: boolean | MarkConfig;
+  outliers?: boolean | MarkConfig;
+  rule?: boolean | MarkConfig;
+  ticks?: boolean | MarkConfig;
+  band?: boolean | MarkConfig;
+  borders?: boolean | MarkConfig;
 }
 
 /**
@@ -7715,19 +7720,19 @@ export enum Cursor {
   Help = 'help',
   Move = 'move',
   NResize = 'n-resize',
-  NSResize = 'ns-resize',
   NeResize = 'ne-resize',
   NeswResize = 'nesw-resize',
   NoDrop = 'no-drop',
   None = 'none',
   NotAllowed = 'not-allowed',
+  NsResize = 'ns-resize',
   NwResize = 'nw-resize',
   NwseResize = 'nwse-resize',
   Pointer = 'pointer',
   Progress = 'progress',
   RowResize = 'row-resize',
-  SEResize = 'se-resize',
   SResize = 's-resize',
+  SeResize = 'se-resize',
   SwResize = 'sw-resize',
   Text = 'text',
   VerticalText = 'vertical-text',
@@ -7744,8 +7749,8 @@ export enum Cursor {
  * __Default value:__ `"ltr"`
  */
 export enum Dir {
-  LTR = 'ltr',
-  RTL = 'rtl'
+  Ltr = 'ltr',
+  Rtl = 'rtl'
 }
 
 /**
@@ -8176,14 +8181,14 @@ export enum PointEnum {
 }
 
 /**
+ * All types of primitive marks.
+ *
  * The mark type. This could a primitive mark type
  * (one of `"bar"`, `"circle"`, `"square"`, `"tick"`, `"line"`,
  * `"area"`, `"point"`, `"geoshape"`, `"rule"`, and `"text"`)
  * or a composite mark type (`"boxplot"`, `"errorband"`, `"errorbar"`).
- *
- * All types of primitive marks.
  */
-export enum BoxPlot {
+export enum Mark {
   Area = 'area',
   Bar = 'bar',
   Boxplot = 'boxplot',

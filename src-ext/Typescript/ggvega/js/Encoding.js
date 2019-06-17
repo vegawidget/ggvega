@@ -1,24 +1,24 @@
-export function TranslateEncoding(layer, ggSpec) {
+export function TranslateEncoding(layer, labels, layerData, scales) {
     var layerEncoding = {
-        x: TranslateXClass(layer, ggSpec),
-        y: TranslateYClass(layer, ggSpec),
-        // color: TranslateColor(layer, ggSpec),
-        size: TranslateSize(layer, ggSpec),
-        shape: TranslateShape(layer, ggSpec),
-        stroke: TranslateStroke(layer, ggSpec),
-        strokeWidth: TranslateStrokeWidth(layer, ggSpec),
-        opacity: TranslateOpacity(layer, ggSpec),
-        fill: TranslateFill(layer, ggSpec)
+        x: TranslateXClass(layer, labels, layerData, scales),
+        y: TranslateYClass(layer, labels, layerData, scales),
+        // color: TranslateColor(layer, labels, layerData),
+        size: TranslateSize(layer, labels, layerData),
+        shape: TranslateShape(layer, labels, layerData),
+        stroke: TranslateStroke(layer, labels, layerData),
+        strokeWidth: TranslateStrokeWidth(layer, labels, layerData),
+        opacity: TranslateOpacity(layer, labels, layerData),
+        fill: TranslateFill(layer, labels, layerData)
     };
     return layerEncoding;
 }
-function TranslateXClass(layer, ggSpec) {
+function TranslateXClass(layer, labels, layerData, scales) {
     var field = layer['mapping']['x']['field'];
-    var type = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+    var type = layerData['metadata'][field]['type'];
     var scale;
-    var title = ggSpec['labels']['x'];
-    for (var _i = 0, _a = ggSpec['scales']; _i < _a.length; _i++) {
-        var ggScale = _a[_i];
+    var title = labels['x'];
+    for (var _i = 0, scales_1 = scales; _i < scales_1.length; _i++) {
+        var ggScale = scales_1[_i];
         if (ggScale['aesthetics'][0] == 'x') {
             scale = TranslateScale(ggScale['transform']);
             if (ggScale['name']) {
@@ -35,13 +35,13 @@ function TranslateXClass(layer, ggSpec) {
     };
     return xClass;
 }
-function TranslateYClass(layer, ggSpec) {
+function TranslateYClass(layer, labels, layerData, scales) {
     var field = layer['mapping']['y']['field'];
-    var type = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+    var type = layerData['metadata'][field]['type'];
     var scale;
-    var title = ggSpec['labels']['y'];
-    for (var _i = 0, _a = ggSpec['scales']; _i < _a.length; _i++) {
-        var ggScale = _a[_i];
+    var title = labels['y'];
+    for (var _i = 0, scales_2 = scales; _i < scales_2.length; _i++) {
+        var ggScale = scales_2[_i];
         if (ggScale['aesthetics'][0] == 'y') {
             scale = TranslateScale(ggScale['transform']);
             if (ggScale['name']) {
@@ -64,7 +64,7 @@ function TranslateYClass(layer, ggSpec) {
  * @param layer
  * @param ggSpec
  */
-// function TranslateColor(layer: any, ggSpec: any): vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
+// function TranslateColor(layer: any, labels: any, layerData: any): vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
 //   let color: vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 //   if (layer['aes_params']['colour']) {
 //     color = layer['aes_params']['colour'];
@@ -74,12 +74,12 @@ function TranslateYClass(layer, ggSpec) {
 //       return color;
 //     }
 //     let field: string = layer['mapping']['colour']['field'];
-//     const type: vlspec.StandardType = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+//     const type: vlspec.StandardType = layerData['metadata'][field]['type'];
 //     field = field.replace('.', '\\.');
 //     color = {
 //       field: field,
 //       type: type,
-//       title: ggSpec['labels']['colour']
+//       title: labels['colour']
 //     };
 //   }
 //   return color;
@@ -90,7 +90,7 @@ function TranslateYClass(layer, ggSpec) {
  * @param layer in ggSpec['layers']
  * @param ggSpec is the ggSpec
  */
-function TranslateSize(layer, ggSpec) {
+function TranslateSize(layer, labels, layerData) {
     var size;
     if (layer['aes_params']['size']) {
         size = {
@@ -102,18 +102,18 @@ function TranslateSize(layer, ggSpec) {
             return size;
         }
         var field = layer['mapping']['size']['field'];
-        var type = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+        var type = layerData['metadata'][field]['type'];
         field = field.replace('.', '\\.');
         size = {
             field: field,
             type: type,
-            title: ggSpec['labels']['size'],
+            title: labels['size'],
             bin: true
         };
     }
     return size;
 }
-function TranslateShape(layer, ggSpec) {
+function TranslateShape(layer, labels, layerData) {
     var shape;
     if (layer['aes_params']['shape']) {
         shape = {
@@ -125,12 +125,12 @@ function TranslateShape(layer, ggSpec) {
             return shape;
         }
         var field = layer['mapping']['shape']['field'];
-        var type = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+        var type = layerData['metadata'][field]['type'];
         field = field.replace('.', '\\.');
         shape = {
             field: field,
             type: type,
-            title: ggSpec['labels']['shape']
+            title: labels['shape']
         };
     }
     return shape;
@@ -138,7 +138,7 @@ function TranslateShape(layer, ggSpec) {
 function TranslateScale(transform) {
     return transform;
 }
-function TranslateStroke(layer, ggSpec) {
+function TranslateStroke(layer, labels, layerData) {
     var stroke;
     if (layer['aes_params']['colour']) {
         stroke = layer['aes_params']['colour'];
@@ -148,17 +148,17 @@ function TranslateStroke(layer, ggSpec) {
             return stroke;
         }
         var field = layer['mapping']['colour']['field'];
-        var type = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+        var type = layerData['metadata'][field]['type'];
         field = field.replace('.', '\\.');
         stroke = {
             field: field,
             type: type,
-            title: ggSpec['labels']['colour']
+            title: labels['colour']
         };
     }
     return stroke;
 }
-function TranslateStrokeWidth(layer, ggSpec) {
+function TranslateStrokeWidth(layer, labels, layerData) {
     var strokeWidth;
     if (layer['aes_params']['stroke']) {
         strokeWidth = {
@@ -170,17 +170,17 @@ function TranslateStrokeWidth(layer, ggSpec) {
             return strokeWidth;
         }
         var field = layer['mapping']['stroke']['field'];
-        var type = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+        var type = layerData['metadata'][field]['type'];
         field = field.replace('.', '\\.');
         strokeWidth = {
             field: field,
             type: type,
-            title: ggSpec['labels']['stroke']
+            title: labels['stroke']
         };
     }
     return strokeWidth;
 }
-function TranslateOpacity(layer, ggSpec) {
+function TranslateOpacity(layer, labels, layerData) {
     var opacity;
     if (layer['aes_params']['alpha']) {
         opacity = {
@@ -192,17 +192,17 @@ function TranslateOpacity(layer, ggSpec) {
             return opacity;
         }
         var field = layer['mapping']['alpha']['field'];
-        var type = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+        var type = layerData['metadata'][field]['type'];
         field = field.replace('.', '\\.');
         opacity = {
             field: field,
             type: type,
-            title: ggSpec['labels']['stroke']
+            title: labels['stroke']
         };
     }
     return opacity;
 }
-function TranslateFill(layer, ggSpec) {
+function TranslateFill(layer, labels, layerData) {
     var fill;
     if (layer['aes_params']['fill']) {
         fill = layer['aes_params']['fill'];
@@ -212,12 +212,12 @@ function TranslateFill(layer, ggSpec) {
             return fill;
         }
         var field = layer['mapping']['fill']['field'];
-        var type = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+        var type = layerData['metadata'][field]['type'];
         field = field.replace('.', '\\.');
         fill = {
             field: field,
             type: type,
-            title: ggSpec['labels']['colour']
+            title: labels['colour']
         };
     }
     return fill;

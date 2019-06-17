@@ -4,11 +4,17 @@ import {TranslateLayer} from './LayerSpec';
  * Main function to translate ggspec to vlspec
  * @param ggSpec
  */
-export function gg2vl(ggSpec: any): vlspec.VlSpec {
+export function gg2vl(ggSpec: any): vlspec.TopLevelSpec {
   const layers: vlspec.LayerSpec[] = [];
 
+  const labels: any = ggSpec['labels'];
+
+  const data: any = ggSpec['data'];
+
+  const scales: any = ggSpec['scales'];
+
   for (const layer of ggSpec['layers']) {
-    layers.push(TranslateLayer(layer, ggSpec));
+    layers.push(TranslateLayer(layer, labels, data, scales));
   }
 
   const datasets: any = {};
@@ -17,7 +23,7 @@ export function gg2vl(ggSpec: any): vlspec.VlSpec {
     datasets[dataset] = ggSpec['data'][dataset]['observations'];
   }
 
-  const vl: vlspec.VlSpec = {
+  const vl: vlspec.TopLevelSpec = {
     $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
     title: ggSpec['labels']['title'],
     datasets: datasets,

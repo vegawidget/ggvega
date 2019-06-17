@@ -6,26 +6,24 @@ import { TranslateEncoding } from './Encoding';
  * The layer in ggSpec
  * @param ggSpec
  */
-export function TranslateLayer(layer, ggSpec) {
+export function TranslateLayer(layer, labels, data, scales) {
+    var layerData = data[layer['data']];
     var layerspec = {
         data: {
             name: layer['data']
         },
         mark: TranslateMark(layer['geom']),
-        encoding: TranslateEncoding(layer, ggSpec)
+        encoding: TranslateEncoding(layer, labels, layerData, scales)
     };
     return layerspec;
 }
 function TranslateMark(geom) {
-    var type;
+    var mark;
     if (geom['class'] == 'GeomPoint') {
-        type = vlspec.BoxPlot.Point;
+        mark = vlspec.Mark.Point;
     }
     else {
-        type = vlspec.BoxPlot.Point;
+        mark = vlspec.Mark.Point;
     }
-    var mark = {
-        type: type
-    };
     return mark;
 }

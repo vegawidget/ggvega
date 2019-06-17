@@ -5,9 +5,12 @@ import { TranslateLayer } from './LayerSpec';
  */
 export function gg2vl(ggSpec) {
     var layers = [];
+    var labels = ggSpec['labels'];
+    var data = ggSpec['data'];
+    var scales = ggSpec['scales'];
     for (var _i = 0, _a = ggSpec['layers']; _i < _a.length; _i++) {
         var layer = _a[_i];
-        layers.push(TranslateLayer(layer, ggSpec));
+        layers.push(TranslateLayer(layer, labels, data, scales));
     }
     var datasets = {};
     for (var dataset in ggSpec['data']) {

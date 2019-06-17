@@ -70,9 +70,9 @@
      */
     var DataFormatType;
     (function (DataFormatType) {
-        DataFormatType["CSV"] = "csv";
+        DataFormatType["Csv"] = "csv";
         DataFormatType["Dsv"] = "dsv";
-        DataFormatType["JSON"] = "json";
+        DataFormatType["Json"] = "json";
         DataFormatType["Topojson"] = "topojson";
         DataFormatType["Tsv"] = "tsv";
     })(DataFormatType || (DataFormatType = {}));
@@ -385,18 +385,18 @@
     (function (ScaleInterpolateParamsType) {
         ScaleInterpolateParamsType["Cubehelix"] = "cubehelix";
         ScaleInterpolateParamsType["CubehelixLong"] = "cubehelix-long";
-        ScaleInterpolateParamsType["RGB"] = "rgb";
+        ScaleInterpolateParamsType["Rgb"] = "rgb";
     })(ScaleInterpolateParamsType || (ScaleInterpolateParamsType = {}));
     var ScaleInterpolate;
     (function (ScaleInterpolate) {
         ScaleInterpolate["Cubehelix"] = "cubehelix";
         ScaleInterpolate["CubehelixLong"] = "cubehelix-long";
-        ScaleInterpolate["HCL"] = "hcl";
-        ScaleInterpolate["HCLLong"] = "hcl-long";
+        ScaleInterpolate["Hcl"] = "hcl";
+        ScaleInterpolate["HclLong"] = "hcl-long";
         ScaleInterpolate["Hsl"] = "hsl";
         ScaleInterpolate["HslLong"] = "hsl-long";
         ScaleInterpolate["Lab"] = "lab";
-        ScaleInterpolate["RGB"] = "rgb";
+        ScaleInterpolate["Rgb"] = "rgb";
     })(ScaleInterpolate || (ScaleInterpolate = {}));
     var NiceTime;
     (function (NiceTime) {
@@ -453,7 +453,7 @@
         ScaleType["Symlog"] = "symlog";
         ScaleType["Threshold"] = "threshold";
         ScaleType["Time"] = "time";
-        ScaleType["UTC"] = "utc";
+        ScaleType["Utc"] = "utc";
     })(ScaleType || (ScaleType = {}));
     /**
      * The [encoding channel](https://vega.github.io/vega-lite/docs/encoding.html#channels) to
@@ -661,19 +661,19 @@
         Cursor["Help"] = "help";
         Cursor["Move"] = "move";
         Cursor["NResize"] = "n-resize";
-        Cursor["NSResize"] = "ns-resize";
         Cursor["NeResize"] = "ne-resize";
         Cursor["NeswResize"] = "nesw-resize";
         Cursor["NoDrop"] = "no-drop";
         Cursor["None"] = "none";
         Cursor["NotAllowed"] = "not-allowed";
+        Cursor["NsResize"] = "ns-resize";
         Cursor["NwResize"] = "nw-resize";
         Cursor["NwseResize"] = "nwse-resize";
         Cursor["Pointer"] = "pointer";
         Cursor["Progress"] = "progress";
         Cursor["RowResize"] = "row-resize";
-        Cursor["SEResize"] = "se-resize";
         Cursor["SResize"] = "s-resize";
+        Cursor["SeResize"] = "se-resize";
         Cursor["SwResize"] = "sw-resize";
         Cursor["Text"] = "text";
         Cursor["VerticalText"] = "vertical-text";
@@ -690,8 +690,8 @@
      */
     var Dir;
     (function (Dir) {
-        Dir["LTR"] = "ltr";
-        Dir["RTL"] = "rtl";
+        Dir["Ltr"] = "ltr";
+        Dir["Rtl"] = "rtl";
     })(Dir || (Dir = {}));
     /**
      * The line interpolation method to use for line and area marks. One of the following:
@@ -811,31 +811,31 @@
         PointEnum["Transparent"] = "transparent";
     })(PointEnum || (PointEnum = {}));
     /**
+     * All types of primitive marks.
+     *
      * The mark type. This could a primitive mark type
      * (one of `"bar"`, `"circle"`, `"square"`, `"tick"`, `"line"`,
      * `"area"`, `"point"`, `"geoshape"`, `"rule"`, and `"text"`)
      * or a composite mark type (`"boxplot"`, `"errorband"`, `"errorbar"`).
-     *
-     * All types of primitive marks.
      */
-    var BoxPlot;
-    (function (BoxPlot) {
-        BoxPlot["Area"] = "area";
-        BoxPlot["Bar"] = "bar";
-        BoxPlot["Boxplot"] = "boxplot";
-        BoxPlot["Circle"] = "circle";
-        BoxPlot["Errorband"] = "errorband";
-        BoxPlot["Errorbar"] = "errorbar";
-        BoxPlot["Geoshape"] = "geoshape";
-        BoxPlot["Line"] = "line";
-        BoxPlot["Point"] = "point";
-        BoxPlot["Rect"] = "rect";
-        BoxPlot["Rule"] = "rule";
-        BoxPlot["Square"] = "square";
-        BoxPlot["Text"] = "text";
-        BoxPlot["Tick"] = "tick";
-        BoxPlot["Trail"] = "trail";
-    })(BoxPlot || (BoxPlot = {}));
+    var Mark;
+    (function (Mark) {
+        Mark["Area"] = "area";
+        Mark["Bar"] = "bar";
+        Mark["Boxplot"] = "boxplot";
+        Mark["Circle"] = "circle";
+        Mark["Errorband"] = "errorband";
+        Mark["Errorbar"] = "errorbar";
+        Mark["Geoshape"] = "geoshape";
+        Mark["Line"] = "line";
+        Mark["Point"] = "point";
+        Mark["Rect"] = "rect";
+        Mark["Rule"] = "rule";
+        Mark["Square"] = "square";
+        Mark["Text"] = "text";
+        Mark["Tick"] = "tick";
+        Mark["Trail"] = "trail";
+    })(Mark || (Mark = {}));
     /**
      * The cartographic projection to use. This value is case-insensitive, for example
      * `"albers"` and `"Albers"` indicate the same projection type. You can find all valid
@@ -1033,27 +1033,27 @@
         InvalidValues["Filter"] = "filter";
     })(InvalidValues || (InvalidValues = {}));
 
-    function TranslateEncoding(layer, ggSpec) {
+    function TranslateEncoding(layer, labels, layerData, scales) {
         var layerEncoding = {
-            x: TranslateXClass(layer, ggSpec),
-            y: TranslateYClass(layer, ggSpec),
-            // color: TranslateColor(layer, ggSpec),
-            size: TranslateSize(layer, ggSpec),
-            shape: TranslateShape(layer, ggSpec),
-            stroke: TranslateStroke(layer, ggSpec),
-            strokeWidth: TranslateStrokeWidth(layer, ggSpec),
-            opacity: TranslateOpacity(layer, ggSpec),
-            fill: TranslateFill(layer, ggSpec)
+            x: TranslateXClass(layer, labels, layerData, scales),
+            y: TranslateYClass(layer, labels, layerData, scales),
+            // color: TranslateColor(layer, labels, layerData),
+            size: TranslateSize(layer, labels, layerData),
+            shape: TranslateShape(layer, labels, layerData),
+            stroke: TranslateStroke(layer, labels, layerData),
+            strokeWidth: TranslateStrokeWidth(layer, labels, layerData),
+            opacity: TranslateOpacity(layer, labels, layerData),
+            fill: TranslateFill(layer, labels, layerData)
         };
         return layerEncoding;
     }
-    function TranslateXClass(layer, ggSpec) {
+    function TranslateXClass(layer, labels, layerData, scales) {
         var field = layer['mapping']['x']['field'];
-        var type = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+        var type = layerData['metadata'][field]['type'];
         var scale;
-        var title = ggSpec['labels']['x'];
-        for (var _i = 0, _a = ggSpec['scales']; _i < _a.length; _i++) {
-            var ggScale = _a[_i];
+        var title = labels['x'];
+        for (var _i = 0, scales_1 = scales; _i < scales_1.length; _i++) {
+            var ggScale = scales_1[_i];
             if (ggScale['aesthetics'][0] == 'x') {
                 scale = TranslateScale(ggScale['transform']);
                 if (ggScale['name']) {
@@ -1070,13 +1070,13 @@
         };
         return xClass;
     }
-    function TranslateYClass(layer, ggSpec) {
+    function TranslateYClass(layer, labels, layerData, scales) {
         var field = layer['mapping']['y']['field'];
-        var type = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+        var type = layerData['metadata'][field]['type'];
         var scale;
-        var title = ggSpec['labels']['y'];
-        for (var _i = 0, _a = ggSpec['scales']; _i < _a.length; _i++) {
-            var ggScale = _a[_i];
+        var title = labels['y'];
+        for (var _i = 0, scales_2 = scales; _i < scales_2.length; _i++) {
+            var ggScale = scales_2[_i];
             if (ggScale['aesthetics'][0] == 'y') {
                 scale = TranslateScale(ggScale['transform']);
                 if (ggScale['name']) {
@@ -1099,7 +1099,7 @@
      * @param layer
      * @param ggSpec
      */
-    // function TranslateColor(layer: any, ggSpec: any): vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
+    // function TranslateColor(layer: any, labels: any, layerData: any): vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
     //   let color: vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
     //   if (layer['aes_params']['colour']) {
     //     color = layer['aes_params']['colour'];
@@ -1109,12 +1109,12 @@
     //       return color;
     //     }
     //     let field: string = layer['mapping']['colour']['field'];
-    //     const type: vlspec.StandardType = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+    //     const type: vlspec.StandardType = layerData['metadata'][field]['type'];
     //     field = field.replace('.', '\\.');
     //     color = {
     //       field: field,
     //       type: type,
-    //       title: ggSpec['labels']['colour']
+    //       title: labels['colour']
     //     };
     //   }
     //   return color;
@@ -1125,7 +1125,7 @@
      * @param layer in ggSpec['layers']
      * @param ggSpec is the ggSpec
      */
-    function TranslateSize(layer, ggSpec) {
+    function TranslateSize(layer, labels, layerData) {
         var size;
         if (layer['aes_params']['size']) {
             size = {
@@ -1137,18 +1137,18 @@
                 return size;
             }
             var field = layer['mapping']['size']['field'];
-            var type = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+            var type = layerData['metadata'][field]['type'];
             field = field.replace('.', '\\.');
             size = {
                 field: field,
                 type: type,
-                title: ggSpec['labels']['size'],
+                title: labels['size'],
                 bin: true
             };
         }
         return size;
     }
-    function TranslateShape(layer, ggSpec) {
+    function TranslateShape(layer, labels, layerData) {
         var shape;
         if (layer['aes_params']['shape']) {
             shape = {
@@ -1160,12 +1160,12 @@
                 return shape;
             }
             var field = layer['mapping']['shape']['field'];
-            var type = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+            var type = layerData['metadata'][field]['type'];
             field = field.replace('.', '\\.');
             shape = {
                 field: field,
                 type: type,
-                title: ggSpec['labels']['shape']
+                title: labels['shape']
             };
         }
         return shape;
@@ -1173,7 +1173,7 @@
     function TranslateScale(transform) {
         return transform;
     }
-    function TranslateStroke(layer, ggSpec) {
+    function TranslateStroke(layer, labels, layerData) {
         var stroke;
         if (layer['aes_params']['colour']) {
             stroke = layer['aes_params']['colour'];
@@ -1183,17 +1183,17 @@
                 return stroke;
             }
             var field = layer['mapping']['colour']['field'];
-            var type = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+            var type = layerData['metadata'][field]['type'];
             field = field.replace('.', '\\.');
             stroke = {
                 field: field,
                 type: type,
-                title: ggSpec['labels']['colour']
+                title: labels['colour']
             };
         }
         return stroke;
     }
-    function TranslateStrokeWidth(layer, ggSpec) {
+    function TranslateStrokeWidth(layer, labels, layerData) {
         var strokeWidth;
         if (layer['aes_params']['stroke']) {
             strokeWidth = {
@@ -1205,17 +1205,17 @@
                 return strokeWidth;
             }
             var field = layer['mapping']['stroke']['field'];
-            var type = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+            var type = layerData['metadata'][field]['type'];
             field = field.replace('.', '\\.');
             strokeWidth = {
                 field: field,
                 type: type,
-                title: ggSpec['labels']['stroke']
+                title: labels['stroke']
             };
         }
         return strokeWidth;
     }
-    function TranslateOpacity(layer, ggSpec) {
+    function TranslateOpacity(layer, labels, layerData) {
         var opacity;
         if (layer['aes_params']['alpha']) {
             opacity = {
@@ -1227,17 +1227,17 @@
                 return opacity;
             }
             var field = layer['mapping']['alpha']['field'];
-            var type = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+            var type = layerData['metadata'][field]['type'];
             field = field.replace('.', '\\.');
             opacity = {
                 field: field,
                 type: type,
-                title: ggSpec['labels']['stroke']
+                title: labels['stroke']
             };
         }
         return opacity;
     }
-    function TranslateFill(layer, ggSpec) {
+    function TranslateFill(layer, labels, layerData) {
         var fill;
         if (layer['aes_params']['fill']) {
             fill = layer['aes_params']['fill'];
@@ -1247,12 +1247,12 @@
                 return fill;
             }
             var field = layer['mapping']['fill']['field'];
-            var type = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+            var type = layerData['metadata'][field]['type'];
             field = field.replace('.', '\\.');
             fill = {
                 field: field,
                 type: type,
-                title: ggSpec['labels']['colour']
+                title: labels['colour']
             };
         }
         return fill;
@@ -1294,27 +1294,25 @@
      * The layer in ggSpec
      * @param ggSpec
      */
-    function TranslateLayer(layer, ggSpec) {
+    function TranslateLayer(layer, labels, data, scales) {
+        var layerData = data[layer['data']];
         var layerspec = {
             data: {
                 name: layer['data']
             },
             mark: TranslateMark(layer['geom']),
-            encoding: TranslateEncoding(layer, ggSpec)
+            encoding: TranslateEncoding(layer, labels, layerData, scales)
         };
         return layerspec;
     }
     function TranslateMark(geom) {
-        var type;
+        var mark;
         if (geom['class'] == 'GeomPoint') {
-            type = BoxPlot.Point;
+            mark = Mark.Point;
         }
         else {
-            type = BoxPlot.Point;
+            mark = Mark.Point;
         }
-        var mark = {
-            type: type
-        };
         return mark;
     }
 
@@ -1324,9 +1322,12 @@
      */
     function gg2vl(ggSpec) {
         var layers = [];
+        var labels = ggSpec['labels'];
+        var data = ggSpec['data'];
+        var scales = ggSpec['scales'];
         for (var _i = 0, _a = ggSpec['layers']; _i < _a.length; _i++) {
             var layer = _a[_i];
-            layers.push(TranslateLayer(layer, ggSpec));
+            layers.push(TranslateLayer(layer, labels, data, scales));
         }
         var datasets = {};
         for (var dataset in ggSpec['data']) {

@@ -1,31 +1,31 @@
 import * as vlspec from './VlSpec';
 
-export function TranslateEncoding(layer: any, ggSpec: any): vlspec.LayerEncoding {
+export function TranslateEncoding(layer: any, labels: any, layerData: any, scales: any): vlspec.LayerEncoding {
   const layerEncoding: vlspec.LayerEncoding = {
-    x: TranslateXClass(layer, ggSpec),
-    y: TranslateYClass(layer, ggSpec),
-    // color: TranslateColor(layer, ggSpec),
-    size: TranslateSize(layer, ggSpec),
-    shape: TranslateShape(layer, ggSpec),
-    stroke: TranslateStroke(layer, ggSpec),
-    strokeWidth: TranslateStrokeWidth(layer, ggSpec),
-    opacity: TranslateOpacity(layer, ggSpec),
-    fill: TranslateFill(layer, ggSpec)
+    x: TranslateXClass(layer, labels, layerData, scales),
+    y: TranslateYClass(layer, labels, layerData, scales),
+    // color: TranslateColor(layer, labels, layerData),
+    size: TranslateSize(layer, labels, layerData),
+    shape: TranslateShape(layer, labels, layerData),
+    stroke: TranslateStroke(layer, labels, layerData),
+    strokeWidth: TranslateStrokeWidth(layer, labels, layerData),
+    opacity: TranslateOpacity(layer, labels, layerData),
+    fill: TranslateFill(layer, labels, layerData)
   };
 
   return layerEncoding;
 }
 
-function TranslateXClass(layer: any, ggSpec: any): vlspec.XClass {
+function TranslateXClass(layer: any, labels: any, layerData: any, scales: any): vlspec.XClass {
   let field: string = layer['mapping']['x']['field'];
 
-  const type: vlspec.StandardType = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+  const type: vlspec.StandardType = layerData['metadata'][field]['type'];
 
   let scale: vlspec.Scale | undefined;
 
-  let title: string = ggSpec['labels']['x'];
+  let title: string = labels['x'];
 
-  for (const ggScale of ggSpec['scales']) {
+  for (const ggScale of scales) {
     if (ggScale['aesthetics'][0] == 'x') {
       scale = TranslateScale(ggScale['transform']);
 
@@ -47,16 +47,16 @@ function TranslateXClass(layer: any, ggSpec: any): vlspec.XClass {
   return xClass;
 }
 
-function TranslateYClass(layer: any, ggSpec: any): vlspec.YClass {
+function TranslateYClass(layer: any, labels: any, layerData: any, scales: any): vlspec.YClass {
   let field: string = layer['mapping']['y']['field'];
 
-  const type: vlspec.StandardType = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+  const type: vlspec.StandardType = layerData['metadata'][field]['type'];
 
   let scale: vlspec.Scale | undefined;
 
-  let title: string = ggSpec['labels']['y'];
+  let title: string = labels['y'];
 
-  for (const ggScale of ggSpec['scales']) {
+  for (const ggScale of scales) {
     if (ggScale['aesthetics'][0] == 'y') {
       scale = TranslateScale(ggScale['transform']);
 
@@ -84,7 +84,7 @@ function TranslateYClass(layer: any, ggSpec: any): vlspec.YClass {
  * @param layer
  * @param ggSpec
  */
-// function TranslateColor(layer: any, ggSpec: any): vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
+// function TranslateColor(layer: any, labels: any, layerData: any): vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
 //   let color: vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 
 //   if (layer['aes_params']['colour']) {
@@ -98,14 +98,14 @@ function TranslateYClass(layer: any, ggSpec: any): vlspec.YClass {
 
 //     let field: string = layer['mapping']['colour']['field'];
 
-//     const type: vlspec.StandardType = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+//     const type: vlspec.StandardType = layerData['metadata'][field]['type'];
 
 //     field = field.replace('.', '\\.');
 
 //     color = {
 //       field: field,
 //       type: type,
-//       title: ggSpec['labels']['colour']
+//       title: labels['colour']
 //     };
 //   }
 
@@ -118,7 +118,11 @@ function TranslateYClass(layer: any, ggSpec: any): vlspec.YClass {
  * @param layer in ggSpec['layers']
  * @param ggSpec is the ggSpec
  */
-function TranslateSize(layer: any, ggSpec: any): vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
+function TranslateSize(
+  layer: any,
+  labels: any,
+  layerData: any
+): vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
   let size: vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
   if (layer['aes_params']['size']) {
@@ -134,14 +138,14 @@ function TranslateSize(layer: any, ggSpec: any): vlspec.ValueDefWithConditionMar
 
     let field: string = layer['mapping']['size']['field'];
 
-    const type: vlspec.StandardType = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+    const type: vlspec.StandardType = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 
     size = {
       field: field,
       type: type,
-      title: ggSpec['labels']['size'],
+      title: labels['size'],
       bin: true
     };
   }
@@ -151,7 +155,8 @@ function TranslateSize(layer: any, ggSpec: any): vlspec.ValueDefWithConditionMar
 
 function TranslateShape(
   layer: any,
-  ggSpec: any
+  labels: any,
+  layerData: any
 ): vlspec.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined {
   let shape: vlspec.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined;
 
@@ -168,14 +173,14 @@ function TranslateShape(
 
     let field: string = layer['mapping']['shape']['field'];
 
-    const type: vlspec.TypeForShape = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+    const type: vlspec.TypeForShape = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 
     shape = {
       field: field,
       type: type,
-      title: ggSpec['labels']['shape']
+      title: labels['shape']
     };
   }
 
@@ -186,7 +191,11 @@ function TranslateScale(transform: any): vlspec.Scale {
   return transform;
 }
 
-function TranslateStroke(layer: any, ggSpec: any): vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
+function TranslateStroke(
+  layer: any,
+  labels: any,
+  layerData: any
+): vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
   let stroke: vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 
   if (layer['aes_params']['colour']) {
@@ -200,21 +209,25 @@ function TranslateStroke(layer: any, ggSpec: any): vlspec.ValueDefWithConditionM
 
     let field: string = layer['mapping']['colour']['field'];
 
-    const type: vlspec.StandardType = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+    const type: vlspec.StandardType = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 
     stroke = {
       field: field,
       type: type,
-      title: ggSpec['labels']['colour']
+      title: labels['colour']
     };
   }
 
   return stroke;
 }
 
-function TranslateStrokeWidth(layer: any, ggSpec: any): vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
+function TranslateStrokeWidth(
+  layer: any,
+  labels: any,
+  layerData: any
+): vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
   let strokeWidth: vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
   if (layer['aes_params']['stroke']) {
@@ -230,21 +243,25 @@ function TranslateStrokeWidth(layer: any, ggSpec: any): vlspec.ValueDefWithCondi
 
     let field: string = layer['mapping']['stroke']['field'];
 
-    const type: vlspec.StandardType = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+    const type: vlspec.StandardType = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 
     strokeWidth = {
       field: field,
       type: type,
-      title: ggSpec['labels']['stroke']
+      title: labels['stroke']
     };
   }
 
   return strokeWidth;
 }
 
-function TranslateOpacity(layer: any, ggSpec: any): vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
+function TranslateOpacity(
+  layer: any,
+  labels: any,
+  layerData: any
+): vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
   let opacity: vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
   if (layer['aes_params']['alpha']) {
@@ -260,21 +277,25 @@ function TranslateOpacity(layer: any, ggSpec: any): vlspec.ValueDefWithCondition
 
     let field: string = layer['mapping']['alpha']['field'];
 
-    const type: vlspec.StandardType = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+    const type: vlspec.StandardType = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 
     opacity = {
       field: field,
       type: type,
-      title: ggSpec['labels']['stroke']
+      title: labels['stroke']
     };
   }
 
   return opacity;
 }
 
-function TranslateFill(layer: any, ggSpec: any): vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
+function TranslateFill(
+  layer: any,
+  labels: any,
+  layerData: any
+): vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
   let fill: vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 
   if (layer['aes_params']['fill']) {
@@ -288,14 +309,14 @@ function TranslateFill(layer: any, ggSpec: any): vlspec.ValueDefWithConditionMar
 
     let field: string = layer['mapping']['fill']['field'];
 
-    const type: vlspec.StandardType = ggSpec['data'][layer['data']]['metadata'][field]['type'];
+    const type: vlspec.StandardType = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 
     fill = {
       field: field,
       type: type,
-      title: ggSpec['labels']['colour']
+      title: labels['colour']
     };
   }
 

@@ -60,9 +60,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "aggregate"
-      ],
+      "required": ["aggregate"],
       "type": "object"
     },
     "AggregatedFieldDef": {
@@ -81,18 +79,11 @@
           "description": "The aggregation operation to apply to the fields (e.g., sum, average or count).\nSee the [full list of supported aggregation operations](https://vega.github.io/vega-lite/docs/aggregate.html#ops)\nfor more information."
         }
       },
-      "required": [
-        "op",
-        "as"
-      ],
+      "required": ["op", "as"],
       "type": "object"
     },
     "Align": {
-      "enum": [
-        "left",
-        "center",
-        "right"
-      ],
+      "enum": ["left", "center", "right"],
       "type": "string"
     },
     "AnyMark": {
@@ -218,10 +209,7 @@
         },
         "order": {
           "description": "For line and trail marks, this `order` property can be set to `null` or `false` to make the lines use the original order in the data sources.",
-          "type": [
-            "null",
-            "boolean"
-          ]
+          "type": ["null", "boolean"]
         },
         "orient": {
           "$ref": "#/definitions/Orientation",
@@ -236,9 +224,7 @@
               "$ref": "#/definitions/OverlayMarkDef"
             },
             {
-              "enum": [
-                "transparent"
-              ],
+              "enum": ["transparent"],
               "type": "string"
             }
           ],
@@ -350,9 +336,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "argmax"
-      ],
+      "required": ["argmax"],
       "type": "object"
     },
     "ArgminDef": {
@@ -362,9 +346,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "argmin"
-      ],
+      "required": ["argmin"],
       "type": "object"
     },
     "AutoSizeParams": {
@@ -372,10 +354,7 @@
       "properties": {
         "contains": {
           "description": "Determines how size calculation should be performed, one of `\"content\"` or `\"padding\"`. The default setting (`\"content\"`) interprets the width and height settings as the data rectangle (plotting) dimensions, to which padding is then added. In contrast, the `\"padding\"` setting includes the padding within the view size calculations, such that the width and height settings indicate the **total** intended size of the view.\n\n__Default value__: `\"content\"`",
-          "enum": [
-            "content",
-            "padding"
-          ],
+          "enum": ["content", "padding"],
           "type": "string"
         },
         "resize": {
@@ -390,11 +369,7 @@
       "type": "object"
     },
     "AutosizeType": {
-      "enum": [
-        "pad",
-        "fit",
-        "none"
-      ],
+      "enum": ["pad", "fit", "none"],
       "type": "string"
     },
     "Axis": {
@@ -437,10 +412,7 @@
         },
         "formatType": {
           "description": "The format type for labels (`\"number\"` or `\"time\"`).\n\n__Default value:__\n- `\"time\"` for temporal fields and ordinal and nomimal fields with `timeUnit`.\n- `\"number\"` for quantitative fields as well as ordinal and nomimal fields without `timeUnit`.",
-          "enum": [
-            "number",
-            "time"
-          ],
+          "enum": ["number", "time"],
           "type": "string"
         },
         "grid": {
@@ -489,10 +461,7 @@
         },
         "labelBound": {
           "description": "Indicates if labels should be hidden if they exceed the axis range. If `false` (the default) no bounds overlap analysis is performed. If `true`, labels will be hidden if they exceed the axis range by more than 1 pixel. If this property is a number, it specifies the pixel tolerance: the maximum amount by which a label bounding box may exceed the axis range.\n\n__Default value:__ `false`.",
-          "type": [
-            "number",
-            "boolean"
-          ]
+          "type": ["number", "boolean"]
         },
         "labelColor": {
           "$ref": "#/definitions/Color",
@@ -500,10 +469,7 @@
         },
         "labelFlush": {
           "description": "Indicates if the first and last axis labels should be aligned flush with the scale range. Flush alignment for a horizontal axis will left-align the first label and right-align the last label. For vertical axes, bottom and top text baselines are applied instead. If this property is a number, it also indicates the number of pixels by which to offset the first and last labels; for example, a value of 2 will flush-align the first and last labels and also push them 2 pixels outward from the center of the axis. The additional adjustment can sometimes help the labels better visually group with corresponding axis ticks.\n\n__Default value:__ `true` for axis of a continuous x-scale. Otherwise, `false`.",
-          "type": [
-            "boolean",
-            "number"
-          ]
+          "type": ["boolean", "number"]
         },
         "labelFlushOffset": {
           "description": "Indicates the number of pixels by which to offset flush-adjusted labels. For example, a value of `2` will push flush-adjusted labels 2 pixels outward from the center of the axis. Offsets can help the labels better visually group with corresponding axis ticks.\n\n__Default value:__ `0`.",
@@ -625,10 +591,7 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "titleAlign": {
           "$ref": "#/definitions/Align",
@@ -805,10 +768,7 @@
         },
         "labelBound": {
           "description": "Indicates if labels should be hidden if they exceed the axis range. If `false` (the default) no bounds overlap analysis is performed. If `true`, labels will be hidden if they exceed the axis range by more than 1 pixel. If this property is a number, it specifies the pixel tolerance: the maximum amount by which a label bounding box may exceed the axis range.\n\n__Default value:__ `false`.",
-          "type": [
-            "number",
-            "boolean"
-          ]
+          "type": ["number", "boolean"]
         },
         "labelColor": {
           "$ref": "#/definitions/Color",
@@ -816,10 +776,7 @@
         },
         "labelFlush": {
           "description": "Indicates if the first and last axis labels should be aligned flush with the scale range. Flush alignment for a horizontal axis will left-align the first label and right-align the last label. For vertical axes, bottom and top text baselines are applied instead. If this property is a number, it also indicates the number of pixels by which to offset the first and last labels; for example, a value of 2 will flush-align the first and last labels and also push them 2 pixels outward from the center of the axis. The additional adjustment can sometimes help the labels better visually group with corresponding axis ticks.\n\n__Default value:__ `true` for axis of a continuous x-scale. Otherwise, `false`.",
-          "type": [
-            "boolean",
-            "number"
-          ]
+          "type": ["boolean", "number"]
         },
         "labelFlushOffset": {
           "description": "Indicates the number of pixels by which to offset flush-adjusted labels. For example, a value of `2` will push flush-adjusted labels 2 pixels outward from the center of the axis. Offsets can help the labels better visually group with corresponding axis ticks.\n\n__Default value:__ `0`.",
@@ -993,12 +950,7 @@
       "type": "object"
     },
     "AxisOrient": {
-      "enum": [
-        "top",
-        "bottom",
-        "left",
-        "right"
-      ],
+      "enum": ["top", "bottom", "left", "right"],
       "type": "string"
     },
     "AxisResolveMap": {
@@ -1124,10 +1076,7 @@
         },
         "order": {
           "description": "For line and trail marks, this `order` property can be set to `null` or `false` to make the lines use the original order in the data sources.",
-          "type": [
-            "null",
-            "boolean"
-          ]
+          "type": ["null", "boolean"]
         },
         "orient": {
           "$ref": "#/definitions/Orientation",
@@ -1536,11 +1485,7 @@
       "type": "object"
     },
     "Baseline": {
-      "enum": [
-        "top",
-        "middle",
-        "bottom"
-      ],
+      "enum": ["top", "middle", "bottom"],
       "type": "string"
     },
     "BinParams": {
@@ -1624,9 +1569,7 @@
         "bin": {
           "anyOf": [
             {
-              "enum": [
-                true
-              ],
+              "enum": [true],
               "type": "boolean"
             },
             {
@@ -1640,11 +1583,7 @@
           "description": "The data field to bin."
         }
       },
-      "required": [
-        "bin",
-        "field",
-        "as"
-      ],
+      "required": ["bin", "field", "as"],
       "type": "object"
     },
     "BindCheckbox": {
@@ -1657,9 +1596,7 @@
           "$ref": "#/definitions/Element"
         },
         "input": {
-          "enum": [
-            "checkbox"
-          ],
+          "enum": ["checkbox"],
           "type": "string"
         },
         "name": {
@@ -1669,9 +1606,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "input"
-      ],
+      "required": ["input"],
       "type": "object"
     },
     "BindRadioSelect": {
@@ -1684,28 +1619,21 @@
           "$ref": "#/definitions/Element"
         },
         "input": {
-          "enum": [
-            "radio",
-            "select"
-          ],
+          "enum": ["radio", "select"],
           "type": "string"
         },
         "name": {
           "type": "string"
         },
         "options": {
-          "items": {
-          },
+          "items": {},
           "type": "array"
         },
         "type": {
           "type": "string"
         }
       },
-      "required": [
-        "input",
-        "options"
-      ],
+      "required": ["input", "options"],
       "type": "object"
     },
     "BindRange": {
@@ -1718,9 +1646,7 @@
           "$ref": "#/definitions/Element"
         },
         "input": {
-          "enum": [
-            "range"
-          ],
+          "enum": ["range"],
           "type": "string"
         },
         "max": {
@@ -1739,9 +1665,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "input"
-      ],
+      "required": ["input"],
       "type": "object"
     },
     "Binding": {
@@ -1761,10 +1685,7 @@
       ]
     },
     "BoxPlot": {
-      "enum": [
-        "boxplot",
-        "test"
-      ],
+      "enum": ["boxplot"],
       "type": "string"
     },
     "BoxPlotConfig": {
@@ -1783,9 +1704,7 @@
         "extent": {
           "anyOf": [
             {
-              "enum": [
-                "min-max"
-              ],
+              "enum": ["min-max"],
               "type": "string"
             },
             {
@@ -1865,9 +1784,7 @@
         "extent": {
           "anyOf": [
             {
-              "enum": [
-                "min-max"
-              ],
+              "enum": ["min-max"],
               "type": "string"
             },
             {
@@ -1933,9 +1850,7 @@
           "description": "The mark type. This could a primitive mark type\n(one of `\"bar\"`, `\"circle\"`, `\"square\"`, `\"tick\"`, `\"line\"`,\n`\"area\"`, `\"point\"`, `\"geoshape\"`, `\"rule\"`, and `\"text\"`)\nor a composite mark type (`\"boxplot\"`, `\"errorband\"`, `\"errorbar\"`)."
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "BrushConfig": {
@@ -1987,10 +1902,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "calculate",
-        "as"
-      ],
+      "required": ["calculate", "as"],
       "type": "object"
     },
     "Color": {
@@ -2372,9 +2284,7 @@
           "description": "A field definition or one or more value definition(s) with a selection predicate."
         }
       },
-      "required": [
-        "condition"
-      ],
+      "required": ["condition"],
       "type": "object"
     },
     "ConditionOnlyDef<MarkPropFieldDef<TypeForShape>>": {
@@ -2399,9 +2309,7 @@
           "description": "A field definition or one or more value definition(s) with a selection predicate."
         }
       },
-      "required": [
-        "condition"
-      ],
+      "required": ["condition"],
       "type": "object"
     },
     "ConditionOnlyDef<TextFieldDef>": {
@@ -2426,9 +2334,7 @@
           "description": "A field definition or one or more value definition(s) with a selection predicate."
         }
       },
-      "required": [
-        "condition"
-      ],
+      "required": ["condition"],
       "type": "object"
     },
     "ConditionalMarkPropFieldDef": {
@@ -2552,20 +2458,14 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "type": {
           "$ref": "#/definitions/StandardType",
           "description": "The encoded field's type of measurement (`\"quantitative\"`, `\"temporal\"`, `\"ordinal\"`, or `\"nominal\"`).\nIt can also be a `\"geojson\"` type for encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).\n\n\n__Note:__\n\n- Data values for a temporal field can be either a date-time string (e.g., `\"2015-03-07 12:32:17\"`, `\"17:01\"`, `\"2015-03-16\"`. `\"2015\"`) or a timestamp number (e.g., `1552199579097`).\n- Data `type` describes the semantics of the data rather than the primitive data types (`number`, `string`, etc.). The same primitive data type can have different types of measurement. For example, numeric data can represent quantitative, ordinal, or nominal data.\n- When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type` property can be either `\"quantitative\"` (for using a linear bin scale) or [`\"ordinal\"` (for using an ordinal bin scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the `type` property can be either `\"temporal\"` (for using a temporal scale) or [`\"ordinal\"` (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html), the `type` property refers to the post-aggregation data type. For example, we can calculate count `distinct` of a categorical field `\"cat\"` using `{\"aggregate\": \"distinct\", \"field\": \"cat\", \"type\": \"quantitative\"}`. The `\"type\"` of the aggregate output is `\"quantitative\"`.\n- Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they have exactly the same type as their primary channels (e.g., `x`, `y`)."
         }
       },
-      "required": [
-        "test",
-        "type"
-      ],
+      "required": ["test", "type"],
       "type": "object"
     },
     "ConditionalPredicate<MarkPropFieldDef<TypeForShape>>": {
@@ -2629,20 +2529,14 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "type": {
           "$ref": "#/definitions/TypeForShape",
           "description": "The encoded field's type of measurement (`\"quantitative\"`, `\"temporal\"`, `\"ordinal\"`, or `\"nominal\"`).\nIt can also be a `\"geojson\"` type for encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).\n\n\n__Note:__\n\n- Data values for a temporal field can be either a date-time string (e.g., `\"2015-03-07 12:32:17\"`, `\"17:01\"`, `\"2015-03-16\"`. `\"2015\"`) or a timestamp number (e.g., `1552199579097`).\n- Data `type` describes the semantics of the data rather than the primitive data types (`number`, `string`, etc.). The same primitive data type can have different types of measurement. For example, numeric data can represent quantitative, ordinal, or nominal data.\n- When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type` property can be either `\"quantitative\"` (for using a linear bin scale) or [`\"ordinal\"` (for using an ordinal bin scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the `type` property can be either `\"temporal\"` (for using a temporal scale) or [`\"ordinal\"` (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html), the `type` property refers to the post-aggregation data type. For example, we can calculate count `distinct` of a categorical field `\"cat\"` using `{\"aggregate\": \"distinct\", \"field\": \"cat\", \"type\": \"quantitative\"}`. The `\"type\"` of the aggregate output is `\"quantitative\"`.\n- Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they have exactly the same type as their primary channels (e.g., `x`, `y`)."
         }
       },
-      "required": [
-        "test",
-        "type"
-      ],
+      "required": ["test", "type"],
       "type": "object"
     },
     "ConditionalPredicate<TextFieldDef>": {
@@ -2661,9 +2555,7 @@
               "$ref": "#/definitions/BinParams"
             },
             {
-              "enum": [
-                "binned"
-              ],
+              "enum": ["binned"],
               "type": "string"
             },
             {
@@ -2682,10 +2574,7 @@
         },
         "formatType": {
           "description": "The format type for labels (`\"number\"` or `\"time\"`).\n\n__Default value:__\n- `\"time\"` for temporal fields and ordinal and nomimal fields with `timeUnit`.\n- `\"number\"` for quantitative fields as well as ordinal and nomimal fields without `timeUnit`.",
-          "enum": [
-            "number",
-            "time"
-          ],
+          "enum": ["number", "time"],
           "type": "string"
         },
         "test": {
@@ -2698,20 +2587,14 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "type": {
           "$ref": "#/definitions/StandardType",
           "description": "The encoded field's type of measurement (`\"quantitative\"`, `\"temporal\"`, `\"ordinal\"`, or `\"nominal\"`).\nIt can also be a `\"geojson\"` type for encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).\n\n\n__Note:__\n\n- Data values for a temporal field can be either a date-time string (e.g., `\"2015-03-07 12:32:17\"`, `\"17:01\"`, `\"2015-03-16\"`. `\"2015\"`) or a timestamp number (e.g., `1552199579097`).\n- Data `type` describes the semantics of the data rather than the primitive data types (`number`, `string`, etc.). The same primitive data type can have different types of measurement. For example, numeric data can represent quantitative, ordinal, or nominal data.\n- When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type` property can be either `\"quantitative\"` (for using a linear bin scale) or [`\"ordinal\"` (for using an ordinal bin scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the `type` property can be either `\"temporal\"` (for using a temporal scale) or [`\"ordinal\"` (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html), the `type` property refers to the post-aggregation data type. For example, we can calculate count `distinct` of a categorical field `\"cat\"` using `{\"aggregate\": \"distinct\", \"field\": \"cat\", \"type\": \"quantitative\"}`. The `\"type\"` of the aggregate output is `\"quantitative\"`.\n- Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they have exactly the same type as their primary channels (e.g., `x`, `y`)."
         }
       },
-      "required": [
-        "test",
-        "type"
-      ],
+      "required": ["test", "type"],
       "type": "object"
     },
     "ConditionalPredicate<StringValueDef>": {
@@ -2723,16 +2606,10 @@
         },
         "value": {
           "description": "A constant value in visual domain (e.g., `\"red\"` / \"#0099ff\" for color, values between `0` to `1` for opacity).",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         }
       },
-      "required": [
-        "test",
-        "value"
-      ],
+      "required": ["test", "value"],
       "type": "object"
     },
     "ConditionalPredicate<ValueDef>": {
@@ -2747,10 +2624,7 @@
           "description": "A constant value in visual domain (e.g., `\"red\"` / \"#0099ff\" for color, values between `0` to `1` for opacity)."
         }
       },
-      "required": [
-        "test",
-        "value"
-      ],
+      "required": ["test", "value"],
       "type": "object"
     },
     "ConditionalPredicate<NumberValueDef>": {
@@ -2765,10 +2639,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "test",
-        "value"
-      ],
+      "required": ["test", "value"],
       "type": "object"
     },
     "ConditionalSelection<MarkPropFieldDef>": {
@@ -2832,20 +2703,14 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "type": {
           "$ref": "#/definitions/StandardType",
           "description": "The encoded field's type of measurement (`\"quantitative\"`, `\"temporal\"`, `\"ordinal\"`, or `\"nominal\"`).\nIt can also be a `\"geojson\"` type for encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).\n\n\n__Note:__\n\n- Data values for a temporal field can be either a date-time string (e.g., `\"2015-03-07 12:32:17\"`, `\"17:01\"`, `\"2015-03-16\"`. `\"2015\"`) or a timestamp number (e.g., `1552199579097`).\n- Data `type` describes the semantics of the data rather than the primitive data types (`number`, `string`, etc.). The same primitive data type can have different types of measurement. For example, numeric data can represent quantitative, ordinal, or nominal data.\n- When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type` property can be either `\"quantitative\"` (for using a linear bin scale) or [`\"ordinal\"` (for using an ordinal bin scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the `type` property can be either `\"temporal\"` (for using a temporal scale) or [`\"ordinal\"` (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html), the `type` property refers to the post-aggregation data type. For example, we can calculate count `distinct` of a categorical field `\"cat\"` using `{\"aggregate\": \"distinct\", \"field\": \"cat\", \"type\": \"quantitative\"}`. The `\"type\"` of the aggregate output is `\"quantitative\"`.\n- Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they have exactly the same type as their primary channels (e.g., `x`, `y`)."
         }
       },
-      "required": [
-        "selection",
-        "type"
-      ],
+      "required": ["selection", "type"],
       "type": "object"
     },
     "ConditionalSelection<MarkPropFieldDef<TypeForShape>>": {
@@ -2909,20 +2774,14 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "type": {
           "$ref": "#/definitions/TypeForShape",
           "description": "The encoded field's type of measurement (`\"quantitative\"`, `\"temporal\"`, `\"ordinal\"`, or `\"nominal\"`).\nIt can also be a `\"geojson\"` type for encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).\n\n\n__Note:__\n\n- Data values for a temporal field can be either a date-time string (e.g., `\"2015-03-07 12:32:17\"`, `\"17:01\"`, `\"2015-03-16\"`. `\"2015\"`) or a timestamp number (e.g., `1552199579097`).\n- Data `type` describes the semantics of the data rather than the primitive data types (`number`, `string`, etc.). The same primitive data type can have different types of measurement. For example, numeric data can represent quantitative, ordinal, or nominal data.\n- When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type` property can be either `\"quantitative\"` (for using a linear bin scale) or [`\"ordinal\"` (for using an ordinal bin scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the `type` property can be either `\"temporal\"` (for using a temporal scale) or [`\"ordinal\"` (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html), the `type` property refers to the post-aggregation data type. For example, we can calculate count `distinct` of a categorical field `\"cat\"` using `{\"aggregate\": \"distinct\", \"field\": \"cat\", \"type\": \"quantitative\"}`. The `\"type\"` of the aggregate output is `\"quantitative\"`.\n- Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they have exactly the same type as their primary channels (e.g., `x`, `y`)."
         }
       },
-      "required": [
-        "selection",
-        "type"
-      ],
+      "required": ["selection", "type"],
       "type": "object"
     },
     "ConditionalSelection<TextFieldDef>": {
@@ -2941,9 +2800,7 @@
               "$ref": "#/definitions/BinParams"
             },
             {
-              "enum": [
-                "binned"
-              ],
+              "enum": ["binned"],
               "type": "string"
             },
             {
@@ -2962,10 +2819,7 @@
         },
         "formatType": {
           "description": "The format type for labels (`\"number\"` or `\"time\"`).\n\n__Default value:__\n- `\"time\"` for temporal fields and ordinal and nomimal fields with `timeUnit`.\n- `\"number\"` for quantitative fields as well as ordinal and nomimal fields without `timeUnit`.",
-          "enum": [
-            "number",
-            "time"
-          ],
+          "enum": ["number", "time"],
           "type": "string"
         },
         "selection": {
@@ -2978,20 +2832,14 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "type": {
           "$ref": "#/definitions/StandardType",
           "description": "The encoded field's type of measurement (`\"quantitative\"`, `\"temporal\"`, `\"ordinal\"`, or `\"nominal\"`).\nIt can also be a `\"geojson\"` type for encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).\n\n\n__Note:__\n\n- Data values for a temporal field can be either a date-time string (e.g., `\"2015-03-07 12:32:17\"`, `\"17:01\"`, `\"2015-03-16\"`. `\"2015\"`) or a timestamp number (e.g., `1552199579097`).\n- Data `type` describes the semantics of the data rather than the primitive data types (`number`, `string`, etc.). The same primitive data type can have different types of measurement. For example, numeric data can represent quantitative, ordinal, or nominal data.\n- When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type` property can be either `\"quantitative\"` (for using a linear bin scale) or [`\"ordinal\"` (for using an ordinal bin scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the `type` property can be either `\"temporal\"` (for using a temporal scale) or [`\"ordinal\"` (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html), the `type` property refers to the post-aggregation data type. For example, we can calculate count `distinct` of a categorical field `\"cat\"` using `{\"aggregate\": \"distinct\", \"field\": \"cat\", \"type\": \"quantitative\"}`. The `\"type\"` of the aggregate output is `\"quantitative\"`.\n- Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they have exactly the same type as their primary channels (e.g., `x`, `y`)."
         }
       },
-      "required": [
-        "selection",
-        "type"
-      ],
+      "required": ["selection", "type"],
       "type": "object"
     },
     "ConditionalSelection<StringValueDef>": {
@@ -3003,16 +2851,10 @@
         },
         "value": {
           "description": "A constant value in visual domain (e.g., `\"red\"` / \"#0099ff\" for color, values between `0` to `1` for opacity).",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         }
       },
-      "required": [
-        "selection",
-        "value"
-      ],
+      "required": ["selection", "value"],
       "type": "object"
     },
     "ConditionalSelection<ValueDef>": {
@@ -3027,10 +2869,7 @@
           "description": "A constant value in visual domain (e.g., `\"red\"` / \"#0099ff\" for color, values between `0` to `1` for opacity)."
         }
       },
-      "required": [
-        "selection",
-        "value"
-      ],
+      "required": ["selection", "value"],
       "type": "object"
     },
     "ConditionalSelection<NumberValueDef>": {
@@ -3045,10 +2884,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "selection",
-        "value"
-      ],
+      "required": ["selection", "value"],
       "type": "object"
     },
     "Config": {
@@ -3139,11 +2975,7 @@
         },
         "fieldTitle": {
           "description": "Defines how Vega-Lite generates title for fields.  There are three possible styles:\n- `\"verbal\"` (Default) - displays function in a verbal style (e.g., \"Sum of field\", \"Year-month of date\", \"field (binned)\").\n- `\"function\"` - displays function using parentheses and capitalized texts (e.g., \"SUM(field)\", \"YEARMONTH(date)\", \"BIN(field)\").\n- `\"plain\"` - displays only the field name without functions (e.g., \"field\", \"date\", \"field\").",
-          "enum": [
-            "verbal",
-            "functional",
-            "plain"
-          ],
+          "enum": ["verbal", "functional", "plain"],
           "type": "string"
         },
         "geoshape": {
@@ -3168,14 +3000,8 @@
         },
         "invalidValues": {
           "description": "Defines how Vega-Lite should handle invalid values (`null` and `NaN`).\n- If set to `\"filter\"` (default), all data items with null values will be skipped (for line, trail, and area marks) or filtered (for other marks).\n- If `null`, all data items are included. In this case, invalid values will be interpreted as zeroes.",
-          "enum": [
-            "filter",
-            null
-          ],
-          "type": [
-            "string",
-            "null"
-          ]
+          "enum": ["filter", null],
+          "type": ["string", "null"]
         },
         "legend": {
           "$ref": "#/definitions/LegendConfig",
@@ -3284,10 +3110,7 @@
         },
         "type": {
           "description": "Type of input data: `\"json\"`, `\"csv\"`, `\"tsv\"`, `\"dsv\"`.\n\n__Default value:__  The default format type is determined by the extension of the file URL.\nIf no extension is detected, `\"json\"` will be used by default.",
-          "enum": [
-            "csv",
-            "tsv"
-          ],
+          "enum": ["csv", "tsv"],
           "type": "string"
         }
       },
@@ -3461,10 +3284,7 @@
       "type": "object"
     },
     "Dir": {
-      "enum": [
-        "ltr",
-        "rtl"
-      ],
+      "enum": ["ltr", "rtl"],
       "type": "string"
     },
     "DsvDataFormat": {
@@ -3489,15 +3309,11 @@
         },
         "type": {
           "description": "Type of input data: `\"json\"`, `\"csv\"`, `\"tsv\"`, `\"dsv\"`.\n\n__Default value:__  The default format type is determined by the extension of the file URL.\nIf no extension is detected, `\"json\"` will be used by default.",
-          "enum": [
-            "dsv"
-          ],
+          "enum": ["dsv"],
           "type": "string"
         }
       },
-      "required": [
-        "delimiter"
-      ],
+      "required": ["delimiter"],
       "type": "object"
     },
     "Element": {
@@ -3530,9 +3346,7 @@
       "type": "object"
     },
     "ErrorBand": {
-      "enum": [
-        "errorband"
-      ],
+      "enum": ["errorband"],
       "type": "string"
     },
     "ErrorBandConfig": {
@@ -3633,15 +3447,11 @@
           "description": "The mark type. This could a primitive mark type\n(one of `\"bar\"`, `\"circle\"`, `\"square\"`, `\"tick\"`, `\"line\"`,\n`\"area\"`, `\"point\"`, `\"geoshape\"`, `\"rule\"`, and `\"text\"`)\nor a composite mark type (`\"boxplot\"`, `\"errorband\"`, `\"errorbar\"`)."
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "ErrorBar": {
-      "enum": [
-        "errorbar"
-      ],
+      "enum": ["errorbar"],
       "type": "string"
     },
     "ErrorBarConfig": {
@@ -3722,22 +3532,14 @@
           "description": "The mark type. This could a primitive mark type\n(one of `\"bar\"`, `\"circle\"`, `\"square\"`, `\"tick\"`, `\"line\"`,\n`\"area\"`, `\"point\"`, `\"geoshape\"`, `\"rule\"`, and `\"text\"`)\nor a composite mark type (`\"boxplot\"`, `\"errorband\"`, `\"errorbar\"`)."
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "ErrorBarExtent": {
-      "enum": [
-        "ci",
-        "iqr",
-        "stderr",
-        "stdev"
-      ],
+      "enum": ["ci", "iqr", "stderr", "stdev"],
       "type": "string"
     },
-    "EventStream": {
-    },
+    "EventStream": {},
     "FacetFieldDef": {
       "additionalProperties": false,
       "properties": {
@@ -3790,19 +3592,14 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "type": {
           "$ref": "#/definitions/StandardType",
           "description": "The encoded field's type of measurement (`\"quantitative\"`, `\"temporal\"`, `\"ordinal\"`, or `\"nominal\"`).\nIt can also be a `\"geojson\"` type for encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).\n\n\n__Note:__\n\n- Data values for a temporal field can be either a date-time string (e.g., `\"2015-03-07 12:32:17\"`, `\"17:01\"`, `\"2015-03-16\"`. `\"2015\"`) or a timestamp number (e.g., `1552199579097`).\n- Data `type` describes the semantics of the data rather than the primitive data types (`number`, `string`, etc.). The same primitive data type can have different types of measurement. For example, numeric data can represent quantitative, ordinal, or nominal data.\n- When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type` property can be either `\"quantitative\"` (for using a linear bin scale) or [`\"ordinal\"` (for using an ordinal bin scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the `type` property can be either `\"temporal\"` (for using a temporal scale) or [`\"ordinal\"` (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html), the `type` property refers to the post-aggregation data type. For example, we can calculate count `distinct` of a categorical field `\"cat\"` using `{\"aggregate\": \"distinct\", \"field\": \"cat\", \"type\": \"quantitative\"}`. The `\"type\"` of the aggregate output is `\"quantitative\"`.\n- Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they have exactly the same type as their primary channels (e.g., `x`, `y`)."
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "FacetMapping": {
@@ -4162,10 +3959,7 @@
         },
         "bounds": {
           "description": "The bounds calculation method to use for determining the extent of a sub-plot. One of `full` (the default) or `flush`.\n\n- If set to `full`, the entire calculated bounds (including axes, title, and legend) will be used.\n- If set to `flush`, only the specified width and height values for the sub-view will be used. The `flush` setting can be useful when attempting to place sub-plots without axes or legends into a uniform grid structure.\n\n__Default value:__ `\"full\"`",
-          "enum": [
-            "full",
-            "flush"
-          ],
+          "enum": ["full", "flush"],
           "type": "string"
         },
         "center": {
@@ -4260,9 +4054,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "mark"
-      ],
+      "required": ["mark"],
       "type": "object"
     },
     "Field": {
@@ -4347,19 +4139,14 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "type": {
           "$ref": "#/definitions/StandardType",
           "description": "The encoded field's type of measurement (`\"quantitative\"`, `\"temporal\"`, `\"ordinal\"`, or `\"nominal\"`).\nIt can also be a `\"geojson\"` type for encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).\n\n\n__Note:__\n\n- Data values for a temporal field can be either a date-time string (e.g., `\"2015-03-07 12:32:17\"`, `\"17:01\"`, `\"2015-03-16\"`. `\"2015\"`) or a timestamp number (e.g., `1552199579097`).\n- Data `type` describes the semantics of the data rather than the primitive data types (`number`, `string`, etc.). The same primitive data type can have different types of measurement. For example, numeric data can represent quantitative, ordinal, or nominal data.\n- When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type` property can be either `\"quantitative\"` (for using a linear bin scale) or [`\"ordinal\"` (for using an ordinal bin scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the `type` property can be either `\"temporal\"` (for using a temporal scale) or [`\"ordinal\"` (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html), the `type` property refers to the post-aggregation data type. For example, we can calculate count `distinct` of a categorical field `\"cat\"` using `{\"aggregate\": \"distinct\", \"field\": \"cat\", \"type\": \"quantitative\"}`. The `\"type\"` of the aggregate output is `\"quantitative\"`.\n- Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they have exactly the same type as their primary channels (e.g., `x`, `y`)."
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "FieldDefWithCondition<MarkPropFieldDef,number>": {
@@ -4434,19 +4221,14 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "type": {
           "$ref": "#/definitions/StandardType",
           "description": "The encoded field's type of measurement (`\"quantitative\"`, `\"temporal\"`, `\"ordinal\"`, or `\"nominal\"`).\nIt can also be a `\"geojson\"` type for encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).\n\n\n__Note:__\n\n- Data values for a temporal field can be either a date-time string (e.g., `\"2015-03-07 12:32:17\"`, `\"17:01\"`, `\"2015-03-16\"`. `\"2015\"`) or a timestamp number (e.g., `1552199579097`).\n- Data `type` describes the semantics of the data rather than the primitive data types (`number`, `string`, etc.). The same primitive data type can have different types of measurement. For example, numeric data can represent quantitative, ordinal, or nominal data.\n- When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type` property can be either `\"quantitative\"` (for using a linear bin scale) or [`\"ordinal\"` (for using an ordinal bin scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the `type` property can be either `\"temporal\"` (for using a temporal scale) or [`\"ordinal\"` (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html), the `type` property refers to the post-aggregation data type. For example, we can calculate count `distinct` of a categorical field `\"cat\"` using `{\"aggregate\": \"distinct\", \"field\": \"cat\", \"type\": \"quantitative\"}`. The `\"type\"` of the aggregate output is `\"quantitative\"`.\n- Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they have exactly the same type as their primary channels (e.g., `x`, `y`)."
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "FieldDefWithCondition<MarkPropFieldDef<TypeForShape>,(string|null)>": {
@@ -4521,19 +4303,14 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "type": {
           "$ref": "#/definitions/TypeForShape",
           "description": "The encoded field's type of measurement (`\"quantitative\"`, `\"temporal\"`, `\"ordinal\"`, or `\"nominal\"`).\nIt can also be a `\"geojson\"` type for encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).\n\n\n__Note:__\n\n- Data values for a temporal field can be either a date-time string (e.g., `\"2015-03-07 12:32:17\"`, `\"17:01\"`, `\"2015-03-16\"`. `\"2015\"`) or a timestamp number (e.g., `1552199579097`).\n- Data `type` describes the semantics of the data rather than the primitive data types (`number`, `string`, etc.). The same primitive data type can have different types of measurement. For example, numeric data can represent quantitative, ordinal, or nominal data.\n- When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type` property can be either `\"quantitative\"` (for using a linear bin scale) or [`\"ordinal\"` (for using an ordinal bin scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the `type` property can be either `\"temporal\"` (for using a temporal scale) or [`\"ordinal\"` (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html), the `type` property refers to the post-aggregation data type. For example, we can calculate count `distinct` of a categorical field `\"cat\"` using `{\"aggregate\": \"distinct\", \"field\": \"cat\", \"type\": \"quantitative\"}`. The `\"type\"` of the aggregate output is `\"quantitative\"`.\n- Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they have exactly the same type as their primary channels (e.g., `x`, `y`)."
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "FieldDefWithCondition<TextFieldDef,Value>": {
@@ -4553,9 +4330,7 @@
               "$ref": "#/definitions/BinParams"
             },
             {
-              "enum": [
-                "binned"
-              ],
+              "enum": ["binned"],
               "type": "string"
             },
             {
@@ -4588,10 +4363,7 @@
         },
         "formatType": {
           "description": "The format type for labels (`\"number\"` or `\"time\"`).\n\n__Default value:__\n- `\"time\"` for temporal fields and ordinal and nomimal fields with `timeUnit`.\n- `\"number\"` for quantitative fields as well as ordinal and nomimal fields without `timeUnit`.",
-          "enum": [
-            "number",
-            "time"
-          ],
+          "enum": ["number", "time"],
           "type": "string"
         },
         "timeUnit": {
@@ -4600,19 +4372,14 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "type": {
           "$ref": "#/definitions/StandardType",
           "description": "The encoded field's type of measurement (`\"quantitative\"`, `\"temporal\"`, `\"ordinal\"`, or `\"nominal\"`).\nIt can also be a `\"geojson\"` type for encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).\n\n\n__Note:__\n\n- Data values for a temporal field can be either a date-time string (e.g., `\"2015-03-07 12:32:17\"`, `\"17:01\"`, `\"2015-03-16\"`. `\"2015\"`) or a timestamp number (e.g., `1552199579097`).\n- Data `type` describes the semantics of the data rather than the primitive data types (`number`, `string`, etc.). The same primitive data type can have different types of measurement. For example, numeric data can represent quantitative, ordinal, or nominal data.\n- When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type` property can be either `\"quantitative\"` (for using a linear bin scale) or [`\"ordinal\"` (for using an ordinal bin scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the `type` property can be either `\"temporal\"` (for using a temporal scale) or [`\"ordinal\"` (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html), the `type` property refers to the post-aggregation data type. For example, we can calculate count `distinct` of a categorical field `\"cat\"` using `{\"aggregate\": \"distinct\", \"field\": \"cat\", \"type\": \"quantitative\"}`. The `\"type\"` of the aggregate output is `\"quantitative\"`.\n- Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they have exactly the same type as their primary channels (e.g., `x`, `y`)."
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "FieldDefWithoutScale": {
@@ -4648,10 +4415,7 @@
           "description": "Time unit for the field to be filtered."
         }
       },
-      "required": [
-        "equal",
-        "field"
-      ],
+      "required": ["equal", "field"],
       "type": "object"
     },
     "FieldGTEPredicate": {
@@ -4680,10 +4444,7 @@
           "description": "Time unit for the field to be filtered."
         }
       },
-      "required": [
-        "field",
-        "gte"
-      ],
+      "required": ["field", "gte"],
       "type": "object"
     },
     "FieldGTPredicate": {
@@ -4712,10 +4473,7 @@
           "description": "Time unit for the field to be filtered."
         }
       },
-      "required": [
-        "field",
-        "gt"
-      ],
+      "required": ["field", "gt"],
       "type": "object"
     },
     "FieldLTEPredicate": {
@@ -4744,10 +4502,7 @@
           "description": "Time unit for the field to be filtered."
         }
       },
-      "required": [
-        "field",
-        "lte"
-      ],
+      "required": ["field", "lte"],
       "type": "object"
     },
     "FieldLTPredicate": {
@@ -4776,10 +4531,7 @@
           "description": "Time unit for the field to be filtered."
         }
       },
-      "required": [
-        "field",
-        "lt"
-      ],
+      "required": ["field", "lt"],
       "type": "object"
     },
     "FieldName": {
@@ -4826,10 +4578,7 @@
           "description": "Time unit for the field to be filtered."
         }
       },
-      "required": [
-        "field",
-        "oneOf"
-      ],
+      "required": ["field", "oneOf"],
       "type": "object"
     },
     "FieldRangePredicate": {
@@ -4863,10 +4612,7 @@
           "description": "Time unit for the field to be filtered."
         }
       },
-      "required": [
-        "field",
-        "range"
-      ],
+      "required": ["field", "range"],
       "type": "object"
     },
     "FieldValidPredicate": {
@@ -4885,10 +4631,7 @@
           "type": "boolean"
         }
       },
-      "required": [
-        "field",
-        "valid"
-      ],
+      "required": ["field", "valid"],
       "type": "object"
     },
     "FilterTransform": {
@@ -4899,9 +4642,7 @@
           "description": "The `filter` property must be one of the predicate definitions:\n\n1) an [expression](https://vega.github.io/vega-lite/docs/types.html#expression) string,\nwhere `datum` can be used to refer to the current data object\n\n2) one of the field predicates: [`equal`](https://vega.github.io/vega-lite/docs/filter.html#equal-predicate),\n[`lt`](https://vega.github.io/vega-lite/docs/filter.html#lt-predicate),\n[`lte`](https://vega.github.io/vega-lite/docs/filter.html#lte-predicate),\n[`gt`](https://vega.github.io/vega-lite/docs/filter.html#gt-predicate),\n[`gte`](https://vega.github.io/vega-lite/docs/filter.html#gte-predicate),\n[`range`](https://vega.github.io/vega-lite/docs/filter.html#range-predicate),\n[`oneOf`](https://vega.github.io/vega-lite/docs/filter.html#one-of-predicate),\nor [`valid`](https://vega.github.io/vega-lite/docs/filter.html#valid-predicate),\n\n3) a [selection predicate](https://vega.github.io/vega-lite/docs/filter.html#selection-predicate)\n\n4) a logical operand that combines (1), (2), or (3)."
         }
       },
-      "required": [
-        "filter"
-      ],
+      "required": ["filter"],
       "type": "object"
     },
     "FlattenTransform": {
@@ -4922,9 +4663,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "flatten"
-      ],
+      "required": ["flatten"],
       "type": "object"
     },
     "FoldTransform": {
@@ -4952,34 +4691,15 @@
           "type": "array"
         }
       },
-      "required": [
-        "fold"
-      ],
+      "required": ["fold"],
       "type": "object"
     },
     "FontStyle": {
       "type": "string"
     },
     "FontWeight": {
-      "enum": [
-        "normal",
-        "bold",
-        "lighter",
-        "bolder",
-        100,
-        200,
-        300,
-        400,
-        500,
-        600,
-        700,
-        800,
-        900
-      ],
-      "type": [
-        "string",
-        "number"
-      ]
+      "enum": ["normal", "bold", "lighter", "bolder", 100, 200, 300, 400, 500, 600, 700, 800, 900],
+      "type": ["string", "number"]
     },
     "Generator": {
       "anyOf": [
@@ -5011,10 +4731,7 @@
         },
         "bounds": {
           "description": "The bounds calculation method to use for determining the extent of a sub-plot. One of `full` (the default) or `flush`.\n\n- If set to `full`, the entire calculated bounds (including axes, title, and legend) will be used.\n- If set to `flush`, only the specified width and height values for the sub-view will be used. The `flush` setting can be useful when attempting to place sub-plots without axes or legends into a uniform grid structure.\n\n__Default value:__ `\"full\"`",
-          "enum": [
-            "full",
-            "flush"
-          ],
+          "enum": ["full", "flush"],
           "type": "string"
         },
         "center": {
@@ -5085,9 +4802,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "concat"
-      ],
+      "required": ["concat"],
       "type": "object"
     },
     "FacetSpec": {
@@ -5107,10 +4822,7 @@
         },
         "bounds": {
           "description": "The bounds calculation method to use for determining the extent of a sub-plot. One of `full` (the default) or `flush`.\n\n- If set to `full`, the entire calculated bounds (including axes, title, and legend) will be used.\n- If set to `flush`, only the specified width and height values for the sub-view will be used. The `flush` setting can be useful when attempting to place sub-plots without axes or legends into a uniform grid structure.\n\n__Default value:__ `\"full\"`",
-          "enum": [
-            "full",
-            "flush"
-          ],
+          "enum": ["full", "flush"],
           "type": "string"
         },
         "center": {
@@ -5196,10 +4908,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "facet",
-        "spec"
-      ],
+      "required": ["facet", "spec"],
       "type": "object"
     },
     "HConcatSpec": {
@@ -5208,10 +4917,7 @@
       "properties": {
         "bounds": {
           "description": "The bounds calculation method to use for determining the extent of a sub-plot. One of `full` (the default) or `flush`.\n\n- If set to `full`, the entire calculated bounds (including axes, title, and legend) will be used.\n- If set to `flush`, only the specified width and height values for the sub-view will be used. The `flush` setting can be useful when attempting to place sub-plots without axes or legends into a uniform grid structure.\n\n__Default value:__ `\"full\"`",
-          "enum": [
-            "full",
-            "flush"
-          ],
+          "enum": ["full", "flush"],
           "type": "string"
         },
         "center": {
@@ -5264,9 +4970,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "hconcat"
-      ],
+      "required": ["hconcat"],
       "type": "object"
     },
     "RepeatSpec": {
@@ -5286,10 +4990,7 @@
         },
         "bounds": {
           "description": "The bounds calculation method to use for determining the extent of a sub-plot. One of `full` (the default) or `flush`.\n\n- If set to `full`, the entire calculated bounds (including axes, title, and legend) will be used.\n- If set to `flush`, only the specified width and height values for the sub-view will be used. The `flush` setting can be useful when attempting to place sub-plots without axes or legends into a uniform grid structure.\n\n__Default value:__ `\"full\"`",
-          "enum": [
-            "full",
-            "flush"
-          ],
+          "enum": ["full", "flush"],
           "type": "string"
         },
         "center": {
@@ -5371,10 +5072,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "repeat",
-        "spec"
-      ],
+      "required": ["repeat", "spec"],
       "type": "object"
     },
     "Spec": {
@@ -5469,9 +5167,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "mark"
-      ],
+      "required": ["mark"],
       "type": "object"
     },
     "VConcatSpec": {
@@ -5480,10 +5176,7 @@
       "properties": {
         "bounds": {
           "description": "The bounds calculation method to use for determining the extent of a sub-plot. One of `full` (the default) or `flush`.\n\n- If set to `full`, the entire calculated bounds (including axes, title, and legend) will be used.\n- If set to `flush`, only the specified width and height values for the sub-view will be used. The `flush` setting can be useful when attempting to place sub-plots without axes or legends into a uniform grid structure.\n\n__Default value:__ `\"full\"`",
-          "enum": [
-            "full",
-            "flush"
-          ],
+          "enum": ["full", "flush"],
           "type": "string"
         },
         "center": {
@@ -5536,9 +5229,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "vconcat"
-      ],
+      "required": ["vconcat"],
       "type": "object"
     },
     "GraticuleGenerator": {
@@ -5547,9 +5238,7 @@
         "graticule": {
           "anyOf": [
             {
-              "enum": [
-                true
-              ],
+              "enum": [true],
               "type": "boolean"
             },
             {
@@ -5563,9 +5252,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "graticule"
-      ],
+      "required": ["graticule"],
       "type": "object"
     },
     "GraticuleParams": {
@@ -5639,10 +5326,7 @@
         },
         "formatType": {
           "description": "The format type for labels (`\"number\"` or `\"time\"`).\n\n__Default value:__\n- `\"time\"` for temporal fields and ordinal and nomimal fields with `timeUnit`.\n- `\"number\"` for quantitative fields as well as ordinal and nomimal fields without `timeUnit`.",
-          "enum": [
-            "number",
-            "time"
-          ],
+          "enum": ["number", "time"],
           "type": "string"
         },
         "labelAlign": {
@@ -5686,10 +5370,7 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "titleAlign": {
           "$ref": "#/definitions/Align",
@@ -5750,10 +5431,7 @@
         },
         "formatType": {
           "description": "The format type for labels (`\"number\"` or `\"time\"`).\n\n__Default value:__\n- `\"time\"` for temporal fields and ordinal and nomimal fields with `timeUnit`.\n- `\"number\"` for quantitative fields as well as ordinal and nomimal fields without `timeUnit`.",
-          "enum": [
-            "number",
-            "time"
-          ],
+          "enum": ["number", "time"],
           "type": "string"
         },
         "labelAlign": {
@@ -5854,13 +5532,7 @@
       "type": "object"
     },
     "ImputeMethod": {
-      "enum": [
-        "value",
-        "median",
-        "max",
-        "min",
-        "mean"
-      ],
+      "enum": ["value", "median", "max", "min", "mean"],
       "type": "string"
     },
     "ImputeParams": {
@@ -5869,18 +5541,14 @@
         "frame": {
           "description": "A frame specification as a two-element array used to control the window over which the specified method is applied. The array entries should either be a number indicating the offset from the current data object, or null to indicate unbounded rows preceding or following the current data object.  For example, the value `[-5, 5]` indicates that the window should include five objects preceding and five objects following the current object.\n\n__Default value:__:  `[null, null]` indicating that the window includes all objects.",
           "items": {
-            "type": [
-              "null",
-              "number"
-            ]
+            "type": ["null", "number"]
           },
           "type": "array"
         },
         "keyvals": {
           "anyOf": [
             {
-              "items": {
-              },
+              "items": {},
               "type": "array"
             },
             {
@@ -5915,9 +5583,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "stop"
-      ],
+      "required": ["stop"],
       "type": "object"
     },
     "ImputeTransform": {
@@ -5926,10 +5592,7 @@
         "frame": {
           "description": "A frame specification as a two-element array used to control the window over which the specified method is applied. The array entries should either be a number indicating the offset from the current data object, or null to indicate unbounded rows preceding or following the current data object.  For example, the value `[-5, 5]` indicates that the window should include five objects preceding and five objects following the current object.\n\n__Default value:__:  `[null, null]` indicating that the window includes all objects.",
           "items": {
-            "type": [
-              "null",
-              "number"
-            ]
+            "type": ["null", "number"]
           },
           "type": "array"
         },
@@ -5951,8 +5614,7 @@
         "keyvals": {
           "anyOf": [
             {
-              "items": {
-              },
+              "items": {},
               "type": "array"
             },
             {
@@ -5969,10 +5631,7 @@
           "description": "The field value to use when the imputation `method` is `\"value\"`."
         }
       },
-      "required": [
-        "impute",
-        "key"
-      ],
+      "required": ["impute", "key"],
       "type": "object"
     },
     "InlineData": {
@@ -5991,9 +5650,7 @@
           "description": "The full data set, included inline. This can be an array of objects or primitive values, an object, or a string.\nArrays of primitive values are ingested as objects with a `data` property. Strings are parsed according to the specified format type."
         }
       },
-      "required": [
-        "values"
-      ],
+      "required": ["values"],
       "type": "object"
     },
     "InlineDataset": {
@@ -6080,9 +5737,7 @@
       "properties": {
         "bind": {
           "description": "Establishes a two-way binding between the interval selection and the scales\nused within the same view. This allows a user to interactively pan and\nzoom the view.",
-          "enum": [
-            "scales"
-          ],
+          "enum": ["scales"],
           "type": "string"
         },
         "clear": {
@@ -6098,10 +5753,7 @@
         },
         "empty": {
           "description": "By default, `all` data values are considered to lie within an empty selection.\nWhen set to `none`, empty selections contain no data values.",
-          "enum": [
-            "all",
-            "none"
-          ],
+          "enum": ["all", "none"],
           "type": "string"
         },
         "encodings": {
@@ -6136,28 +5788,18 @@
         },
         "translate": {
           "description": "When truthy, allows a user to interactively move an interval selection\nback-and-forth. Can be `true`, `false` (to disable panning), or a\n[Vega event stream definition](https://vega.github.io/vega/docs/event-streams/)\nwhich must include a start and end event to trigger continuous panning.\n\n__Default value:__ `true`, which corresponds to\n`[mousedown, window:mouseup] > window:mousemove!` which corresponds to\nclicks and dragging within an interval selection to reposition it.",
-          "type": [
-            "string",
-            "boolean"
-          ]
+          "type": ["string", "boolean"]
         },
         "type": {
-          "enum": [
-            "interval"
-          ],
+          "enum": ["interval"],
           "type": "string"
         },
         "zoom": {
           "description": "When truthy, allows a user to interactively resize an interval selection.\nCan be `true`, `false` (to disable zooming), or a [Vega event stream\ndefinition](https://vega.github.io/vega/docs/event-streams/). Currently,\nonly `wheel` events are supported.\n\n\n__Default value:__ `true`, which corresponds to `wheel!`.",
-          "type": [
-            "string",
-            "boolean"
-          ]
+          "type": ["string", "boolean"]
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "IntervalSelectionConfig": {
@@ -6165,9 +5807,7 @@
       "properties": {
         "bind": {
           "description": "Establishes a two-way binding between the interval selection and the scales\nused within the same view. This allows a user to interactively pan and\nzoom the view.",
-          "enum": [
-            "scales"
-          ],
+          "enum": ["scales"],
           "type": "string"
         },
         "clear": {
@@ -6183,10 +5823,7 @@
         },
         "empty": {
           "description": "By default, `all` data values are considered to lie within an empty selection.\nWhen set to `none`, empty selections contain no data values.",
-          "enum": [
-            "all",
-            "none"
-          ],
+          "enum": ["all", "none"],
           "type": "string"
         },
         "encodings": {
@@ -6221,17 +5858,11 @@
         },
         "translate": {
           "description": "When truthy, allows a user to interactively move an interval selection\nback-and-forth. Can be `true`, `false` (to disable panning), or a\n[Vega event stream definition](https://vega.github.io/vega/docs/event-streams/)\nwhich must include a start and end event to trigger continuous panning.\n\n__Default value:__ `true`, which corresponds to\n`[mousedown, window:mouseup] > window:mousemove!` which corresponds to\nclicks and dragging within an interval selection to reposition it.",
-          "type": [
-            "string",
-            "boolean"
-          ]
+          "type": ["string", "boolean"]
         },
         "zoom": {
           "description": "When truthy, allows a user to interactively resize an interval selection.\nCan be `true`, `false` (to disable zooming), or a [Vega event stream\ndefinition](https://vega.github.io/vega/docs/event-streams/). Currently,\nonly `wheel` events are supported.\n\n\n__Default value:__ `true`, which corresponds to `wheel!`.",
-          "type": [
-            "string",
-            "boolean"
-          ]
+          "type": ["string", "boolean"]
         }
       },
       "type": "object"
@@ -6252,10 +5883,7 @@
           "description": "The aggregation operation to apply (e.g., sum, average or count). See the list of all supported operations [here](https://vega.github.io/vega-lite/docs/aggregate.html#ops)."
         }
       },
-      "required": [
-        "op",
-        "as"
-      ],
+      "required": ["op", "as"],
       "type": "object"
     },
     "JoinAggregateTransform": {
@@ -6276,9 +5904,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "joinaggregate"
-      ],
+      "required": ["joinaggregate"],
       "type": "object"
     },
     "JsonDataFormat": {
@@ -6301,9 +5927,7 @@
         },
         "type": {
           "description": "Type of input data: `\"json\"`, `\"csv\"`, `\"tsv\"`, `\"dsv\"`.\n\n__Default value:__  The default format type is determined by the extension of the file URL.\nIf no extension is detected, `\"json\"` will be used by default.",
-          "enum": [
-            "json"
-          ],
+          "enum": ["json"],
           "type": "string"
         }
       },
@@ -6315,15 +5939,11 @@
           "type": "boolean"
         },
         {
-          "enum": [
-            "parity"
-          ],
+          "enum": ["parity"],
           "type": "string"
         },
         {
-          "enum": [
-            "greedy"
-          ],
+          "enum": ["greedy"],
           "type": "string"
         }
       ]
@@ -6349,16 +5969,11 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "type": {
           "description": "The encoded field's type of measurement (`\"quantitative\"`, `\"temporal\"`, `\"ordinal\"`, or `\"nominal\"`).\nIt can also be a `\"geojson\"` type for encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).\n\n\n__Note:__\n\n- Data values for a temporal field can be either a date-time string (e.g., `\"2015-03-07 12:32:17\"`, `\"17:01\"`, `\"2015-03-16\"`. `\"2015\"`) or a timestamp number (e.g., `1552199579097`).\n- Data `type` describes the semantics of the data rather than the primitive data types (`number`, `string`, etc.). The same primitive data type can have different types of measurement. For example, numeric data can represent quantitative, ordinal, or nominal data.\n- When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type` property can be either `\"quantitative\"` (for using a linear bin scale) or [`\"ordinal\"` (for using an ordinal bin scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the `type` property can be either `\"temporal\"` (for using a temporal scale) or [`\"ordinal\"` (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html), the `type` property refers to the post-aggregation data type. For example, we can calculate count `distinct` of a categorical field `\"cat\"` using `{\"aggregate\": \"distinct\", \"field\": \"cat\", \"type\": \"quantitative\"}`. The `\"type\"` of the aggregate output is `\"quantitative\"`.\n- Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they have exactly the same type as their primary channels (e.g., `x`, `y`).",
-          "enum": [
-            "quantitative"
-          ],
+          "enum": ["quantitative"],
           "type": "string"
         }
       },
@@ -6437,31 +6052,21 @@
           "type": "number"
         }
       },
-      "required": [
-        "layer"
-      ],
+      "required": ["layer"],
       "type": "object"
     },
     "LayoutAlign": {
-      "enum": [
-        "all",
-        "each",
-        "none"
-      ],
+      "enum": ["all", "each", "none"],
       "type": "string"
     },
     "LayoutBounds": {
       "anyOf": [
         {
-          "enum": [
-            "full"
-          ],
+          "enum": ["full"],
           "type": "string"
         },
         {
-          "enum": [
-            "flush"
-          ],
+          "enum": ["flush"],
           "type": "string"
         },
         {
@@ -6503,10 +6108,7 @@
         },
         "formatType": {
           "description": "The format type for labels (`\"number\"` or `\"time\"`).\n\n__Default value:__\n- `\"time\"` for temporal fields and ordinal and nomimal fields with `timeUnit`.\n- `\"number\"` for quantitative fields as well as ordinal and nomimal fields without `timeUnit`.",
-          "enum": [
-            "number",
-            "time"
-          ],
+          "enum": ["number", "time"],
           "type": "string"
         },
         "gradientLength": {
@@ -6668,10 +6270,7 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "titleAlign": {
           "$ref": "#/definitions/Align",
@@ -6724,10 +6323,7 @@
         },
         "type": {
           "description": "The type of the legend. Use `\"symbol\"` to create a discrete legend and `\"gradient\"` for a continuous color gradient.\n\n__Default value:__ `\"gradient\"` for non-binned quantitative fields and temporal fields; `\"symbol\"` otherwise.",
-          "enum": [
-            "symbol",
-            "gradient"
-          ],
+          "enum": ["symbol", "gradient"],
           "type": "string"
         },
         "values": {
@@ -7128,17 +6724,7 @@
       "type": "object"
     },
     "LegendOrient": {
-      "enum": [
-        "none",
-        "left",
-        "right",
-        "top",
-        "bottom",
-        "top-left",
-        "top-right",
-        "bottom-left",
-        "bottom-right"
-      ],
+      "enum": ["none", "left", "right", "top", "bottom", "top-left", "top-right", "bottom-left", "bottom-right"],
       "type": "string"
     },
     "LegendResolveMap": {
@@ -7270,10 +6856,7 @@
         },
         "order": {
           "description": "For line and trail marks, this `order` property can be set to `null` or `false` to make the lines use the original order in the data sources.",
-          "type": [
-            "null",
-            "boolean"
-          ]
+          "type": ["null", "boolean"]
         },
         "orient": {
           "$ref": "#/definitions/Orientation",
@@ -7288,9 +6871,7 @@
               "$ref": "#/definitions/OverlayMarkDef"
             },
             {
-              "enum": [
-                "transparent"
-              ],
+              "enum": ["transparent"],
               "type": "string"
             }
           ],
@@ -7415,17 +6996,7 @@
       "type": "string"
     },
     "LocalSingleTimeUnit": {
-      "enum": [
-        "year",
-        "quarter",
-        "month",
-        "day",
-        "date",
-        "hours",
-        "minutes",
-        "seconds",
-        "milliseconds"
-      ],
+      "enum": ["year", "quarter", "month", "day", "date", "hours", "minutes", "seconds", "milliseconds"],
       "type": "string"
     },
     "LogicalAnd<Predicate>": {
@@ -7438,9 +7009,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "and"
-      ],
+      "required": ["and"],
       "type": "object"
     },
     "SelectionAnd": {
@@ -7453,9 +7022,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "and"
-      ],
+      "required": ["and"],
       "type": "object"
     },
     "LogicalNot<Predicate>": {
@@ -7465,9 +7032,7 @@
           "$ref": "#/definitions/LogicalOperand<Predicate>"
         }
       },
-      "required": [
-        "not"
-      ],
+      "required": ["not"],
       "type": "object"
     },
     "SelectionNot": {
@@ -7477,9 +7042,7 @@
           "$ref": "#/definitions/SelectionOperand"
         }
       },
-      "required": [
-        "not"
-      ],
+      "required": ["not"],
       "type": "object"
     },
     "LogicalOperand<Predicate>": {
@@ -7524,9 +7087,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "or"
-      ],
+      "required": ["or"],
       "type": "object"
     },
     "SelectionOr": {
@@ -7539,9 +7100,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "or"
-      ],
+      "required": ["or"],
       "type": "object"
     },
     "LookupData": {
@@ -7563,10 +7122,7 @@
           "description": "Key in data to lookup."
         }
       },
-      "required": [
-        "data",
-        "key"
-      ],
+      "required": ["data", "key"],
       "type": "object"
     },
     "LookupTransform": {
@@ -7599,28 +7155,12 @@
           "description": "Key in primary data source."
         }
       },
-      "required": [
-        "lookup",
-        "from"
-      ],
+      "required": ["lookup", "from"],
       "type": "object"
     },
     "Mark": {
       "description": "All types of primitive marks.",
-      "enum": [
-        "area",
-        "bar",
-        "line",
-        "trail",
-        "point",
-        "text",
-        "tick",
-        "rect",
-        "rule",
-        "circle",
-        "square",
-        "geoshape"
-      ],
+      "enum": ["area", "bar", "line", "trail", "point", "text", "tick", "rect", "rule", "circle", "square", "geoshape"],
       "type": "string"
     },
     "MarkConfig": {
@@ -7719,10 +7259,7 @@
         },
         "order": {
           "description": "For line and trail marks, this `order` property can be set to `null` or `false` to make the lines use the original order in the data sources.",
-          "type": [
-            "null",
-            "boolean"
-          ]
+          "type": ["null", "boolean"]
         },
         "orient": {
           "$ref": "#/definitions/Orientation",
@@ -7943,10 +7480,7 @@
         },
         "order": {
           "description": "For line and trail marks, this `order` property can be set to `null` or `false` to make the lines use the original order in the data sources.",
-          "type": [
-            "null",
-            "boolean"
-          ]
+          "type": ["null", "boolean"]
         },
         "orient": {
           "$ref": "#/definitions/Orientation",
@@ -7961,9 +7495,7 @@
               "$ref": "#/definitions/OverlayMarkDef"
             },
             {
-              "enum": [
-                "transparent"
-              ],
+              "enum": ["transparent"],
               "type": "string"
             }
           ],
@@ -8105,9 +7637,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "Month": {
@@ -8131,10 +7661,7 @@
         },
         "empty": {
           "description": "By default, `all` data values are considered to lie within an empty selection.\nWhen set to `none`, empty selections contain no data values.",
-          "enum": [
-            "all",
-            "none"
-          ],
+          "enum": ["all", "none"],
           "type": "string"
         },
         "encodings": {
@@ -8179,21 +7706,14 @@
         },
         "toggle": {
           "description": "Controls whether data values should be toggled or only ever inserted into\nmulti selections. Can be `true`, `false` (for insertion only), or a\n[Vega expression](https://vega.github.io/vega/docs/expressions/).\n\n__Default value:__ `true`, which corresponds to `event.shiftKey` (i.e.,\ndata values are toggled when a user interacts with the shift-key pressed).\n\nSee the [toggle transform](https://vega.github.io/vega-lite/docs/toggle.html) documentation for more information.",
-          "type": [
-            "string",
-            "boolean"
-          ]
+          "type": ["string", "boolean"]
         },
         "type": {
-          "enum": [
-            "multi"
-          ],
+          "enum": ["multi"],
           "type": "string"
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "MultiSelectionConfig": {
@@ -8212,10 +7732,7 @@
         },
         "empty": {
           "description": "By default, `all` data values are considered to lie within an empty selection.\nWhen set to `none`, empty selections contain no data values.",
-          "enum": [
-            "all",
-            "none"
-          ],
+          "enum": ["all", "none"],
           "type": "string"
         },
         "encodings": {
@@ -8260,10 +7777,7 @@
         },
         "toggle": {
           "description": "Controls whether data values should be toggled or only ever inserted into\nmulti selections. Can be `true`, `false` (for insertion only), or a\n[Vega expression](https://vega.github.io/vega/docs/expressions/).\n\n__Default value:__ `true`, which corresponds to `event.shiftKey` (i.e.,\ndata values are toggled when a user interacts with the shift-key pressed).\n\nSee the [toggle transform](https://vega.github.io/vega-lite/docs/toggle.html) documentation for more information.",
-          "type": [
-            "string",
-            "boolean"
-          ]
+          "type": ["string", "boolean"]
         }
       },
       "type": "object"
@@ -8290,21 +7804,11 @@
           "type": "string"
         }
       },
-      "required": [
-        "name"
-      ],
+      "required": ["name"],
       "type": "object"
     },
     "NiceTime": {
-      "enum": [
-        "second",
-        "minute",
-        "hour",
-        "day",
-        "week",
-        "month",
-        "year"
-      ],
+      "enum": ["second", "minute", "hour", "day", "week", "month", "year"],
       "type": "string"
     },
     "NumericFieldDefWithCondition": {
@@ -8329,9 +7833,7 @@
               "$ref": "#/definitions/BinParams"
             },
             {
-              "enum": [
-                "binned"
-              ],
+              "enum": ["binned"],
               "type": "string"
             },
             {
@@ -8354,35 +7856,22 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "type": {
           "$ref": "#/definitions/StandardType",
           "description": "The encoded field's type of measurement (`\"quantitative\"`, `\"temporal\"`, `\"ordinal\"`, or `\"nominal\"`).\nIt can also be a `\"geojson\"` type for encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).\n\n\n__Note:__\n\n- Data values for a temporal field can be either a date-time string (e.g., `\"2015-03-07 12:32:17\"`, `\"17:01\"`, `\"2015-03-16\"`. `\"2015\"`) or a timestamp number (e.g., `1552199579097`).\n- Data `type` describes the semantics of the data rather than the primitive data types (`number`, `string`, etc.). The same primitive data type can have different types of measurement. For example, numeric data can represent quantitative, ordinal, or nominal data.\n- When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type` property can be either `\"quantitative\"` (for using a linear bin scale) or [`\"ordinal\"` (for using an ordinal bin scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the `type` property can be either `\"temporal\"` (for using a temporal scale) or [`\"ordinal\"` (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html), the `type` property refers to the post-aggregation data type. For example, we can calculate count `distinct` of a categorical field `\"cat\"` using `{\"aggregate\": \"distinct\", \"field\": \"cat\", \"type\": \"quantitative\"}`. The `\"type\"` of the aggregate output is `\"quantitative\"`.\n- Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they have exactly the same type as their primary channels (e.g., `x`, `y`)."
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "Orient": {
-      "enum": [
-        "left",
-        "right",
-        "top",
-        "bottom"
-      ],
+      "enum": ["left", "right", "top", "bottom"],
       "type": "string"
     },
     "Orientation": {
-      "enum": [
-        "horizontal",
-        "vertical"
-      ],
+      "enum": ["horizontal", "vertical"],
       "type": "string"
     },
     "OverlayMarkDef": {
@@ -8485,10 +7974,7 @@
         },
         "order": {
           "description": "For line and trail marks, this `order` property can be set to `null` or `false` to make the lines use the original order in the data sources.",
-          "type": [
-            "null",
-            "boolean"
-          ]
+          "type": ["null", "boolean"]
         },
         "orient": {
           "$ref": "#/definitions/Orientation",
@@ -8664,27 +8150,19 @@
           "type": "string"
         },
         {
-          "enum": [
-            "string"
-          ],
+          "enum": ["string"],
           "type": "string"
         },
         {
-          "enum": [
-            "boolean"
-          ],
+          "enum": ["boolean"],
           "type": "string"
         },
         {
-          "enum": [
-            "date"
-          ],
+          "enum": ["date"],
           "type": "string"
         },
         {
-          "enum": [
-            "number"
-          ],
+          "enum": ["number"],
           "type": "string"
         }
       ]
@@ -8827,9 +8305,7 @@
               "$ref": "#/definitions/BinParams"
             },
             {
-              "enum": [
-                "binned"
-              ],
+              "enum": ["binned"],
               "type": "string"
             },
             {
@@ -8881,19 +8357,14 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "type": {
           "$ref": "#/definitions/StandardType",
           "description": "The encoded field's type of measurement (`\"quantitative\"`, `\"temporal\"`, `\"ordinal\"`, or `\"nominal\"`).\nIt can also be a `\"geojson\"` type for encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).\n\n\n__Note:__\n\n- Data values for a temporal field can be either a date-time string (e.g., `\"2015-03-07 12:32:17\"`, `\"17:01\"`, `\"2015-03-16\"`. `\"2015\"`) or a timestamp number (e.g., `1552199579097`).\n- Data `type` describes the semantics of the data rather than the primitive data types (`number`, `string`, etc.). The same primitive data type can have different types of measurement. For example, numeric data can represent quantitative, ordinal, or nominal data.\n- When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type` property can be either `\"quantitative\"` (for using a linear bin scale) or [`\"ordinal\"` (for using an ordinal bin scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the `type` property can be either `\"temporal\"` (for using a temporal scale) or [`\"ordinal\"` (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html), the `type` property refers to the post-aggregation data type. For example, we can calculate count `distinct` of a categorical field `\"cat\"` using `{\"aggregate\": \"distinct\", \"field\": \"cat\", \"type\": \"quantitative\"}`. The `\"type\"` of the aggregate output is `\"quantitative\"`.\n- Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they have exactly the same type as their primary channels (e.g., `x`, `y`)."
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "Predicate": {
@@ -9128,10 +8599,7 @@
       "anyOf": [
         {
           "items": {
-            "type": [
-              "number",
-              "string"
-            ]
+            "type": ["number", "string"]
           },
           "type": "array"
         },
@@ -9145,9 +8613,7 @@
               "type": "number"
             }
           },
-          "required": [
-            "step"
-          ],
+          "required": ["step"],
           "type": "object"
         }
       ]
@@ -9177,17 +8643,11 @@
       "description": "Reference to a repeated value.",
       "properties": {
         "repeat": {
-          "enum": [
-            "row",
-            "column",
-            "repeat"
-          ],
+          "enum": ["row", "column", "repeat"],
           "type": "string"
         }
       },
-      "required": [
-        "repeat"
-      ],
+      "required": ["repeat"],
       "type": "object"
     },
     "Resolve": {
@@ -9207,10 +8667,7 @@
       "type": "object"
     },
     "ResolveMode": {
-      "enum": [
-        "independent",
-        "shared"
-      ],
+      "enum": ["independent", "shared"],
       "type": "string"
     },
     "RowCol<LayoutAlign>": {
@@ -9257,9 +8714,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "sample"
-      ],
+      "required": ["sample"],
       "type": "object"
     },
     "Scale": {
@@ -9311,9 +8766,7 @@
               "type": "array"
             },
             {
-              "enum": [
-                "unaggregated"
-              ],
+              "enum": ["unaggregated"],
               "type": "string"
             },
             {
@@ -9358,17 +8811,14 @@
                   "type": "number"
                 }
               },
-              "required": [
-                "interval",
-                "step"
-              ],
+              "required": ["interval", "step"],
               "type": "object"
             }
           ],
           "description": "Extending the domain so that it starts and ends on nice round values. This method typically modifies the scale’s domain, and may only extend the bounds to the nearest round value. Nicing is useful if the domain is computed from data and may be irregular. For example, for a domain of _[0.201479…, 0.996679…]_, a nice domain might be _[0.2, 1.0]_.\n\nFor quantitative scales such as linear, `nice` can be either a boolean flag or a number. If `nice` is a number, it will represent a desired tick count. This allows greater control over the step size used to extend the bounds, guaranteeing that the returned ticks will exactly cover the domain.\n\nFor temporal fields with time and utc scales, the `nice` value can be a string indicating the desired time interval. Legal values are `\"millisecond\"`, `\"second\"`, `\"minute\"`, `\"hour\"`, `\"day\"`, `\"week\"`, `\"month\"`, and `\"year\"`. Alternatively, `time` and `utc` scales can accept an object-valued interval specifier of the form `{\"interval\": \"month\", \"step\": 3}`, which includes a desired number of interval steps. Here, the domain would snap to quarter (Jan, Apr, Jul, Oct) boundaries.\n\n__Default value:__ `true` for unbinned _quantitative_ fields; `false` otherwise."
         },
         "padding": {
-          "description": "For _[continuous](https://vega.github.io/vega-lite/docs/scale.html#continuous)_ scales, expands the scale domain to accommodate the specified number of pixels on each of the scale range. The scale range must represent pixels for this parameter to function as intended. Padding adjustment is performed prior to all other adjustments, including the effects of the `zero`, `nice`, `domainMin`, and `domainMax` properties.\n\nFor _[band](https://vega.github.io/vega-lite/docs/scale.html#band)_ scales, shortcut for setting `paddingInner` and `paddingOuter` to the same value.\n\nFor _[point](https://vega.github.io/vega-lite/docs/scale.html#point)_ scales, alias for `paddingOuter`.\n\n__Default value:__ For _continuous_ scales, derived from the [scale config](https://vega.github.io/vega-lite/docs/scale.html#config)'s `continuousPadding`.\nFor _band and point_ scales, see `paddingInner` and `paddingOuter`.",
+          "description": "For _[continuous](https://vega.github.io/vega-lite/docs/scale.html#continuous)_ scales, expands the scale domain to accommodate the specified number of pixels on each of the scale range. The scale range must represent pixels for this parameter to function as intended. Padding adjustment is performed prior to all other adjustments, including the effects of the `zero`, `nice`, `domainMin`, and `domainMax` properties.\n\nFor _[band](https://vega.github.io/vega-lite/docs/scale.html#band)_ scales, shortcut for setting `paddingInner` and `paddingOuter` to the same value.\n\nFor _[point](https://vega.github.io/vega-lite/docs/scale.html#point)_ scales, alias for `paddingOuter`.\n\n__Default value:__ For _continuous_ scales, derived from the [scale config](https://vega.github.io/vega-lite/docs/scale.html#config)'s `continuousPadding`.\nFor _band and point_ scales, see `paddingInner` and `paddingOuter`.",
           "minimum": 0,
           "type": "number"
         },
@@ -9407,10 +8857,7 @@
         "rangeStep": {
           "description": "The distance between the starts of adjacent bands or points in [band](https://vega.github.io/vega-lite/docs/scale.html#band) and [point](https://vega.github.io/vega-lite/docs/scale.html#point) scales.\n\nIf `rangeStep` is `null` or if the view contains the scale's corresponding [size](https://vega.github.io/vega-lite/docs/size.html) (`width` for `x` scales and `height` for `y` scales), `rangeStep` will be automatically determined to fit the size of the view.\n\n__Default value:__  derived the [scale config](https://vega.github.io/vega-lite/docs/config.html#scale-config)'s `textXRangeStep` (`90` by default) for x-scales of `text` marks and `rangeStep` (`21` by default) for x-scales of other marks and y-scales.\n\n__Warning__: If `rangeStep` is `null` and the cardinality of the scale's domain is higher than `width` or `height`, the rangeStep might become less than one pixel and the mark might not appear correctly.",
           "minimum": 0,
-          "type": [
-            "number",
-            "null"
-          ]
+          "type": ["number", "null"]
         },
         "round": {
           "description": "If `true`, rounds numeric output values to integers. This can be helpful for snapping to the pixel grid.\n\n__Default value:__ `false`.",
@@ -9545,10 +8992,7 @@
         "rangeStep": {
           "description": "Default range step for band and point scales of (1) the `y` channel\nand (2) the `x` channel when the mark is not `text`.\n\n__Default value:__ `20`",
           "minimum": 0,
-          "type": [
-            "number",
-            "null"
-          ]
+          "type": ["number", "null"]
         },
         "rectBandPaddingInner": {
           "description": "Default inner padding for `x` and `y` band-ordinal scales of `\"rect\"` marks.\n\n__Default value:__ `0`",
@@ -9579,16 +9023,7 @@
       "type": "object"
     },
     "ScaleInterpolate": {
-      "enum": [
-        "rgb",
-        "lab",
-        "hcl",
-        "hsl",
-        "hsl-long",
-        "hcl-long",
-        "cubehelix",
-        "cubehelix-long"
-      ],
+      "enum": ["rgb", "lab", "hcl", "hsl", "hsl-long", "hcl-long", "cubehelix", "cubehelix-long"],
       "type": "string"
     },
     "ScaleInterpolateParams": {
@@ -9598,17 +9033,11 @@
           "type": "number"
         },
         "type": {
-          "enum": [
-            "rgb",
-            "cubehelix",
-            "cubehelix-long"
-          ],
+          "enum": ["rgb", "cubehelix", "cubehelix-long"],
           "type": "string"
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "ScaleResolveMap": {
@@ -9685,9 +9114,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "scheme"
-      ],
+      "required": ["scheme"],
       "type": "object"
     },
     "SchemeParams": {
@@ -9709,9 +9136,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "name"
-      ],
+      "required": ["name"],
       "type": "object"
     },
     "SecondaryFieldDef": {
@@ -9736,10 +9161,7 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         }
       },
       "type": "object"
@@ -9789,9 +9211,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "selection"
-          ],
+          "required": ["selection"],
           "type": "object"
         },
         {
@@ -9806,9 +9226,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "selection"
-          ],
+          "required": ["selection"],
           "type": "object"
         }
       ]
@@ -9877,17 +9295,11 @@
           "description": "Filter using a selection name."
         }
       },
-      "required": [
-        "selection"
-      ],
+      "required": ["selection"],
       "type": "object"
     },
     "SelectionResolution": {
-      "enum": [
-        "global",
-        "union",
-        "intersect"
-      ],
+      "enum": ["global", "union", "intersect"],
       "type": "string"
     },
     "SequenceGenerator": {
@@ -9902,9 +9314,7 @@
           "description": "Generate a sequence of numbers."
         }
       },
-      "required": [
-        "sequence"
-      ],
+      "required": ["sequence"],
       "type": "object"
     },
     "SequenceParams": {
@@ -9927,10 +9337,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "start",
-        "stop"
-      ],
+      "required": ["start", "stop"],
       "type": "object"
     },
     "ShapeFieldDefWithCondition": {
@@ -9946,9 +9353,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "signal"
-      ],
+      "required": ["signal"],
       "type": "object"
     },
     "SingleDefUnitChannel": {
@@ -10007,10 +9412,7 @@
         },
         "empty": {
           "description": "By default, `all` data values are considered to lie within an empty selection.\nWhen set to `none`, empty selections contain no data values.",
-          "enum": [
-            "all",
-            "none"
-          ],
+          "enum": ["all", "none"],
           "type": "string"
         },
         "encodings": {
@@ -10044,15 +9446,11 @@
           "description": "With layered and multi-view displays, a strategy that determines how\nselections' data queries are resolved when applied in a filter transform,\nconditional encoding rule, or scale domain."
         },
         "type": {
-          "enum": [
-            "single"
-          ],
+          "enum": ["single"],
           "type": "string"
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "SingleSelectionConfig": {
@@ -10085,10 +9483,7 @@
         },
         "empty": {
           "description": "By default, `all` data values are considered to lie within an empty selection.\nWhen set to `none`, empty selections contain no data values.",
-          "enum": [
-            "all",
-            "none"
-          ],
+          "enum": ["all", "none"],
           "type": "string"
         },
         "encodings": {
@@ -10200,9 +9595,7 @@
           "description": "The sort order. One of `\"ascending\"` (default), `\"descending\"`, or `null` (no not sort)."
         }
       },
-      "required": [
-        "encoding"
-      ],
+      "required": ["encoding"],
       "type": "object"
     },
     "SortField": {
@@ -10225,16 +9618,11 @@
           "description": "Whether to sort the field in ascending or descending order. One of `\"ascending\"` (default), `\"descending\"`, or `null` (no not sort)."
         }
       },
-      "required": [
-        "field"
-      ],
+      "required": ["field"],
       "type": "object"
     },
     "SortOrder": {
-      "enum": [
-        "ascending",
-        "descending"
-      ],
+      "enum": ["ascending", "descending"],
       "type": "string"
     },
     "SphereGenerator": {
@@ -10247,9 +9635,7 @@
         "sphere": {
           "anyOf": [
             {
-              "enum": [
-                true
-              ],
+              "enum": [true],
               "type": "boolean"
             },
             {
@@ -10260,17 +9646,11 @@
           "description": "Generate sphere GeoJSON data for the full globe."
         }
       },
-      "required": [
-        "sphere"
-      ],
+      "required": ["sphere"],
       "type": "object"
     },
     "StackOffset": {
-      "enum": [
-        "zero",
-        "center",
-        "normalize"
-      ],
+      "enum": ["zero", "center", "normalize"],
       "type": "string"
     },
     "StackTransform": {
@@ -10299,11 +9679,7 @@
         },
         "offset": {
           "description": "Mode for stacking marks.\n__Default value:__ `\"zero\"`",
-          "enum": [
-            "zero",
-            "center",
-            "normalize"
-          ],
+          "enum": ["zero", "center", "normalize"],
           "type": "string"
         },
         "sort": {
@@ -10318,20 +9694,11 @@
           "description": "The field which is stacked."
         }
       },
-      "required": [
-        "stack",
-        "groupby",
-        "as"
-      ],
+      "required": ["stack", "groupby", "as"],
       "type": "object"
     },
     "StandardType": {
-      "enum": [
-        "quantitative",
-        "ordinal",
-        "temporal",
-        "nominal"
-      ],
+      "enum": ["quantitative", "ordinal", "temporal", "nominal"],
       "type": "string"
     },
     "StringFieldDefWithCondition<TypeForShape>": {
@@ -10347,19 +9714,11 @@
       "$ref": "#/definitions/ValueDefWithCondition<MarkPropFieldDef,(string|null)>"
     },
     "StrokeCap": {
-      "enum": [
-        "butt",
-        "round",
-        "square"
-      ],
+      "enum": ["butt", "round", "square"],
       "type": "string"
     },
     "StrokeJoin": {
-      "enum": [
-        "miter",
-        "round",
-        "bevel"
-      ],
+      "enum": ["miter", "round", "bevel"],
       "type": "string"
     },
     "StyleConfigIndex": {
@@ -10374,9 +9733,7 @@
     "TextBaseline": {
       "anyOf": [
         {
-          "enum": [
-            "alphabetic"
-          ],
+          "enum": ["alphabetic"],
           "type": "string"
         },
         {
@@ -10480,10 +9837,7 @@
         },
         "order": {
           "description": "For line and trail marks, this `order` property can be set to `null` or `false` to make the lines use the original order in the data sources.",
-          "type": [
-            "null",
-            "boolean"
-          ]
+          "type": ["null", "boolean"]
         },
         "orient": {
           "$ref": "#/definitions/Orientation",
@@ -10608,9 +9962,7 @@
               "$ref": "#/definitions/BinParams"
             },
             {
-              "enum": [
-                "binned"
-              ],
+              "enum": ["binned"],
               "type": "string"
             },
             {
@@ -10629,10 +9981,7 @@
         },
         "formatType": {
           "description": "The format type for labels (`\"number\"` or `\"time\"`).\n\n__Default value:__\n- `\"time\"` for temporal fields and ordinal and nomimal fields with `timeUnit`.\n- `\"number\"` for quantitative fields as well as ordinal and nomimal fields without `timeUnit`.",
-          "enum": [
-            "number",
-            "time"
-          ],
+          "enum": ["number", "time"],
           "type": "string"
         },
         "timeUnit": {
@@ -10641,19 +9990,14 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "type": {
           "$ref": "#/definitions/StandardType",
           "description": "The encoded field's type of measurement (`\"quantitative\"`, `\"temporal\"`, `\"ordinal\"`, or `\"nominal\"`).\nIt can also be a `\"geojson\"` type for encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).\n\n\n__Note:__\n\n- Data values for a temporal field can be either a date-time string (e.g., `\"2015-03-07 12:32:17\"`, `\"17:01\"`, `\"2015-03-16\"`. `\"2015\"`) or a timestamp number (e.g., `1552199579097`).\n- Data `type` describes the semantics of the data rather than the primitive data types (`number`, `string`, etc.). The same primitive data type can have different types of measurement. For example, numeric data can represent quantitative, ordinal, or nominal data.\n- When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type` property can be either `\"quantitative\"` (for using a linear bin scale) or [`\"ordinal\"` (for using an ordinal bin scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the `type` property can be either `\"temporal\"` (for using a temporal scale) or [`\"ordinal\"` (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html), the `type` property refers to the post-aggregation data type. For example, we can calculate count `distinct` of a categorical field `\"cat\"` using `{\"aggregate\": \"distinct\", \"field\": \"cat\", \"type\": \"quantitative\"}`. The `\"type\"` of the aggregate output is `\"quantitative\"`.\n- Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they have exactly the same type as their primary channels (e.g., `x`, `y`)."
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "TextFieldDefWithCondition": {
@@ -10763,10 +10107,7 @@
         },
         "order": {
           "description": "For line and trail marks, this `order` property can be set to `null` or `false` to make the lines use the original order in the data sources.",
-          "type": [
-            "null",
-            "boolean"
-          ]
+          "type": ["null", "boolean"]
         },
         "orient": {
           "$ref": "#/definitions/Orientation",
@@ -10902,43 +10243,22 @@
           "description": "The timeUnit."
         }
       },
-      "required": [
-        "timeUnit",
-        "field",
-        "as"
-      ],
+      "required": ["timeUnit", "field", "as"],
       "type": "object"
     },
     "TitleAnchor": {
-      "enum": [
-        null,
-        "start",
-        "middle",
-        "end"
-      ],
-      "type": [
-        "null",
-        "string"
-      ]
+      "enum": [null, "start", "middle", "end"],
+      "type": ["null", "string"]
     },
     "TitleConfig": {
       "$ref": "#/definitions/BaseTitleConfig"
     },
     "TitleFrame": {
-      "enum": [
-        "bounds",
-        "group"
-      ],
+      "enum": ["bounds", "group"],
       "type": "string"
     },
     "TitleOrient": {
-      "enum": [
-        "none",
-        "left",
-        "right",
-        "top",
-        "bottom"
-      ],
+      "enum": ["none", "left", "right", "top", "bottom"],
       "type": "string"
     },
     "TitleParams": {
@@ -11029,25 +10349,18 @@
           "type": "number"
         }
       },
-      "required": [
-        "text"
-      ],
+      "required": ["text"],
       "type": "object"
     },
     "TooltipContent": {
       "additionalProperties": false,
       "properties": {
         "content": {
-          "enum": [
-            "encoding",
-            "data"
-          ],
+          "enum": ["encoding", "data"],
           "type": "string"
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "type": "object"
     },
     "TopLevelConcatSpec": {
@@ -11086,10 +10399,7 @@
         },
         "bounds": {
           "description": "The bounds calculation method to use for determining the extent of a sub-plot. One of `full` (the default) or `flush`.\n\n- If set to `full`, the entire calculated bounds (including axes, title, and legend) will be used.\n- If set to `flush`, only the specified width and height values for the sub-view will be used. The `flush` setting can be useful when attempting to place sub-plots without axes or legends into a uniform grid structure.\n\n__Default value:__ `\"full\"`",
-          "enum": [
-            "full",
-            "flush"
-          ],
+          "enum": ["full", "flush"],
           "type": "string"
         },
         "center": {
@@ -11176,9 +10486,7 @@
           "type": "object"
         }
       },
-      "required": [
-        "concat"
-      ],
+      "required": ["concat"],
       "type": "object"
     },
     "TopLevelHConcatSpec": {
@@ -11206,10 +10514,7 @@
         },
         "bounds": {
           "description": "The bounds calculation method to use for determining the extent of a sub-plot. One of `full` (the default) or `flush`.\n\n- If set to `full`, the entire calculated bounds (including axes, title, and legend) will be used.\n- If set to `flush`, only the specified width and height values for the sub-view will be used. The `flush` setting can be useful when attempting to place sub-plots without axes or legends into a uniform grid structure.\n\n__Default value:__ `\"full\"`",
-          "enum": [
-            "full",
-            "flush"
-          ],
+          "enum": ["full", "flush"],
           "type": "string"
         },
         "center": {
@@ -11278,9 +10583,7 @@
           "type": "object"
         }
       },
-      "required": [
-        "hconcat"
-      ],
+      "required": ["hconcat"],
       "type": "object"
     },
     "TopLevelRepeatSpec": {
@@ -11319,10 +10622,7 @@
         },
         "bounds": {
           "description": "The bounds calculation method to use for determining the extent of a sub-plot. One of `full` (the default) or `flush`.\n\n- If set to `full`, the entire calculated bounds (including axes, title, and legend) will be used.\n- If set to `flush`, only the specified width and height values for the sub-view will be used. The `flush` setting can be useful when attempting to place sub-plots without axes or legends into a uniform grid structure.\n\n__Default value:__ `\"full\"`",
-          "enum": [
-            "full",
-            "flush"
-          ],
+          "enum": ["full", "flush"],
           "type": "string"
         },
         "center": {
@@ -11420,10 +10720,7 @@
           "type": "object"
         }
       },
-      "required": [
-        "repeat",
-        "spec"
-      ],
+      "required": ["repeat", "spec"],
       "type": "object"
     },
     "TopLevelVConcatSpec": {
@@ -11451,10 +10748,7 @@
         },
         "bounds": {
           "description": "The bounds calculation method to use for determining the extent of a sub-plot. One of `full` (the default) or `flush`.\n\n- If set to `full`, the entire calculated bounds (including axes, title, and legend) will be used.\n- If set to `flush`, only the specified width and height values for the sub-view will be used. The `flush` setting can be useful when attempting to place sub-plots without axes or legends into a uniform grid structure.\n\n__Default value:__ `\"full\"`",
-          "enum": [
-            "full",
-            "flush"
-          ],
+          "enum": ["full", "flush"],
           "type": "string"
         },
         "center": {
@@ -11523,9 +10817,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "vconcat"
-      ],
+      "required": ["vconcat"],
       "type": "object"
     },
     "TopLevelLayerSpec": {
@@ -11636,9 +10928,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "layer"
-      ],
+      "required": ["layer"],
       "type": "object"
     },
     "TopLevelFacetSpec": {
@@ -11677,10 +10967,7 @@
         },
         "bounds": {
           "description": "The bounds calculation method to use for determining the extent of a sub-plot. One of `full` (the default) or `flush`.\n\n- If set to `full`, the entire calculated bounds (including axes, title, and legend) will be used.\n- If set to `flush`, only the specified width and height values for the sub-view will be used. The `flush` setting can be useful when attempting to place sub-plots without axes or legends into a uniform grid structure.\n\n__Default value:__ `\"full\"`",
-          "enum": [
-            "full",
-            "flush"
-          ],
+          "enum": ["full", "flush"],
           "type": "string"
         },
         "center": {
@@ -11782,11 +11069,7 @@
           "type": "object"
         }
       },
-      "required": [
-        "data",
-        "facet",
-        "spec"
-      ],
+      "required": ["data", "facet", "spec"],
       "type": "object"
     },
     "TopLevelSpec": {
@@ -11851,10 +11134,7 @@
         },
         "bounds": {
           "description": "The bounds calculation method to use for determining the extent of a sub-plot. One of `full` (the default) or `flush`.\n\n- If set to `full`, the entire calculated bounds (including axes, title, and legend) will be used.\n- If set to `flush`, only the specified width and height values for the sub-view will be used. The `flush` setting can be useful when attempting to place sub-plots without axes or legends into a uniform grid structure.\n\n__Default value:__ `\"full\"`",
-          "enum": [
-            "full",
-            "flush"
-          ],
+          "enum": ["full", "flush"],
           "type": "string"
         },
         "center": {
@@ -11965,10 +11245,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "data",
-        "mark"
-      ],
+      "required": ["data", "mark"],
       "type": "object"
     },
     "TopoDataFormat": {
@@ -11995,9 +11272,7 @@
         },
         "type": {
           "description": "Type of input data: `\"json\"`, `\"csv\"`, `\"tsv\"`, `\"dsv\"`.\n\n__Default value:__  The default format type is determined by the extension of the file URL.\nIf no extension is detected, `\"json\"` will be used by default.",
-          "enum": [
-            "topojson"
-          ],
+          "enum": ["topojson"],
           "type": "string"
         }
       },
@@ -12047,11 +11322,7 @@
       ]
     },
     "TypeForShape": {
-      "enum": [
-        "nominal",
-        "ordinal",
-        "geojson"
-      ],
+      "enum": ["nominal", "ordinal", "geojson"],
       "type": "string"
     },
     "TypedFieldDef": {
@@ -12071,9 +11342,7 @@
               "$ref": "#/definitions/BinParams"
             },
             {
-              "enum": [
-                "binned"
-              ],
+              "enum": ["binned"],
               "type": "string"
             },
             {
@@ -12092,19 +11361,14 @@
         },
         "title": {
           "description": "A title for the field. If `null`, the title will be removed.\n\n__Default value:__  derived from the field's name and transformation function (`aggregate`, `bin` and `timeUnit`).  If the field has an aggregate function, the function is displayed as part of the title (e.g., `\"Sum of Profit\"`). If the field is binned or has a time unit applied, the applied function is shown in parentheses (e.g., `\"Profit (binned)\"`, `\"Transaction Date (year-month)\"`).  Otherwise, the title is simply the field name.\n\n__Notes__:\n\n1) You can customize the default field title format by providing the [`fieldTitle`](https://vega.github.io/vega-lite/docs/config.html#top-level-config) property in the [config](https://vega.github.io/vega-lite/docs/config.html) or [`fieldTitle` function via the `compile` function's options](https://vega.github.io/vega-lite/docs/compile.html#field-title).\n\n2) If both field definition's `title` and axis, header, or legend `title` are defined, axis/header/legend title will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "type": {
           "$ref": "#/definitions/StandardType",
           "description": "The encoded field's type of measurement (`\"quantitative\"`, `\"temporal\"`, `\"ordinal\"`, or `\"nominal\"`).\nIt can also be a `\"geojson\"` type for encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).\n\n\n__Note:__\n\n- Data values for a temporal field can be either a date-time string (e.g., `\"2015-03-07 12:32:17\"`, `\"17:01\"`, `\"2015-03-16\"`. `\"2015\"`) or a timestamp number (e.g., `1552199579097`).\n- Data `type` describes the semantics of the data rather than the primitive data types (`number`, `string`, etc.). The same primitive data type can have different types of measurement. For example, numeric data can represent quantitative, ordinal, or nominal data.\n- When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type` property can be either `\"quantitative\"` (for using a linear bin scale) or [`\"ordinal\"` (for using an ordinal bin scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the `type` property can be either `\"temporal\"` (for using a temporal scale) or [`\"ordinal\"` (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).\n- When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html), the `type` property refers to the post-aggregation data type. For example, we can calculate count `distinct` of a categorical field `\"cat\"` using `{\"aggregate\": \"distinct\", \"field\": \"cat\", \"type\": \"quantitative\"}`. The `\"type\"` of the aggregate output is `\"quantitative\"`.\n- Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they have exactly the same type as their primary channels (e.g., `x`, `y`)."
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "type": "object"
     },
     "UnitSpec": {
@@ -12127,9 +11391,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "url"
-      ],
+      "required": ["url"],
       "type": "object"
     },
     "UtcMultiTimeUnit": {
@@ -12166,12 +11428,7 @@
       "type": "string"
     },
     "Value": {
-      "type": [
-        "number",
-        "string",
-        "boolean",
-        "null"
-      ]
+      "type": ["number", "string", "boolean", "null"]
     },
     "YValueDef": {
       "additionalProperties": false,
@@ -12183,18 +11440,14 @@
               "type": "number"
             },
             {
-              "enum": [
-                "height"
-              ],
+              "enum": ["height"],
               "type": "string"
             }
           ],
           "description": "A constant value in visual domain (e.g., `\"red\"` / \"#0099ff\" for color, values between `0` to `1` for opacity)."
         }
       },
-      "required": [
-        "value"
-      ],
+      "required": ["value"],
       "type": "object"
     },
     "XValueDef": {
@@ -12207,18 +11460,14 @@
               "type": "number"
             },
             {
-              "enum": [
-                "width"
-              ],
+              "enum": ["width"],
               "type": "string"
             }
           ],
           "description": "A constant value in visual domain (e.g., `\"red\"` / \"#0099ff\" for color, values between `0` to `1` for opacity)."
         }
       },
-      "required": [
-        "value"
-      ],
+      "required": ["value"],
       "type": "object"
     },
     "NumberValueDef": {
@@ -12230,9 +11479,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "value"
-      ],
+      "required": ["value"],
       "type": "object"
     },
     "ValueDefWithCondition<MarkPropFieldDef,(string|null)>": {
@@ -12302,15 +11549,10 @@
         },
         "value": {
           "description": "A constant value in visual domain (e.g., `\"red\"` / \"#0099ff\" for color, values between `0` to `1` for opacity).",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         }
       },
-      "required": [
-        "value"
-      ],
+      "required": ["value"],
       "type": "object"
     },
     "ValueDefWithOptionalCondition<MarkPropFieldDef,number>": {
@@ -12339,9 +11581,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "value"
-      ],
+      "required": ["value"],
       "type": "object"
     },
     "ValueDefWithOptionalCondition<MarkPropFieldDef<TypeForShape>,(string|null)>": {
@@ -12367,15 +11607,10 @@
         },
         "value": {
           "description": "A constant value in visual domain (e.g., `\"red\"` / \"#0099ff\" for color, values between `0` to `1` for opacity).",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         }
       },
-      "required": [
-        "value"
-      ],
+      "required": ["value"],
       "type": "object"
     },
     "ValueDefWithOptionalCondition<TextFieldDef,Value>": {
@@ -12404,9 +11639,7 @@
           "description": "A constant value in visual domain (e.g., `\"red\"` / \"#0099ff\" for color, values between `0` to `1` for opacity)."
         }
       },
-      "required": [
-        "value"
-      ],
+      "required": ["value"],
       "type": "object"
     },
     "ViewBackground": {
@@ -12418,10 +11651,7 @@
         },
         "fill": {
           "description": "The fill color.\n\n__Default value:__ `undefined`",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "fillOpacity": {
           "description": "The fill opacity (value between [0,1]).\n\n__Default value:__ `1`",
@@ -12437,10 +11667,7 @@
         },
         "stroke": {
           "description": "The stroke color.\n\n__Default value:__ `\"#ddd\"`",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "strokeCap": {
           "$ref": "#/definitions/StrokeCap",
@@ -12496,10 +11723,7 @@
         },
         "fill": {
           "description": "The fill color.\n\n__Default value:__ `undefined`",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "fillOpacity": {
           "description": "The fill opacity (value between [0,1]).\n\n__Default value:__ `1`",
@@ -12519,10 +11743,7 @@
         },
         "stroke": {
           "description": "The stroke color.\n\n__Default value:__ `\"#ddd\"`",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "strokeCap": {
           "$ref": "#/definitions/StrokeCap",
@@ -12592,10 +11813,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "op",
-        "as"
-      ],
+      "required": ["op", "as"],
       "type": "object"
     },
     "WindowOnlyOp": {
@@ -12620,10 +11838,7 @@
         "frame": {
           "description": "A frame specification as a two-element array indicating how the sliding window should proceed. The array entries should either be a number indicating the offset from the current data object, or null to indicate unbounded rows preceding or following the current data object. The default value is `[null, 0]`, indicating that the sliding window includes the current object and all preceding objects. The value `[-5, 5]` indicates that the window should include five objects preceding and five objects following the current object. Finally, `[null, null]` indicates that the window frame should always include all data objects. If you this frame and want to assign the same value to add objects, you can use the simpler [join aggregate transform](https://vega.github.io/vega-lite/docs/joinaggregate.html). The only operators affected are the aggregation operations and the `first_value`, `last_value`, and `nth_value` window operations. The other window operations are not affected by this.\n\n__Default value:__:  `[null, 0]` (includes the current object and all preceding objects)",
           "items": {
-            "type": [
-              "null",
-              "number"
-            ]
+            "type": ["null", "number"]
           },
           "type": "array"
         },
@@ -12653,9 +11868,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "window"
-      ],
+      "required": ["window"],
       "type": "object"
     }
   }

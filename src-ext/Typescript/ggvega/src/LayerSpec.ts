@@ -7,29 +7,27 @@ import {TranslateEncoding} from './Encoding';
  * The layer in ggSpec
  * @param ggSpec
  */
-export function TranslateLayer(layer: any, ggSpec: any): vlspec.LayerSpec {
+export function TranslateLayer(layer: any, labels: any, data: any, scales: any): vlspec.LayerSpec {
+  const layerData: any = data[layer['data']];
+
   const layerspec: vlspec.LayerSpec = {
     data: {
       name: layer['data']
     },
     mark: TranslateMark(layer['geom']),
-    encoding: TranslateEncoding(layer, ggSpec)
+    encoding: TranslateEncoding(layer, labels, layerData, scales)
   };
 
   return layerspec;
 }
 
-function TranslateMark(geom: any): vlspec.BoxPlotDefClass {
-  let type: vlspec.BoxPlot;
+function TranslateMark(geom: any): vlspec.Mark {
+  let mark: vlspec.Mark;
   if (geom['class'] == 'GeomPoint') {
-    type = vlspec.BoxPlot.Point;
+    mark = vlspec.Mark.Point;
   } else {
-    type = vlspec.BoxPlot.Point;
+    mark = vlspec.Mark.Point;
   }
-
-  const mark: vlspec.BoxPlotDefClass = {
-    type: type
-  };
 
   return mark;
 }
