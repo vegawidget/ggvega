@@ -269,9 +269,7 @@ get_layers <- function(layer, int_data) {
 
 ``` r
 get_mappings <- function(aes) {
-  list(field = rlang::get_expr(aes),
-       type = NULL
-  ) 
+  list(field = rlang::get_expr(aes)) 
 }
 ```
 
@@ -305,12 +303,10 @@ str(layer_spc(p$layers, test))
     ##   ..$ geom      :List of 1
     ##   .. ..$ class: chr "GeomPoint"
     ##   ..$ mapping   :List of 2
-    ##   .. ..$ x:List of 2
+    ##   .. ..$ x:List of 1
     ##   .. .. ..$ field: symbol Petal.Width
-    ##   .. .. ..$ type : NULL
-    ##   .. ..$ y:List of 2
+    ##   .. ..$ y:List of 1
     ##   .. .. ..$ field: symbol Petal.Length
-    ##   .. .. ..$ type : NULL
     ##   ..$ aes_params: NULL
     ##   ..$ stat      :List of 1
     ##   .. ..$ class: chr "StatIdentity"
@@ -319,15 +315,12 @@ str(layer_spc(p$layers, test))
     ##   ..$ geom      :List of 1
     ##   .. ..$ class: chr "GeomPoint"
     ##   ..$ mapping   :List of 3
-    ##   .. ..$ x     :List of 2
+    ##   .. ..$ x     :List of 1
     ##   .. .. ..$ field: symbol Petal.Width
-    ##   .. .. ..$ type : NULL
-    ##   .. ..$ y     :List of 2
+    ##   .. ..$ y     :List of 1
     ##   .. .. ..$ field: symbol Petal.Length
-    ##   .. .. ..$ type : NULL
-    ##   .. ..$ colour:List of 2
+    ##   .. ..$ colour:List of 1
     ##   .. .. ..$ field: symbol Species
-    ##   .. .. ..$ type : NULL
     ##   ..$ aes_params:List of 2
     ##   .. ..$ shape: num 21
     ##   .. ..$ fill : chr "white"

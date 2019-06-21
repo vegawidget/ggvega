@@ -257,9 +257,7 @@ get_layers <- function(layer, int_data) {
 
 ```{r}
 get_mappings <- function(aes) {
-  list(field = rlang::get_expr(aes),
-       type = NULL
-  ) 
+  list(field = rlang::get_expr(aes)) 
 }
 ```
 
