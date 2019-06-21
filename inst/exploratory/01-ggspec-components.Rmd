@@ -217,24 +217,31 @@ Within each layer-object, we need:
 
 <br/>
 
-#### Intermediate layers step
+The ggspec layers are a function of the ggplot layers, but also of the data:
 
-The ggspec layers are a function of the ggplot layers, but also of the data and scales:
-
-`layer_int()` calls `get_layers()` for each layer. `get_layers()` returns ...
+`layer_spc()` calls `get_layers()` for each layer. `get_layers()` returns ...
 
 - if `layer_plt` has no data, use `data-00`  
 - if `layer_plt` has data, hash it and compare against `data_int`, use name  
 - make sure that the mapping field is a name in the dataset  
-- can use type from the dataset metadata for now, can incorporate scales later  
 
 
 ```{r}
-get_layers <- function(layer) {
+layer_spc <- function(layer_plt, int_data) {
+  purrr::map(layer_plt, get_layers, int_data)
+}
+```
+
+<br/>
+
+Helper functions:
+
+```{r}
+get_layers <- function(layer, int_data) {
   pluck_layer <- purrr::partial(purrr::pluck, .x = layer)
   
   list(
-    data = list(),
+    data = pluck_layer("data") %>% compare_data(int_data),
     geom = list(
       class = pluck_layer("geom", class, 1)
     ),
@@ -245,16 +252,8 @@ get_layers <- function(layer) {
     )
   )
 }
-
-
-layer_int <- function(layer_plt) {
-  purrr::map(layer_plt, get_layers)
-}
 ```
 
-<br/>
-
-Helper functions:
 
 ```{r}
 get_mappings <- function(aes) {
@@ -264,43 +263,32 @@ get_mappings <- function(aes) {
 }
 ```
 
-<br/>
+In `compare_data()`:
 
-Example of function being used:
-
-```{r}
-str(layer_int(p$layers))
-```
-
-<br/>
-
-#### FInal layers step 
-
-In `layer_spc()` we will compare the layer data with `data_int` and determine the types of the variable by comparing with `data_int` and `scales_spc`
+- if `layer_plt` has no data, use `data-00`  
+- if `layer_plt` has data, hash it and compare against `data_int`, use name  
+- make sure that the mapping field is a name in the dataset  
 
 ```{r}
-layer_spc <- function(layer_int, data_int, scales_spc) {
-  layer_int
-  
-  
+# 
+compare_data <- function(layer_data, plot_data){
+  NULL
 }
 ```
 
 
 <br/>
 
-
 Example of function being used:
 
 ```{r}
-
+str(layer_spc(p$layers, test))
 ```
 
 <br/>
 
 
 ### Extracting scales  
-
 
 
 I think that scales will be one-to-one:
@@ -397,7 +385,7 @@ ps <- ggplot_build(p_scale)
 ggspec <- function(plt){
   list(
     data = data_spc(data_int(plt$data, plt$layers)),
-    layers = layer_spc(layer_int(plt$layers)),
+    layers = layer_spc(plt$layers),
     scales = scale_spc(plt$scales$scales),
     labels = labels_spc(plt$labels)
                     

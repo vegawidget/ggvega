@@ -226,29 +226,35 @@ Within each layer-object, we need:
 
 <br/>
 
-#### Intermediate layers step
-
 The ggspec layers are a function of the ggplot layers, but also of the
-data and scales:
+data:
 
-`layer_int()` calls `get_layers()` for each layer. `get_layers()`
+`layer_spc()` calls `get_layers()` for each layer. `get_layers()`
 returns …
 
   - if `layer_plt` has no data, use `data-00`  
   - if `layer_plt` has data, hash it and compare against `data_int`, use
     name  
-  - make sure that the mapping field is a name in the dataset  
-  - can use type from the dataset metadata for now, can incorporate
-    scales later
+  - make sure that the mapping field is a name in the dataset
 
 <!-- end list -->
 
 ``` r
-get_layers <- function(layer) {
+layer_spc <- function(layer_plt, int_data) {
+  purrr::map(layer_plt, get_layers, int_data)
+}
+```
+
+<br/>
+
+Helper functions:
+
+``` r
+get_layers <- function(layer, int_data) {
   pluck_layer <- purrr::partial(purrr::pluck, .x = layer)
   
   list(
-    data = list(),
+    data = pluck_layer("data") %>% compare_data(int_data),
     geom = list(
       class = pluck_layer("geom", class, 1)
     ),
@@ -259,16 +265,7 @@ get_layers <- function(layer) {
     )
   )
 }
-
-
-layer_int <- function(layer_plt) {
-  purrr::map(layer_plt, get_layers)
-}
 ```
-
-<br/>
-
-Helper functions:
 
 ``` r
 get_mappings <- function(aes) {
@@ -278,17 +275,33 @@ get_mappings <- function(aes) {
 }
 ```
 
+In `compare_data()`:
+
+  - if `layer_plt` has no data, use `data-00`  
+  - if `layer_plt` has data, hash it and compare against `data_int`, use
+    name  
+  - make sure that the mapping field is a name in the dataset
+
+<!-- end list -->
+
+``` r
+# 
+compare_data <- function(layer_data, plot_data){
+  NULL
+}
+```
+
 <br/>
 
 Example of function being used:
 
 ``` r
-str(layer_int(p$layers))
+str(layer_spc(p$layers, test))
 ```
 
     ## List of 2
     ##  $ :List of 5
-    ##   ..$ data      : list()
+    ##   ..$ data      : NULL
     ##   ..$ geom      :List of 1
     ##   .. ..$ class: chr "GeomPoint"
     ##   ..$ mapping   :List of 2
@@ -302,7 +315,7 @@ str(layer_int(p$layers))
     ##   ..$ stat      :List of 1
     ##   .. ..$ class: chr "StatIdentity"
     ##  $ :List of 5
-    ##   ..$ data      : list()
+    ##   ..$ data      : NULL
     ##   ..$ geom      :List of 1
     ##   .. ..$ class: chr "GeomPoint"
     ##   ..$ mapping   :List of 3
@@ -320,26 +333,6 @@ str(layer_int(p$layers))
     ##   .. ..$ fill : chr "white"
     ##   ..$ stat      :List of 1
     ##   .. ..$ class: chr "StatIdentity"
-
-<br/>
-
-#### FInal layers step
-
-In `layer_spc()` we will compare the layer data with `data_int` and
-determine the types of the variable by comparing with `data_int` and
-`scales_spc`
-
-``` r
-layer_spc <- function(layer_int, data_int, scales_spc) {
-  layer_int
-  
-  
-}
-```
-
-<br/>
-
-Example of function being used:
 
 <br/>
 
@@ -380,7 +373,7 @@ str(scale_spc(p$scales$scales))
     ##  $ :List of 4
     ##   ..$ name      : NULL
     ##   ..$ class     : chr "ScaleContinuousPosition"
-    ##   ..$ aesthetics: chr [1:10] "y" "ymin" "ymax" "yend" ...
+    ##   ..$ aesthetics: chr [1:11] "y" "ymin" "ymax" "yend" ...
     ##   ..$ transform :List of 1
     ##   .. ..$ name: chr "log-10"
 
@@ -437,7 +430,7 @@ ps <- ggplot_build(p_scale)
 ggspec <- function(plt){
   list(
     data = data_spc(data_int(plt$data, plt$layers)),
-    layers = layer_spc(layer_int(plt$layers)),
+    layers = layer_spc(plt$layers),
     scales = scale_spc(plt$scales$scales),
     labels = labels_spc(plt$labels)
                     
@@ -460,13 +453,13 @@ str(ggspec(p), max.level = 3)
     ##   .. ..$ observations:List of 150
     ##  $ layers:List of 2
     ##   ..$ :List of 5
-    ##   .. ..$ data      : list()
+    ##   .. ..$ data      : NULL
     ##   .. ..$ geom      :List of 1
     ##   .. ..$ mapping   :List of 2
     ##   .. ..$ aes_params: NULL
     ##   .. ..$ stat      :List of 1
     ##   ..$ :List of 5
-    ##   .. ..$ data      : list()
+    ##   .. ..$ data      : NULL
     ##   .. ..$ geom      :List of 1
     ##   .. ..$ mapping   :List of 3
     ##   .. ..$ aes_params:List of 2
@@ -475,7 +468,7 @@ str(ggspec(p), max.level = 3)
     ##   ..$ :List of 4
     ##   .. ..$ name      : NULL
     ##   .. ..$ class     : chr "ScaleContinuousPosition"
-    ##   .. ..$ aesthetics: chr [1:10] "y" "ymin" "ymax" "yend" ...
+    ##   .. ..$ aesthetics: chr [1:11] "y" "ymin" "ymax" "yend" ...
     ##   .. ..$ transform :List of 1
     ##  $ labels:List of 3
     ##   ..$ x     : chr "Petal.Width"
