@@ -1,13 +1,25 @@
 {
+  "name": "ggvega",
+  "author": "Wenyu Yang",
+  "version": "0.0.1",
+  "collaborators": [
+    "Ian  Lyttle <ian.lyttle@schneider-electric.com>",
+    "Haley Jeppson <hjeppson@iastate.edu>",
+    "Wenyu Yang <wenyuyang@gwu.edu>"
+  ],
+  "description": "This package aspires to do for 'Vega-Lite' what the 'plotly' package does for 'plotly'.",
+  "license": "MIT",
   "scripts": {
     "build": "npm run build:only && npm run copy",
     "build:only": "tsc && rollup -c",
-    "copy": "copyfiles -f build/ggvega.js ../../../inst/js"
+    "copy": "copyfiles -f build/ggvega.js ../../../inst/js",
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.4",
+    "@types/jest": "^24.0.15",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
     "copyfiles": "^2.1.0",
@@ -15,10 +27,12 @@
     "eslint-config-google": "^0.13.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.8.0",
     "prettier": "^1.17.1",
     "rollup": "^1.14.3",
     "rollup-plugin-commonjs": "^10.0.0",
     "rollup-plugin-node-resolve": "^5.0.1",
+    "ts-jest": "^24.0.2",
     "typescript": "*"
   },
   "dependencies": {}

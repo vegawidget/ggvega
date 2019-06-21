@@ -1,11 +1,12 @@
 import * as vlspec from './VlSpec';
 import {TranslateLayer} from './LayerSpec';
+
 /**
  * Main function to translate ggspec to vlspec
  * @param ggSpec
  */
 export function gg2vl(ggSpec: any): vlspec.TopLevelSpec {
-  const layers: vlspec.LayerSpec[] = [];
+  let layers: vlspec.LayerSpec[] | undefined;
 
   const labels: any = ggSpec['labels'];
 
@@ -13,8 +14,20 @@ export function gg2vl(ggSpec: any): vlspec.TopLevelSpec {
 
   const scales: any = ggSpec['scales'];
 
-  for (const layer of ggSpec['layers']) {
-    layers.push(TranslateLayer(layer, labels, data, scales));
+  let title: string | undefined;
+
+  if (labels) {
+    if (labels['title']) {
+      title = labels['title'];
+    }
+  }
+
+  if (ggSpec['layers'] != null) {
+    layers = [];
+
+    for (const layer of ggSpec['layers']) {
+      layers.push(TranslateLayer(layer, labels, data, scales));
+    }
   }
 
   const datasets: any = {};
@@ -25,7 +38,7 @@ export function gg2vl(ggSpec: any): vlspec.TopLevelSpec {
 
   const vl: vlspec.TopLevelSpec = {
     $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
-    title: ggSpec['labels']['title'],
+    title: title,
     datasets: datasets,
     layer: layers
   };
@@ -40,10 +53,25 @@ export function gg2vl(ggSpec: any): vlspec.TopLevelSpec {
  * @param obj
  *
  */
-function removeEmpty(obj: any) {
+export function removeEmpty(obj: any) {
+  if (!(obj != null && typeof obj === 'object')) return;
+
   Object.keys(obj).forEach(function(key) {
-    if (obj[key] == null || JSON.stringify(obj[key]) == '{}') {
+    if (obj[key] && typeof obj[key] === 'object') {
+      if (Object.keys(obj[key]).length === 0) {
+        delete obj[key];
+        return;
+      }
+
+      removeEmpty(obj[key]);
+
+      if (Object.keys(obj[key]).length === 0) {
+        delete obj[key];
+        return;
+      }
+    } else if (obj[key] === null) {
       delete obj[key];
-    } else if (obj[key] && typeof obj[key] === 'object') removeEmpty(obj[key]);
+      return;
+    }
   });
 }

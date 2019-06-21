@@ -269,6 +269,20 @@
         labels: {x: 'gp', y: 'y'}
       };
 
+      var vll = {
+        data: {
+          'data-00': {
+            metadata: {},
+            observations: [{a: 'A', b: 28}, {a: 'A', b: 28}]
+          }
+        },
+        layers: [{geom: {class: 'GeomPoint'}, data: 'data-00'}, {geom: {class: 'GeomPoint'}, data: 'data-00'}]
+      };
+
+      vll = ggvega.gg2vl(vll);
+
+      alert(JSON.stringify(vll));
+
       var vl = ggvega.gg2vl(ggplot01);
 
       alert(JSON.stringify(vl));
