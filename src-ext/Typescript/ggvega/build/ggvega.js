@@ -1033,6 +1033,50 @@
         InvalidValues["Filter"] = "filter";
     })(InvalidValues || (InvalidValues = {}));
 
+    function TranslatePointShape(ggShape) {
+        var shape = '';
+        if (ggShape % 8 == 0) {
+            shape = 'circle';
+        }
+        if (ggShape % 8 == 1) {
+            shape = 'square';
+        }
+        if (ggShape % 8 == 2) {
+            shape = 'cross';
+        }
+        if (ggShape % 8 == 3) {
+            shape = 'diamond';
+        }
+        if (ggShape % 8 == 4) {
+            shape = 'triangle-up';
+        }
+        if (ggShape % 8 == 5) {
+            shape = 'triangle-down';
+        }
+        if (ggShape % 8 == 6) {
+            shape = 'triangle-right';
+        }
+        if (ggShape % 8 == 7) {
+            shape = 'triangle-left';
+        }
+        return shape;
+    }
+    function TranslateStroke(ggStroke) {
+        return ggStroke;
+    }
+    function TranslateStrokeWidth(ggStrokeWidth) {
+        return ggStrokeWidth;
+    }
+    function TranslateOpacity(ggOpacity) {
+        return ggOpacity;
+    }
+    function TranslateFill(ggFill) {
+        return ggFill;
+    }
+    function TranslatePointSize(ggSize) {
+        return ggSize * 20;
+    }
+
     function TranslateEncoding(layer, labels, layerData, scales) {
         var layerEncoding = {
             x: TranslateXClass(layer, labels, layerData, scales),
@@ -1040,10 +1084,10 @@
             // color: TranslateColor(layer, labels, layerData),
             size: TranslateSize(layer, labels, layerData),
             shape: TranslateShape(layer, labels, layerData),
-            stroke: TranslateStroke(layer, labels, layerData),
-            strokeWidth: TranslateStrokeWidth(layer, labels, layerData),
-            opacity: TranslateOpacity(layer, labels, layerData),
-            fill: TranslateFill(layer, labels, layerData)
+            stroke: TranslateStroke$1(layer, labels, layerData),
+            strokeWidth: TranslateStrokeWidth$1(layer, labels, layerData),
+            opacity: TranslateOpacity$1(layer, labels, layerData),
+            fill: TranslateFill$1(layer, labels, layerData)
         };
         return layerEncoding;
     }
@@ -1131,7 +1175,7 @@
             if (layer['aes_params']['size']) {
                 if (layer['aes_params']['size']['value']) {
                     size = {
-                        value: layer['aes_params']['size']['value'] * 20
+                        value: TranslatePointSize(layer['aes_params']['size']['value'])
                     };
                 }
             }
@@ -1157,9 +1201,11 @@
         if (layer['aes_params']) {
             if (layer['aes_params']['shape']) {
                 if (layer['aes_params']['shape']['value']) {
-                    shape = {
-                        value: Number2Shape(layer['aes_params']['shape']['value'], layer["geom"])
-                    };
+                    if (layer["geom"]['class'] == 'GeomPoint') {
+                        shape = {
+                            value: TranslatePointShape(layer['aes_params']['shape']['value'])
+                        };
+                    }
                 }
             }
         }
@@ -1181,13 +1227,13 @@
     function TranslateScale(transform) {
         return transform;
     }
-    function TranslateStroke(layer, labels, layerData) {
+    function TranslateStroke$1(layer, labels, layerData) {
         var stroke;
         if (layer['aes_params']) {
             if (layer['aes_params']['colour']) {
                 if (layer['aes_params']['colour']['value']) {
                     stroke = {
-                        value: layer['aes_params']['colour']['value']
+                        value: TranslateStroke(layer['aes_params']['colour']['value'])
                     };
                 }
             }
@@ -1207,13 +1253,13 @@
         }
         return stroke;
     }
-    function TranslateStrokeWidth(layer, labels, layerData) {
+    function TranslateStrokeWidth$1(layer, labels, layerData) {
         var strokeWidth;
         if (layer['aes_params']) {
             if (layer['aes_params']['stroke']) {
                 if (layer['aes_params']['stroke']['value']) {
                     strokeWidth = {
-                        value: layer['aes_params']['stroke']['value']
+                        value: TranslateStrokeWidth(layer['aes_params']['stroke']['value'])
                     };
                 }
             }
@@ -1233,13 +1279,13 @@
         }
         return strokeWidth;
     }
-    function TranslateOpacity(layer, labels, layerData) {
+    function TranslateOpacity$1(layer, labels, layerData) {
         var opacity;
         if (layer['aes_params']) {
             if (layer['aes_params']['alpha']) {
                 if (layer['aes_params']['alpha']['value']) {
                     opacity = {
-                        value: layer['aes_params']['alpha']['value']
+                        value: TranslateOpacity(layer['aes_params']['alpha']['value'])
                     };
                 }
             }
@@ -1259,13 +1305,13 @@
         }
         return opacity;
     }
-    function TranslateFill(layer, labels, layerData) {
+    function TranslateFill$1(layer, labels, layerData) {
         var fill;
         if (layer['aes_params']) {
             if (layer['aes_params']['fill']) {
                 if (layer['aes_params']['fill']['value']) {
                     fill = {
-                        value: layer['aes_params']['fill']['value']
+                        value: TranslateFill(layer['aes_params']['fill']['value'])
                     };
                 }
             }
@@ -1284,36 +1330,6 @@
             };
         }
         return fill;
-    }
-    function Number2Shape(ggShape, geom) {
-        var shape = '';
-        if (geom['class'] == 'GeomPoint') {
-            if (ggShape % 8 == 0) {
-                shape = 'circle';
-            }
-            if (ggShape % 8 == 1) {
-                shape = 'square';
-            }
-            if (ggShape % 8 == 2) {
-                shape = 'cross';
-            }
-            if (ggShape % 8 == 3) {
-                shape = 'diamond';
-            }
-            if (ggShape % 8 == 4) {
-                shape = 'triangle-up';
-            }
-            if (ggShape % 8 == 5) {
-                shape = 'triangle-down';
-            }
-            if (ggShape % 8 == 6) {
-                shape = 'triangle-right';
-            }
-            if (ggShape % 8 == 7) {
-                shape = 'triangle-left';
-            }
-        }
-        return shape;
     }
 
     /**

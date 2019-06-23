@@ -1,4 +1,5 @@
 import * as vlspec from './VlSpec';
+import * as Mark from './Mark';
 
 export function TranslateEncoding(layer: any, labels: any, layerData: any, scales: any): vlspec.LayerEncoding {
   const layerEncoding: vlspec.LayerEncoding = {
@@ -129,7 +130,7 @@ function TranslateSize(
     if (layer['aes_params']['size']) {
       if (layer['aes_params']['size']['value']) {
         size = {
-          value: layer['aes_params']['size']['value'] * 20
+          value: Mark.TranslatePointSize(layer['aes_params']['size']['value'])
         };
       }
     }
@@ -167,9 +168,11 @@ function TranslateShape(
   if (layer['aes_params']) {
     if (layer['aes_params']['shape']) {
       if (layer['aes_params']['shape']['value']) {
-        shape = {
-          value: Number2Shape(layer['aes_params']['shape']['value'], layer[`geom`])
-        };
+        if (layer[`geom`]['class'] == 'GeomPoint') {
+          shape = {
+            value: Mark.TranslatePointShape(layer['aes_params']['shape']['value'])
+          };
+        }
       }
     }
   }
@@ -210,7 +213,7 @@ function TranslateStroke(
     if (layer['aes_params']['colour']) {
       if (layer['aes_params']['colour']['value']) {
         stroke = {
-          value: layer['aes_params']['colour']['value']
+          value: Mark.TranslateStroke(layer['aes_params']['colour']['value'])
         };
       }
     }
@@ -248,7 +251,7 @@ function TranslateStrokeWidth(
     if (layer['aes_params']['stroke']) {
       if (layer['aes_params']['stroke']['value']) {
         strokeWidth = {
-          value: layer['aes_params']['stroke']['value']
+          value: Mark.TranslateStrokeWidth(layer['aes_params']['stroke']['value'])
         };
       }
     }
@@ -286,7 +289,7 @@ function TranslateOpacity(
     if (layer['aes_params']['alpha']) {
       if (layer['aes_params']['alpha']['value']) {
         opacity = {
-          value: layer['aes_params']['alpha']['value']
+          value: Mark.TranslateOpacity(layer['aes_params']['alpha']['value'])
         };
       }
     }
@@ -324,7 +327,7 @@ function TranslateFill(
     if (layer['aes_params']['fill']) {
       if (layer['aes_params']['fill']['value']) {
         fill = {
-          value: layer['aes_params']['fill']['value']
+          value: Mark.TranslateFill(layer['aes_params']['fill']['value'])
         };
       }
     }
@@ -348,37 +351,4 @@ function TranslateFill(
   }
 
   return fill;
-}
-
-function Number2Shape(ggShape: number, geom: any): string {
-  let shape = '';
-
-  if (geom['class'] == 'GeomPoint') {
-    if (ggShape % 8 == 0) {
-      shape = 'circle';
-    }
-    if (ggShape % 8 == 1) {
-      shape = 'square';
-    }
-    if (ggShape % 8 == 2) {
-      shape = 'cross';
-    }
-    if (ggShape % 8 == 3) {
-      shape = 'diamond';
-    }
-    if (ggShape % 8 == 4) {
-      shape = 'triangle-up';
-    }
-    if (ggShape % 8 == 5) {
-      shape = 'triangle-down';
-    }
-    if (ggShape % 8 == 6) {
-      shape = 'triangle-right';
-    }
-    if (ggShape % 8 == 7) {
-      shape = 'triangle-left';
-    }
-  }
-
-  return shape;
 }

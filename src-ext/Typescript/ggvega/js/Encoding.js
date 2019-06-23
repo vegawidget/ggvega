@@ -1,3 +1,4 @@
+import * as Mark from './Mark';
 export function TranslateEncoding(layer, labels, layerData, scales) {
     var layerEncoding = {
         x: TranslateXClass(layer, labels, layerData, scales),
@@ -96,7 +97,7 @@ function TranslateSize(layer, labels, layerData) {
         if (layer['aes_params']['size']) {
             if (layer['aes_params']['size']['value']) {
                 size = {
-                    value: layer['aes_params']['size']['value'] * 20
+                    value: Mark.TranslatePointSize(layer['aes_params']['size']['value'])
                 };
             }
         }
@@ -122,9 +123,11 @@ function TranslateShape(layer, labels, layerData) {
     if (layer['aes_params']) {
         if (layer['aes_params']['shape']) {
             if (layer['aes_params']['shape']['value']) {
-                shape = {
-                    value: Number2Shape(layer['aes_params']['shape']['value'], layer["geom"])
-                };
+                if (layer["geom"]['class'] == 'GeomPoint') {
+                    shape = {
+                        value: Mark.TranslatePointShape(layer['aes_params']['shape']['value'])
+                    };
+                }
             }
         }
     }
@@ -152,7 +155,7 @@ function TranslateStroke(layer, labels, layerData) {
         if (layer['aes_params']['colour']) {
             if (layer['aes_params']['colour']['value']) {
                 stroke = {
-                    value: layer['aes_params']['colour']['value']
+                    value: Mark.TranslateStroke(layer['aes_params']['colour']['value'])
                 };
             }
         }
@@ -178,7 +181,7 @@ function TranslateStrokeWidth(layer, labels, layerData) {
         if (layer['aes_params']['stroke']) {
             if (layer['aes_params']['stroke']['value']) {
                 strokeWidth = {
-                    value: layer['aes_params']['stroke']['value']
+                    value: Mark.TranslateStrokeWidth(layer['aes_params']['stroke']['value'])
                 };
             }
         }
@@ -204,7 +207,7 @@ function TranslateOpacity(layer, labels, layerData) {
         if (layer['aes_params']['alpha']) {
             if (layer['aes_params']['alpha']['value']) {
                 opacity = {
-                    value: layer['aes_params']['alpha']['value']
+                    value: Mark.TranslateOpacity(layer['aes_params']['alpha']['value'])
                 };
             }
         }
@@ -230,7 +233,7 @@ function TranslateFill(layer, labels, layerData) {
         if (layer['aes_params']['fill']) {
             if (layer['aes_params']['fill']['value']) {
                 fill = {
-                    value: layer['aes_params']['fill']['value']
+                    value: Mark.TranslateFill(layer['aes_params']['fill']['value'])
                 };
             }
         }
@@ -249,34 +252,4 @@ function TranslateFill(layer, labels, layerData) {
         };
     }
     return fill;
-}
-function Number2Shape(ggShape, geom) {
-    var shape = '';
-    if (geom['class'] == 'GeomPoint') {
-        if (ggShape % 8 == 0) {
-            shape = 'circle';
-        }
-        if (ggShape % 8 == 1) {
-            shape = 'square';
-        }
-        if (ggShape % 8 == 2) {
-            shape = 'cross';
-        }
-        if (ggShape % 8 == 3) {
-            shape = 'diamond';
-        }
-        if (ggShape % 8 == 4) {
-            shape = 'triangle-up';
-        }
-        if (ggShape % 8 == 5) {
-            shape = 'triangle-down';
-        }
-        if (ggShape % 8 == 6) {
-            shape = 'triangle-right';
-        }
-        if (ggShape % 8 == 7) {
-            shape = 'triangle-left';
-        }
-    }
-    return shape;
 }

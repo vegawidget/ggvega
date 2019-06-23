@@ -41,16 +41,6 @@ describe('compile/gg2vl', () => {
     expect(vl.title).toBe('text');
     expect(vl01.title).toBeUndefined;
   });
-
-  it('should push all layers to `layer`', () => {
-    const vl = gg2vl({
-      layers: [{mark: 'point'}, {mark: 'point'}]
-    });
-
-    if (vl.layer) {
-      expect(vl.layer).toHaveLength(2);
-    }
-  });
 });
 
 describe('compile/removeEmpty', () => {
