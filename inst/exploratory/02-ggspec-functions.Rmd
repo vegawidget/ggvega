@@ -1,0 +1,331 @@
+---
+title: "Functions within the ggspec function"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  eval = FALSE
+)
+library("ggplot2")
+library("dplyr")
+```
+
+
+
+## Extracting functions
+
+### 1. Extracting data
+
+#### A. Intermediate data step
+
+##### i.
+
+```
+data_int <- function(data_plt, layers_plt) {
+  #join together default data and layer data
+  data_all <- append(list(data_plt), purrr::map(layers_plt, purrr::pluck, "data"))
+  
+  #format the lists of data
+  data_all <- purrr::map(data_all, format_data_int)
+  
+  # how to name the datasets??
+  
+  # remove NULL entries 
+  data_all <- purrr::discard(data_all, is.null)
+  
+  
+  
+  
+  data_all
+}
+```
+
+<br/>
+
+##### ii.
+
+```
+name_data <- function(dat) {
+  # check for any matching hashsums
+}
+```
+
+##### iii.
+
+```
+format_data_int <- function(dat) {
+  if(is.waive(dat) || is.null(dat)) return(NULL) 
+  else {
+    list(
+      metadata = purrr::pluck(dat) %>% purrr::map(create_meta_levels),
+      variables = dat,
+      hash = digest::digest(dat)
+    )
+  }
+}
+```
+
+##### iv.
+
+```
+case_type_vl <- function(type) {
+  case_when(
+    type == "Date" | type == "POSIXct" ~ "temporal",
+    type == "factor" | type == "character" | type == "logical" ~ "nominal",
+    type == "ordered" ~ "ordinal",
+    type == "numeric" ~ "quantitative"
+  )
+}
+```
+
+##### v.
+
+```
+create_meta_levels <- function(dat){
+  type = class(dat)
+  if(type == "factor" | type == "ordered") {
+    meta <- list(
+      type = case_type_vl(type),
+      levels = levels(dat)
+    )
+  } else if (type == "date" | type == "POSIXct") {
+    meta <- list(
+      type = case_type_vl(type),
+      timezone = NULL # use lubridate::tz or ??
+    )
+  } else {
+    meta <- list(
+      type = case_type_vl(type)
+    )
+  }
+  meta
+}
+
+```
+
+
+#### B. Final data step
+
+##### i.
+
+```
+data_spc <- function(data_int) {
+  purrr::map(data_int, format_data_spec)
+}
+```
+
+##### ii.
+
+```
+format_data_spec <- function(dat) {
+  list(
+    metadata = dat$metadata,
+    observations = purrr::transpose(dat$variables)
+  )
+}
+```
+
+<br/>
+
+
+### 2. Extracting layers
+
+#### A. Intermediate layers step
+
+##### i.
+
+```
+layer_spc <- function(layer_plt) {
+  purrr::map(layer_plt, get_layers)
+}
+```
+
+
+##### ii.
+
+```
+get_layers <- function(layer) {
+  pluck_layer <- purrr::partial(purrr::pluck, .x = layer)
+  
+  list(
+    data = list(),
+    geom = list(
+      class = pluck_layer("geom", class, 1)
+    ),
+    mapping = pluck_layer("mapping") %>% purrr::map(get_mappings),
+    aes_params = pluck_layer("aes_params"),
+    stat = list(
+      class = pluck_layer("stat", class, 1)
+    )
+  )
+}
+```
+
+##### iii.
+
+
+```
+get_mappings <- function(aes) {
+  list(field = rlang::get_expr(aes),
+       type = NULL
+  ) 
+}
+```
+
+<br/>
+
+
+### Extracting scales  
+
+
+
+I think that scales will be one-to-one:
+
+`scales_spc()` calls `get_scales()` which operates on a single scale, used with purrr::map(), to get ...
+
+will need to first check if there is even anything there...
+
+```{r}
+
+get_scales <- function(scale) {
+  
+  pluck_scale <- purrr::partial(purrr::pluck, .x = scale)
+    
+  list(
+    name = pluck_scale("name"),
+    class = pluck_scale(class, 1),
+    aesthetics = pluck_scale("aesthetics"),
+    transform = list(
+      name = pluck_scale("trans", "name")
+    )
+  )
+}
+
+scale_spc <- function(scale_plt) {
+  purrr::map(scale_plt, get_scales)
+}
+```
+
+```{r}
+str(scale_spc(p$scales$scales))
+```
+
+
+<br/>
+
+
+### Extracting labels  
+
+
+Finally, labels:
+
+
+```{r}
+find_scale_labs <- function(labs) {
+  lab <- purrr::pluck(labs, "name")
+  if(!is.waive(lab)) {
+    names(lab) <- purrr::pluck(labs, "aesthetics", 1)
+    lab
+  }
+  
+}
+
+labels_spc <- function(labels_plt, scales_plt) {
+  # Find the right way to deal with labels - we could run into a
+  # problem if we have, say, multiple color scales
+  
+  # scale_labs <- purrr::map(p_scale$scales$scales, find_scale_labs)
+  
+  # How to replace the labels with scale labels???
+  
+  labels_plt
+}
+
+
+```
+
+
+
+```{r}
+p_lab <- ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length)) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length), color = "firebrick") +
+  scale_y_log10() +
+  labs(x = "new lab")
+
+p_scale <- ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length)) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length), color = "firebrick") +
+  scale_y_log10("new lab") 
+
+ps <- ggplot_build(p_scale)
+```
+
+
+<br/>
+
+
+## All together now!
+
+<br/>
+
+```{r}
+ggspec <- function(plt){
+  list(
+    data = data_spc(data_int(plt$data, plt$layers)),
+    layers = layer_spc(layer_int(plt$layers)),
+    scales = scale_spc(plt$scales$scales),
+    labels = labels_spc(plt$labels)
+                    
+  )
+}
+```
+
+<br/>
+
+
+Try it out:
+
+```{r}
+str(ggspec(p), max.level = 3)
+
+
+```
+
+
+<br/>
+<br/>
+
+```{r eval = FALSE}
+pp <- ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length, color = Species)) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length), color = "firebrick", size = 1) +
+  scale_y_log10("new lab") 
+
+str(ggspec(p_scale), max.level = 3)
+str(ggspec(pp), max.level = 3)
+
+
+```
+
+
+
+
+### 1. Utility functions
+
+```
+"%||%" <- function(a, b) {
+  if (!is.null(a)) a else b
+}
+
+"%|W|%" <- function(a, b) {
+  if (!is.waive(a)) a else b
+}
+
+is.waive <- function(x) inherits(x, "waiver")
+```
+
