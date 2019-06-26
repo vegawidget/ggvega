@@ -31,7 +31,12 @@ data_int <- function(data_plt, layers_plt) {
   # format the lists of data
   data_all <- purrr::map(data_all, format_data_int)
 
-  # how to name the datasets??
+  # name datasets
+  names(data_all) <-
+    purrr::map_chr(
+      seq_along(data_all),
+      ~glue::glue("data-{sprintf('%02i', .x - 1L)}")
+    )
 
   # remove NULL entries
   data_all <- purrr::discard(data_all, is.null)
