@@ -7,7 +7,7 @@
 case_type_vl(type)
 }
 \arguments{
-\item{type}{column of data}
+\item{type}{Column of data.}
 }
 \description{
 Determine variable type

@@ -7,7 +7,7 @@
 name_data(dat)
 }
 \arguments{
-\item{dat}{}
+\item{dat}{Dataset to be named.}
 }
 \description{
 Name the dataset

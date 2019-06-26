@@ -35,7 +35,7 @@ data_int <- function(data_plt, layers_plt) {
 
 #' Name the dataset
 #'
-#' @param dat
+#' @param dat Dataset to be named.
 #'
 #' @return
 #' @export
@@ -47,7 +47,7 @@ name_data <- function(dat) {
 
 #' Format the data
 #'
-#' @param dat
+#' @param dat Dataset to be formatted.
 #'
 #' @return
 #' @export
@@ -66,7 +66,7 @@ format_data_int <- function(dat) {
 
 #' Determine variable type
 #'
-#' @param type column of data
+#' @param type Column of data.
 #'
 #' @return
 #' @export
@@ -83,7 +83,7 @@ case_type_vl <- function(type) {
 
 #' Create metadata
 #'
-#' @param dat
+#' @param dat Column of data for which metadata should be created.
 #'
 #' @return
 #' @export
@@ -96,7 +96,7 @@ create_meta_levels <- function(dat){
       type = case_type_vl(type),
       levels = levels(dat)
     )
-  } else if (type == "date" | type == "POSIXct") {
+  } else if (type == "Date" | type == "POSIXct") {
     meta <- list(
       type = case_type_vl(type),
       timezone = NULL # use lubridate::tz or ??

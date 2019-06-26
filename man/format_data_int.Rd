@@ -7,7 +7,7 @@
 format_data_int(dat)
 }
 \arguments{
-\item{dat}{}
+\item{dat}{Dataset to be formatted.}
 }
 \description{
 Format the data
