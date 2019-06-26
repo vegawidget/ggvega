@@ -209,9 +209,15 @@ data_spc <- function(int_data) {
 #' @noRd
 #'
 data_remove_duplicates <- function(int_data) {
+
+  # hash is a *named* character vector
   hash <- purrr::map_chr(int_data, purrr::pluck, "hash")
+
+  # subset with the non-duplicated hashes
   hash_unique <- hash[!duplicated(hash)]
 
-  # return only those elements whose hashes are not duplicates
-  int_data[names(hash_unique)]
+  # subset int_data using these names
+  int_data_unique <- int_data[names(hash_unique)]
+
+  int_data_unique
 }
