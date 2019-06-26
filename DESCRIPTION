@@ -29,7 +29,6 @@ Suggests:
     pkgdown
 Imports: 
     magrittr,
-    dplyr,
     purrr,
     digest,
     rlang,

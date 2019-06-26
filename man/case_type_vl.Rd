@@ -7,7 +7,10 @@
 case_type_vl(type)
 }
 \arguments{
-\item{type}{Column of data.}
+\item{type}{\code{character} (scalar) R variable-type}
+}
+\value{
+\code{character} Vega-Lite variable-type
 }
 \description{
 Determine variable type

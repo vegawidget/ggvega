@@ -44,52 +44,47 @@ data_int <- function(data_plt, layers_plt) {
   data_all
 }
 
-#' Name the dataset
-#'
-#' @param dat Dataset to be named.
-#'
-#' @return
-#' @export
-#'
-#' @examples
-name_data <- function(dat) {
-  # check for any matching hashsums
-}
-
 #' Format the data
 #'
-#' @param dat Dataset to be formatted.
+#' @param dat `data.frame` to be formatted.
 #'
-#' @return
+#' @return `list` with elements `metadata`, `variables`, `hash`
 #' @export
 #'
 #' @examples
 format_data_int <- function(dat) {
-  if(is.waive(dat) || is.null(dat)) return(NULL)
-  else {
-    list(
-      metadata = purrr::pluck(dat) %>% purrr::map(create_meta_levels),
-      variables = dat,
-      hash = digest::digest(dat)
-    )
+
+  if (is.waive(dat) || is.null(dat)) {
+    return(NULL)
   }
+
+  list(
+    metadata = purrr::pluck(dat) %>% purrr::map(create_meta_levels),
+    variables = dat,
+    hash = digest::digest(dat)
+  )
 }
 
 #' Determine variable type
 #'
-#' @param type Column of data.
+#' @param type `character` (scalar) R variable-type
 #'
-#' @return
+#' @return `character` Vega-Lite variable-type
 #' @export
 #'
 #' @examples
 case_type_vl <- function(type) {
-  dplyr::case_when(
-    type == "Date" | type == "POSIXct" ~ "temporal",
-    type == "factor" | type == "character" | type == "logical" ~ "nominal",
-    type == "ordered" ~ "ordinal",
-    type == "numeric" ~ "quantitative"
+
+  key <- list(
+    numeric = "quantitative",
+    integer = "quantitative",
+    factor = "nominal",
+    ordered = "ordinal",
+    Date = "temporal",
+    POSIXct = "temporal"
   )
+
+  key[[type]]
 }
 
 #' Create metadata

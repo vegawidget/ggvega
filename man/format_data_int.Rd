@@ -7,7 +7,10 @@
 format_data_int(dat)
 }
 \arguments{
-\item{dat}{Dataset to be formatted.}
+\item{dat}{\code{data.frame} to be formatted.}
+}
+\value{
+\code{list} with elements \code{metadata}, \code{variables}, \code{hash}
 }
 \description{
 Format the data
