@@ -22,4 +22,5 @@ library(ggplot2)
 p <- ggplot(data = iris)
 p <- p + geom_point(aes(x = Petal.Width, y = Petal.Length))
 data_int(p$data, p$layers)
+
 }
