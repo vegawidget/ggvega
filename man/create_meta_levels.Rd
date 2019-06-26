@@ -7,7 +7,7 @@
 create_meta_levels(dat)
 }
 \arguments{
-\item{dat}{}
+\item{dat}{Column of data for which metadata should be created.}
 }
 \description{
 Create metadata
