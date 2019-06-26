@@ -2,9 +2,11 @@
 #'
 #' Creates an intermediate-form for the data.
 #'
-#' This returns a named list of dataset objects, with elements:
+#' This returns a named list of dataset objects, each object has elements:
 #'
-#'
+#' - `metadata`: named `list`, one element per variable
+#' - `variables`: the `data.frame` itself
+#' - `hash`: hash of `variables`
 #'
 #' @param data_plt A `list` of data from the ggplot object.
 #' @param layers_plt A `list` of layers from the ggplot object.
