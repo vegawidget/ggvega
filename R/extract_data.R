@@ -33,10 +33,26 @@ data_int <- function(data_plt, layers_plt) {
 }
 
 
+#' Name the dataset
+#'
+#' @param dat
+#'
+#' @return
+#' @export
+#'
+#' @examples
 name_data <- function(dat) {
   # check for any matching hashsums
 }
 
+#' Format the data
+#'
+#' @param dat
+#'
+#' @return
+#' @export
+#'
+#' @examples
 format_data_int <- function(dat) {
   if(is.waive(dat) || is.null(dat)) return(NULL)
   else {
@@ -48,6 +64,14 @@ format_data_int <- function(dat) {
   }
 }
 
+#' Determine variable type
+#'
+#' @param type column of data
+#'
+#' @return
+#' @export
+#'
+#' @examples
 case_type_vl <- function(type) {
   dplyr::case_when(
     type == "Date" | type == "POSIXct" ~ "temporal",
@@ -57,6 +81,14 @@ case_type_vl <- function(type) {
   )
 }
 
+#' Create metadata
+#'
+#' @param dat
+#'
+#' @return
+#' @export
+#'
+#' @examples
 create_meta_levels <- function(dat){
   type = class(dat)
   if(type == "factor" | type == "ordered") {
@@ -78,6 +110,14 @@ create_meta_levels <- function(dat){
 }
 
 
+#' Format data into final data form
+#'
+#' @param dat one data frame from `data_int`
+#'
+#' @return
+#' @export
+#'
+#' @examples
 format_data_spec <- function(dat) {
   list(
     metadata = dat$metadata,
@@ -85,6 +125,14 @@ format_data_spec <- function(dat) {
   )
 }
 
-data_spc <- function(data_int) {
-  purrr::map(data_int, format_data_spec)
+#' Transform data from intermediate form to final form
+#'
+#' @param int_data An intermediate-form for the data created by `data_int()`
+#'
+#' @return
+#' @export
+#'
+#' @examples
+data_spc <- function(int_data) {
+  purrr::map(int_data, format_data_spec)
 }
