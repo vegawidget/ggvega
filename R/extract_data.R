@@ -41,7 +41,10 @@ data_int <- function(data_plt, layers_plt) {
   # remove NULL entries
   data_all <- purrr::discard(data_all, is.null)
 
-  data_all
+  # remove duplicate entries
+  data_unique <- data_remove_duplicates(data_all)
+
+  data_unique
 }
 
 #' Format the data
@@ -61,7 +64,7 @@ format_data_int <- function(dat) {
   }
 
   list(
-    metadata = purrr::pluck(dat) %>% purrr::map(create_meta),
+    metadata = purrr::map(dat, create_meta),
     variables = dat,
     hash = digest::digest(dat)
   )
@@ -115,7 +118,7 @@ type_r <- function(x) {
     return("factor")
   }
 
-  # TODO: return error?
+  # TODO: if we miss everything, throw error?
 
 }
 
@@ -151,7 +154,9 @@ type_vl <- function(type_r) {
 #' @noRd
 #'
 #' @examples
-#' create_meta
+#' create_meta(1)
+#' create_meta(factor(1))
+#' create_meta(System.time())
 #'
 create_meta <- function(x) {
 
@@ -171,15 +176,13 @@ create_meta <- function(x) {
   meta
 }
 
-
 #' Format data into final data form
 #'
 #' @param dat one data frame from `data_int`
 #'
-#' @return
-#' @export
+#' @return Named `list` with elements `metadata`, `observations`
+#' @noRd
 #'
-#' @examples
 format_data_spec <- function(dat) {
   list(
     metadata = dat$metadata,
@@ -191,10 +194,24 @@ format_data_spec <- function(dat) {
 #'
 #' @param int_data An intermediate-form for the data created by `data_int()`
 #'
-#' @return
-#' @export
+#' @return Names `list` to be used as the `data` portion of a ggspec
+#' @noRd
 #'
-#' @examples
 data_spc <- function(int_data) {
   purrr::map(int_data, format_data_spec)
+}
+
+#' Remove duplicates
+#'
+#' @param int_data An intermediate-form for the data created by `data_int()`
+#'
+#' @return Subset of `int_data`, duplicates removed
+#' @noRd
+#'
+data_remove_duplicates <- function(int_data) {
+  hash <- purrr::map_chr(int_data, purrr::pluck, "hash")
+  hash_unique <- hash[!duplicated(hash)]
+
+  # return only those elements whose hashes are not duplicates
+  int_data[names(hash_unique)]
 }

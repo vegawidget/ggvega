@@ -1,5 +1,6 @@
 # setup
 library("ggplot2")
+library("purrr")
 
 p_top <-
   ggplot(data = iris) +
@@ -33,7 +34,7 @@ test_that("data_int works", {
   expect_identical(names(data_int_top), "data-00")
   expect_identical(names(data_int_top_layer), c("data-00", "data-02"))
   expect_identical(names(data_int_layer), "data-01")
-  expect_identical(names(data_int_top_layer_dup), c("data-00", "data-01"))
+  expect_identical(names(data_int_top_layer_dup), c("data-00")) # removed duplicate
 
 })
 
@@ -109,5 +110,46 @@ test_that("create_meta works", {
     create_meta(factor(c("1", "2"), ordered = TRUE)),
     list(type = "ordinal", levels = c("1", "2"))
   )
+
+})
+
+
+test_that("format_data_int works", {
+
+  expect_null(format_data_int(NULL))
+
+  data_int_iris <- format_data_int(iris)
+
+  # it's a list
+  expect_true(is.list(data_int_iris))
+
+  # list has the right names
+  expect_identical(
+    names(data_int_iris),
+    c("metadata", "variables", "hash")
+  )
+
+  # metadata has same names as data
+  expect_identical(names(data_int_iris$metadata), names(iris))
+
+  # metadata are correct
+  expect_identical(
+    data_int_iris$metadata,
+    list(
+      `Sepal.Length` = list(type = "quantitative"),
+      `Sepal.Width` = list(type = "quantitative"),
+      `Petal.Length` = list(type = "quantitative"),
+      `Petal.Width` = list(type = "quantitative"),
+      `Species` = list(type = "nominal", levels = levels(iris$Species))
+    )
+  )
+
+  # TODO: test a data-frame with a timezone
+
+  # variables is data
+  expect_identical(data_int_iris$variables, iris)
+
+  # hash is hash of data
+  expect_identical(data_int_iris$hash, digest::digest(iris))
 
 })

@@ -3,8 +3,6 @@
 export("%>%")
 export(compare_data)
 export(data_int)
-export(data_spc)
-export(format_data_spec)
 export(get_layers)
 export(get_mappings)
 export(get_scales)
