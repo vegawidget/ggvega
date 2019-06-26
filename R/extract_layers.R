@@ -40,7 +40,7 @@ get_layers <- function(layer, int_data) {
   pluck_layer <- purrr::partial(purrr::pluck, .x = layer)
 
   list(
-    data = pluck_layer("data") %>% compare_data(int_data),
+    data = pluck_layer("data") %>% get_data_name(int_data),
     geom = list(
       class = pluck_layer("geom", class, 1)
     ),
@@ -74,21 +74,45 @@ get_mappings <- function(aes) {
 
 
 
-#' Compare layer data to plot data
+#' Get name of data-frame
 #'
+#' @param layer_data `data.frame` (we will get this from a layer)
+#' @param int_data `list`, "library" of available data frames
+#'   (returned by `data_int()`)
 #'
-#' @param layer_data The data from a single ggplot2 layer object.
-#' @param int_data An intermediate-form for the data created by `data_int()`
-#'
-#' @return `list` containing name of dataset to be used in that layer
-#' @export
+#' @return `character` something like `"data-00"`
+#' @noRd
 #'
 #' @examples
 #' library(ggplot2)
 #' p <- ggplot(data = iris)
 #' p <- p + geom_point(aes(x = Petal.Width, y = Petal.Length))
-#' dat <-  data_int(p$data, p$layers)
-#' compare_data(p$layers[[1]]$data, dat)
-compare_data <- function(layer_data, int_data){
-  NULL
+#' dat <- data_int(p$data, p$layers)
+#' get_data_name(p$layers[[1]]$data, dat)
+#'
+get_data_name <- function(layer_data, int_data) {
+
+  if (is.waive(layer_data) || is.null(layer_data)) {
+    return("data-00")
+  }
+
+  # *named* character vector
+  hash_int_data <- purrr::map_chr(int_data, purrr::pluck, "hash")
+
+  hash_layer_data <- digest::digest(layer_data)
+
+  # subset library to get match with layer
+  hash_match <- hash_int_data[hash_int_data == hash_layer_data]
+
+  # we want to return the name
+  name_hash_match <- names(hash_match)
+
+  name_hash_match
 }
+
+
+
+
+
+
+
