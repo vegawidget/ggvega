@@ -37,13 +37,77 @@ test_that("data_int works", {
 
 })
 
-test_that("case_type_vl works", {
+test_that("type_r works", {
 
-  expect_identical(case_type_vl("numeric"), "quantitative")
-  expect_identical(case_type_vl("integer"), "quantitative")
-  expect_identical(case_type_vl("factor"), "nominal")
-  expect_identical(case_type_vl("ordered"), "ordinal")
-  expect_identical(case_type_vl("Date"), "temporal")
-  expect_identical(case_type_vl("POSIXct"), "temporal")
+  expect_identical(type_r(1), "numeric")
+  expect_identical(type_r(1L), "numeric")
+  expect_identical(type_r("1"), "character")
+  expect_identical(type_r(factor(1)), "factor")
+  expect_identical(type_r(factor(1, ordered = TRUE)), "ordered")
+  expect_identical(type_r(Sys.Date()), "Date")
+  expect_identical(type_r(Sys.time()), "POSIXct")
+
+})
+
+test_that("type_vl works", {
+
+  expect_identical(type_vl("numeric"), "quantitative")
+  expect_identical(type_vl("character"), "nominal")
+  expect_identical(type_vl("factor"), "nominal")
+  expect_identical(type_vl("ordered"), "ordinal")
+  expect_identical(type_vl("Date"), "temporal")
+  expect_identical(type_vl("POSIXct"), "temporal")
+
+})
+
+test_that("create_meta works", {
+
+  # double
+  expect_identical(
+    create_meta(1),
+    list(type = "quantitative")
+  )
+
+  # integer
+  expect_identical(
+    create_meta(1L),
+    list(type = "quantitative")
+  )
+
+  # character
+  expect_identical(
+    create_meta("1"),
+    list(type = "nominal")
+  )
+
+  # POSIXct
+  expect_identical(
+    # TODO: work out what do to if no timezone
+    create_meta(as.POSIXct("2012-03-02")),
+    list(type = "temporal", timezone = "")
+  )
+
+  expect_identical(
+    create_meta(as.POSIXct("2012-03-02", tz = "UTC")),
+    list(type = "temporal", timezone = "UTC")
+  )
+
+  # Date
+  expect_identical(
+    create_meta(as.Date("2012-03-02")),
+    list(type = "temporal")
+  )
+
+  # factor
+  expect_identical(
+    create_meta(factor(c("1", "2"))),
+    list(type = "nominal", levels = c("1", "2"))
+  )
+
+  # ordered
+  expect_identical(
+    create_meta(factor(c("1", "2"), ordered = TRUE)),
+    list(type = "ordinal", levels = c("1", "2"))
+  )
 
 })

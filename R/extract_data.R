@@ -49,9 +49,11 @@ data_int <- function(data_plt, layers_plt) {
 #' @param dat `data.frame` to be formatted.
 #'
 #' @return `list` with elements `metadata`, `variables`, `hash`
-#' @export
+#' @noRd
 #'
 #' @examples
+#' format_data_int(iris)
+#'
 format_data_int <- function(dat) {
 
   if (is.waive(dat) || is.null(dat)) {
@@ -59,59 +61,113 @@ format_data_int <- function(dat) {
   }
 
   list(
-    metadata = purrr::pluck(dat) %>% purrr::map(create_meta_levels),
+    metadata = purrr::pluck(dat) %>% purrr::map(create_meta),
     variables = dat,
     hash = digest::digest(dat)
   )
 }
 
-#' Determine variable type
+#' Determine R variable-type
 #'
-#' @param type `character` (scalar) R variable-type
+#' We recognize:
+#' - `numeric`
+#' - `character`
+#' - `factor`
+#' - `ordered`
+#' - `Date`
+#' - `POSIXct`
 #'
-#' @return `character` Vega-Lite variable-type
-#' @export
+#' @param x A variable (column in a data frame)
+#'
+#' @return `character` R variable-type
+#' @noRd
 #'
 #' @examples
-case_type_vl <- function(type) {
+#' type_vl(1)
+#' type_vl(1L)
+#' type_vl(System.time())
+#'
+type_r <- function(x) {
+
+  # perhaps all these if-else are going too far...
+
+  if (is.numeric(x)) {
+    return("numeric")
+  }
+
+  if (is.character(x)) {
+    return("character")
+  }
+
+  if (inherits(x, "POSIXct")) {
+    return( "POSIXct")
+  }
+
+  if (inherits(x, "Date")) {
+    return("Date")
+  }
+
+  if (is.ordered(x)) {
+    return("ordered")
+  }
+
+  if (is.factor(x)) {
+    return("factor")
+  }
+
+  # TODO: return error?
+
+}
+
+#' Determine Vega-Lite variable-type
+#'
+#' @param type_r `character` (scalar) R variable-type
+#'
+#' @return `character` Vega-Lite variable-type
+#' @noRd
+#'
+#' @examples
+#' type_vl("numeric")
+#'
+type_vl <- function(type_r) {
 
   key <- list(
     numeric = "quantitative",
-    integer = "quantitative",
+    character = "nominal",
     factor = "nominal",
     ordered = "ordinal",
     Date = "temporal",
     POSIXct = "temporal"
   )
 
-  key[[type]]
+  key[[type_r]]
 }
 
 #' Create metadata
 #'
-#' @param dat Column of data for which metadata should be created.
+#' @param x A variable (column in a data frame)
 #'
-#' @return
-#' @export
+#' @return `list` with element `type`, and optionally `levels` or `timezone`
+#' @noRd
 #'
 #' @examples
-create_meta_levels <- function(dat){
-  type = class(dat)
-  if(type == "factor" | type == "ordered") {
-    meta <- list(
-      type = case_type_vl(type),
-      levels = levels(dat)
-    )
-  } else if (type == "Date" | type == "POSIXct") {
-    meta <- list(
-      type = case_type_vl(type),
-      timezone = NULL # use lubridate::tz or ??
-    )
-  } else {
-    meta <- list(
-      type = case_type_vl(type)
-    )
+#' create_meta
+#'
+create_meta <- function(x) {
+
+  type_r_local <- type_r(x)
+  type_vl_local <- type_vl(type_r_local)
+
+  meta <- list(type = type_vl_local)
+
+  if (type_r_local %in% c("factor", "ordered")) {
+    meta[["levels"]] <- levels(x)
   }
+
+  if (identical(type_r_local, "POSIXct")) {
+    meta[["timezone"]] <- attr(x, "tz")
+  }
+
   meta
 }
 
