@@ -29,7 +29,8 @@ Depends:
 Imports: 
     V8 (>= 2.2),
     vegawidget (>= 0.2.0.9007),
-    jsonlite
+    jsonlite,
+    ggspec
 Suggests: 
     pkgdown
 Remotes: vegawidget/vegawidget

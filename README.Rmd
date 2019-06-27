@@ -24,7 +24,12 @@ The goal of ggvega is to translate ggplot2 object to vega-lite spec.
 
 ```{r example}
 library(ggvega)
-ggvega(ggspec_iris01)
+library(ggplot2)
+
+p <- ggplot(iris) + 
+  geom_point(aes(x = Sepal.Length, y = Sepal.Width, color = Species))
+
+as_vegaspec(p)
 ```
 
 ## Installation
