@@ -29,8 +29,8 @@ Suggests:
     pkgdown
 Imports: 
     magrittr,
-    dplyr,
     purrr,
     digest,
     rlang,
-    ggplot2
+    ggplot2,
+    glue
