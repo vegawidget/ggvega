@@ -68,7 +68,7 @@ get_layers <- function(layer, int_data) {
 #' p <- p + geom_point(aes(x = Petal.Width, y = Petal.Length))
 #' get_mappings(p$layers[[1]]$mapping[[1]])
 get_mappings <- function(aes) {
-  list(field = rlang::get_expr(aes)
+  list(field = as.character(rlang::get_expr(aes))
   )
 }
 
