@@ -63,7 +63,7 @@
 
       
       </header><script src="index_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="index_files/vega-5.4.0/vega.min.js"></script><script src="index_files/vega-lite-3.3.0/vega-lite.min.js"></script><link href="index_files/vega-embed-4.2.0/vega-embed.css" rel="stylesheet">
-<script src="index_files/vega-embed-4.2.0/vega-embed.js"></script><script src="index_files/vegawidget-binding-0.2.0.9009/vegawidget.js"></script><div class="row">
+<script src="index_files/vega-embed-4.2.0/vega-embed.js"></script><script src="index_files/vegawidget-binding-0.2.1.9000/vegawidget.js"></script><div class="row">
   <div class="col-md-9 contents">
     
 
@@ -77,12 +77,16 @@
 
 <p>The goal of ggvega is to translate ggplot2 object to vega-lite spec.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggvega)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="reference/ggvega.html">ggvega</a></span>(ggspec_iris01)</a></code></pre></div>
-<div id="htmlwidget-84c124b286153e4d6495" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-84c124b286153e4d6495">{"x":{
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">p &lt;-<span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(iris) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>(<span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> Sepal.Length, <span class="dt">y =</span> Sepal.Width, <span class="dt">color =</span> Species))</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw"><a href="reference/as_vegaspec.html">as_vegaspec</a></span>(p)</a></code></pre></div>
+<div id="htmlwidget-3e5e7a185002d45ad625" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3e5e7a185002d45ad625">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
-    "title": "Hello World",
     "datasets": {
       "data-00": [
         {
@@ -1145,21 +1149,19 @@
         "mark": "point",
         "encoding": {
           "x": {
-            "field": "Petal\\.Width",
+            "field": "Sepal\\.Length",
             "type": "quantitative",
-            "title": "Petal.Width"
+            "title": "Sepal.Length"
           },
           "y": {
-            "field": "Petal\\.Length",
+            "field": "Sepal\\.Width",
             "type": "quantitative",
-            "title": "petal length",
-            "scale": {
-              "type": "log",
-              "base": 10
-            }
+            "title": "Sepal.Width"
           },
           "stroke": {
-            "value": "red"
+            "field": "Species",
+            "type": "nominal",
+            "title": "Species"
           }
         }
       }
