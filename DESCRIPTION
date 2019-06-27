@@ -30,5 +30,8 @@ Imports:
     V8 (>= 2.2),
     vegawidget (>= 0.2.1),
     jsonlite
+    ggspec
 Suggests: 
     pkgdown
+Remotes: 
+    vegawidget/ggspec

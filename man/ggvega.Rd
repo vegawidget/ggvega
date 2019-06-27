@@ -2,16 +2,16 @@
 % Please edit documentation in R/ggvega.R
 \name{ggvega}
 \alias{ggvega}
-\title{Translate a ggspec}
+\title{Translate a ggspec object to a vlspec}
 \usage{
 ggvega(ggspec)
 }
 \arguments{
-\item{ggspec}{\code{list}, ggspec object}
+\item{ggspec}{\code{list}, a ggspec object}
 }
 \value{
 An object with S3 class \code{vegaspec}
 }
 \description{
-Translate a ggspec
+Translate a ggspec object to a vlspec
 }
