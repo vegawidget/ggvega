@@ -12,6 +12,7 @@ knitr::opts_chunk$set(
   dev = "svg"
 )
 ```
+
 # ggvega
 
 <!-- badges: start -->

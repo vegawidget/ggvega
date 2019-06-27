@@ -33,4 +33,4 @@ Imports:
     ggspec
 Suggests: 
     pkgdown
-Remotes: vegawidget/vegawidget
+Remotes: vegawidget/ggspec
