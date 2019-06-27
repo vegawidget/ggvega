@@ -488,7 +488,7 @@ ps <- ggplot_build(p_scale)
 <br/>
 
 ``` r
-ggspec <- function(plt){
+gg2spec <- function(plt){
   int_data <- data_int(plt$data, plt$layers)
   
   list(
@@ -505,7 +505,7 @@ ggspec <- function(plt){
 Try it out:
 
 ``` r
-str(ggspec(p), max.level = 3)
+str(gg2spec(p), max.level = 3)
 ```
 
     ## List of 4
@@ -545,6 +545,6 @@ pp <- ggplot(iris) +
   geom_point(aes(x = Petal.Width, y = Petal.Length), color = "firebrick", size = 1) +
   scale_y_log10("new lab") 
 
-str(ggspec(p_scale), max.level = 3)
-str(ggspec(pp), max.level = 3)
+str(gg2spec(p_scale), max.level = 3)
+str(gg2spec(pp), max.level = 3)
 ```

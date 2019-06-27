@@ -9,8 +9,8 @@
 #' library(ggplot2)
 #' p <- ggplot(data = iris)
 #' p <- p + geom_point(aes(x = Petal.Width, y = Petal.Length))
-#' ggspec(p)
-ggspec <- function(plt){
+#' gg2spec(p)
+gg2spec <- function(plt){
   int_data <- data_int(plt$data, plt$layers)
 
   list(
