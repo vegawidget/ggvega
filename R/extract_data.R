@@ -65,7 +65,7 @@ format_data_int <- function(dat) {
 
   list(
     metadata = purrr::map(dat, create_meta),
-    variables = dat,
+    variables = purrr::map(dat, format_vars),
     hash = digest::digest(dat)
   )
 }
@@ -174,6 +174,29 @@ create_meta <- function(x) {
   }
 
   meta
+}
+
+#' Convert factor to character
+#'
+#' @param x A variable (column in a data frame)
+#'
+#' @return `column`
+#' @noRd
+#'
+#' @examples
+#'
+#'
+format_vars <- function(x) {
+
+  type_r_local <- type_r(x)
+
+  if (!(type_r_local %in% c("factor", "ordered"))) {
+    return(x)
+  }
+
+  x <- as.character(x)
+
+  x
 }
 
 #' Format data into final data form
