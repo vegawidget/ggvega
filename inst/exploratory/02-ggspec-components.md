@@ -34,8 +34,6 @@ are the plot data and the plot layers. The result is a named list of
 datasets, named `data-00`, `data-01`, …, where each list contains the
 elements `metadata`, `variables`, and `hash`.
 
-**TO - DO**:
-
   - Need to name the datasets but will need to check for matching
     hashsums and remove `NULL`s
       - Would like only the default data to be able to be named
@@ -51,26 +49,28 @@ elements `metadata`, `variables`, and `hash`.
 <!-- end list -->
 
 ``` r
-name_data <- function(dat) {
-  # check for any matching hashsums
-}
-
 data_int <- function(data_plt, layers_plt) {
-  #join together default data and layer data
+
+  # join together default data and layer data
   data_all <- append(list(data_plt), purrr::map(layers_plt, purrr::pluck, "data"))
-  
-  #format the lists of data
+
+  # format the lists of data
   data_all <- purrr::map(data_all, format_data_int)
-  
-  # how to name the datasets??
-  
-  # remove NULL entries 
+
+  # name datasets
+  names(data_all) <-
+    purrr::map_chr(
+      seq_along(data_all),
+      ~glue::glue("data-{sprintf('%02i', .x - 1L)}")
+    )
+
+  # remove NULL entries
   data_all <- purrr::discard(data_all, is.null)
-  
-  
-  
-  
-  data_all
+
+  # remove duplicate entries
+  data_unique <- data_remove_duplicates(data_all)
+
+  data_unique
 }
 ```
 
@@ -88,14 +88,16 @@ Helper functions:
 
 ``` r
 format_data_int <- function(dat) {
-  if(is.waive(dat) || is.null(dat)) return(NULL) 
-  else {
-    list(
-      metadata = purrr::pluck(dat) %>% purrr::map(create_meta_levels),
-      variables = dat,
-      hash = digest::digest(dat)
-    )
+
+  if (is.waive(dat) || is.null(dat)) {
+    return(NULL)
   }
+
+  list(
+    metadata = purrr::map(dat, create_meta),
+    variables = dat,
+    hash = digest::digest(dat)
+  )
 }
 ```
 
@@ -110,33 +112,84 @@ format_data_int <- function(dat) {
 `case_type_vl()` converts the type into a Vega-lite type
 
 ``` r
-case_type_vl <- function(type) {
-  case_when(
-    type == "Date" | type == "POSIXct" ~ "temporal",
-    type == "factor" | type == "character" | type == "logical" ~ "nominal",
-    type == "ordered" ~ "ordinal",
-    type == "numeric" ~ "quantitative"
-  )
+type_r <- function(x) {
+
+  # perhaps all these if-else are going too far...
+
+  if (is.numeric(x)) {
+    return("numeric")
+  }
+
+  if (is.character(x)) {
+    return("character")
+  }
+
+  if (inherits(x, "POSIXct")) {
+    return( "POSIXct")
+  }
+
+  if (inherits(x, "Date")) {
+    return("Date")
+  }
+
+  if (is.ordered(x)) {
+    return("ordered")
+  }
+
+  if (is.factor(x)) {
+    return("factor")
+  }
+
+  # TODO: if we miss everything, throw error?
+
 }
 
-create_meta_levels <- function(dat){
-  type = class(dat)
-  if(type == "factor" | type == "ordered") {
-    meta <- list(
-      type = case_type_vl(type),
-      levels = levels(dat)
-    )
-  } else if (type == "date" | type == "POSIXct") {
-    meta <- list(
-      type = case_type_vl(type),
-      timezone = NULL # use lubridate::tz or ??
-    )
-  } else {
-    meta <- list(
-      type = case_type_vl(type)
-    )
+type_vl <- function(type_r) {
+
+  key <- list(
+    numeric = "quantitative",
+    character = "nominal",
+    factor = "nominal",
+    ordered = "ordinal",
+    Date = "temporal",
+    POSIXct = "temporal"
+  )
+
+  key[[type_r]]
+}
+
+create_meta <- function(x) {
+
+  type_r_local <- type_r(x)
+  type_vl_local <- type_vl(type_r_local)
+
+  meta <- list(type = type_vl_local)
+
+  if (type_r_local %in% c("factor", "ordered")) {
+    meta[["levels"]] <- levels(x)
   }
+
+  if (identical(type_r_local, "POSIXct")) {
+    meta[["timezone"]] <- attr(x, "tz")
+  }
+
   meta
+}
+```
+
+``` r
+data_remove_duplicates <- function(int_data) {
+
+  # hash is a *named* character vector
+  hash <- purrr::map_chr(int_data, purrr::pluck, "hash")
+
+  # subset with the non-duplicated hashes
+  hash_unique <- hash[!duplicated(hash)]
+
+  # subset int_data using these names
+  int_data_unique <- int_data[names(hash_unique)]
+
+  int_data_unique
 }
 ```
 
@@ -150,7 +203,7 @@ str(int_data)
 ```
 
     ## List of 1
-    ##  $ :List of 3
+    ##  $ data-00:List of 3
     ##   ..$ metadata :List of 5
     ##   .. ..$ Sepal.Length:List of 1
     ##   .. .. ..$ type: chr "quantitative"
@@ -196,8 +249,8 @@ format_data_spec <- function(dat) {
   )
 }
 
-data_spc <- function(data_int) {
-  purrr::map(data_int, format_data_spec)
+data_spc <- function(int_data) {
+  purrr::map(int_data, format_data_spec)
 }
 ```
 
@@ -206,7 +259,7 @@ str(data_spc(int_data), max.level = 2)
 ```
 
     ## List of 1
-    ##  $ :List of 2
+    ##  $ data-00:List of 2
     ##   ..$ metadata    :List of 5
     ##   ..$ observations:List of 150
 
@@ -252,9 +305,9 @@ Helper functions:
 ``` r
 get_layers <- function(layer, int_data) {
   pluck_layer <- purrr::partial(purrr::pluck, .x = layer)
-  
+
   list(
-    data = pluck_layer("data") %>% compare_data(int_data),
+    data = pluck_layer("data") %>% get_data_name(int_data),
     geom = list(
       class = pluck_layer("geom", class, 1)
     ),
@@ -273,19 +326,34 @@ get_mappings <- function(aes) {
 }
 ```
 
-In `compare_data()`:
+In `get_data_name()`:
 
-  - if `layer_plt` has no data, use `data-00`  
-  - if `layer_plt` has data, hash it and compare against `data_int`, use
-    name  
+  - if `layer_data` has no data, use `data-00`  
+  - if `layer_data` has data, hash it and compare against `int_data`,
+    use name  
   - make sure that the mapping field is a name in the dataset
 
 <!-- end list -->
 
 ``` r
-# 
-compare_data <- function(layer_data, plot_data){
-  NULL
+get_data_name <- function(layer_data, int_data) {
+
+  if (is.waive(layer_data) || is.null(layer_data)) {
+    return("data-00")
+  }
+
+  # *named* character vector
+  hash_int_data <- purrr::map_chr(int_data, purrr::pluck, "hash")
+
+  hash_layer_data <- digest::digest(layer_data)
+
+  # subset library to get match with layer
+  hash_match <- hash_int_data[hash_int_data == hash_layer_data]
+
+  # we want to return the name
+  name_hash_match <- names(hash_match)
+
+  name_hash_match
 }
 ```
 
@@ -299,7 +367,7 @@ str(layer_spc(p$layers, int_data))
 
     ## List of 2
     ##  $ :List of 5
-    ##   ..$ data      : NULL
+    ##   ..$ data      : chr "data-00"
     ##   ..$ geom      :List of 1
     ##   .. ..$ class: chr "GeomPoint"
     ##   ..$ mapping   :List of 2
@@ -311,7 +379,7 @@ str(layer_spc(p$layers, int_data))
     ##   ..$ stat      :List of 1
     ##   .. ..$ class: chr "StatIdentity"
     ##  $ :List of 5
-    ##   ..$ data      : NULL
+    ##   ..$ data      : chr "data-00"
     ##   ..$ geom      :List of 1
     ##   .. ..$ class: chr "GeomPoint"
     ##   ..$ mapping   :List of 3
@@ -442,18 +510,18 @@ str(ggspec(p), max.level = 3)
 
     ## List of 4
     ##  $ data  :List of 1
-    ##   ..$ :List of 2
+    ##   ..$ data-00:List of 2
     ##   .. ..$ metadata    :List of 5
     ##   .. ..$ observations:List of 150
     ##  $ layers:List of 2
     ##   ..$ :List of 5
-    ##   .. ..$ data      : NULL
+    ##   .. ..$ data      : chr "data-00"
     ##   .. ..$ geom      :List of 1
     ##   .. ..$ mapping   :List of 2
     ##   .. ..$ aes_params: NULL
     ##   .. ..$ stat      :List of 1
     ##   ..$ :List of 5
-    ##   .. ..$ data      : NULL
+    ##   .. ..$ data      : chr "data-00"
     ##   .. ..$ geom      :List of 1
     ##   .. ..$ mapping   :List of 3
     ##   .. ..$ aes_params:List of 2
