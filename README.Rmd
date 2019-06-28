@@ -31,7 +31,10 @@ p <-
   ggplot(iris) + 
   geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
 
-gg2spec(p)
+ggspec<-gg2spec(p)
+
+ggvega(ggspec)
+
 
 ```
 
