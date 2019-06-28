@@ -1,6 +1,6 @@
 Package: ggvega
 Title: Translator from 'ggplot2' to 'Vega-Lite' 
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R:
     c(person(given = "Wenyu",
              family = "Yang",
@@ -14,7 +14,9 @@ Authors@R:
              family = "Lyttle",
              role = c("aut"),
              email = "ian.lyttle@schneider-electric.com",
-             comment = c(ORCID = "0000-0001-9962-4849"))    
+             comment = c(ORCID = "0000-0001-9962-4849")),
+      person("Google Summer of Code", role = "fnd"),
+      person("Schneider Electric", role = "fnd")
     )
 Description: This package aspires to do for 'Vega-Lite' what the 'plotly' package does for 'plotly'.
 License: MIT + file LICENSE
@@ -28,9 +30,10 @@ Depends:
     R (>= 2.10)
 Imports: 
     V8 (>= 2.2),
-    vegawidget (>= 0.2.0.9007),
+    vegawidget (>= 0.2.1),
     jsonlite,
     ggspec
 Suggests: 
     pkgdown
-Remotes: vegawidget/ggspec
+Remotes: 
+    vegawidget/ggspec
