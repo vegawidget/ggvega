@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var LayerSpec_1 = require("./LayerSpec");
-function gg2vl(ggSpec) {
+import { TranslateLayer } from './LayerSpec';
+export function gg2vl(ggSpec) {
     var vl = {
         $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
         title: TranslateTitle(ggSpec['labels']),
@@ -10,12 +8,12 @@ function gg2vl(ggSpec) {
     };
     return vl;
 }
-exports.gg2vl = gg2vl;
 function TranslateTitle(ggLables) {
     if (!ggLables)
         return undefined;
     if (ggLables['title'])
         return ggLables['title'];
+    return undefined;
 }
 function TranslateDatasets(ggData) {
     if (!ggData)
@@ -40,7 +38,7 @@ function TranslateLayers(ggLayers, ggLables, ggData, ggScales) {
     if (ggLayers != null) {
         for (var _i = 0, ggLayers_1 = ggLayers; _i < ggLayers_1.length; _i++) {
             var layer = ggLayers_1[_i];
-            layers.push(LayerSpec_1.TranslateLayer(layer, ggLables, ggData, ggScales));
+            layers.push(TranslateLayer(layer, ggLables, ggData, ggScales));
         }
     }
     return layers;
@@ -50,7 +48,7 @@ function TranslateLayers(ggLayers, ggLables, ggData, ggScales) {
  * @param obj
  *
  */
-function removeEmpty(obj) {
+export function removeEmpty(obj) {
     if (!(obj != null && typeof obj === 'object'))
         return;
     Object.keys(obj).forEach(function (key) {
@@ -71,4 +69,3 @@ function removeEmpty(obj) {
         }
     });
 }
-exports.removeEmpty = removeEmpty;

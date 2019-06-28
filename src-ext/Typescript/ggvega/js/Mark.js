@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-function TranslatePointShape(ggShape) {
+export function TranslatePointShape(ggShape) {
     var shape = '';
     if (ggShape % 8 == 0) {
         shape = 'circle';
@@ -28,24 +26,18 @@ function TranslatePointShape(ggShape) {
     }
     return shape;
 }
-exports.TranslatePointShape = TranslatePointShape;
-function TranslateStroke(ggStroke) {
+export function TranslateStroke(ggStroke) {
     return ggStroke;
 }
-exports.TranslateStroke = TranslateStroke;
-function TranslateStrokeWidth(ggStrokeWidth) {
+export function TranslateStrokeWidth(ggStrokeWidth) {
     return ggStrokeWidth;
 }
-exports.TranslateStrokeWidth = TranslateStrokeWidth;
-function TranslateOpacity(ggOpacity) {
+export function TranslateOpacity(ggOpacity) {
     return ggOpacity;
 }
-exports.TranslateOpacity = TranslateOpacity;
-function TranslateFill(ggFill) {
+export function TranslateFill(ggFill) {
     return ggFill;
 }
-exports.TranslateFill = TranslateFill;
-function TranslatePointSize(ggSize) {
+export function TranslatePointSize(ggSize) {
     return ggSize * 20;
 }
-exports.TranslatePointSize = TranslatePointSize;

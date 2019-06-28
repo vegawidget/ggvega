@@ -1,14 +1,5 @@
-"use strict";
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var Mark = __importStar(require("./Mark"));
-function TranslateEncoding(layer, labels, layerData, scales) {
+import * as Mark from './Mark';
+export function TranslateEncoding(layer, labels, layerData, scales) {
     var layerEncoding = {
         x: TranslateXClass(layer, labels, layerData, scales),
         y: TranslateYClass(layer, labels, layerData, scales),
@@ -22,7 +13,6 @@ function TranslateEncoding(layer, labels, layerData, scales) {
     };
     return layerEncoding;
 }
-exports.TranslateEncoding = TranslateEncoding;
 function TranslateXClass(layer, labels, layerData, scales) {
     var field = layer['mapping']['x']['field'];
     var type = layerData['metadata'][field]['type'];
@@ -237,7 +227,7 @@ function TranslateOpacity(layer, labels, layerData) {
     }
     return opacity;
 }
-function TranslateFill(layer, labels, layerData) {
+export function TranslateFill(layer, labels, layerData) {
     var fill;
     if (layer['aes_params']) {
         if (layer['aes_params']['fill']) {
@@ -263,4 +253,3 @@ function TranslateFill(layer, labels, layerData) {
     }
     return fill;
 }
-exports.TranslateFill = TranslateFill;
