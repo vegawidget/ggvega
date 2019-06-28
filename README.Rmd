@@ -35,7 +35,7 @@ ggspec<-gg2spec(p)
 
 ct <- V8::v8()
 
-ct$source(system.file("js/underscore.js", package="V8"))
+ct$source(system.file("js", "ggvega.js", package = "ggvega"))
 
 ```
 
