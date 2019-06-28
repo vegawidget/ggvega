@@ -13,19 +13,34 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://travis-ci.org/vegawidget/ggvega.svg?branch=master)](https://travis-ci.org/vegawidget/ggvega)
 <!-- badges: end -->
 
-The goal of ggvega is to translate ggplot2 object to vega-lite spec.
+The goal of **ggvega** is to translate a ggplot2 object to a Vega-Lite
+specification.
 
 ``` r
 library(ggvega)
 library(ggplot2)
 
-p <- ggplot(iris) + 
-  geom_point(aes(x = Sepal.Length, y = Sepal.Width, color = Species))
+p <- 
+  ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length, color = Species))
 
 as_vegaspec(p)
-#> [1] "Error printing vegawidget in non-HTML format:"                                                                                                                           
-#> [2] "Node is required for vw_to_svg(spec, width = width, height = height, ...)\nPlease install node from https://nodejs.org/en/download/ and ensure that node is on the PATH."
 ```
+
+![](man/figures/README-example-1.svg)<!-- -->
+
+### Important Note
+
+This package is in an *extremely* experimental state, under *very*
+active development.
+
+At present, we can translate:
+
+  - `geom_point()` using `x`, `y`, and `color` aesthetics.
+  - unit-plots; no facetting.
+
+We have plans to expand this capability; presently we are working out a
+system to add new capabilities quickly and reliably.
 
 ## Installation
 
