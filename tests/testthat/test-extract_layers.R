@@ -21,6 +21,8 @@ p_top_layer_dup <-
 
 data_int_top <- data_int(p_top$data, p_top$layers)
 
+map_top <- mapping_spc(p_top$mapping)
+
 data_int_top_layer <- data_int(p_top_layer$data, p_top_layer$layers)
 
 data_int_layer <- data_int(p_layer$data, p_layer$layers)
@@ -39,5 +41,11 @@ test_that("get_data_name works", {
   expect_identical(get_data_name(iris, data_int_layer), "data-01")
 
   expect_identical(get_data_name(iris, data_int_top_layer_dup), "data-00")
+
+})
+
+test_that("get_layers works", {
+
+  expect_equal(length(get_layers(p_top$layers[[1]], data_int_top, map_top)), 5)
 
 })
