@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggvega.R
 \name{as_vegaspec.gg}
 \alias{as_vegaspec.gg}
-\title{Translate a ggplot2 object to a Vega-Lite spec}
+\title{Translate ggplot2 object to vegaspec}
 \usage{
 \method{as_vegaspec}{gg}(spec, ...)
 }
@@ -15,5 +15,5 @@
 An object with S3 class \code{vegaspec}
 }
 \description{
-Translate a ggplot2 object to a Vega-Lite spec
+Translate ggplot2 object to vegaspec
 }
