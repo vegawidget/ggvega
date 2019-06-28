@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 
 The goal of **ggvega** is to translate a ggplot2 object to a Vega-Lite specification.
 
-``` r
+```{r example}
 library(ggvega)
 library(ggplot2)
 

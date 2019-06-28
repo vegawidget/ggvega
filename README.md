@@ -18,6 +18,7 @@ specification.
 
 ``` r
 library(ggvega)
+#> Welcome to ggvega; this package is not yet fully functional, and is under active development.
 library(ggplot2)
 
 p <- 
@@ -26,6 +27,8 @@ p <-
 
 as_vegaspec(p)
 ```
+
+![](man/figures/README-example-1.svg)<!-- -->
 
 ### Important Note
 
