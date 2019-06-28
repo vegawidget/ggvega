@@ -29,7 +29,7 @@ ggspec<-gg2spec(p)
 
 ct <- V8::v8()
 
-ct$source(system.file("js", "ggvega.js", package = "ggvega"))
+ct$source(system.file("js/ggvega.js", package = "ggvega"))
 ```
 
 ## test
