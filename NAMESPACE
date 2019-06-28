@@ -2,10 +2,9 @@
 
 export("%>%")
 export(data_int)
-export(get_layers)
-export(get_mappings)
 export(get_scales)
 export(gg2spec)
 export(layer_spc)
+export(mapping_spc)
 export(scale_spc)
 importFrom(magrittr,"%>%")

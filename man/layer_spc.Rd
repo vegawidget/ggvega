@@ -4,12 +4,14 @@
 \alias{layer_spc}
 \title{Extract layers}
 \usage{
-layer_spc(layer_plt, int_data)
+layer_spc(layer_plt, int_data, int_map)
 }
 \arguments{
 \item{layer_plt}{A \code{list} of layers from the ggplot object.}
 
-\item{int_data}{An intermediate-form for the data created by \code{data_int()}}
+\item{int_data}{An intermediate-form for the data created by \code{data_int()}.}
+
+\item{int_map}{An intermediate-form for the mapping created by \code{mapping_spc()}.}
 }
 \value{
 \code{list} of layers each with their layer components
@@ -22,5 +24,7 @@ library(ggplot2)
 p <- ggplot(data = iris)
 p <- p + geom_point(aes(x = Petal.Width, y = Petal.Length))
 dat <-  data_int(p$data, p$layers)
-layer_spc(p$layers, dat)
+maps <- mapping_spc(p$mapping)
+layer_spc(p$layers, dat, maps)
 }
+\keyword{internal}

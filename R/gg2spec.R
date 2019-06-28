@@ -12,10 +12,11 @@
 #' gg2spec(p)
 gg2spec <- function(plt){
   int_data <- data_int(plt$data, plt$layers)
+  int_map <- mapping_spc(plt$mapping)
 
   list(
     data = data_spc(int_data),
-    layers = layer_spc(plt$layers, int_data),
+    layers = layer_spc(plt$layers, int_data, int_map),
     scales = scale_spc(plt$scales$scales),
     labels = plt$labels
   )

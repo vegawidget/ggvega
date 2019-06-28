@@ -3,9 +3,11 @@
 #' Extract necessary information from the ggplot layers object.
 #'
 #' @param layer_plt A `list` of layers from the ggplot object.
-#' @param int_data An intermediate-form for the data created by `data_int()`
+#' @param int_data An intermediate-form for the data created by `data_int()`.
+#' @param int_map An intermediate-form for the mapping created by `mapping_spc()`.
 #'
 #' @return `list` of layers each with their layer components
+#' @keywords internal
 #' @export
 #'
 #' @examples
@@ -13,9 +15,10 @@
 #' p <- ggplot(data = iris)
 #' p <- p + geom_point(aes(x = Petal.Width, y = Petal.Length))
 #' dat <-  data_int(p$data, p$layers)
-#' layer_spc(p$layers, dat)
-layer_spc <- function(layer_plt, int_data) {
-  purrr::map(layer_plt, get_layers, int_data)
+#' maps <- mapping_spc(p$mapping)
+#' layer_spc(p$layers, dat, maps)
+layer_spc <- function(layer_plt, int_data, int_map) {
+  purrr::map(layer_plt, get_layers, int_data, int_map)
 }
 
 
@@ -26,25 +29,29 @@ layer_spc <- function(layer_plt, int_data) {
 #'
 #' @param layer A single ggplot2 layer object.
 #' @param int_data An intermediate-form for the data created by `data_int()`.
+#' @param int_map An intermediate-form for the mapping created by `mapping_spc()`.
 #'
 #' @return `list` of layer components
-#' @export
+#' @noRd
 #'
 #' @examples
 #' library(ggplot2)
 #' p <- ggplot(data = iris)
 #' p <- p + geom_point(aes(x = Petal.Width, y = Petal.Length))
 #' dat <-  data_int(p$data, p$layers)
-#' get_layers(p$layers[[1]], dat)
-get_layers <- function(layer, int_data) {
+#' maps <- mapping_spc(p$mapping)
+#' get_layers(p$layers[[1]], dat, maps)
+get_layers <- function(layer, int_data, int_map) {
   pluck_layer <- purrr::partial(purrr::pluck, .x = layer)
+
+  layer_map = pluck_layer("mapping") %>% purrr::map(get_mappings)
 
   list(
     data = pluck_layer("data") %>% get_data_name(int_data),
     geom = list(
       class = pluck_layer("geom", class, 1)
     ),
-    mapping = pluck_layer("mapping") %>% purrr::map(get_mappings),
+    mapping = utils::modifyList(int_map, layer_map),
     aes_params = pluck_layer("aes_params"),
     stat = list(
       class = pluck_layer("stat", class, 1)
@@ -53,24 +60,7 @@ get_layers <- function(layer, int_data) {
 }
 
 
-#' Extract layer mapping information
-#'
-#' Extract the field name for the aesthetic
-#'
-#' @param aes An element from the list of mappings from a single ggplot2 layer object.
-#'
-#' @return `list` of mapping specifications
-#' @export
-#'
-#' @examples
-#' library(ggplot2)
-#' p <- ggplot(data = iris)
-#' p <- p + geom_point(aes(x = Petal.Width, y = Petal.Length))
-#' get_mappings(p$layers[[1]]$mapping[[1]])
-get_mappings <- function(aes) {
-  list(field = as.character(rlang::get_expr(aes))
-  )
-}
+
 
 
 
