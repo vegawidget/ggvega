@@ -154,16 +154,9 @@ test_that("format_data_int works", {
 
 })
 
-test_that("get_data_name works", {
+test_that("format_var works", {
 
-  expect_identical(get_data_name(NULL, data_int_top), "data-00")
-  expect_identical(get_data_name(iris, data_int_top), "data-00")
-
-  expect_identical(get_data_name(iris, data_int_top_layer), "data-00")
-  expect_identical(get_data_name(mtcars, data_int_top_layer), "data-02")
-
-  expect_identical(get_data_name(iris, data_int_layer), "data-01")
-
-  expect_identical(get_data_name(iris, data_int_top_layer_dup), "data-00")
+  expect_identical(format_var(iris$Sepal.Length), iris$Sepal.Length)
+  expect_identical(format_var(iris$Species), as.character(iris$Species))
 
 })

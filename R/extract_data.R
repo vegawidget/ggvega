@@ -206,7 +206,7 @@ format_var <- function(x) {
 #' @return Named `list` with elements `metadata`, `observations`
 #' @noRd
 #'
-format_data_spec <- function(dat) {
+format_data_spc <- function(dat) {
   list(
     metadata = dat$metadata,
     observations = purrr::transpose(dat$variables)
@@ -221,7 +221,7 @@ format_data_spec <- function(dat) {
 #' @noRd
 #'
 data_spc <- function(int_data) {
-  purrr::map(int_data, format_data_spec)
+  purrr::map(int_data, format_data_spc)
 }
 
 #' Remove duplicates
