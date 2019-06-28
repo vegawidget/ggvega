@@ -1,16 +1,7 @@
 import commonjs from 'rollup-plugin-commonjs';
+import json from 'rollup-plugin-json';
 import nodeResolve from 'rollup-plugin-node-resolve';
-
-export function disallowedImports() {
-  return {
-    resolveId: module => {
-      if (module === 'vega' || module === 'util') {
-        throw new Error('Cannot import from Vega or Node Util in Vega-Lite.');
-      }
-      return null;
-    }
-  };
-}
+import sourcemaps from 'rollup-plugin-sourcemaps';
 
 export default {
   input: 'js/compile.js',
@@ -18,7 +9,8 @@ export default {
     file: 'build/ggvega.js',
     format: 'umd',
     sourcemap: true,
-    name: 'ggvega'
+    name: 'ggvega',
+    exports: 'named' /** Disable warning for default imports */
   },
-  plugins: [disallowedImports(), nodeResolve({browser: true}), commonjs()]
+  plugins: [nodeResolve({browser: true}), commonjs(), json(), sourcemaps()]
 };

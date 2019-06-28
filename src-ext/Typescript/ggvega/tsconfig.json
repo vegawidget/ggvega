@@ -2,9 +2,10 @@
   "files": ["src/compile.ts"],
   "compilerOptions": {
     "noEmit": true,
-    "target": "es6",
+    "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
+    "allowJs": true,
 
     "declaration": true,
     "declarationMap": true,
