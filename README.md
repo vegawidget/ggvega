@@ -18,11 +18,12 @@ specification.
 
 ``` r
 library(ggvega)
+#> Welcome to ggvega; this package is not yet fully functional, and is under active development.
 library(ggplot2)
 
 p <- 
   ggplot(iris) + 
-  geom_point(aes(x = Petal.Width, y = Petal.Length, color = Species))
+  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
 
 as_vegaspec(p)
 ```
@@ -36,10 +37,11 @@ active development.
 
 At present, we can translate:
 
-  - `geom_point()` using `x`, `y`, and `color` aesthetics.
+  - `geom_point()`
+  - aesthetics: `x`, `y`, `colour`
   - unit-plots; no facetting.
 
-We have plans to expand this capability; presently we are working out a
+We have plans to expand this capability; presently, we are working out a
 system to add new capabilities quickly and reliably.
 
 ## Installation
