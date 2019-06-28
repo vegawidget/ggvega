@@ -1,10 +1,11 @@
-#' Translate a ggspec object to a vlspec
+#' Translate ggspec object to vegaspec
 #'
 #' @param ggspec `list`, a ggspec object
 #'
 #' @inherit vegawidget::as_vegaspec return
 #'
 #' @export
+#' @keywords internal
 #'
 ggvega <- function(ggspec) {
 
@@ -16,26 +17,25 @@ ggvega <- function(ggspec) {
 
   ct$assign("ggspec",V8::JS("JSON.parse(ggspec)"))
 
-  vlspec<-ct$get(V8::JS("ggvega.gg2vl(ggspec)"))
+  vlspec <- ct$get(V8::JS("ggvega.gg2vl(ggspec)"))
 
   vegawidget::as_vegaspec(vlspec)
 }
 
 
-#' Translate a ggplot2 object to a Vega-Lite spec
+#' Translate ggplot2 object to vegaspec
 #'
 #' @inheritParams vegawidget::as_vegaspec
 #'
 #' @inherit vegawidget::as_vegaspec return
 #'
 #' @export
-
+#'
 as_vegaspec.gg <- function(spec, ...) {
 
-  # convert  to ggspec
+  # convert to ggspec
   ggspec <- ggspec::gg2spec(spec)
 
-  # call ggvega
+  # convert to vegaspec
   ggvega(ggspec)
-
 }

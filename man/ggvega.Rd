@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggvega.R
 \name{ggvega}
 \alias{ggvega}
-\title{Translate a ggspec object to a vlspec}
+\title{Translate a ggspec object to a vegaspec}
 \usage{
 ggvega(ggspec)
 }
@@ -13,5 +13,6 @@ ggvega(ggspec)
 An object with S3 class \code{vegaspec}
 }
 \description{
-Translate a ggspec object to a vlspec
+Translate a ggspec object to a vegaspec
 }
+\keyword{internal}
