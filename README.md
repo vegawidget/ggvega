@@ -27,10 +27,10 @@ p <-
 
 ggspec<-gg2spec(p)
 
-ggvega(ggspec)
-```
+ct <- V8::v8()
 
-![](man/figures/README-example-1.svg)<!-- -->
+ct$source(system.file("js", "ggvega.js", package = "ggvega"))
+```
 
 ## test
 
