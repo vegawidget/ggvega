@@ -18,14 +18,19 @@ specification.
 
 ``` r
 library(ggvega)
-library(ggplot2)
-
-p <- 
-  ggplot(iris) + 
-  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
-
-as_vegaspec(p)
+#> Welcome to ggvega; this package is not yet fully functional, and is under active development.
 ```
+
+## test
+
+    library(ggvega)
+    library(ggplot2)
+    
+    p <- 
+      ggplot(iris) + 
+      geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
+    
+    as_vegaspec(p)
 
 ### Important Note
 
