@@ -22,6 +22,8 @@ function TranslateTitle(ggLables: any): string | undefined {
   if (!ggLables) return undefined;
 
   if (ggLables['title']) return ggLables['title'];
+
+  return undefined;
 }
 
 function TranslateDatasets(ggData: any): Datasets | undefined {
