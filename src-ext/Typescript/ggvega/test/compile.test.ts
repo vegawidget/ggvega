@@ -15,6 +15,8 @@ describe('compile/gg2vl', () => {
       }
     });
 
+    console.log(vl);
+
     expect(vl.data).toBeUndefined();
     expect(vl.datasets).toHaveProperty('data-00');
     expect(vl.datasets).toHaveProperty('data-01');

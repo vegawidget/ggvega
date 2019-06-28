@@ -23,9 +23,9 @@ p <- ggplot(iris) +
   geom_point(aes(x = Sepal.Length, y = Sepal.Width, color = Species))
 
 as_vegaspec(p)
-#> [1] "Error printing vegawidget in non-HTML format:"                                                                                                                           
-#> [2] "Node is required for vw_to_svg(spec, width = width, height = height, ...)\nPlease install node from https://nodejs.org/en/download/ and ensure that node is on the PATH."
 ```
+
+![](man/figures/README-example-1.svg)<!-- -->
 
 ## Installation
 

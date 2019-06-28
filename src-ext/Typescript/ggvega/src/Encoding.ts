@@ -1,8 +1,21 @@
-import * as vlspec from './VlSpec';
 import * as Mark from './Mark';
+import {Encoding} from 'vega-lite/build/src/encoding';
+import {Scale} from 'vega-lite/build/src/scale';
+import {
+  Field,
+  PositionFieldDef,
+  NumericFieldDefWithCondition,
+  NumericValueDefWithCondition,
+  ShapeFieldDefWithCondition,
+  ShapeValueDefWithCondition,
+  StringFieldDefWithCondition,
+  StringValueDefWithCondition,
+  TypeForShape
+} from 'vega-lite/build/src/channeldef';
+import {StandardType} from 'vega-lite/build/src/type';
 
-export function TranslateEncoding(layer: any, labels: any, layerData: any, scales: any): vlspec.LayerEncoding {
-  const layerEncoding: vlspec.LayerEncoding = {
+export function TranslateEncoding(layer: any, labels: any, layerData: any, scales: any): Encoding<Field> {
+  const layerEncoding: Encoding<any> = {
     x: TranslateXClass(layer, labels, layerData, scales),
     y: TranslateYClass(layer, labels, layerData, scales),
     // color: TranslateColor(layer, labels, layerData),
@@ -17,12 +30,12 @@ export function TranslateEncoding(layer: any, labels: any, layerData: any, scale
   return layerEncoding;
 }
 
-function TranslateXClass(layer: any, labels: any, layerData: any, scales: any): vlspec.XClass {
+function TranslateXClass(layer: any, labels: any, layerData: any, scales: any): PositionFieldDef<Field> {
   let field: string = layer['mapping']['x']['field'];
 
-  const type: vlspec.StandardType = layerData['metadata'][field]['type'];
+  const type: StandardType = layerData['metadata'][field]['type'];
 
-  let scale: vlspec.Scale | undefined;
+  let scale: Scale | undefined;
 
   let title: string = labels['x'];
 
@@ -38,7 +51,7 @@ function TranslateXClass(layer: any, labels: any, layerData: any, scales: any): 
 
   field = field.replace('.', '\\.');
 
-  const xClass: vlspec.XClass = {
+  const xClass: PositionFieldDef<any> = {
     field: field,
     type: type,
     title: title,
@@ -48,12 +61,12 @@ function TranslateXClass(layer: any, labels: any, layerData: any, scales: any): 
   return xClass;
 }
 
-function TranslateYClass(layer: any, labels: any, layerData: any, scales: any): vlspec.YClass {
+function TranslateYClass(layer: any, labels: any, layerData: any, scales: any): PositionFieldDef<Field> {
   let field: string = layer['mapping']['y']['field'];
 
-  const type: vlspec.StandardType = layerData['metadata'][field]['type'];
+  const type: StandardType = layerData['metadata'][field]['type'];
 
-  let scale: vlspec.Scale | undefined;
+  let scale: Scale | undefined;
 
   let title: string = labels['y'];
 
@@ -69,7 +82,7 @@ function TranslateYClass(layer: any, labels: any, layerData: any, scales: any): 
 
   field = field.replace('.', '\\.');
 
-  const yClass: vlspec.YClass = {
+  const yClass: PositionFieldDef<any> = {
     field: field,
     type: type,
     title: title,
@@ -123,8 +136,8 @@ function TranslateSize(
   layer: any,
   labels: any,
   layerData: any
-): vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
-  let size: vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
+): NumericFieldDefWithCondition<Field> | NumericValueDefWithCondition<Field> | undefined {
+  let size: NumericFieldDefWithCondition<Field> | NumericValueDefWithCondition<Field> | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['size']) {
@@ -143,7 +156,7 @@ function TranslateSize(
 
     let field: string = layer['mapping']['size']['field'];
 
-    const type: vlspec.StandardType = layerData['metadata'][field]['type'];
+    const type: StandardType = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 
@@ -162,8 +175,8 @@ function TranslateShape(
   layer: any,
   labels: any,
   layerData: any
-): vlspec.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined {
-  let shape: vlspec.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined;
+): ShapeFieldDefWithCondition<Field> | ShapeValueDefWithCondition<Field> | undefined {
+  let shape: ShapeFieldDefWithCondition<Field> | ShapeValueDefWithCondition<Field> | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['shape']) {
@@ -184,7 +197,7 @@ function TranslateShape(
 
     let field: string = layer['mapping']['shape']['field'];
 
-    const type: vlspec.TypeForShape = layerData['metadata'][field]['type'];
+    const type: TypeForShape = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 
@@ -198,7 +211,7 @@ function TranslateShape(
   return shape;
 }
 
-function TranslateScale(transform: any): vlspec.Scale {
+function TranslateScale(transform: any): Scale {
   return transform;
 }
 
@@ -206,8 +219,8 @@ function TranslateStroke(
   layer: any,
   labels: any,
   layerData: any
-): vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
-  let stroke: vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
+): StringFieldDefWithCondition<Field> | StringValueDefWithCondition<Field> | undefined {
+  let stroke: StringFieldDefWithCondition<Field> | StringValueDefWithCondition<Field> | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['colour']) {
@@ -226,7 +239,7 @@ function TranslateStroke(
 
     let field: string = layer['mapping']['colour']['field'];
 
-    const type: vlspec.StandardType = layerData['metadata'][field]['type'];
+    const type: StandardType = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 
@@ -244,8 +257,8 @@ function TranslateStrokeWidth(
   layer: any,
   labels: any,
   layerData: any
-): vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
-  let strokeWidth: vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
+): NumericFieldDefWithCondition<Field> | NumericValueDefWithCondition<Field> | undefined {
+  let strokeWidth: NumericFieldDefWithCondition<Field> | NumericValueDefWithCondition<Field> | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['stroke']) {
@@ -264,7 +277,7 @@ function TranslateStrokeWidth(
 
     let field: string = layer['mapping']['stroke']['field'];
 
-    const type: vlspec.StandardType = layerData['metadata'][field]['type'];
+    const type: StandardType = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 
@@ -282,8 +295,8 @@ function TranslateOpacity(
   layer: any,
   labels: any,
   layerData: any
-): vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
-  let opacity: vlspec.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
+): NumericFieldDefWithCondition<Field> | NumericValueDefWithCondition<Field> | undefined {
+  let opacity: NumericFieldDefWithCondition<Field> | NumericValueDefWithCondition<Field> | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['alpha']) {
@@ -302,7 +315,7 @@ function TranslateOpacity(
 
     let field: string = layer['mapping']['alpha']['field'];
 
-    const type: vlspec.StandardType = layerData['metadata'][field]['type'];
+    const type: StandardType = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 
@@ -316,12 +329,12 @@ function TranslateOpacity(
   return opacity;
 }
 
-function TranslateFill(
+export function TranslateFill(
   layer: any,
   labels: any,
   layerData: any
-): vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
-  let fill: vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
+): StringFieldDefWithCondition<Field> | StringValueDefWithCondition<Field> | undefined {
+  let fill: StringFieldDefWithCondition<Field> | StringValueDefWithCondition<Field> | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['fill']) {
@@ -332,6 +345,7 @@ function TranslateFill(
       }
     }
   }
+
   if (layer['mapping']['fill']) {
     if (!layer['mapping']['fill']['field']) {
       return fill;
@@ -339,7 +353,7 @@ function TranslateFill(
 
     let field: string = layer['mapping']['fill']['field'];
 
-    const type: vlspec.StandardType = layerData['metadata'][field]['type'];
+    const type: StandardType = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 

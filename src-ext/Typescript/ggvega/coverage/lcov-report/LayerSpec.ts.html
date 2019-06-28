@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">30% </span>
+        <span class="strong">36.36% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>3/10</span>
+        <span class='fraction'>4/11</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>0/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">30% </span>
+        <span class="strong">36.36% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>3/10</span>
+        <span class='fraction'>4/11</span>
       </div>
     </div>
     <p class="quiet">
@@ -80,15 +80,15 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -102,29 +102,29 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as vlspec from './VlSpec';
-import {TranslateEncoding} from './Encoding';
-&nbsp;
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {TranslateEncoding} from './Encoding';
+import {GenericLayerSpec, UnitSpec} from 'vega-lite/build/src/spec';
+import {Mark, POINT} from 'vega-lite/build/src/mark';
 /**
  * This function used to translate the LayerSpec
  * @param layer
  * The layer in ggSpec
  * @param ggSpec
  */
-export function <span class="fstat-no" title="function not covered" >TranslateLayer(</span>layer: any, labels: any, data: any, scales: any): vlspec.LayerSpec {
+export function <span class="fstat-no" title="function not covered" >TranslateLayer(</span>layer: any, labels: any, data: any, scales: any): GenericLayerSpec&lt;UnitSpec&gt; | UnitSpec {
   const layerData: any = <span class="cstat-no" title="statement not covered" >data[layer['data']];</span>
 &nbsp;
-  const layerspec: vlspec.LayerSpec = <span class="cstat-no" title="statement not covered" >{</span>
+  const layerspec: UnitSpec = <span class="cstat-no" title="statement not covered" >{</span>
     data: {
       name: layer['data']
     },
@@ -135,12 +135,12 @@ export function <span class="fstat-no" title="function not covered" >TranslateLa
 <span class="cstat-no" title="statement not covered" >  return layerspec;</span>
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >TranslateMark(</span>geom: any): vlspec.Mark {
-  let mark: vlspec.Mark;
+export function <span class="fstat-no" title="function not covered" >TranslateMark(</span>geom: any): Mark {
+  let mark: Mark;
 <span class="cstat-no" title="statement not covered" >  if (geom['class'] == 'GeomPoint') {</span>
-<span class="cstat-no" title="statement not covered" >    mark = vlspec.Mark.Point;</span>
+<span class="cstat-no" title="statement not covered" >    mark = POINT;</span>
   } else {
-<span class="cstat-no" title="statement not covered" >    mark = vlspec.Mark.Point;</span>
+<span class="cstat-no" title="statement not covered" >    mark = POINT;</span>
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return mark;</span>
@@ -151,7 +151,7 @@ function <span class="fstat-no" title="function not covered" >TranslateMark(</sp
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Jun 23 2019 00:42:16 GMT-0400 (GMT-04:00)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Jun 26 2019 22:17:48 GMT-0400 (GMT-04:00)
 </div>
 </div>
 <script src="prettify.js"></script>

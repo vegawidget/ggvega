@@ -227,7 +227,7 @@ function TranslateOpacity(layer, labels, layerData) {
     }
     return opacity;
 }
-function TranslateFill(layer, labels, layerData) {
+export function TranslateFill(layer, labels, layerData) {
     var fill;
     if (layer['aes_params']) {
         if (layer['aes_params']['fill']) {

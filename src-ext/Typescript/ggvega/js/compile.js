@@ -1,38 +1,46 @@
 import { TranslateLayer } from './LayerSpec';
-/**
- * Main function to translate ggspec to vlspec
- * @param ggSpec
- */
 export function gg2vl(ggSpec) {
-    var layers;
-    var labels = ggSpec['labels'];
-    var data = ggSpec['data'];
-    var scales = ggSpec['scales'];
-    var title;
-    if (labels) {
-        if (labels['title']) {
-            title = labels['title'];
-        }
-    }
-    if (ggSpec['layers'] != null) {
-        layers = [];
-        for (var _i = 0, _a = ggSpec['layers']; _i < _a.length; _i++) {
-            var layer = _a[_i];
-            layers.push(TranslateLayer(layer, labels, data, scales));
-        }
-    }
-    var datasets = {};
-    for (var dataset in ggSpec['data']) {
-        datasets[dataset] = ggSpec['data'][dataset]['observations'];
-    }
     var vl = {
         $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
-        title: title,
-        datasets: datasets,
-        layer: layers
+        title: TranslateTitle(ggSpec['labels']),
+        datasets: TranslateDatasets(ggSpec['data']),
+        layer: TranslateLayers(ggSpec['layers'], ggSpec['labels'], ggSpec['data'], ggSpec['scales'])
     };
-    removeEmpty(vl);
     return vl;
+}
+function TranslateTitle(ggLables) {
+    if (!ggLables)
+        return undefined;
+    if (ggLables['title'])
+        return ggLables['title'];
+}
+function TranslateDatasets(ggData) {
+    if (!ggData)
+        return undefined;
+    var n = 0;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    for (var _dataset in ggData) {
+        n++;
+    }
+    if (n == 0)
+        return undefined;
+    else {
+        var datasets = {};
+        for (var dataset in ggData) {
+            datasets[dataset] = ggData[dataset]['observations'];
+        }
+        return datasets;
+    }
+}
+function TranslateLayers(ggLayers, ggLables, ggData, ggScales) {
+    var layers = [];
+    if (ggLayers != null) {
+        for (var _i = 0, ggLayers_1 = ggLayers; _i < ggLayers_1.length; _i++) {
+            var layer = ggLayers_1[_i];
+            layers.push(TranslateLayer(layer, ggLables, ggData, ggScales));
+        }
+    }
+    return layers;
 }
 /**
  * This function remove empty object in the vlSpec
