@@ -65,7 +65,7 @@ format_data_int <- function(dat) {
 
   list(
     metadata = purrr::map(dat, create_meta),
-    variables = purrr::map(dat, format_vars),
+    variables = purrr::map(dat, format_var),
     hash = digest::digest(dat)
   )
 }
@@ -186,7 +186,7 @@ create_meta <- function(x) {
 #' @examples
 #'
 #'
-format_vars <- function(x) {
+format_var <- function(x) {
 
   type_r_local <- type_r(x)
 
