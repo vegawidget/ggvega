@@ -49,5 +49,7 @@ system to add new capabilities quickly and reliably.
 You can install the development version from
 [GitHub](https://github.com/) with:
 
-\`\`\` r \# install.packages(“devtools”)
-devtools::install\_github(“vegawidget/ggvega”)
+``` r
+# install.packages("devtools")
+devtools::install_github("vegawidget/ggvega")
+```
