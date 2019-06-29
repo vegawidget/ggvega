@@ -1,5 +1,7 @@
+destination: docs
 template:
   params:
-    bootswatch: sandstone # or choose another
+    bootswatch: sandstone
 
-destination: docs
+development:
+  mode: auto

@@ -1,0 +1,33 @@
+{
+  "data": {
+    "data-00": {
+      "metadata": {},
+      "observations": [{}, {}]
+    }
+  },
+  "layers": [
+    {
+      "data": "data-00",
+      "geom": {"class": "GeomPoint"},
+      "mapping": {
+        "x": {"field": "Petal.Width", "type": "quantitative"},
+        "y": {"field": "Petal.Length", "type": "quantitative"}
+      },
+      "aes_params": {
+        "colour": {"value": "red"}
+      }
+    }
+  ],
+  "scales": [
+    {
+      "class": "ScaleContinuousPosition",
+      "aesthetics": ["y"],
+      "transform": {"type": "log", "base": 10}
+    }
+  ],
+  "labels": {
+    "title": "Hello World",
+    "x": "Petal.Width",
+    "y": "Petal.Length"
+  }
+}

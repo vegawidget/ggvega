@@ -4,7 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, echo = FALSE}
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -26,11 +26,9 @@ The goal of **ggvega** is to translate a ggplot2 object to a Vega-Lite specifica
 ```{r example}
 library(ggvega)
 library(ggplot2)
-
 p <- 
   ggplot(iris) + 
   geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
-
 as_vegaspec(p)
 ```
 
@@ -53,4 +51,3 @@ You can install the development version from [GitHub](https://github.com/) with:
 ``` r
 # install.packages("devtools")
 devtools::install_github("vegawidget/ggvega")
-```

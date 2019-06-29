@@ -34,7 +34,7 @@ ggvega <- function(ggspec) {
 as_vegaspec.gg <- function(spec, ...) {
 
   # convert to ggspec
-  ggspec <- ggspec::gg2spec(spec)
+  ggspec <- gg2spec(spec)
 
   # convert to vegaspec
   ggvega(ggspec)
