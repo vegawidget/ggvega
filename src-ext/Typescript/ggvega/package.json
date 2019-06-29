@@ -36,13 +36,9 @@
     "rollup-plugin-node-resolve": "^5.0.1",
     "ts-jest": "^24.0.2",
     "typescript": "*",
-    "typescript-babel-jest": "^1.0.6",
-    "vega": "^5.4.0",
-    "vega-lite": "^3.3.0"
+    "typescript-babel-jest": "^1.0.6"
   },
-  "dependencies": {
-    "vega-util": "^1.10.0"
-  },
+  "dependencies": {},
   "jest": {
     "preset": "ts-jest",
     "transform": {

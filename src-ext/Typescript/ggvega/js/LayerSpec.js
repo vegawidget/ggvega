@@ -1,5 +1,5 @@
 import { TranslateEncoding } from './Encoding';
-import { POINT } from 'vega-lite/build/src/mark';
+import { Mark } from './vlSpec';
 /**
  * This function used to translate the LayerSpec
  * @param layer
@@ -20,10 +20,10 @@ export function TranslateLayer(layer, labels, data, scales) {
 export function TranslateMark(geom) {
     var mark;
     if (geom['class'] == 'GeomPoint') {
-        mark = POINT;
+        mark = Mark.Point;
     }
     else {
-        mark = POINT;
+        mark = undefined;
     }
     return mark;
 }

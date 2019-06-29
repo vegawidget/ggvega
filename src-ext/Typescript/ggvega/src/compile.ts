@@ -1,12 +1,9 @@
+import {TopLevelSpec, InlineDataset, LayerSpec} from './vlSpec';
 import {TranslateLayer} from './LayerSpec';
-import {TopLevelSpec} from 'vega-lite';
-import {TopLevel, GenericLayerSpec, UnitSpec} from 'vega-lite/build/src/spec';
-import {LayerSpec} from 'vega-lite/build/src/spec/layer';
-import {Datasets} from 'vega-lite/build/src/spec/toplevel';
 
 export function gg2vl(ggSpec: any): TopLevelSpec {
-  const vl: TopLevel<LayerSpec> = {
-    $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+  const vl: TopLevelSpec = {
+    schema: 'https://vega.github.io/schema/vega-lite/v3.json',
 
     title: TranslateTitle(ggSpec['labels']),
 
@@ -24,7 +21,7 @@ function TranslateTitle(ggLables: any): string | undefined {
   if (ggLables['title']) return ggLables['title'];
 }
 
-function TranslateDatasets(ggData: any): Datasets | undefined {
+function TranslateDatasets(ggData: any): {[key: string]: InlineDataset} | undefined {
   if (!ggData) return undefined;
 
   let n = 0;
@@ -34,7 +31,7 @@ function TranslateDatasets(ggData: any): Datasets | undefined {
   }
   if (n == 0) return undefined;
   else {
-    const datasets: Datasets = {};
+    const datasets: {[key: string]: InlineDataset} = {};
     for (const dataset in ggData) {
       datasets[dataset] = ggData[dataset]['observations'];
     }
@@ -42,21 +39,23 @@ function TranslateDatasets(ggData: any): Datasets | undefined {
   }
 }
 
-function TranslateLayers(
-  ggLayers: any,
-  ggLables: any,
-  ggData: any,
-  ggScales: any
-): Array<GenericLayerSpec<UnitSpec> | UnitSpec> {
-  const layers: Array<GenericLayerSpec<UnitSpec> | UnitSpec> = [];
+function TranslateLayers(ggLayers: any, ggLables: any, ggData: any, ggScales: any): LayerSpec[] | undefined {
+  if (!ggLayers) return undefined;
 
-  if (ggLayers != null) {
+  let n = 0;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  for (const _layer in ggLayers) {
+    n++;
+  }
+  if (n == 0) return undefined;
+  else {
+    const layers: LayerSpec[] = [];
+
     for (const layer of ggLayers) {
       layers.push(TranslateLayer(layer, ggLables, ggData, ggScales));
     }
+    return layers;
   }
-
-  return layers;
 }
 
 /**

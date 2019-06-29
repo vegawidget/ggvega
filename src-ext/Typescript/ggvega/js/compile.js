@@ -1,7 +1,7 @@
 import { TranslateLayer } from './LayerSpec';
 export function gg2vl(ggSpec) {
     var vl = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+        schema: 'https://vega.github.io/schema/vega-lite/v3.json',
         title: TranslateTitle(ggSpec['labels']),
         datasets: TranslateDatasets(ggSpec['data']),
         layer: TranslateLayers(ggSpec['layers'], ggSpec['labels'], ggSpec['data'], ggSpec['scales'])
@@ -33,14 +33,23 @@ function TranslateDatasets(ggData) {
     }
 }
 function TranslateLayers(ggLayers, ggLables, ggData, ggScales) {
-    var layers = [];
-    if (ggLayers != null) {
+    if (!ggLayers)
+        return undefined;
+    var n = 0;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    for (var _layer in ggLayers) {
+        n++;
+    }
+    if (n == 0)
+        return undefined;
+    else {
+        var layers = [];
         for (var _i = 0, ggLayers_1 = ggLayers; _i < ggLayers_1.length; _i++) {
             var layer = ggLayers_1[_i];
             layers.push(TranslateLayer(layer, ggLables, ggData, ggScales));
         }
+        return layers;
     }
-    return layers;
 }
 /**
  * This function remove empty object in the vlSpec

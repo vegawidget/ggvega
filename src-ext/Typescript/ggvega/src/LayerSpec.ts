@@ -1,16 +1,15 @@
 import {TranslateEncoding} from './Encoding';
-import {GenericLayerSpec, UnitSpec} from 'vega-lite/build/src/spec';
-import {Mark, POINT} from 'vega-lite/build/src/mark';
+import {LayerSpec, Mark} from './vlSpec';
 /**
  * This function used to translate the LayerSpec
  * @param layer
  * The layer in ggSpec
  * @param ggSpec
  */
-export function TranslateLayer(layer: any, labels: any, data: any, scales: any): GenericLayerSpec<UnitSpec> | UnitSpec {
+export function TranslateLayer(layer: any, labels: any, data: any, scales: any): LayerSpec {
   const layerData: any = data[layer['data']];
 
-  const layerspec: UnitSpec = {
+  const layerspec: LayerSpec = {
     data: {
       name: layer['data']
     },
@@ -21,12 +20,12 @@ export function TranslateLayer(layer: any, labels: any, data: any, scales: any):
   return layerspec;
 }
 
-export function TranslateMark(geom: any): Mark {
-  let mark: Mark;
+export function TranslateMark(geom: any): Mark | undefined {
+  let mark: Mark | undefined;
   if (geom['class'] == 'GeomPoint') {
-    mark = POINT;
+    mark = Mark.Point;
   } else {
-    mark = POINT;
+    mark = undefined;
   }
 
   return mark;

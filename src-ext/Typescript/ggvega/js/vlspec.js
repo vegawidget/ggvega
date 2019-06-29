@@ -64,9 +64,9 @@ export var BoundsEnum;
  */
 export var DataFormatType;
 (function (DataFormatType) {
-    DataFormatType["Csv"] = "csv";
+    DataFormatType["CSV"] = "csv";
     DataFormatType["Dsv"] = "dsv";
-    DataFormatType["Json"] = "json";
+    DataFormatType["JSON"] = "json";
     DataFormatType["Topojson"] = "topojson";
     DataFormatType["Tsv"] = "tsv";
 })(DataFormatType || (DataFormatType = {}));
@@ -379,18 +379,18 @@ export var ScaleInterpolateParamsType;
 (function (ScaleInterpolateParamsType) {
     ScaleInterpolateParamsType["Cubehelix"] = "cubehelix";
     ScaleInterpolateParamsType["CubehelixLong"] = "cubehelix-long";
-    ScaleInterpolateParamsType["Rgb"] = "rgb";
+    ScaleInterpolateParamsType["RGB"] = "rgb";
 })(ScaleInterpolateParamsType || (ScaleInterpolateParamsType = {}));
 export var ScaleInterpolate;
 (function (ScaleInterpolate) {
     ScaleInterpolate["Cubehelix"] = "cubehelix";
     ScaleInterpolate["CubehelixLong"] = "cubehelix-long";
-    ScaleInterpolate["Hcl"] = "hcl";
-    ScaleInterpolate["HclLong"] = "hcl-long";
+    ScaleInterpolate["HCL"] = "hcl";
+    ScaleInterpolate["HCLLong"] = "hcl-long";
     ScaleInterpolate["Hsl"] = "hsl";
     ScaleInterpolate["HslLong"] = "hsl-long";
     ScaleInterpolate["Lab"] = "lab";
-    ScaleInterpolate["Rgb"] = "rgb";
+    ScaleInterpolate["RGB"] = "rgb";
 })(ScaleInterpolate || (ScaleInterpolate = {}));
 export var NiceTime;
 (function (NiceTime) {
@@ -447,7 +447,7 @@ export var ScaleType;
     ScaleType["Symlog"] = "symlog";
     ScaleType["Threshold"] = "threshold";
     ScaleType["Time"] = "time";
-    ScaleType["Utc"] = "utc";
+    ScaleType["UTC"] = "utc";
 })(ScaleType || (ScaleType = {}));
 /**
  * The [encoding channel](https://vega.github.io/vega-lite/docs/encoding.html#channels) to
@@ -655,19 +655,19 @@ export var Cursor;
     Cursor["Help"] = "help";
     Cursor["Move"] = "move";
     Cursor["NResize"] = "n-resize";
+    Cursor["NSResize"] = "ns-resize";
     Cursor["NeResize"] = "ne-resize";
     Cursor["NeswResize"] = "nesw-resize";
     Cursor["NoDrop"] = "no-drop";
     Cursor["None"] = "none";
     Cursor["NotAllowed"] = "not-allowed";
-    Cursor["NsResize"] = "ns-resize";
     Cursor["NwResize"] = "nw-resize";
     Cursor["NwseResize"] = "nwse-resize";
     Cursor["Pointer"] = "pointer";
     Cursor["Progress"] = "progress";
     Cursor["RowResize"] = "row-resize";
+    Cursor["SEResize"] = "se-resize";
     Cursor["SResize"] = "s-resize";
-    Cursor["SeResize"] = "se-resize";
     Cursor["SwResize"] = "sw-resize";
     Cursor["Text"] = "text";
     Cursor["VerticalText"] = "vertical-text";
@@ -684,8 +684,8 @@ export var Cursor;
  */
 export var Dir;
 (function (Dir) {
-    Dir["Ltr"] = "ltr";
-    Dir["Rtl"] = "rtl";
+    Dir["LTR"] = "ltr";
+    Dir["RTL"] = "rtl";
 })(Dir || (Dir = {}));
 /**
  * The line interpolation method to use for line and area marks. One of the following:
@@ -805,12 +805,12 @@ export var PointEnum;
     PointEnum["Transparent"] = "transparent";
 })(PointEnum || (PointEnum = {}));
 /**
- * All types of primitive marks.
- *
  * The mark type. This could a primitive mark type
  * (one of `"bar"`, `"circle"`, `"square"`, `"tick"`, `"line"`,
  * `"area"`, `"point"`, `"geoshape"`, `"rule"`, and `"text"`)
  * or a composite mark type (`"boxplot"`, `"errorband"`, `"errorbar"`).
+ *
+ * All types of primitive marks.
  */
 export var Mark;
 (function (Mark) {

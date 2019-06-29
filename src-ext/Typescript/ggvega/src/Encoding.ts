@@ -1,21 +1,18 @@
 import * as Mark from './Mark';
-import {Encoding} from 'vega-lite/build/src/encoding';
-import {Scale} from 'vega-lite/build/src/scale';
 import {
-  Field,
-  PositionFieldDef,
-  NumericFieldDefWithCondition,
-  NumericValueDefWithCondition,
-  ShapeFieldDefWithCondition,
-  ShapeValueDefWithCondition,
-  StringFieldDefWithCondition,
-  StringValueDefWithCondition,
+  LayerEncoding,
+  Scale,
+  XClass,
+  StandardType,
+  YClass,
+  ValueDefWithConditionMarkPropFieldDefNumber,
+  ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull,
+  ValueDefWithConditionMarkPropFieldDefStringNull,
   TypeForShape
-} from 'vega-lite/build/src/channeldef';
-import {StandardType} from 'vega-lite/build/src/type';
+} from './vlSpec';
 
-export function TranslateEncoding(layer: any, labels: any, layerData: any, scales: any): Encoding<Field> {
-  const layerEncoding: Encoding<any> = {
+export function TranslateEncoding(layer: any, labels: any, layerData: any, scales: any): LayerEncoding | undefined {
+  const layerEncoding: LayerEncoding | undefined = {
     x: TranslateXClass(layer, labels, layerData, scales),
     y: TranslateYClass(layer, labels, layerData, scales),
     // color: TranslateColor(layer, labels, layerData),
@@ -30,7 +27,7 @@ export function TranslateEncoding(layer: any, labels: any, layerData: any, scale
   return layerEncoding;
 }
 
-function TranslateXClass(layer: any, labels: any, layerData: any, scales: any): PositionFieldDef<Field> {
+function TranslateXClass(layer: any, labels: any, layerData: any, scales: any): XClass | undefined {
   let field: string = layer['mapping']['x']['field'];
 
   const type: StandardType = layerData['metadata'][field]['type'];
@@ -51,7 +48,7 @@ function TranslateXClass(layer: any, labels: any, layerData: any, scales: any): 
 
   field = field.replace('.', '\\.');
 
-  const xClass: PositionFieldDef<any> = {
+  const xClass: XClass | undefined = {
     field: field,
     type: type,
     title: title,
@@ -61,7 +58,7 @@ function TranslateXClass(layer: any, labels: any, layerData: any, scales: any): 
   return xClass;
 }
 
-function TranslateYClass(layer: any, labels: any, layerData: any, scales: any): PositionFieldDef<Field> {
+function TranslateYClass(layer: any, labels: any, layerData: any, scales: any): YClass | undefined {
   let field: string = layer['mapping']['y']['field'];
 
   const type: StandardType = layerData['metadata'][field]['type'];
@@ -82,7 +79,7 @@ function TranslateYClass(layer: any, labels: any, layerData: any, scales: any): 
 
   field = field.replace('.', '\\.');
 
-  const yClass: PositionFieldDef<any> = {
+  const yClass: YClass | undefined = {
     field: field,
     type: type,
     title: title,
@@ -136,8 +133,8 @@ function TranslateSize(
   layer: any,
   labels: any,
   layerData: any
-): NumericFieldDefWithCondition<Field> | NumericValueDefWithCondition<Field> | undefined {
-  let size: NumericFieldDefWithCondition<Field> | NumericValueDefWithCondition<Field> | undefined;
+): ValueDefWithConditionMarkPropFieldDefNumber | undefined {
+  let size: ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['size']) {
@@ -175,8 +172,8 @@ function TranslateShape(
   layer: any,
   labels: any,
   layerData: any
-): ShapeFieldDefWithCondition<Field> | ShapeValueDefWithCondition<Field> | undefined {
-  let shape: ShapeFieldDefWithCondition<Field> | ShapeValueDefWithCondition<Field> | undefined;
+): ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined {
+  let shape: ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['shape']) {
@@ -219,8 +216,8 @@ function TranslateStroke(
   layer: any,
   labels: any,
   layerData: any
-): StringFieldDefWithCondition<Field> | StringValueDefWithCondition<Field> | undefined {
-  let stroke: StringFieldDefWithCondition<Field> | StringValueDefWithCondition<Field> | undefined;
+): ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
+  let stroke: ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['colour']) {
@@ -257,8 +254,8 @@ function TranslateStrokeWidth(
   layer: any,
   labels: any,
   layerData: any
-): NumericFieldDefWithCondition<Field> | NumericValueDefWithCondition<Field> | undefined {
-  let strokeWidth: NumericFieldDefWithCondition<Field> | NumericValueDefWithCondition<Field> | undefined;
+): ValueDefWithConditionMarkPropFieldDefNumber | undefined {
+  let strokeWidth: ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['stroke']) {
@@ -295,8 +292,8 @@ function TranslateOpacity(
   layer: any,
   labels: any,
   layerData: any
-): NumericFieldDefWithCondition<Field> | NumericValueDefWithCondition<Field> | undefined {
-  let opacity: NumericFieldDefWithCondition<Field> | NumericValueDefWithCondition<Field> | undefined;
+): ValueDefWithConditionMarkPropFieldDefNumber | undefined {
+  let opacity: ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['alpha']) {
@@ -333,8 +330,8 @@ export function TranslateFill(
   layer: any,
   labels: any,
   layerData: any
-): StringFieldDefWithCondition<Field> | StringValueDefWithCondition<Field> | undefined {
-  let fill: StringFieldDefWithCondition<Field> | StringValueDefWithCondition<Field> | undefined;
+): ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
+  let fill: ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['fill']) {
