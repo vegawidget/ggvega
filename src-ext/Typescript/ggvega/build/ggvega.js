@@ -5,7 +5,7 @@
 }(this, function (exports) { 'use strict';
 
     function TranslatePointShape(ggShape) {
-        var shape = '';
+        let shape = '';
         if (ggShape % 8 == 0) {
             shape = 'circle';
         }
@@ -49,7 +49,7 @@
     }
 
     function TranslateEncoding(layer, labels, layerData, scales) {
-        var layerEncoding = {
+        const layerEncoding = {
             x: TranslateXClass(layer, labels, layerData, scales),
             y: TranslateYClass(layer, labels, layerData, scales),
             // color: TranslateColor(layer, labels, layerData),
@@ -63,12 +63,11 @@
         return layerEncoding;
     }
     function TranslateXClass(layer, labels, layerData, scales) {
-        var field = layer['mapping']['x']['field'];
-        var type = layerData['metadata'][field]['type'];
-        var scale;
-        var title = labels['x'];
-        for (var _i = 0, scales_1 = scales; _i < scales_1.length; _i++) {
-            var ggScale = scales_1[_i];
+        let field = layer['mapping']['x']['field'];
+        const type = layerData['metadata'][field]['type'];
+        let scale;
+        let title = labels['x'];
+        for (const ggScale of scales) {
             if (ggScale['aesthetics'][0] == 'x') {
                 scale = TranslateScale(ggScale['transform']);
                 if (ggScale['name']) {
@@ -77,7 +76,7 @@
             }
         }
         field = field.replace('.', '\\.');
-        var xClass = {
+        const xClass = {
             field: field,
             type: type,
             title: title,
@@ -86,12 +85,11 @@
         return xClass;
     }
     function TranslateYClass(layer, labels, layerData, scales) {
-        var field = layer['mapping']['y']['field'];
-        var type = layerData['metadata'][field]['type'];
-        var scale;
-        var title = labels['y'];
-        for (var _i = 0, scales_2 = scales; _i < scales_2.length; _i++) {
-            var ggScale = scales_2[_i];
+        let field = layer['mapping']['y']['field'];
+        const type = layerData['metadata'][field]['type'];
+        let scale;
+        let title = labels['y'];
+        for (const ggScale of scales) {
             if (ggScale['aesthetics'][0] == 'y') {
                 scale = TranslateScale(ggScale['transform']);
                 if (ggScale['name']) {
@@ -100,7 +98,7 @@
             }
         }
         field = field.replace('.', '\\.');
-        var yClass = {
+        const yClass = {
             field: field,
             type: type,
             title: title,
@@ -141,7 +139,7 @@
      * @param ggSpec is the ggSpec
      */
     function TranslateSize(layer, labels, layerData) {
-        var size;
+        let size;
         if (layer['aes_params']) {
             if (layer['aes_params']['size']) {
                 if (layer['aes_params']['size']['value']) {
@@ -155,8 +153,8 @@
             if (!layer['mapping']['size']['field']) {
                 return size;
             }
-            var field = layer['mapping']['size']['field'];
-            var type = layerData['metadata'][field]['type'];
+            let field = layer['mapping']['size']['field'];
+            const type = layerData['metadata'][field]['type'];
             field = field.replace('.', '\\.');
             size = {
                 field: field,
@@ -168,11 +166,11 @@
         return size;
     }
     function TranslateShape(layer, labels, layerData) {
-        var shape;
+        let shape;
         if (layer['aes_params']) {
             if (layer['aes_params']['shape']) {
                 if (layer['aes_params']['shape']['value']) {
-                    if (layer["geom"]['class'] == 'GeomPoint') {
+                    if (layer[`geom`]['class'] == 'GeomPoint') {
                         shape = {
                             value: TranslatePointShape(layer['aes_params']['shape']['value'])
                         };
@@ -184,8 +182,8 @@
             if (!layer['mapping']['shape']['field']) {
                 return shape;
             }
-            var field = layer['mapping']['shape']['field'];
-            var type = layerData['metadata'][field]['type'];
+            let field = layer['mapping']['shape']['field'];
+            const type = layerData['metadata'][field]['type'];
             field = field.replace('.', '\\.');
             shape = {
                 field: field,
@@ -199,7 +197,7 @@
         return transform;
     }
     function TranslateStroke$1(layer, labels, layerData) {
-        var stroke;
+        let stroke;
         if (layer['aes_params']) {
             if (layer['aes_params']['colour']) {
                 if (layer['aes_params']['colour']['value']) {
@@ -213,8 +211,8 @@
             if (!layer['mapping']['colour']['field']) {
                 return stroke;
             }
-            var field = layer['mapping']['colour']['field'];
-            var type = layerData['metadata'][field]['type'];
+            let field = layer['mapping']['colour']['field'];
+            const type = layerData['metadata'][field]['type'];
             field = field.replace('.', '\\.');
             stroke = {
                 field: field,
@@ -225,7 +223,7 @@
         return stroke;
     }
     function TranslateStrokeWidth$1(layer, labels, layerData) {
-        var strokeWidth;
+        let strokeWidth;
         if (layer['aes_params']) {
             if (layer['aes_params']['stroke']) {
                 if (layer['aes_params']['stroke']['value']) {
@@ -239,8 +237,8 @@
             if (!layer['mapping']['stroke']['field']) {
                 return strokeWidth;
             }
-            var field = layer['mapping']['stroke']['field'];
-            var type = layerData['metadata'][field]['type'];
+            let field = layer['mapping']['stroke']['field'];
+            const type = layerData['metadata'][field]['type'];
             field = field.replace('.', '\\.');
             strokeWidth = {
                 field: field,
@@ -251,7 +249,7 @@
         return strokeWidth;
     }
     function TranslateOpacity$1(layer, labels, layerData) {
-        var opacity;
+        let opacity;
         if (layer['aes_params']) {
             if (layer['aes_params']['alpha']) {
                 if (layer['aes_params']['alpha']['value']) {
@@ -265,8 +263,8 @@
             if (!layer['mapping']['alpha']['field']) {
                 return opacity;
             }
-            var field = layer['mapping']['alpha']['field'];
-            var type = layerData['metadata'][field]['type'];
+            let field = layer['mapping']['alpha']['field'];
+            const type = layerData['metadata'][field]['type'];
             field = field.replace('.', '\\.');
             opacity = {
                 field: field,
@@ -277,7 +275,7 @@
         return opacity;
     }
     function TranslateFill$1(layer, labels, layerData) {
-        var fill;
+        let fill;
         if (layer['aes_params']) {
             if (layer['aes_params']['fill']) {
                 if (layer['aes_params']['fill']['value']) {
@@ -291,8 +289,8 @@
             if (!layer['mapping']['fill']['field']) {
                 return fill;
             }
-            var field = layer['mapping']['fill']['field'];
-            var type = layerData['metadata'][field]['type'];
+            let field = layer['mapping']['fill']['field'];
+            const type = layerData['metadata'][field]['type'];
             field = field.replace('.', '\\.');
             fill = {
                 field: field,
@@ -801,8 +799,8 @@
      * @param ggSpec
      */
     function TranslateLayer(layer, labels, data, scales) {
-        var layerData = data[layer['data']];
-        var layerspec = {
+        const layerData = data[layer['data']];
+        const layerspec = {
             data: {
                 name: layer['data']
             },
@@ -812,7 +810,7 @@
         return layerspec;
     }
     function TranslateMark(geom) {
-        var mark;
+        let mark;
         if (geom['class'] == 'GeomPoint') {
             mark = POINT;
         }
@@ -823,7 +821,7 @@
     }
 
     function gg2vl(ggSpec) {
-        var vl = {
+        const vl = {
             $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
             title: TranslateTitle(ggSpec['labels']),
             datasets: TranslateDatasets(ggSpec['data']),
@@ -841,26 +839,25 @@
     function TranslateDatasets(ggData) {
         if (!ggData)
             return undefined;
-        var n = 0;
+        let n = 0;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        for (var _dataset in ggData) {
+        for (const _dataset in ggData) {
             n++;
         }
         if (n == 0)
             return undefined;
         else {
-            var datasets = {};
-            for (var dataset in ggData) {
+            const datasets = {};
+            for (const dataset in ggData) {
                 datasets[dataset] = ggData[dataset]['observations'];
             }
             return datasets;
         }
     }
     function TranslateLayers(ggLayers, ggLables, ggData, ggScales) {
-        var layers = [];
+        const layers = [];
         if (ggLayers != null) {
-            for (var _i = 0, ggLayers_1 = ggLayers; _i < ggLayers_1.length; _i++) {
-                var layer = ggLayers_1[_i];
+            for (const layer of ggLayers) {
                 layers.push(TranslateLayer(layer, ggLables, ggData, ggScales));
             }
         }

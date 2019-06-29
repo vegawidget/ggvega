@@ -1,5 +1,5 @@
 export function TranslatePointShape(ggShape) {
-    var shape = '';
+    let shape = '';
     if (ggShape % 8 == 0) {
         shape = 'circle';
     }

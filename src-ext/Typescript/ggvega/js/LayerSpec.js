@@ -7,8 +7,8 @@ import { POINT } from 'vega-lite/build/src/mark';
  * @param ggSpec
  */
 export function TranslateLayer(layer, labels, data, scales) {
-    var layerData = data[layer['data']];
-    var layerspec = {
+    const layerData = data[layer['data']];
+    const layerspec = {
         data: {
             name: layer['data']
         },
@@ -18,7 +18,7 @@ export function TranslateLayer(layer, labels, data, scales) {
     return layerspec;
 }
 export function TranslateMark(geom) {
-    var mark;
+    let mark;
     if (geom['class'] == 'GeomPoint') {
         mark = POINT;
     }
