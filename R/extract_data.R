@@ -13,8 +13,7 @@
 #'
 #' @return named `list`, each of which has elements:
 #'  `metadata`, `variables`, `hash`
-#' @keywords internal
-#' @export
+#' @noRd
 #'
 #' @examples
 #' library(ggplot2)

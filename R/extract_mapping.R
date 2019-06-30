@@ -5,7 +5,7 @@
 #' @param mapping_plt A `list` of defined aesthetics from the ggplot object.
 #'
 #' @return `list` of encodings with their field descriptions
-#' @export
+#' @noRd
 #'
 #' @examples
 #' library(ggplot2)

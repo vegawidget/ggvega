@@ -7,8 +7,7 @@
 #' @param int_map An intermediate-form for the mapping created by `mapping_spc()`.
 #'
 #' @return `list` of layers each with their layer components
-#' @keywords internal
-#' @export
+#' @noRd
 #'
 #' @examples
 #' library(ggplot2)

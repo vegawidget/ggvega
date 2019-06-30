@@ -3,7 +3,7 @@
 #' @param scale_plt A `list` of scales from the ggplot object.
 #'
 #' @return A `list` of scales that differ from the default scales.
-#' @export
+#' @noRd
 #'
 #' @examples
 #' library(ggplot2)
@@ -23,7 +23,7 @@ scale_spc <- function(scale_plt) {
 #' @param scale A single ggplot2 scale object.
 #'
 #' @return A `list` of scale specifications for scales that differ from the default scales.
-#' @export
+#' @noRd
 #'
 #' @examples
 #' library(ggplot2)
