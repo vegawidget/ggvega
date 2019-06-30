@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Shiny-output for vegawidget — vegawidgetOutput • ggvega</title>
+<title>Contributing to ggvega • ggvega</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -25,15 +25,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script>
+<link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script>
 
 
 
-<meta property="og:title" content="Shiny-output for vegawidget — vegawidgetOutput" />
-
-<meta property="og:description" content="See vegawidget::vegawidgetOutput for details." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Contributing to ggvega" />
 
 
 
@@ -50,7 +47,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-title-body">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -62,7 +59,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">ggvega</a>
+        <a class="navbar-link" href="index.html">ggvega</a>
         <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9003</span>
       </span>
     </div>
@@ -70,13 +67,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
+  <a href="index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="reference/index.html">Reference</a>
 </li>
       </ul>
       
@@ -97,29 +94,37 @@
       </header>
 
 <div class="row">
-  <div class="col-md-9 contents">
+  <div class="contents col-md-9">
     <div class="page-header">
-    <h1>Shiny-output for vegawidget</h1>
-    <small class="dont-index">Source: <a href='https://github.com/vegawidget/ggvega/blob/master/R/utils-vegawidget.R'><code>R/utils-vegawidget.R</code></a></small>
-    <div class="hidden name"><code>vegawidgetOutput.Rd</code></div>
+      <h1>Contributing to ggvega</h1>
     </div>
 
-    <div class="ref-description">
-    
-    <p>See <code>vegawidget::<a href='https://www.rdocumentation.org/packages/vegawidget/topics/vegawidgetOutput'>vegawidgetOutput</a></code> for details.</p>
-    
-    </div>
+<div id="contributing-to-ggvega" class="section level1">
 
-        
-
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-                </ul>
-
-  </div>
+<p>At the moment, this guide is intended for the vegawidget organization, so that we may collaborate more efficiently and reliably. When this package reaches a certain point, we will welcome contributions from the community.</p>
+<ul>
+<li><p>We will use the <code>master</code> branch as the reference branch.</p></li>
+<li><p>The <code>master</code> branch will be updated only by pull-request (PR).</p></li>
+<li><p>Each update of the <code>master</code> branch will have a new version number; this will be one of the things we check before merging a PR.</p></li>
+<li><p>We will not merge a PR into <code>master</code> unless the checks pass; this will help us make sure that the <code>master</code> branch always remains “passing”.</p></li>
+<li><p>A PR into master will be reviewed by at least one author; exceptions can be made for merging PRs that fix bugs.</p></li>
+</ul>
+<p>When we develop a new feature, we will establish a feature branch, e.g. <code>geom-rect</code>:</p>
+<ul>
+<li><p>we will each push our development work into that branch; I imagine each of us will be contributing R code, JS code, tests, and/or documentation.</p></li>
+<li><p>when we are all happy that the feature is “done”, we will merge the PR for the feature branch, then delete the feature branch.</p></li>
+</ul>
+<div id="code-of-conduct" class="section level3">
+<h3 class="hasAnchor">
+<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h3>
+<p>Please note that the ggvega project is released with a <a href="../CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project you agree to abide by its terms.</p>
 </div>
+</div>
+
+  </div>
+
+</div>
+
 
       <footer>
       <div class="copyright">
