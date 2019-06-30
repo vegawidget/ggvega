@@ -1,4 +1,4 @@
 library(testthat)
-library(ggspec)
+library(ggvega)
 
-test_check("ggspec")
+test_check("ggvega")
