@@ -26,8 +26,6 @@ p <-
   geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
 
 as_vegaspec(p)
-#> Warning in .as_vegaspec.list(spec): Spec has no `$schema` element, adding
-#> `$schema` element for Vega-Lite major-version
 ```
 
 ![](man/figures/README-example-1.svg)<!-- -->

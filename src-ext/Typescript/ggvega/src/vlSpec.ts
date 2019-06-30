@@ -10,7 +10,7 @@ export interface TopLevelSpec {
    * Setting the `$schema` property allows automatic validation and autocomplete in editors
    * that support JSON schema.
    */
-  schema?: string;
+  $schema?: string;
   /**
    * The alignment to apply to grid rows and columns.
    * The supported string values are `"all"`, `"each"`, and `"none"`.
@@ -72,7 +72,7 @@ export interface TopLevelSpec {
    *
    * __Default value:__ `false`
    */
-  center?: VlSpecCenter;
+  center?: CoordinateCenter;
   /**
    * The number of columns to include in the view composition layout.
    *
@@ -408,7 +408,7 @@ export enum BoundsEnum {
   Full = 'full'
 }
 
-export type VlSpecCenter = boolean | RowColBoolean;
+export type CoordinateCenter = boolean | RowColBoolean;
 
 export interface RowColBoolean {
   column?: boolean;
@@ -593,7 +593,7 @@ export interface SpecClass {
    *
    * __Default value:__ `false`
    */
-  center?: VlSpecCenter;
+  center?: CoordinateCenter;
   /**
    * The number of columns to include in the view composition layout.
    *
@@ -741,7 +741,7 @@ export interface Spec {
    *
    * __Default value:__ `false`
    */
-  center?: VlSpecCenter;
+  center?: CoordinateCenter;
   /**
    * The number of columns to include in the view composition layout.
    *
@@ -11673,8 +11673,8 @@ export interface LegendLayout {
    */
   anchor?: TitleAnchor | null;
   bottom?: BaseLegendLayout;
-  bottomLeft?: BaseLegendLayout;
-  bottomRight?: BaseLegendLayout;
+  'bottom-left'?: BaseLegendLayout;
+  'bottom-right'?: BaseLegendLayout;
   /**
    * The bounds calculation to use for legend orient group layout.
    */
@@ -11698,8 +11698,8 @@ export interface LegendLayout {
   offset?: Margin;
   right?: BaseLegendLayout;
   top?: BaseLegendLayout;
-  topLeft?: BaseLegendLayout;
-  topRight?: BaseLegendLayout;
+  'top-left'?: BaseLegendLayout;
+  'top-right'?: BaseLegendLayout;
 }
 
 export interface BaseLegendLayout {

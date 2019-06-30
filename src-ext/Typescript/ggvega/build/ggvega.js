@@ -1362,7 +1362,7 @@
 
     function gg2vl(ggSpec) {
         var vl = {
-            schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+            $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
             title: TranslateTitle(ggSpec['labels']),
             datasets: TranslateDatasets(ggSpec['data']),
             layer: TranslateLayers(ggSpec['layers'], ggSpec['labels'], ggSpec['data'], ggSpec['scales'])
