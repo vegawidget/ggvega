@@ -20,9 +20,11 @@ specification.
 library(ggvega)
 #> Welcome to ggvega; this package is not yet fully functional, and is under active development.
 library(ggplot2)
+
 p <- 
   ggplot(iris) + 
   geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
+
 as_vegaspec(p)
 #> Warning in .as_vegaspec.list(spec): Spec has no `$schema` element, adding
 #> `$schema` element for Vega-Lite major-version
