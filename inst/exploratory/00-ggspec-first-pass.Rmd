@@ -1,0 +1,155 @@
+---
+title: First pass at a ggspec proposal
+---
+
+This document resulted from Haley and Ian discussing issues back-and-forth over the course of Thursday. We think there will be some things that will make Wenyu happy, and some things that may make Wenu less-happy :)
+
+We think there are three things that we want to achieve in a ggspec:
+
+- The ggspec should be faithful to the ggplot object. If we wanted to (to be clear, we don't want to), we could reconstruct a ggplot object using only a ggspec.
+- The ggspec should record *only* those things that deviate from ggplot2 defaults. Accordingly, we think to specify things in Vega-Lite only if they differ from the Vega-Lite defaults. Our goal is to capture the "essence" of the ggplot, its intentions. To replicate the default color-maps and appearance, we recommend using a Vega theme (we hope to propose a better ggplot2-theme for Vega).
+- Although we will remain faithful to the ggplot object, we will try to put "clues" into the ggspec, to make Wenyu's life easier. One such clue will be to put the Vega-Lite `type` (`"quantitative"`, `"nominal"`, `"ordinal"`, `"temporal"`) into the ggspec for aesthetics-mappings. (Maybe one day we will be brave, and add the `"geojson"` type.) Another set of clues we will have to leave for Wenyu will concern selections and conditional aesthetics. (We have a few ideas, but we don't know yet exactly what we want to do.)
+
+```{r setup}
+# all from CRAN
+library("ggplot2")
+library("readr")
+library("listviewer")
+```
+
+## First example
+
+Our entry into a ggspec will be a scatterplot using the `iris` dataset, here's a first example:
+
+```{r}
+p <-
+  ggplot(iris) +
+  geom_point(aes(x = Petal.Width, y = Petal.Length), color = "red") + 
+  scale_y_continuous(trans = "log10") + 
+  labs(
+    title = "Hello World"
+  )
+
+p
+```
+
+Let's have a look at the plot object itself, `p`:
+
+```{r}
+names(p)
+```
+
+This is a list of nine elements; for our initial attempt, we think to use five of them. Here's the a proposed ggspec for this plot:
+
+```{r}
+json <- read_file("iris-scatterplot-01.json")
+jsonedit(json, mode = "code")
+```
+
+In this document, we will use the JSON terms *array* and *object*. In R, we can think of an array as an unnamed list (indexed by order), and an object as a named list (indexed by name).
+
+The first element in our ggspec object is `data`. 
+
+A common way to express data in JSON is as an array of objects; where each object is an observation, or row, in the data-frame. However, JSON is not expressive enough to capture all the types found in R, like factors, and datetimes with timezones. Keep in mind that we want to be *able* to build a ggplot object using a ggspec; our data structure needs to contain metadata.
+
+As such, we propose to keep a placeholder element `metadata`, and to put data-frame information itself in `observations`. For our first attempt, we will not use factors or datetimes. We will have to come to an agreement with Wenyu on how to deal with factors and datetimes in the translation to Vega-Lite.
+
+In Vega-Lite, we think it will make our lives easier if we use named datasets at the top of a spec; we think the same idea will serve us well in a ggspec. For our first attempt, we will use a single dataset; it will be called `"data-00"`. 
+
+We should also note that for our first attempt, the only place in the ggplot object we will look for `"data-00"` is in the `data` element, not in the layers. We will support extracting data from individual layers later.
+
+The second element in our ggspec is `layers`. This is an array of layer-objects. 
+
+Within each layer-object, I think we need four items:
+
+```{r}
+p$layers[[1]][["data"]]
+```
+
+This tells us that this layer uses the default dataset, in our case `"data-00"`.
+
+```{r}
+str(p$layers[[1]][["geom"]])
+```
+
+I think, in this case, we need only know that the `geom` has class `"GeomPoint"`. For other geoms, we may need more information, so I propose that we think of this an object that has a `class` element; we can add other elements for other geoms as needed.
+
+```{r}
+str(p$layers[[1]][["mapping"]])
+```
+
+This tells us which aesthetics are mapped to which variables in the data. For the moment, we can support only names of variables. We will have to think about how to deal with transformations. To make Wenyu's life a little easier, we propose to include a `type` field that will have one of the Vega-Lite types. To make Wenyu's life a little more-difficult, we would like him to recognize the `.` in the variable name and [insert a double-backslash](https://vega.github.io/vega-lite/docs/field.html) in the Vega-Lite `field`.
+
+```{r}
+str(p$layers[[1]]$aes_params)
+```
+
+This tells us which aesthetics are set to scalar values. As a reminder to our future selves, I don't expect values of `size` to mean the same thing in Vega-Lite as it does in ggplot2.
+
+The next element in our ggspec object is `scales`; this may be the part that makes Haley's life more-difficult;
+
+```{r}
+str(p$scales$scales)
+```
+
+We should note that in the plot object, scales appear *only* if they are specified by the user, which is right in line with our philosophy. Just to note that there is an important difference between ggplot2 and Vega-Lite on positional scales: Vega-Lite's default is to include zero in the domain, the `zero` option. In ggplot2, the default behavior (at least for scatterplots) is not to require zero in the domain.
+
+The `aesthetics` element contains all the aesthetics that the scale will apply to. In Vega-Lite, the scale is defined alongside the encoding for the channel, and where channels will share a scale - it is defined only once (presumably for the first channel that uses the scale). 
+
+Next, we can look at the transform: 
+
+```{r}
+str(p$scales$scales[[1]]$trans)
+
+p$scales$scales[[1]]$trans$transform
+
+ls(environment(p$scales$scales[[1]]$trans$transform))
+
+environment(p$scales$scales[[1]]$trans$transform)$base
+```
+
+This might be the trickiest bit, how to recognize that this is contains a `log()` function, then to pull out the value of `base`. We might have to look at the abstract-syntax tree here. In general, essentially, we want to be able to recognize commonly-used ggplot2 scale-functions that have Vega-Lite equivalents.
+
+At the higher-level, we want to:
+
+ - recognize the `class` of the scale
+ - note which aesthetics is applies to (keeping only `y` for now, but others will be useful)
+ - recognize that the transform uses a `log()` function
+ - get the value of `base`
+
+Finally, the plot object keeps tracks of labels (as Wenyu has already shown us):
+
+```{r}
+str(p$labels)
+```
+
+## Second Example
+
+There is not much to add for the second example, vs. the first:
+
+```{r}
+p <-
+  ggplot(iris) +
+  geom_point(aes(x = Petal.Width, y = Petal.Length, color = Species)) + 
+  labs(
+    title = "Hello World"
+  )
+
+p
+```
+
+
+```{r}
+json <- read_file("iris-scatterplot-02.json")
+jsonedit(json, mode = "code")
+```
+
+The biggest difference is that the scales-list in the ggplot2 object is empty, as would be ours:
+
+```{r}
+p$scales$scales
+```
+
+This does bring up the question of how we will handle color-scales specified by the user...
+
+
