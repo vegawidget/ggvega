@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a ggspec — gg2spec • ggvega</title>
+<title>Translate ggplot2 object into a ggspec — gg2spec • ggvega</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Create a ggspec — gg2spec" />
+<meta property="og:title" content="Translate ggplot2 object into a ggspec — gg2spec" />
 
-<meta property="og:description" content="See ggspec::gg2spec for details." />
+<meta property="og:description" content="Translate ggplot2 object into a ggspec" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggvega</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9002</span>
       </span>
     </div>
 
@@ -99,31 +99,2683 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a ggspec</h1>
-    <small class="dont-index">Source: <a href='https://github.com/vegawidget/ggvega/blob/master/R/utils-ggspec.R'><code>R/utils-ggspec.R</code></a></small>
+    <h1>Translate ggplot2 object into a ggspec</h1>
+    <small class="dont-index">Source: <a href='https://github.com/vegawidget/ggvega/blob/master/R/gg2spec.R'><code>R/gg2spec.R</code></a></small>
     <div class="hidden name"><code>gg2spec.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>See <code>ggspec::<a href='https://www.rdocumentation.org/packages/ggspec/topics/gg2spec'>gg2spec</a></code> for details.</p>
+    <p>Translate ggplot2 object into a ggspec</p>
     
     </div>
 
-        
+    <pre class="usage"><span class='fu'>gg2spec</span>(<span class='no'>plt</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>plt</th>
+      <td><p>A ggplot2 object.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p><code>list</code>, a ggspec list.</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggplot2</span>)
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> + <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Petal.Width</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Petal.Length</span>))
+<span class='fu'>gg2spec</span>(<span class='no'>p</span>)</div><div class='output co'>#&gt; $data
+#&gt; $data$`data-00`
+#&gt; $data$`data-00`$metadata
+#&gt; $data$`data-00`$metadata$Sepal.Length
+#&gt; $data$`data-00`$metadata$Sepal.Length$type
+#&gt; [1] "quantitative"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$metadata$Sepal.Width
+#&gt; $data$`data-00`$metadata$Sepal.Width$type
+#&gt; [1] "quantitative"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$metadata$Petal.Length
+#&gt; $data$`data-00`$metadata$Petal.Length$type
+#&gt; [1] "quantitative"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$metadata$Petal.Width
+#&gt; $data$`data-00`$metadata$Petal.Width$type
+#&gt; [1] "quantitative"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$metadata$Species
+#&gt; $data$`data-00`$metadata$Species$type
+#&gt; [1] "nominal"
+#&gt; 
+#&gt; $data$`data-00`$metadata$Species$levels
+#&gt; [1] "setosa"     "versicolor" "virginica" 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations
+#&gt; $data$`data-00`$observations[[1]]
+#&gt; $data$`data-00`$observations[[1]]$Sepal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[1]]$Sepal.Width
+#&gt; [1] 3.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[1]]$Petal.Length
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[1]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[1]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[2]]
+#&gt; $data$`data-00`$observations[[2]]$Sepal.Length
+#&gt; [1] 4.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[2]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[2]]$Petal.Length
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[2]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[2]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[3]]
+#&gt; $data$`data-00`$observations[[3]]$Sepal.Length
+#&gt; [1] 4.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[3]]$Sepal.Width
+#&gt; [1] 3.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[3]]$Petal.Length
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[3]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[3]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[4]]
+#&gt; $data$`data-00`$observations[[4]]$Sepal.Length
+#&gt; [1] 4.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[4]]$Sepal.Width
+#&gt; [1] 3.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[4]]$Petal.Length
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[4]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[4]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[5]]
+#&gt; $data$`data-00`$observations[[5]]$Sepal.Length
+#&gt; [1] 5
+#&gt; 
+#&gt; $data$`data-00`$observations[[5]]$Sepal.Width
+#&gt; [1] 3.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[5]]$Petal.Length
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[5]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[5]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[6]]
+#&gt; $data$`data-00`$observations[[6]]$Sepal.Length
+#&gt; [1] 5.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[6]]$Sepal.Width
+#&gt; [1] 3.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[6]]$Petal.Length
+#&gt; [1] 1.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[6]]$Petal.Width
+#&gt; [1] 0.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[6]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[7]]
+#&gt; $data$`data-00`$observations[[7]]$Sepal.Length
+#&gt; [1] 4.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[7]]$Sepal.Width
+#&gt; [1] 3.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[7]]$Petal.Length
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[7]]$Petal.Width
+#&gt; [1] 0.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[7]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[8]]
+#&gt; $data$`data-00`$observations[[8]]$Sepal.Length
+#&gt; [1] 5
+#&gt; 
+#&gt; $data$`data-00`$observations[[8]]$Sepal.Width
+#&gt; [1] 3.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[8]]$Petal.Length
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[8]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[8]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[9]]
+#&gt; $data$`data-00`$observations[[9]]$Sepal.Length
+#&gt; [1] 4.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[9]]$Sepal.Width
+#&gt; [1] 2.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[9]]$Petal.Length
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[9]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[9]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[10]]
+#&gt; $data$`data-00`$observations[[10]]$Sepal.Length
+#&gt; [1] 4.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[10]]$Sepal.Width
+#&gt; [1] 3.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[10]]$Petal.Length
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[10]]$Petal.Width
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[10]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[11]]
+#&gt; $data$`data-00`$observations[[11]]$Sepal.Length
+#&gt; [1] 5.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[11]]$Sepal.Width
+#&gt; [1] 3.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[11]]$Petal.Length
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[11]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[11]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[12]]
+#&gt; $data$`data-00`$observations[[12]]$Sepal.Length
+#&gt; [1] 4.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[12]]$Sepal.Width
+#&gt; [1] 3.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[12]]$Petal.Length
+#&gt; [1] 1.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[12]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[12]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[13]]
+#&gt; $data$`data-00`$observations[[13]]$Sepal.Length
+#&gt; [1] 4.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[13]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[13]]$Petal.Length
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[13]]$Petal.Width
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[13]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[14]]
+#&gt; $data$`data-00`$observations[[14]]$Sepal.Length
+#&gt; [1] 4.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[14]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[14]]$Petal.Length
+#&gt; [1] 1.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[14]]$Petal.Width
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[14]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[15]]
+#&gt; $data$`data-00`$observations[[15]]$Sepal.Length
+#&gt; [1] 5.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[15]]$Sepal.Width
+#&gt; [1] 4
+#&gt; 
+#&gt; $data$`data-00`$observations[[15]]$Petal.Length
+#&gt; [1] 1.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[15]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[15]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[16]]
+#&gt; $data$`data-00`$observations[[16]]$Sepal.Length
+#&gt; [1] 5.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[16]]$Sepal.Width
+#&gt; [1] 4.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[16]]$Petal.Length
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[16]]$Petal.Width
+#&gt; [1] 0.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[16]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[17]]
+#&gt; $data$`data-00`$observations[[17]]$Sepal.Length
+#&gt; [1] 5.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[17]]$Sepal.Width
+#&gt; [1] 3.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[17]]$Petal.Length
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[17]]$Petal.Width
+#&gt; [1] 0.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[17]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[18]]
+#&gt; $data$`data-00`$observations[[18]]$Sepal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[18]]$Sepal.Width
+#&gt; [1] 3.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[18]]$Petal.Length
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[18]]$Petal.Width
+#&gt; [1] 0.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[18]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[19]]
+#&gt; $data$`data-00`$observations[[19]]$Sepal.Length
+#&gt; [1] 5.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[19]]$Sepal.Width
+#&gt; [1] 3.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[19]]$Petal.Length
+#&gt; [1] 1.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[19]]$Petal.Width
+#&gt; [1] 0.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[19]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[20]]
+#&gt; $data$`data-00`$observations[[20]]$Sepal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[20]]$Sepal.Width
+#&gt; [1] 3.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[20]]$Petal.Length
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[20]]$Petal.Width
+#&gt; [1] 0.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[20]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[21]]
+#&gt; $data$`data-00`$observations[[21]]$Sepal.Length
+#&gt; [1] 5.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[21]]$Sepal.Width
+#&gt; [1] 3.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[21]]$Petal.Length
+#&gt; [1] 1.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[21]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[21]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[22]]
+#&gt; $data$`data-00`$observations[[22]]$Sepal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[22]]$Sepal.Width
+#&gt; [1] 3.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[22]]$Petal.Length
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[22]]$Petal.Width
+#&gt; [1] 0.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[22]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[23]]
+#&gt; $data$`data-00`$observations[[23]]$Sepal.Length
+#&gt; [1] 4.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[23]]$Sepal.Width
+#&gt; [1] 3.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[23]]$Petal.Length
+#&gt; [1] 1
+#&gt; 
+#&gt; $data$`data-00`$observations[[23]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[23]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[24]]
+#&gt; $data$`data-00`$observations[[24]]$Sepal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[24]]$Sepal.Width
+#&gt; [1] 3.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[24]]$Petal.Length
+#&gt; [1] 1.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[24]]$Petal.Width
+#&gt; [1] 0.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[24]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[25]]
+#&gt; $data$`data-00`$observations[[25]]$Sepal.Length
+#&gt; [1] 4.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[25]]$Sepal.Width
+#&gt; [1] 3.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[25]]$Petal.Length
+#&gt; [1] 1.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[25]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[25]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[26]]
+#&gt; $data$`data-00`$observations[[26]]$Sepal.Length
+#&gt; [1] 5
+#&gt; 
+#&gt; $data$`data-00`$observations[[26]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[26]]$Petal.Length
+#&gt; [1] 1.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[26]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[26]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[27]]
+#&gt; $data$`data-00`$observations[[27]]$Sepal.Length
+#&gt; [1] 5
+#&gt; 
+#&gt; $data$`data-00`$observations[[27]]$Sepal.Width
+#&gt; [1] 3.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[27]]$Petal.Length
+#&gt; [1] 1.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[27]]$Petal.Width
+#&gt; [1] 0.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[27]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[28]]
+#&gt; $data$`data-00`$observations[[28]]$Sepal.Length
+#&gt; [1] 5.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[28]]$Sepal.Width
+#&gt; [1] 3.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[28]]$Petal.Length
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[28]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[28]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[29]]
+#&gt; $data$`data-00`$observations[[29]]$Sepal.Length
+#&gt; [1] 5.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[29]]$Sepal.Width
+#&gt; [1] 3.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[29]]$Petal.Length
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[29]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[29]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[30]]
+#&gt; $data$`data-00`$observations[[30]]$Sepal.Length
+#&gt; [1] 4.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[30]]$Sepal.Width
+#&gt; [1] 3.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[30]]$Petal.Length
+#&gt; [1] 1.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[30]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[30]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[31]]
+#&gt; $data$`data-00`$observations[[31]]$Sepal.Length
+#&gt; [1] 4.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[31]]$Sepal.Width
+#&gt; [1] 3.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[31]]$Petal.Length
+#&gt; [1] 1.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[31]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[31]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[32]]
+#&gt; $data$`data-00`$observations[[32]]$Sepal.Length
+#&gt; [1] 5.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[32]]$Sepal.Width
+#&gt; [1] 3.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[32]]$Petal.Length
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[32]]$Petal.Width
+#&gt; [1] 0.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[32]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[33]]
+#&gt; $data$`data-00`$observations[[33]]$Sepal.Length
+#&gt; [1] 5.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[33]]$Sepal.Width
+#&gt; [1] 4.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[33]]$Petal.Length
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[33]]$Petal.Width
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[33]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[34]]
+#&gt; $data$`data-00`$observations[[34]]$Sepal.Length
+#&gt; [1] 5.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[34]]$Sepal.Width
+#&gt; [1] 4.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[34]]$Petal.Length
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[34]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[34]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[35]]
+#&gt; $data$`data-00`$observations[[35]]$Sepal.Length
+#&gt; [1] 4.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[35]]$Sepal.Width
+#&gt; [1] 3.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[35]]$Petal.Length
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[35]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[35]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[36]]
+#&gt; $data$`data-00`$observations[[36]]$Sepal.Length
+#&gt; [1] 5
+#&gt; 
+#&gt; $data$`data-00`$observations[[36]]$Sepal.Width
+#&gt; [1] 3.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[36]]$Petal.Length
+#&gt; [1] 1.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[36]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[36]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[37]]
+#&gt; $data$`data-00`$observations[[37]]$Sepal.Length
+#&gt; [1] 5.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[37]]$Sepal.Width
+#&gt; [1] 3.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[37]]$Petal.Length
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[37]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[37]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[38]]
+#&gt; $data$`data-00`$observations[[38]]$Sepal.Length
+#&gt; [1] 4.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[38]]$Sepal.Width
+#&gt; [1] 3.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[38]]$Petal.Length
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[38]]$Petal.Width
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[38]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[39]]
+#&gt; $data$`data-00`$observations[[39]]$Sepal.Length
+#&gt; [1] 4.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[39]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[39]]$Petal.Length
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[39]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[39]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[40]]
+#&gt; $data$`data-00`$observations[[40]]$Sepal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[40]]$Sepal.Width
+#&gt; [1] 3.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[40]]$Petal.Length
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[40]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[40]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[41]]
+#&gt; $data$`data-00`$observations[[41]]$Sepal.Length
+#&gt; [1] 5
+#&gt; 
+#&gt; $data$`data-00`$observations[[41]]$Sepal.Width
+#&gt; [1] 3.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[41]]$Petal.Length
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[41]]$Petal.Width
+#&gt; [1] 0.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[41]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[42]]
+#&gt; $data$`data-00`$observations[[42]]$Sepal.Length
+#&gt; [1] 4.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[42]]$Sepal.Width
+#&gt; [1] 2.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[42]]$Petal.Length
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[42]]$Petal.Width
+#&gt; [1] 0.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[42]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[43]]
+#&gt; $data$`data-00`$observations[[43]]$Sepal.Length
+#&gt; [1] 4.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[43]]$Sepal.Width
+#&gt; [1] 3.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[43]]$Petal.Length
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[43]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[43]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[44]]
+#&gt; $data$`data-00`$observations[[44]]$Sepal.Length
+#&gt; [1] 5
+#&gt; 
+#&gt; $data$`data-00`$observations[[44]]$Sepal.Width
+#&gt; [1] 3.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[44]]$Petal.Length
+#&gt; [1] 1.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[44]]$Petal.Width
+#&gt; [1] 0.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[44]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[45]]
+#&gt; $data$`data-00`$observations[[45]]$Sepal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[45]]$Sepal.Width
+#&gt; [1] 3.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[45]]$Petal.Length
+#&gt; [1] 1.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[45]]$Petal.Width
+#&gt; [1] 0.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[45]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[46]]
+#&gt; $data$`data-00`$observations[[46]]$Sepal.Length
+#&gt; [1] 4.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[46]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[46]]$Petal.Length
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[46]]$Petal.Width
+#&gt; [1] 0.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[46]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[47]]
+#&gt; $data$`data-00`$observations[[47]]$Sepal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[47]]$Sepal.Width
+#&gt; [1] 3.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[47]]$Petal.Length
+#&gt; [1] 1.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[47]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[47]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[48]]
+#&gt; $data$`data-00`$observations[[48]]$Sepal.Length
+#&gt; [1] 4.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[48]]$Sepal.Width
+#&gt; [1] 3.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[48]]$Petal.Length
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[48]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[48]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[49]]
+#&gt; $data$`data-00`$observations[[49]]$Sepal.Length
+#&gt; [1] 5.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[49]]$Sepal.Width
+#&gt; [1] 3.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[49]]$Petal.Length
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[49]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[49]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[50]]
+#&gt; $data$`data-00`$observations[[50]]$Sepal.Length
+#&gt; [1] 5
+#&gt; 
+#&gt; $data$`data-00`$observations[[50]]$Sepal.Width
+#&gt; [1] 3.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[50]]$Petal.Length
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[50]]$Petal.Width
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[50]]$Species
+#&gt; [1] "setosa"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[51]]
+#&gt; $data$`data-00`$observations[[51]]$Sepal.Length
+#&gt; [1] 7
+#&gt; 
+#&gt; $data$`data-00`$observations[[51]]$Sepal.Width
+#&gt; [1] 3.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[51]]$Petal.Length
+#&gt; [1] 4.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[51]]$Petal.Width
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[51]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[52]]
+#&gt; $data$`data-00`$observations[[52]]$Sepal.Length
+#&gt; [1] 6.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[52]]$Sepal.Width
+#&gt; [1] 3.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[52]]$Petal.Length
+#&gt; [1] 4.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[52]]$Petal.Width
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[52]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[53]]
+#&gt; $data$`data-00`$observations[[53]]$Sepal.Length
+#&gt; [1] 6.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[53]]$Sepal.Width
+#&gt; [1] 3.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[53]]$Petal.Length
+#&gt; [1] 4.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[53]]$Petal.Width
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[53]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[54]]
+#&gt; $data$`data-00`$observations[[54]]$Sepal.Length
+#&gt; [1] 5.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[54]]$Sepal.Width
+#&gt; [1] 2.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[54]]$Petal.Length
+#&gt; [1] 4
+#&gt; 
+#&gt; $data$`data-00`$observations[[54]]$Petal.Width
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[54]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[55]]
+#&gt; $data$`data-00`$observations[[55]]$Sepal.Length
+#&gt; [1] 6.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[55]]$Sepal.Width
+#&gt; [1] 2.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[55]]$Petal.Length
+#&gt; [1] 4.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[55]]$Petal.Width
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[55]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[56]]
+#&gt; $data$`data-00`$observations[[56]]$Sepal.Length
+#&gt; [1] 5.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[56]]$Sepal.Width
+#&gt; [1] 2.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[56]]$Petal.Length
+#&gt; [1] 4.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[56]]$Petal.Width
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[56]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[57]]
+#&gt; $data$`data-00`$observations[[57]]$Sepal.Length
+#&gt; [1] 6.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[57]]$Sepal.Width
+#&gt; [1] 3.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[57]]$Petal.Length
+#&gt; [1] 4.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[57]]$Petal.Width
+#&gt; [1] 1.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[57]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[58]]
+#&gt; $data$`data-00`$observations[[58]]$Sepal.Length
+#&gt; [1] 4.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[58]]$Sepal.Width
+#&gt; [1] 2.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[58]]$Petal.Length
+#&gt; [1] 3.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[58]]$Petal.Width
+#&gt; [1] 1
+#&gt; 
+#&gt; $data$`data-00`$observations[[58]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[59]]
+#&gt; $data$`data-00`$observations[[59]]$Sepal.Length
+#&gt; [1] 6.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[59]]$Sepal.Width
+#&gt; [1] 2.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[59]]$Petal.Length
+#&gt; [1] 4.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[59]]$Petal.Width
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[59]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[60]]
+#&gt; $data$`data-00`$observations[[60]]$Sepal.Length
+#&gt; [1] 5.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[60]]$Sepal.Width
+#&gt; [1] 2.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[60]]$Petal.Length
+#&gt; [1] 3.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[60]]$Petal.Width
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[60]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[61]]
+#&gt; $data$`data-00`$observations[[61]]$Sepal.Length
+#&gt; [1] 5
+#&gt; 
+#&gt; $data$`data-00`$observations[[61]]$Sepal.Width
+#&gt; [1] 2
+#&gt; 
+#&gt; $data$`data-00`$observations[[61]]$Petal.Length
+#&gt; [1] 3.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[61]]$Petal.Width
+#&gt; [1] 1
+#&gt; 
+#&gt; $data$`data-00`$observations[[61]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[62]]
+#&gt; $data$`data-00`$observations[[62]]$Sepal.Length
+#&gt; [1] 5.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[62]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[62]]$Petal.Length
+#&gt; [1] 4.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[62]]$Petal.Width
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[62]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[63]]
+#&gt; $data$`data-00`$observations[[63]]$Sepal.Length
+#&gt; [1] 6
+#&gt; 
+#&gt; $data$`data-00`$observations[[63]]$Sepal.Width
+#&gt; [1] 2.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[63]]$Petal.Length
+#&gt; [1] 4
+#&gt; 
+#&gt; $data$`data-00`$observations[[63]]$Petal.Width
+#&gt; [1] 1
+#&gt; 
+#&gt; $data$`data-00`$observations[[63]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[64]]
+#&gt; $data$`data-00`$observations[[64]]$Sepal.Length
+#&gt; [1] 6.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[64]]$Sepal.Width
+#&gt; [1] 2.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[64]]$Petal.Length
+#&gt; [1] 4.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[64]]$Petal.Width
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[64]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[65]]
+#&gt; $data$`data-00`$observations[[65]]$Sepal.Length
+#&gt; [1] 5.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[65]]$Sepal.Width
+#&gt; [1] 2.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[65]]$Petal.Length
+#&gt; [1] 3.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[65]]$Petal.Width
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[65]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[66]]
+#&gt; $data$`data-00`$observations[[66]]$Sepal.Length
+#&gt; [1] 6.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[66]]$Sepal.Width
+#&gt; [1] 3.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[66]]$Petal.Length
+#&gt; [1] 4.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[66]]$Petal.Width
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[66]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[67]]
+#&gt; $data$`data-00`$observations[[67]]$Sepal.Length
+#&gt; [1] 5.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[67]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[67]]$Petal.Length
+#&gt; [1] 4.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[67]]$Petal.Width
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[67]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[68]]
+#&gt; $data$`data-00`$observations[[68]]$Sepal.Length
+#&gt; [1] 5.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[68]]$Sepal.Width
+#&gt; [1] 2.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[68]]$Petal.Length
+#&gt; [1] 4.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[68]]$Petal.Width
+#&gt; [1] 1
+#&gt; 
+#&gt; $data$`data-00`$observations[[68]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[69]]
+#&gt; $data$`data-00`$observations[[69]]$Sepal.Length
+#&gt; [1] 6.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[69]]$Sepal.Width
+#&gt; [1] 2.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[69]]$Petal.Length
+#&gt; [1] 4.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[69]]$Petal.Width
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[69]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[70]]
+#&gt; $data$`data-00`$observations[[70]]$Sepal.Length
+#&gt; [1] 5.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[70]]$Sepal.Width
+#&gt; [1] 2.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[70]]$Petal.Length
+#&gt; [1] 3.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[70]]$Petal.Width
+#&gt; [1] 1.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[70]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[71]]
+#&gt; $data$`data-00`$observations[[71]]$Sepal.Length
+#&gt; [1] 5.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[71]]$Sepal.Width
+#&gt; [1] 3.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[71]]$Petal.Length
+#&gt; [1] 4.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[71]]$Petal.Width
+#&gt; [1] 1.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[71]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[72]]
+#&gt; $data$`data-00`$observations[[72]]$Sepal.Length
+#&gt; [1] 6.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[72]]$Sepal.Width
+#&gt; [1] 2.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[72]]$Petal.Length
+#&gt; [1] 4
+#&gt; 
+#&gt; $data$`data-00`$observations[[72]]$Petal.Width
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[72]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[73]]
+#&gt; $data$`data-00`$observations[[73]]$Sepal.Length
+#&gt; [1] 6.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[73]]$Sepal.Width
+#&gt; [1] 2.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[73]]$Petal.Length
+#&gt; [1] 4.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[73]]$Petal.Width
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[73]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[74]]
+#&gt; $data$`data-00`$observations[[74]]$Sepal.Length
+#&gt; [1] 6.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[74]]$Sepal.Width
+#&gt; [1] 2.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[74]]$Petal.Length
+#&gt; [1] 4.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[74]]$Petal.Width
+#&gt; [1] 1.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[74]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[75]]
+#&gt; $data$`data-00`$observations[[75]]$Sepal.Length
+#&gt; [1] 6.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[75]]$Sepal.Width
+#&gt; [1] 2.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[75]]$Petal.Length
+#&gt; [1] 4.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[75]]$Petal.Width
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[75]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[76]]
+#&gt; $data$`data-00`$observations[[76]]$Sepal.Length
+#&gt; [1] 6.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[76]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[76]]$Petal.Length
+#&gt; [1] 4.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[76]]$Petal.Width
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[76]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[77]]
+#&gt; $data$`data-00`$observations[[77]]$Sepal.Length
+#&gt; [1] 6.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[77]]$Sepal.Width
+#&gt; [1] 2.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[77]]$Petal.Length
+#&gt; [1] 4.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[77]]$Petal.Width
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[77]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[78]]
+#&gt; $data$`data-00`$observations[[78]]$Sepal.Length
+#&gt; [1] 6.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[78]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[78]]$Petal.Length
+#&gt; [1] 5
+#&gt; 
+#&gt; $data$`data-00`$observations[[78]]$Petal.Width
+#&gt; [1] 1.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[78]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[79]]
+#&gt; $data$`data-00`$observations[[79]]$Sepal.Length
+#&gt; [1] 6
+#&gt; 
+#&gt; $data$`data-00`$observations[[79]]$Sepal.Width
+#&gt; [1] 2.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[79]]$Petal.Length
+#&gt; [1] 4.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[79]]$Petal.Width
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[79]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[80]]
+#&gt; $data$`data-00`$observations[[80]]$Sepal.Length
+#&gt; [1] 5.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[80]]$Sepal.Width
+#&gt; [1] 2.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[80]]$Petal.Length
+#&gt; [1] 3.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[80]]$Petal.Width
+#&gt; [1] 1
+#&gt; 
+#&gt; $data$`data-00`$observations[[80]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[81]]
+#&gt; $data$`data-00`$observations[[81]]$Sepal.Length
+#&gt; [1] 5.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[81]]$Sepal.Width
+#&gt; [1] 2.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[81]]$Petal.Length
+#&gt; [1] 3.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[81]]$Petal.Width
+#&gt; [1] 1.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[81]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[82]]
+#&gt; $data$`data-00`$observations[[82]]$Sepal.Length
+#&gt; [1] 5.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[82]]$Sepal.Width
+#&gt; [1] 2.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[82]]$Petal.Length
+#&gt; [1] 3.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[82]]$Petal.Width
+#&gt; [1] 1
+#&gt; 
+#&gt; $data$`data-00`$observations[[82]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[83]]
+#&gt; $data$`data-00`$observations[[83]]$Sepal.Length
+#&gt; [1] 5.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[83]]$Sepal.Width
+#&gt; [1] 2.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[83]]$Petal.Length
+#&gt; [1] 3.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[83]]$Petal.Width
+#&gt; [1] 1.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[83]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[84]]
+#&gt; $data$`data-00`$observations[[84]]$Sepal.Length
+#&gt; [1] 6
+#&gt; 
+#&gt; $data$`data-00`$observations[[84]]$Sepal.Width
+#&gt; [1] 2.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[84]]$Petal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[84]]$Petal.Width
+#&gt; [1] 1.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[84]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[85]]
+#&gt; $data$`data-00`$observations[[85]]$Sepal.Length
+#&gt; [1] 5.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[85]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[85]]$Petal.Length
+#&gt; [1] 4.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[85]]$Petal.Width
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[85]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[86]]
+#&gt; $data$`data-00`$observations[[86]]$Sepal.Length
+#&gt; [1] 6
+#&gt; 
+#&gt; $data$`data-00`$observations[[86]]$Sepal.Width
+#&gt; [1] 3.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[86]]$Petal.Length
+#&gt; [1] 4.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[86]]$Petal.Width
+#&gt; [1] 1.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[86]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[87]]
+#&gt; $data$`data-00`$observations[[87]]$Sepal.Length
+#&gt; [1] 6.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[87]]$Sepal.Width
+#&gt; [1] 3.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[87]]$Petal.Length
+#&gt; [1] 4.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[87]]$Petal.Width
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[87]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[88]]
+#&gt; $data$`data-00`$observations[[88]]$Sepal.Length
+#&gt; [1] 6.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[88]]$Sepal.Width
+#&gt; [1] 2.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[88]]$Petal.Length
+#&gt; [1] 4.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[88]]$Petal.Width
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[88]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[89]]
+#&gt; $data$`data-00`$observations[[89]]$Sepal.Length
+#&gt; [1] 5.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[89]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[89]]$Petal.Length
+#&gt; [1] 4.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[89]]$Petal.Width
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[89]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[90]]
+#&gt; $data$`data-00`$observations[[90]]$Sepal.Length
+#&gt; [1] 5.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[90]]$Sepal.Width
+#&gt; [1] 2.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[90]]$Petal.Length
+#&gt; [1] 4
+#&gt; 
+#&gt; $data$`data-00`$observations[[90]]$Petal.Width
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[90]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[91]]
+#&gt; $data$`data-00`$observations[[91]]$Sepal.Length
+#&gt; [1] 5.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[91]]$Sepal.Width
+#&gt; [1] 2.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[91]]$Petal.Length
+#&gt; [1] 4.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[91]]$Petal.Width
+#&gt; [1] 1.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[91]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[92]]
+#&gt; $data$`data-00`$observations[[92]]$Sepal.Length
+#&gt; [1] 6.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[92]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[92]]$Petal.Length
+#&gt; [1] 4.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[92]]$Petal.Width
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[92]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[93]]
+#&gt; $data$`data-00`$observations[[93]]$Sepal.Length
+#&gt; [1] 5.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[93]]$Sepal.Width
+#&gt; [1] 2.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[93]]$Petal.Length
+#&gt; [1] 4
+#&gt; 
+#&gt; $data$`data-00`$observations[[93]]$Petal.Width
+#&gt; [1] 1.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[93]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[94]]
+#&gt; $data$`data-00`$observations[[94]]$Sepal.Length
+#&gt; [1] 5
+#&gt; 
+#&gt; $data$`data-00`$observations[[94]]$Sepal.Width
+#&gt; [1] 2.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[94]]$Petal.Length
+#&gt; [1] 3.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[94]]$Petal.Width
+#&gt; [1] 1
+#&gt; 
+#&gt; $data$`data-00`$observations[[94]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[95]]
+#&gt; $data$`data-00`$observations[[95]]$Sepal.Length
+#&gt; [1] 5.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[95]]$Sepal.Width
+#&gt; [1] 2.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[95]]$Petal.Length
+#&gt; [1] 4.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[95]]$Petal.Width
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[95]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[96]]
+#&gt; $data$`data-00`$observations[[96]]$Sepal.Length
+#&gt; [1] 5.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[96]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[96]]$Petal.Length
+#&gt; [1] 4.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[96]]$Petal.Width
+#&gt; [1] 1.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[96]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[97]]
+#&gt; $data$`data-00`$observations[[97]]$Sepal.Length
+#&gt; [1] 5.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[97]]$Sepal.Width
+#&gt; [1] 2.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[97]]$Petal.Length
+#&gt; [1] 4.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[97]]$Petal.Width
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[97]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[98]]
+#&gt; $data$`data-00`$observations[[98]]$Sepal.Length
+#&gt; [1] 6.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[98]]$Sepal.Width
+#&gt; [1] 2.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[98]]$Petal.Length
+#&gt; [1] 4.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[98]]$Petal.Width
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[98]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[99]]
+#&gt; $data$`data-00`$observations[[99]]$Sepal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[99]]$Sepal.Width
+#&gt; [1] 2.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[99]]$Petal.Length
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[99]]$Petal.Width
+#&gt; [1] 1.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[99]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[100]]
+#&gt; $data$`data-00`$observations[[100]]$Sepal.Length
+#&gt; [1] 5.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[100]]$Sepal.Width
+#&gt; [1] 2.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[100]]$Petal.Length
+#&gt; [1] 4.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[100]]$Petal.Width
+#&gt; [1] 1.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[100]]$Species
+#&gt; [1] "versicolor"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[101]]
+#&gt; $data$`data-00`$observations[[101]]$Sepal.Length
+#&gt; [1] 6.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[101]]$Sepal.Width
+#&gt; [1] 3.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[101]]$Petal.Length
+#&gt; [1] 6
+#&gt; 
+#&gt; $data$`data-00`$observations[[101]]$Petal.Width
+#&gt; [1] 2.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[101]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[102]]
+#&gt; $data$`data-00`$observations[[102]]$Sepal.Length
+#&gt; [1] 5.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[102]]$Sepal.Width
+#&gt; [1] 2.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[102]]$Petal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[102]]$Petal.Width
+#&gt; [1] 1.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[102]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[103]]
+#&gt; $data$`data-00`$observations[[103]]$Sepal.Length
+#&gt; [1] 7.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[103]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[103]]$Petal.Length
+#&gt; [1] 5.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[103]]$Petal.Width
+#&gt; [1] 2.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[103]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[104]]
+#&gt; $data$`data-00`$observations[[104]]$Sepal.Length
+#&gt; [1] 6.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[104]]$Sepal.Width
+#&gt; [1] 2.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[104]]$Petal.Length
+#&gt; [1] 5.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[104]]$Petal.Width
+#&gt; [1] 1.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[104]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[105]]
+#&gt; $data$`data-00`$observations[[105]]$Sepal.Length
+#&gt; [1] 6.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[105]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[105]]$Petal.Length
+#&gt; [1] 5.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[105]]$Petal.Width
+#&gt; [1] 2.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[105]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[106]]
+#&gt; $data$`data-00`$observations[[106]]$Sepal.Length
+#&gt; [1] 7.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[106]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[106]]$Petal.Length
+#&gt; [1] 6.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[106]]$Petal.Width
+#&gt; [1] 2.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[106]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[107]]
+#&gt; $data$`data-00`$observations[[107]]$Sepal.Length
+#&gt; [1] 4.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[107]]$Sepal.Width
+#&gt; [1] 2.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[107]]$Petal.Length
+#&gt; [1] 4.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[107]]$Petal.Width
+#&gt; [1] 1.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[107]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[108]]
+#&gt; $data$`data-00`$observations[[108]]$Sepal.Length
+#&gt; [1] 7.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[108]]$Sepal.Width
+#&gt; [1] 2.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[108]]$Petal.Length
+#&gt; [1] 6.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[108]]$Petal.Width
+#&gt; [1] 1.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[108]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[109]]
+#&gt; $data$`data-00`$observations[[109]]$Sepal.Length
+#&gt; [1] 6.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[109]]$Sepal.Width
+#&gt; [1] 2.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[109]]$Petal.Length
+#&gt; [1] 5.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[109]]$Petal.Width
+#&gt; [1] 1.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[109]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[110]]
+#&gt; $data$`data-00`$observations[[110]]$Sepal.Length
+#&gt; [1] 7.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[110]]$Sepal.Width
+#&gt; [1] 3.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[110]]$Petal.Length
+#&gt; [1] 6.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[110]]$Petal.Width
+#&gt; [1] 2.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[110]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[111]]
+#&gt; $data$`data-00`$observations[[111]]$Sepal.Length
+#&gt; [1] 6.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[111]]$Sepal.Width
+#&gt; [1] 3.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[111]]$Petal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[111]]$Petal.Width
+#&gt; [1] 2
+#&gt; 
+#&gt; $data$`data-00`$observations[[111]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[112]]
+#&gt; $data$`data-00`$observations[[112]]$Sepal.Length
+#&gt; [1] 6.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[112]]$Sepal.Width
+#&gt; [1] 2.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[112]]$Petal.Length
+#&gt; [1] 5.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[112]]$Petal.Width
+#&gt; [1] 1.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[112]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[113]]
+#&gt; $data$`data-00`$observations[[113]]$Sepal.Length
+#&gt; [1] 6.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[113]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[113]]$Petal.Length
+#&gt; [1] 5.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[113]]$Petal.Width
+#&gt; [1] 2.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[113]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[114]]
+#&gt; $data$`data-00`$observations[[114]]$Sepal.Length
+#&gt; [1] 5.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[114]]$Sepal.Width
+#&gt; [1] 2.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[114]]$Petal.Length
+#&gt; [1] 5
+#&gt; 
+#&gt; $data$`data-00`$observations[[114]]$Petal.Width
+#&gt; [1] 2
+#&gt; 
+#&gt; $data$`data-00`$observations[[114]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[115]]
+#&gt; $data$`data-00`$observations[[115]]$Sepal.Length
+#&gt; [1] 5.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[115]]$Sepal.Width
+#&gt; [1] 2.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[115]]$Petal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[115]]$Petal.Width
+#&gt; [1] 2.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[115]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[116]]
+#&gt; $data$`data-00`$observations[[116]]$Sepal.Length
+#&gt; [1] 6.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[116]]$Sepal.Width
+#&gt; [1] 3.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[116]]$Petal.Length
+#&gt; [1] 5.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[116]]$Petal.Width
+#&gt; [1] 2.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[116]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[117]]
+#&gt; $data$`data-00`$observations[[117]]$Sepal.Length
+#&gt; [1] 6.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[117]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[117]]$Petal.Length
+#&gt; [1] 5.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[117]]$Petal.Width
+#&gt; [1] 1.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[117]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[118]]
+#&gt; $data$`data-00`$observations[[118]]$Sepal.Length
+#&gt; [1] 7.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[118]]$Sepal.Width
+#&gt; [1] 3.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[118]]$Petal.Length
+#&gt; [1] 6.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[118]]$Petal.Width
+#&gt; [1] 2.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[118]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[119]]
+#&gt; $data$`data-00`$observations[[119]]$Sepal.Length
+#&gt; [1] 7.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[119]]$Sepal.Width
+#&gt; [1] 2.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[119]]$Petal.Length
+#&gt; [1] 6.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[119]]$Petal.Width
+#&gt; [1] 2.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[119]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[120]]
+#&gt; $data$`data-00`$observations[[120]]$Sepal.Length
+#&gt; [1] 6
+#&gt; 
+#&gt; $data$`data-00`$observations[[120]]$Sepal.Width
+#&gt; [1] 2.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[120]]$Petal.Length
+#&gt; [1] 5
+#&gt; 
+#&gt; $data$`data-00`$observations[[120]]$Petal.Width
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[120]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[121]]
+#&gt; $data$`data-00`$observations[[121]]$Sepal.Length
+#&gt; [1] 6.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[121]]$Sepal.Width
+#&gt; [1] 3.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[121]]$Petal.Length
+#&gt; [1] 5.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[121]]$Petal.Width
+#&gt; [1] 2.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[121]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[122]]
+#&gt; $data$`data-00`$observations[[122]]$Sepal.Length
+#&gt; [1] 5.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[122]]$Sepal.Width
+#&gt; [1] 2.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[122]]$Petal.Length
+#&gt; [1] 4.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[122]]$Petal.Width
+#&gt; [1] 2
+#&gt; 
+#&gt; $data$`data-00`$observations[[122]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[123]]
+#&gt; $data$`data-00`$observations[[123]]$Sepal.Length
+#&gt; [1] 7.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[123]]$Sepal.Width
+#&gt; [1] 2.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[123]]$Petal.Length
+#&gt; [1] 6.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[123]]$Petal.Width
+#&gt; [1] 2
+#&gt; 
+#&gt; $data$`data-00`$observations[[123]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[124]]
+#&gt; $data$`data-00`$observations[[124]]$Sepal.Length
+#&gt; [1] 6.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[124]]$Sepal.Width
+#&gt; [1] 2.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[124]]$Petal.Length
+#&gt; [1] 4.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[124]]$Petal.Width
+#&gt; [1] 1.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[124]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[125]]
+#&gt; $data$`data-00`$observations[[125]]$Sepal.Length
+#&gt; [1] 6.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[125]]$Sepal.Width
+#&gt; [1] 3.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[125]]$Petal.Length
+#&gt; [1] 5.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[125]]$Petal.Width
+#&gt; [1] 2.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[125]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[126]]
+#&gt; $data$`data-00`$observations[[126]]$Sepal.Length
+#&gt; [1] 7.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[126]]$Sepal.Width
+#&gt; [1] 3.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[126]]$Petal.Length
+#&gt; [1] 6
+#&gt; 
+#&gt; $data$`data-00`$observations[[126]]$Petal.Width
+#&gt; [1] 1.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[126]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[127]]
+#&gt; $data$`data-00`$observations[[127]]$Sepal.Length
+#&gt; [1] 6.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[127]]$Sepal.Width
+#&gt; [1] 2.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[127]]$Petal.Length
+#&gt; [1] 4.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[127]]$Petal.Width
+#&gt; [1] 1.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[127]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[128]]
+#&gt; $data$`data-00`$observations[[128]]$Sepal.Length
+#&gt; [1] 6.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[128]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[128]]$Petal.Length
+#&gt; [1] 4.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[128]]$Petal.Width
+#&gt; [1] 1.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[128]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[129]]
+#&gt; $data$`data-00`$observations[[129]]$Sepal.Length
+#&gt; [1] 6.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[129]]$Sepal.Width
+#&gt; [1] 2.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[129]]$Petal.Length
+#&gt; [1] 5.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[129]]$Petal.Width
+#&gt; [1] 2.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[129]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[130]]
+#&gt; $data$`data-00`$observations[[130]]$Sepal.Length
+#&gt; [1] 7.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[130]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[130]]$Petal.Length
+#&gt; [1] 5.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[130]]$Petal.Width
+#&gt; [1] 1.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[130]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[131]]
+#&gt; $data$`data-00`$observations[[131]]$Sepal.Length
+#&gt; [1] 7.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[131]]$Sepal.Width
+#&gt; [1] 2.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[131]]$Petal.Length
+#&gt; [1] 6.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[131]]$Petal.Width
+#&gt; [1] 1.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[131]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[132]]
+#&gt; $data$`data-00`$observations[[132]]$Sepal.Length
+#&gt; [1] 7.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[132]]$Sepal.Width
+#&gt; [1] 3.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[132]]$Petal.Length
+#&gt; [1] 6.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[132]]$Petal.Width
+#&gt; [1] 2
+#&gt; 
+#&gt; $data$`data-00`$observations[[132]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[133]]
+#&gt; $data$`data-00`$observations[[133]]$Sepal.Length
+#&gt; [1] 6.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[133]]$Sepal.Width
+#&gt; [1] 2.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[133]]$Petal.Length
+#&gt; [1] 5.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[133]]$Petal.Width
+#&gt; [1] 2.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[133]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[134]]
+#&gt; $data$`data-00`$observations[[134]]$Sepal.Length
+#&gt; [1] 6.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[134]]$Sepal.Width
+#&gt; [1] 2.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[134]]$Petal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[134]]$Petal.Width
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[134]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[135]]
+#&gt; $data$`data-00`$observations[[135]]$Sepal.Length
+#&gt; [1] 6.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[135]]$Sepal.Width
+#&gt; [1] 2.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[135]]$Petal.Length
+#&gt; [1] 5.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[135]]$Petal.Width
+#&gt; [1] 1.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[135]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[136]]
+#&gt; $data$`data-00`$observations[[136]]$Sepal.Length
+#&gt; [1] 7.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[136]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[136]]$Petal.Length
+#&gt; [1] 6.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[136]]$Petal.Width
+#&gt; [1] 2.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[136]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[137]]
+#&gt; $data$`data-00`$observations[[137]]$Sepal.Length
+#&gt; [1] 6.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[137]]$Sepal.Width
+#&gt; [1] 3.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[137]]$Petal.Length
+#&gt; [1] 5.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[137]]$Petal.Width
+#&gt; [1] 2.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[137]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[138]]
+#&gt; $data$`data-00`$observations[[138]]$Sepal.Length
+#&gt; [1] 6.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[138]]$Sepal.Width
+#&gt; [1] 3.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[138]]$Petal.Length
+#&gt; [1] 5.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[138]]$Petal.Width
+#&gt; [1] 1.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[138]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[139]]
+#&gt; $data$`data-00`$observations[[139]]$Sepal.Length
+#&gt; [1] 6
+#&gt; 
+#&gt; $data$`data-00`$observations[[139]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[139]]$Petal.Length
+#&gt; [1] 4.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[139]]$Petal.Width
+#&gt; [1] 1.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[139]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[140]]
+#&gt; $data$`data-00`$observations[[140]]$Sepal.Length
+#&gt; [1] 6.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[140]]$Sepal.Width
+#&gt; [1] 3.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[140]]$Petal.Length
+#&gt; [1] 5.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[140]]$Petal.Width
+#&gt; [1] 2.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[140]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[141]]
+#&gt; $data$`data-00`$observations[[141]]$Sepal.Length
+#&gt; [1] 6.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[141]]$Sepal.Width
+#&gt; [1] 3.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[141]]$Petal.Length
+#&gt; [1] 5.6
+#&gt; 
+#&gt; $data$`data-00`$observations[[141]]$Petal.Width
+#&gt; [1] 2.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[141]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[142]]
+#&gt; $data$`data-00`$observations[[142]]$Sepal.Length
+#&gt; [1] 6.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[142]]$Sepal.Width
+#&gt; [1] 3.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[142]]$Petal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[142]]$Petal.Width
+#&gt; [1] 2.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[142]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[143]]
+#&gt; $data$`data-00`$observations[[143]]$Sepal.Length
+#&gt; [1] 5.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[143]]$Sepal.Width
+#&gt; [1] 2.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[143]]$Petal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[143]]$Petal.Width
+#&gt; [1] 1.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[143]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[144]]
+#&gt; $data$`data-00`$observations[[144]]$Sepal.Length
+#&gt; [1] 6.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[144]]$Sepal.Width
+#&gt; [1] 3.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[144]]$Petal.Length
+#&gt; [1] 5.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[144]]$Petal.Width
+#&gt; [1] 2.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[144]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[145]]
+#&gt; $data$`data-00`$observations[[145]]$Sepal.Length
+#&gt; [1] 6.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[145]]$Sepal.Width
+#&gt; [1] 3.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[145]]$Petal.Length
+#&gt; [1] 5.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[145]]$Petal.Width
+#&gt; [1] 2.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[145]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[146]]
+#&gt; $data$`data-00`$observations[[146]]$Sepal.Length
+#&gt; [1] 6.7
+#&gt; 
+#&gt; $data$`data-00`$observations[[146]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[146]]$Petal.Length
+#&gt; [1] 5.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[146]]$Petal.Width
+#&gt; [1] 2.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[146]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[147]]
+#&gt; $data$`data-00`$observations[[147]]$Sepal.Length
+#&gt; [1] 6.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[147]]$Sepal.Width
+#&gt; [1] 2.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[147]]$Petal.Length
+#&gt; [1] 5
+#&gt; 
+#&gt; $data$`data-00`$observations[[147]]$Petal.Width
+#&gt; [1] 1.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[147]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[148]]
+#&gt; $data$`data-00`$observations[[148]]$Sepal.Length
+#&gt; [1] 6.5
+#&gt; 
+#&gt; $data$`data-00`$observations[[148]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[148]]$Petal.Length
+#&gt; [1] 5.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[148]]$Petal.Width
+#&gt; [1] 2
+#&gt; 
+#&gt; $data$`data-00`$observations[[148]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[149]]
+#&gt; $data$`data-00`$observations[[149]]$Sepal.Length
+#&gt; [1] 6.2
+#&gt; 
+#&gt; $data$`data-00`$observations[[149]]$Sepal.Width
+#&gt; [1] 3.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[149]]$Petal.Length
+#&gt; [1] 5.4
+#&gt; 
+#&gt; $data$`data-00`$observations[[149]]$Petal.Width
+#&gt; [1] 2.3
+#&gt; 
+#&gt; $data$`data-00`$observations[[149]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; $data$`data-00`$observations[[150]]
+#&gt; $data$`data-00`$observations[[150]]$Sepal.Length
+#&gt; [1] 5.9
+#&gt; 
+#&gt; $data$`data-00`$observations[[150]]$Sepal.Width
+#&gt; [1] 3
+#&gt; 
+#&gt; $data$`data-00`$observations[[150]]$Petal.Length
+#&gt; [1] 5.1
+#&gt; 
+#&gt; $data$`data-00`$observations[[150]]$Petal.Width
+#&gt; [1] 1.8
+#&gt; 
+#&gt; $data$`data-00`$observations[[150]]$Species
+#&gt; [1] "virginica"
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $layers
+#&gt; $layers[[1]]
+#&gt; $layers[[1]]$data
+#&gt; [1] "data-00"
+#&gt; 
+#&gt; $layers[[1]]$geom
+#&gt; $layers[[1]]$geom$class
+#&gt; [1] "GeomPoint"
+#&gt; 
+#&gt; 
+#&gt; $layers[[1]]$mapping
+#&gt; $layers[[1]]$mapping$x
+#&gt; $layers[[1]]$mapping$x$field
+#&gt; [1] "Petal.Width"
+#&gt; 
+#&gt; 
+#&gt; $layers[[1]]$mapping$y
+#&gt; $layers[[1]]$mapping$y$field
+#&gt; [1] "Petal.Length"
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $layers[[1]]$aes_params
+#&gt; NULL
+#&gt; 
+#&gt; $layers[[1]]$stat
+#&gt; $layers[[1]]$stat$class
+#&gt; [1] "StatIdentity"
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $scales
+#&gt; list()
+#&gt; 
+#&gt; $labels
+#&gt; $labels$x
+#&gt; [1] "Petal.Width"
+#&gt; 
+#&gt; $labels$y
+#&gt; [1] "Petal.Length"
+#&gt; 
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Wenyu Yang, Haley Jeppson, Ian J Lyttle, Google Summer of Code, Schneider Electric.</p>
+  <p>Developed by Haley Jeppson, Wenyu Yang, Ian J Lyttle, Schneider Electric, Google Summer of Code.</p>
 </div>
 
 <div class="pkgdown">
