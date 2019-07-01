@@ -54,11 +54,16 @@ spec2vl <- function(ggspec) {
 
   ct$source(system.file("js", "ggvega.js", package = "ggvega"))
 
-  ct$assign("ggspec", jsonlite::toJSON(ggspec, auto_unbox = TRUE))
+  ct$assign("ggspec", jsonlite::toJSON(ggspec, auto_unbox = TRUE, null = "null"))
 
   ct$assign("ggspec",V8::JS("JSON.parse(ggspec)"))
 
-  vlspec <- ct$get(V8::JS("ggvega.gg2vl(ggspec)"))
+  vlspec <-
+    ct$get(
+      V8::JS("ggvega.gg2vl(ggspec)"),
+      simplifyVector = FALSE,
+      simplifyDataFrame = FALSE
+    )
 
   vegawidget::as_vegaspec(vlspec)
 }
