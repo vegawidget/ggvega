@@ -1,12 +1,9 @@
-import {gg2vl, removeEmpty} from '../src/compile';
+import {TranslatePointShape} from '../src/Mark';
 
-describe('compile/gg2vl', () => {
+import * as mark from '../src/Mark';
 
-
+describe('Mark/TranslatePointShape', () => {
   it('should translate shapes correctly', () => {
-
-    expect(TranslatePointShape(0)).toEqual('circle');
-
+    expect(mark.TranslatePointShape(0)).toEqual('circle');
   });
-
-}
+});
