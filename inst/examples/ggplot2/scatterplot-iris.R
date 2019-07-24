@@ -1,2 +1,4 @@
-ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +
+## @knitr scatterplot-iris
+
+  ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +
   geom_point(aes(color = Species))
