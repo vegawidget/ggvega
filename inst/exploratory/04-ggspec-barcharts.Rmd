@@ -1,0 +1,65 @@
+---
+title: "Barcharts"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
+library("ggplot2")
+library("dplyr")
+library("ggvega")
+```
+
+
+<br/>
+
+
+
+## Extracting elements
+
+<br/>
+
+```{r}
+p <- ggplot(data = mpg, aes(class)) + 
+  geom_bar() 
+
+p_stacked <- p + geom_bar(aes(fill = drv))
+
+p
+```
+
+<br/>
+
+
+
+
+## Take a look at the spec
+
+<br/>
+
+
+Try it out:
+
+```{r}
+ggspc <- gg2spec(p)
+glimpse(ggspc)
+```
+
+
+<br/>
+<br/>
+
+```{r eval = FALSE}
+as_vegaspec(p)
+
+
+```
+
+
+
+
+
