@@ -40,7 +40,9 @@ Imports:
     rlang,
     ggplot2,
     glue,
+    fs,
     utils
 Suggests: 
     testthat (>= 2.1.0),
-    pkgdown
+    pkgdown,
+    here
