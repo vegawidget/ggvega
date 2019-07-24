@@ -1,4 +1,5 @@
 import * as ggMark from './Mark';
+import {TranslateStat} from './Stat';
 import {
   LayerEncoding,
   Scale,
@@ -42,10 +43,14 @@ function TranslateXClass(layer: any, labels: any, layerData: any, scales: any, m
 
   let title: string = labels['x'];
 
+  let aggregate: AggregateOp | undefined;
+
   if (!layer['mapping']['x']) {
     if (mark == Mark.Bar) {
+      aggregate = TranslateStat(layer['stat']);
+
       xClass = {
-        aggregate: AggregateOp.Count,
+        aggregate: aggregate,
         type: StandardType.Quantitative,
         title: title,
         scale: scale
@@ -88,10 +93,14 @@ function TranslateYClass(layer: any, labels: any, layerData: any, scales: any, m
 
   let title: string = labels['y'];
 
+  let aggregate: AggregateOp | undefined;
+
   if (!layer['mapping']['y']) {
     if (mark == Mark.Bar) {
+      aggregate = TranslateStat(layer['stat']);
+
       yClass = {
-        aggregate: AggregateOp.Count,
+        aggregate: aggregate,
         type: StandardType.Quantitative,
         title: title,
         scale: scale

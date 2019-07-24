@@ -1077,6 +1077,17 @@
         InvalidValues["Filter"] = "filter";
     })(InvalidValues || (InvalidValues = {}));
 
+    function TranslateStat(ggStat) {
+        var aggregate;
+        if (ggStat['class'] == 'StatCount') {
+            aggregate = AggregateOp.Count;
+        }
+        if (ggStat['class'] == 'StatSum') {
+            aggregate = AggregateOp.Sum;
+        }
+        return aggregate;
+    }
+
     function TranslateEncoding(layer, labels, layerData, scales, mark) {
         var layerEncoding = {
             x: TranslateXClass(layer, labels, layerData, scales, mark),
@@ -1095,10 +1106,12 @@
         var xClass;
         var scale;
         var title = labels['x'];
+        var aggregate;
         if (!layer['mapping']['x']) {
             if (mark == Mark.Bar) {
+                aggregate = TranslateStat(layer['stat']);
                 xClass = {
-                    aggregate: AggregateOp.Count,
+                    aggregate: aggregate,
                     type: StandardType.Quantitative,
                     title: title,
                     scale: scale
@@ -1130,10 +1143,12 @@
         var yClass;
         var scale;
         var title = labels['y'];
+        var aggregate;
         if (!layer['mapping']['y']) {
             if (mark == Mark.Bar) {
+                aggregate = TranslateStat(layer['stat']);
                 yClass = {
-                    aggregate: AggregateOp.Count,
+                    aggregate: aggregate,
                     type: StandardType.Quantitative,
                     title: title,
                     scale: scale

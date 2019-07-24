@@ -1,5 +1,6 @@
 import * as ggMark from './Mark';
-import { StandardType, AggregateOp, Mark } from './vlSpec';
+import { TranslateStat } from './Stat';
+import { StandardType, Mark } from './vlSpec';
 export function TranslateEncoding(layer, labels, layerData, scales, mark) {
     var layerEncoding = {
         x: TranslateXClass(layer, labels, layerData, scales, mark),
@@ -18,10 +19,12 @@ function TranslateXClass(layer, labels, layerData, scales, mark) {
     var xClass;
     var scale;
     var title = labels['x'];
+    var aggregate;
     if (!layer['mapping']['x']) {
         if (mark == Mark.Bar) {
+            aggregate = TranslateStat(layer['stat']);
             xClass = {
-                aggregate: AggregateOp.Count,
+                aggregate: aggregate,
                 type: StandardType.Quantitative,
                 title: title,
                 scale: scale
@@ -53,10 +56,12 @@ function TranslateYClass(layer, labels, layerData, scales, mark) {
     var yClass;
     var scale;
     var title = labels['y'];
+    var aggregate;
     if (!layer['mapping']['y']) {
         if (mark == Mark.Bar) {
+            aggregate = TranslateStat(layer['stat']);
             yClass = {
-                aggregate: AggregateOp.Count,
+                aggregate: aggregate,
                 type: StandardType.Quantitative,
                 title: title,
                 scale: scale
