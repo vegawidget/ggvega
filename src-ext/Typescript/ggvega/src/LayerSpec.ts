@@ -9,23 +9,30 @@ import {LayerSpec, Mark} from './vlSpec';
 export function TranslateLayer(layer: any, labels: any, data: any, scales: any): LayerSpec {
   const layerData: any = data[layer['data']];
 
+  const mark: Mark | undefined = TranslateMark(layer['geom']);
+
   const layerspec: LayerSpec = {
     data: {
       name: layer['data']
     },
-    mark: TranslateMark(layer['geom']),
-    encoding: TranslateEncoding(layer, labels, layerData, scales)
+    mark: mark,
+    encoding: TranslateEncoding(layer, labels, layerData, scales, mark)
   };
 
   return layerspec;
 }
 
-export function TranslateMark(geom: any): Mark | undefined {
-  let mark: Mark | undefined;
+export function TranslateMark(geom: any): Mark {
+  let mark: Mark;
+
   if (geom['class'] == 'GeomPoint') {
     mark = Mark.Point;
+  }
+
+  if (geom['class'] == 'GeomBar') {
+    mark = Mark.Bar;
   } else {
-    mark = undefined;
+    mark = Mark.Point;
   }
 
   return mark;

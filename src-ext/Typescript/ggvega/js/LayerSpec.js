@@ -8,12 +8,13 @@ import { Mark } from './vlSpec';
  */
 export function TranslateLayer(layer, labels, data, scales) {
     var layerData = data[layer['data']];
+    var mark = TranslateMark(layer['geom']);
     var layerspec = {
         data: {
             name: layer['data']
         },
-        mark: TranslateMark(layer['geom']),
-        encoding: TranslateEncoding(layer, labels, layerData, scales)
+        mark: mark,
+        encoding: TranslateEncoding(layer, labels, layerData, scales, mark)
     };
     return layerspec;
 }
@@ -22,8 +23,11 @@ export function TranslateMark(geom) {
     if (geom['class'] == 'GeomPoint') {
         mark = Mark.Point;
     }
+    if (geom['class'] == 'GeomBar') {
+        mark = Mark.Bar;
+    }
     else {
-        mark = undefined;
+        mark = Mark.Point;
     }
     return mark;
 }

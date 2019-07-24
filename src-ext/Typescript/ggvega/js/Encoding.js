@@ -1,8 +1,9 @@
-import * as Mark from './Mark';
-export function TranslateEncoding(layer, labels, layerData, scales) {
+import * as ggMark from './Mark';
+import { StandardType, AggregateOp, Mark } from './vlSpec';
+export function TranslateEncoding(layer, labels, layerData, scales, mark) {
     var layerEncoding = {
-        x: TranslateXClass(layer, labels, layerData, scales),
-        y: TranslateYClass(layer, labels, layerData, scales),
+        x: TranslateXClass(layer, labels, layerData, scales, mark),
+        y: TranslateYClass(layer, labels, layerData, scales, mark),
         // color: TranslateColor(layer, labels, layerData),
         size: TranslateSize(layer, labels, layerData),
         shape: TranslateShape(layer, labels, layerData),
@@ -13,11 +14,23 @@ export function TranslateEncoding(layer, labels, layerData, scales) {
     };
     return layerEncoding;
 }
-function TranslateXClass(layer, labels, layerData, scales) {
-    var field = layer['mapping']['x']['field'];
-    var type = layerData['metadata'][field]['type'];
+function TranslateXClass(layer, labels, layerData, scales, mark) {
+    var xClass;
     var scale;
     var title = labels['x'];
+    if (!layer['mapping']['x']) {
+        if (mark == Mark.Bar) {
+            xClass = {
+                aggregate: AggregateOp.Count,
+                type: StandardType.Quantitative,
+                title: title,
+                scale: scale
+            };
+        }
+        return xClass;
+    }
+    var field = layer['mapping']['x']['field'];
+    var type = layerData['metadata'][field]['type'];
     for (var _i = 0, scales_1 = scales; _i < scales_1.length; _i++) {
         var ggScale = scales_1[_i];
         if (ggScale['aesthetics'][0] == 'x') {
@@ -28,7 +41,7 @@ function TranslateXClass(layer, labels, layerData, scales) {
         }
     }
     field = field.replace('.', '\\.');
-    var xClass = {
+    xClass = {
         field: field,
         type: type,
         title: title,
@@ -36,11 +49,23 @@ function TranslateXClass(layer, labels, layerData, scales) {
     };
     return xClass;
 }
-function TranslateYClass(layer, labels, layerData, scales) {
-    var field = layer['mapping']['y']['field'];
-    var type = layerData['metadata'][field]['type'];
+function TranslateYClass(layer, labels, layerData, scales, mark) {
+    var yClass;
     var scale;
     var title = labels['y'];
+    if (!layer['mapping']['y']) {
+        if (mark == Mark.Bar) {
+            yClass = {
+                aggregate: AggregateOp.Count,
+                type: StandardType.Quantitative,
+                title: title,
+                scale: scale
+            };
+        }
+        return yClass;
+    }
+    var field = layer['mapping']['y']['field'];
+    var type = layerData['metadata'][field]['type'];
     for (var _i = 0, scales_2 = scales; _i < scales_2.length; _i++) {
         var ggScale = scales_2[_i];
         if (ggScale['aesthetics'][0] == 'y') {
@@ -51,7 +76,7 @@ function TranslateYClass(layer, labels, layerData, scales) {
         }
     }
     field = field.replace('.', '\\.');
-    var yClass = {
+    yClass = {
         field: field,
         type: type,
         title: title,
@@ -97,7 +122,7 @@ function TranslateSize(layer, labels, layerData) {
         if (layer['aes_params']['size']) {
             if (layer['aes_params']['size']['value']) {
                 size = {
-                    value: Mark.TranslatePointSize(layer['aes_params']['size']['value'])
+                    value: ggMark.TranslatePointSize(layer['aes_params']['size']['value'])
                 };
             }
         }
@@ -125,7 +150,7 @@ function TranslateShape(layer, labels, layerData) {
             if (layer['aes_params']['shape']['value']) {
                 if (layer["geom"]['class'] == 'GeomPoint') {
                     shape = {
-                        value: Mark.TranslatePointShape(layer['aes_params']['shape']['value'])
+                        value: ggMark.TranslatePointShape(layer['aes_params']['shape']['value'])
                     };
                 }
             }
@@ -155,7 +180,7 @@ function TranslateStroke(layer, labels, layerData) {
         if (layer['aes_params']['colour']) {
             if (layer['aes_params']['colour']['value']) {
                 stroke = {
-                    value: Mark.TranslateStroke(layer['aes_params']['colour']['value'])
+                    value: ggMark.TranslateStroke(layer['aes_params']['colour']['value'])
                 };
             }
         }
@@ -181,7 +206,7 @@ function TranslateStrokeWidth(layer, labels, layerData) {
         if (layer['aes_params']['stroke']) {
             if (layer['aes_params']['stroke']['value']) {
                 strokeWidth = {
-                    value: Mark.TranslateStrokeWidth(layer['aes_params']['stroke']['value'])
+                    value: ggMark.TranslateStrokeWidth(layer['aes_params']['stroke']['value'])
                 };
             }
         }
@@ -207,7 +232,7 @@ function TranslateOpacity(layer, labels, layerData) {
         if (layer['aes_params']['alpha']) {
             if (layer['aes_params']['alpha']['value']) {
                 opacity = {
-                    value: Mark.TranslateOpacity(layer['aes_params']['alpha']['value'])
+                    value: ggMark.TranslateOpacity(layer['aes_params']['alpha']['value'])
                 };
             }
         }
@@ -233,7 +258,7 @@ export function TranslateFill(layer, labels, layerData) {
         if (layer['aes_params']['fill']) {
             if (layer['aes_params']['fill']['value']) {
                 fill = {
-                    value: Mark.TranslateFill(layer['aes_params']['fill']['value'])
+                    value: ggMark.TranslateFill(layer['aes_params']['fill']['value'])
                 };
             }
         }
