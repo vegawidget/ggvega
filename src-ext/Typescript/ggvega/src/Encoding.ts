@@ -28,6 +28,8 @@ export function TranslateEncoding(layer: any, labels: any, layerData: any, scale
 }
 
 function TranslateXClass(layer: any, labels: any, layerData: any, scales: any): XClass | undefined {
+  if (!layer['mapping']['x']) return undefined;
+
   let field: string = layer['mapping']['x']['field'];
 
   const type: StandardType = layerData['metadata'][field]['type'];
@@ -59,6 +61,8 @@ function TranslateXClass(layer: any, labels: any, layerData: any, scales: any): 
 }
 
 function TranslateYClass(layer: any, labels: any, layerData: any, scales: any): YClass | undefined {
+  if (!layer['mapping']['x']) return undefined;
+
   let field: string = layer['mapping']['y']['field'];
 
   const type: StandardType = layerData['metadata'][field]['type'];

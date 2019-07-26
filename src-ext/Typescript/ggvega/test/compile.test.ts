@@ -1,47 +1,122 @@
-import {gg2vl, removeEmpty} from '../src/compile';
+import {gg2vl, TranslateDatasets, TranslateLayers, removeEmpty} from '../src/compile';
 
 describe('compile/gg2vl', () => {
-  it('should use `datasets` rather than `data`', () => {
-    const vl = gg2vl({
-      data: {
-        'data-00': {
-          metadata: {},
-          observations: [{a: 'A', b: 28}, {a: 'A', b: 28}]
-        },
-        'data-01': {
-          metadata: {},
-          observations: [{a: 'A', b: 28}]
+  it('should throw error for an invalid spec', () => {
+    expect(() => {
+      gg2vl({} as any);
+    }).toThrowError();
+
+    expect(() => {
+      gg2vl({
+        data: {'data-00': {}},
+        labels: {
+          title: 'text'
         }
-      }
+      });
+    }).toThrowError();
+
+    expect(() => {
+      gg2vl({
+        layers: [
+          {
+            geom: {class: 'GeomPoint'},
+            mapping: {}
+          }
+        ]
+      });
+    }).toThrowError();
+
+    expect(() => {
+      gg2vl({
+        data: {'data-00': {}},
+        layers: [
+          {
+            data: 'data-00',
+            geom: {class: 'GeomPoint'},
+            mapping: {}
+          }
+        ]
+      });
+    }).not.toThrowError();
+  });
+
+  it('should have the vega-lite schema v3', () => {
+    const vl = gg2vl({
+      data: {'data-00': {}},
+      layers: [
+        {
+          data: 'data-00',
+          geom: {class: 'GeomPoint'},
+          mapping: {}
+        }
+      ]
     });
 
-    console.log(vl);
-
-    expect(vl.data).toBeUndefined();
-    expect(vl.datasets).toHaveProperty('data-00');
-    expect(vl.datasets).toHaveProperty('data-01');
-    if (vl.datasets) {
-      expect(vl.datasets['data-00']).toHaveLength(2);
-      expect(vl.datasets['data-01']).toHaveLength(1);
-      expect(vl.datasets['data-02']).toBeUndefined;
-    }
+    expect(vl.$schema).toEqual('https://vega.github.io/schema/vega-lite/v3.json');
   });
 
   it('should use `title` in `labels` as `title', () => {
     const vl = gg2vl({
+      data: {'data-00': {}},
       labels: {
         title: 'text'
-      }
-    });
-
-    const vl01 = gg2vl({
-      labels: {
-        x: 'text'
-      }
+      },
+      layers: [
+        {
+          data: 'data-00',
+          geom: {class: 'GeomPoint'},
+          mapping: {}
+        }
+      ]
     });
 
     expect(vl.title).toBe('text');
-    expect(vl01.title).toBeUndefined;
+  });
+});
+
+describe('compile/TranslateDatasets', () => {
+  it('should translate `ggSpec.data` to `vlSpec.datasets` ', () => {
+    const vlDatasets = TranslateDatasets({
+      'data-00': {
+        metadata: {},
+        observations: [{a: 'A', b: 28}, {a: 'A', b: 28}]
+      },
+      'data-01': {
+        metadata: {},
+        observations: [{a: 'A', b: 28}]
+      }
+    });
+
+    expect(vlDatasets).toEqual({
+      'data-00': [{a: 'A', b: 28}, {a: 'A', b: 28}],
+      'data-01': [{a: 'A', b: 28}]
+    });
+  });
+});
+
+describe('compile/TranslateLayers', () => {
+  it('should trabslate `ggSpec.layers` to `vlSpec.layers`', () => {
+    const ggLayers = [
+      {
+        data: 'data-00',
+        geom: {class: 'GeomPoint'},
+        mapping: {}
+      }
+    ];
+
+    const ggData = {'data-00': {}};
+
+    const vlLayers = TranslateLayers(ggLayers, undefined, ggData, undefined);
+
+    console.log(vlLayers);
+
+    expect(vlLayers).toEqual([
+      {
+        data: {name: 'data-00'},
+        mark: 'point',
+        encoding: {}
+      }
+    ]);
   });
 });
 

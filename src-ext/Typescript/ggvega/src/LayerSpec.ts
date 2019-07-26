@@ -20,12 +20,12 @@ export function TranslateLayer(layer: any, labels: any, data: any, scales: any):
   return layerspec;
 }
 
-export function TranslateMark(geom: any): Mark | undefined {
-  let mark: Mark | undefined;
+export function TranslateMark(geom: any): Mark {
+  let mark: Mark;
   if (geom['class'] == 'GeomPoint') {
     mark = Mark.Point;
   } else {
-    mark = undefined;
+    mark = Mark.Point;
   }
 
   return mark;

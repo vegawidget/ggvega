@@ -23,7 +23,7 @@ export function TranslateMark(geom) {
         mark = Mark.Point;
     }
     else {
-        mark = undefined;
+        mark = Mark.Point;
     }
     return mark;
 }

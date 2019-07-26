@@ -1,5 +1,7 @@
 import * as Mark from './Mark';
 export function TranslateEncoding(layer, labels, layerData, scales) {
+    if (!layer['mapping'])
+        return undefined;
     var layerEncoding = {
         x: TranslateXClass(layer, labels, layerData, scales),
         y: TranslateYClass(layer, labels, layerData, scales),
@@ -14,6 +16,8 @@ export function TranslateEncoding(layer, labels, layerData, scales) {
     return layerEncoding;
 }
 function TranslateXClass(layer, labels, layerData, scales) {
+    if (!layer['mapping']['x'])
+        return undefined;
     var field = layer['mapping']['x']['field'];
     var type = layerData['metadata'][field]['type'];
     var scale;
@@ -37,6 +41,8 @@ function TranslateXClass(layer, labels, layerData, scales) {
     return xClass;
 }
 function TranslateYClass(layer, labels, layerData, scales) {
+    if (!layer['mapping']['x'])
+        return undefined;
     var field = layer['mapping']['y']['field'];
     var type = layerData['metadata'][field]['type'];
     var scale;

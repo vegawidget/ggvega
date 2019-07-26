@@ -15,22 +15,21 @@ export function gg2vl(ggSpec: any): TopLevelSpec {
   return vl;
 }
 
-function TranslateTitle(ggLables: any): string | undefined {
-  if (!ggLables) return undefined;
+function TranslateTitle(ggLabels: any): string | undefined {
+  if (!ggLabels) return undefined;
 
-  if (ggLables['title']) return ggLables['title'];
+  if (ggLabels['title']) return ggLabels['title'];
 }
 
-function TranslateDatasets(ggData: any): {[key: string]: InlineDataset} | undefined {
-  if (!ggData) return undefined;
-
+export function TranslateDatasets(ggData: any): {[key: string]: InlineDataset} {
   let n = 0;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   for (const _dataset in ggData) {
     n++;
   }
-  if (n == 0) return undefined;
-  else {
+  if (n == 0) {
+    throw new Error('ggSpec should have at least 1 dataset');
+  } else {
     const datasets: {[key: string]: InlineDataset} = {};
     for (const dataset in ggData) {
       datasets[dataset] = ggData[dataset]['observations'];
@@ -39,21 +38,21 @@ function TranslateDatasets(ggData: any): {[key: string]: InlineDataset} | undefi
   }
 }
 
-function TranslateLayers(ggLayers: any, ggLables: any, ggData: any, ggScales: any): LayerSpec[] | undefined {
-  if (!ggLayers) return undefined;
-
+export function TranslateLayers(ggLayers: any, ggLabels: any, ggData: any, ggScales: any): LayerSpec[] {
   let n = 0;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   for (const _layer in ggLayers) {
     n++;
   }
-  if (n == 0) return undefined;
-  else {
+  if (n == 0) {
+    throw new Error('ggSpec should have at least 1 layer');
+  } else {
     const layers: LayerSpec[] = [];
 
     for (const layer of ggLayers) {
-      layers.push(TranslateLayer(layer, ggLables, ggData, ggScales));
+      layers.push(TranslateLayer(layer, ggLabels, ggData, ggScales));
     }
+
     return layers;
   }
 }

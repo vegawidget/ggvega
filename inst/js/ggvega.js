@@ -49,6 +49,8 @@
     }
 
     function TranslateEncoding(layer, labels, layerData, scales) {
+        if (!layer['mapping'])
+            return undefined;
         var layerEncoding = {
             x: TranslateXClass(layer, labels, layerData, scales),
             y: TranslateYClass(layer, labels, layerData, scales),
@@ -63,6 +65,8 @@
         return layerEncoding;
     }
     function TranslateXClass(layer, labels, layerData, scales) {
+        if (!layer['mapping']['x'])
+            return undefined;
         var field = layer['mapping']['x']['field'];
         var type = layerData['metadata'][field]['type'];
         var scale;
@@ -86,6 +90,8 @@
         return xClass;
     }
     function TranslateYClass(layer, labels, layerData, scales) {
+        if (!layer['mapping']['x'])
+            return undefined;
         var field = layer['mapping']['y']['field'];
         var type = layerData['metadata'][field]['type'];
         var scale;
@@ -1355,7 +1361,7 @@
             mark = Mark.Point;
         }
         else {
-            mark = undefined;
+            mark = Mark.Point;
         }
         return mark;
     }
@@ -1369,22 +1375,21 @@
         };
         return vl;
     }
-    function TranslateTitle(ggLables) {
-        if (!ggLables)
+    function TranslateTitle(ggLabels) {
+        if (!ggLabels)
             return undefined;
-        if (ggLables['title'])
-            return ggLables['title'];
+        if (ggLabels['title'])
+            return ggLabels['title'];
     }
     function TranslateDatasets(ggData) {
-        if (!ggData)
-            return undefined;
         var n = 0;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         for (var _dataset in ggData) {
             n++;
         }
-        if (n == 0)
-            return undefined;
+        if (n == 0) {
+            throw new Error('ggSpec should have at least 1 dataset');
+        }
         else {
             var datasets = {};
             for (var dataset in ggData) {
@@ -1393,22 +1398,27 @@
             return datasets;
         }
     }
-    function TranslateLayers(ggLayers, ggLables, ggData, ggScales) {
-        if (!ggLayers)
-            return undefined;
+    function TranslateLayers(ggLayers, ggLabels, ggData, ggScales) {
         var n = 0;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         for (var _layer in ggLayers) {
             n++;
         }
-        if (n == 0)
-            return undefined;
+        if (n == 0) {
+            throw new Error('ggSpec should have at least 1 layer');
+        }
         else {
             var layers = [];
             for (var _i = 0, ggLayers_1 = ggLayers; _i < ggLayers_1.length; _i++) {
                 var layer = ggLayers_1[_i];
-                layers.push(TranslateLayer(layer, ggLables, ggData, ggScales));
+                layers.push(TranslateLayer(layer, ggLabels, ggData, ggScales));
             }
+            console.log(layers);
+            console.log(layers);
+            console.log(layers);
+            console.log(layers);
+            console.log(layers);
+            console.log(layers);
             return layers;
         }
     }
@@ -1439,6 +1449,8 @@
         });
     }
 
+    exports.TranslateDatasets = TranslateDatasets;
+    exports.TranslateLayers = TranslateLayers;
     exports.gg2vl = gg2vl;
     exports.removeEmpty = removeEmpty;
 
