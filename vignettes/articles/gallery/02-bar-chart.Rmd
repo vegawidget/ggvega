@@ -1,0 +1,143 @@
+---
+title: "Bar chart"
+---
+
+```{r setup}
+library("vegawidget")
+library("ggvega")
+library("ggplot2")
+```
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+knitr::read_chunk(gg_example_file("barchart-mpg"))
+knitr::read_chunk(gg_example_file("barchart-stacked-mpg"))
+knitr::read_chunk(gg_example_file("barchart-flipped-mpg"))
+```
+
+## Simple bar-chart
+
+```{r}
+plot <-
+<<barchart-mpg>>
+
+plot
+```
+
+I suspect that there is something in the `stat` that we should be using to determine the aggregation for the `y` encoding.
+
+```{r}
+vl_spec <-
+  list(
+    `$schema` = vega_schema(),
+    datasets = list(
+      `data-00` = purrr::transpose(mpg)
+    ),
+    layer = list(
+      list(
+        data = list(name = "data-00"),
+        mark = "bar",
+        encoding = list(
+          x = list(
+            field = "class",
+            type = "nominal"
+          ),
+          y = list(
+            type = "quantitative",
+            aggregate = "count"
+          )
+        )
+      )
+    )
+  ) %>% 
+  as_vegaspec()
+
+vl_spec
+```
+
+## Stacked Bar-Chart
+
+```{r}
+plot <-
+<<barchart-stacked-mpg>>
+
+plot
+```
+
+```{r}
+vl_spec <-
+  list(
+    `$schema` = vega_schema(),
+    datasets = list(
+      `data-00` = purrr::transpose(mpg)
+    ),
+    layer = list(
+      list(
+        data = list(name = "data-00"),
+        mark = "bar",
+        encoding = list(
+          x = list(
+            field = "class",
+            type = "nominal"
+          ),
+          y = list(
+            type = "quantitative",
+            aggregate = "count"
+          ),
+          fill = list(
+            field = "drv",
+            type = "nominal"
+          )
+        )
+      )
+    )
+  ) %>% 
+  as_vegaspec()
+
+vl_spec
+```
+
+## Coordinate-flipped
+
+
+```{r}
+plot <-
+<<barchart-flipped-mpg>>
+
+plot
+```
+
+Here, we will have to take into account the `coordinate` element of the ggplot "List of Nine".
+
+```{r}
+vl_spec <-
+  list(
+    `$schema` = vega_schema(),
+    datasets = list(
+      `data-00` = purrr::transpose(mpg)
+    ),
+    layer = list(
+      list(
+        data = list(name = "data-00"),
+        mark = "bar",
+        encoding = list(
+          x = list(
+            type = "quantitative",
+            aggregate = "count"
+          ),
+          y = list(
+            field = "class",
+            type = "nominal"
+          )
+        )
+      )
+    )
+  ) %>% 
+  as_vegaspec()
+
+vl_spec
+```

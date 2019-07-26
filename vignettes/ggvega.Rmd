@@ -1,0 +1,21 @@
+---
+title: "ggvega"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ggvega}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library("ggvega")
+```
+
+In the fullness of time, this will be a "getting-started" vignette.
