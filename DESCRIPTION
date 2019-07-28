@@ -48,5 +48,7 @@ Suggests:
     here,
     knitr,
     rmarkdown,
-    stringr
+    stringr,
+    tools,
+    readr
 VignetteBuilder: knitr
