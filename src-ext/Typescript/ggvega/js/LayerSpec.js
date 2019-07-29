@@ -23,7 +23,7 @@ export function TranslateMark(geom) {
         mark = Mark.Point;
     }
     else {
-        mark = undefined;
+        throw new Error('geom.class can only be `GeomPoint`');
     }
     return mark;
 }

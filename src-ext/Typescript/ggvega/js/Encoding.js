@@ -14,6 +14,8 @@ export function TranslateEncoding(layer, labels, layerData, scales) {
     return layerEncoding;
 }
 function TranslateXClass(layer, labels, layerData, scales) {
+    if (!layer['mapping']['x'])
+        return undefined;
     var field = layer['mapping']['x']['field'];
     var type = layerData['metadata'][field]['type'];
     var scale;
@@ -37,6 +39,8 @@ function TranslateXClass(layer, labels, layerData, scales) {
     return xClass;
 }
 function TranslateYClass(layer, labels, layerData, scales) {
+    if (!layer['mapping']['x'])
+        return undefined;
     var field = layer['mapping']['y']['field'];
     var type = layerData['metadata'][field]['type'];
     var scale;
@@ -112,8 +116,7 @@ function TranslateSize(layer, labels, layerData) {
         size = {
             field: field,
             type: type,
-            title: labels['size'],
-            bin: true
+            title: labels['size']
         };
     }
     return size;
@@ -222,7 +225,7 @@ function TranslateOpacity(layer, labels, layerData) {
         opacity = {
             field: field,
             type: type,
-            title: labels['stroke']
+            title: labels['opacity']
         };
     }
     return opacity;
@@ -248,7 +251,7 @@ export function TranslateFill(layer, labels, layerData) {
         fill = {
             field: field,
             type: type,
-            title: labels['colour']
+            title: labels['fill']
         };
     }
     return fill;
