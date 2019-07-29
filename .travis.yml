@@ -34,16 +34,17 @@ before_install:
   - echo "***node***"
   - node --version
   # yarn
+  - export CURRENTDIR=`pwd`
   - pwd
   - ls
   # https://github.com/angular/quickstart/issues/215#issuecomment-255861361
-  - npm install -g tsc
-  - npm install -g concurrently
-  - npm install -g typescript
-  - cd src-ext/Typescript/ggvega
+  #- npm install -g tsc
+  #- npm install -g concurrently
+  #- npm install -g typescript
+  #- cd src-ext/Typescript/ggvega
   - yarn install
   - yarn build
-  - cd ~
+  - cd $CURRENTDIR
   - pwd
 
 
