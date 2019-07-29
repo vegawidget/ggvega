@@ -1348,7 +1348,8 @@
         return mark;
     }
 
-    function gg2vl(ggSpec) {
+    function gg2vl(ggJson) {
+        var ggSpec = ggJson;
         var vl = {
             $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
             title: TranslateTitle(ggSpec['labels']),

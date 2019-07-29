@@ -1,7 +1,10 @@
 import {TopLevelSpec, InlineDataset, LayerSpec} from './vlSpec';
 import {TranslateLayer} from './LayerSpec';
+import * as ggschema from '../../ggschema/src/ggSpec';
 
-export function gg2vl(ggSpec: any): TopLevelSpec {
+export function gg2vl(ggJson: any): TopLevelSpec {
+  const ggSpec = ggJson as ggschema.TopLevelSpec;
+
   const vl: TopLevelSpec = {
     $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
 
