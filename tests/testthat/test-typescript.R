@@ -6,7 +6,7 @@ test_that("typescript tests work", {
   skip_if_not(fs::dir_exists(dir_typescript))
 
   withr::with_dir(
-    new = here::here("src-ext", "Typescript", "ggvega"),
+    new = dir_typescript,
     code = {
       ts_results <- processx::run("yarn", "test", error_on_status = FALSE)
     }
