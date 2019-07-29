@@ -50,5 +50,7 @@ Suggests:
     rmarkdown,
     stringr,
     tools,
-    readr
+    readr,
+    processx,
+    withr
 VignetteBuilder: knitr

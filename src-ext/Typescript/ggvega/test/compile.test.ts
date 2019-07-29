@@ -1,5 +1,9 @@
 import {gg2vl, removeEmpty} from '../src/compile';
 
+describe('test', () => {
+  expect(true).toBeTruthy();
+});
+
 describe('compile/gg2vl', () => {
   it('should use `datasets` rather than `data`', () => {
     const vl = gg2vl({
