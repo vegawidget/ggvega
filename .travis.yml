@@ -35,4 +35,10 @@ before_install:
   - node --version
   - pwd
   - ls
+  - setwd src-ext/Typescript/ggvega
+  - yarn build
+  - setwd ~
+  - pwd
+
+
 
