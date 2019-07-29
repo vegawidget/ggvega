@@ -33,3 +33,6 @@ before_install:
   - npm install
   - echo "***node***"
   - node --version
+  # jest
+  - npm install --save-dev jest
+
