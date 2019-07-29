@@ -28,30 +28,5 @@
     "ts-json-schema-generator": "^0.51.0",
     "typescript": "^3.5.3"
   },
-  "dependencies": {},
-  "jest": {
-    "preset": "ts-jest",
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest",
-      "^.+\\.(js|jsx)?$": "babel-jest"
-    },
-    "testEnvironment": "node",
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!vega-util)/"
-    ],
-    "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/src/$1"
-    },
-    "coverageDirectory": "./coverage/",
-    "collectCoverage": false
-  }
+  "dependencies": {}
 }
