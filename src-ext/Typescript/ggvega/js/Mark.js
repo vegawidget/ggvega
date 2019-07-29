@@ -1,31 +1,16 @@
 export function TranslatePointShape(ggShape) {
-    var shape = '';
-    if (ggShape % 8 == 0) {
-        shape = 'circle';
-    }
-    if (ggShape % 8 == 1) {
-        shape = 'square';
-    }
-    if (ggShape % 8 == 2) {
-        shape = 'cross';
-    }
-    if (ggShape % 8 == 3) {
-        shape = 'diamond';
-    }
-    if (ggShape % 8 == 4) {
-        shape = 'triangle-up';
-    }
-    if (ggShape % 8 == 5) {
-        shape = 'triangle-down';
-    }
-    if (ggShape % 8 == 6) {
-        shape = 'triangle-right';
-    }
-    if (ggShape % 8 == 7) {
-        shape = 'triangle-left';
-    }
-    return shape;
+    return gg2vlPointShape[ggShape % 8];
 }
+var gg2vlPointShape = {
+    0: 'circle',
+    1: 'square',
+    3: 'cross',
+    4: 'diamond',
+    5: 'triangle-up',
+    6: 'triangle-down',
+    7: 'triangle-right',
+    8: 'triangle-left'
+};
 export function TranslateStroke(ggStroke) {
     return ggStroke;
 }

@@ -8,22 +8,23 @@ export function gg2vl(ggSpec) {
     };
     return vl;
 }
-function TranslateTitle(ggLables) {
-    if (!ggLables)
+function TranslateTitle(ggLabels) {
+    if (!ggLabels)
         return undefined;
-    if (ggLables['title'])
-        return ggLables['title'];
+    if (ggLabels['title'])
+        return ggLabels['title'];
+    else
+        return undefined;
 }
-function TranslateDatasets(ggData) {
-    if (!ggData)
-        return undefined;
+export function TranslateDatasets(ggData) {
     var n = 0;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     for (var _dataset in ggData) {
         n++;
     }
-    if (n == 0)
-        return undefined;
+    if (n == 0) {
+        throw new Error('ggSpec should have at least 1 dataset');
+    }
     else {
         var datasets = {};
         for (var dataset in ggData) {
@@ -32,21 +33,20 @@ function TranslateDatasets(ggData) {
         return datasets;
     }
 }
-function TranslateLayers(ggLayers, ggLables, ggData, ggScales) {
-    if (!ggLayers)
-        return undefined;
+export function TranslateLayers(ggLayers, ggLabels, ggData, ggScales) {
     var n = 0;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     for (var _layer in ggLayers) {
         n++;
     }
-    if (n == 0)
-        return undefined;
+    if (n == 0) {
+        throw new Error('ggSpec should have at least 1 layer');
+    }
     else {
         var layers = [];
         for (var _i = 0, ggLayers_1 = ggLayers; _i < ggLayers_1.length; _i++) {
             var layer = ggLayers_1[_i];
-            layers.push(TranslateLayer(layer, ggLables, ggData, ggScales));
+            layers.push(TranslateLayer(layer, ggLabels, ggData, ggScales));
         }
         return layers;
     }
