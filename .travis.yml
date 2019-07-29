@@ -33,8 +33,12 @@ before_install:
   - npm install
   - echo "***node***"
   - node --version
+  # yarn
   - pwd
   - ls
+  - npm install -g tsc
+  - npm install -g concurrently
+  - npm install -g typescript
   - cd src-ext/Typescript/ggvega
   - yarn build
   - cd ~
