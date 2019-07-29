@@ -1,145 +1,87 @@
 import {gg2vl, TranslateDatasets, TranslateLayers, removeEmpty} from '../src/compile';
+import * as ggSpec from './ggSpec';
+import * as vlSpec from './vlSpec';
 
 describe('compile/gg2vl', () => {
   it('should throw error for an invalid spec', () => {
     expect(() => {
-      gg2vl({} as any);
+      gg2vl(ggSpec.invalidSpec01);
     }).toThrowError();
 
     expect(() => {
-      gg2vl({
-        data: {'data-00': {}},
-        labels: {
-          title: 'text'
-        }
-      });
+      gg2vl(ggSpec.invalidSpec02);
     }).toThrowError();
 
     expect(() => {
-      gg2vl({
-        layers: [
-          {
-            geom: {class: 'GeomPoint'},
-            mapping: {}
-          }
-        ]
-      });
+      gg2vl(ggSpec.invalidSpec03);
     }).toThrowError();
 
     expect(() => {
-      gg2vl({
-        data: {'data-00': {}},
-        layers: [
-          {
-            data: 'data-00',
-            geom: {class: 'GeomPoint'},
-            mapping: {}
-          }
-        ]
-      });
+      gg2vl(ggSpec.ggSpec01);
     }).not.toThrowError();
+
+    expect(gg2vl(ggSpec.ggJson01)).toEqual(vlSpec.vlJson01);
   });
 
   it('should have the vega-lite schema v3', () => {
-    const vl = gg2vl({
-      data: {'data-00': {}},
-      layers: [
-        {
-          data: 'data-00',
-          geom: {class: 'GeomPoint'},
-          mapping: {}
-        }
-      ]
-    });
+    const vl = gg2vl(ggSpec.ggSpec01);
 
-    expect(vl.$schema).toEqual('https://vega.github.io/schema/vega-lite/v3.json');
+    expect(vl.$schema).toEqual(vlSpec.vlSpec01['$schema']);
   });
 
   it('should use `title` in `labels` as `title', () => {
-    const vl = gg2vl({
-      data: {'data-00': {}},
-      labels: {
-        title: 'text'
-      },
-      layers: [
-        {
-          data: 'data-00',
-          geom: {class: 'GeomPoint'},
-          mapping: {}
-        }
-      ]
-    });
+    const vl = gg2vl(ggSpec.ggSpec02);
 
-    expect(vl.title).toBe('text');
+    expect(vl.title).toEqual(vlSpec.vlSpec02['title']);
   });
 });
 
 describe('compile/TranslateDatasets', () => {
   it('should translate `ggSpec.data` to `vlSpec.datasets` ', () => {
-    const vlDatasets = TranslateDatasets({
-      'data-00': {
-        metadata: {},
-        observations: [{a: 'A', b: 28}, {a: 'A', b: 28}]
-      },
-      'data-01': {
-        metadata: {},
-        observations: [{a: 'A', b: 28}]
-      }
-    });
+    const vlDatasets = TranslateDatasets(ggSpec.ggSpec03['data']);
 
-    expect(vlDatasets).toEqual({
-      'data-00': [{a: 'A', b: 28}, {a: 'A', b: 28}],
-      'data-01': [{a: 'A', b: 28}]
-    });
+    expect(vlDatasets).toEqual(vlSpec.vlSpec03['datasets']);
   });
 });
 
 describe('compile/TranslateLayers', () => {
   it('should trabslate `ggSpec.layers` to `vlSpec.layers`', () => {
-    const ggLayers = [
-      {
-        data: 'data-00',
-        geom: {class: 'GeomPoint'},
-        mapping: {}
-      }
-    ];
+    const vlLayers = TranslateLayers(
+      ggSpec.ggSpec01['layers'],
+      ggSpec.ggSpec01['labels'],
+      ggSpec.ggSpec01['data'],
+      ggSpec.ggSpec01['scales']
+    );
 
-    const ggData = {'data-00': {}};
-
-    const vlLayers = TranslateLayers(ggLayers, undefined, ggData, undefined);
-
-    console.log(vlLayers);
-
-    expect(vlLayers).toEqual([
-      {
-        data: {name: 'data-00'},
-        mark: 'point',
-        encoding: {}
-      }
-    ]);
+    expect(vlLayers).toEqual(vlSpec.vlSpec01['layer']);
   });
 });
 
 describe('compile/removeEmpty', () => {
-  it('should omit all empty objects in the final vega-lite spec', () => {
-    const vl = {
+  it('should omit all empty objects in an object', () => {
+    const empty01 = {};
+
+    removeEmpty(empty01);
+
+    expect(empty01).toEqual({});
+
+    const empty02 = {
       data: {
         metadata: null,
-        undefined: undefined,
         values: [{a: 'A', b: 28}],
         observations: {
           values: {}
         }
       },
-      title: null,
+      title: undefined,
       layer: {},
       scale: {
         class: null
       }
     };
 
-    removeEmpty(vl);
+    removeEmpty(empty02);
 
-    expect(vl).toEqual({data: {values: [{a: 'A', b: 28}]}});
+    expect(empty02).toEqual({data: {values: [{a: 'A', b: 28}]}});
   });
 });

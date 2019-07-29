@@ -164,8 +164,7 @@ function TranslateSize(
     size = {
       field: field,
       type: type,
-      title: labels['size'],
-      bin: true
+      title: labels['size']
     };
   }
 
@@ -323,7 +322,7 @@ function TranslateOpacity(
     opacity = {
       field: field,
       type: type,
-      title: labels['stroke']
+      title: labels['opacity']
     };
   }
 
@@ -361,7 +360,7 @@ export function TranslateFill(
     fill = {
       field: field,
       type: type,
-      title: labels['colour']
+      title: labels['fill']
     };
   }
 

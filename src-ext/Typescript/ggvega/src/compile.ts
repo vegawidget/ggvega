@@ -19,6 +19,7 @@ function TranslateTitle(ggLabels: any): string | undefined {
   if (!ggLabels) return undefined;
 
   if (ggLabels['title']) return ggLabels['title'];
+  else return undefined;
 }
 
 export function TranslateDatasets(ggData: any): {[key: string]: InlineDataset} {

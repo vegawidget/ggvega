@@ -13,6 +13,8 @@ function TranslateTitle(ggLabels) {
         return undefined;
     if (ggLabels['title'])
         return ggLabels['title'];
+    else
+        return undefined;
 }
 export function TranslateDatasets(ggData) {
     var n = 0;
@@ -46,12 +48,6 @@ export function TranslateLayers(ggLayers, ggLabels, ggData, ggScales) {
             var layer = ggLayers_1[_i];
             layers.push(TranslateLayer(layer, ggLabels, ggData, ggScales));
         }
-        console.log(layers);
-        console.log(layers);
-        console.log(layers);
-        console.log(layers);
-        console.log(layers);
-        console.log(layers);
         return layers;
     }
 }

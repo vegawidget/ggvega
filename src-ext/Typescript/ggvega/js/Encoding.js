@@ -1,7 +1,5 @@
 import * as Mark from './Mark';
 export function TranslateEncoding(layer, labels, layerData, scales) {
-    if (!layer['mapping'])
-        return undefined;
     var layerEncoding = {
         x: TranslateXClass(layer, labels, layerData, scales),
         y: TranslateYClass(layer, labels, layerData, scales),
@@ -118,8 +116,7 @@ function TranslateSize(layer, labels, layerData) {
         size = {
             field: field,
             type: type,
-            title: labels['size'],
-            bin: true
+            title: labels['size']
         };
     }
     return size;
@@ -228,7 +225,7 @@ function TranslateOpacity(layer, labels, layerData) {
         opacity = {
             field: field,
             type: type,
-            title: labels['stroke']
+            title: labels['opacity']
         };
     }
     return opacity;
@@ -254,7 +251,7 @@ export function TranslateFill(layer, labels, layerData) {
         fill = {
             field: field,
             type: type,
-            title: labels['colour']
+            title: labels['fill']
         };
     }
     return fill;

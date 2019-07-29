@@ -5,33 +5,18 @@
 }(this, function (exports) { 'use strict';
 
     function TranslatePointShape(ggShape) {
-        var shape = '';
-        if (ggShape % 8 == 0) {
-            shape = 'circle';
-        }
-        if (ggShape % 8 == 1) {
-            shape = 'square';
-        }
-        if (ggShape % 8 == 2) {
-            shape = 'cross';
-        }
-        if (ggShape % 8 == 3) {
-            shape = 'diamond';
-        }
-        if (ggShape % 8 == 4) {
-            shape = 'triangle-up';
-        }
-        if (ggShape % 8 == 5) {
-            shape = 'triangle-down';
-        }
-        if (ggShape % 8 == 6) {
-            shape = 'triangle-right';
-        }
-        if (ggShape % 8 == 7) {
-            shape = 'triangle-left';
-        }
-        return shape;
+        return gg2vlPointShape[ggShape % 8];
     }
+    var gg2vlPointShape = {
+        0: 'circle',
+        1: 'square',
+        3: 'cross',
+        4: 'diamond',
+        5: 'triangle-up',
+        6: 'triangle-down',
+        7: 'triangle-right',
+        8: 'triangle-left'
+    };
     function TranslateStroke(ggStroke) {
         return ggStroke;
     }
@@ -49,8 +34,6 @@
     }
 
     function TranslateEncoding(layer, labels, layerData, scales) {
-        if (!layer['mapping'])
-            return undefined;
         var layerEncoding = {
             x: TranslateXClass(layer, labels, layerData, scales),
             y: TranslateYClass(layer, labels, layerData, scales),
@@ -167,8 +150,7 @@
             size = {
                 field: field,
                 type: type,
-                title: labels['size'],
-                bin: true
+                title: labels['size']
             };
         }
         return size;
@@ -277,7 +259,7 @@
             opacity = {
                 field: field,
                 type: type,
-                title: labels['stroke']
+                title: labels['opacity']
             };
         }
         return opacity;
@@ -303,7 +285,7 @@
             fill = {
                 field: field,
                 type: type,
-                title: labels['colour']
+                title: labels['fill']
             };
         }
         return fill;
@@ -1361,7 +1343,7 @@
             mark = Mark.Point;
         }
         else {
-            mark = Mark.Point;
+            throw new Error('geom.class can only be `GeomPoint`');
         }
         return mark;
     }
@@ -1380,6 +1362,8 @@
             return undefined;
         if (ggLabels['title'])
             return ggLabels['title'];
+        else
+            return undefined;
     }
     function TranslateDatasets(ggData) {
         var n = 0;
@@ -1413,12 +1397,6 @@
                 var layer = ggLayers_1[_i];
                 layers.push(TranslateLayer(layer, ggLabels, ggData, ggScales));
             }
-            console.log(layers);
-            console.log(layers);
-            console.log(layers);
-            console.log(layers);
-            console.log(layers);
-            console.log(layers);
             return layers;
         }
     }

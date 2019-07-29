@@ -37,10 +37,8 @@
   "jest": {
     "preset": "ts-jest",
     "transform": {
-      "^.+\\.tsx?$": "ts-jest",
-      "^.+\\.(js|jsx)?$": "babel-jest"
+      "^.+\\.tsx?$": "ts-jest"
     },
-    "testEnvironment": "node",
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
     "moduleFileExtensions": [
       "ts",
@@ -50,12 +48,12 @@
       "json",
       "node"
     ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!vega-util)/"
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules",
+      "<rootDir>/build",
+      "<rootDir>/_site",
+      "<rootDir>/src"
     ],
-    "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/src/$1"
-    },
     "coverageDirectory": "./coverage/",
     "collectCoverage": false
   }
