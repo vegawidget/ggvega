@@ -1350,6 +1350,7 @@
 
     function gg2vl(ggJson) {
         var ggSpec = ggJson;
+        console.log(ggSpec);
         var vl = {
             $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
             title: TranslateTitle(ggSpec['labels']),

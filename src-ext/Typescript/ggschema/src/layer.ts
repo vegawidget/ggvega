@@ -2,8 +2,8 @@ export interface Layer {
   data: string;
   geom: Geom;
   mapping: Mapping;
-  aes_params: object[];
-  stat: Stat;
+  aes_params?: object[];
+  stat?: Stat;
 }
 
 interface Geom {

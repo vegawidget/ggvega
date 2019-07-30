@@ -1,5 +1,5 @@
 export interface Dataset {
-    metadata: {
+    metadata?: {
         [key: string]: Metadata;
     };
     observations: InlineDataset;

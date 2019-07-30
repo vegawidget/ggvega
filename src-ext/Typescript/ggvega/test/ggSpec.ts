@@ -40,7 +40,7 @@ export const invalidSpec04: any = {
  */
 
 export const ggSpec01: any = {
-  data: {'data-00': {}},
+  data: {'data-00': {observations: {}}},
   layers: [
     {
       data: 'data-00',
@@ -50,7 +50,7 @@ export const ggSpec01: any = {
   ]
 };
 export const ggSpec02: any = {
-  data: {'data-00': {}},
+  data: {'data-00': {observations: {}}},
   labels: {title: 'text'},
   layers: [
     {

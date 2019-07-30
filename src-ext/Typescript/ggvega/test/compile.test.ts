@@ -2,6 +2,12 @@ import {gg2vl, TranslateDatasets, TranslateLayers, removeEmpty} from '../src/com
 import * as ggSpec from './ggSpec';
 import * as vlSpec from './vlSpec';
 
+describe('The test of the ts test', () => {
+  it('should always fail', () => {
+    expect(true).toBeTruthy();
+  });
+});
+
 describe('compile/gg2vl', () => {
   it('should throw error for an invalid spec', () => {
     expect(() => {
