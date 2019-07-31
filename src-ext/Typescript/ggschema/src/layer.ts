@@ -1,3 +1,9 @@
+/**
+ * The `Layers` should have at least one layer
+ * @minItems 1
+ */
+
+export type Layers = Layer[];
 export interface Layer {
   data: string;
   geom: Geom;
@@ -6,11 +12,11 @@ export interface Layer {
   stat?: Stat;
 }
 
-interface Geom {
+export interface Geom {
   class: GeomType;
 }
 
-interface Mapping {
+export interface Mapping {
   x?: Encoding;
   y?: Encoding;
   colour?: Encoding;
@@ -20,10 +26,10 @@ export enum GeomType {
   GeomPoint = 'GeomPoint'
 }
 
-interface Encoding {
+export interface Encoding {
   field: string;
 }
 
-interface Stat {
+export interface Stat {
   class: string;
 }

@@ -14,7 +14,7 @@
     "build": "npm run schema && npm run copy",
     "copy": "copyfiles -f build/ggschema.json ../../../inst/json",
     "test": "jest test/",
-    "schema": "tsc && ts-json-schema-generator -c -f tsconfig.json -t TopLevelSpec > build/ggschema.json"
+    "schema": "ts-json-schema-generator -c -f tsconfig.json -t TopLevelSpec > build/ggschema.json"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^1.13.0",

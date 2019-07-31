@@ -9,15 +9,18 @@
 export const invalidSpec01: any = {};
 
 export const invalidSpec02: any = {
-  data: {'data-00': {}},
-  labels: {
-    title: 'text'
-  }
+  data: {'data-00': {metadata: {}, observations: {}}},
+  labels: {},
+  layers: [],
+  scales: []
 };
 
 export const invalidSpec03: any = {
+  data: {},
+  labels: {},
   layers: [
     {
+      data: 'data-00',
       geom: {class: 'GeomPoint'},
       mapping: {}
     }
@@ -40,17 +43,19 @@ export const invalidSpec04: any = {
  */
 
 export const ggSpec01: any = {
-  data: {'data-00': {observations: {}}},
+  data: {'data-00': {metadata: {}, observations: {}}},
+  labels: {},
   layers: [
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
       mapping: {}
     }
-  ]
+  ],
+  scales: []
 };
 export const ggSpec02: any = {
-  data: {'data-00': {observations: {}}},
+  data: {'data-00': {metadata: {}, observations: {}}},
   labels: {title: 'text'},
   layers: [
     {
@@ -58,7 +63,8 @@ export const ggSpec02: any = {
       geom: {class: 'GeomPoint'},
       mapping: {}
     }
-  ]
+  ],
+  scales: []
 };
 
 export const ggSpec03: any = {
@@ -78,7 +84,8 @@ export const ggSpec03: any = {
       geom: {class: 'GeomPoint'},
       mapping: {}
     }
-  ]
+  ],
+  scales: []
 };
 
 export const ggSpec04: any = {

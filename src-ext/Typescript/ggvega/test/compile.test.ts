@@ -15,6 +15,10 @@ describe('compile/gg2vl', () => {
     }).toThrowError();
 
     expect(() => {
+      gg2vl(ggSpec.invalidSpec01);
+    }).toThrow();
+
+    expect(() => {
       gg2vl(ggSpec.invalidSpec02);
     }).toThrowError();
 

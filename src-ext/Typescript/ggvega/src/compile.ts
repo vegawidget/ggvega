@@ -17,11 +17,11 @@ export function validateGG(spec: ggschema.TopLevelSpec) {
   const valid = validateGg(spec);
   const errors = validateGg.errors;
 
-  validateGg.length;
-
   if (errors)
     errors.map((err: Ajv.ErrorObject) => {
-      throw new Error(err.dataPath + ' ' + err.message);
+      console.warn('ggSpec' + err.dataPath + ' ' + err.message);
+
+      throw new Error('ggSpec' + err.dataPath + ' ' + err.message);
     });
 
   return valid;
@@ -32,13 +32,13 @@ export function gg2vl(ggJson: any): TopLevelSpec {
 
   const ggSpec = ggJson as ggschema.TopLevelSpec;
 
-  const ggLayers: ggschema.Layer[] = ggSpec.layers;
+  const ggLayers = ggSpec.layers;
 
-  const ggLabels: ggschema.Labels | undefined = ggSpec.labels;
+  const ggLabels = ggSpec.labels;
 
-  const ggData: {[key: string]: ggschema.Dataset} = ggSpec.data;
+  const ggData = ggSpec.data;
 
-  const ggScales: object[] | undefined = ggSpec.scales;
+  const ggScales = ggSpec.scales;
 
   const vl: TopLevelSpec = {
     $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
@@ -53,60 +53,42 @@ export function gg2vl(ggJson: any): TopLevelSpec {
   return vl;
 }
 
-function TranslateTitle(ggLabels: ggschema.Labels | undefined): string | undefined {
-  if (!ggLabels) return undefined;
-
-  if (ggLabels['title']) return ggLabels['title'];
-  else return undefined;
+function TranslateTitle(ggLabels: ggschema.Labels): string | undefined {
+  return ggLabels['title'];
 }
 
 export function TranslateDatasets(ggData: {[key: string]: ggschema.Dataset}): {[key: string]: InlineDataset} {
-  let n = 0;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  for (const _dataset in ggData) {
-    n++;
+  const datasets: {[key: string]: InlineDataset} = {};
+
+  for (const dataset in ggData) {
+    datasets[dataset] = ggData[dataset].observations;
   }
-  if (n == 0) {
-    throw new Error('ggSpec should have at least 1 dataset');
-  } else {
-    const datasets: {[key: string]: InlineDataset} = {};
-    for (const dataset in ggData) {
-      if (ggData[dataset]['observations']) {
-        datasets[dataset] = ggData[dataset]['observations'];
-      }
-    }
-    return datasets;
-  }
+
+  return datasets;
 }
 
 export function TranslateLayers(
   ggLayers: ggschema.Layer[],
-  ggLabels: ggschema.Labels | undefined,
-  ggData: {[key: string]: ggschema.Dataset},
-  ggScales: object[] | undefined
+  ggLabels: ggschema.Labels,
+  ggData: ggschema.Datasets,
+  ggScales: ggschema.Scale[]
 ): LayerSpec[] {
-  let n = 0;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  for (const _layer of ggLayers) {
-    n++;
+  if (ggLayers.length == 0) {
+    throw new Error('`Layers` should have at least 1 `Layer`');
   }
-  if (n == 0) {
-    throw new Error('ggSpec should have at least 1 layer');
-  } else {
-    const layers: LayerSpec[] = [];
 
-    for (const layer of ggLayers) {
-      layers.push(TranslateLayer(layer, ggLabels, ggData, ggScales));
-    }
+  const layers: LayerSpec[] = [];
 
-    return layers;
-  }
+  ggLayers.map((gglayer: ggschema.Layer) => {
+    layers.push(TranslateLayer(gglayer, ggLabels, ggData, ggScales));
+  });
+
+  return layers;
 }
 
 /**
  * This function remove empty object in the vlSpec
  * @param obj
- *
  */
 export function removeEmpty(obj: any) {
   if (!(obj != null && typeof obj === 'object')) return;

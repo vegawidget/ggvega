@@ -16,7 +16,7 @@
                 "type": "array"
               },
               "type": {
-                "$ref": "#/definitions/StandardType"
+                "$ref": "#/definitions/VariableType"
               }
             },
             "required": [
@@ -31,7 +31,40 @@
         }
       },
       "required": [
+        "metadata",
         "observations"
+      ],
+      "type": "object"
+    },
+    "Datasets": {
+      "additionalProperties": {
+        "$ref": "#/definitions/Dataset"
+      },
+      "description": "The datasets should have at least one dataset",
+      "minProperties": 1,
+      "type": "object"
+    },
+    "Encoding": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "field"
+      ],
+      "type": "object"
+    },
+    "Geom": {
+      "additionalProperties": false,
+      "properties": {
+        "class": {
+          "$ref": "#/definitions/GeomType"
+        }
+      },
+      "required": [
+        "class"
       ],
       "type": "object"
     },
@@ -104,70 +137,13 @@
           "type": "string"
         },
         "geom": {
-          "additionalProperties": false,
-          "properties": {
-            "class": {
-              "$ref": "#/definitions/GeomType"
-            }
-          },
-          "required": [
-            "class"
-          ],
-          "type": "object"
+          "$ref": "#/definitions/Geom"
         },
         "mapping": {
-          "additionalProperties": false,
-          "properties": {
-            "colour": {
-              "additionalProperties": false,
-              "properties": {
-                "field": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "field"
-              ],
-              "type": "object"
-            },
-            "x": {
-              "additionalProperties": false,
-              "properties": {
-                "field": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "field"
-              ],
-              "type": "object"
-            },
-            "y": {
-              "additionalProperties": false,
-              "properties": {
-                "field": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "field"
-              ],
-              "type": "object"
-            }
-          },
-          "type": "object"
+          "$ref": "#/definitions/Mapping"
         },
         "stat": {
-          "additionalProperties": false,
-          "properties": {
-            "class": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "class"
-          ],
-          "type": "object"
+          "$ref": "#/definitions/Stat"
         }
       },
       "required": [
@@ -177,7 +153,91 @@
       ],
       "type": "object"
     },
-    "StandardType": {
+    "Layers": {
+      "description": "The `Layers` should have at least one layer",
+      "items": {
+        "$ref": "#/definitions/Layer"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "Mapping": {
+      "additionalProperties": false,
+      "properties": {
+        "colour": {
+          "$ref": "#/definitions/Encoding"
+        },
+        "x": {
+          "$ref": "#/definitions/Encoding"
+        },
+        "y": {
+          "$ref": "#/definitions/Encoding"
+        }
+      },
+      "type": "object"
+    },
+    "Scale": {
+      "additionalProperties": false,
+      "properties": {
+        "aesthetics": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        },
+        "transform": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "aesthetics",
+        "transform"
+      ],
+      "type": "object"
+    },
+    "Stat": {
+      "additionalProperties": false,
+      "properties": {
+        "class": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "class"
+      ],
+      "type": "object"
+    },
+    "TopLevelSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Datasets"
+        },
+        "labels": {
+          "$ref": "#/definitions/Labels"
+        },
+        "layers": {
+          "$ref": "#/definitions/Layers"
+        },
+        "scales": {
+          "items": {
+            "$ref": "#/definitions/Scale"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "data",
+        "layers",
+        "scales",
+        "labels"
+      ],
+      "type": "object"
+    },
+    "VariableType": {
       "enum": [
         "nominal",
         "ordinal",
@@ -185,37 +245,6 @@
         "temporal"
       ],
       "type": "string"
-    },
-    "TopLevelSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "data": {
-          "additionalProperties": {
-            "$ref": "#/definitions/Dataset"
-          },
-          "type": "object"
-        },
-        "labels": {
-          "$ref": "#/definitions/Labels"
-        },
-        "layers": {
-          "items": {
-            "$ref": "#/definitions/Layer"
-          },
-          "type": "array"
-        },
-        "scales": {
-          "items": {
-            "type": "object"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "data",
-        "layers"
-      ],
-      "type": "object"
     }
   }
 }

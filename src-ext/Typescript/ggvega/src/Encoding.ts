@@ -10,8 +10,14 @@ import {
   ValueDefWithConditionMarkPropFieldDefStringNull,
   TypeForShape
 } from './vlSpec';
+import * as ggschema from '../../ggschema/src/ggSpec';
 
-export function TranslateEncoding(layer: any, labels: any, layerData: any, scales: any): LayerEncoding | undefined {
+export function TranslateEncoding(
+  layer: ggschema.Layer,
+  labels: ggschema.Labels,
+  layerData: ggschema.Dataset,
+  scales: ggschema.Scale[]
+): LayerEncoding | undefined {
   const layerEncoding: LayerEncoding | undefined = {
     x: TranslateXClass(layer, labels, layerData, scales),
     y: TranslateYClass(layer, labels, layerData, scales),
@@ -27,22 +33,27 @@ export function TranslateEncoding(layer: any, labels: any, layerData: any, scale
   return layerEncoding;
 }
 
-function TranslateXClass(layer: any, labels: any, layerData: any, scales: any): XClass | undefined {
+function TranslateXClass(
+  layer: ggschema.Layer,
+  labels: ggschema.Labels,
+  layerData: ggschema.Dataset,
+  scales: ggschema.Scale[]
+): XClass | undefined {
   if (!layer['mapping']['x']) return undefined;
 
-  let field: string = layer['mapping']['x']['field'];
+  let field: string = layer.mapping.x.field;
 
-  const type: StandardType = layerData['metadata'][field]['type'];
+  const type: StandardType = (layerData.metadata[field].type as unknown) as StandardType;
 
   let scale: Scale | undefined;
 
-  let title: string = labels['x'];
+  let title: string | undefined = labels.x;
 
   for (const ggScale of scales) {
-    if (ggScale['aesthetics'][0] == 'x') {
-      scale = TranslateScale(ggScale['transform']);
+    if (ggScale.aesthetics[0] == 'x') {
+      scale = TranslateScale(ggScale.transform);
 
-      if (ggScale['name']) {
+      if (ggScale.name) {
         title = ggScale['name'];
       }
     }
@@ -60,23 +71,28 @@ function TranslateXClass(layer: any, labels: any, layerData: any, scales: any): 
   return xClass;
 }
 
-function TranslateYClass(layer: any, labels: any, layerData: any, scales: any): YClass | undefined {
-  if (!layer['mapping']['x']) return undefined;
+function TranslateYClass(
+  layer: ggschema.Layer,
+  labels: ggschema.Labels,
+  layerData: ggschema.Dataset,
+  scales: ggschema.Scale[]
+): YClass | undefined {
+  if (!layer.mapping.y) return undefined;
 
-  let field: string = layer['mapping']['y']['field'];
+  let field: string = layer.mapping.y.field;
 
-  const type: StandardType = layerData['metadata'][field]['type'];
+  const type: StandardType = (layerData.metadata[field].type as unknown) as StandardType;
 
   let scale: Scale | undefined;
 
-  let title: string = labels['y'];
+  let title: string | undefined = labels.y;
 
   for (const ggScale of scales) {
-    if (ggScale['aesthetics'][0] == 'y') {
-      scale = TranslateScale(ggScale['transform']);
+    if (ggScale.aesthetics[0] == 'y') {
+      scale = TranslateScale(ggScale.transform);
 
-      if (ggScale['name']) {
-        title = ggScale['name'];
+      if (ggScale.name) {
+        title = ggScale.name;
       }
     }
   }
