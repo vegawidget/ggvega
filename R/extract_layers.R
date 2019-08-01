@@ -41,20 +41,23 @@ layer_spc <- function(layer_plt, int_data, int_map) {
 #' maps <- mapping_spc(p$mapping)
 #' get_layers(p$layers[[1]], dat, maps)
 get_layers <- function(layer, int_data, int_map) {
-  pluck_layer <- purrr::partial(purrr::pluck, .x = layer)
+  pluck_layer <- purrr::partial(purrr::pluck, .x = layer, .default = list())
 
   layer_map = pluck_layer("mapping") %>% purrr::map(get_mappings)
 
   list(
-    data = pluck_layer("data") %>% get_data_name(int_data),
+    data = purrr::pluck(layer, "data") %>% get_data_name(int_data),
     geom = list(
       class = pluck_layer("geom", class, 1)
     ),
+    geom_params = pluck_layer("geom_params"),
+   #       inherit_aes =
     mapping = utils::modifyList(int_map, layer_map),
     aes_params = pluck_layer("aes_params"),
     stat = list(
       class = pluck_layer("stat", class, 1)
-    )
+    ),
+    stat_params = pluck_layer("stat_params")
   )
 }
 
