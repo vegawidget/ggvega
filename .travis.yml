@@ -33,3 +33,12 @@ before_install:
   - npm install
   - echo "***node***"
   - node --version
+  # yarn
+  - export CURRENTDIR=`pwd`
+  - cd src-ext/Typescript/ggvega
+  - yarn install
+  - yarn build
+  - cd $CURRENTDIR
+  # clean up from yarn
+  - rm package-lock.json
+  - pwd
