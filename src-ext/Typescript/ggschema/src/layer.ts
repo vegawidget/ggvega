@@ -7,9 +7,11 @@ export type Layers = Layer[];
 export interface Layer {
   data: string;
   geom: Geom;
+  geom_params: any;
   mapping: Mapping;
   aes_params?: object[];
   stat?: Stat;
+  stat_params?: any;
 }
 
 export interface Geom {

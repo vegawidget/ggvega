@@ -1488,16 +1488,21 @@
     			geom: {
     				$ref: "#/definitions/Geom"
     			},
+    			geom_params: {
+    			},
     			mapping: {
     				$ref: "#/definitions/Mapping"
     			},
     			stat: {
     				$ref: "#/definitions/Stat"
+    			},
+    			stat_params: {
     			}
     		},
     		required: [
     			"data",
     			"geom",
+    			"geom_params",
     			"mapping"
     		],
     		type: "object"
