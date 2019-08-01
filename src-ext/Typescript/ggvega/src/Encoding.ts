@@ -1,4 +1,4 @@
-// import * as Mark from './Mark';
+import * as Mark from './Mark';
 import * as vl from './vlSpec';
 import * as gs from '../../ggschema/src/ggSpec';
 
@@ -146,15 +146,11 @@ function TranslateSize(
 ): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
   let size: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
-  // if (layer.aes_params) {
-  //   if (layer['aes_params']['size']) {
-  //     if (layer['aes_params']['size']['value']) {
-  //       size = {
-  //         value: Mark.TranslatePointSize(layer['aes_params']['size']['value'])
-  //       };
-  //     }
-  //   }
-  // }
+  if (layer.aes_params.size)
+    if (layer.geom.class == 'GeomPoint')
+      size = {
+        value: Mark.TranslatePointSize(layer.aes_params.size)
+      };
 
   if (layer.mapping.size) {
     if (!layer.mapping.size.field) {
@@ -184,17 +180,11 @@ function TranslateShape(
 ): vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined {
   let shape: vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined;
 
-  // if (layer['aes_params']) {
-  //   if (layer['aes_params']['shape']) {
-  //     if (layer['aes_params']['shape']['value']) {
-  //       if (layer[`geom`]['class'] == 'GeomPoint') {
-  //         shape = {
-  //           value: Mark.TranslatePointShape(layer['aes_params']['shape']['value'])
-  //         };
-  //       }
-  //     }
-  //   }
-  // }
+  if (layer.aes_params.shape && layer.geom.class == 'GeomPoint') {
+    shape = {
+      value: Mark.TranslatePointShape(layer.aes_params.shape)
+    };
+  }
 
   if (layer.mapping.shape) {
     if (!layer.mapping.shape.field) {
@@ -228,15 +218,11 @@ function TranslateStroke(
 ): vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
   let stroke: vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 
-  // if (layer['aes_params']) {
-  //   if (layer['aes_params']['colour']) {
-  //     if (layer['aes_params']['colour']['value']) {
-  //       stroke = {
-  //         value: Mark.TranslateStroke(layer['aes_params']['colour']['value'])
-  //       };
-  //     }
-  //   }
-  // }
+  if (layer.aes_params.colour) {
+    stroke = {
+      value: Mark.TranslateStroke(layer.aes_params.colour)
+    };
+  }
 
   if (layer.mapping.colour) {
     if (!layer.mapping.colour.field) {
@@ -266,15 +252,11 @@ function TranslateStrokeWidth(
 ): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
   let strokeWidth: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
-  // if (layer['aes_params']) {
-  //   if (layer['aes_params']['stroke']) {
-  //     if (layer['aes_params']['stroke']['value']) {
-  //       strokeWidth = {
-  //         value: Mark.TranslateStrokeWidth(layer['aes_params']['stroke']['value'])
-  //       };
-  //     }
-  //   }
-  // }
+  if (layer.aes_params.stroke) {
+    strokeWidth = {
+      value: Mark.TranslateStrokeWidth(layer.aes_params.stroke)
+    };
+  }
 
   if (layer.mapping.stroke) {
     if (!layer.mapping.stroke.field) {
@@ -304,15 +286,11 @@ function TranslateOpacity(
 ): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
   let opacity: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
-  // if (layer['aes_params']) {
-  //   if (layer['aes_params']['alpha']) {
-  //     if (layer['aes_params']['alpha']['value']) {
-  //       opacity = {
-  //         value: Mark.TranslateOpacity(layer['aes_params']['alpha']['value'])
-  //       };
-  //     }
-  //   }
-  // }
+  if (layer.aes_params.alpha) {
+    opacity = {
+      value: Mark.TranslateOpacity(layer.aes_params.alpha)
+    };
+  }
 
   if (layer.mapping.alpha) {
     if (!layer.mapping.alpha.field) {
@@ -342,15 +320,11 @@ export function TranslateFill(
 ): vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
   let fill: vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 
-  // if (layer['aes_params']) {
-  //   if (layer['aes_params']['fill']) {
-  //     if (layer['aes_params']['fill']['value']) {
-  //       fill = {
-  //         value: Mark.TranslateFill(layer['aes_params']['fill']['value'])
-  //       };
-  //     }
-  //   }
-  // }
+  if (layer.aes_params.fill) {
+    fill = {
+      value: Mark.TranslateFill(layer.aes_params.fill)
+    };
+  }
 
   if (layer.mapping.fill) {
     if (!layer.mapping.fill.field) {

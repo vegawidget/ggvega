@@ -4,6 +4,35 @@
     (global = global || self, factory(global.ggvega = {}));
 }(this, function (exports) { 'use strict';
 
+    function TranslatePointShape(ggShape) {
+        return gg2vlPointShape[ggShape % 8];
+    }
+    var gg2vlPointShape = {
+        0: 'circle',
+        1: 'square',
+        3: 'cross',
+        4: 'diamond',
+        5: 'triangle-up',
+        6: 'triangle-down',
+        7: 'triangle-right',
+        8: 'triangle-left'
+    };
+    function TranslateStroke(ggStroke) {
+        return ggStroke;
+    }
+    function TranslateStrokeWidth(ggStrokeWidth) {
+        return ggStrokeWidth;
+    }
+    function TranslateOpacity(ggOpacity) {
+        return ggOpacity;
+    }
+    function TranslateFill(ggFill) {
+        return ggFill;
+    }
+    function TranslatePointSize(ggSize) {
+        return ggSize * 20;
+    }
+
     function TranslateEncoding(layer, labels, layerData, scales) {
         var layerEncoding = {
             x: TranslateXClass(layer, labels, layerData, scales),
@@ -11,10 +40,10 @@
             // color: TranslateColor(layer, labels, layerData),
             size: TranslateSize(layer, labels, layerData),
             shape: TranslateShape(layer, labels, layerData),
-            stroke: TranslateStroke(layer, labels, layerData),
-            strokeWidth: TranslateStrokeWidth(layer, labels, layerData),
-            opacity: TranslateOpacity(layer, labels, layerData),
-            fill: TranslateFill(layer, labels, layerData)
+            stroke: TranslateStroke$1(layer, labels, layerData),
+            strokeWidth: TranslateStrokeWidth$1(layer, labels, layerData),
+            opacity: TranslateOpacity$1(layer, labels, layerData),
+            fill: TranslateFill$1(layer, labels, layerData)
         };
         return layerEncoding;
     }
@@ -102,15 +131,11 @@
      */
     function TranslateSize(layer, labels, layerData) {
         var size;
-        // if (layer.aes_params) {
-        //   if (layer['aes_params']['size']) {
-        //     if (layer['aes_params']['size']['value']) {
-        //       size = {
-        //         value: Mark.TranslatePointSize(layer['aes_params']['size']['value'])
-        //       };
-        //     }
-        //   }
-        // }
+        if (layer.aes_params.size)
+            if (layer.geom.class == 'GeomPoint')
+                size = {
+                    value: TranslatePointSize(layer.aes_params.size)
+                };
         if (layer.mapping.size) {
             if (!layer.mapping.size.field) {
                 return size;
@@ -128,17 +153,11 @@
     }
     function TranslateShape(layer, labels, layerData) {
         var shape;
-        // if (layer['aes_params']) {
-        //   if (layer['aes_params']['shape']) {
-        //     if (layer['aes_params']['shape']['value']) {
-        //       if (layer[`geom`]['class'] == 'GeomPoint') {
-        //         shape = {
-        //           value: Mark.TranslatePointShape(layer['aes_params']['shape']['value'])
-        //         };
-        //       }
-        //     }
-        //   }
-        // }
+        if (layer.aes_params.shape && layer.geom.class == 'GeomPoint') {
+            shape = {
+                value: TranslatePointShape(layer.aes_params.shape)
+            };
+        }
         if (layer.mapping.shape) {
             if (!layer.mapping.shape.field) {
                 return shape;
@@ -157,17 +176,13 @@
     function TranslateScale(transform) {
         return transform;
     }
-    function TranslateStroke(layer, labels, layerData) {
+    function TranslateStroke$1(layer, labels, layerData) {
         var stroke;
-        // if (layer['aes_params']) {
-        //   if (layer['aes_params']['colour']) {
-        //     if (layer['aes_params']['colour']['value']) {
-        //       stroke = {
-        //         value: Mark.TranslateStroke(layer['aes_params']['colour']['value'])
-        //       };
-        //     }
-        //   }
-        // }
+        if (layer.aes_params.colour) {
+            stroke = {
+                value: TranslateStroke(layer.aes_params.colour)
+            };
+        }
         if (layer.mapping.colour) {
             if (!layer.mapping.colour.field) {
                 return stroke;
@@ -183,17 +198,13 @@
         }
         return stroke;
     }
-    function TranslateStrokeWidth(layer, labels, layerData) {
+    function TranslateStrokeWidth$1(layer, labels, layerData) {
         var strokeWidth;
-        // if (layer['aes_params']) {
-        //   if (layer['aes_params']['stroke']) {
-        //     if (layer['aes_params']['stroke']['value']) {
-        //       strokeWidth = {
-        //         value: Mark.TranslateStrokeWidth(layer['aes_params']['stroke']['value'])
-        //       };
-        //     }
-        //   }
-        // }
+        if (layer.aes_params.stroke) {
+            strokeWidth = {
+                value: TranslateStrokeWidth(layer.aes_params.stroke)
+            };
+        }
         if (layer.mapping.stroke) {
             if (!layer.mapping.stroke.field) {
                 return strokeWidth;
@@ -209,17 +220,13 @@
         }
         return strokeWidth;
     }
-    function TranslateOpacity(layer, labels, layerData) {
+    function TranslateOpacity$1(layer, labels, layerData) {
         var opacity;
-        // if (layer['aes_params']) {
-        //   if (layer['aes_params']['alpha']) {
-        //     if (layer['aes_params']['alpha']['value']) {
-        //       opacity = {
-        //         value: Mark.TranslateOpacity(layer['aes_params']['alpha']['value'])
-        //       };
-        //     }
-        //   }
-        // }
+        if (layer.aes_params.alpha) {
+            opacity = {
+                value: TranslateOpacity(layer.aes_params.alpha)
+            };
+        }
         if (layer.mapping.alpha) {
             if (!layer.mapping.alpha.field) {
                 return opacity;
@@ -235,17 +242,13 @@
         }
         return opacity;
     }
-    function TranslateFill(layer, labels, layerData) {
+    function TranslateFill$1(layer, labels, layerData) {
         var fill;
-        // if (layer['aes_params']) {
-        //   if (layer['aes_params']['fill']) {
-        //     if (layer['aes_params']['fill']['value']) {
-        //       fill = {
-        //         value: Mark.TranslateFill(layer['aes_params']['fill']['value'])
-        //       };
-        //     }
-        //   }
-        // }
+        if (layer.aes_params.fill) {
+            fill = {
+                value: TranslateFill(layer.aes_params.fill)
+            };
+        }
         if (layer.mapping.fill) {
             if (!layer.mapping.fill.field) {
                 return fill;
@@ -1310,7 +1313,7 @@
     }
     function TranslateMark(geom) {
         var mark;
-        if (geom['class'] == 'GeomPoint') {
+        if (geom.class == 'GeomPoint') {
             mark = Mark.Point;
         }
         else {
@@ -1322,6 +1325,30 @@
     var $ref = "#/definitions/TopLevelSpec";
     var $schema = "http://json-schema.org/draft-07/schema#";
     var definitions = {
+    	AesParams: {
+    		additionalProperties: false,
+    		properties: {
+    			alpha: {
+    				type: "number"
+    			},
+    			colour: {
+    				type: "string"
+    			},
+    			fill: {
+    				type: "string"
+    			},
+    			shape: {
+    				type: "number"
+    			},
+    			size: {
+    				type: "number"
+    			},
+    			stroke: {
+    				type: "number"
+    			}
+    		},
+    		type: "object"
+    	},
     	Dataset: {
     		additionalProperties: false,
     		properties: {
@@ -1485,6 +1512,7 @@
     		additionalProperties: false,
     		properties: {
     			aes_params: {
+    				$ref: "#/definitions/AesParams"
     			},
     			data: {
     				type: "string"
@@ -1506,8 +1534,8 @@
     		required: [
     			"data",
     			"geom",
-    			"geom_params",
-    			"mapping"
+    			"mapping",
+    			"aes_params"
     		],
     		type: "object"
     	},

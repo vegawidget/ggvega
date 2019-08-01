@@ -2,6 +2,30 @@
   "$ref": "#/definitions/TopLevelSpec",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
+    "AesParams": {
+      "additionalProperties": false,
+      "properties": {
+        "alpha": {
+          "type": "number"
+        },
+        "colour": {
+          "type": "string"
+        },
+        "fill": {
+          "type": "string"
+        },
+        "shape": {
+          "type": "number"
+        },
+        "size": {
+          "type": "number"
+        },
+        "stroke": {
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
     "Dataset": {
       "additionalProperties": false,
       "properties": {
@@ -165,6 +189,7 @@
       "additionalProperties": false,
       "properties": {
         "aes_params": {
+          "$ref": "#/definitions/AesParams"
         },
         "data": {
           "type": "string"
@@ -173,13 +198,6 @@
           "$ref": "#/definitions/Geom"
         },
         "geom_params": {
-          "additionalProperties": {
-            "type": [
-              "string",
-              "number"
-            ]
-          },
-          "type": "object"
         },
         "mapping": {
           "$ref": "#/definitions/Mapping"
@@ -193,8 +211,8 @@
       "required": [
         "data",
         "geom",
-        "geom_params",
-        "mapping"
+        "mapping",
+        "aes_params"
       ],
       "type": "object"
     },

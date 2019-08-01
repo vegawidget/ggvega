@@ -7,10 +7,10 @@ export type Layers = Layer[];
 export interface Layer {
   data: string;
   geom: Geom;
-  geom_params: {[key: string]: string | number};
+  geom_params?: any;
 
   mapping: Mapping;
-  aes_params?: any;
+  aes_params: AesParams;
   stat?: Stat;
   stat_params?: any;
 }
@@ -26,6 +26,15 @@ export interface Mapping {
   stroke?: Encoding;
   alpha?: Encoding;
   fill?: Encoding;
+}
+
+export interface AesParams {
+  size?: number;
+  shape?: number;
+  colour?: string;
+  stroke?: number;
+  alpha?: number;
+  fill?: string;
 }
 
 export interface GeomPoint {
