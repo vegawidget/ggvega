@@ -41,19 +41,32 @@ export function TranslateMark(geom: gs.Geom): vl.Mark {
 export function getEncodingKey(geom: gs.GeomPoint): EncodingKey;
 export function getEncodingKey(geom: gs.GeomBar): EncodingKey;
 
-export function getEncodingKey(geom: gs.GeomPoint | gs.GeomBar): EncodingKey {
-  if (geom.class == 'GeomPoint') return PointEncodingKey;
-  if (geom.class == 'GeomBar') return BarEncodingKey;
-  else {
-    throw new Error();
-  }
+export function getEncodingKey(geom: gs.Geom): EncodingKey {
+  const key = {
+    GeomPoint: getEncodingKeyGeomPoint,
+    GeomBar: getEncodingKeyGeomBar
+  };
+
+  const fn = key[geom.class];
+
+  return fn();
+}
+
+function getEncodingKeyGeomPoint(): EncodingKey {
+  // logic for this function
+  return DefaultEncodingKey;
+}
+
+function getEncodingKeyGeomBar(): EncodingKey {
+  // logic for this function
+  return DefaultEncodingKey;
 }
 
 export interface EncodingKey {
   [key: string]: string;
 }
 
-const PointEncodingKey: EncodingKey = {
+export const DefaultEncodingKey: EncodingKey = {
   x: 'x',
   y: 'y',
   colour: 'stroke',
@@ -63,4 +76,3 @@ const PointEncodingKey: EncodingKey = {
   alpha: 'opacity',
   fill: 'fill'
 };
-const BarEncodingKey: EncodingKey = {};

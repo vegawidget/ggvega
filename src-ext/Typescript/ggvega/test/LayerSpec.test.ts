@@ -1,4 +1,4 @@
-import {TranslateLayer, TranslateMark} from '../src/LayerSpec';
+import {TranslateLayer, TranslateMark, getEncodingKey, DefaultEncodingKey} from '../src/LayerSpec';
 import * as ggSpec from './ggSpec';
 import * as vlSpec from './vlSpec';
 
@@ -24,5 +24,10 @@ describe('LayerSpec/TranslateMart', () => {
 
   it('should translate ggplot `geom` to vega-lite `mark`', () => {
     expect(TranslateMark(ggSpec.ggSpec01['layers'][0]['geom'])).toEqual(vlSpec.vlSpec01['layer'][0]['mark']);
+  });
+});
+describe('', () => {
+  it('should work', () => {
+    expect(getEncodingKey({class: 'GeomPoint'})).toEqual(DefaultEncodingKey);
   });
 });
