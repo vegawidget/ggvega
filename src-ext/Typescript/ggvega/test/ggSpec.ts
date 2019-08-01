@@ -49,7 +49,9 @@ export const ggSpec01: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
-      mapping: {}
+      geom_params: {},
+      mapping: {},
+      aes_params: {}
     }
   ],
   scales: []
@@ -61,7 +63,9 @@ export const ggSpec02: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
-      mapping: {}
+      geom_params: {},
+      mapping: {},
+      aes_params: {}
     }
   ],
   scales: []
@@ -82,7 +86,9 @@ export const ggSpec03: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
-      mapping: {}
+      geom_params: {},
+      mapping: {},
+      aes_params: null
     }
   ],
   scales: []
@@ -113,6 +119,7 @@ export const ggSpec04: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
+      geom_params: {},
       mapping: {x: {field: 'wt'}, y: {field: 'mpg'}},
       aes_params: null,
       stat: {class: 'StatIdentity'}
@@ -141,6 +148,7 @@ export const ggSpec05: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
+      geom_params: {},
       mapping: {x: {field: 'Petal.Width'}, y: {field: 'Petal.Length'}, colour: {field: 'Species'}},
       aes_params: null,
       stat: {class: 'StatIdentity'}
@@ -169,6 +177,7 @@ export const ggSpec06: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
+      geom_params: {},
       mapping: {x: {field: 'Petal.Width'}, y: {field: 'Petal.Length'}, shape: {field: 'Species'}},
       aes_params: null,
       stat: {class: 'StatIdentity'}
@@ -203,6 +212,7 @@ export const ggSpec07: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
+      geom_params: {},
       mapping: {x: {field: 'wt'}, y: {field: 'mpg'}, size: {field: 'cyl'}},
       aes_params: null,
       stat: {class: 'StatIdentity'}
@@ -237,6 +247,7 @@ export const ggSpec08: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
+      geom_params: {},
       mapping: {x: {field: 'wt'}, y: {field: 'mpg'}, shape: {field: 'cyl'}},
       aes_params: null,
       stat: {class: 'StatIdentity'}
@@ -271,6 +282,7 @@ export const ggSpec09: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
+      geom_params: {},
       mapping: {x: {field: 'wt'}, y: {field: 'mpg'}, stroke: {field: 'cyl'}},
       aes_params: null,
       stat: {class: 'StatIdentity'}
@@ -305,6 +317,7 @@ export const ggSpec10: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
+      geom_params: {},
       mapping: {x: {field: 'wt'}, y: {field: 'mpg'}, fill: {field: 'cyl'}},
       aes_params: null,
       stat: {class: 'StatIdentity'}
@@ -339,6 +352,7 @@ export const ggSpec11: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
+      geom_params: {},
       mapping: {x: {field: 'wt'}, y: {field: 'mpg'}, opacity: {field: 'cyl'}},
       aes_params: null,
       stat: {class: 'StatIdentity'}

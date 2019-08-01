@@ -21,7 +21,7 @@ export function validateGs(spec: gs.TopLevelSpec) {
     errors.map((err: Ajv.ErrorObject) => {
       console.warn('ggSpec' + err.dataPath + ' ' + err.message);
 
-      // throw new Error('ggSpec' + err.dataPath + ' ' + err.message);
+      throw new Error('ggSpec' + err.dataPath + ' ' + err.message);
     });
 
   return valid;

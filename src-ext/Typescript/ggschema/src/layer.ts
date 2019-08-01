@@ -7,16 +7,15 @@ export type Layers = Layer[];
 export interface Layer {
   data: string;
   geom: Geom;
-  geom_params: any;
+  geom_params: {[key: string]: string | number};
+
   mapping: Mapping;
-  aes_params: object[];
+  aes_params?: any;
   stat?: Stat;
   stat_params?: any;
 }
 
-export interface Geom {
-  class: GeomType;
-}
+export type Geom = GeomPoint | GeomBar;
 
 export interface Mapping {
   x?: Encoding;
@@ -29,8 +28,12 @@ export interface Mapping {
   fill?: Encoding;
 }
 
-export enum GeomType {
-  GeomPoint = 'GeomPoint'
+export interface GeomPoint {
+  class: 'GeomPoint';
+}
+
+export interface GeomBar {
+  class: 'GeomBar';
 }
 
 export interface Encoding {

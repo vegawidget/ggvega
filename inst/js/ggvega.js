@@ -1377,10 +1377,23 @@
     		type: "object"
     	},
     	Geom: {
+    		anyOf: [
+    			{
+    				$ref: "#/definitions/GeomPoint"
+    			},
+    			{
+    				$ref: "#/definitions/GeomBar"
+    			}
+    		]
+    	},
+    	GeomBar: {
     		additionalProperties: false,
     		properties: {
     			"class": {
-    				$ref: "#/definitions/GeomType"
+    				"enum": [
+    					"GeomBar"
+    				],
+    				type: "string"
     			}
     		},
     		required: [
@@ -1388,11 +1401,20 @@
     		],
     		type: "object"
     	},
-    	GeomType: {
-    		"enum": [
-    			"GeomPoint"
+    	GeomPoint: {
+    		additionalProperties: false,
+    		properties: {
+    			"class": {
+    				"enum": [
+    					"GeomPoint"
+    				],
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"class"
     		],
-    		type: "string"
+    		type: "object"
     	},
     	InlineDataset: {
     		anyOf: [
@@ -1463,10 +1485,6 @@
     		additionalProperties: false,
     		properties: {
     			aes_params: {
-    				items: {
-    					type: "object"
-    				},
-    				type: "array"
     			},
     			data: {
     				type: "string"
@@ -1489,8 +1507,7 @@
     			"data",
     			"geom",
     			"geom_params",
-    			"mapping",
-    			"aes_params"
+    			"mapping"
     		],
     		type: "object"
     	},
@@ -8751,7 +8768,7 @@
         if (errors)
             errors.map(function (err) {
                 console.warn('ggSpec' + err.dataPath + ' ' + err.message);
-                // throw new Error('ggSpec' + err.dataPath + ' ' + err.message);
+                throw new Error('ggSpec' + err.dataPath + ' ' + err.message);
             });
         return valid;
     }
