@@ -1,24 +1,14 @@
 import * as Mark from './Mark';
-import {
-  LayerEncoding,
-  Scale,
-  XClass,
-  StandardType,
-  YClass,
-  ValueDefWithConditionMarkPropFieldDefNumber,
-  ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull,
-  ValueDefWithConditionMarkPropFieldDefStringNull,
-  TypeForShape
-} from './vlSpec';
-import * as ggschema from '../../ggschema/src/ggSpec';
+import * as vl from './vlSpec';
+import * as gs from '../../ggschema/src/ggSpec';
 
 export function TranslateEncoding(
-  layer: ggschema.Layer,
-  labels: ggschema.Labels,
-  layerData: ggschema.Dataset,
-  scales: ggschema.Scale[]
-): LayerEncoding | undefined {
-  const layerEncoding: LayerEncoding | undefined = {
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset,
+  scales: gs.Scale[]
+): vl.LayerEncoding | undefined {
+  const layerEncoding: vl.LayerEncoding | undefined = {
     x: TranslateXClass(layer, labels, layerData, scales),
     y: TranslateYClass(layer, labels, layerData, scales),
     // color: TranslateColor(layer, labels, layerData),
@@ -34,18 +24,18 @@ export function TranslateEncoding(
 }
 
 function TranslateXClass(
-  layer: ggschema.Layer,
-  labels: ggschema.Labels,
-  layerData: ggschema.Dataset,
-  scales: ggschema.Scale[]
-): XClass | undefined {
-  if (!layer['mapping']['x']) return undefined;
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset,
+  scales: gs.Scale[]
+): vl.XClass | undefined {
+  if (!layer.mapping.x) return undefined;
 
   let field: string = layer.mapping.x.field;
 
-  const type: StandardType = (layerData.metadata[field].type as unknown) as StandardType;
+  const type: vl.StandardType = (layerData.metadata[field].type as unknown) as vl.StandardType;
 
-  let scale: Scale | undefined;
+  let scale: vl.Scale | undefined;
 
   let title: string | undefined = labels.x;
 
@@ -61,7 +51,7 @@ function TranslateXClass(
 
   field = field.replace('.', '\\.');
 
-  const xClass: XClass | undefined = {
+  const xClass: vl.XClass | undefined = {
     field: field,
     type: type,
     title: title,
@@ -72,18 +62,18 @@ function TranslateXClass(
 }
 
 function TranslateYClass(
-  layer: ggschema.Layer,
-  labels: ggschema.Labels,
-  layerData: ggschema.Dataset,
-  scales: ggschema.Scale[]
-): YClass | undefined {
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset,
+  scales: gs.Scale[]
+): vl.YClass | undefined {
   if (!layer.mapping.y) return undefined;
 
   let field: string = layer.mapping.y.field;
 
-  const type: StandardType = (layerData.metadata[field].type as unknown) as StandardType;
+  const type: vl.StandardType = (layerData.metadata[field].type as unknown) as vl.StandardType;
 
-  let scale: Scale | undefined;
+  let scale: vl.Scale | undefined;
 
   let title: string | undefined = labels.y;
 
@@ -99,7 +89,7 @@ function TranslateYClass(
 
   field = field.replace('.', '\\.');
 
-  const yClass: YClass | undefined = {
+  const yClass: vl.YClass | undefined = {
     field: field,
     type: type,
     title: title,
@@ -153,8 +143,8 @@ function TranslateSize(
   layer: any,
   labels: any,
   layerData: any
-): ValueDefWithConditionMarkPropFieldDefNumber | undefined {
-  let size: ValueDefWithConditionMarkPropFieldDefNumber | undefined;
+): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
+  let size: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['size']) {
@@ -173,7 +163,7 @@ function TranslateSize(
 
     let field: string = layer['mapping']['size']['field'];
 
-    const type: StandardType = layerData['metadata'][field]['type'];
+    const type: vl.StandardType = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 
@@ -191,8 +181,8 @@ function TranslateShape(
   layer: any,
   labels: any,
   layerData: any
-): ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined {
-  let shape: ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined;
+): vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined {
+  let shape: vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['shape']) {
@@ -213,7 +203,7 @@ function TranslateShape(
 
     let field: string = layer['mapping']['shape']['field'];
 
-    const type: TypeForShape = layerData['metadata'][field]['type'];
+    const type: vl.TypeForShape = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 
@@ -227,7 +217,7 @@ function TranslateShape(
   return shape;
 }
 
-function TranslateScale(transform: any): Scale {
+function TranslateScale(transform: any): vl.Scale {
   return transform;
 }
 
@@ -235,8 +225,8 @@ function TranslateStroke(
   layer: any,
   labels: any,
   layerData: any
-): ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
-  let stroke: ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
+): vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
+  let stroke: vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['colour']) {
@@ -255,7 +245,7 @@ function TranslateStroke(
 
     let field: string = layer['mapping']['colour']['field'];
 
-    const type: StandardType = layerData['metadata'][field]['type'];
+    const type: vl.StandardType = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 
@@ -273,8 +263,8 @@ function TranslateStrokeWidth(
   layer: any,
   labels: any,
   layerData: any
-): ValueDefWithConditionMarkPropFieldDefNumber | undefined {
-  let strokeWidth: ValueDefWithConditionMarkPropFieldDefNumber | undefined;
+): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
+  let strokeWidth: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['stroke']) {
@@ -293,7 +283,7 @@ function TranslateStrokeWidth(
 
     let field: string = layer['mapping']['stroke']['field'];
 
-    const type: StandardType = layerData['metadata'][field]['type'];
+    const type: vl.StandardType = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 
@@ -311,8 +301,8 @@ function TranslateOpacity(
   layer: any,
   labels: any,
   layerData: any
-): ValueDefWithConditionMarkPropFieldDefNumber | undefined {
-  let opacity: ValueDefWithConditionMarkPropFieldDefNumber | undefined;
+): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
+  let opacity: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['alpha']) {
@@ -331,7 +321,7 @@ function TranslateOpacity(
 
     let field: string = layer['mapping']['alpha']['field'];
 
-    const type: StandardType = layerData['metadata'][field]['type'];
+    const type: vl.StandardType = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 
@@ -349,8 +339,8 @@ export function TranslateFill(
   layer: any,
   labels: any,
   layerData: any
-): ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
-  let fill: ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
+): vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
+  let fill: vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 
   if (layer['aes_params']) {
     if (layer['aes_params']['fill']) {
@@ -369,7 +359,7 @@ export function TranslateFill(
 
     let field: string = layer['mapping']['fill']['field'];
 
-    const type: StandardType = layerData['metadata'][field]['type'];
+    const type: vl.StandardType = layerData['metadata'][field]['type'];
 
     field = field.replace('.', '\\.');
 

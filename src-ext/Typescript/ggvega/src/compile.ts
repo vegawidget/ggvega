@@ -1,6 +1,6 @@
-import {TopLevelSpec, InlineDataset, LayerSpec} from './vlSpec';
+import * as vl from './vlSpec';
 import {TranslateLayer} from './LayerSpec';
-import * as ggschema from '../../ggschema/src/ggSpec';
+import * as gs from '../../ggschema/src/ggSpec';
 import * as ggSpecJsonSchema from '../../ggschema/build/ggschema.json';
 import Ajv from 'ajv';
 
@@ -11,11 +11,11 @@ const ajv = new Ajv({
   schemaId: 'auto'
 });
 
-const validateGg = ajv.compile(ggSpecJsonSchema);
+const gsValidate = ajv.compile(ggSpecJsonSchema);
 
-export function validateGG(spec: ggschema.TopLevelSpec) {
-  const valid = validateGg(spec);
-  const errors = validateGg.errors;
+export function validateGs(spec: gs.TopLevelSpec) {
+  const valid = gsValidate(spec);
+  const errors = gsValidate.errors;
 
   if (errors)
     errors.map((err: Ajv.ErrorObject) => {
@@ -27,11 +27,15 @@ export function validateGG(spec: ggschema.TopLevelSpec) {
   return valid;
 }
 
-export function gg2vl(ggJson: any): TopLevelSpec {
-  validateGG(ggJson);
+export function gs2vl(ggJson: any): vl.TopLevelSpec {
+  validateGs(ggJson);
 
-  const ggSpec = ggJson as ggschema.TopLevelSpec;
+  const ggSpec = ggJson as gs.TopLevelSpec;
 
+  return gs2vlValidated(ggSpec);
+}
+
+export function gs2vlValidated(ggSpec: gs.TopLevelSpec): vl.TopLevelSpec {
   const ggLayers = ggSpec.layers;
 
   const ggLabels = ggSpec.labels;
@@ -40,7 +44,7 @@ export function gg2vl(ggJson: any): TopLevelSpec {
 
   const ggScales = ggSpec.scales;
 
-  const vl: TopLevelSpec = {
+  const vlSpec: vl.TopLevelSpec = {
     $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
 
     title: TranslateTitle(ggLabels),
@@ -50,15 +54,15 @@ export function gg2vl(ggJson: any): TopLevelSpec {
     layer: TranslateLayers(ggLayers, ggLabels, ggData, ggScales)
   };
 
-  return vl;
+  return vlSpec;
 }
 
-function TranslateTitle(ggLabels: ggschema.Labels): string | undefined {
+function TranslateTitle(ggLabels: gs.Labels): string | undefined {
   return ggLabels['title'];
 }
 
-export function TranslateDatasets(ggData: {[key: string]: ggschema.Dataset}): {[key: string]: InlineDataset} {
-  const datasets: {[key: string]: InlineDataset} = {};
+export function TranslateDatasets(ggData: {[key: string]: gs.Dataset}): {[key: string]: vl.InlineDataset} {
+  const datasets: {[key: string]: vl.InlineDataset} = {};
 
   for (const dataset in ggData) {
     datasets[dataset] = ggData[dataset].observations;
@@ -68,18 +72,18 @@ export function TranslateDatasets(ggData: {[key: string]: ggschema.Dataset}): {[
 }
 
 export function TranslateLayers(
-  ggLayers: ggschema.Layer[],
-  ggLabels: ggschema.Labels,
-  ggData: ggschema.Datasets,
-  ggScales: ggschema.Scale[]
-): LayerSpec[] {
+  ggLayers: gs.Layer[],
+  ggLabels: gs.Labels,
+  ggData: gs.Datasets,
+  ggScales: gs.Scale[]
+): vl.LayerSpec[] {
   if (ggLayers.length == 0) {
     throw new Error('`Layers` should have at least 1 `Layer`');
   }
 
-  const layers: LayerSpec[] = [];
+  const layers: vl.LayerSpec[] = [];
 
-  ggLayers.map((gglayer: ggschema.Layer) => {
+  ggLayers.map((gglayer: gs.Layer) => {
     layers.push(TranslateLayer(gglayer, ggLabels, ggData, ggScales));
   });
 

@@ -1,6 +1,6 @@
 import {TranslateEncoding} from './Encoding';
-import {LayerSpec, Mark} from './vlSpec';
-import * as ggschema from '../../ggschema/src/ggSpec';
+import * as vl from './vlSpec';
+import * as gs from '../../ggschema/src/ggSpec';
 
 /**
  * This function used to translate the LayerSpec
@@ -9,14 +9,14 @@ import * as ggschema from '../../ggschema/src/ggSpec';
  * @param ggSpec
  */
 export function TranslateLayer(
-  layer: ggschema.Layer,
-  labels: ggschema.Labels,
-  data: ggschema.Datasets,
-  scales: ggschema.Scale[]
-): LayerSpec {
+  layer: gs.Layer,
+  labels: gs.Labels,
+  data: gs.Datasets,
+  scales: gs.Scale[]
+): vl.LayerSpec {
   const layerData = data[layer.data];
 
-  const layerspec: LayerSpec = {
+  const layerspec: vl.LayerSpec = {
     data: {
       name: layer.data
     },
@@ -27,10 +27,10 @@ export function TranslateLayer(
   return layerspec;
 }
 
-export function TranslateMark(geom: ggschema.Geom): Mark {
-  let mark: Mark;
+export function TranslateMark(geom: gs.Geom): vl.Mark {
+  let mark: vl.Mark;
   if (geom['class'] == 'GeomPoint') {
-    mark = Mark.Point;
+    mark = vl.Mark.Point;
   } else {
     throw new Error('geom.class can only be `GeomPoint`');
   }

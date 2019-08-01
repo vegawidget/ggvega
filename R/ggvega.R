@@ -60,7 +60,7 @@ spec2vl <- function(ggspec) {
 
   vlspec <-
     ct$get(
-      V8::JS("ggvega.gg2vl(ggspec)"),
+      V8::JS("ggvega.gs2vl(ggspec)"),
       simplifyVector = FALSE,
       simplifyDataFrame = FALSE
     )

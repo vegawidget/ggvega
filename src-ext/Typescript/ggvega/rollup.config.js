@@ -1,5 +1,6 @@
 import commonjs from 'rollup-plugin-commonjs';
 import nodeResolve from 'rollup-plugin-node-resolve';
+import json from 'rollup-plugin-json';
 
 export default {
   input: 'build/ggvega/src/compile.js',
@@ -9,5 +10,5 @@ export default {
     sourcemap: true,
     name: 'ggvega'
   },
-  plugins: [nodeResolve({browser: true}), commonjs()]
+  plugins: [nodeResolve({browser: true}), commonjs(), json()]
 };
