@@ -7,3 +7,11 @@
 }
 
 is.waive <- function(x) inherits(x, "waiver")
+
+empty_named_list <- {
+
+  result <- list()
+  names(result) <- character(0)
+
+  result
+}

@@ -61,17 +61,6 @@ get_layers <- function(layer, int_data, int_map) {
   )
 }
 
-empty_named_list <- {
-
-  result <- list()
-  names(result) <- character(0)
-
-  result
-}
-
-
-
-
 #' Get name of data-frame
 #'
 #' @param layer_data `data.frame` (we will get this from a layer)
