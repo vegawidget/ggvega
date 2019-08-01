@@ -1,4 +1,4 @@
-import * as Mark from './Mark';
+// import * as Mark from './Mark';
 import * as vl from './vlSpec';
 import * as gs from '../../ggschema/src/ggSpec';
 
@@ -33,7 +33,7 @@ function TranslateXClass(
 
   let field: string = layer.mapping.x.field;
 
-  const type: vl.StandardType = (layerData.metadata[field].type as unknown) as vl.StandardType;
+  const type: vl.StandardType = layerData.metadata[field].type;
 
   let scale: vl.Scale | undefined;
 
@@ -71,7 +71,7 @@ function TranslateYClass(
 
   let field: string = layer.mapping.y.field;
 
-  const type: vl.StandardType = (layerData.metadata[field].type as unknown) as vl.StandardType;
+  const type: vl.StandardType = layerData.metadata[field].type;
 
   let scale: vl.Scale | undefined;
 
@@ -140,37 +140,37 @@ function TranslateYClass(
  * @param ggSpec is the ggSpec
  */
 function TranslateSize(
-  layer: any,
-  labels: any,
-  layerData: any
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset
 ): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
   let size: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
-  if (layer['aes_params']) {
-    if (layer['aes_params']['size']) {
-      if (layer['aes_params']['size']['value']) {
-        size = {
-          value: Mark.TranslatePointSize(layer['aes_params']['size']['value'])
-        };
-      }
-    }
-  }
+  // if (layer.aes_params) {
+  //   if (layer['aes_params']['size']) {
+  //     if (layer['aes_params']['size']['value']) {
+  //       size = {
+  //         value: Mark.TranslatePointSize(layer['aes_params']['size']['value'])
+  //       };
+  //     }
+  //   }
+  // }
 
-  if (layer['mapping']['size']) {
-    if (!layer['mapping']['size']['field']) {
+  if (layer.mapping.size) {
+    if (!layer.mapping.size.field) {
       return size;
     }
 
-    let field: string = layer['mapping']['size']['field'];
+    let field: string = layer.mapping.size.field;
 
-    const type: vl.StandardType = layerData['metadata'][field]['type'];
+    const type: vl.StandardType = layerData.metadata[field].type;
 
     field = field.replace('.', '\\.');
 
     size = {
       field: field,
       type: type,
-      title: labels['size']
+      title: labels.size
     };
   }
 
@@ -178,39 +178,39 @@ function TranslateSize(
 }
 
 function TranslateShape(
-  layer: any,
-  labels: any,
-  layerData: any
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset
 ): vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined {
   let shape: vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined;
 
-  if (layer['aes_params']) {
-    if (layer['aes_params']['shape']) {
-      if (layer['aes_params']['shape']['value']) {
-        if (layer[`geom`]['class'] == 'GeomPoint') {
-          shape = {
-            value: Mark.TranslatePointShape(layer['aes_params']['shape']['value'])
-          };
-        }
-      }
-    }
-  }
+  // if (layer['aes_params']) {
+  //   if (layer['aes_params']['shape']) {
+  //     if (layer['aes_params']['shape']['value']) {
+  //       if (layer[`geom`]['class'] == 'GeomPoint') {
+  //         shape = {
+  //           value: Mark.TranslatePointShape(layer['aes_params']['shape']['value'])
+  //         };
+  //       }
+  //     }
+  //   }
+  // }
 
-  if (layer['mapping']['shape']) {
-    if (!layer['mapping']['shape']['field']) {
+  if (layer.mapping.shape) {
+    if (!layer.mapping.shape.field) {
       return shape;
     }
 
-    let field: string = layer['mapping']['shape']['field'];
+    let field: string = layer.mapping.shape.field;
 
-    const type: vl.TypeForShape = layerData['metadata'][field]['type'];
+    const type: vl.TypeForShape = (layerData.metadata[field].type as unknown) as vl.TypeForShape;
 
     field = field.replace('.', '\\.');
 
     shape = {
       field: field,
       type: type,
-      title: labels['shape']
+      title: labels.shape
     };
   }
 
@@ -222,37 +222,37 @@ function TranslateScale(transform: any): vl.Scale {
 }
 
 function TranslateStroke(
-  layer: any,
-  labels: any,
-  layerData: any
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset
 ): vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
   let stroke: vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 
-  if (layer['aes_params']) {
-    if (layer['aes_params']['colour']) {
-      if (layer['aes_params']['colour']['value']) {
-        stroke = {
-          value: Mark.TranslateStroke(layer['aes_params']['colour']['value'])
-        };
-      }
-    }
-  }
+  // if (layer['aes_params']) {
+  //   if (layer['aes_params']['colour']) {
+  //     if (layer['aes_params']['colour']['value']) {
+  //       stroke = {
+  //         value: Mark.TranslateStroke(layer['aes_params']['colour']['value'])
+  //       };
+  //     }
+  //   }
+  // }
 
-  if (layer['mapping']['colour']) {
-    if (!layer['mapping']['colour']['field']) {
+  if (layer.mapping.colour) {
+    if (!layer.mapping.colour.field) {
       return stroke;
     }
 
-    let field: string = layer['mapping']['colour']['field'];
+    let field: string = layer.mapping.colour.field;
 
-    const type: vl.StandardType = layerData['metadata'][field]['type'];
+    const type: vl.StandardType = layerData.metadata[field].type;
 
     field = field.replace('.', '\\.');
 
     stroke = {
       field: field,
       type: type,
-      title: labels['colour']
+      title: labels.colour
     };
   }
 
@@ -260,37 +260,37 @@ function TranslateStroke(
 }
 
 function TranslateStrokeWidth(
-  layer: any,
-  labels: any,
-  layerData: any
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset
 ): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
   let strokeWidth: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
-  if (layer['aes_params']) {
-    if (layer['aes_params']['stroke']) {
-      if (layer['aes_params']['stroke']['value']) {
-        strokeWidth = {
-          value: Mark.TranslateStrokeWidth(layer['aes_params']['stroke']['value'])
-        };
-      }
-    }
-  }
+  // if (layer['aes_params']) {
+  //   if (layer['aes_params']['stroke']) {
+  //     if (layer['aes_params']['stroke']['value']) {
+  //       strokeWidth = {
+  //         value: Mark.TranslateStrokeWidth(layer['aes_params']['stroke']['value'])
+  //       };
+  //     }
+  //   }
+  // }
 
-  if (layer['mapping']['stroke']) {
-    if (!layer['mapping']['stroke']['field']) {
+  if (layer.mapping.stroke) {
+    if (!layer.mapping.stroke.field) {
       return strokeWidth;
     }
 
-    let field: string = layer['mapping']['stroke']['field'];
+    let field: string = layer.mapping.stroke.field;
 
-    const type: vl.StandardType = layerData['metadata'][field]['type'];
+    const type: vl.StandardType = layerData.metadata[field].type;
 
     field = field.replace('.', '\\.');
 
     strokeWidth = {
       field: field,
       type: type,
-      title: labels['stroke']
+      title: labels.stroke
     };
   }
 
@@ -298,37 +298,37 @@ function TranslateStrokeWidth(
 }
 
 function TranslateOpacity(
-  layer: any,
-  labels: any,
-  layerData: any
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset
 ): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
   let opacity: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
-  if (layer['aes_params']) {
-    if (layer['aes_params']['alpha']) {
-      if (layer['aes_params']['alpha']['value']) {
-        opacity = {
-          value: Mark.TranslateOpacity(layer['aes_params']['alpha']['value'])
-        };
-      }
-    }
-  }
+  // if (layer['aes_params']) {
+  //   if (layer['aes_params']['alpha']) {
+  //     if (layer['aes_params']['alpha']['value']) {
+  //       opacity = {
+  //         value: Mark.TranslateOpacity(layer['aes_params']['alpha']['value'])
+  //       };
+  //     }
+  //   }
+  // }
 
-  if (layer['mapping']['alpha']) {
-    if (!layer['mapping']['alpha']['field']) {
+  if (layer.mapping.alpha) {
+    if (!layer.mapping.alpha.field) {
       return opacity;
     }
 
-    let field: string = layer['mapping']['alpha']['field'];
+    let field: string = layer.mapping.alpha.field;
 
-    const type: vl.StandardType = layerData['metadata'][field]['type'];
+    const type: vl.StandardType = layerData.metadata[field].type;
 
     field = field.replace('.', '\\.');
 
     opacity = {
       field: field,
       type: type,
-      title: labels['opacity']
+      title: labels.alpha
     };
   }
 
@@ -336,37 +336,37 @@ function TranslateOpacity(
 }
 
 export function TranslateFill(
-  layer: any,
-  labels: any,
-  layerData: any
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset
 ): vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
   let fill: vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 
-  if (layer['aes_params']) {
-    if (layer['aes_params']['fill']) {
-      if (layer['aes_params']['fill']['value']) {
-        fill = {
-          value: Mark.TranslateFill(layer['aes_params']['fill']['value'])
-        };
-      }
-    }
-  }
+  // if (layer['aes_params']) {
+  //   if (layer['aes_params']['fill']) {
+  //     if (layer['aes_params']['fill']['value']) {
+  //       fill = {
+  //         value: Mark.TranslateFill(layer['aes_params']['fill']['value'])
+  //       };
+  //     }
+  //   }
+  // }
 
-  if (layer['mapping']['fill']) {
-    if (!layer['mapping']['fill']['field']) {
+  if (layer.mapping.fill) {
+    if (!layer.mapping.fill.field) {
       return fill;
     }
 
-    let field: string = layer['mapping']['fill']['field'];
+    let field: string = layer.mapping.fill.field;
 
-    const type: vl.StandardType = layerData['metadata'][field]['type'];
+    const type: vl.StandardType = layerData.metadata[field].type;
 
     field = field.replace('.', '\\.');
 
     fill = {
       field: field,
       type: type,
-      title: labels['fill']
+      title: labels.fill
     };
   }
 

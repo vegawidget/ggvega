@@ -9,7 +9,7 @@ export interface Layer {
   geom: Geom;
   geom_params: any;
   mapping: Mapping;
-  aes_params?: object[];
+  aes_params: object[];
   stat?: Stat;
   stat_params?: any;
 }
@@ -22,6 +22,11 @@ export interface Mapping {
   x?: Encoding;
   y?: Encoding;
   colour?: Encoding;
+  size?: Encoding;
+  shape?: Encoding;
+  stroke?: Encoding;
+  alpha?: Encoding;
+  fill?: Encoding;
 }
 
 export enum GeomType {

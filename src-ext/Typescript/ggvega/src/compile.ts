@@ -21,7 +21,7 @@ export function validateGs(spec: gs.TopLevelSpec) {
     errors.map((err: Ajv.ErrorObject) => {
       console.warn('ggSpec' + err.dataPath + ' ' + err.message);
 
-      throw new Error('ggSpec' + err.dataPath + ' ' + err.message);
+      // throw new Error('ggSpec' + err.dataPath + ' ' + err.message);
     });
 
   return valid;
@@ -66,6 +66,10 @@ export function TranslateDatasets(ggData: {[key: string]: gs.Dataset}): {[key: s
 
   for (const dataset in ggData) {
     datasets[dataset] = ggData[dataset].observations;
+  }
+
+  if (Object.keys(datasets).length == 0) {
+    throw new Error('ggSpec.datasets should have at least 1 dataset');
   }
 
   return datasets;

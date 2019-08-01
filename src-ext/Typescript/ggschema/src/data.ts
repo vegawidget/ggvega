@@ -12,11 +12,11 @@ export interface Dataset {
 }
 
 interface Metadata {
-  type: VariableType;
+  type: StandardType;
   levels?: string[];
 }
 
-export enum VariableType {
+export enum StandardType {
   Nominal = 'nominal',
   Ordinal = 'ordinal',
   Quantitative = 'quantitative',

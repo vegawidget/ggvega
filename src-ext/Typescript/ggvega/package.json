@@ -38,6 +38,7 @@
   "dependencies": {},
   "jest": {
     "preset": "ts-jest",
+    "verbose": true,
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
@@ -57,6 +58,7 @@
       "<rootDir>/src"
     ],
     "coverageDirectory": "./coverage/",
-    "collectCoverage": false
+    "collectCoverage": false,
+    "silent": true
   }
 }

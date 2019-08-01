@@ -16,7 +16,7 @@
                 "type": "array"
               },
               "type": {
-                "$ref": "#/definitions/VariableType"
+                "$ref": "#/definitions/StandardType"
               }
             },
             "required": [
@@ -109,7 +109,22 @@
     "Labels": {
       "additionalProperties": false,
       "properties": {
+        "alpha": {
+          "type": "string"
+        },
         "colour": {
+          "type": "string"
+        },
+        "fill": {
+          "type": "string"
+        },
+        "shape": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        },
+        "stroke": {
           "type": "string"
         },
         "title": {
@@ -154,7 +169,8 @@
         "data",
         "geom",
         "geom_params",
-        "mapping"
+        "mapping",
+        "aes_params"
       ],
       "type": "object"
     },
@@ -169,7 +185,22 @@
     "Mapping": {
       "additionalProperties": false,
       "properties": {
+        "alpha": {
+          "$ref": "#/definitions/Encoding"
+        },
         "colour": {
+          "$ref": "#/definitions/Encoding"
+        },
+        "fill": {
+          "$ref": "#/definitions/Encoding"
+        },
+        "shape": {
+          "$ref": "#/definitions/Encoding"
+        },
+        "size": {
+          "$ref": "#/definitions/Encoding"
+        },
+        "stroke": {
           "$ref": "#/definitions/Encoding"
         },
         "x": {
@@ -202,6 +233,15 @@
         "transform"
       ],
       "type": "object"
+    },
+    "StandardType": {
+      "enum": [
+        "nominal",
+        "ordinal",
+        "quantitative",
+        "temporal"
+      ],
+      "type": "string"
     },
     "Stat": {
       "additionalProperties": false,
@@ -241,15 +281,6 @@
         "labels"
       ],
       "type": "object"
-    },
-    "VariableType": {
-      "enum": [
-        "nominal",
-        "ordinal",
-        "quantitative",
-        "temporal"
-      ],
-      "type": "string"
     }
   }
 }
