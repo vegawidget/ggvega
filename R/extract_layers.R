@@ -41,7 +41,7 @@ layer_spc <- function(layer_plt, int_data, int_map) {
 #' maps <- mapping_spc(p$mapping)
 #' get_layers(p$layers[[1]], dat, maps)
 get_layers <- function(layer, int_data, int_map) {
-  pluck_layer <- purrr::partial(purrr::pluck, .x = layer, .default = list())
+  pluck_layer <- purrr::partial(purrr::pluck, .x = layer, .default = empty_named_list)
 
   layer_map = pluck_layer("mapping") %>% purrr::map(get_mappings)
 
@@ -61,7 +61,13 @@ get_layers <- function(layer, int_data, int_map) {
   )
 }
 
+empty_named_list <- {
 
+  result <- list()
+  names(result) <- character(0)
+
+  result
+}
 
 
 
