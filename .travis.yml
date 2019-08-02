@@ -39,7 +39,7 @@ before_install:
   - yarn install
   - yarn build
   - cd $CURRENTDIR
+  # clean up from yarn
+  - rm package-lock.json
   - pwd
-
-
 
