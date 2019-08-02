@@ -3,3 +3,8 @@ export interface Scale {
   transform: string;
   name?: string;
 }
+
+export interface Transform {
+  type: string;
+  base: number;
+}

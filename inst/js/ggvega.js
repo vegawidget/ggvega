@@ -8796,7 +8796,7 @@
         if (errors)
             errors.map(function (err) {
                 console.warn('ggSpec' + err.dataPath + ' ' + err.message);
-                throw new Error('ggSpec' + err.dataPath + ' ' + err.message);
+                // throw new Error('ggSpec' + err.dataPath + ' ' + err.message);
             });
         return valid;
     }
