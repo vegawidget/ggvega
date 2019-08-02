@@ -1,0 +1,223 @@
+{
+  "$ref": "#/definitions/TopLevelSpec",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Dataset": {
+      "additionalProperties": false,
+      "properties": {
+        "metadata": {
+          "additionalProperties": {
+            "additionalProperties": false,
+            "properties": {
+              "levels": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "type": {
+                "$ref": "#/definitions/StandardType"
+              }
+            },
+            "required": [
+              "type"
+            ],
+            "type": "object"
+          },
+          "type": "object"
+        },
+        "observations": {
+          "$ref": "#/definitions/InlineDataset"
+        }
+      },
+      "required": [
+        "metadata",
+        "observations"
+      ],
+      "type": "object"
+    },
+    "GeomType": {
+      "enum": [
+        "GeomPoint"
+      ],
+      "type": "string"
+    },
+    "InlineDataset": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/definitions/InlineDatasetElement"
+          },
+          "type": "array"
+        },
+        {
+          "type": "object"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "InlineDatasetElement": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "object"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "Labels": {
+      "additionalProperties": false,
+      "properties": {
+        "colour": {
+          "type": "string"
+        },
+        "x": {
+          "type": "string"
+        },
+        "y": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Layer": {
+      "additionalProperties": false,
+      "properties": {
+        "aes_params": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "data": {
+          "type": "string"
+        },
+        "geom": {
+          "additionalProperties": false,
+          "properties": {
+            "class": {
+              "$ref": "#/definitions/GeomType"
+            }
+          },
+          "required": [
+            "class"
+          ],
+          "type": "object"
+        },
+        "mapping": {
+          "additionalProperties": false,
+          "properties": {
+            "colour": {
+              "additionalProperties": false,
+              "properties": {
+                "field": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "field"
+              ],
+              "type": "object"
+            },
+            "x": {
+              "additionalProperties": false,
+              "properties": {
+                "field": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "field"
+              ],
+              "type": "object"
+            },
+            "y": {
+              "additionalProperties": false,
+              "properties": {
+                "field": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "field"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "stat": {
+          "additionalProperties": false,
+          "properties": {
+            "class": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "class"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "data",
+        "geom",
+        "mapping",
+        "aes_params",
+        "stat"
+      ],
+      "type": "object"
+    },
+    "StandardType": {
+      "enum": [
+        "nominal",
+        "ordinal",
+        "quantitative",
+        "temporal"
+      ],
+      "type": "string"
+    },
+    "TopLevelSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "additionalProperties": {
+            "$ref": "#/definitions/Dataset"
+          },
+          "type": "object"
+        },
+        "labels": {
+          "$ref": "#/definitions/Labels"
+        },
+        "layers": {
+          "items": {
+            "$ref": "#/definitions/Layer"
+          },
+          "type": "array"
+        },
+        "scales": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "data",
+        "layers",
+        "scales",
+        "labels"
+      ],
+      "type": "object"
+    }
+  }
+}

@@ -166,8 +166,9 @@
     {
       "data": "data-00",
       "geom": {"class": "GeomPoint"},
+      "geom_params": {},
       "mapping": {"x": {"field": "Petal.Width"}, "y": {"field": "Petal.Length"}, "colour": {"field": "Species"}},
-      "aes_params": null,
+      "aes_params": {},
       "stat": {"class": "StatIdentity"}
     }
   ],
