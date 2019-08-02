@@ -1,40 +1,46 @@
-import {gg2vl, TranslateDatasets, TranslateLayers, removeEmpty} from '../src/compile';
+import {gs2vl, TranslateDatasets, TranslateLayers, removeEmpty} from '../src/compile';
 import * as ggSpec from './ggSpec';
 import * as vlSpec from './vlSpec';
 
-describe('test', () => {
-  expect(true).toBeTruthy();
+describe('The test of the ts test', () => {
+  it('should always fail when we set the value to `false`', () => {
+    expect(true).toBeTruthy();
+  });
 });
 
 describe('compile/gg2vl', () => {
   it('should throw error for an invalid spec', () => {
     expect(() => {
-      gg2vl(ggSpec.invalidSpec01);
+      gs2vl(ggSpec.invalidSpec01);
     }).toThrowError();
 
     expect(() => {
-      gg2vl(ggSpec.invalidSpec02);
+      gs2vl(ggSpec.invalidSpec01);
+    }).toThrow();
+
+    expect(() => {
+      gs2vl(ggSpec.invalidSpec02);
     }).toThrowError();
 
     expect(() => {
-      gg2vl(ggSpec.invalidSpec03);
+      gs2vl(ggSpec.invalidSpec03);
     }).toThrowError();
 
     expect(() => {
-      gg2vl(ggSpec.ggSpec01);
+      gs2vl(ggSpec.ggSpec01);
     }).not.toThrowError();
 
-    expect(gg2vl(ggSpec.ggJson01)).toEqual(vlSpec.vlJson01);
+    expect(gs2vl(ggSpec.ggJson01)).toEqual(vlSpec.vlJson01);
   });
 
   it('should have the vega-lite schema v3', () => {
-    const vl = gg2vl(ggSpec.ggSpec01);
+    const vl = gs2vl(ggSpec.ggSpec01);
 
     expect(vl.$schema).toEqual(vlSpec.vlSpec01['$schema']);
   });
 
   it('should use `title` in `labels` as `title', () => {
-    const vl = gg2vl(ggSpec.ggSpec02);
+    const vl = gs2vl(ggSpec.ggSpec02);
 
     expect(vl.title).toEqual(vlSpec.vlSpec02['title']);
   });
