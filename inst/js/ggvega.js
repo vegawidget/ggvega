@@ -8800,6 +8800,7 @@
             });
         return valid;
     }
+
     function gs2vl(ggJson) {
         validateGs(ggJson);
         var ggSpec = ggJson;
@@ -8841,38 +8842,8 @@
         });
         return layers;
     }
-    /**
-     * This function remove empty object in the vlSpec
-     * @param obj
-     */
-    function removeEmpty(obj) {
-        if (!(obj != null && typeof obj === 'object'))
-            return;
-        Object.keys(obj).forEach(function (key) {
-            if (obj[key] && typeof obj[key] === 'object') {
-                if (Object.keys(obj[key]).length === 0) {
-                    delete obj[key];
-                    return;
-                }
-                removeEmpty(obj[key]);
-                if (Object.keys(obj[key]).length === 0) {
-                    delete obj[key];
-                    return;
-                }
-            }
-            else if (obj[key] === null) {
-                delete obj[key];
-                return;
-            }
-        });
-    }
 
-    exports.TranslateDatasets = TranslateDatasets;
-    exports.TranslateLayers = TranslateLayers;
     exports.gs2vl = gs2vl;
-    exports.gs2vlValidated = gs2vlValidated;
-    exports.removeEmpty = removeEmpty;
-    exports.validateGs = validateGs;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
