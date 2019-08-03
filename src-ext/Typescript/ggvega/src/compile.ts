@@ -1,5 +1,5 @@
 import * as vl from './vlSpec';
-import {TranslateLayer} from './LayerSpec';
+import {TranslateLayer} from './layer';
 import * as gs from '../../ggschema/src/ggSpec';
 import * as ggSpecJsonSchema from '../../ggschema/build/ggschema.json';
 import Ajv from 'ajv';

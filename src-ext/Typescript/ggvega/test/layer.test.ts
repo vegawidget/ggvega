@@ -1,4 +1,4 @@
-import {TranslateLayer, TranslateMark, getEncodingKey, DefaultEncodingKey} from '../src/LayerSpec';
+import {TranslateLayer, TranslateMark, getEncodingKey, DefaultEncodingKey} from '../src/layer';
 import * as ggSpec from './ggSpec';
 import * as vlSpec from './vlSpec';
 

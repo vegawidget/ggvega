@@ -1,4 +1,4 @@
-import {TranslateEncoding} from './Encoding';
+import {TranslateEncoding} from './encoding';
 import * as vl from './vlSpec';
 import * as gs from '../../ggschema/src/ggSpec';
 
