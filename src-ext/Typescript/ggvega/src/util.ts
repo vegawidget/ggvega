@@ -1,4 +1,4 @@
-import * as gs from '../../ggschema/src/ggSpec';
+import * as gs from '../../ggschema/src/gsSpec';
 import * as ggSpecJsonSchema from '../../ggschema/build/ggschema.json';
 import Ajv from 'ajv';
 

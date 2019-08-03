@@ -43,9 +43,7 @@
                 "$ref": "#/definitions/StandardType"
               }
             },
-            "required": [
-              "type"
-            ],
+            "required": ["type"],
             "type": "object"
           },
           "type": "object"
@@ -54,10 +52,7 @@
           "$ref": "#/definitions/InlineDataset"
         }
       },
-      "required": [
-        "metadata",
-        "observations"
-      ],
+      "required": ["metadata", "observations"],
       "type": "object"
     },
     "Datasets": {
@@ -75,9 +70,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "field"
-      ],
+      "required": ["field"],
       "type": "object"
     },
     "Geom": {
@@ -94,30 +87,22 @@
       "additionalProperties": false,
       "properties": {
         "class": {
-          "enum": [
-            "GeomBar"
-          ],
+          "enum": ["GeomBar"],
           "type": "string"
         }
       },
-      "required": [
-        "class"
-      ],
+      "required": ["class"],
       "type": "object"
     },
     "GeomPoint": {
       "additionalProperties": false,
       "properties": {
         "class": {
-          "enum": [
-            "GeomPoint"
-          ],
+          "enum": ["GeomPoint"],
           "type": "string"
         }
       },
-      "required": [
-        "class"
-      ],
+      "required": ["class"],
       "type": "object"
     },
     "InlineDataset": {
@@ -197,23 +182,16 @@
         "geom": {
           "$ref": "#/definitions/Geom"
         },
-        "geom_params": {
-        },
+        "geom_params": {},
         "mapping": {
           "$ref": "#/definitions/Mapping"
         },
         "stat": {
           "$ref": "#/definitions/Stat"
         },
-        "stat_params": {
-        }
+        "stat_params": {}
       },
-      "required": [
-        "data",
-        "geom",
-        "mapping",
-        "aes_params"
-      ],
+      "required": ["data", "geom", "mapping", "aes_params"],
       "type": "object"
     },
     "Layers": {
@@ -270,19 +248,11 @@
           "type": "string"
         }
       },
-      "required": [
-        "aesthetics",
-        "transform"
-      ],
+      "required": ["aesthetics", "transform"],
       "type": "object"
     },
     "StandardType": {
-      "enum": [
-        "nominal",
-        "ordinal",
-        "quantitative",
-        "temporal"
-      ],
+      "enum": ["nominal", "ordinal", "quantitative", "temporal"],
       "type": "string"
     },
     "Stat": {
@@ -292,9 +262,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "class"
-      ],
+      "required": ["class"],
       "type": "object"
     },
     "TopLevelSpec": {
@@ -316,12 +284,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "data",
-        "layers",
-        "scales",
-        "labels"
-      ],
+      "required": ["data", "layers", "scales", "labels"],
       "type": "object"
     }
   }

@@ -5,10 +5,10 @@ import * as vlSpec from './vlSpec';
 describe('LayerSpec/TranslateLayer', () => {
   it('should translate ggSpec `layer` to vega-lite `layer`', () => {
     const vlLayer = TranslateLayer(
-      ggSpec.ggSpec01['layers'][0],
-      ggSpec.ggSpec01['labels'],
-      ggSpec.ggSpec01['data'],
-      ggSpec.ggSpec01['scales']
+      ggSpec.ggSpec01.data,
+      ggSpec.ggSpec01.layers[0],
+      ggSpec.ggSpec01.scales,
+      ggSpec.ggSpec01.labels
     );
 
     expect(vlLayer).toEqual(vlSpec.vlSpec01['layer'][0]);

@@ -1295,19 +1295,19 @@
     })(InvalidValues || (InvalidValues = {}));
 
     /**
-     * This function used to translate the LayerSpec
-     * @param layer
-     * The layer in ggSpec
-     * @param ggSpec
+     * @param gsLayer
+     * @param labels
+     * @param data
+     * @param scales
      */
-    function TranslateLayer(layer, labels, data, scales) {
-        var layerData = data[layer.data];
+    function TranslateLayer(gsData, gsLayer, gsScales, gsLabels) {
+        var layerData = gsData[gsLayer.data];
         var layerspec = {
             data: {
-                name: layer.data
+                name: gsLayer.data
             },
-            mark: TranslateMark(layer.geom),
-            encoding: TranslateEncoding(layer, labels, layerData, scales)
+            mark: TranslateMark(gsLayer.geom),
+            encoding: TranslateEncoding(gsLayer, gsLabels, layerData, gsScales)
         };
         return layerspec;
     }
@@ -8803,42 +8803,42 @@
 
     function gs2vl(ggJson) {
         validateGs(ggJson);
-        var ggSpec = ggJson;
-        return gs2vlValidated(ggSpec);
+        var gsSpec = ggJson;
+        return gs2vlValidated(gsSpec);
     }
-    function gs2vlValidated(ggSpec) {
-        var ggLayers = ggSpec.layers;
-        var ggLabels = ggSpec.labels;
-        var ggData = ggSpec.data;
-        var ggScales = ggSpec.scales;
+    function gs2vlValidated(gsSpec) {
+        var gsData = gsSpec.data;
+        var gsLayers = gsSpec.layers;
+        var gsScales = gsSpec.scales;
+        var gsLabels = gsSpec.labels;
         var vlSpec = {
             $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
-            title: TranslateTitle(ggLabels),
-            datasets: TranslateDatasets(ggData),
-            layer: TranslateLayers(ggLayers, ggLabels, ggData, ggScales)
+            title: TranslateTitle(gsLabels),
+            datasets: TranslateDatasets(gsData),
+            layer: TranslateLayers(gsData, gsLayers, gsScales, gsLabels)
         };
         return vlSpec;
     }
-    function TranslateTitle(ggLabels) {
-        return ggLabels['title'];
+    function TranslateTitle(gsLabels) {
+        return gsLabels['title'];
     }
-    function TranslateDatasets(ggData) {
+    function TranslateDatasets(gsData) {
         var datasets = {};
-        for (var dataset in ggData) {
-            datasets[dataset] = ggData[dataset].observations;
+        for (var dataset in gsData) {
+            datasets[dataset] = gsData[dataset].observations;
         }
         if (Object.keys(datasets).length == 0) {
-            throw new Error('ggSpec.datasets should have at least 1 dataset');
+            throw new Error('gsSpec.datasets should have at least 1 dataset');
         }
         return datasets;
     }
-    function TranslateLayers(ggLayers, ggLabels, ggData, ggScales) {
-        if (ggLayers.length == 0) {
+    function TranslateLayers(gsData, gsLayers, gsScales, gsLabels) {
+        if (gsLayers.length == 0) {
             throw new Error('`Layers` should have at least 1 `Layer`');
         }
         var layers = [];
-        ggLayers.map(function (gglayer) {
-            layers.push(TranslateLayer(gglayer, ggLabels, ggData, ggScales));
+        gsLayers.map(function (gslayer) {
+            layers.push(TranslateLayer(gsData, gslayer, gsScales, gsLabels));
         });
         return layers;
     }

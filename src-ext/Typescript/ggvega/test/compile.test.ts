@@ -57,10 +57,10 @@ describe('compile/TranslateDatasets', () => {
 describe('compile/TranslateLayers', () => {
   it('should trabslate `ggSpec.layers` to `vlSpec.layers`', () => {
     const vlLayers = TranslateLayers(
-      ggSpec.ggSpec01['layers'],
-      ggSpec.ggSpec01['labels'],
-      ggSpec.ggSpec01['data'],
-      ggSpec.ggSpec01['scales']
+      ggSpec.ggSpec01.data,
+      ggSpec.ggSpec01.layers,
+      ggSpec.ggSpec01.scales,
+      ggSpec.ggSpec01.labels
     );
 
     expect(vlLayers).toEqual(vlSpec.vlSpec01['layer']);

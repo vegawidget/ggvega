@@ -1,27 +1,27 @@
 import {TranslateEncoding} from './encoding';
 import * as vl from './vlSpec';
-import * as gs from '../../ggschema/src/ggSpec';
+import * as gs from '../../ggschema/src/gsSpec';
 
 /**
- * This function used to translate the LayerSpec
- * @param layer
- * The layer in ggSpec
- * @param ggSpec
+ * @param gsLayer
+ * @param labels
+ * @param data
+ * @param scales
  */
 export function TranslateLayer(
-  layer: gs.Layer,
-  labels: gs.Labels,
-  data: gs.Datasets,
-  scales: gs.Scale[]
+  gsData: gs.Datasets,
+  gsLayer: gs.Layer,
+  gsScales: gs.Scale[],
+  gsLabels: gs.Labels
 ): vl.LayerSpec {
-  const layerData = data[layer.data];
+  const layerData = gsData[gsLayer.data];
 
   const layerspec: vl.LayerSpec = {
     data: {
-      name: layer.data
+      name: gsLayer.data
     },
-    mark: TranslateMark(layer.geom),
-    encoding: TranslateEncoding(layer, labels, layerData, scales)
+    mark: TranslateMark(gsLayer.geom),
+    encoding: TranslateEncoding(gsLayer, gsLabels, layerData, gsScales)
   };
 
   return layerspec;

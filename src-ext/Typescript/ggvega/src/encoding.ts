@@ -1,23 +1,23 @@
 import * as Mark from './mark';
 import * as vl from './vlSpec';
-import * as gs from '../../ggschema/src/ggSpec';
+import * as gs from '../../ggschema/src/gsSpec';
 
 export function TranslateEncoding(
-  layer: gs.Layer,
-  labels: gs.Labels,
+  gsLayer: gs.Layer,
+  gsLabels: gs.Labels,
   layerData: gs.Dataset,
   scales: gs.Scale[]
 ): vl.LayerEncoding | undefined {
   const layerEncoding: vl.LayerEncoding | undefined = {
-    x: TranslateXClass(layer, labels, layerData, scales),
-    y: TranslateYClass(layer, labels, layerData, scales),
+    x: TranslateXClass(gsLayer, gsLabels, layerData, scales),
+    y: TranslateYClass(gsLayer, gsLabels, layerData, scales),
     // color: TranslateColor(layer, labels, layerData),
-    size: TranslateSize(layer, labels, layerData),
-    shape: TranslateShape(layer, labels, layerData),
-    stroke: TranslateStroke(layer, labels, layerData),
-    strokeWidth: TranslateStrokeWidth(layer, labels, layerData),
-    opacity: TranslateOpacity(layer, labels, layerData),
-    fill: TranslateFill(layer, labels, layerData)
+    size: TranslateSize(gsLayer, gsLabels, layerData),
+    shape: TranslateShape(gsLayer, gsLabels, layerData),
+    stroke: TranslateStroke(gsLayer, gsLabels, layerData),
+    strokeWidth: TranslateStrokeWidth(gsLayer, gsLabels, layerData),
+    opacity: TranslateOpacity(gsLayer, gsLabels, layerData),
+    fill: TranslateFill(gsLayer, gsLabels, layerData)
   };
 
   return layerEncoding;
