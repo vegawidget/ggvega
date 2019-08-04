@@ -1,6 +1,6 @@
-import {TranslateEncoding} from './encoding';
 import * as vl from './vlSpec';
 import * as gs from '../../ggschema/src/gsSpec';
+import {TranslateEncoding} from './encoding';
 
 /**
  * @param gsLayer
@@ -8,23 +8,30 @@ import * as gs from '../../ggschema/src/gsSpec';
  * @param data
  * @param scales
  */
-export function TranslateLayer(
-  gsData: gs.Datasets,
-  gsLayer: gs.Layer,
-  gsScales: gs.Scale[],
-  gsLabels: gs.Labels
-): vl.LayerSpec {
-  const layerData = gsData[gsLayer.data];
+export function TranslateLayer(gsData: gs.Datasets, gsLayer: gs.Layer): vl.LayerSpec {
+  const gsMetadata: gs.Metadata = GetMetadata(gsData, gsLayer);
 
-  const layerspec: vl.LayerSpec = {
+  const vlLayer: vl.LayerSpec = StartLayer(gsLayer, gsMetadata);
+
+  return vlLayer;
+}
+
+export function GetMetadata(gsData: gs.Datasets, gsLayer: gs.Layer): gs.Metadata {
+  return gsData[gsLayer.data].metadata;
+}
+
+export function StartLayer(gsLayer: gs.Layer, gsMetadata: gs.Metadata): vl.LayerSpec {
+  const vlMark: vl.Mark = TranslateMark(gsLayer.geom);
+
+  const vlLayer: vl.LayerSpec = {
     data: {
       name: gsLayer.data
     },
-    mark: TranslateMark(gsLayer.geom),
-    encoding: TranslateEncoding(gsLayer, gsLabels, layerData, gsScales)
+    mark: vlMark,
+    encoding: TranslateEncoding(gsLayer, gsMetadata, vlMark)
   };
 
-  return layerspec;
+  return vlLayer;
 }
 
 export function TranslateMark(geom: gs.Geom): vl.Mark {
@@ -37,42 +44,3 @@ export function TranslateMark(geom: gs.Geom): vl.Mark {
 
   return mark;
 }
-
-export function getEncodingKey(geom: gs.GeomPoint): EncodingKey;
-export function getEncodingKey(geom: gs.GeomBar): EncodingKey;
-
-export function getEncodingKey(geom: gs.Geom): EncodingKey {
-  const key = {
-    GeomPoint: getEncodingKeyGeomPoint,
-    GeomBar: getEncodingKeyGeomBar
-  };
-
-  const fn = key[geom.class];
-
-  return fn();
-}
-
-function getEncodingKeyGeomPoint(): EncodingKey {
-  // logic for this function
-  return DefaultEncodingKey;
-}
-
-function getEncodingKeyGeomBar(): EncodingKey {
-  // logic for this function
-  return DefaultEncodingKey;
-}
-
-export interface EncodingKey {
-  [key: string]: string;
-}
-
-export const DefaultEncodingKey: EncodingKey = {
-  x: 'x',
-  y: 'y',
-  colour: 'stroke',
-  size: 'size',
-  shape: 'shape',
-  stroke: 'strokeWidth',
-  alpha: 'opacity',
-  fill: 'fill'
-};

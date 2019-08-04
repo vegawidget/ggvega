@@ -30,29 +30,16 @@
       "additionalProperties": false,
       "properties": {
         "metadata": {
-          "additionalProperties": {
-            "additionalProperties": false,
-            "properties": {
-              "levels": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "type": {
-                "$ref": "#/definitions/StandardType"
-              }
-            },
-            "required": ["type"],
-            "type": "object"
-          },
-          "type": "object"
+          "$ref": "#/definitions/Metadata"
         },
         "observations": {
           "$ref": "#/definitions/InlineDataset"
         }
       },
-      "required": ["metadata", "observations"],
+      "required": [
+        "metadata",
+        "observations"
+      ],
       "type": "object"
     },
     "Datasets": {
@@ -70,7 +57,9 @@
           "type": "string"
         }
       },
-      "required": ["field"],
+      "required": [
+        "field"
+      ],
       "type": "object"
     },
     "Geom": {
@@ -87,22 +76,38 @@
       "additionalProperties": false,
       "properties": {
         "class": {
-          "enum": ["GeomBar"],
+          "enum": [
+            "GeomBar"
+          ],
           "type": "string"
         }
       },
-      "required": ["class"],
+      "required": [
+        "class"
+      ],
+      "type": "object"
+    },
+    "GeomParams": {
+      "additionalProperties": false,
+      "properties": {
+        "params": {
+        }
+      },
       "type": "object"
     },
     "GeomPoint": {
       "additionalProperties": false,
       "properties": {
         "class": {
-          "enum": ["GeomPoint"],
+          "enum": [
+            "GeomPoint"
+          ],
           "type": "string"
         }
       },
-      "required": ["class"],
+      "required": [
+        "class"
+      ],
       "type": "object"
     },
     "InlineDataset": {
@@ -182,16 +187,24 @@
         "geom": {
           "$ref": "#/definitions/Geom"
         },
-        "geom_params": {},
+        "geom_params": {
+          "$ref": "#/definitions/GeomParams"
+        },
         "mapping": {
           "$ref": "#/definitions/Mapping"
         },
         "stat": {
           "$ref": "#/definitions/Stat"
         },
-        "stat_params": {}
+        "stat_params": {
+        }
       },
-      "required": ["data", "geom", "mapping", "aes_params"],
+      "required": [
+        "data",
+        "geom",
+        "mapping",
+        "aes_params"
+      ],
       "type": "object"
     },
     "Layers": {
@@ -232,6 +245,30 @@
       },
       "type": "object"
     },
+    "Metadata": {
+      "additionalProperties": {
+        "$ref": "#/definitions/Metadatum"
+      },
+      "type": "object"
+    },
+    "Metadatum": {
+      "additionalProperties": false,
+      "properties": {
+        "levels": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "type": {
+          "$ref": "#/definitions/StandardType"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
     "Scale": {
       "additionalProperties": false,
       "properties": {
@@ -245,14 +282,42 @@
           "type": "string"
         },
         "transform": {
-          "type": "string"
+          "$ref": "#/definitions/Transform"
         }
       },
-      "required": ["aesthetics", "transform"],
+      "required": [
+        "aesthetics",
+        "transform"
+      ],
       "type": "object"
     },
+    "ScaleType": {
+      "description": "The type of scale.  Vega-Lite supports the following categories of scale types:\r\n\r\n1) [**Continuous Scales**](https://vega.github.io/vega-lite/docs/scale.html#continuous)\r\n-- mapping continuous domains to continuous output ranges\r\n([`\"linear\"`](https://vega.github.io/vega-lite/docs/scale.html#linear),\r\n[`\"pow\"`](https://vega.github.io/vega-lite/docs/scale.html#pow),\r\n[`\"sqrt\"`](https://vega.github.io/vega-lite/docs/scale.html#sqrt),\r\n[`\"symlog\"`](https://vega.github.io/vega-lite/docs/scale.html#symlog),\r\n[`\"log\"`](https://vega.github.io/vega-lite/docs/scale.html#log),\r\n[`\"time\"`](https://vega.github.io/vega-lite/docs/scale.html#time),\r\n[`\"utc\"`](https://vega.github.io/vega-lite/docs/scale.html#utc).\r\n\r\n2) [**Discrete Scales**](https://vega.github.io/vega-lite/docs/scale.html#discrete) --\r\nmapping discrete domains to discrete\r\n([`\"ordinal\"`](https://vega.github.io/vega-lite/docs/scale.html#ordinal)) or continuous\r\n([`\"band\"`](https://vega.github.io/vega-lite/docs/scale.html#band) and\r\n[`\"point\"`](https://vega.github.io/vega-lite/docs/scale.html#point)) output ranges.\r\n\r\n3) [**Discretizing\r\nScales**](https://vega.github.io/vega-lite/docs/scale.html#discretizing) -- mapping\r\ncontinuous domains to discrete output ranges\r\n[`\"bin-ordinal\"`](https://vega.github.io/vega-lite/docs/scale.html#bin-ordinal),\r\n[`\"quantile\"`](https://vega.github.io/vega-lite/docs/scale.html#quantile),\r\n[`\"quantize\"`](https://vega.github.io/vega-lite/docs/scale.html#quantize) and\r\n[`\"threshold\"`](https://vega.github.io/vega-lite/docs/scale.html#threshold).\r\n\r\n__Default value:__ please see the [scale type\r\ntable](https://vega.github.io/vega-lite/docs/scale.html#type).",
+      "enum": [
+        "band",
+        "bin-ordinal",
+        "linear",
+        "log",
+        "ordinal",
+        "point",
+        "pow",
+        "quantile",
+        "quantize",
+        "sqrt",
+        "symlog",
+        "threshold",
+        "time",
+        "utc"
+      ],
+      "type": "string"
+    },
     "StandardType": {
-      "enum": ["nominal", "ordinal", "quantitative", "temporal"],
+      "enum": [
+        "nominal",
+        "ordinal",
+        "quantitative",
+        "temporal"
+      ],
       "type": "string"
     },
     "Stat": {
@@ -262,7 +327,9 @@
           "type": "string"
         }
       },
-      "required": ["class"],
+      "required": [
+        "class"
+      ],
       "type": "object"
     },
     "TopLevelSpec": {
@@ -284,7 +351,28 @@
           "type": "array"
         }
       },
-      "required": ["data", "layers", "scales", "labels"],
+      "required": [
+        "data",
+        "layers",
+        "scales",
+        "labels"
+      ],
+      "type": "object"
+    },
+    "Transform": {
+      "additionalProperties": false,
+      "properties": {
+        "base": {
+          "type": "number"
+        },
+        "type": {
+          "$ref": "#/definitions/ScaleType"
+        }
+      },
+      "required": [
+        "type",
+        "base"
+      ],
       "type": "object"
     }
   }

@@ -1,348 +1,158 @@
 import * as Mark from './mark';
 import * as vl from './vlSpec';
 import * as gs from '../../ggschema/src/gsSpec';
+import {getEncodingKey, EncodingKey} from './encodingkey';
 
-export function TranslateEncoding(
-  gsLayer: gs.Layer,
-  gsLabels: gs.Labels,
-  layerData: gs.Dataset,
-  scales: gs.Scale[]
-): vl.LayerEncoding | undefined {
-  const layerEncoding: vl.LayerEncoding | undefined = {
-    x: TranslateXClass(gsLayer, gsLabels, layerData, scales),
-    y: TranslateYClass(gsLayer, gsLabels, layerData, scales),
-    // color: TranslateColor(layer, labels, layerData),
-    size: TranslateSize(gsLayer, gsLabels, layerData),
-    shape: TranslateShape(gsLayer, gsLabels, layerData),
-    stroke: TranslateStroke(gsLayer, gsLabels, layerData),
-    strokeWidth: TranslateStrokeWidth(gsLayer, gsLabels, layerData),
-    opacity: TranslateOpacity(gsLayer, gsLabels, layerData),
-    fill: TranslateFill(gsLayer, gsLabels, layerData)
-  };
+export function TranslateEncoding(gsLayer: gs.Layer, gsMetadata: gs.Metadata, vlMark: vl.Mark): vl.Encoding {
+  const encodingKey: EncodingKey = getEncodingKey(gsLayer.geom);
 
-  return layerEncoding;
+  const vlEncoding: vl.Encoding = EncodingMapping(gsLayer.mapping, gsLayer.aes_params, gsMetadata, vlMark, encodingKey);
+
+  return vlEncoding;
 }
 
-function TranslateXClass(
-  layer: gs.Layer,
-  labels: gs.Labels,
-  layerData: gs.Dataset,
-  scales: gs.Scale[]
-): vl.XClass | undefined {
-  if (!layer.mapping.x) return undefined;
-
-  let field: string = layer.mapping.x.field;
-
-  const type: vl.StandardType = layerData.metadata[field].type;
-
-  let scale: vl.Scale | undefined;
-
-  let title: string | undefined = labels.x;
-
-  for (const ggScale of scales) {
-    if (ggScale.aesthetics[0] == 'x') {
-      scale = TranslateScale(ggScale.transform);
-
-      if (ggScale.name) {
-        title = ggScale['name'];
-      }
-    }
-  }
-
-  field = field.replace('.', '\\.');
-
-  const xClass: vl.XClass | undefined = {
-    field: field,
-    type: type,
-    title: title,
-    scale: scale
+function EncodingMapping(
+  gsMapping: gs.Mapping,
+  gsAesParams: gs.AesParams,
+  gsMetadata: gs.Metadata,
+  vlMark: vl.Mark,
+  encodingKey: EncodingKey
+): vl.Encoding {
+  const vlEncoding: vl.LayerEncoding = {
+    x: EncodingX(gsMapping.x, gsMetadata),
+    y: EncodingY(gsMapping.y, gsMetadata),
+    size: EncodingNumber(encodingKey.size, gsMapping.size, gsAesParams, gsMetadata, vlMark),
+    shape: EncodingShapeString(encodingKey.shape, gsMapping.shape, gsAesParams, gsMetadata),
+    stroke: EncodingString(encodingKey.stroke, gsMapping.colour, gsAesParams, gsMetadata),
+    strokeWidth: EncodingNumber(encodingKey.strokeWidth, gsMapping.stroke, gsAesParams, gsMetadata, vlMark),
+    opacity: EncodingNumber(encodingKey.opacity, gsMapping.alpha, gsAesParams, gsMetadata, vlMark),
+    fill: EncodingString(encodingKey.fill, gsMapping.fill, gsAesParams, gsMetadata)
   };
 
-  return xClass;
+  return vlEncoding;
 }
 
-function TranslateYClass(
-  layer: gs.Layer,
-  labels: gs.Labels,
-  layerData: gs.Dataset,
-  scales: gs.Scale[]
-): vl.YClass | undefined {
-  if (!layer.mapping.y) return undefined;
+function EncodingX(gsX: gs.Encoding | undefined, gsMetadata: gs.Metadata): vl.XClass | undefined {
+  if (!gsX) return undefined;
 
-  let field: string = layer.mapping.y.field;
+  let vlField: string = gsX.field;
 
-  const type: vl.StandardType = layerData.metadata[field].type;
+  const vlType: vl.StandardType = gsMetadata[vlField].type;
 
-  let scale: vl.Scale | undefined;
+  vlField = vlField.replace('.', '\\.');
 
-  let title: string | undefined = labels.y;
-
-  for (const ggScale of scales) {
-    if (ggScale.aesthetics[0] == 'y') {
-      scale = TranslateScale(ggScale.transform);
-
-      if (ggScale.name) {
-        title = ggScale.name;
-      }
-    }
-  }
-
-  field = field.replace('.', '\\.');
-
-  const yClass: vl.YClass | undefined = {
-    field: field,
-    type: type,
-    title: title,
-    scale: scale
+  const vlXClass: vl.XClass = {
+    field: vlField,
+    type: vlType
   };
 
-  return yClass;
+  return vlXClass;
 }
 
-/**
- * This function used tp translate `color`.
- * For now, we believe we can use `fill` and `stroke` substitute `color`. So we just comment this function
- * @param layer
- * @param ggSpec
- */
-// function TranslateColor(layer: any, labels: any, layerData: any): vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
-//   let color: vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
+function EncodingY(gsY: gs.Encoding | undefined, gsMetadata: gs.Metadata): vl.YClass | undefined {
+  if (!gsY) return undefined;
 
-//   if (layer['aes_params']['colour']) {
-//     color = layer['aes_params']['colour'];
-//   }
+  let vlField: string = gsY.field;
 
-//   if (layer['mapping']['colour']) {
-//     if (!layer['mapping']['colour']['field']) {
-//       return color;
-//     }
+  const vlType: vl.StandardType = gsMetadata[vlField].type;
 
-//     let field: string = layer['mapping']['colour']['field'];
+  vlField = vlField.replace('.', '\\.');
 
-//     const type: vlspec.StandardType = layerData['metadata'][field]['type'];
+  const vlYClass: vl.YClass = {
+    field: vlField,
+    type: vlType
+  };
 
-//     field = field.replace('.', '\\.');
+  return vlYClass;
+}
 
-//     color = {
-//       field: field,
-//       type: type,
-//       title: labels['colour']
-//     };
-//   }
-
-//   return color;
-// }
-
-/**
- * TODO:// default type is ordinal bin
- * translate encoding.size
- * @param layer in ggSpec['layers']
- * @param ggSpec is the ggSpec
- */
-function TranslateSize(
-  layer: gs.Layer,
-  labels: gs.Labels,
-  layerData: gs.Dataset
+function EncodingNumber(
+  property: 'size' | 'stroke' | 'alpha',
+  gsEncodingNumber: gs.Encoding | undefined,
+  gsAesParams: gs.AesParams,
+  gsMetadata: gs.Metadata,
+  vlMark: vl.Mark
 ): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
-  let size: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
+  let vlEncodingNumber: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
-  if (layer.aes_params.size)
-    if (layer.geom.class == 'GeomPoint')
-      size = {
-        value: Mark.TranslatePointSize(layer.aes_params.size)
-      };
-
-  if (layer.mapping.size) {
-    if (!layer.mapping.size.field) {
-      return size;
-    }
-
-    let field: string = layer.mapping.size.field;
-
-    const type: vl.StandardType = layerData.metadata[field].type;
-
-    field = field.replace('.', '\\.');
-
-    size = {
-      field: field,
-      type: type,
-      title: labels.size
+  if (gsAesParams[property]) {
+    vlEncodingNumber = {
+      value: Mark.TranslateAesParamsNumber(gsAesParams, property, vlMark)
     };
   }
 
-  return size;
+  if (!gsEncodingNumber) return vlEncodingNumber;
+
+  let vlField: string = gsEncodingNumber.field;
+
+  const VlType: vl.StandardType = gsMetadata[vlField].type;
+
+  vlField = vlField.replace('.', '\\.');
+
+  vlEncodingNumber = {
+    field: vlField,
+    type: VlType
+  };
+
+  return vlEncodingNumber;
 }
 
-function TranslateShape(
-  layer: gs.Layer,
-  labels: gs.Labels,
-  layerData: gs.Dataset
+function EncodingShapeString(
+  property: 'shape',
+  gsEncodingString: gs.Encoding | undefined,
+  gsAesParams: gs.AesParams,
+  gsMetadata: gs.Metadata
 ): vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined {
-  let shape: vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined;
+  let vlEncodingString: vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined;
 
-  if (layer.aes_params.shape && layer.geom.class == 'GeomPoint') {
-    shape = {
-      value: Mark.TranslatePointShape(layer.aes_params.shape)
+  if (gsAesParams[property]) {
+    vlEncodingString = {
+      value: Mark.TranslateAesParamsShape(gsAesParams, property)
     };
   }
 
-  if (layer.mapping.shape) {
-    if (!layer.mapping.shape.field) {
-      return shape;
-    }
+  if (!gsEncodingString) return vlEncodingString;
 
-    let field: string = layer.mapping.shape.field;
+  let vlField: string = gsEncodingString.field;
 
-    const type: vl.TypeForShape = (layerData.metadata[field].type as unknown) as vl.TypeForShape;
+  const VlType: vl.TypeForShape = (gsMetadata[vlField].type as unknown) as vl.TypeForShape;
 
-    field = field.replace('.', '\\.');
+  vlField = vlField.replace('.', '\\.');
 
-    shape = {
-      field: field,
-      type: type,
-      title: labels.shape
-    };
-  }
+  vlEncodingString = {
+    field: vlField,
+    type: VlType
+  };
 
-  return shape;
+  return vlEncodingString;
 }
 
-function TranslateScale(transform: any): vl.Scale {
-  return transform;
-}
-
-function TranslateStroke(
-  layer: gs.Layer,
-  labels: gs.Labels,
-  layerData: gs.Dataset
+function EncodingString(
+  property: 'colour' | 'fill',
+  gsEncodingString: gs.Encoding | undefined,
+  gsAesParams: gs.AesParams,
+  gsMetadata: gs.Metadata
 ): vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
-  let stroke: vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
+  let vlEncodingString: vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 
-  if (layer.aes_params.colour) {
-    stroke = {
-      value: Mark.TranslateStroke(layer.aes_params.colour)
+  if (gsAesParams[property]) {
+    vlEncodingString = {
+      value: Mark.TranslateAesParamsString(gsAesParams, property)
     };
   }
 
-  if (layer.mapping.colour) {
-    if (!layer.mapping.colour.field) {
-      return stroke;
-    }
+  if (!gsEncodingString) return vlEncodingString;
 
-    let field: string = layer.mapping.colour.field;
+  let vlField: string = gsEncodingString.field;
 
-    const type: vl.StandardType = layerData.metadata[field].type;
+  const VlType: vl.StandardType = gsMetadata[vlField].type;
 
-    field = field.replace('.', '\\.');
+  vlField = vlField.replace('.', '\\.');
 
-    stroke = {
-      field: field,
-      type: type,
-      title: labels.colour
-    };
-  }
+  vlEncodingString = {
+    field: vlField,
+    type: VlType
+  };
 
-  return stroke;
-}
-
-function TranslateStrokeWidth(
-  layer: gs.Layer,
-  labels: gs.Labels,
-  layerData: gs.Dataset
-): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
-  let strokeWidth: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
-
-  if (layer.aes_params.stroke) {
-    strokeWidth = {
-      value: Mark.TranslateStrokeWidth(layer.aes_params.stroke)
-    };
-  }
-
-  if (layer.mapping.stroke) {
-    if (!layer.mapping.stroke.field) {
-      return strokeWidth;
-    }
-
-    let field: string = layer.mapping.stroke.field;
-
-    const type: vl.StandardType = layerData.metadata[field].type;
-
-    field = field.replace('.', '\\.');
-
-    strokeWidth = {
-      field: field,
-      type: type,
-      title: labels.stroke
-    };
-  }
-
-  return strokeWidth;
-}
-
-function TranslateOpacity(
-  layer: gs.Layer,
-  labels: gs.Labels,
-  layerData: gs.Dataset
-): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
-  let opacity: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
-
-  if (layer.aes_params.alpha) {
-    opacity = {
-      value: Mark.TranslateOpacity(layer.aes_params.alpha)
-    };
-  }
-
-  if (layer.mapping.alpha) {
-    if (!layer.mapping.alpha.field) {
-      return opacity;
-    }
-
-    let field: string = layer.mapping.alpha.field;
-
-    const type: vl.StandardType = layerData.metadata[field].type;
-
-    field = field.replace('.', '\\.');
-
-    opacity = {
-      field: field,
-      type: type,
-      title: labels.alpha
-    };
-  }
-
-  return opacity;
-}
-
-export function TranslateFill(
-  layer: gs.Layer,
-  labels: gs.Labels,
-  layerData: gs.Dataset
-): vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
-  let fill: vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
-
-  if (layer.aes_params.fill) {
-    fill = {
-      value: Mark.TranslateFill(layer.aes_params.fill)
-    };
-  }
-
-  if (layer.mapping.fill) {
-    if (!layer.mapping.fill.field) {
-      return fill;
-    }
-
-    let field: string = layer.mapping.fill.field;
-
-    const type: vl.StandardType = layerData.metadata[field].type;
-
-    field = field.replace('.', '\\.');
-
-    fill = {
-      field: field,
-      type: type,
-      title: labels.fill
-    };
-  }
-
-  return fill;
+  return vlEncodingString;
 }

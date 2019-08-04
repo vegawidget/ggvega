@@ -1,6 +1,6 @@
 import * as vl from './vlSpec';
 import * as gs from '../../ggschema/src/gsSpec';
-import {TranslateLayer} from './layer';
+import {TranslateLayers} from './layers';
 import {validateGs} from './util';
 
 export function gs2vl(ggJson: any): vl.TopLevelSpec {
@@ -49,23 +49,4 @@ export function TranslateDatasets(gsData: {[key: string]: gs.Dataset}): {[key: s
   }
 
   return datasets;
-}
-
-export function TranslateLayers(
-  gsData: gs.Datasets,
-  gsLayers: gs.Layers,
-  gsScales: gs.Scale[],
-  gsLabels: gs.Labels
-): vl.LayerSpec[] {
-  if (gsLayers.length == 0) {
-    throw new Error('`Layers` should have at least 1 `Layer`');
-  }
-
-  const layers: vl.LayerSpec[] = [];
-
-  gsLayers.map((gslayer: gs.Layer) => {
-    layers.push(TranslateLayer(gsData, gslayer, gsScales, gsLabels));
-  });
-
-  return layers;
 }

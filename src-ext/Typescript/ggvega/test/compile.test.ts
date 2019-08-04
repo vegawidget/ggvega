@@ -1,4 +1,4 @@
-import {gs2vl, TranslateDatasets, TranslateLayers} from '../src/compile';
+import {gs2vl, TranslateDatasets} from '../src/compile';
 import * as ggSpec from './ggSpec';
 import * as vlSpec from './vlSpec';
 
@@ -51,18 +51,5 @@ describe('compile/TranslateDatasets', () => {
     const vlDatasets = TranslateDatasets(ggSpec.ggSpec03['data']);
 
     expect(vlDatasets).toEqual(vlSpec.vlSpec03['datasets']);
-  });
-});
-
-describe('compile/TranslateLayers', () => {
-  it('should trabslate `ggSpec.layers` to `vlSpec.layers`', () => {
-    const vlLayers = TranslateLayers(
-      ggSpec.ggSpec01.data,
-      ggSpec.ggSpec01.layers,
-      ggSpec.ggSpec01.scales,
-      ggSpec.ggSpec01.labels
-    );
-
-    expect(vlLayers).toEqual(vlSpec.vlSpec01['layer']);
   });
 });

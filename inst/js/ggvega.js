@@ -4,267 +4,6 @@
     (global = global || self, factory(global.ggvega = {}));
 }(this, function (exports) { 'use strict';
 
-    function TranslatePointShape(ggShape) {
-        return gg2vlPointShape[ggShape % 8];
-    }
-    var gg2vlPointShape = {
-        0: 'circle',
-        1: 'square',
-        3: 'cross',
-        4: 'diamond',
-        5: 'triangle-up',
-        6: 'triangle-down',
-        7: 'triangle-right',
-        8: 'triangle-left'
-    };
-    function TranslateStroke(ggStroke) {
-        return ggStroke;
-    }
-    function TranslateStrokeWidth(ggStrokeWidth) {
-        return ggStrokeWidth;
-    }
-    function TranslateOpacity(ggOpacity) {
-        return ggOpacity;
-    }
-    function TranslateFill(ggFill) {
-        return ggFill;
-    }
-    function TranslatePointSize(ggSize) {
-        return ggSize * 20;
-    }
-
-    function TranslateEncoding(layer, labels, layerData, scales) {
-        var layerEncoding = {
-            x: TranslateXClass(layer, labels, layerData, scales),
-            y: TranslateYClass(layer, labels, layerData, scales),
-            // color: TranslateColor(layer, labels, layerData),
-            size: TranslateSize(layer, labels, layerData),
-            shape: TranslateShape(layer, labels, layerData),
-            stroke: TranslateStroke$1(layer, labels, layerData),
-            strokeWidth: TranslateStrokeWidth$1(layer, labels, layerData),
-            opacity: TranslateOpacity$1(layer, labels, layerData),
-            fill: TranslateFill$1(layer, labels, layerData)
-        };
-        return layerEncoding;
-    }
-    function TranslateXClass(layer, labels, layerData, scales) {
-        if (!layer.mapping.x)
-            return undefined;
-        var field = layer.mapping.x.field;
-        var type = layerData.metadata[field].type;
-        var scale;
-        var title = labels.x;
-        for (var _i = 0, scales_1 = scales; _i < scales_1.length; _i++) {
-            var ggScale = scales_1[_i];
-            if (ggScale.aesthetics[0] == 'x') {
-                scale = TranslateScale(ggScale.transform);
-                if (ggScale.name) {
-                    title = ggScale['name'];
-                }
-            }
-        }
-        field = field.replace('.', '\\.');
-        var xClass = {
-            field: field,
-            type: type,
-            title: title,
-            scale: scale
-        };
-        return xClass;
-    }
-    function TranslateYClass(layer, labels, layerData, scales) {
-        if (!layer.mapping.y)
-            return undefined;
-        var field = layer.mapping.y.field;
-        var type = layerData.metadata[field].type;
-        var scale;
-        var title = labels.y;
-        for (var _i = 0, scales_2 = scales; _i < scales_2.length; _i++) {
-            var ggScale = scales_2[_i];
-            if (ggScale.aesthetics[0] == 'y') {
-                scale = TranslateScale(ggScale.transform);
-                if (ggScale.name) {
-                    title = ggScale.name;
-                }
-            }
-        }
-        field = field.replace('.', '\\.');
-        var yClass = {
-            field: field,
-            type: type,
-            title: title,
-            scale: scale
-        };
-        return yClass;
-    }
-    /**
-     * This function used tp translate `color`.
-     * For now, we believe we can use `fill` and `stroke` substitute `color`. So we just comment this function
-     * @param layer
-     * @param ggSpec
-     */
-    // function TranslateColor(layer: any, labels: any, layerData: any): vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
-    //   let color: vlspec.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
-    //   if (layer['aes_params']['colour']) {
-    //     color = layer['aes_params']['colour'];
-    //   }
-    //   if (layer['mapping']['colour']) {
-    //     if (!layer['mapping']['colour']['field']) {
-    //       return color;
-    //     }
-    //     let field: string = layer['mapping']['colour']['field'];
-    //     const type: vlspec.StandardType = layerData['metadata'][field]['type'];
-    //     field = field.replace('.', '\\.');
-    //     color = {
-    //       field: field,
-    //       type: type,
-    //       title: labels['colour']
-    //     };
-    //   }
-    //   return color;
-    // }
-    /**
-     * TODO:// default type is ordinal bin
-     * translate encoding.size
-     * @param layer in ggSpec['layers']
-     * @param ggSpec is the ggSpec
-     */
-    function TranslateSize(layer, labels, layerData) {
-        var size;
-        if (layer.aes_params.size)
-            if (layer.geom.class == 'GeomPoint')
-                size = {
-                    value: TranslatePointSize(layer.aes_params.size)
-                };
-        if (layer.mapping.size) {
-            if (!layer.mapping.size.field) {
-                return size;
-            }
-            var field = layer.mapping.size.field;
-            var type = layerData.metadata[field].type;
-            field = field.replace('.', '\\.');
-            size = {
-                field: field,
-                type: type,
-                title: labels.size
-            };
-        }
-        return size;
-    }
-    function TranslateShape(layer, labels, layerData) {
-        var shape;
-        if (layer.aes_params.shape && layer.geom.class == 'GeomPoint') {
-            shape = {
-                value: TranslatePointShape(layer.aes_params.shape)
-            };
-        }
-        if (layer.mapping.shape) {
-            if (!layer.mapping.shape.field) {
-                return shape;
-            }
-            var field = layer.mapping.shape.field;
-            var type = layerData.metadata[field].type;
-            field = field.replace('.', '\\.');
-            shape = {
-                field: field,
-                type: type,
-                title: labels.shape
-            };
-        }
-        return shape;
-    }
-    function TranslateScale(transform) {
-        return transform;
-    }
-    function TranslateStroke$1(layer, labels, layerData) {
-        var stroke;
-        if (layer.aes_params.colour) {
-            stroke = {
-                value: TranslateStroke(layer.aes_params.colour)
-            };
-        }
-        if (layer.mapping.colour) {
-            if (!layer.mapping.colour.field) {
-                return stroke;
-            }
-            var field = layer.mapping.colour.field;
-            var type = layerData.metadata[field].type;
-            field = field.replace('.', '\\.');
-            stroke = {
-                field: field,
-                type: type,
-                title: labels.colour
-            };
-        }
-        return stroke;
-    }
-    function TranslateStrokeWidth$1(layer, labels, layerData) {
-        var strokeWidth;
-        if (layer.aes_params.stroke) {
-            strokeWidth = {
-                value: TranslateStrokeWidth(layer.aes_params.stroke)
-            };
-        }
-        if (layer.mapping.stroke) {
-            if (!layer.mapping.stroke.field) {
-                return strokeWidth;
-            }
-            var field = layer.mapping.stroke.field;
-            var type = layerData.metadata[field].type;
-            field = field.replace('.', '\\.');
-            strokeWidth = {
-                field: field,
-                type: type,
-                title: labels.stroke
-            };
-        }
-        return strokeWidth;
-    }
-    function TranslateOpacity$1(layer, labels, layerData) {
-        var opacity;
-        if (layer.aes_params.alpha) {
-            opacity = {
-                value: TranslateOpacity(layer.aes_params.alpha)
-            };
-        }
-        if (layer.mapping.alpha) {
-            if (!layer.mapping.alpha.field) {
-                return opacity;
-            }
-            var field = layer.mapping.alpha.field;
-            var type = layerData.metadata[field].type;
-            field = field.replace('.', '\\.');
-            opacity = {
-                field: field,
-                type: type,
-                title: labels.alpha
-            };
-        }
-        return opacity;
-    }
-    function TranslateFill$1(layer, labels, layerData) {
-        var fill;
-        if (layer.aes_params.fill) {
-            fill = {
-                value: TranslateFill(layer.aes_params.fill)
-            };
-        }
-        if (layer.mapping.fill) {
-            if (!layer.mapping.fill.field) {
-                return fill;
-            }
-            var field = layer.mapping.fill.field;
-            var type = layerData.metadata[field].type;
-            field = field.replace('.', '\\.');
-            fill = {
-                field: field,
-                type: type,
-                title: labels.fill
-            };
-        }
-        return fill;
-    }
-
     /**
      * The alignment to apply to symbol legends rows and columns. The supported string values
      * are `"all"`, `"each"` (the default), and `none`. For more information, see the [grid
@@ -1294,22 +1033,219 @@
         InvalidValues["Filter"] = "filter";
     })(InvalidValues || (InvalidValues = {}));
 
+    function TranslateAesParamsNumber(gsAesParams, property, vlMark) {
+        var key = {
+            size: AesParamsSize,
+            stroke: NoChangeNumber,
+            alpha: NoChangeNumber
+        };
+        var fn = key[property];
+        return fn(gsAesParams[property], vlMark);
+    }
+    function AesParamsSize(gsSize, vlMark) {
+        if (gsSize)
+            if (vlMark == Mark.Point)
+                return gsSize * 20;
+    }
+    function NoChangeNumber(value) {
+        return value;
+    }
+    function TranslateAesParamsShape(gsAesParams, property) {
+        var key = {
+            shape: AesParamsShape
+        };
+        var fn = key[property];
+        return fn(gsAesParams[property]);
+    }
+    function AesParamsShape(gsShape) {
+        if (gsShape) {
+            var gs2vlPointShape = {
+                0: 'circle',
+                1: 'square',
+                3: 'cross',
+                4: 'diamond',
+                5: 'triangle-up',
+                6: 'triangle-down',
+                7: 'triangle-right',
+                8: 'triangle-left'
+            };
+            return gs2vlPointShape[gsShape % 8];
+        }
+    }
+    function TranslateAesParamsString(gsAesParams, property) {
+        var key = {
+            colour: NoChangeString,
+            fill: NoChangeString
+        };
+        var fn = key[property];
+        return fn(gsAesParams[property]);
+    }
+    function NoChangeString(value) {
+        return value;
+    }
+
+    function getEncodingKey(geom) {
+        var key = {
+            GeomPoint: getEncodingKeyGeomPoint,
+            GeomBar: getEncodingKeyGeomBar
+        };
+        var fn = key[geom.class];
+        try {
+            return fn();
+        }
+        catch (error) {
+            return DefaultEncodingKey;
+        }
+    }
+    function getEncodingKeyGeomPoint() {
+        var PointEncodingKey = {
+            x: 'x',
+            y: 'y',
+            stroke: 'colour',
+            size: 'size',
+            shape: 'shape',
+            strokeWidth: 'stroke',
+            opacity: 'alpha',
+            fill: 'fill'
+        };
+        return PointEncodingKey;
+    }
+    function getEncodingKeyGeomBar() {
+        // logic for this function
+        return DefaultEncodingKey;
+    }
+    var DefaultEncodingKey = {
+        x: 'x',
+        y: 'y',
+        stroke: 'colour',
+        size: 'size',
+        shape: 'shape',
+        strokeWidth: 'stroke',
+        opacity: 'alpha',
+        fill: 'fill'
+    };
+
+    function TranslateEncoding(gsLayer, gsMetadata, vlMark) {
+        var encodingKey = getEncodingKey(gsLayer.geom);
+        var vlEncoding = EncodingMapping(gsLayer.mapping, gsLayer.aes_params, gsMetadata, vlMark, encodingKey);
+        return vlEncoding;
+    }
+    function EncodingMapping(gsMapping, gsAesParams, gsMetadata, vlMark, encodingKey) {
+        var vlEncoding = {
+            x: EncodingX(gsMapping.x, gsMetadata),
+            y: EncodingY(gsMapping.y, gsMetadata),
+            size: EncodingNumber(encodingKey.size, gsMapping.size, gsAesParams, gsMetadata, vlMark),
+            shape: EncodingShapeString(encodingKey.shape, gsMapping.shape, gsAesParams, gsMetadata),
+            stroke: EncodingString(encodingKey.stroke, gsMapping.colour, gsAesParams, gsMetadata),
+            strokeWidth: EncodingNumber(encodingKey.strokeWidth, gsMapping.stroke, gsAesParams, gsMetadata, vlMark),
+            opacity: EncodingNumber(encodingKey.opacity, gsMapping.alpha, gsAesParams, gsMetadata, vlMark),
+            fill: EncodingString(encodingKey.fill, gsMapping.fill, gsAesParams, gsMetadata)
+        };
+        return vlEncoding;
+    }
+    function EncodingX(gsX, gsMetadata) {
+        if (!gsX)
+            return undefined;
+        var vlField = gsX.field;
+        var vlType = gsMetadata[vlField].type;
+        vlField = vlField.replace('.', '\\.');
+        var vlXClass = {
+            field: vlField,
+            type: vlType
+        };
+        return vlXClass;
+    }
+    function EncodingY(gsY, gsMetadata) {
+        if (!gsY)
+            return undefined;
+        var vlField = gsY.field;
+        var vlType = gsMetadata[vlField].type;
+        vlField = vlField.replace('.', '\\.');
+        var vlYClass = {
+            field: vlField,
+            type: vlType
+        };
+        return vlYClass;
+    }
+    function EncodingNumber(property, gsEncodingNumber, gsAesParams, gsMetadata, vlMark) {
+        var vlEncodingNumber;
+        if (gsAesParams[property]) {
+            vlEncodingNumber = {
+                value: TranslateAesParamsNumber(gsAesParams, property, vlMark)
+            };
+        }
+        if (!gsEncodingNumber)
+            return vlEncodingNumber;
+        var vlField = gsEncodingNumber.field;
+        var VlType = gsMetadata[vlField].type;
+        vlField = vlField.replace('.', '\\.');
+        vlEncodingNumber = {
+            field: vlField,
+            type: VlType
+        };
+        return vlEncodingNumber;
+    }
+    function EncodingShapeString(property, gsEncodingString, gsAesParams, gsMetadata) {
+        var vlEncodingString;
+        if (gsAesParams[property]) {
+            vlEncodingString = {
+                value: TranslateAesParamsShape(gsAesParams, property)
+            };
+        }
+        if (!gsEncodingString)
+            return vlEncodingString;
+        var vlField = gsEncodingString.field;
+        var VlType = gsMetadata[vlField].type;
+        vlField = vlField.replace('.', '\\.');
+        vlEncodingString = {
+            field: vlField,
+            type: VlType
+        };
+        return vlEncodingString;
+    }
+    function EncodingString(property, gsEncodingString, gsAesParams, gsMetadata) {
+        var vlEncodingString;
+        if (gsAesParams[property]) {
+            vlEncodingString = {
+                value: TranslateAesParamsString(gsAesParams, property)
+            };
+        }
+        if (!gsEncodingString)
+            return vlEncodingString;
+        var vlField = gsEncodingString.field;
+        var VlType = gsMetadata[vlField].type;
+        vlField = vlField.replace('.', '\\.');
+        vlEncodingString = {
+            field: vlField,
+            type: VlType
+        };
+        return vlEncodingString;
+    }
+
     /**
      * @param gsLayer
      * @param labels
      * @param data
      * @param scales
      */
-    function TranslateLayer(gsData, gsLayer, gsScales, gsLabels) {
-        var layerData = gsData[gsLayer.data];
-        var layerspec = {
+    function TranslateLayer(gsData, gsLayer) {
+        var gsMetadata = GetMetadata(gsData, gsLayer);
+        var vlLayer = StartLayer(gsLayer, gsMetadata);
+        return vlLayer;
+    }
+    function GetMetadata(gsData, gsLayer) {
+        return gsData[gsLayer.data].metadata;
+    }
+    function StartLayer(gsLayer, gsMetadata) {
+        var vlMark = TranslateMark(gsLayer.geom);
+        var vlLayer = {
             data: {
                 name: gsLayer.data
             },
-            mark: TranslateMark(gsLayer.geom),
-            encoding: TranslateEncoding(gsLayer, gsLabels, layerData, gsScales)
+            mark: vlMark,
+            encoding: TranslateEncoding(gsLayer, gsMetadata, vlMark)
         };
-        return layerspec;
+        return vlLayer;
     }
     function TranslateMark(geom) {
         var mark;
@@ -1320,6 +1256,73 @@
             throw new Error('geom.class can only be `GeomPoint`');
         }
         return mark;
+    }
+
+    function TranslateLayers(gsData, gsLayers, gsScales, gsLabels) {
+        if (gsLayers.length == 0) {
+            throw new Error('`Layers` should have at least 1 `Layer`');
+        }
+        var vlLayers = [];
+        gsLayers.map(function (gslayer) {
+            vlLayers.push(TranslateLayer(gsData, gslayer));
+        });
+        vlLayers = LayersLabels(vlLayers, gsLabels);
+        vlLayers = LayersScales(vlLayers, gsScales);
+        return vlLayers;
+    }
+    //ToDo: Use Map() and ?(EncodingKey)
+    function LayersLabels(vlLayers, gsLabels) {
+        vlLayers.map(function (vlLayer) {
+            if (vlLayer.encoding) {
+                if (vlLayer.encoding.x) {
+                    vlLayer.encoding.x.title = gsLabels.x;
+                }
+                if (vlLayer.encoding.y) {
+                    vlLayer.encoding.y.title = gsLabels.y;
+                }
+                if (vlLayer.encoding.size) {
+                    vlLayer.encoding.size.title = gsLabels.size;
+                }
+                if (vlLayer.encoding.shape) {
+                    vlLayer.encoding.shape.title = gsLabels.shape;
+                }
+                if (vlLayer.encoding.stroke) {
+                    vlLayer.encoding.stroke.title = gsLabels.colour;
+                }
+                if (vlLayer.encoding.strokeWidth) {
+                    vlLayer.encoding.strokeWidth.title = gsLabels.stroke;
+                }
+                if (vlLayer.encoding.opacity) {
+                    vlLayer.encoding.opacity.title = gsLabels.alpha;
+                }
+                if (vlLayer.encoding.fill) {
+                    vlLayer.encoding.fill.title = gsLabels.fill;
+                }
+            }
+        });
+        return vlLayers;
+    }
+    function LayersScales(vlLayers, gsScales) {
+        gsScales.map(function (gsScale) {
+            vlLayers[0] = LayerScale(vlLayers[0], gsScale);
+        });
+        return vlLayers;
+    }
+    /**
+     * TODO: Use methoad loading to add four scales
+     * @param vlLayer
+     * @param gsScale
+     */
+    function LayerScale(vlLayer, gsScale) {
+        if (!vlLayer.encoding)
+            return vlLayer;
+        if (gsScale.aesthetics[0] == 'x' && vlLayer.encoding.x) {
+            vlLayer.encoding.x.scale = gsScale.transform;
+        }
+        if (gsScale.aesthetics[0] == 'y' && vlLayer.encoding.y) {
+            vlLayer.encoding.y.scale = gsScale.transform;
+        }
+        return vlLayer;
     }
 
     var $ref = "#/definitions/TopLevelSpec";
@@ -1353,25 +1356,7 @@
     		additionalProperties: false,
     		properties: {
     			metadata: {
-    				additionalProperties: {
-    					additionalProperties: false,
-    					properties: {
-    						levels: {
-    							items: {
-    								type: "string"
-    							},
-    							type: "array"
-    						},
-    						type: {
-    							$ref: "#/definitions/StandardType"
-    						}
-    					},
-    					required: [
-    						"type"
-    					],
-    					type: "object"
-    				},
-    				type: "object"
+    				$ref: "#/definitions/Metadata"
     			},
     			observations: {
     				$ref: "#/definitions/InlineDataset"
@@ -1426,6 +1411,14 @@
     		required: [
     			"class"
     		],
+    		type: "object"
+    	},
+    	GeomParams: {
+    		additionalProperties: false,
+    		properties: {
+    			params: {
+    			}
+    		},
     		type: "object"
     	},
     	GeomPoint: {
@@ -1521,6 +1514,7 @@
     				$ref: "#/definitions/Geom"
     			},
     			geom_params: {
+    				$ref: "#/definitions/GeomParams"
     			},
     			mapping: {
     				$ref: "#/definitions/Mapping"
@@ -1577,6 +1571,30 @@
     		},
     		type: "object"
     	},
+    	Metadata: {
+    		additionalProperties: {
+    			$ref: "#/definitions/Metadatum"
+    		},
+    		type: "object"
+    	},
+    	Metadatum: {
+    		additionalProperties: false,
+    		properties: {
+    			levels: {
+    				items: {
+    					type: "string"
+    				},
+    				type: "array"
+    			},
+    			type: {
+    				$ref: "#/definitions/StandardType"
+    			}
+    		},
+    		required: [
+    			"type"
+    		],
+    		type: "object"
+    	},
     	Scale: {
     		additionalProperties: false,
     		properties: {
@@ -1590,7 +1608,7 @@
     				type: "string"
     			},
     			transform: {
-    				type: "string"
+    				$ref: "#/definitions/Transform"
     			}
     		},
     		required: [
@@ -1598,6 +1616,26 @@
     			"transform"
     		],
     		type: "object"
+    	},
+    	ScaleType: {
+    		description: "The type of scale.  Vega-Lite supports the following categories of scale types:\r\n\r\n1) [**Continuous Scales**](https://vega.github.io/vega-lite/docs/scale.html#continuous)\r\n-- mapping continuous domains to continuous output ranges\r\n([`\"linear\"`](https://vega.github.io/vega-lite/docs/scale.html#linear),\r\n[`\"pow\"`](https://vega.github.io/vega-lite/docs/scale.html#pow),\r\n[`\"sqrt\"`](https://vega.github.io/vega-lite/docs/scale.html#sqrt),\r\n[`\"symlog\"`](https://vega.github.io/vega-lite/docs/scale.html#symlog),\r\n[`\"log\"`](https://vega.github.io/vega-lite/docs/scale.html#log),\r\n[`\"time\"`](https://vega.github.io/vega-lite/docs/scale.html#time),\r\n[`\"utc\"`](https://vega.github.io/vega-lite/docs/scale.html#utc).\r\n\r\n2) [**Discrete Scales**](https://vega.github.io/vega-lite/docs/scale.html#discrete) --\r\nmapping discrete domains to discrete\r\n([`\"ordinal\"`](https://vega.github.io/vega-lite/docs/scale.html#ordinal)) or continuous\r\n([`\"band\"`](https://vega.github.io/vega-lite/docs/scale.html#band) and\r\n[`\"point\"`](https://vega.github.io/vega-lite/docs/scale.html#point)) output ranges.\r\n\r\n3) [**Discretizing\r\nScales**](https://vega.github.io/vega-lite/docs/scale.html#discretizing) -- mapping\r\ncontinuous domains to discrete output ranges\r\n[`\"bin-ordinal\"`](https://vega.github.io/vega-lite/docs/scale.html#bin-ordinal),\r\n[`\"quantile\"`](https://vega.github.io/vega-lite/docs/scale.html#quantile),\r\n[`\"quantize\"`](https://vega.github.io/vega-lite/docs/scale.html#quantize) and\r\n[`\"threshold\"`](https://vega.github.io/vega-lite/docs/scale.html#threshold).\r\n\r\n__Default value:__ please see the [scale type\r\ntable](https://vega.github.io/vega-lite/docs/scale.html#type).",
+    		"enum": [
+    			"band",
+    			"bin-ordinal",
+    			"linear",
+    			"log",
+    			"ordinal",
+    			"point",
+    			"pow",
+    			"quantile",
+    			"quantize",
+    			"sqrt",
+    			"symlog",
+    			"threshold",
+    			"time",
+    			"utc"
+    		],
+    		type: "string"
     	},
     	StandardType: {
     		"enum": [
@@ -1644,6 +1682,22 @@
     			"layers",
     			"scales",
     			"labels"
+    		],
+    		type: "object"
+    	},
+    	Transform: {
+    		additionalProperties: false,
+    		properties: {
+    			base: {
+    				type: "number"
+    			},
+    			type: {
+    				$ref: "#/definitions/ScaleType"
+    			}
+    		},
+    		required: [
+    			"type",
+    			"base"
     		],
     		type: "object"
     	}
@@ -8831,16 +8885,6 @@
             throw new Error('gsSpec.datasets should have at least 1 dataset');
         }
         return datasets;
-    }
-    function TranslateLayers(gsData, gsLayers, gsScales, gsLabels) {
-        if (gsLayers.length == 0) {
-            throw new Error('`Layers` should have at least 1 `Layer`');
-        }
-        var layers = [];
-        gsLayers.map(function (gslayer) {
-            layers.push(TranslateLayer(gsData, gslayer, gsScales, gsLabels));
-        });
-        return layers;
     }
 
     exports.gs2vl = gs2vl;
