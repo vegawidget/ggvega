@@ -1,5 +1,5 @@
 import * as vl from './vlSpec';
-import * as gs from '../../ggschema/src/gsSpec';
+import * as gs from '../../ggschema/src/index';
 import {TranslateLayers} from './layers';
 import {validateGs} from './util';
 

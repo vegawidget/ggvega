@@ -1,6 +1,6 @@
 import * as Mark from './mark';
 import * as vl from './vlSpec';
-import * as gs from '../../ggschema/src/gsSpec';
+import * as gs from '../../ggschema/src/index';
 import {getEncodingKey, EncodingKey} from './encodingkey';
 
 export function TranslateEncoding(gsLayer: gs.Layer, gsMetadata: gs.Metadata, vlMark: vl.Mark): vl.Encoding {

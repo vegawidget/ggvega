@@ -1,4 +1,4 @@
-import * as gs from '../../ggschema/src/gsSpec';
+import * as gs from '../../ggschema/src/index';
 
 export function getEncodingKey(geom: gs.Geom): EncodingKey {
   const key = {

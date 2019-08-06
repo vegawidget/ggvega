@@ -1,5 +1,5 @@
 import * as vl from './vlSpec';
-import * as gs from '../../ggschema/src/gsSpec';
+import * as gs from '../../ggschema/src/index';
 export function TranslateAesParamsNumber(
   gsAesParams: gs.AesParams,
   property: 'size' | 'stroke' | 'alpha',
