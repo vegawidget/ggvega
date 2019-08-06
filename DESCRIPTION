@@ -1,6 +1,6 @@
 Package: ggvega
 Title: Translator from 'ggplot2' to 'Vega-Lite' 
-Version: 0.0.0.9003
+Version: 0.0.0.9006
 Authors@R:
     c(
       person(given = "Haley",
@@ -45,4 +45,6 @@ Imports:
 Suggests: 
     testthat (>= 2.1.0),
     pkgdown,
-    here
+    here,
+    processx,
+    withr

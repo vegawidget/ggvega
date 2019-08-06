@@ -1,18 +1,14 @@
 import * as Mark from './Mark';
-import {
-  LayerEncoding,
-  Scale,
-  XClass,
-  StandardType,
-  YClass,
-  ValueDefWithConditionMarkPropFieldDefNumber,
-  ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull,
-  ValueDefWithConditionMarkPropFieldDefStringNull,
-  TypeForShape
-} from './vlSpec';
+import * as vl from './vlSpec';
+import * as gs from '../../ggschema/src/ggSpec';
 
-export function TranslateEncoding(layer: any, labels: any, layerData: any, scales: any): LayerEncoding | undefined {
-  const layerEncoding: LayerEncoding | undefined = {
+export function TranslateEncoding(
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset,
+  scales: gs.Scale[]
+): vl.LayerEncoding | undefined {
+  const layerEncoding: vl.LayerEncoding | undefined = {
     x: TranslateXClass(layer, labels, layerData, scales),
     y: TranslateYClass(layer, labels, layerData, scales),
     // color: TranslateColor(layer, labels, layerData),
@@ -27,20 +23,27 @@ export function TranslateEncoding(layer: any, labels: any, layerData: any, scale
   return layerEncoding;
 }
 
-function TranslateXClass(layer: any, labels: any, layerData: any, scales: any): XClass | undefined {
-  let field: string = layer['mapping']['x']['field'];
+function TranslateXClass(
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset,
+  scales: gs.Scale[]
+): vl.XClass | undefined {
+  if (!layer.mapping.x) return undefined;
 
-  const type: StandardType = layerData['metadata'][field]['type'];
+  let field: string = layer.mapping.x.field;
 
-  let scale: Scale | undefined;
+  const type: vl.StandardType = layerData.metadata[field].type;
 
-  let title: string = labels['x'];
+  let scale: vl.Scale | undefined;
+
+  let title: string | undefined = labels.x;
 
   for (const ggScale of scales) {
-    if (ggScale['aesthetics'][0] == 'x') {
-      scale = TranslateScale(ggScale['transform']);
+    if (ggScale.aesthetics[0] == 'x') {
+      scale = TranslateScale(ggScale.transform);
 
-      if (ggScale['name']) {
+      if (ggScale.name) {
         title = ggScale['name'];
       }
     }
@@ -48,7 +51,7 @@ function TranslateXClass(layer: any, labels: any, layerData: any, scales: any): 
 
   field = field.replace('.', '\\.');
 
-  const xClass: XClass | undefined = {
+  const xClass: vl.XClass | undefined = {
     field: field,
     type: type,
     title: title,
@@ -58,28 +61,35 @@ function TranslateXClass(layer: any, labels: any, layerData: any, scales: any): 
   return xClass;
 }
 
-function TranslateYClass(layer: any, labels: any, layerData: any, scales: any): YClass | undefined {
-  let field: string = layer['mapping']['y']['field'];
+function TranslateYClass(
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset,
+  scales: gs.Scale[]
+): vl.YClass | undefined {
+  if (!layer.mapping.y) return undefined;
 
-  const type: StandardType = layerData['metadata'][field]['type'];
+  let field: string = layer.mapping.y.field;
 
-  let scale: Scale | undefined;
+  const type: vl.StandardType = layerData.metadata[field].type;
 
-  let title: string = labels['y'];
+  let scale: vl.Scale | undefined;
+
+  let title: string | undefined = labels.y;
 
   for (const ggScale of scales) {
-    if (ggScale['aesthetics'][0] == 'y') {
-      scale = TranslateScale(ggScale['transform']);
+    if (ggScale.aesthetics[0] == 'y') {
+      scale = TranslateScale(ggScale.transform);
 
-      if (ggScale['name']) {
-        title = ggScale['name'];
+      if (ggScale.name) {
+        title = ggScale.name;
       }
     }
   }
 
   field = field.replace('.', '\\.');
 
-  const yClass: YClass | undefined = {
+  const yClass: vl.YClass | undefined = {
     field: field,
     type: type,
     title: title,
@@ -130,38 +140,33 @@ function TranslateYClass(layer: any, labels: any, layerData: any, scales: any): 
  * @param ggSpec is the ggSpec
  */
 function TranslateSize(
-  layer: any,
-  labels: any,
-  layerData: any
-): ValueDefWithConditionMarkPropFieldDefNumber | undefined {
-  let size: ValueDefWithConditionMarkPropFieldDefNumber | undefined;
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset
+): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
+  let size: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
-  if (layer['aes_params']) {
-    if (layer['aes_params']['size']) {
-      if (layer['aes_params']['size']['value']) {
-        size = {
-          value: Mark.TranslatePointSize(layer['aes_params']['size']['value'])
-        };
-      }
-    }
-  }
+  if (layer.aes_params.size)
+    if (layer.geom.class == 'GeomPoint')
+      size = {
+        value: Mark.TranslatePointSize(layer.aes_params.size)
+      };
 
-  if (layer['mapping']['size']) {
-    if (!layer['mapping']['size']['field']) {
+  if (layer.mapping.size) {
+    if (!layer.mapping.size.field) {
       return size;
     }
 
-    let field: string = layer['mapping']['size']['field'];
+    let field: string = layer.mapping.size.field;
 
-    const type: StandardType = layerData['metadata'][field]['type'];
+    const type: vl.StandardType = layerData.metadata[field].type;
 
     field = field.replace('.', '\\.');
 
     size = {
       field: field,
       type: type,
-      title: labels['size'],
-      bin: true
+      title: labels.size
     };
   }
 
@@ -169,81 +174,71 @@ function TranslateSize(
 }
 
 function TranslateShape(
-  layer: any,
-  labels: any,
-  layerData: any
-): ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined {
-  let shape: ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined;
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset
+): vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined {
+  let shape: vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined;
 
-  if (layer['aes_params']) {
-    if (layer['aes_params']['shape']) {
-      if (layer['aes_params']['shape']['value']) {
-        if (layer[`geom`]['class'] == 'GeomPoint') {
-          shape = {
-            value: Mark.TranslatePointShape(layer['aes_params']['shape']['value'])
-          };
-        }
-      }
-    }
+  if (layer.aes_params.shape && layer.geom.class == 'GeomPoint') {
+    shape = {
+      value: Mark.TranslatePointShape(layer.aes_params.shape)
+    };
   }
 
-  if (layer['mapping']['shape']) {
-    if (!layer['mapping']['shape']['field']) {
+  if (layer.mapping.shape) {
+    if (!layer.mapping.shape.field) {
       return shape;
     }
 
-    let field: string = layer['mapping']['shape']['field'];
+    let field: string = layer.mapping.shape.field;
 
-    const type: TypeForShape = layerData['metadata'][field]['type'];
+    const type: vl.TypeForShape = (layerData.metadata[field].type as unknown) as vl.TypeForShape;
 
     field = field.replace('.', '\\.');
 
     shape = {
       field: field,
       type: type,
-      title: labels['shape']
+      title: labels.shape
     };
   }
 
   return shape;
 }
 
-function TranslateScale(transform: any): Scale {
+function TranslateScale(transform: any): vl.Scale {
   return transform;
 }
 
 function TranslateStroke(
-  layer: any,
-  labels: any,
-  layerData: any
-): ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
-  let stroke: ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset
+): vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
+  let stroke: vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 
-  if (layer['aes_params']) {
-    if (layer['aes_params']['colour']) {
-      if (layer['aes_params']['colour']['value']) {
-        stroke = {
-          value: Mark.TranslateStroke(layer['aes_params']['colour']['value'])
-        };
-      }
-    }
+  if (layer.aes_params.colour) {
+    stroke = {
+      value: Mark.TranslateStroke(layer.aes_params.colour)
+    };
   }
 
-  if (layer['mapping']['colour']) {
-    if (!layer['mapping']['colour']['field']) {
+  if (layer.mapping.colour) {
+    if (!layer.mapping.colour.field) {
       return stroke;
     }
 
-    let field: string = layer['mapping']['colour']['field'];
+    let field: string = layer.mapping.colour.field;
 
-    const type: StandardType = layerData['metadata'][field]['type'];
+    const type: vl.StandardType = layerData.metadata[field].type;
 
     field = field.replace('.', '\\.');
 
     stroke = {
       field: field,
       type: type,
-      title: labels['colour']
+      title: labels.colour
     };
   }
 
@@ -251,37 +246,33 @@ function TranslateStroke(
 }
 
 function TranslateStrokeWidth(
-  layer: any,
-  labels: any,
-  layerData: any
-): ValueDefWithConditionMarkPropFieldDefNumber | undefined {
-  let strokeWidth: ValueDefWithConditionMarkPropFieldDefNumber | undefined;
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset
+): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
+  let strokeWidth: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
-  if (layer['aes_params']) {
-    if (layer['aes_params']['stroke']) {
-      if (layer['aes_params']['stroke']['value']) {
-        strokeWidth = {
-          value: Mark.TranslateStrokeWidth(layer['aes_params']['stroke']['value'])
-        };
-      }
-    }
+  if (layer.aes_params.stroke) {
+    strokeWidth = {
+      value: Mark.TranslateStrokeWidth(layer.aes_params.stroke)
+    };
   }
 
-  if (layer['mapping']['stroke']) {
-    if (!layer['mapping']['stroke']['field']) {
+  if (layer.mapping.stroke) {
+    if (!layer.mapping.stroke.field) {
       return strokeWidth;
     }
 
-    let field: string = layer['mapping']['stroke']['field'];
+    let field: string = layer.mapping.stroke.field;
 
-    const type: StandardType = layerData['metadata'][field]['type'];
+    const type: vl.StandardType = layerData.metadata[field].type;
 
     field = field.replace('.', '\\.');
 
     strokeWidth = {
       field: field,
       type: type,
-      title: labels['stroke']
+      title: labels.stroke
     };
   }
 
@@ -289,37 +280,33 @@ function TranslateStrokeWidth(
 }
 
 function TranslateOpacity(
-  layer: any,
-  labels: any,
-  layerData: any
-): ValueDefWithConditionMarkPropFieldDefNumber | undefined {
-  let opacity: ValueDefWithConditionMarkPropFieldDefNumber | undefined;
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset
+): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
+  let opacity: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
 
-  if (layer['aes_params']) {
-    if (layer['aes_params']['alpha']) {
-      if (layer['aes_params']['alpha']['value']) {
-        opacity = {
-          value: Mark.TranslateOpacity(layer['aes_params']['alpha']['value'])
-        };
-      }
-    }
+  if (layer.aes_params.alpha) {
+    opacity = {
+      value: Mark.TranslateOpacity(layer.aes_params.alpha)
+    };
   }
 
-  if (layer['mapping']['alpha']) {
-    if (!layer['mapping']['alpha']['field']) {
+  if (layer.mapping.alpha) {
+    if (!layer.mapping.alpha.field) {
       return opacity;
     }
 
-    let field: string = layer['mapping']['alpha']['field'];
+    let field: string = layer.mapping.alpha.field;
 
-    const type: StandardType = layerData['metadata'][field]['type'];
+    const type: vl.StandardType = layerData.metadata[field].type;
 
     field = field.replace('.', '\\.');
 
     opacity = {
       field: field,
       type: type,
-      title: labels['stroke']
+      title: labels.alpha
     };
   }
 
@@ -327,37 +314,33 @@ function TranslateOpacity(
 }
 
 export function TranslateFill(
-  layer: any,
-  labels: any,
-  layerData: any
-): ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
-  let fill: ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
+  layer: gs.Layer,
+  labels: gs.Labels,
+  layerData: gs.Dataset
+): vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
+  let fill: vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
 
-  if (layer['aes_params']) {
-    if (layer['aes_params']['fill']) {
-      if (layer['aes_params']['fill']['value']) {
-        fill = {
-          value: Mark.TranslateFill(layer['aes_params']['fill']['value'])
-        };
-      }
-    }
+  if (layer.aes_params.fill) {
+    fill = {
+      value: Mark.TranslateFill(layer.aes_params.fill)
+    };
   }
 
-  if (layer['mapping']['fill']) {
-    if (!layer['mapping']['fill']['field']) {
+  if (layer.mapping.fill) {
+    if (!layer.mapping.fill.field) {
       return fill;
     }
 
-    let field: string = layer['mapping']['fill']['field'];
+    let field: string = layer.mapping.fill.field;
 
-    const type: StandardType = layerData['metadata'][field]['type'];
+    const type: vl.StandardType = layerData.metadata[field].type;
 
     field = field.replace('.', '\\.');
 
     fill = {
       field: field,
       type: type,
-      title: labels['colour']
+      title: labels.fill
     };
   }
 
