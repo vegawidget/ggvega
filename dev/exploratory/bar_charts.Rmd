@@ -1,20 +1,23 @@
 ---
 title: "Histograms & Bar Charts"
-output: html_document
+output: github_document
 ---
 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library("vegawidget")
-library("ggplot2")
+library("tidyverse")
+library("ggvega")
 ```
 
 ### Histograms in ggplot2
 
 `geom_histogram()` displays the counts with bars and uses `stat_bin()` by default. 
 
-`stat_bin()` is suitable only for continuous x data. `stat_count()` can be used if the x data is discrete.
+- `stat_bin()` is suitable only for continuous x data.  
+
+- `stat_count()` can be used if the x data is discrete.
 
 `geom_histogram()` uses the same aesthetics as `geom_bar()`
 
@@ -45,15 +48,64 @@ The additions to be noted are `"bin": true` to the x encoding and the `"aggregat
 
 ```
 
+### Histograms in ggspec
+
+A first idea for how a stat would appear in a ggspec layer.
+
+```
+{
+  "layer": {
+    "aes_params": {},
+    "data": "",
+    "geom": {
+      "class": "GeomBar",
+    },
+    "geom_params":{
+      "na.rm": FALSE
+    },
+    "mapping":{
+      "x": {"field": ""},
+      "weight": {"value": 1}
+    },
+    "position": {
+      "class": "PositionStack",
+    },
+    "stat": {
+      "class": "StatBin",
+      "default_aes": {
+        "y": {"stat_operation": "count"},
+        "weight": {"value": 1}
+      },
+      "required_aes": ["x"]
+    },
+    "stat_params": {
+      "binwidth": NULL,
+      "bins": NULL,
+      "na.rm": FALSE,
+      "pad": FALSE
+    }
+  }
+}
+```
+
+Note that `weight` could be mapped to a variable instead of a constant and that the content of `stat_params` would depend on the class of the `stat`
+
+
+
 ### Histogram examples
 
 
 ##### A simple histogram
 
+In ggplot2:
+
 ```{r}
-ggplot(diamonds, aes(carat)) +
+p <- ggplot(diamonds, aes(carat)) +
   geom_histogram()
+p
 ```
+
+In Vega-Lite:
 
 ```{r}
 list(
@@ -68,6 +120,14 @@ list(
   as_vegaspec()
 ```
 
+In ggspec:
+
+```{r}
+sp <- gg2spec(p)
+
+sp$data[[1]]$observations <- sp$data[[1]]$observations[[1]]
+str(sp$layers)
+```
 
 ## Bar charts
 
