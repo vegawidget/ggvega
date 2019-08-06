@@ -30,25 +30,7 @@
       "additionalProperties": false,
       "properties": {
         "metadata": {
-          "additionalProperties": {
-            "additionalProperties": false,
-            "properties": {
-              "levels": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "type": {
-                "$ref": "#/definitions/StandardType"
-              }
-            },
-            "required": [
-              "type"
-            ],
-            "type": "object"
-          },
-          "type": "object"
+          "$ref": "#/definitions/Metadata"
         },
         "observations": {
           "$ref": "#/definitions/InlineDataset"
@@ -103,6 +85,14 @@
       "required": [
         "class"
       ],
+      "type": "object"
+    },
+    "GeomParams": {
+      "additionalProperties": false,
+      "properties": {
+        "params": {
+        }
+      },
       "type": "object"
     },
     "GeomPoint": {
@@ -198,6 +188,7 @@
           "$ref": "#/definitions/Geom"
         },
         "geom_params": {
+          "$ref": "#/definitions/GeomParams"
         },
         "mapping": {
           "$ref": "#/definitions/Mapping"
@@ -254,6 +245,30 @@
       },
       "type": "object"
     },
+    "Metadata": {
+      "additionalProperties": {
+        "$ref": "#/definitions/Metadatum"
+      },
+      "type": "object"
+    },
+    "Metadatum": {
+      "additionalProperties": false,
+      "properties": {
+        "levels": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "type": {
+          "$ref": "#/definitions/StandardType"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
     "Scale": {
       "additionalProperties": false,
       "properties": {
@@ -267,7 +282,7 @@
           "type": "string"
         },
         "transform": {
-          "type": "string"
+          "$ref": "#/definitions/Transform"
         }
       },
       "required": [
@@ -275,6 +290,18 @@
         "transform"
       ],
       "type": "object"
+    },
+    "ScaleType": {
+      "enum": [
+        "log"
+      ],
+      "type": "string"
+    },
+    "Scales": {
+      "items": {
+        "$ref": "#/definitions/Scale"
+      },
+      "type": "array"
     },
     "StandardType": {
       "enum": [
@@ -310,10 +337,7 @@
           "$ref": "#/definitions/Layers"
         },
         "scales": {
-          "items": {
-            "$ref": "#/definitions/Scale"
-          },
-          "type": "array"
+          "$ref": "#/definitions/Scales"
         }
       },
       "required": [
@@ -321,6 +345,22 @@
         "layers",
         "scales",
         "labels"
+      ],
+      "type": "object"
+    },
+    "Transform": {
+      "additionalProperties": false,
+      "properties": {
+        "base": {
+          "type": "number"
+        },
+        "type": {
+          "$ref": "#/definitions/ScaleType"
+        }
+      },
+      "required": [
+        "type",
+        "base"
       ],
       "type": "object"
     }

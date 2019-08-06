@@ -7,11 +7,14 @@ export interface Datasets {
 }
 
 export interface Dataset {
-  metadata: {[key: string]: Metadata};
+  metadata: Metadata;
   observations: InlineDataset;
 }
 
-interface Metadata {
+export interface Metadata {
+  [key: string]: Metadatum;
+}
+export interface Metadatum {
   type: StandardType;
   levels?: string[];
 }
