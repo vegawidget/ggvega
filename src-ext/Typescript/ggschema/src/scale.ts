@@ -1,4 +1,5 @@
 export type Scales = Scale[];
+
 export interface Scale {
   aesthetics: string[];
   transform: Transform;
