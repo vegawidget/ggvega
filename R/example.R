@@ -40,24 +40,6 @@ gg_example_name <- function() {
   .gg_example_name(dir = .gg_example_dir())
 }
 
-#' Get path to ggplot example
-#'
-#' This function can be useful if you are developing this package, e.g.
-#' testing or writing out the visual regressions.
-#'
-#' @param example `character`, name of the example,
-#'   `NULL` prints message containing names of all examples
-#'
-#' @return S3 object with class `fs_path` (wraps `character`),
-#'   path to R file identified by `example`
-#'
-#' @keywords internal
-#' @export
-#'
-gg_example_path_dev <- function(example = NULL) {
-  .gg_example_path(example, dir = .gg_example_dir_dev())
-}
-
 #' @rdname gg_example_name
 #' @export
 #'
@@ -71,31 +53,6 @@ gg_example_path <- function(example = NULL) {
 gg_example <- function(example = NULL) {
 
   content <- gg_example_path(example)
-
-  if (is.null(content)) {
-    return(invisible(NULL))
-  }
-
-  src <- source(content)
-
-  src$value
-}
-
-#' Run ggplot2 example
-#'
-#' This is a developer-facing version of [gg_example()];
-#' it can be useful if you are testing or writing out
-#' visual regressions.
-#'
-#' @inheritParams gg_example_path_dev
-#' @return S3 object with classes `gg` and `ggplot`; a ggplot2 object
-#'
-#' @keywords internal
-#' @export
-#'
-gg_example_dev <- function(example = NULL) {
-
-  content <- gg_example_path_dev(example)
 
   if (is.null(content)) {
     return(invisible(NULL))
@@ -153,7 +110,4 @@ gg_example_dev <- function(example = NULL) {
   here::here("data-raw", "examples")
 }
 
-.gg_example_dir_dev <- function() {
-  fs::path_join(c(.gg_example_root_dev(), "full", "ggplot2"))
-}
 
