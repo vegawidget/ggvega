@@ -1,17 +1,3 @@
-#' Get names of ggplot examples
-#'
-#' This function can be useful if you are developing this package, e.g.
-#' testing or writing out the visual regressions.
-#'
-#' @return `character`, names of examples
-#'
-#' @keywords internal
-#' @export
-#'
-gg_example_name_dev <- function() {
-  .gg_example_name(dir = .gg_example_dir_dev())
-}
-
 #' Use ggplot examples
 #'
 #' This package has a series of example files that hightlight the capabilities
@@ -101,13 +87,6 @@ gg_example <- function(example = NULL) {
   system.file("examples", "ggplot2", package = "ggvega")
 }
 
-.gg_example_root_dev <- function() {
 
-  if (!requireNamespace("here", quietly = TRUE)) {
-    stop("`here` package is needed to run this function")
-  }
-
-  here::here("data-raw", "examples")
-}
 
 
