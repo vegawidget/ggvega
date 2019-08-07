@@ -21,4 +21,3 @@ export interface AesParams {
   alpha?: number;
   fill?: string;
 }
-
