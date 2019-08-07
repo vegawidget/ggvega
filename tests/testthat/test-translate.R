@@ -65,7 +65,7 @@ expect_vegalite <- function(name) {
 
 test_that("gg2spec works", {
 
-  names_exclude <-
+  names_skip <-
     c(
       "barchart-mpg",
       "barchart-stacked-mpg",
@@ -73,14 +73,14 @@ test_that("gg2spec works", {
     )
 
   names_test <- intersect(names_ggplot2, names_ggspec)
-  names_test <- names_test[!names_test %in% names_exclude]
+  names_test <- names_test[!names_test %in% names_skip]
 
   map(names_test, expect_ggspec)
 })
 
 test_that("spec2vl works", {
 
-  names_exclude <-
+  names_skip <-
     c(
       "barchart-mpg",
       "barchart-stacked-mpg",
@@ -88,7 +88,7 @@ test_that("spec2vl works", {
     )
 
   names_test <- intersect(names_ggspec, names_vegalite)
-  names_test <- names_test[!names_test %in% names_exclude]
+  names_test <- names_test[!names_test %in% names_skip]
 
   map(names_test, expect_vegalite)
 })
