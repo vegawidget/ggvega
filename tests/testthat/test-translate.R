@@ -6,7 +6,7 @@ library("stringr")
 library("ggplot2")
 library("purrr")
 
-dir_test_examples <- here("tests", "testthat", "examples")
+dir_test_examples <- path_abs(".", "examples")
 dir_ggplot2 <- path_join(c(dir_test_examples, "ggplot2"))
 dir_ggspec <- path_join(c(dir_test_examples, "ggspec"))
 dir_vegalite <- path_join(c(dir_test_examples, "vega-lite"))
