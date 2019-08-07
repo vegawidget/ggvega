@@ -1,6 +1,7 @@
 import * as vl from './vlSpec';
 import * as gs from '../../ggschema/src/index';
 import {TranslateLayer} from './layer';
+import {DefaultEncodingKey} from './encodingkey';
 
 export function TranslateLayers(
   gsData: gs.Datasets,
@@ -25,34 +26,30 @@ export function TranslateLayers(
   return vlLayers;
 }
 
-//ToDo: Use Map() and ?(EncodingKey)
+//ToDo: if we use Encodingkey, We should use GeomType? But every layer has different GeomType
+//for Each and map don't support break?
 export function LayersLabels(vlLayers: vl.LayerSpec[], gsLabels: gs.Labels): vl.LayerSpec[] {
-  vlLayers.map((vlLayer: vl.LayerSpec) => {
-    if (vlLayer.encoding) {
-      if (vlLayer.encoding.x) {
-        vlLayer.encoding.x.title = gsLabels.x;
+  DefaultEncodingKey.forEach(function(key, value) {
+    if (gsLabels[key]) {
+      for (const vlLayer of vlLayers) {
+        if (vlLayer.encoding) {
+          const vlLayerEncodingValue = vlLayer.encoding[value];
+          if (vlLayerEncodingValue) {
+            vlLayerEncodingValue.title = gsLabels[key];
+            break;
+          }
+        }
       }
-      if (vlLayer.encoding.y) {
-        vlLayer.encoding.y.title = gsLabels.y;
-      }
-      if (vlLayer.encoding.size) {
-        vlLayer.encoding.size.title = gsLabels.size;
-      }
-      if (vlLayer.encoding.shape) {
-        vlLayer.encoding.shape.title = gsLabels.shape;
-      }
-      if (vlLayer.encoding.stroke) {
-        vlLayer.encoding.stroke.title = gsLabels.colour;
-      }
-      if (vlLayer.encoding.strokeWidth) {
-        vlLayer.encoding.strokeWidth.title = gsLabels.stroke;
-      }
-      if (vlLayer.encoding.opacity) {
-        vlLayer.encoding.opacity.title = gsLabels.alpha;
-      }
-      if (vlLayer.encoding.fill) {
-        vlLayer.encoding.fill.title = gsLabels.fill;
-      }
+
+      // vlLayers.map((vlLayer: vl.LayerSpec) => {
+      //   if (vlLayer.encoding) {
+      //     const vlLayerEncodingValue = vlLayer.encoding[value];
+      //     if (vlLayerEncodingValue) {
+      //       vlLayerEncodingValue.title = gsLabels[key];
+      //       return key;
+      //     }
+      //   }
+      // });
     }
   });
 

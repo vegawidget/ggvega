@@ -1,58 +1,66 @@
 import * as gs from '../../ggschema/src/index';
 
-export function getEncodingKey(geom: gs.Geom): EncodingKey {
-  const key = {
-    GeomPoint: getEncodingKeyGeomPoint,
-    GeomBar: getEncodingKeyGeomBar
-  };
+export function getEncodingKey(geom: gs.Geom): Map<VlKey, GsKey> {
+  const EncodingKey = new Map<string, Function>([
+    ['GeomPoint', getEncodingKeyGeomPoint],
+    ['GeomBar', getEncodingKeyGeomBar]
+  ]);
 
-  const fn = key[geom.class];
+  const fn = EncodingKey.get(geom.class);
 
-  try {
-    return fn();
-  } catch (error) {
-    return DefaultEncodingKey;
-  }
+  if (fn) return fn();
+  else return DefaultEncodingKey;
 }
 
-function getEncodingKeyGeomPoint(): EncodingKey {
-  const PointEncodingKey: EncodingKey = {
-    x: 'x',
-    y: 'y',
-    stroke: 'colour',
-    size: 'size',
-    shape: 'shape',
-    strokeWidth: 'stroke',
-    opacity: 'alpha',
-    fill: 'fill'
-  };
+function getEncodingKeyGeomPoint(): Map<VlKey, GsKey> {
+  const PointEncodingKey = new Map<VlKey, GsKey>([
+    [VlKey.X, GsKey.X],
+    [VlKey.Y, GsKey.Y],
+    [VlKey.Stroke, GsKey.Colour],
+    [VlKey.Size, GsKey.Size],
+    [VlKey.Shape, GsKey.Shape],
+    [VlKey.StrokeWidth, GsKey.Stroke],
+    [VlKey.Opacity, GsKey.Alpha],
+    [VlKey.Fill, GsKey.Fill]
+  ]);
 
   return PointEncodingKey;
 }
 
-function getEncodingKeyGeomBar(): EncodingKey {
+function getEncodingKeyGeomBar(): Map<VlKey, GsKey> {
   // logic for this function
   return DefaultEncodingKey;
 }
 
-export interface EncodingKey {
-  x: 'x';
-  y: 'y';
-  stroke: 'colour';
-  size: 'size';
-  shape: 'shape';
-  strokeWidth: 'stroke';
-  opacity: 'alpha';
-  fill: 'fill';
+export enum VlKey {
+  X = 'x',
+  Y = 'y',
+  Stroke = 'stroke',
+  Size = 'size',
+  Shape = 'shape',
+  StrokeWidth = 'strokeWidth',
+  Opacity = 'opacity',
+  Fill = 'fill'
 }
 
-export const DefaultEncodingKey: EncodingKey = {
-  x: 'x',
-  y: 'y',
-  stroke: 'colour',
-  size: 'size',
-  shape: 'shape',
-  strokeWidth: 'stroke',
-  opacity: 'alpha',
-  fill: 'fill'
-};
+export enum GsKey {
+  X = 'x',
+  Y = 'y',
+  Colour = 'colour',
+  Size = 'size',
+  Shape = 'shape',
+  Stroke = 'stroke',
+  Alpha = 'alpha',
+  Fill = 'fill'
+}
+
+export const DefaultEncodingKey = new Map<VlKey, GsKey>([
+  [VlKey.X, GsKey.X],
+  [VlKey.Y, GsKey.Y],
+  [VlKey.Stroke, GsKey.Colour],
+  [VlKey.Size, GsKey.Size],
+  [VlKey.Shape, GsKey.Shape],
+  [VlKey.StrokeWidth, GsKey.Stroke],
+  [VlKey.Opacity, GsKey.Alpha],
+  [VlKey.Fill, GsKey.Fill]
+]);

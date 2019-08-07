@@ -1,38 +1,36 @@
 import * as Mark from './mark';
 import * as vl from './vlSpec';
 import * as gs from '../../ggschema/src/index';
-import {getEncodingKey, EncodingKey} from './encodingkey';
+import {getEncodingKey, GsKey, VlKey} from './encodingkey';
 
 export function TranslateEncoding(gsLayer: gs.Layer, gsMetadata: gs.Metadata, vlMark: vl.Mark): vl.Encoding {
-  const encodingKey: EncodingKey = getEncodingKey(gsLayer.geom);
+  const encodingKey = getEncodingKey(gsLayer.geom);
 
-  const vlEncoding: vl.Encoding = EncodingMapping(gsLayer.mapping, gsLayer.aes_params, gsMetadata, vlMark, encodingKey);
+  let vlEncoding: vl.Encoding = EncodingMapping(gsLayer.mapping, gsMetadata, encodingKey);
+
+  vlEncoding = EncodingAesParams(vlEncoding, gsLayer.aes_params, vlMark);
 
   return vlEncoding;
 }
 
-function EncodingMapping(
-  gsMapping: gs.Mapping,
-  gsAesParams: gs.AesParams,
-  gsMetadata: gs.Metadata,
-  vlMark: vl.Mark,
-  encodingKey: EncodingKey
-): vl.Encoding {
+//TODO: Map.get() will reture undefine
+
+function EncodingMapping(gsMapping: gs.Mapping, gsMetadata: gs.Metadata, encodingKey: Map<VlKey, GsKey>): vl.Encoding {
   const vlEncoding: vl.LayerEncoding = {
-    x: EncodingX(gsMapping.x, gsMetadata),
-    y: EncodingY(gsMapping.y, gsMetadata),
-    size: EncodingNumber(encodingKey.size, gsMapping.size, gsAesParams, gsMetadata, vlMark),
-    shape: EncodingShapeString(encodingKey.shape, gsMapping.shape, gsAesParams, gsMetadata),
-    stroke: EncodingString(encodingKey.stroke, gsMapping.colour, gsAesParams, gsMetadata),
-    strokeWidth: EncodingNumber(encodingKey.strokeWidth, gsMapping.stroke, gsAesParams, gsMetadata, vlMark),
-    opacity: EncodingNumber(encodingKey.opacity, gsMapping.alpha, gsAesParams, gsMetadata, vlMark),
-    fill: EncodingString(encodingKey.fill, gsMapping.fill, gsAesParams, gsMetadata)
+    x: MappingX(gsMapping[(encodingKey.get(VlKey.X) as unknown) as GsKey], gsMetadata),
+    y: MappingY(gsMapping[(encodingKey.get(VlKey.Y) as unknown) as GsKey], gsMetadata),
+    size: MappingNumber(gsMapping[(encodingKey.get(VlKey.Size) as unknown) as GsKey], gsMetadata),
+    shape: MappingShape(gsMapping[(encodingKey.get(VlKey.Shape) as unknown) as GsKey], gsMetadata),
+    stroke: MappingString(gsMapping[(encodingKey.get(VlKey.Stroke) as unknown) as GsKey], gsMetadata),
+    strokeWidth: MappingNumber(gsMapping[(encodingKey.get(VlKey.StrokeWidth) as unknown) as GsKey], gsMetadata),
+    opacity: MappingNumber(gsMapping[(encodingKey.get(VlKey.Opacity) as unknown) as GsKey], gsMetadata),
+    fill: MappingString(gsMapping[(encodingKey.get(VlKey.Fill) as unknown) as GsKey], gsMetadata)
   };
 
   return vlEncoding;
 }
 
-function EncodingX(gsX: gs.Encoding | undefined, gsMetadata: gs.Metadata): vl.XClass | undefined {
+function MappingX(gsX: gs.Encoding | undefined, gsMetadata: gs.Metadata): vl.XClass | undefined {
   if (!gsX) return undefined;
 
   let vlField: string = gsX.field;
@@ -49,7 +47,7 @@ function EncodingX(gsX: gs.Encoding | undefined, gsMetadata: gs.Metadata): vl.XC
   return vlXClass;
 }
 
-function EncodingY(gsY: gs.Encoding | undefined, gsMetadata: gs.Metadata): vl.YClass | undefined {
+function MappingY(gsY: gs.Encoding | undefined, gsMetadata: gs.Metadata): vl.YClass | undefined {
   if (!gsY) return undefined;
 
   let vlField: string = gsY.field;
@@ -66,22 +64,11 @@ function EncodingY(gsY: gs.Encoding | undefined, gsMetadata: gs.Metadata): vl.YC
   return vlYClass;
 }
 
-function EncodingNumber(
-  property: 'size' | 'stroke' | 'alpha',
+function MappingNumber(
   gsEncodingNumber: gs.Encoding | undefined,
-  gsAesParams: gs.AesParams,
-  gsMetadata: gs.Metadata,
-  vlMark: vl.Mark
+  gsMetadata: gs.Metadata
 ): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
-  let vlEncodingNumber: vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined;
-
-  if (gsAesParams[property]) {
-    vlEncodingNumber = {
-      value: Mark.TranslateAesParamsNumber(gsAesParams, property, vlMark)
-    };
-  }
-
-  if (!gsEncodingNumber) return vlEncodingNumber;
+  if (!gsEncodingNumber) return undefined;
 
   let vlField: string = gsEncodingNumber.field;
 
@@ -89,7 +76,7 @@ function EncodingNumber(
 
   vlField = vlField.replace('.', '\\.');
 
-  vlEncodingNumber = {
+  const vlEncodingNumber: vl.ValueDefWithConditionMarkPropFieldDefNumber = {
     field: vlField,
     type: VlType
   };
@@ -97,51 +84,31 @@ function EncodingNumber(
   return vlEncodingNumber;
 }
 
-function EncodingShapeString(
-  property: 'shape',
-  gsEncodingString: gs.Encoding | undefined,
-  gsAesParams: gs.AesParams,
+function MappingShape(
+  gsEncodingShape: gs.Encoding | undefined,
   gsMetadata: gs.Metadata
 ): vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined {
-  let vlEncodingString: vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined;
+  if (!gsEncodingShape) return undefined;
 
-  if (gsAesParams[property]) {
-    vlEncodingString = {
-      value: Mark.TranslateAesParamsShape(gsAesParams, property)
-    };
-  }
-
-  if (!gsEncodingString) return vlEncodingString;
-
-  let vlField: string = gsEncodingString.field;
+  let vlField: string = gsEncodingShape.field;
 
   const VlType: vl.TypeForShape = (gsMetadata[vlField].type as unknown) as vl.TypeForShape;
 
   vlField = vlField.replace('.', '\\.');
 
-  vlEncodingString = {
+  const vlEncodingShape: vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull = {
     field: vlField,
     type: VlType
   };
 
-  return vlEncodingString;
+  return vlEncodingShape;
 }
 
-function EncodingString(
-  property: 'colour' | 'fill',
+function MappingString(
   gsEncodingString: gs.Encoding | undefined,
-  gsAesParams: gs.AesParams,
   gsMetadata: gs.Metadata
 ): vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
-  let vlEncodingString: vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined;
-
-  if (gsAesParams[property]) {
-    vlEncodingString = {
-      value: Mark.TranslateAesParamsString(gsAesParams, property)
-    };
-  }
-
-  if (!gsEncodingString) return vlEncodingString;
+  if (!gsEncodingString) return undefined;
 
   let vlField: string = gsEncodingString.field;
 
@@ -149,10 +116,33 @@ function EncodingString(
 
   vlField = vlField.replace('.', '\\.');
 
-  vlEncodingString = {
+  const vlEncodingString: vl.ValueDefWithConditionMarkPropFieldDefStringNull = {
     field: vlField,
     type: VlType
   };
 
   return vlEncodingString;
+}
+
+function EncodingAesParams(vlEncoding: vl.Encoding, gsAesParams: gs.AesParams, vlMark: vl.Mark): vl.Encoding {
+  if (gsAesParams.size) {
+    vlEncoding.size = {value: Mark.AesParamsSize(gsAesParams.size, vlMark)};
+  }
+  if (gsAesParams.shape) {
+    vlEncoding.shape = {value: Mark.AesParamsShape(gsAesParams.shape)};
+  }
+  if (gsAesParams.colour) {
+    vlEncoding.stroke = {value: gsAesParams.colour};
+  }
+  if (gsAesParams.stroke) {
+    vlEncoding.strokeWidth = {value: gsAesParams.stroke};
+  }
+  if (gsAesParams.alpha) {
+    vlEncoding.opacity = {value: gsAesParams.alpha};
+  }
+  if (gsAesParams.fill) {
+    vlEncoding.fill = {value: gsAesParams.fill};
+  }
+
+  return vlEncoding;
 }

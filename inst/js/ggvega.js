@@ -1033,29 +1033,10 @@
         InvalidValues["Filter"] = "filter";
     })(InvalidValues || (InvalidValues = {}));
 
-    function TranslateAesParamsNumber(gsAesParams, property, vlMark) {
-        var key = {
-            size: AesParamsSize,
-            stroke: NoChangeNumber,
-            alpha: NoChangeNumber
-        };
-        var fn = key[property];
-        return fn(gsAesParams[property], vlMark);
-    }
     function AesParamsSize(gsSize, vlMark) {
         if (gsSize)
             if (vlMark == Mark.Point)
                 return gsSize * 20;
-    }
-    function NoChangeNumber(value) {
-        return value;
-    }
-    function TranslateAesParamsShape(gsAesParams, property) {
-        var key = {
-            shape: AesParamsShape
-        };
-        var fn = key[property];
-        return fn(gsAesParams[property]);
     }
     function AesParamsShape(gsShape) {
         if (gsShape) {
@@ -1072,78 +1053,88 @@
             return gs2vlPointShape[gsShape % 8];
         }
     }
-    function TranslateAesParamsString(gsAesParams, property) {
-        var key = {
-            colour: NoChangeString,
-            fill: NoChangeString
-        };
-        var fn = key[property];
-        return fn(gsAesParams[property]);
-    }
-    function NoChangeString(value) {
-        return value;
-    }
 
     function getEncodingKey(geom) {
-        var key = {
-            GeomPoint: getEncodingKeyGeomPoint,
-            GeomBar: getEncodingKeyGeomBar
-        };
-        var fn = key[geom.class];
-        try {
+        var EncodingKey = new Map([
+            ['GeomPoint', getEncodingKeyGeomPoint],
+            ['GeomBar', getEncodingKeyGeomBar]
+        ]);
+        var fn = EncodingKey.get(geom.class);
+        if (fn)
             return fn();
-        }
-        catch (error) {
+        else
             return DefaultEncodingKey;
-        }
     }
     function getEncodingKeyGeomPoint() {
-        var PointEncodingKey = {
-            x: 'x',
-            y: 'y',
-            stroke: 'colour',
-            size: 'size',
-            shape: 'shape',
-            strokeWidth: 'stroke',
-            opacity: 'alpha',
-            fill: 'fill'
-        };
+        var PointEncodingKey = new Map([
+            [VlKey.X, GsKey.X],
+            [VlKey.Y, GsKey.Y],
+            [VlKey.Stroke, GsKey.Colour],
+            [VlKey.Size, GsKey.Size],
+            [VlKey.Shape, GsKey.Shape],
+            [VlKey.StrokeWidth, GsKey.Stroke],
+            [VlKey.Opacity, GsKey.Alpha],
+            [VlKey.Fill, GsKey.Fill]
+        ]);
         return PointEncodingKey;
     }
     function getEncodingKeyGeomBar() {
         // logic for this function
         return DefaultEncodingKey;
     }
-    var DefaultEncodingKey = {
-        x: 'x',
-        y: 'y',
-        stroke: 'colour',
-        size: 'size',
-        shape: 'shape',
-        strokeWidth: 'stroke',
-        opacity: 'alpha',
-        fill: 'fill'
-    };
+    var VlKey;
+    (function (VlKey) {
+        VlKey["X"] = "x";
+        VlKey["Y"] = "y";
+        VlKey["Stroke"] = "stroke";
+        VlKey["Size"] = "size";
+        VlKey["Shape"] = "shape";
+        VlKey["StrokeWidth"] = "strokeWidth";
+        VlKey["Opacity"] = "opacity";
+        VlKey["Fill"] = "fill";
+    })(VlKey || (VlKey = {}));
+    var GsKey;
+    (function (GsKey) {
+        GsKey["X"] = "x";
+        GsKey["Y"] = "y";
+        GsKey["Colour"] = "colour";
+        GsKey["Size"] = "size";
+        GsKey["Shape"] = "shape";
+        GsKey["Stroke"] = "stroke";
+        GsKey["Alpha"] = "alpha";
+        GsKey["Fill"] = "fill";
+    })(GsKey || (GsKey = {}));
+    var DefaultEncodingKey = new Map([
+        [VlKey.X, GsKey.X],
+        [VlKey.Y, GsKey.Y],
+        [VlKey.Stroke, GsKey.Colour],
+        [VlKey.Size, GsKey.Size],
+        [VlKey.Shape, GsKey.Shape],
+        [VlKey.StrokeWidth, GsKey.Stroke],
+        [VlKey.Opacity, GsKey.Alpha],
+        [VlKey.Fill, GsKey.Fill]
+    ]);
 
     function TranslateEncoding(gsLayer, gsMetadata, vlMark) {
         var encodingKey = getEncodingKey(gsLayer.geom);
-        var vlEncoding = EncodingMapping(gsLayer.mapping, gsLayer.aes_params, gsMetadata, vlMark, encodingKey);
+        var vlEncoding = EncodingMapping(gsLayer.mapping, gsMetadata, encodingKey);
+        vlEncoding = EncodingAesParams(vlEncoding, gsLayer.aes_params, vlMark);
         return vlEncoding;
     }
-    function EncodingMapping(gsMapping, gsAesParams, gsMetadata, vlMark, encodingKey) {
+    function EncodingMapping(gsMapping, gsMetadata, encodingKey) {
         var vlEncoding = {
-            x: EncodingX(gsMapping.x, gsMetadata),
-            y: EncodingY(gsMapping.y, gsMetadata),
-            size: EncodingNumber(encodingKey.size, gsMapping.size, gsAesParams, gsMetadata, vlMark),
-            shape: EncodingShapeString(encodingKey.shape, gsMapping.shape, gsAesParams, gsMetadata),
-            stroke: EncodingString(encodingKey.stroke, gsMapping.colour, gsAesParams, gsMetadata),
-            strokeWidth: EncodingNumber(encodingKey.strokeWidth, gsMapping.stroke, gsAesParams, gsMetadata, vlMark),
-            opacity: EncodingNumber(encodingKey.opacity, gsMapping.alpha, gsAesParams, gsMetadata, vlMark),
-            fill: EncodingString(encodingKey.fill, gsMapping.fill, gsAesParams, gsMetadata)
+            x: MappingX(gsMapping[encodingKey.get(VlKey.X)], gsMetadata),
+            y: MappingY(gsMapping[encodingKey.get(VlKey.Y)], gsMetadata),
+            size: MappingNumber(gsMapping[encodingKey.get(VlKey.Size)], gsMetadata),
+            shape: MappingShape(gsMapping[encodingKey.get(VlKey.Shape)], gsMetadata),
+            stroke: MappingString(gsMapping[encodingKey.get(VlKey.Stroke)], gsMetadata),
+            strokeWidth: MappingNumber(gsMapping[encodingKey.get(VlKey.StrokeWidth)], gsMetadata),
+            opacity: MappingNumber(gsMapping[encodingKey.get(VlKey.Opacity)], gsMetadata),
+            fill: MappingString(gsMapping[encodingKey.get(VlKey.Fill)], gsMetadata)
         };
         return vlEncoding;
     }
-    function EncodingX(gsX, gsMetadata) {
+    function MappingX(gsX, gsMetadata) {
         if (!gsX)
             return undefined;
         var vlField = gsX.field;
@@ -1155,7 +1146,7 @@
         };
         return vlXClass;
     }
-    function EncodingY(gsY, gsMetadata) {
+    function MappingY(gsY, gsMetadata) {
         if (!gsY)
             return undefined;
         var vlField = gsY.field;
@@ -1167,59 +1158,62 @@
         };
         return vlYClass;
     }
-    function EncodingNumber(property, gsEncodingNumber, gsAesParams, gsMetadata, vlMark) {
-        var vlEncodingNumber;
-        if (gsAesParams[property]) {
-            vlEncodingNumber = {
-                value: TranslateAesParamsNumber(gsAesParams, property, vlMark)
-            };
-        }
+    function MappingNumber(gsEncodingNumber, gsMetadata) {
         if (!gsEncodingNumber)
-            return vlEncodingNumber;
+            return undefined;
         var vlField = gsEncodingNumber.field;
         var VlType = gsMetadata[vlField].type;
         vlField = vlField.replace('.', '\\.');
-        vlEncodingNumber = {
+        var vlEncodingNumber = {
             field: vlField,
             type: VlType
         };
         return vlEncodingNumber;
     }
-    function EncodingShapeString(property, gsEncodingString, gsAesParams, gsMetadata) {
-        var vlEncodingString;
-        if (gsAesParams[property]) {
-            vlEncodingString = {
-                value: TranslateAesParamsShape(gsAesParams, property)
-            };
-        }
+    function MappingShape(gsEncodingShape, gsMetadata) {
+        if (!gsEncodingShape)
+            return undefined;
+        var vlField = gsEncodingShape.field;
+        var VlType = gsMetadata[vlField].type;
+        vlField = vlField.replace('.', '\\.');
+        var vlEncodingShape = {
+            field: vlField,
+            type: VlType
+        };
+        return vlEncodingShape;
+    }
+    function MappingString(gsEncodingString, gsMetadata) {
         if (!gsEncodingString)
-            return vlEncodingString;
+            return undefined;
         var vlField = gsEncodingString.field;
         var VlType = gsMetadata[vlField].type;
         vlField = vlField.replace('.', '\\.');
-        vlEncodingString = {
+        var vlEncodingString = {
             field: vlField,
             type: VlType
         };
         return vlEncodingString;
     }
-    function EncodingString(property, gsEncodingString, gsAesParams, gsMetadata) {
-        var vlEncodingString;
-        if (gsAesParams[property]) {
-            vlEncodingString = {
-                value: TranslateAesParamsString(gsAesParams, property)
-            };
+    function EncodingAesParams(vlEncoding, gsAesParams, vlMark) {
+        if (gsAesParams.size) {
+            vlEncoding.size = { value: AesParamsSize(gsAesParams.size, vlMark) };
         }
-        if (!gsEncodingString)
-            return vlEncodingString;
-        var vlField = gsEncodingString.field;
-        var VlType = gsMetadata[vlField].type;
-        vlField = vlField.replace('.', '\\.');
-        vlEncodingString = {
-            field: vlField,
-            type: VlType
-        };
-        return vlEncodingString;
+        if (gsAesParams.shape) {
+            vlEncoding.shape = { value: AesParamsShape(gsAesParams.shape) };
+        }
+        if (gsAesParams.colour) {
+            vlEncoding.stroke = { value: gsAesParams.colour };
+        }
+        if (gsAesParams.stroke) {
+            vlEncoding.strokeWidth = { value: gsAesParams.stroke };
+        }
+        if (gsAesParams.alpha) {
+            vlEncoding.opacity = { value: gsAesParams.alpha };
+        }
+        if (gsAesParams.fill) {
+            vlEncoding.fill = { value: gsAesParams.fill };
+        }
+        return vlEncoding;
     }
 
     /**
@@ -1272,32 +1266,27 @@
     }
     //ToDo: Use Map() and ?(EncodingKey)
     function LayersLabels(vlLayers, gsLabels) {
-        vlLayers.map(function (vlLayer) {
-            if (vlLayer.encoding) {
-                if (vlLayer.encoding.x) {
-                    vlLayer.encoding.x.title = gsLabels.x;
+        DefaultEncodingKey.forEach(function (key, value) {
+            if (gsLabels[key]) {
+                for (var _i = 0, vlLayers_1 = vlLayers; _i < vlLayers_1.length; _i++) {
+                    var vlLayer = vlLayers_1[_i];
+                    if (vlLayer.encoding) {
+                        var vlLayerEncodingValue = vlLayer.encoding[value];
+                        if (vlLayerEncodingValue) {
+                            vlLayerEncodingValue.title = gsLabels[key];
+                            break;
+                        }
+                    }
                 }
-                if (vlLayer.encoding.y) {
-                    vlLayer.encoding.y.title = gsLabels.y;
-                }
-                if (vlLayer.encoding.size) {
-                    vlLayer.encoding.size.title = gsLabels.size;
-                }
-                if (vlLayer.encoding.shape) {
-                    vlLayer.encoding.shape.title = gsLabels.shape;
-                }
-                if (vlLayer.encoding.stroke) {
-                    vlLayer.encoding.stroke.title = gsLabels.colour;
-                }
-                if (vlLayer.encoding.strokeWidth) {
-                    vlLayer.encoding.strokeWidth.title = gsLabels.stroke;
-                }
-                if (vlLayer.encoding.opacity) {
-                    vlLayer.encoding.opacity.title = gsLabels.alpha;
-                }
-                if (vlLayer.encoding.fill) {
-                    vlLayer.encoding.fill.title = gsLabels.fill;
-                }
+                // vlLayers.map((vlLayer: vl.LayerSpec) => {
+                //   if (vlLayer.encoding) {
+                //     const vlLayerEncodingValue = vlLayer.encoding[value];
+                //     if (vlLayerEncodingValue) {
+                //       vlLayerEncodingValue.title = gsLabels[key];
+                //       return key;
+                //     }
+                //   }
+                // });
             }
         });
         return vlLayers;
