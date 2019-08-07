@@ -36,6 +36,9 @@
       "geom": {
         "class": "GeomPoint"
       },
+      "geom_params": {
+        "na.rm": false
+      },
       "mapping": {
         "x": {
           "field": "Sepal.Width"
@@ -47,9 +50,12 @@
           "field": "Species"
         }
       },
-      "aes_params": null,
+      "aes_params": {},
       "stat": {
         "class": "StatIdentity"
+      },
+      "stat_params": {
+        "na.rm": false
       }
     }
   ],
