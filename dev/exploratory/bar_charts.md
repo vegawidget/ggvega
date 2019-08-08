@@ -109,7 +109,8 @@ list(
   as_vegaspec()
 ```
 
-![](bar_charts_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
+    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
 
 In ggspec:
 
@@ -221,7 +222,8 @@ list(
   as_vegaspec()
 ```
 
-![](bar_charts_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
+    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
 
 <br/>
 
@@ -246,7 +248,8 @@ list(
   as_vegaspec()
 ```
 
-![](bar_charts_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
+    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
 
 <br/>
 
@@ -272,7 +275,8 @@ list(
   as_vegaspec()
 ```
 
-![](bar_charts_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
+    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
 
 <br/>
 
@@ -301,7 +305,8 @@ list(
   as_vegaspec()
 ```
 
-![](bar_charts_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
+    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
 
 <br/>
 
@@ -345,7 +350,8 @@ list(
   as_vegaspec()
 ```
 
-![](bar_charts_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
+    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
 
 <br/>
 
@@ -371,7 +377,8 @@ list(
   as_vegaspec()
 ```
 
-![](bar_charts_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
+    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
 
 <br/>
 
