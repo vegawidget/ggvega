@@ -1,4 +1,4 @@
-import {gs2vl, TranslateDatasets, TranslateLayers, removeEmpty} from '../src/compile';
+import {gs2vl, TranslateDatasets} from '../src/compile';
 import * as ggSpec from './ggSpec';
 import * as vlSpec from './vlSpec';
 
@@ -51,47 +51,5 @@ describe('compile/TranslateDatasets', () => {
     const vlDatasets = TranslateDatasets(ggSpec.ggSpec03['data']);
 
     expect(vlDatasets).toEqual(vlSpec.vlSpec03['datasets']);
-  });
-});
-
-describe('compile/TranslateLayers', () => {
-  it('should trabslate `ggSpec.layers` to `vlSpec.layers`', () => {
-    const vlLayers = TranslateLayers(
-      ggSpec.ggSpec01['layers'],
-      ggSpec.ggSpec01['labels'],
-      ggSpec.ggSpec01['data'],
-      ggSpec.ggSpec01['scales']
-    );
-
-    expect(vlLayers).toEqual(vlSpec.vlSpec01['layer']);
-  });
-});
-
-describe('compile/removeEmpty', () => {
-  it('should omit all empty objects in an object', () => {
-    const empty01 = {};
-
-    removeEmpty(empty01);
-
-    expect(empty01).toEqual({});
-
-    const empty02 = {
-      data: {
-        metadata: null,
-        values: [{a: 'A', b: 28}],
-        observations: {
-          values: {}
-        }
-      },
-      title: undefined,
-      layer: {},
-      scale: {
-        class: null
-      }
-    };
-
-    removeEmpty(empty02);
-
-    expect(empty02).toEqual({data: {values: [{a: 'A', b: 28}]}});
   });
 });
