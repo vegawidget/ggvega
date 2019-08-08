@@ -1,0 +1,18 @@
+---
+title: "geom_point"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library("ggvega")
+```
+
+```{r}
+knitr::read_chunk(gg_example_file_("scatterplot-iris"))
+```
