@@ -103,7 +103,7 @@ translate_stat_operation <- function(x) {
 
   expr <- rlang::quo_get_expr(x)
 
-  list(stat_operation = as.character(expr[[2]]))
+  list(stat = as.character(expr[[2]]))
 }
 
 #' Helper function for `get_mappings()` used for variables
