@@ -46,5 +46,11 @@ Suggests:
     testthat (>= 2.1.0),
     pkgdown,
     here,
+    knitr,
+    rmarkdown,
+    stringr,
+    tools,
+    readr,
     processx,
     withr
+VignetteBuilder: knitr

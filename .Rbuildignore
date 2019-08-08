@@ -11,3 +11,5 @@
 ^\.github$
 ^CODE_OF_CONDUCT\.md$
 ^dev/
+^vignettes/geom_point\.Rmd$
+^vignettes/articles-layers-geoms-geom_point\.Rmd$
