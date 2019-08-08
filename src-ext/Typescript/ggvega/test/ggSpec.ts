@@ -1,3 +1,5 @@
+import * as gs from '../../ggschema/src/index';
+
 /* eslint-disable @typescript-eslint/camelcase */
 
 /**
@@ -42,7 +44,7 @@ export const invalidSpec04: any = {
  * Valid ggSpec
  */
 
-export const ggSpec01: any = {
+export const ggSpec01: gs.TopLevelSpec = {
   data: {'data-00': {metadata: {}, observations: {}}},
   labels: {},
   layers: [
