@@ -16,7 +16,7 @@
 #'
 normalize <- function(x) {
 
-  if (length(x) <= 1L) {
+  if (length(x) <= 1L && !is.list(x)) {
     return(x)
   }
 
@@ -27,7 +27,6 @@ normalize <- function(x) {
     x <- x[order(names(x))]
   }
 
-  # call on each element of x
   x <- purrr::map(x, normalize)
 
   x

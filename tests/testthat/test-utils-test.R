@@ -26,4 +26,9 @@ test_that("normalize works", {
     list(a = c(1, 2), b = list(d = 3, e = list(4, 5)))
   )
 
+  expect_norm(
+    list(list(b = 1, a = 2)),
+    list(list(a = 2, b = 1))
+  )
+
 })

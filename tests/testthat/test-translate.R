@@ -56,7 +56,7 @@ expect_vegalite <- function(name) {
   path_vegalite <- fs::path_join(c(dir_vegalite, glue::glue("{name}.vl.json")))
 
   gs <- ggvega:::from_json(path_ggspec)
-  vl <- spec2vl(gs)
+  vl <- ggvega::normalize(spec2vl(gs))
 
   vl_ref <- ggvega:::normalize(ggvega:::from_json(path_vegalite))
 

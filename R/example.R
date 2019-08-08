@@ -88,5 +88,48 @@ gg_example <- function(example = NULL) {
 }
 
 
+#' Return a translated, refrence specs
+#'
+#' @inheritParams gg_example
+#'
+#' @noRd
+#'
+gs_example_set <- function(
+                    example,
+                    path = here::here("tests", "testthat", "examples")
+                  ) {
+
+  dir_ggplot2 <- fs::path_join(c(path, "ggplot2"))
+  dir_ggspec <- fs::path_join(c(path, "ggspec"))
+
+  path_ggplot <- fs::path_join(c(dir_ggplot2, glue::glue("{example}.R")))
+  path_ggspec <- fs::path_join(c(dir_ggspec, glue::glue("{example}.gs.json")))
+
+  gg <- source(path_ggplot)$value
+  gs <- ggvega:::normalize(gg2spec(gg))
+
+  gs_ref <- ggvega:::normalize(ggvega:::from_json(path_ggspec))
+
+  list(gs = gs, gs_ref = gs_ref)
+}
+
+vl_example_set <- function(
+                    example,
+                    path = here::here("tests", "testthat", "examples")
+                  ) {
+
+  dir_ggspec <- fs::path_join(c(path, "ggspec"))
+  dir_vegalite <- fs::path_join(c(path, "vega-lite"))
+
+  path_ggspec <- fs::path_join(c(dir_ggspec, glue::glue("{example}.gs.json")))
+  path_vegalite <- fs::path_join(c(dir_vegalite, glue::glue("{example}.vl.json")))
+
+  gs <- ggvega:::from_json(path_ggspec)
+  vl <- ggvega:::normalize(spec2vl(gs))
+
+  vl_ref <- ggvega:::normalize(ggvega:::from_json(path_vegalite))
+
+  list(vl = vl, vl_ref = vl_ref)
+}
 
 

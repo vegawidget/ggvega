@@ -50,9 +50,14 @@
           "field": "Species"
         }
       },
+      "position": {
+        "class": "PositionIdentity"
+      },
       "aes_params": {},
       "stat": {
-        "class": "StatIdentity"
+        "class": "StatIdentity",
+        "default_aes": {},
+        "required_aes": {}
       },
       "stat_params": {
         "na.rm": false
