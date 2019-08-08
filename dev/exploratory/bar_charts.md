@@ -109,8 +109,7 @@ list(
   as_vegaspec()
 ```
 
-    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
-    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
+![](bar_charts_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 In ggspec:
 
@@ -122,7 +121,8 @@ str(sp$layers)
 ```
 
     ## List of 1
-    ##  $ :List of 7
+    ##  $ :List of 8
+    ##   ..$ aes_params : Named list()
     ##   ..$ data       : chr "data-00"
     ##   ..$ geom       :List of 1
     ##   .. ..$ class: chr "GeomBar"
@@ -131,9 +131,16 @@ str(sp$layers)
     ##   ..$ mapping    :List of 1
     ##   .. ..$ x:List of 1
     ##   .. .. ..$ field: chr "carat"
-    ##   ..$ aes_params : Named list()
-    ##   ..$ stat       :List of 1
-    ##   .. ..$ class: chr "StatBin"
+    ##   ..$ position   :List of 1
+    ##   .. ..$ class: chr "PositionStack"
+    ##   ..$ stat       :List of 3
+    ##   .. ..$ class       : chr "StatBin"
+    ##   .. ..$ default_aes :List of 2
+    ##   .. .. ..$ y     :List of 1
+    ##   .. .. .. ..$ stat: chr "count"
+    ##   .. .. ..$ weight:List of 1
+    ##   .. .. .. ..$ value: num 1
+    ##   .. ..$ required_aes: chr "x"
     ##   ..$ stat_params:List of 4
     ##   .. ..$ binwidth: NULL
     ##   .. ..$ bins    : NULL
@@ -222,8 +229,7 @@ list(
   as_vegaspec()
 ```
 
-    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
-    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
+![](bar_charts_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 <br/>
 
@@ -248,8 +254,7 @@ list(
   as_vegaspec()
 ```
 
-    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
-    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
+![](bar_charts_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 <br/>
 
@@ -275,8 +280,7 @@ list(
   as_vegaspec()
 ```
 
-    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
-    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
+![](bar_charts_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 <br/>
 
@@ -305,8 +309,7 @@ list(
   as_vegaspec()
 ```
 
-    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
-    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
+![](bar_charts_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 <br/>
 
@@ -350,8 +353,7 @@ list(
   as_vegaspec()
 ```
 
-    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
-    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
+![](bar_charts_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 <br/>
 
@@ -377,8 +379,7 @@ list(
   as_vegaspec()
 ```
 
-    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
-    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
+![](bar_charts_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 <br/>
 
