@@ -1121,6 +1121,7 @@
         vlEncoding = EncodingAesParams(vlEncoding, gsLayer.aes_params, vlMark);
         return vlEncoding;
     }
+    //TODO: Map.get() will reture undefine
     function EncodingMapping(gsMapping, gsMetadata, encodingKey) {
         var vlEncoding = {
             x: MappingX(gsMapping[encodingKey.get(VlKey.X)], gsMetadata),
@@ -1264,7 +1265,8 @@
         vlLayers = LayersScales(vlLayers, gsScales);
         return vlLayers;
     }
-    //ToDo: Use Map() and ?(EncodingKey)
+    //ToDo: if we use Encodingkey, We should use GeomType? But every layer has different GeomType
+    //for Each and map don't support break?
     function LayersLabels(vlLayers, gsLabels) {
         DefaultEncodingKey.forEach(function (key, value) {
             if (gsLabels[key]) {
