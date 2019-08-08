@@ -3,7 +3,7 @@ import * as ggSpec from './ggSpec';
 import * as vlSpec from './vlSpec';
 
 describe('The test of the ts test', () => {
-  it('should always fail', () => {
+  it('should always fail when we set the value to `false`', () => {
     expect(true).toBeTruthy();
   });
 });

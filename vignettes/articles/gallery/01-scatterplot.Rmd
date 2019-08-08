@@ -1,0 +1,35 @@
+---
+title: "Scatterplot"
+---
+
+```{r setup}
+library("ggvega")
+library("ggplot2")
+```
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r code=readLines(gg_example_file_dev("scatterplot-iris")), tidy=TRUE, tidy.opts=list(comment=FALSE)}
+```
+
+```{r}
+#knitr::read_chunk(gg_example_file_dev("scatterplot-iris"))
+```
+
+## Scatterplot
+
+```{r}
+plot <- 
+<<scatterplot-iris>>
+  
+plot
+```
+
+```{r}
+#as_vegaspec(plot)
+```
