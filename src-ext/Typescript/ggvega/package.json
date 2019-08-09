@@ -13,7 +13,8 @@
     "build": "npm run build:only && npm run copy",
     "build:only": "tsc && rollup -c",
     "copy": "copyfiles -f build/ggvega.js ../../../inst/js",
-    "test": "jest test/"
+    "test": "jest test/",
+    "doc": "typedoc --out docs ./src --mode modules"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",
@@ -33,6 +34,7 @@
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^5.0.1",
     "ts-jest": "^24.0.2",
+    "typedoc": "^0.15.0",
     "typescript": "*"
   },
   "dependencies": {},

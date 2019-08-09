@@ -3,6 +3,21 @@ import * as gs from '../../ggschema/src/index';
 import {TranslateLayers} from './layers';
 import {validateGs} from './util';
 
+/**
+ * Retures vlSpec
+ * Here is an example of comments in Typescript. For now vscode can generate `Jsdoc` automaticly.
+ * And `Tsdoc` is under active developing. ***Typedoc*** supports both `Jsdoc` and `Tsdoc`
+ *
+ * @remarks
+ * This method is ...
+ * @param ggJson - Input ggSpec
+ *
+ * @see {@link https://github.com/Microsoft/TypeScript/issues/16498}
+ *
+ * @returns vlSpec
+ *
+ * @beta
+ */
 export function gs2vl(ggJson: any): vl.TopLevelSpec {
   validateGs(ggJson);
 

@@ -3,3 +3,4 @@ coverage
 .yarnrc
 yarn-error.log
 build
+docs
