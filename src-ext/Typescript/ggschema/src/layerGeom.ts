@@ -8,6 +8,3 @@ export interface GeomBar {
   class: 'GeomBar';
 }
 
-export interface GeomParams {
-  params?: any;
-}

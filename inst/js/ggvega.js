@@ -1404,14 +1404,6 @@
     		],
     		type: "object"
     	},
-    	GeomParams: {
-    		additionalProperties: false,
-    		properties: {
-    			params: {
-    			}
-    		},
-    		type: "object"
-    	},
     	GeomPoint: {
     		additionalProperties: false,
     		properties: {
@@ -1505,7 +1497,6 @@
     				$ref: "#/definitions/Geom"
     			},
     			geom_params: {
-    				$ref: "#/definitions/GeomParams"
     			},
     			mapping: {
     				$ref: "#/definitions/Mapping"
@@ -8835,6 +8826,21 @@
         return valid;
     }
 
+    /**
+     * Retures vlSpec
+     * Here is an example of comments in Typescript. For now vscode can generate `Jsdoc` automaticly.
+     * And `Tsdoc` is under active developing. ***Typedoc*** supports both `Jsdoc` and `Tsdoc`
+     *
+     * @remarks
+     * This method is ...
+     * @param ggJson - Input ggSpec
+     *
+     * @see {@link https://github.com/Microsoft/TypeScript/issues/16498}
+     *
+     * @returns vlSpec
+     *
+     * @beta
+     */
     function gs2vl(ggJson) {
         validateGs(ggJson);
         var gsSpec = ggJson;

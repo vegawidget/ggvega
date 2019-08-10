@@ -87,14 +87,6 @@
       ],
       "type": "object"
     },
-    "GeomParams": {
-      "additionalProperties": false,
-      "properties": {
-        "params": {
-        }
-      },
-      "type": "object"
-    },
     "GeomPoint": {
       "additionalProperties": false,
       "properties": {
@@ -188,7 +180,6 @@
           "$ref": "#/definitions/Geom"
         },
         "geom_params": {
-          "$ref": "#/definitions/GeomParams"
         },
         "mapping": {
           "$ref": "#/definitions/Mapping"
