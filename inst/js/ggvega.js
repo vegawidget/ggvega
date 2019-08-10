@@ -1055,37 +1055,20 @@
     }
 
     function getEncodingKey(geom) {
-        var EncodingKey = new Map([
-            ['GeomPoint', getEncodingKeyGeomPoint],
-            ['GeomBar', getEncodingKeyGeomBar]
-        ]);
-        var fn = EncodingKey.get(geom.class);
+        var EncodingKey = {
+            GeomPoint: getEncodingKeyGeomPoint,
+            GeomBar: getEncodingKeyGeomBar
+        };
+        var fn = EncodingKey[geom.class];
         if (fn)
             return fn();
         else
             return DefaultEncodingKey;
     }
-    function getEncodingKeyGeomPoint() {
-        var PointEncodingKey = new Map([
-            [VlKey.X, GsKey.X],
-            [VlKey.Y, GsKey.Y],
-            [VlKey.Stroke, GsKey.Colour],
-            [VlKey.Size, GsKey.Size],
-            [VlKey.Shape, GsKey.Shape],
-            [VlKey.StrokeWidth, GsKey.Stroke],
-            [VlKey.Opacity, GsKey.Alpha],
-            [VlKey.Fill, GsKey.Fill]
-        ]);
-        return PointEncodingKey;
-    }
-    function getEncodingKeyGeomBar() {
-        // logic for this function
-        return DefaultEncodingKey;
-    }
     var VlKey;
     (function (VlKey) {
-        VlKey["X"] = "x";
-        VlKey["Y"] = "y";
+        VlKey["x"] = "x";
+        VlKey["y"] = "y";
         VlKey["Stroke"] = "stroke";
         VlKey["Size"] = "size";
         VlKey["Shape"] = "shape";
@@ -1104,16 +1087,33 @@
         GsKey["Alpha"] = "alpha";
         GsKey["Fill"] = "fill";
     })(GsKey || (GsKey = {}));
-    var DefaultEncodingKey = new Map([
-        [VlKey.X, GsKey.X],
-        [VlKey.Y, GsKey.Y],
-        [VlKey.Stroke, GsKey.Colour],
-        [VlKey.Size, GsKey.Size],
-        [VlKey.Shape, GsKey.Shape],
-        [VlKey.StrokeWidth, GsKey.Stroke],
-        [VlKey.Opacity, GsKey.Alpha],
-        [VlKey.Fill, GsKey.Fill]
-    ]);
+    function getEncodingKeyGeomPoint() {
+        var PointEncodingKey = {
+            x: GsKey.X,
+            y: GsKey.Y,
+            stroke: GsKey.Colour,
+            size: GsKey.Size,
+            shape: GsKey.Shape,
+            strokeWidth: GsKey.Stroke,
+            opacity: GsKey.Alpha,
+            fill: GsKey.Fill
+        };
+        return PointEncodingKey;
+    }
+    function getEncodingKeyGeomBar() {
+        // logic for this function
+        return DefaultEncodingKey;
+    }
+    var DefaultEncodingKey = {
+        x: GsKey.X,
+        y: GsKey.Y,
+        stroke: GsKey.Colour,
+        size: GsKey.Size,
+        shape: GsKey.Shape,
+        strokeWidth: GsKey.Stroke,
+        opacity: GsKey.Alpha,
+        fill: GsKey.Fill
+    };
 
     function TranslateEncoding(gsLayer, gsMetadata, vlMark) {
         var encodingKey = getEncodingKey(gsLayer.geom);
@@ -1121,17 +1121,16 @@
         vlEncoding = EncodingAesParams(vlEncoding, gsLayer.aes_params, vlMark);
         return vlEncoding;
     }
-    //TODO: Map.get() will reture undefine
     function EncodingMapping(gsMapping, gsMetadata, encodingKey) {
         var vlEncoding = {
-            x: MappingX(gsMapping[encodingKey.get(VlKey.X)], gsMetadata),
-            y: MappingY(gsMapping[encodingKey.get(VlKey.Y)], gsMetadata),
-            size: MappingNumber(gsMapping[encodingKey.get(VlKey.Size)], gsMetadata),
-            shape: MappingShape(gsMapping[encodingKey.get(VlKey.Shape)], gsMetadata),
-            stroke: MappingString(gsMapping[encodingKey.get(VlKey.Stroke)], gsMetadata),
-            strokeWidth: MappingNumber(gsMapping[encodingKey.get(VlKey.StrokeWidth)], gsMetadata),
-            opacity: MappingNumber(gsMapping[encodingKey.get(VlKey.Opacity)], gsMetadata),
-            fill: MappingString(gsMapping[encodingKey.get(VlKey.Fill)], gsMetadata)
+            x: MappingX(gsMapping[encodingKey.x], gsMetadata),
+            y: MappingY(gsMapping[encodingKey.y], gsMetadata),
+            size: MappingNumber(gsMapping[encodingKey.size], gsMetadata),
+            shape: MappingShape(gsMapping[encodingKey.shape], gsMetadata),
+            stroke: MappingString(gsMapping[encodingKey.stroke], gsMetadata),
+            strokeWidth: MappingNumber(gsMapping[encodingKey.strokeWidth], gsMetadata),
+            opacity: MappingNumber(gsMapping[encodingKey.opacity], gsMetadata),
+            fill: MappingString(gsMapping[encodingKey.fill], gsMetadata)
         };
         return vlEncoding;
     }
@@ -1268,29 +1267,20 @@
     //ToDo: if we use Encodingkey, We should use GeomType? But every layer has different GeomType
     //for Each and map don't support break?
     function LayersLabels(vlLayers, gsLabels) {
-        DefaultEncodingKey.forEach(function (key, value) {
-            if (gsLabels[key]) {
+        for (var key in DefaultEncodingKey) {
+            if (gsLabels[DefaultEncodingKey[key]]) {
                 for (var _i = 0, vlLayers_1 = vlLayers; _i < vlLayers_1.length; _i++) {
                     var vlLayer = vlLayers_1[_i];
                     if (vlLayer.encoding) {
-                        var vlLayerEncodingValue = vlLayer.encoding[value];
+                        var vlLayerEncodingValue = vlLayer.encoding[key];
                         if (vlLayerEncodingValue) {
-                            vlLayerEncodingValue.title = gsLabels[key];
+                            vlLayerEncodingValue.title = gsLabels[DefaultEncodingKey[key]];
                             break;
                         }
                     }
                 }
-                // vlLayers.map((vlLayer: vl.LayerSpec) => {
-                //   if (vlLayer.encoding) {
-                //     const vlLayerEncodingValue = vlLayer.encoding[value];
-                //     if (vlLayerEncodingValue) {
-                //       vlLayerEncodingValue.title = gsLabels[key];
-                //       return key;
-                //     }
-                //   }
-                // });
             }
-        });
+        }
         return vlLayers;
     }
     function LayersScales(vlLayers, gsScales) {
