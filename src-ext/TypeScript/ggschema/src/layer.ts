@@ -1,4 +1,4 @@
-import {Geom, GeomParams} from './layerGeom';
+import {Geom} from './layerGeom';
 import {Mapping, AesParams} from './layerMapping';
 import {Stat} from './layerStat';
 /**
@@ -6,13 +6,10 @@ import {Stat} from './layerStat';
  * @minItems 1
  */
 export type Layers = Layer[];
-export interface Layer {
+export interface BaseLayer {
   data: string;
-  geom: Geom;
-  geom_params?: GeomParams;
-
   mapping: Mapping;
   aes_params: AesParams;
-  stat?: Stat;
-  stat_params?: any;
 }
+
+export type Layer = BaseLayer & Geom & Stat;

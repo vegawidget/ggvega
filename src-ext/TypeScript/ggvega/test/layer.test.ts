@@ -16,8 +16,4 @@ describe('LayerSpec/TranslateMart', () => {
       TranslateMark(ggSpec.invalidSpec04['layers'][0]['geom']);
     }).toThrowError();
   });
-
-  it('should translate ggplot `geom` to vega-lite `mark`', () => {
-    expect(TranslateMark(ggSpec.ggSpec01['layers'][0]['geom'])).toEqual(vlSpec.vlSpec01['layer'][0]['mark']);
-  });
 });

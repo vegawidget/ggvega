@@ -1,10 +1,11 @@
 import * as Mark from './mark';
 import * as vl from './vlSpec';
 import * as gs from '../../ggschema/src/index';
-import {getEncodingKey, GsKey, VlKey} from './encodingkey';
+import {getEncodingKey, EncodingKey} from './encodingkey';
 
 export function TranslateEncoding(gsLayer: gs.Layer, gsMetadata: gs.Metadata, vlMark: vl.Mark): vl.Encoding {
-  const encodingKey = getEncodingKey(gsLayer.geom);
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  const encodingKey = getEncodingKey({geom: gsLayer.geom, geom_params: gsLayer.geom_params} as gs.Geom);
 
   let vlEncoding: vl.Encoding = EncodingMapping(gsLayer.mapping, gsMetadata, encodingKey);
 
@@ -13,18 +14,16 @@ export function TranslateEncoding(gsLayer: gs.Layer, gsMetadata: gs.Metadata, vl
   return vlEncoding;
 }
 
-//TODO: Map.get() will reture undefine
-
-function EncodingMapping(gsMapping: gs.Mapping, gsMetadata: gs.Metadata, encodingKey: Map<VlKey, GsKey>): vl.Encoding {
+function EncodingMapping(gsMapping: gs.Mapping, gsMetadata: gs.Metadata, encodingKey: EncodingKey): vl.Encoding {
   const vlEncoding: vl.LayerEncoding = {
-    x: MappingX(gsMapping[(encodingKey.get(VlKey.X) as unknown) as GsKey], gsMetadata),
-    y: MappingY(gsMapping[(encodingKey.get(VlKey.Y) as unknown) as GsKey], gsMetadata),
-    size: MappingNumber(gsMapping[(encodingKey.get(VlKey.Size) as unknown) as GsKey], gsMetadata),
-    shape: MappingShape(gsMapping[(encodingKey.get(VlKey.Shape) as unknown) as GsKey], gsMetadata),
-    stroke: MappingString(gsMapping[(encodingKey.get(VlKey.Stroke) as unknown) as GsKey], gsMetadata),
-    strokeWidth: MappingNumber(gsMapping[(encodingKey.get(VlKey.StrokeWidth) as unknown) as GsKey], gsMetadata),
-    opacity: MappingNumber(gsMapping[(encodingKey.get(VlKey.Opacity) as unknown) as GsKey], gsMetadata),
-    fill: MappingString(gsMapping[(encodingKey.get(VlKey.Fill) as unknown) as GsKey], gsMetadata)
+    x: MappingX(gsMapping[encodingKey.x], gsMetadata),
+    y: MappingY(gsMapping[encodingKey.y], gsMetadata),
+    size: MappingNumber(gsMapping[encodingKey.size], gsMetadata),
+    shape: MappingShape(gsMapping[encodingKey.shape], gsMetadata),
+    stroke: MappingString(gsMapping[encodingKey.stroke], gsMetadata),
+    strokeWidth: MappingNumber(gsMapping[encodingKey.strokeWidth], gsMetadata),
+    opacity: MappingNumber(gsMapping[encodingKey.opacity], gsMetadata),
+    fill: MappingString(gsMapping[encodingKey.fill], gsMetadata)
   };
 
   return vlEncoding;

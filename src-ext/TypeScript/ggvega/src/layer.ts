@@ -21,7 +21,8 @@ export function GetMetadata(gsData: gs.Datasets, gsLayer: gs.Layer): gs.Metadata
 }
 
 export function StartLayer(gsLayer: gs.Layer, gsMetadata: gs.Metadata): vl.LayerSpec {
-  const vlMark: vl.Mark = TranslateMark(gsLayer.geom);
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  const vlMark: vl.Mark = TranslateMark({geom: gsLayer.geom, geom_params: gsLayer.geom_params} as gs.Geom);
 
   const vlLayer: vl.LayerSpec = {
     data: {
@@ -36,7 +37,7 @@ export function StartLayer(gsLayer: gs.Layer, gsMetadata: gs.Metadata): vl.Layer
 
 export function TranslateMark(geom: gs.Geom): vl.Mark {
   let mark: vl.Mark;
-  if (geom.class == 'GeomPoint') {
+  if (geom.geom.class == 'GeomPoint') {
     mark = vl.Mark.Point;
   } else {
     throw new Error('geom.class can only be `GeomPoint`');

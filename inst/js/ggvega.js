@@ -1055,37 +1055,20 @@
     }
 
     function getEncodingKey(geom) {
-        var EncodingKey = new Map([
-            ['GeomPoint', getEncodingKeyGeomPoint],
-            ['GeomBar', getEncodingKeyGeomBar]
-        ]);
-        var fn = EncodingKey.get(geom.class);
+        var EncodingKey = {
+            GeomPoint: getEncodingKeyGeomPoint,
+            GeomBar: getEncodingKeyGeomBar
+        };
+        var fn = EncodingKey[geom.geom.class];
         if (fn)
             return fn();
         else
             return DefaultEncodingKey;
     }
-    function getEncodingKeyGeomPoint() {
-        var PointEncodingKey = new Map([
-            [VlKey.X, GsKey.X],
-            [VlKey.Y, GsKey.Y],
-            [VlKey.Stroke, GsKey.Colour],
-            [VlKey.Size, GsKey.Size],
-            [VlKey.Shape, GsKey.Shape],
-            [VlKey.StrokeWidth, GsKey.Stroke],
-            [VlKey.Opacity, GsKey.Alpha],
-            [VlKey.Fill, GsKey.Fill]
-        ]);
-        return PointEncodingKey;
-    }
-    function getEncodingKeyGeomBar() {
-        // logic for this function
-        return DefaultEncodingKey;
-    }
     var VlKey;
     (function (VlKey) {
-        VlKey["X"] = "x";
-        VlKey["Y"] = "y";
+        VlKey["x"] = "x";
+        VlKey["y"] = "y";
         VlKey["Stroke"] = "stroke";
         VlKey["Size"] = "size";
         VlKey["Shape"] = "shape";
@@ -1104,34 +1087,51 @@
         GsKey["Alpha"] = "alpha";
         GsKey["Fill"] = "fill";
     })(GsKey || (GsKey = {}));
-    var DefaultEncodingKey = new Map([
-        [VlKey.X, GsKey.X],
-        [VlKey.Y, GsKey.Y],
-        [VlKey.Stroke, GsKey.Colour],
-        [VlKey.Size, GsKey.Size],
-        [VlKey.Shape, GsKey.Shape],
-        [VlKey.StrokeWidth, GsKey.Stroke],
-        [VlKey.Opacity, GsKey.Alpha],
-        [VlKey.Fill, GsKey.Fill]
-    ]);
+    function getEncodingKeyGeomPoint() {
+        var PointEncodingKey = {
+            x: GsKey.X,
+            y: GsKey.Y,
+            stroke: GsKey.Colour,
+            size: GsKey.Size,
+            shape: GsKey.Shape,
+            strokeWidth: GsKey.Stroke,
+            opacity: GsKey.Alpha,
+            fill: GsKey.Fill
+        };
+        return PointEncodingKey;
+    }
+    function getEncodingKeyGeomBar() {
+        // logic for this function
+        return DefaultEncodingKey;
+    }
+    var DefaultEncodingKey = {
+        x: GsKey.X,
+        y: GsKey.Y,
+        stroke: GsKey.Colour,
+        size: GsKey.Size,
+        shape: GsKey.Shape,
+        strokeWidth: GsKey.Stroke,
+        opacity: GsKey.Alpha,
+        fill: GsKey.Fill
+    };
 
     function TranslateEncoding(gsLayer, gsMetadata, vlMark) {
-        var encodingKey = getEncodingKey(gsLayer.geom);
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        var encodingKey = getEncodingKey({ geom: gsLayer.geom, geom_params: gsLayer.geom_params });
         var vlEncoding = EncodingMapping(gsLayer.mapping, gsMetadata, encodingKey);
         vlEncoding = EncodingAesParams(vlEncoding, gsLayer.aes_params, vlMark);
         return vlEncoding;
     }
-    //TODO: Map.get() will reture undefine
     function EncodingMapping(gsMapping, gsMetadata, encodingKey) {
         var vlEncoding = {
-            x: MappingX(gsMapping[encodingKey.get(VlKey.X)], gsMetadata),
-            y: MappingY(gsMapping[encodingKey.get(VlKey.Y)], gsMetadata),
-            size: MappingNumber(gsMapping[encodingKey.get(VlKey.Size)], gsMetadata),
-            shape: MappingShape(gsMapping[encodingKey.get(VlKey.Shape)], gsMetadata),
-            stroke: MappingString(gsMapping[encodingKey.get(VlKey.Stroke)], gsMetadata),
-            strokeWidth: MappingNumber(gsMapping[encodingKey.get(VlKey.StrokeWidth)], gsMetadata),
-            opacity: MappingNumber(gsMapping[encodingKey.get(VlKey.Opacity)], gsMetadata),
-            fill: MappingString(gsMapping[encodingKey.get(VlKey.Fill)], gsMetadata)
+            x: MappingX(gsMapping[encodingKey.x], gsMetadata),
+            y: MappingY(gsMapping[encodingKey.y], gsMetadata),
+            size: MappingNumber(gsMapping[encodingKey.size], gsMetadata),
+            shape: MappingShape(gsMapping[encodingKey.shape], gsMetadata),
+            stroke: MappingString(gsMapping[encodingKey.stroke], gsMetadata),
+            strokeWidth: MappingNumber(gsMapping[encodingKey.strokeWidth], gsMetadata),
+            opacity: MappingNumber(gsMapping[encodingKey.opacity], gsMetadata),
+            fill: MappingString(gsMapping[encodingKey.fill], gsMetadata)
         };
         return vlEncoding;
     }
@@ -1232,7 +1232,8 @@
         return gsData[gsLayer.data].metadata;
     }
     function StartLayer(gsLayer, gsMetadata) {
-        var vlMark = TranslateMark(gsLayer.geom);
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        var vlMark = TranslateMark({ geom: gsLayer.geom, geom_params: gsLayer.geom_params });
         var vlLayer = {
             data: {
                 name: gsLayer.data
@@ -1244,7 +1245,7 @@
     }
     function TranslateMark(geom) {
         var mark;
-        if (geom.class == 'GeomPoint') {
+        if (geom.geom.class == 'GeomPoint') {
             mark = Mark.Point;
         }
         else {
@@ -1268,29 +1269,20 @@
     //ToDo: if we use Encodingkey, We should use GeomType? But every layer has different GeomType
     //for Each and map don't support break?
     function LayersLabels(vlLayers, gsLabels) {
-        DefaultEncodingKey.forEach(function (key, value) {
-            if (gsLabels[key]) {
+        for (var key in DefaultEncodingKey) {
+            if (gsLabels[DefaultEncodingKey[key]]) {
                 for (var _i = 0, vlLayers_1 = vlLayers; _i < vlLayers_1.length; _i++) {
                     var vlLayer = vlLayers_1[_i];
                     if (vlLayer.encoding) {
-                        var vlLayerEncodingValue = vlLayer.encoding[value];
+                        var vlLayerEncodingValue = vlLayer.encoding[key];
                         if (vlLayerEncodingValue) {
-                            vlLayerEncodingValue.title = gsLabels[key];
+                            vlLayerEncodingValue.title = gsLabels[DefaultEncodingKey[key]];
                             break;
                         }
                     }
                 }
-                // vlLayers.map((vlLayer: vl.LayerSpec) => {
-                //   if (vlLayer.encoding) {
-                //     const vlLayerEncodingValue = vlLayer.encoding[value];
-                //     if (vlLayerEncodingValue) {
-                //       vlLayerEncodingValue.title = gsLabels[key];
-                //       return key;
-                //     }
-                //   }
-                // });
             }
-        });
+        }
         return vlLayers;
     }
     function LayersScales(vlLayers, gsScales) {
@@ -1379,54 +1371,6 @@
     		],
     		type: "object"
     	},
-    	Geom: {
-    		anyOf: [
-    			{
-    				$ref: "#/definitions/GeomPoint"
-    			},
-    			{
-    				$ref: "#/definitions/GeomBar"
-    			}
-    		]
-    	},
-    	GeomBar: {
-    		additionalProperties: false,
-    		properties: {
-    			"class": {
-    				"enum": [
-    					"GeomBar"
-    				],
-    				type: "string"
-    			}
-    		},
-    		required: [
-    			"class"
-    		],
-    		type: "object"
-    	},
-    	GeomParams: {
-    		additionalProperties: false,
-    		properties: {
-    			params: {
-    			}
-    		},
-    		type: "object"
-    	},
-    	GeomPoint: {
-    		additionalProperties: false,
-    		properties: {
-    			"class": {
-    				"enum": [
-    					"GeomPoint"
-    				],
-    				type: "string"
-    			}
-    		},
-    		required: [
-    			"class"
-    		],
-    		type: "object"
-    	},
     	InlineDataset: {
     		anyOf: [
     			{
@@ -1493,36 +1437,164 @@
     		type: "object"
     	},
     	Layer: {
-    		additionalProperties: false,
-    		properties: {
-    			aes_params: {
-    				$ref: "#/definitions/AesParams"
+    		anyOf: [
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomPoint"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/Mapping"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatIdentity"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
     			},
-    			data: {
-    				type: "string"
-    			},
-    			geom: {
-    				$ref: "#/definitions/Geom"
-    			},
-    			geom_params: {
-    				$ref: "#/definitions/GeomParams"
-    			},
-    			mapping: {
-    				$ref: "#/definitions/Mapping"
-    			},
-    			stat: {
-    				$ref: "#/definitions/Stat"
-    			},
-    			stat_params: {
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomBar"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/Mapping"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatIdentity"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
     			}
-    		},
-    		required: [
-    			"data",
-    			"geom",
-    			"mapping",
-    			"aes_params"
-    		],
-    		type: "object"
+    		]
     	},
     	Layers: {
     		description: "The `Layers` should have at least one layer",
@@ -1629,15 +1701,40 @@
     		],
     		type: "string"
     	},
-    	Stat: {
+    	StatIdentity: {
     		additionalProperties: false,
     		properties: {
-    			"class": {
-    				type: "string"
+    			stat: {
+    				additionalProperties: false,
+    				properties: {
+    					"class": {
+    						"enum": [
+    							"StatIdentity"
+    						],
+    						type: "string"
+    					}
+    				},
+    				required: [
+    					"class"
+    				],
+    				type: "object"
+    			},
+    			stat_params: {
+    				additionalProperties: false,
+    				properties: {
+    					"na.rm": {
+    						type: "boolean"
+    					}
+    				},
+    				required: [
+    					"na.rm"
+    				],
+    				type: "object"
     			}
     		},
     		required: [
-    			"class"
+    			"stat",
+    			"stat_params"
     		],
     		type: "object"
     	},
@@ -8835,6 +8932,21 @@
         return valid;
     }
 
+    /**
+     * Retures vlSpec
+     * Here is an example of comments in Typescript. For now vscode can generate `Jsdoc` automaticly.
+     * And `Tsdoc` is under active developing. ***Typedoc*** supports both `Jsdoc` and `Tsdoc`
+     *
+     * @remarks
+     * This method is ...
+     * @param ggJson - Input ggSpec
+     *
+     * @see {@link https://github.com/Microsoft/TypeScript/issues/16498}
+     *
+     * @returns vlSpec
+     *
+     * @beta
+     */
     function gs2vl(ggJson) {
         validateGs(ggJson);
         var gsSpec = ggJson;
