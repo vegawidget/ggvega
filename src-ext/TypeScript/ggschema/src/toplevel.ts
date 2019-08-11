@@ -3,6 +3,7 @@ import {Layers} from './layer';
 import {Labels} from './labels';
 import {Scales} from './scale';
 import {Coord} from './coordinates';
+import {Facet} from './facet';
 
 export interface TopLevelSpec {
   data: Datasets;
@@ -10,4 +11,5 @@ export interface TopLevelSpec {
   scales: Scales;
   labels: Labels;
   coordinates: Coord;
+  facet: Facet;
 }

@@ -1389,6 +1389,24 @@
     		],
     		type: "object"
     	},
+    	Facet: {
+    		$ref: "#/definitions/FacetNull"
+    	},
+    	FacetNull: {
+    		additionalProperties: false,
+    		properties: {
+    			"class": {
+    				"enum": [
+    					"FacetNull"
+    				],
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"class"
+    		],
+    		type: "object"
+    	},
     	InlineDataset: {
     		anyOf: [
     			{
@@ -1765,6 +1783,9 @@
     			data: {
     				$ref: "#/definitions/Datasets"
     			},
+    			facet: {
+    				$ref: "#/definitions/Facet"
+    			},
     			labels: {
     				$ref: "#/definitions/Labels"
     			},
@@ -1780,7 +1801,8 @@
     			"layers",
     			"scales",
     			"labels",
-    			"coordinates"
+    			"coordinates",
+    			"facet"
     		],
     		type: "object"
     	},

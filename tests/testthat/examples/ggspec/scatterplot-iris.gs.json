@@ -67,5 +67,8 @@
   },
   "coordinates": {
     "class": "CoordCartesian"
+  },
+  "facet": {
+    "class": "FacetNull"
   }
 }

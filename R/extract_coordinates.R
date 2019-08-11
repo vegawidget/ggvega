@@ -23,18 +23,22 @@ coordinates <- function (coordinates_plt, ...) {
 
 coordinates.default <- function(coordinates_plt, ...) {
   stop(
-    glue::glue("coordinates class `{class(coordinates_plt)[[1]]}` not supported")
+    glue::glue(
+      "coordinates class `{first_class(coordinates_plt)}` not supported"
+    )
   )
 }
 
 coordinates.CoordCartesian <- function(coordinates_plt, ...) {
-  list(
-    class = class(coordinates_plt)[[1]]
-  )
+
+  class <- first_class(coordinates_plt)
+
+  # throw error if this is not the first class
+  if (!identical(class, "CoordCartesian")) {
+    coordinates.default(coordinates_plt, ...)
+  }
+
+  list(class = class)
 }
 
-coordinates.CoordFlip <- function(coordinates_plt, ...) {
-  # not supported (yet)
-  # - need this here because CoordFlip extends CoordCartesian
-  coordinates.default(coordinates_plt, ...)
-}
+
