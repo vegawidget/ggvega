@@ -1059,7 +1059,7 @@
             GeomPoint: getEncodingKeyGeomPoint,
             GeomBar: getEncodingKeyGeomBar
         };
-        var fn = EncodingKey[geom.class];
+        var fn = EncodingKey[geom.geom.class];
         if (fn)
             return fn();
         else
@@ -1116,7 +1116,8 @@
     };
 
     function TranslateEncoding(gsLayer, gsMetadata, vlMark) {
-        var encodingKey = getEncodingKey(gsLayer.geom);
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        var encodingKey = getEncodingKey({ geom: gsLayer.geom, geom_params: gsLayer.geom_params });
         var vlEncoding = EncodingMapping(gsLayer.mapping, gsMetadata, encodingKey);
         vlEncoding = EncodingAesParams(vlEncoding, gsLayer.aes_params, vlMark);
         return vlEncoding;
@@ -1231,7 +1232,8 @@
         return gsData[gsLayer.data].metadata;
     }
     function StartLayer(gsLayer, gsMetadata) {
-        var vlMark = TranslateMark(gsLayer.geom);
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        var vlMark = TranslateMark({ geom: gsLayer.geom, geom_params: gsLayer.geom_params });
         var vlLayer = {
             data: {
                 name: gsLayer.data
@@ -1243,7 +1245,7 @@
     }
     function TranslateMark(geom) {
         var mark;
-        if (geom.class == 'GeomPoint') {
+        if (geom.geom.class == 'GeomPoint') {
             mark = Mark.Point;
         }
         else {
@@ -1369,46 +1371,6 @@
     		],
     		type: "object"
     	},
-    	Geom: {
-    		anyOf: [
-    			{
-    				$ref: "#/definitions/GeomPoint"
-    			},
-    			{
-    				$ref: "#/definitions/GeomBar"
-    			}
-    		]
-    	},
-    	GeomBar: {
-    		additionalProperties: false,
-    		properties: {
-    			"class": {
-    				"enum": [
-    					"GeomBar"
-    				],
-    				type: "string"
-    			}
-    		},
-    		required: [
-    			"class"
-    		],
-    		type: "object"
-    	},
-    	GeomPoint: {
-    		additionalProperties: false,
-    		properties: {
-    			"class": {
-    				"enum": [
-    					"GeomPoint"
-    				],
-    				type: "string"
-    			}
-    		},
-    		required: [
-    			"class"
-    		],
-    		type: "object"
-    	},
     	InlineDataset: {
     		anyOf: [
     			{
@@ -1475,35 +1437,164 @@
     		type: "object"
     	},
     	Layer: {
-    		additionalProperties: false,
-    		properties: {
-    			aes_params: {
-    				$ref: "#/definitions/AesParams"
+    		anyOf: [
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomPoint"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/Mapping"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatIdentity"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
     			},
-    			data: {
-    				type: "string"
-    			},
-    			geom: {
-    				$ref: "#/definitions/Geom"
-    			},
-    			geom_params: {
-    			},
-    			mapping: {
-    				$ref: "#/definitions/Mapping"
-    			},
-    			stat: {
-    				$ref: "#/definitions/Stat"
-    			},
-    			stat_params: {
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomBar"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/Mapping"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatIdentity"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
     			}
-    		},
-    		required: [
-    			"data",
-    			"geom",
-    			"mapping",
-    			"aes_params"
-    		],
-    		type: "object"
+    		]
     	},
     	Layers: {
     		description: "The `Layers` should have at least one layer",
@@ -1610,15 +1701,40 @@
     		],
     		type: "string"
     	},
-    	Stat: {
+    	StatIdentity: {
     		additionalProperties: false,
     		properties: {
-    			"class": {
-    				type: "string"
+    			stat: {
+    				additionalProperties: false,
+    				properties: {
+    					"class": {
+    						"enum": [
+    							"StatIdentity"
+    						],
+    						type: "string"
+    					}
+    				},
+    				required: [
+    					"class"
+    				],
+    				type: "object"
+    			},
+    			stat_params: {
+    				additionalProperties: false,
+    				properties: {
+    					"na.rm": {
+    						type: "boolean"
+    					}
+    				},
+    				required: [
+    					"na.rm"
+    				],
+    				type: "object"
     			}
     		},
     		required: [
-    			"class"
+    			"stat",
+    			"stat_params"
     		],
     		type: "object"
     	},

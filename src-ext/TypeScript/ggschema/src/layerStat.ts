@@ -1,3 +1,8 @@
-export interface Stat {
-  class: string;
+export type Stat = StatIdentity;
+
+export interface StatIdentity {
+  stat: {class: 'StatIdentity'};
+  stat_params: {
+    'na.rm': boolean;
+  }
 }

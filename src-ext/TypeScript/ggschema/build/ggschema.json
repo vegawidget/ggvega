@@ -154,15 +154,46 @@
               "type": "object"
             },
             "geom_params": {
-              "type": "string"
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
             },
             "mapping": {
               "$ref": "#/definitions/Mapping"
             },
             "stat": {
-              "$ref": "#/definitions/Stat"
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "StatIdentity"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
             },
             "stat_params": {
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
             }
           },
           "required": [
@@ -170,7 +201,9 @@
             "data",
             "geom",
             "geom_params",
-            "mapping"
+            "mapping",
+            "stat",
+            "stat_params"
           ],
           "type": "object"
         },
@@ -199,15 +232,46 @@
               "type": "object"
             },
             "geom_params": {
-              "type": "number"
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
             },
             "mapping": {
               "$ref": "#/definitions/Mapping"
             },
             "stat": {
-              "$ref": "#/definitions/Stat"
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "StatIdentity"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
             },
             "stat_params": {
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
             }
           },
           "required": [
@@ -215,7 +279,9 @@
             "data",
             "geom",
             "geom_params",
-            "mapping"
+            "mapping",
+            "stat",
+            "stat_params"
           ],
           "type": "object"
         }
@@ -326,15 +392,40 @@
       ],
       "type": "string"
     },
-    "Stat": {
+    "StatIdentity": {
       "additionalProperties": false,
       "properties": {
-        "class": {
-          "type": "string"
+        "stat": {
+          "additionalProperties": false,
+          "properties": {
+            "class": {
+              "enum": [
+                "StatIdentity"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "class"
+          ],
+          "type": "object"
+        },
+        "stat_params": {
+          "additionalProperties": false,
+          "properties": {
+            "na.rm": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "na.rm"
+          ],
+          "type": "object"
         }
       },
       "required": [
-        "class"
+        "stat",
+        "stat_params"
       ],
       "type": "object"
     },
