@@ -1,4 +1,9 @@
-// these functions ggplot2 values to Vega-Lite values
+// keys: names of ggplot2 Geom classes
+// values: names of Vega-Lite marks
+const GeomMarkMap = {
+  GeomPoint: 'point',
+  GeomBoxplot: 'boxplot'
+};
 
 function encodingNameByGeom(aesName: string, gsGeom: gs.Geom): string {
 
