@@ -2,6 +2,7 @@
 
 language: R
 cache: packages
+warnings_are_errors: true
 
 matrix:
   include:
@@ -35,6 +36,10 @@ before_install:
   - node --version
   # yarn
   - export CURRENTDIR=`pwd`
+  - cd src-ext/TypeScript/ggschema
+  - yarn install
+  - yarn build
+  - cd $CURRENTDIR
   - cd src-ext/TypeScript/ggvega
   - yarn install
   - yarn build
