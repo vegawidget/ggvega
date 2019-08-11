@@ -51,29 +51,37 @@ export const ggSpec01: gs.TopLevelSpec = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
-      geom_params: {},
+      geom_params: {'na.rm': true},
       mapping: {},
-      aes_params: {}
+      aes_params: {},
+      stat: {class: 'StatIdentity'},
+      stat_params: {
+        'na.rm': true
+      }
     }
   ],
   scales: []
 };
-export const ggSpec02: any = {
+export const ggSpec02: gs.TopLevelSpec = {
   data: {'data-00': {metadata: {}, observations: {}}},
   labels: {title: 'text'},
   layers: [
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
-      geom_params: {},
+      geom_params: {'na.rm': true},
       mapping: {},
-      aes_params: {}
+      aes_params: {},
+      stat: {class: 'StatIdentity'},
+      stat_params: {
+        'na.rm': true
+      }
     }
   ],
   scales: []
 };
 
-export const ggSpec03: any = {
+export const ggSpec03: gs.TopLevelSpec = {
   data: {
     'data-00': {
       metadata: {},
@@ -84,33 +92,38 @@ export const ggSpec03: any = {
       observations: [{a: 'A', b: 28}]
     }
   },
+  labels: {},
   layers: [
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
-      geom_params: {},
+      geom_params: {'na.rm': true},
       mapping: {},
-      aes_params: null
+      aes_params: {},
+      stat: {class: 'StatIdentity'},
+      stat_params: {
+        'na.rm': true
+      }
     }
   ],
   scales: []
 };
 
-export const ggSpec04: any = {
+export const ggSpec04: gs.TopLevelSpec = {
   data: {
     'data-00': {
       metadata: {
-        mpg: {type: 'quantitative'},
-        cyl: {type: 'quantitative'},
-        disp: {type: 'quantitative'},
-        hp: {type: 'quantitative'},
-        drat: {type: 'quantitative'},
-        wt: {type: 'quantitative'},
-        qsec: {type: 'quantitative'},
-        vs: {type: 'quantitative'},
-        am: {type: 'quantitative'},
-        gear: {type: 'quantitative'},
-        carb: {type: 'quantitative'}
+        mpg: {type: gs.StandardType.Quantitative},
+        cyl: {type: gs.StandardType.Quantitative},
+        disp: {type: gs.StandardType.Quantitative},
+        hp: {type: gs.StandardType.Quantitative},
+        drat: {type: gs.StandardType.Quantitative},
+        wt: {type: gs.StandardType.Quantitative},
+        qsec: {type: gs.StandardType.Quantitative},
+        vs: {type: gs.StandardType.Quantitative},
+        am: {type: gs.StandardType.Quantitative},
+        gear: {type: gs.StandardType.Quantitative},
+        carb: {type: gs.StandardType.Quantitative}
       },
       observations: [
         {mpg: 21, cyl: 6, disp: 160, hp: 110, drat: 3.9, wt: 2.62, qsec: 16.46, vs: 0, am: 1, gear: 4, carb: 4}
@@ -121,25 +134,28 @@ export const ggSpec04: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
-      geom_params: {},
-      mapping: {x: {field: 'wt'}, y: {field: 'mpg'}},
+      geom_params: {'na.rm': true},
+      mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'}
+      stat: {class: 'StatIdentity'},
+      stat_params: {
+        'na.rm': true
+      }
     }
   ],
   scales: [],
   labels: {x: 'wt', y: 'mpg'}
 };
 
-export const ggSpec05: any = {
+export const ggSpec05: gs.TopLevelSpec = {
   data: {
     'data-00': {
       metadata: {
-        'Sepal.Length': {type: 'quantitative'},
-        'Sepal.Width': {type: 'quantitative'},
-        'Petal.Length': {type: 'quantitative'},
-        'Petal.Width': {type: 'quantitative'},
-        Species: {type: 'nominal', levels: ['setosa', 'versicolor', 'virginica']}
+        'Sepal.Length': {type: gs.StandardType.Quantitative},
+        'Sepal.Width': {type: gs.StandardType.Quantitative},
+        'Petal.Length': {type: gs.StandardType.Quantitative},
+        'Petal.Width': {type: gs.StandardType.Quantitative},
+        Species: {type: gs.StandardType.Nominal, levels: ['setosa', 'versicolor', 'virginica']}
       },
       observations: [
         {'Sepal.Length': 5.1, 'Sepal.Width': 3.5, 'Petal.Length': 1.4, 'Petal.Width': 0.2, Species: 'setosa'}
@@ -150,25 +166,28 @@ export const ggSpec05: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
-      geom_params: {},
-      mapping: {x: {field: 'Petal.Width'}, y: {field: 'Petal.Length'}, colour: {field: 'Species'}},
+      geom_params: {'na.rm': true},
+      mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'}
+      stat: {class: 'StatIdentity'},
+      stat_params: {
+        'na.rm': true
+      }
     }
   ],
   scales: [],
   labels: {x: 'Petal.Width', y: 'Petal.Length', colour: 'Species'}
 };
 
-export const ggSpec06: any = {
+export const ggSpec06: gs.TopLevelSpec = {
   data: {
     'data-00': {
       metadata: {
-        'Sepal.Length': {type: 'quantitative'},
-        'Sepal.Width': {type: 'quantitative'},
-        'Petal.Length': {type: 'quantitative'},
-        'Petal.Width': {type: 'quantitative'},
-        Species: {type: 'nominal', levels: ['setosa', 'versicolor', 'virginica']}
+        'Sepal.Length': {type: gs.StandardType.Quantitative},
+        'Sepal.Width': {type: gs.StandardType.Quantitative},
+        'Petal.Length': {type: gs.StandardType.Quantitative},
+        'Petal.Width': {type: gs.StandardType.Quantitative},
+        Species: {type: gs.StandardType.Nominal, levels: ['setosa', 'versicolor', 'virginica']}
       },
       observations: [
         {'Sepal.Length': 5.1, 'Sepal.Width': 3.5, 'Petal.Length': 1.4, 'Petal.Width': 0.2, Species: 'setosa'}
@@ -179,31 +198,34 @@ export const ggSpec06: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
-      geom_params: {},
-      mapping: {x: {field: 'Petal.Width'}, y: {field: 'Petal.Length'}, shape: {field: 'Species'}},
+      geom_params: {'na.rm': true},
+      mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'}
+      stat: {class: 'StatIdentity'},
+      stat_params: {
+        'na.rm': true
+      }
     }
   ],
   scales: [],
   labels: {x: 'Petal.Width', y: 'Petal.Length', shape: 'Species'}
 };
 
-export const ggSpec07: any = {
+export const ggSpec07: gs.TopLevelSpec = {
   data: {
     'data-00': {
       metadata: {
-        mpg: {type: 'quantitative'},
-        cyl: {type: 'quantitative'},
-        disp: {type: 'quantitative'},
-        hp: {type: 'quantitative'},
-        drat: {type: 'quantitative'},
-        wt: {type: 'quantitative'},
-        qsec: {type: 'quantitative'},
-        vs: {type: 'quantitative'},
-        am: {type: 'quantitative'},
-        gear: {type: 'quantitative'},
-        carb: {type: 'quantitative'}
+        mpg: {type: gs.StandardType.Quantitative},
+        cyl: {type: gs.StandardType.Quantitative},
+        disp: {type: gs.StandardType.Quantitative},
+        hp: {type: gs.StandardType.Quantitative},
+        drat: {type: gs.StandardType.Quantitative},
+        wt: {type: gs.StandardType.Quantitative},
+        qsec: {type: gs.StandardType.Quantitative},
+        vs: {type: gs.StandardType.Quantitative},
+        am: {type: gs.StandardType.Quantitative},
+        gear: {type: gs.StandardType.Quantitative},
+        carb: {type: gs.StandardType.Quantitative}
       },
       observations: [
         {mpg: 21, cyl: 6, disp: 160, hp: 110, drat: 3.9, wt: 2.62, qsec: 16.46, vs: 0, am: 1, gear: 4, carb: 4}
@@ -214,31 +236,34 @@ export const ggSpec07: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
-      geom_params: {},
-      mapping: {x: {field: 'wt'}, y: {field: 'mpg'}, size: {field: 'cyl'}},
+      geom_params: {'na.rm': true},
+      mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'}
+      stat: {class: 'StatIdentity'},
+      stat_params: {
+        'na.rm': true
+      }
     }
   ],
   scales: [],
   labels: {x: 'wt', y: 'mpg', size: 'cyl'}
 };
 
-export const ggSpec08: any = {
+export const ggSpec08: gs.TopLevelSpec = {
   data: {
     'data-00': {
       metadata: {
-        mpg: {type: 'quantitative'},
-        cyl: {type: 'quantitative'},
-        disp: {type: 'quantitative'},
-        hp: {type: 'quantitative'},
-        drat: {type: 'quantitative'},
-        wt: {type: 'quantitative'},
-        qsec: {type: 'quantitative'},
-        vs: {type: 'quantitative'},
-        am: {type: 'quantitative'},
-        gear: {type: 'quantitative'},
-        carb: {type: 'quantitative'}
+        mpg: {type: gs.StandardType.Quantitative},
+        cyl: {type: gs.StandardType.Quantitative},
+        disp: {type: gs.StandardType.Quantitative},
+        hp: {type: gs.StandardType.Quantitative},
+        drat: {type: gs.StandardType.Quantitative},
+        wt: {type: gs.StandardType.Quantitative},
+        qsec: {type: gs.StandardType.Quantitative},
+        vs: {type: gs.StandardType.Quantitative},
+        am: {type: gs.StandardType.Quantitative},
+        gear: {type: gs.StandardType.Quantitative},
+        carb: {type: gs.StandardType.Quantitative}
       },
       observations: [
         {mpg: 21, cyl: 6, disp: 160, hp: 110, drat: 3.9, wt: 2.62, qsec: 16.46, vs: 0, am: 1, gear: 4, carb: 4}
@@ -249,31 +274,34 @@ export const ggSpec08: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
-      geom_params: {},
-      mapping: {x: {field: 'wt'}, y: {field: 'mpg'}, shape: {field: 'cyl'}},
+      geom_params: {'na.rm': true},
+      mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'}
+      stat: {class: 'StatIdentity'},
+      stat_params: {
+        'na.rm': true
+      }
     }
   ],
   scales: [],
   labels: {x: 'wt', y: 'mpg', shape: 'cyl'}
 };
 
-export const ggSpec09: any = {
+export const ggSpec09: gs.TopLevelSpec = {
   data: {
     'data-00': {
       metadata: {
-        mpg: {type: 'quantitative'},
-        cyl: {type: 'quantitative'},
-        disp: {type: 'quantitative'},
-        hp: {type: 'quantitative'},
-        drat: {type: 'quantitative'},
-        wt: {type: 'quantitative'},
-        qsec: {type: 'quantitative'},
-        vs: {type: 'quantitative'},
-        am: {type: 'quantitative'},
-        gear: {type: 'quantitative'},
-        carb: {type: 'quantitative'}
+        mpg: {type: gs.StandardType.Quantitative},
+        cyl: {type: gs.StandardType.Quantitative},
+        disp: {type: gs.StandardType.Quantitative},
+        hp: {type: gs.StandardType.Quantitative},
+        drat: {type: gs.StandardType.Quantitative},
+        wt: {type: gs.StandardType.Quantitative},
+        qsec: {type: gs.StandardType.Quantitative},
+        vs: {type: gs.StandardType.Quantitative},
+        am: {type: gs.StandardType.Quantitative},
+        gear: {type: gs.StandardType.Quantitative},
+        carb: {type: gs.StandardType.Quantitative}
       },
       observations: [
         {mpg: 21, cyl: 6, disp: 160, hp: 110, drat: 3.9, wt: 2.62, qsec: 16.46, vs: 0, am: 1, gear: 4, carb: 4}
@@ -284,31 +312,34 @@ export const ggSpec09: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
-      geom_params: {},
-      mapping: {x: {field: 'wt'}, y: {field: 'mpg'}, stroke: {field: 'cyl'}},
+      geom_params: {'na.rm': true},
+      mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'}
+      stat: {class: 'StatIdentity'},
+      stat_params: {
+        'na.rm': true
+      }
     }
   ],
   scales: [],
   labels: {x: 'wt', y: 'mpg', stroke: 'cyl'}
 };
 
-export const ggSpec10: any = {
+export const ggSpec10: gs.TopLevelSpec = {
   data: {
     'data-00': {
       metadata: {
-        mpg: {type: 'quantitative'},
-        cyl: {type: 'quantitative'},
-        disp: {type: 'quantitative'},
-        hp: {type: 'quantitative'},
-        drat: {type: 'quantitative'},
-        wt: {type: 'quantitative'},
-        qsec: {type: 'quantitative'},
-        vs: {type: 'quantitative'},
-        am: {type: 'quantitative'},
-        gear: {type: 'quantitative'},
-        carb: {type: 'quantitative'}
+        mpg: {type: gs.StandardType.Quantitative},
+        cyl: {type: gs.StandardType.Quantitative},
+        disp: {type: gs.StandardType.Quantitative},
+        hp: {type: gs.StandardType.Quantitative},
+        drat: {type: gs.StandardType.Quantitative},
+        wt: {type: gs.StandardType.Quantitative},
+        qsec: {type: gs.StandardType.Quantitative},
+        vs: {type: gs.StandardType.Quantitative},
+        am: {type: gs.StandardType.Quantitative},
+        gear: {type: gs.StandardType.Quantitative},
+        carb: {type: gs.StandardType.Quantitative}
       },
       observations: [
         {mpg: 21, cyl: 6, disp: 160, hp: 110, drat: 3.9, wt: 2.62, qsec: 16.46, vs: 0, am: 1, gear: 4, carb: 4}
@@ -319,31 +350,34 @@ export const ggSpec10: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
-      geom_params: {},
-      mapping: {x: {field: 'wt'}, y: {field: 'mpg'}, fill: {field: 'cyl'}},
+      geom_params: {'na.rm': true},
+      mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'}
+      stat: {class: 'StatIdentity'},
+      stat_params: {
+        'na.rm': true
+      }
     }
   ],
   scales: [],
   labels: {x: 'wt', y: 'mpg', fill: 'cyl'}
 };
 
-export const ggSpec11: any = {
+export const ggSpec11: gs.TopLevelSpec = {
   data: {
     'data-00': {
       metadata: {
-        mpg: {type: 'quantitative'},
-        cyl: {type: 'quantitative'},
-        disp: {type: 'quantitative'},
-        hp: {type: 'quantitative'},
-        drat: {type: 'quantitative'},
-        wt: {type: 'quantitative'},
-        qsec: {type: 'quantitative'},
-        vs: {type: 'quantitative'},
-        am: {type: 'quantitative'},
-        gear: {type: 'quantitative'},
-        carb: {type: 'quantitative'}
+        mpg: {type: gs.StandardType.Quantitative},
+        cyl: {type: gs.StandardType.Quantitative},
+        disp: {type: gs.StandardType.Quantitative},
+        hp: {type: gs.StandardType.Quantitative},
+        drat: {type: gs.StandardType.Quantitative},
+        wt: {type: gs.StandardType.Quantitative},
+        qsec: {type: gs.StandardType.Quantitative},
+        vs: {type: gs.StandardType.Quantitative},
+        am: {type: gs.StandardType.Quantitative},
+        gear: {type: gs.StandardType.Quantitative},
+        carb: {type: gs.StandardType.Quantitative}
       },
       observations: [
         {mpg: 21, cyl: 6, disp: 160, hp: 110, drat: 3.9, wt: 2.62, qsec: 16.46, vs: 0, am: 1, gear: 4, carb: 4}
@@ -354,14 +388,17 @@ export const ggSpec11: any = {
     {
       data: 'data-00',
       geom: {class: 'GeomPoint'},
-      geom_params: {},
-      mapping: {x: {field: 'wt'}, y: {field: 'mpg'}, opacity: {field: 'cyl'}},
+      geom_params: {'na.rm': true},
+      mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'}
+      stat: {class: 'StatIdentity'},
+      stat_params: {
+        'na.rm': true
+      }
     }
   ],
   scales: [],
-  labels: {x: 'wt', y: 'mpg', opacity: 'cyl'}
+  labels: {x: 'wt', y: 'mpg', alpha: 'cyl'}
 };
 
 /**
