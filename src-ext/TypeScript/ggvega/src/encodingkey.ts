@@ -6,7 +6,7 @@ export function getEncodingKey(geom: gs.Geom): EncodingKey {
     GeomBar: getEncodingKeyGeomBar
   };
 
-  const fn = EncodingKey[geom.class];
+  const fn = EncodingKey[geom.geom.class];
 
   if (fn) return fn();
   else return DefaultEncodingKey;

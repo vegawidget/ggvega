@@ -62,46 +62,6 @@
       ],
       "type": "object"
     },
-    "Geom": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/GeomPoint"
-        },
-        {
-          "$ref": "#/definitions/GeomBar"
-        }
-      ]
-    },
-    "GeomBar": {
-      "additionalProperties": false,
-      "properties": {
-        "class": {
-          "enum": [
-            "GeomBar"
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "class"
-      ],
-      "type": "object"
-    },
-    "GeomPoint": {
-      "additionalProperties": false,
-      "properties": {
-        "class": {
-          "enum": [
-            "GeomPoint"
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "class"
-      ],
-      "type": "object"
-    },
     "InlineDataset": {
       "anyOf": [
         {
@@ -168,35 +128,98 @@
       "type": "object"
     },
     "Layer": {
-      "additionalProperties": false,
-      "properties": {
-        "aes_params": {
-          "$ref": "#/definitions/AesParams"
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "aes_params": {
+              "$ref": "#/definitions/AesParams"
+            },
+            "data": {
+              "type": "string"
+            },
+            "geom": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "GeomPoint"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "geom_params": {
+              "type": "string"
+            },
+            "mapping": {
+              "$ref": "#/definitions/Mapping"
+            },
+            "stat": {
+              "$ref": "#/definitions/Stat"
+            },
+            "stat_params": {
+            }
+          },
+          "required": [
+            "aes_params",
+            "data",
+            "geom",
+            "geom_params",
+            "mapping"
+          ],
+          "type": "object"
         },
-        "data": {
-          "type": "string"
-        },
-        "geom": {
-          "$ref": "#/definitions/Geom"
-        },
-        "geom_params": {
-        },
-        "mapping": {
-          "$ref": "#/definitions/Mapping"
-        },
-        "stat": {
-          "$ref": "#/definitions/Stat"
-        },
-        "stat_params": {
+        {
+          "additionalProperties": false,
+          "properties": {
+            "aes_params": {
+              "$ref": "#/definitions/AesParams"
+            },
+            "data": {
+              "type": "string"
+            },
+            "geom": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "GeomBar"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "geom_params": {
+              "type": "number"
+            },
+            "mapping": {
+              "$ref": "#/definitions/Mapping"
+            },
+            "stat": {
+              "$ref": "#/definitions/Stat"
+            },
+            "stat_params": {
+            }
+          },
+          "required": [
+            "aes_params",
+            "data",
+            "geom",
+            "geom_params",
+            "mapping"
+          ],
+          "type": "object"
         }
-      },
-      "required": [
-        "data",
-        "geom",
-        "mapping",
-        "aes_params"
-      ],
-      "type": "object"
+      ]
     },
     "Layers": {
       "description": "The `Layers` should have at least one layer",

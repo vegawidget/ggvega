@@ -4,7 +4,8 @@ import * as gs from '../../ggschema/src/index';
 import {getEncodingKey, EncodingKey} from './encodingkey';
 
 export function TranslateEncoding(gsLayer: gs.Layer, gsMetadata: gs.Metadata, vlMark: vl.Mark): vl.Encoding {
-  const encodingKey = getEncodingKey(gsLayer.geom);
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  const encodingKey = getEncodingKey({geom: gsLayer.geom, geom_params: gsLayer.geom_params} as gs.Geom);
 
   let vlEncoding: vl.Encoding = EncodingMapping(gsLayer.mapping, gsMetadata, encodingKey);
 
