@@ -35,7 +35,8 @@ gg2spec <- function(plt){
     data = data_spc(int_data),
     layers = layer_spc(plt$layers, int_data, int_map),
     scales = scale_spc(plt$scales$scales),
-    labels = plt$labels
+    labels = plt$labels,
+    coordinates = coordinates(plt$coordinates)
   )
 }
 

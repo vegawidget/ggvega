@@ -1335,6 +1335,24 @@
     		},
     		type: "object"
     	},
+    	Coord: {
+    		$ref: "#/definitions/CoordCartesian"
+    	},
+    	CoordCartesian: {
+    		additionalProperties: false,
+    		properties: {
+    			"class": {
+    				"enum": [
+    					"CoordCartesian"
+    				],
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"class"
+    		],
+    		type: "object"
+    	},
     	Dataset: {
     		additionalProperties: false,
     		properties: {
@@ -1741,6 +1759,9 @@
     	TopLevelSpec: {
     		additionalProperties: false,
     		properties: {
+    			coordinates: {
+    				$ref: "#/definitions/Coord"
+    			},
     			data: {
     				$ref: "#/definitions/Datasets"
     			},
@@ -1758,7 +1779,8 @@
     			"data",
     			"layers",
     			"scales",
-    			"labels"
+    			"labels",
+    			"coordinates"
     		],
     		type: "object"
     	},
