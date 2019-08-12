@@ -10,15 +10,15 @@ function itmLayer(gsLayer: gs.Layer, gsData: gsData): ItmLayer {
     // leave this as a breadcrumb so that we can use encodingNameByGeom()
     // - will not be not included in vl.Layer
     geom: gsLayer.geom, 
-    mark: layerMarkbyGeom(gsLayer.geom, gsLayer.geom_params, gsLayer.stat_params),
-    encoding: itmLayerEncodingObjectByMapping(gsLayer.mapping, gsLayer.aes_params, gsMetadata)
+    mark: markByGeom(gsLayer.geom, gsLayer.geom_params, gsLayer.stat_params),
+    encoding: itmEncodingObjectByMapping(gsLayer.mapping, gsLayer.aes_params, gsMetadata)
   };
 
   // incorporate stat into encoding 
-  itmLayer.encoding = itmLayerEncodingObjectByStat(itmLayer.encoding, gsLayer.stat, gsLayer.stat_params);
+  itmLayer.encoding = itmEncodingObjectByStat(itmLayer.encoding, gsLayer.stat, gsLayer.stat_params);
 
   // incorporate position into encoding (not yet active)
-  // itmLayer.encoding = itmLayerEncodingOjectByPosition(itmLayer.encoding, gsLayer.position);
+  // itmLayer.encoding = itmEncodingOjectByPosition(itmLayer.encoding, gsLayer.position);
 
   return itmLayer;
 }

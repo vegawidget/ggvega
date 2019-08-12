@@ -1,4 +1,4 @@
-function datasets(gsData: {[key: string]: gs.Data}): {[key: string]: vl.InlineDataset} {
+function datasetsObject(gsData: {[key: string]: gs.Data}): {[key: string]: vl.InlineDataset} {
   
   // validate
   if (Object.keys(gsData).length == 0) {

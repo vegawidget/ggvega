@@ -1,19 +1,19 @@
 // return an empty encoding accoridng to an aesthetic name
-function itmLayerEncoding(aesName: string): vl.Encoding {
+function itmEncoding(aesName: string): vl.Encoding {
 
   // keys are ggplot2 aesthetic names
   // values are Vega-Lite encoding constructor-functions
   const itmEncodingMap = {
-    x: layerEncodingX,
-    y: layerEncodingY,
-    color: layerEncodingString,
-    fill: layerEncodingString,
-    size: layerEncodingNumber, 
-    stroke: layerEncodingNumber, 
-    alpha: layerEncodingNumber,
-    group: layerEncodingDetail,
-    shape: layerEncodingShape,
-    weight: layerEncodingNumber // aes used for stat calculations
+    x: encodingX,
+    y: encodingY,
+    color: encodingString,
+    fill: encodingString,
+    size: encodingNumber, 
+    stroke: encodingNumber, 
+    alpha: encodingNumber,
+    group: encodingDetail,
+    shape: encodingShape,
+    weight: encodingNumber // aes used for stat calculations
   }
 
   // validate
@@ -27,7 +27,7 @@ function itmLayerEncoding(aesName: string): vl.Encoding {
 
 
 // return empty object
-function layerEncodingX(): vl.XClass {
+function encodingX(): vl.XClass {
 
   let encoding: vl.XClass = {};
 
@@ -35,7 +35,7 @@ function layerEncodingX(): vl.XClass {
 }
 
 // return empty object
-function layerEncodingY(): vl.YClass {
+function encodingY(): vl.YClass {
 
   let encoding: vl.YClass = {};
 
@@ -44,7 +44,7 @@ function layerEncodingY(): vl.YClass {
 
 
 // return empty object
-function layerEncodingNumber(): vl.ValueDefWithConditionMarkPropFieldDefNumber {
+function encodingNumber(): vl.ValueDefWithConditionMarkPropFieldDefNumber {
 
   let encoding: vl.ValueDefWithConditionMarkPropFieldDefNumber = {};
 
@@ -52,7 +52,7 @@ function layerEncodingNumber(): vl.ValueDefWithConditionMarkPropFieldDefNumber {
 }
 
 // return empty object
-function layerEncodingString(): vl.ValueDefWithConditionMarkPropFieldDefStringNull {
+function encodingString(): vl.ValueDefWithConditionMarkPropFieldDefStringNull {
 
   let encoding: vl.ValueDefWithConditionMarkPropFieldDefStringNull = {};
 
@@ -60,7 +60,7 @@ function layerEncodingString(): vl.ValueDefWithConditionMarkPropFieldDefStringNu
 }
 
 // return empty object
-function layerEncodingDetail(): vl.Detail {
+function encodingDetail(): vl.Detail {
 
   let encoding: vl.Detail = {};
 
@@ -68,7 +68,7 @@ function layerEncodingDetail(): vl.Detail {
 }
 
 // return empty object
-function layerEncodingShape(): vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull {
+function encodingShape(): vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull {
 
   let encoding: vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull = {};
 

@@ -1,24 +1,24 @@
-function itmLayerEncodingObjectByMapping(
-  gsLayerMapping: gs.Mapping, 
-  gsLayerAesParams: gs.AesParams,
+function itmEncodingObjectByMapping(
+  gsMapping: gs.Mapping, 
+  gsAesParams: gs.AesParams,
   gsMetadata: gs.Metadata
-): ItmLayerEncodingObject {
+): ItmEncodingObject {
 
   // translate
 
-  // create empty itmLayerEncodingObject
-  // TODO: define ItmLayerEncodingObject
-  let itmLayerEncodingObject: ItmLayerEncodingObject = {};
+  // create empty itmEncodingObject
+  // TODO: define ItmEncodingObject
+  let itmEncodingObject: ItmEncodingObject = {};
 
   // for each member of gsLayerMapping:
   // - create an itmLayerEncoding
   // - populate the itmLayerEncoding
   // - put itmLayerEncoding into the itmLayerEncodingObject 
-  for (let key in gsLayerMapping) {
-    if (gsLayerMapping.hasOwnProperty(key)) {
+  for (let key in gsMapping) {
+    if (gsMapping.hasOwnProperty(key)) {
       // do we have a type/class for `mapping`?
-      let mapping = gsLayerMapping[key];
-      let encoding: vl.Encoding = itmLayerEncoding(key);
+      let mapping = gsMapping[key];
+      let encoding: vl.Encoding = itmEncoding(key);
 
       let field: string = fieldName(mapping.field);
       let type: vl.StandardType = gsMetadata[field].type;
@@ -32,14 +32,14 @@ function itmLayerEncodingObjectByMapping(
     }
   }
 
-  // for each member of gsLayerAesParams:
-  // - create an itmLayerEncoding
-  // - populate the itmLayerEncoding
-  // - put itmLayerEncoding into the itmLayerEncodingObject 
-  for (let key in gsLayerAesParams) {
-    if (gsLayerAesParams.hasOwnProperty(key)) {
-      let mapping: string | number | boolean = gsLayerMapping[key];
-      let encoding: vl.Encoding = itmLayerEncoding(key);
+  // for each member of gsAesParams:
+  // - create an itmEncoding
+  // - populate the itmEncoding
+  // - put itmEncoding into the itmEncodingObject 
+  for (let key in gsAesParams) {
+    if (gsAesParams.hasOwnProperty(key)) {
+      let mapping: string | number | boolean = gsMapping[key];
+      let encoding: vl.Encoding = itmEncoding(key);
 
       // is there a Vega-Lite type for this?
       let value: string | number | boolean = mapping; 
@@ -66,6 +66,6 @@ function itmLayerEncodingObjectByMapping(
       encoding.value = value; 
     }
   }
-  // return itmLayerEncodingObject
-  return itmLayerEncodingObject;
+  // return itmEncodingObject
+  return itmEncodingObject;
 }

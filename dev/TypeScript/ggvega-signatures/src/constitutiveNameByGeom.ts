@@ -1,3 +1,10 @@
+
+// this function does not depend on Geom
+function fieldName(name: string): string {
+  // use regular expression to replaces all matches
+  return name.replace(/[.]/g, "\\.")
+}
+
 // keys: names of ggplot2 Geom classes
 // values: names of Vega-Lite marks
 const markByGeomMap = {

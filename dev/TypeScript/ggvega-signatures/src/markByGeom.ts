@@ -1,4 +1,4 @@
-function layerMarByGeom(
+function markByGeom(
   gsGeom: gs.Geom, 
   gsGeomParams: gs.GeomParams,
   gsStatParams: gs.StatParams
@@ -7,13 +7,13 @@ function layerMarByGeom(
   // use this pattern for dispatch if we have only a few exceptions to the default
   // NOTE: we don't have Boxplot defined yet
   if (gsGeom.class == 'GeomBoxplot') {
-    return layerMarkByGeomBoxplot(gsGeom, gsGeomParams, gsStatParams);
+    return markByGeomBoxplot(gsGeom, gsGeomParams, gsStatParams);
   } 
     
-  return layerMarkByGeomDefault(gsGeom);
+  return markByGeomDefault(gsGeom);
 }
 
-function layerMarkByGeomDefault(gsGeom: gs.Geom): vl.Mark {
+function markByGeomDefault(gsGeom: gs.Geom): vl.Mark {
 
   // validate and translate
   let mark: vl.Mark = {
@@ -25,7 +25,7 @@ function layerMarkByGeomDefault(gsGeom: gs.Geom): vl.Mark {
 
 // I know we have not done boxplots yet, this is just to propose an
 // extension mechanism.
-function layerMarkByGeomBoxplot(
+function markByGeomBoxplot(
   gsGeom: gs.Geom, 
   gsGeomParams: gs.GeomParams,
   gsStatParams: gs.StatParams
@@ -34,7 +34,7 @@ function layerMarkByGeomBoxplot(
   // validate (look for GeomParams and StatParams we can't translate)
 
   // translate
-  let mark: vl.Mark = layerMarkByGeomDefault(gsGeom);
+  let mark: vl.Mark = markByGeomDefault(gsGeom);
 
   // TODO: add geomParams 
 
