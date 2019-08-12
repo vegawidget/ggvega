@@ -1,5 +1,5 @@
 // return an empty encoding accoridng to an aesthetic name
-itmLayerEncoding = function(aesName: string): vl.Encoding {
+function itmLayerEncoding(aesName: string): vl.Encoding {
 
   // keys are ggplot2 aesthetic names
   // values are Vega-Lite encoding constructor-functions

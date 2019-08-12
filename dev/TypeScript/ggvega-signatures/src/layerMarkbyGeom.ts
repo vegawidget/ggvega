@@ -5,6 +5,7 @@ function layerMarkbyGeom(
 ): vl.Mark {
   
   // use this pattern for dispatch if we have only a few exceptions to the default
+  // NOTE: we don't have Boxplot defined yet
   if (gsGeom.class == 'GeomBoxplot') {
     return layerMarkbyGeomBoxplot(gsGeom, gsGeomParams, gsStatParams);
   } 
@@ -14,22 +15,9 @@ function layerMarkbyGeom(
 
 function layerMarkbyGeomDefault(gsGeom: gs.Geom): vl.Mark {
 
-  // keys: names of ggplot2 Geom classes
-  // values: names of Vega-Lite marks
-  const GeomMarkMap = {
-    GeomPoint: 'point',
-    GeomBoxplot: 'boxplot'
-  }
-
-  // validate
-  // see utils.ts
-  if (!contains(Object.keys(GeomMarkMap), gsGeom.class)) {
-    throw new Error('ggplot object contains unsupported geom: ' + gsGeom.class);  
-  }
-
-  // translate
+  // validate and translate
   let mark: vl.Mark = {
-    type: GeomMarkMap[gsGeom]
+    type: markNameByGeomName(gsGeom.class)
   }
 
   return mark;
@@ -41,9 +29,9 @@ function layerMarkbyGeomBoxplot(
   gsGeom: gs.Geom, 
   gsGeomParams: gs.GeomParams,
   gsStatParams: gs.StatParams
-): vl.Mark { {
+): vl.Mark { 
 
-  // validate
+  // validate (look for GeomParams and StatParams we can't translate)
 
   // translate
   let mark: vl.Mark = layerMarkbyGeomDefault(gsGeom);

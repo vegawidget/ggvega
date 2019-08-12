@@ -44,6 +44,25 @@ function itmLayerEncodingObjectByMapping(
       // is there a Vega-Lite type for this?
       let value: string | number | boolean = mapping; 
 
+      // one thing to keep in mind is that values are interpreted 
+      // in the "visual" space, not the "data" space
+      //
+      // issue: https://github.com/vega/vega-lite/issues/1601, 
+      // PR: https://github.com/vega/vega-lite/pull/4201
+
+      // key is ggplot-aesthetic name
+      if (key == 'shape') {
+        value = valueShape(Number(mapping));
+      } 
+      
+      if (key == 'colour' || key == 'fill') {
+        value = valueColor(String(mapping));
+      }
+      
+      if (key == 'size') {
+        value = valueSize(Number(mapping));
+      }  
+
       encoding.value = value; 
     }
   }
