@@ -16,7 +16,6 @@ function markNameByGeomName(geom: string): string {
   return markByGeomMap[geom];
 }
 
-
 function encodingNameByGeom(aesName: string, gsGeom: gs.Geom): string {
 
   // default key

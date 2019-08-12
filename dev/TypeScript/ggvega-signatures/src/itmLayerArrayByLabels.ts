@@ -1,4 +1,4 @@
-function itmLayerArrayByLabelArray(
+function itmLayerArrayByLabelObject(
   itmLayerArray: ItmLayer[],
   gsLabelObject: gs.Labels
 ) : ItmLayer[] {
@@ -8,7 +8,7 @@ function itmLayerArrayByLabelArray(
   //   - get the encoding keys (aesthetic names)
   //   - get the label keys (aesthetic names)
   //   - for each label key:
-  //       - if there is a match with an encoding key (first match):
+  //       - if there is a match with an encoding key (first match that is not value-only):
   //           -  set the encoding title to the label value
   //           -  remove the label from the label object
 

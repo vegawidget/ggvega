@@ -17,9 +17,7 @@ function topLevelSpec(ggspec: gs.TopLevelSpec): vl.TopLevelSpec {
       $schema: schema,
       datasets: datasets(ggspec.data),
       spec: {
-        layer: layerArray(ggspec.data, ggspec.layers, ggspec.scales, ggspec.labels)
-        // coordinates (not yet active)
-        // layer: layerArray(ggspec.data, ggspec.layers, ggspec.scales, ggspec.labels, ggspec.coordinates)
+        layer: layerArray(ggspec.data, ggspec.layers, ggspec.scales, ggspec.labels, ggspec.coordinates)
       },
       facet: facet(ggspec.facet)
     }
@@ -31,9 +29,7 @@ function topLevelSpec(ggspec: gs.TopLevelSpec): vl.TopLevelSpec {
   topLevelSpec = {
     $schema: schema,
     datasets: datasets(ggspec.data),
-    layer: layerArray(ggspec.data, ggspec.layers, ggspec.scales, ggspec.labels)
-    // coordinates (not yet active)
-    // layer: layerArray(ggspec.data, ggspec.layers, ggspec.scales, ggspec.labels, ggspec.coordinates)
+    layer: layerArray(ggspec.data, ggspec.layers, ggspec.scales, ggspec.labels, ggspec.coordinates)
   };
 
   return topLevelSpec;

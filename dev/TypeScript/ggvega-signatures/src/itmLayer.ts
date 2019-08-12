@@ -7,6 +7,9 @@ function itmLayer(gsLayer: gs.Layer, gsData: gsData): ItmLayer {
 
   let itmLayer: ItmLayer = {
     data: {name: gsLayer.data},
+    // leave this as a breadcrumb so that we can use encodingNameByGeom()
+    // - will not be not included in vl.Layer
+    geom: gsLayer.geom, 
     mark: layerMarkbyGeom(gsLayer.geom, gsLayer.geom_params, gsLayer.stat_params),
     encoding: itmLayerEncodingObjectByMapping(gsLayer.mapping, gsLayer.aes_params, gsMetadata)
   };
