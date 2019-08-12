@@ -1,10 +1,24 @@
+/**
+ * Create layer array
+ * 
+ * @remark
+ * Some parts of 
+ * 
+ * @param gsData `{[key: string]: gs.Data}`, key-value pairs of ggspec datasets
+ * @param gsLayerArray `gs.Layer[]` - array of ggspec layers
+ * @param gsScaleArray `gs.Scale[]` - array of ggspec scales
+ * @param gsLabelObject `gs.Labels` - key-value pairs of ggspec labels
+ * @param gsCoordinates `gs.Coord` - ggspec coordinates
+ * 
+ * @return `vl.LayerSpec[]`, array containing Vega-Lite layer specs
+ */
 function layerArray(
   gsData: {[key: string]: gs.Data},
   gsLayerArray: gs.Layer[],
   gsScaleArray: gs.Scale[],
   gsLabelObject: gs.Labels,
   gsCoordinates: gs.Coord
-) {
+): vl.LayerSpec[] {
 
   // validate
   if (gsLayerArray.length == 0) {

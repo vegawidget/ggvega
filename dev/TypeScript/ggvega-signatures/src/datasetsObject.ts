@@ -6,7 +6,7 @@
  * For each key-value pair in `gsDatasetsObject`, a key-value pair is created 
  * in the return object. 
  * 
- * @param gsDatasetsObject - `{[key: string]: gs.Data}`, object containing ggspec datasets
+ * @param gsDatasetsObject - `{[key: string]: gs.Data}`, key-value pairs of ggspec datasets
  * 
  * @return `{[key: string]: vl.InlineDataset}`, object containing Vega-Lite inline-datasets
  * 
