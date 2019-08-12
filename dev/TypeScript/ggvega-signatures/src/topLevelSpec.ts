@@ -1,6 +1,6 @@
 
 // TODO - design to dispatch on facet
-function topLevelSpecByFacet(ggspec: gs.TopLevelSpec): vl.TopLevelSpec {
+function topLevelSpec(ggspec: gs.TopLevelSpec): vl.TopLevelSpec {
 
   // is there a way to get this from the Vega-Lite code?
   // also - what mechanism do we use to update the schema?

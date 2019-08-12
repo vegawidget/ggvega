@@ -7,16 +7,16 @@ function itmLayerArrayByCoord(
   // values: function to call
   const CoordMap = {
     CoordCartesian: itmLayerArrayByCoordCartesian
-  }
+  };
 
   // validate
-  const class: string = gsCoord.class;
-  if (!contains(Object.keys(CoordMap), class)) {
-    throw new Error('ggplot object contains unsupported coordinates: ' + class);  
+  const className: string = gsCoord.class;
+  if (!contains(Object.keys(CoordMap), className)) {
+    throw new Error('ggplot object contains unsupported coordinates: ' + className);  
   }
 
   // translate
-  return CoordMap[class](itmLayerArray, gsCoord);
+  return CoordMap[className](itmLayerArray, gsCoord);
 }
 
 function itmLayerArrayByCoordCartesian(

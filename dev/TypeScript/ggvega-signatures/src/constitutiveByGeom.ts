@@ -16,24 +16,6 @@ function markNameByGeomName(geom: string): string {
   return markByGeomMap[geom];
 }
 
-function geomNameByMarkName(mark: string): string {
-
-  // invert markByGeomMap: https://stackoverflow.com/a/23013726
-  var geomByMarkMap = {};
-  for (var key in markByGeomMap) {
-    if (markByGeomMap.hasOwnProperty(key)) {
-      geomByMarkMap[markByGeomMap[key]] = key;
-    }
-  }
-
-  // validate
-  if (!contains(Object.keys(geomByMarkMap), mark)) {
-    throw new Error('refernce to unsupported mark: ' + mark);  
-  }
-
-  // translate
-  return geomByMarkMap[mark];
-}
 
 function encodingNameByGeom(aesName: string, gsGeom: gs.Geom): string {
 

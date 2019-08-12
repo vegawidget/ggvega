@@ -28,10 +28,34 @@ function layerArray(
   itmLayerArray = itmLayerArrayByScaleArray(itmLayerArray, gsScaleArray);
 
   // incorporate coordinates 
-  itmLayerArray = itmLayerArrayByCoordinates(itmLayerArray, gsCoordinates);
+  itmLayerArray = itmLayerArrayByCoord(itmLayerArray, gsCoordinates);
 
   // change encoding-key namespace from ggspec to Vega-Lite
-  let layerArray: vl.LayerSpec[] = itmLayerArray.map(layerRename);
+  const layerArray: vl.LayerSpec[] = itmLayerArray.map(layerByItmLayer);
 
   return layerArray;
+}
+
+// rename all the encodings in the layer
+function layerByItmLayer(itmLayer: itmLayer) {
+
+  // create new encoding
+  var encoding: vl.Encoding = {};
+
+  // loop over aesthetic names in itmLayerEncoding
+  for (let aesName in itmLayer.encoding) {
+    if (itmLayer.encoding.hasOwnProperty(aesName)) {
+      // get the encoding name, add to the encoding
+      var encodingName = encodingNameByGeom(aesName, itmLayer.geom);
+      encoding[encodingName] = itmLayer.encoding[aesName];
+    }
+  }
+
+  const layer: vl.Layer = {
+    data: itmLayer.data,
+    mark: itmLayer.mark,
+    encoding: encoding
+  };
+  
+  return layer;
 }

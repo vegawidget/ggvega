@@ -1,3 +1,0 @@
-function layerEncodingRename(itmLayer: ItmLayer) {
-  
-}
