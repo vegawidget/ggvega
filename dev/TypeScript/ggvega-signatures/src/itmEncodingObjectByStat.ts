@@ -9,8 +9,8 @@ function itmEncodingObjectByStat(
   }
 
   // validate
-  if (!contains(Object.keys(statMap), statMap)) {
-    throw new Error('ggplot object contains unsupported stat: ' + statMap);  
+  if (!contains(Object.keys(statMap), gsStat.class)) {
+    throw new Error('ggplot object contains unsupported stat: ' + gsStat.class);  
   }
 
   // translate

@@ -20,15 +20,15 @@ function itmEncodingObjectByMapping(
       let mapping = gsMapping[key];
       let encoding: vl.Encoding = itmEncoding(key);
 
-      let field: string = fieldName(mapping.field);
-      let type: vl.StandardType = gsMetadata[field].type;
+      const field: string = fieldName(mapping.field);
+      const type: vl.StandardType = gsMetadata[field].type;
 
       // assuming that TypeScript will protect us from setting 
       // properties that are not available
       encoding.field = field;
       encoding.type = type;
 
-      // I think that by changing `encoding`, we change `itmLayerEncoding(key)`
+      itmEncodingObject[key] = encoding;
     }
   }
 
@@ -52,6 +52,8 @@ function itmEncodingObjectByMapping(
 
       // key is ggplot-aesthetic name
       if (key == 'shape') {
+        // TODO: we will likely need the Geom, which I think we can get
+        // from the `geom` breadcrumb included with the itmEncoding
         value = valueShape(Number(mapping));
       } 
       

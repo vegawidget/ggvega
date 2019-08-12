@@ -14,7 +14,7 @@
  * - Use short, focused functions. 
  * - Use class-dispatch where appropriate.
  * - Keep in mind that ggplot/ggspec can provide redundant or conflicting 
- *   information, develop rules to resolve.
+ *   information, develop rules to resolve those conflicts.
  * 
  * **Conventions**
  * 
@@ -24,24 +24,29 @@
  * 
  * - Functions are named after the type of object they return,
  *   e.g. this function is named `topLevelSpec`. 
+ *  
+ * - Functions or variables that refer to a Vega-Lite objects 
+ *   do *not* use a prefix. Those that refer to a ggspec or intermidate object
+ *   use the prefixes `gs` or `itm`, respectively.
  * 
- * - Functions that depend on certain ggplot2 features, e.g. `Geom`,
- *   are further named using the preposition `By`, e.g. `markByGeom`.
+ * - Functions and files containing functions that depend on 
+ *   certain ggplot2 features, e.g. `Geom`, are further named using 
+ *   the preposition `By`, e.g. `markByGeom`.
  * 
  *   - Functions that operate on different types of a ggplot2 feature,
  *     e.g. `markByGeom`: `markByGeomDefault`, `markByGeomBoxplot`,
  *     are collected in a single file, e.g. `markByGeom.ts`
  * 
- * - Functions or variables that refer to a Vega-Lite objects
- *   *not* use a prefix. Those that refer to a ggspec or intermidate object,
- *   use the prefixes `gs` or `itm`, respectively.
- * 
  * - Functions or variables that refer to collections of similar things, 
  *   e.g. `layerArray` or `encodingObject`, use the suffixes `Array` or 
  *   `Object`.
  * 
+ * - TODO: find out the convention for noting that mutable function-arguments 
+ *   are changed as a side-effect of calling, and that sometimes we might do this 
+ *   intentionally.
+ * 
  * - End-users are not expected to know about ggspec or ggschema; 
- *   error messages should refer to the ggplot opbject.
+ *   error messages should refer to the ggplot object.
  * 
  * **Resolutions**
  * 
@@ -59,9 +64,9 @@ function topLevelSpec(ggspec: gs.TopLevelSpec): vl.TopLevelSpec {
   // The structure of a Vega-Lite specification depends on whether or not
   // it is faceted.
 
-  // is there a way to get this from the Vega-Lite code?
+  // Want to specify this URL exactly **one** place in the project
   // also - what mechanism do we use to update the Vega-Lite schema?
-  const schema = 'https://vega.github.io/schema/vega-lite/v3.json'
+  const schema = 'https://vega.github.io/schema/vega-lite/v3.json';
 
   let topLevelSpec: vl.TopLevelSpec = {};
 

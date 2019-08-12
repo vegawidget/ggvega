@@ -1,4 +1,8 @@
 function valueSize(size: number): number {
+
+  // TODO: keep in mind that this will likely depend on the Geom,
+  // so we will likely need to take this into account
+  
   // translate
   return 20 * size;
 }
