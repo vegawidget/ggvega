@@ -2,7 +2,12 @@
  * Create a TopLevelSpec
  * 
  * @remarks
- * This seems like a good place to discuss coding principles and conventions.
+ * This seems like a good place to discuss coding ideas.
+ * 
+ * **Motivation**
+ * 
+ * When we add another ggplot2 `Geom`, `Stat`, `Position`, etc., we want to make it
+ * as simple as possible to add the translation code here.
  * 
  * **Principles**
  * 
@@ -35,11 +40,14 @@
  *   e.g. `layerArray` or `encodingObject`, use the suffixes `Array` or 
  *   `Object`.
  * 
+ * - End-users are not expected to know about ggspec or ggschema; 
+ *   error messages should refer to the ggplot opbject.
+ * 
  * **Resolutions**
  * 
  *  - In an `encoding`:
  *   - a ggplot2 `scale` name takes precedence over a ggplot2 `label` value.
- *   - a ggplot2 `mapping` takes precedence over a `scale` `default_aes`.
+ *   - a ggplot2 `mapping` takes precedence over a ggplot2 `stat` `default_aes`.
  * 
  * @param ggspec - `gs.TopLevelSpec`, validated ggspec
  *
