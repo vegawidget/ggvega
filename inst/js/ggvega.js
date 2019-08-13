@@ -130,6 +130,9 @@
      *
      * __Default value:__ `undefined` (None)
      *
+     * __See also:__ [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html)
+     * documentation.
+     *
      * The timeUnit.
      */
     var TimeUnit;
@@ -322,8 +325,8 @@
      * __Default value:__ `"right"`
      *
      * The orientation of the legend, which determines how the legend is positioned within the
-     * scene. One of `"left"`, `"right"`, `"top-left"`, `"top-right"`, `"bottom-left"`,
-     * `"bottom-right"`, `"none"`.
+     * scene. One of `"left"`, `"right"`, `"top"`, `"bottom"`, `"top-left"`, `"top-right"`,
+     * `"bottom-left"`, `"bottom-right"`, `"none"`.
      *
      * __Default value:__ `"right"`
      */
@@ -521,6 +524,8 @@
      * output is `"quantitative"`.
      * - Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they
      * have exactly the same type as their primary channels (e.g., `x`, `y`).
+     *
+     * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
      */
     var StandardType;
     (function (StandardType) {
@@ -563,6 +568,8 @@
      * output is `"quantitative"`.
      * - Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they
      * have exactly the same type as their primary channels (e.g., `x`, `y`).
+     *
+     * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
      */
     var LatitudeType;
     (function (LatitudeType) {
@@ -598,6 +605,8 @@
      * output is `"quantitative"`.
      * - Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they
      * have exactly the same type as their primary channels (e.g., `x`, `y`).
+     *
+     * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
      */
     var TypeForShape;
     (function (TypeForShape) {
@@ -631,14 +640,14 @@
         StackOffset["Normalize"] = "normalize";
         StackOffset["Zero"] = "zero";
     })(StackOffset || (StackOffset = {}));
-    var PurpleValue;
-    (function (PurpleValue) {
-        PurpleValue["Width"] = "width";
-    })(PurpleValue || (PurpleValue = {}));
-    var FluffyValue;
-    (function (FluffyValue) {
-        FluffyValue["Height"] = "height";
-    })(FluffyValue || (FluffyValue = {}));
+    var XEnum;
+    (function (XEnum) {
+        XEnum["Width"] = "width";
+    })(XEnum || (XEnum = {}));
+    var YEnum;
+    (function (YEnum) {
+        YEnum["Height"] = "height";
+    })(YEnum || (YEnum = {}));
     /**
      * The mouse cursor used over the mark. Any valid [CSS cursor
      * type](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor#Values) can be used.
@@ -857,6 +866,7 @@
         ProjectionType["Gnomonic"] = "gnomonic";
         ProjectionType["Identity"] = "identity";
         ProjectionType["Mercator"] = "mercator";
+        ProjectionType["NaturalEarth1"] = "naturalEarth1";
         ProjectionType["Orthographic"] = "orthographic";
         ProjectionType["Stereographic"] = "stereographic";
         ProjectionType["TransverseMercator"] = "transverseMercator";
@@ -870,6 +880,8 @@
      * Establishes a two-way binding between the interval selection and the scales
      * used within the same view. This allows a user to interactively pan and
      * zoom the view.
+     *
+     * __See also:__ [`bind`](https://vega.github.io/vega-lite/docs/bind.html) documentation.
      */
     var BindEnum;
     (function (BindEnum) {
@@ -888,6 +900,9 @@
      * With layered and multi-view displays, a strategy that determines how
      * selections' data queries are resolved when applied in a filter transform,
      * conditional encoding rule, or scale domain.
+     *
+     * __See also:__ [`resolve`](https://vega.github.io/vega-lite/docs/selection-resolve.html)
+     * documentation.
      */
     var SelectionResolution;
     (function (SelectionResolution) {
@@ -895,6 +910,15 @@
         SelectionResolution["Intersect"] = "intersect";
         SelectionResolution["Union"] = "union";
     })(SelectionResolution || (SelectionResolution = {}));
+    /**
+     * Determines the default event processing and data query for the selection. Vega-Lite
+     * currently supports three selection types:
+     *
+     * - `single` -- to select a single discrete data value on `click`.
+     * - `multi` -- to select multiple discrete data value; the first value is selected on
+     * `click` and additional values toggled on shift-`click`.
+     * - `interval` -- to select a continuous range of data values on `drag`.
+     */
     var SelectionDefType;
     (function (SelectionDefType) {
         SelectionDefType["Interval"] = "interval";
@@ -8976,6 +9000,8 @@
         return valid;
     }
 
+    var vlschema = "https://vega.github.io/schema/vega-lite/v3.json";
+
     /**
      * Retures vlSpec
      * Here is an example of comments in Typescript. For now vscode can generate `Jsdoc` automaticly.
@@ -9002,7 +9028,7 @@
         var gsScales = gsSpec.scales;
         var gsLabels = gsSpec.labels;
         var vlSpec = {
-            $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+            $schema: vlschema,
             title: TranslateTitle(gsLabels),
             datasets: TranslateDatasets(gsData),
             layer: TranslateLayers(gsData, gsLayers, gsScales, gsLabels)
