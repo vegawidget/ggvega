@@ -24,7 +24,7 @@
  * 
  * **Calls**
  * 
- * @see {@link itmEncoding} to create an empty encoding
+ * @see {@link encodingByAes} to create an empty encoding
  * @see {@link fieldName} to handle dots, ".", in field names
  * 
  * @param gsMappingObject - `gs.Mapping` maps data varaibles to aesthetics
@@ -53,9 +53,9 @@ function itmEncodingObjectByMappingObject(
 
   // for each mapping in gsMappingObject:
   //   - extract the information from the mapping object, metadata
-  //   - create ItmEncoding
-  //   - populate ItmEncoding 
-  //   - put ItmEncoding into itmEncodingObject 
+  //   - create Encoding
+  //   - populate Encoding 
+  //   - put Encoding into itmEncodingObject 
   for (let aesName: string in gsMappingObject) {
     if (gsMappingObject.hasOwnProperty(aesName)) {
       // do we have a type/class for `mapping`?
@@ -69,17 +69,17 @@ function itmEncodingObjectByMappingObject(
       let field: string = fieldName(mapping.field);
       let type: vl.StandardType = gsMetadata[field].type;
 
-      // create ItmEncoding
-      let encoding: vl.Encoding = itmEncoding(aesName);
+      // create Encoding
+      let encoding: vl.Encoding = encodingByAes(aesName);
 
-      // popuate ItmEncoding  
+      // popuate Encoding  
       encoding.field = field;
       encoding.type = type;
 
       // assuming that TypeScript will protect us from setting 
       // properties that are not available
 
-      // put ItmEncoding into ItmEncodingObject
+      // put Encoding into ItmEncodingObject
       itmEncodingObject[aesName] = encoding;
     }
   }
@@ -121,7 +121,7 @@ function itmEncodingObjectByMappingObject(
  * 
  * **Calls**
  * 
- * @see {@link itmEncoding} to create an empty encoding
+ * @see {@link encodingByAes} to create an empty encoding
  * @see {@link encodingValueShape} to translate shape values
  * @see {@link encodingValueColor} to translate color values
  * @see {@link encodingValueSize} to translate size values
@@ -175,13 +175,13 @@ function itmEncodingObjectByAesParamsObject(
         value = encodingValueSize(Number(value));
       } 
 
-       // create ItmEncoding     
-      let encoding: vl.Encoding = itmEncoding(aesName);
+      // create Encoding     
+      let encoding: vl.Encoding = encodingByAes(aesName);
 
-      // populate ItmEncoding
+      // populate Encoding
       encoding.value = value;
 
-      // put ItmEncoding into ItmEncodingObject
+      // put Encoding into ItmEncodingObject
       itmEncodingObject[aesName] = encoding;
     }
   }
