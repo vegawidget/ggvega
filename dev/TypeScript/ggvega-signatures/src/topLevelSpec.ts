@@ -54,12 +54,22 @@
  *   - a ggplot2 `scale` name takes precedence over a ggplot2 `label` value.
  *   - a ggplot2 `mapping` takes precedence over a ggplot2 `stat` `default_aes`.
  * 
+ * ---
+ * 
+ * **Calls**
+ * 
+ * @see datasetsObject
+ * @see layerArray
+ * @see facet
+ * 
  * @param ggspec - `gs.TopLevelSpec`, validated ggspec
  *
  * @returns `vl.TopLevelSpec`, Vega-Lite specification
  *
  */
 function topLevelSpec(ggspec: gs.TopLevelSpec): vl.TopLevelSpec {
+
+  // TODO: don't forget the title!
 
   // The structure of a Vega-Lite specification depends on whether or not
   // it is faceted.
