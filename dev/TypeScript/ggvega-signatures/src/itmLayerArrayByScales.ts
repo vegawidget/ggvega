@@ -3,6 +3,8 @@ function itmLayerArrayByScaleArray(
   gsScaleArray: gs.Scale[]
 ) : ItmLayer[] {
   
+  // suspect we will need medata
+
   // loop through the layers
   // within each layer:
   //   - get the encoding keys (aesthetic names)

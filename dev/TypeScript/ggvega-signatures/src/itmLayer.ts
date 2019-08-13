@@ -21,9 +21,12 @@
  * - `data`: name of the dataframe used for the layer
  * - `geom`: breadcrumb, contains the class of the ggplot2 `geom`
  * - `mark`: determined mainly using the `geom`
- * - `encoding`: 
- *     - initial version is built using ggplot2 `mapping` and `aes_params`,
- *       as well as the `metadata`.
+ * - `encoding` this is an intermediate encoding, where
+ *     the keys use the ggplot2-aesthetic namespace, 
+ *     rather than the Vega-Lite encoding namespace: 
+ *     - initial version is built using ggplot2 `mapping`, 
+ *       as well as the `metadata`
+ *     - then modified by `aes_params`   
  *     - then modified by `stat` and `stat_params`
  *     - then modified by `position`
  * 
@@ -34,7 +37,8 @@
  * **Calls**
  * 
  * @see markByGeom
- * @see itmEncodingObjectByMapping
+ * @see itmEncodingObjectByMappingObject
+ * @see itmEncodingObjectByAesParamsObject
  * @see itmEncodingObjectByStat
  * @see itmEncodingOjectByPosition
  * 
@@ -48,16 +52,19 @@ function itmLayer(gsLayer: gs.Layer, gsData: gsData): ItmLayer {
   // translate
 
   // get the metadata for the data for this layer
-  var gsMetadata: gs.Metadata = gsData[gsLayer.data].metadata;
+  var gsMetadataObject: gs.Metadata = gsData[gsLayer.data].metadata;
 
   let itmLayer: ItmLayer = {
     data: {name: gsLayer.data},
-    // leave this as a breadcrumb so that we can use encodingNameByGeom()
+    // leave `geom` as a breadcrumb so that we can use encodingNameByGeom()
     // - will not be not included in vl.Layer
     geom: gsLayer.geom, 
     mark: markByGeom(gsLayer.geom, gsLayer.geom_params, gsLayer.stat_params),
-    encoding: itmEncodingObjectByMapping(gsLayer.mapping, gsLayer.aes_params, gsMetadata)
+    encoding: itmEncodingObjectByMappingObject(gsLayer.mapping, gsMetadataObject)
   };
+
+  // incorporate aes_params into encoding
+  itmLayer.encoding = itmEncodingObjectByAesParamsObject(itmLayer.encoding, gsLayer.aes_params)
 
   // incorporate stat into encoding 
   itmLayer.encoding = itmEncodingObjectByStat(itmLayer.encoding, gsLayer.stat, gsLayer.stat_params);

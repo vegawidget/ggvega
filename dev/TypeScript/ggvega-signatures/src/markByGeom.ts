@@ -1,5 +1,5 @@
 /**
- * Create a mark
+ * Create a `mark` using a `geom`
  * 
  * @remark
  * 

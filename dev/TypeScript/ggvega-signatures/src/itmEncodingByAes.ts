@@ -1,8 +1,14 @@
-// return an empty encoding accoridng to an aesthetic name
-function itmEncoding(aesName: string): vl.Encoding {
+// using Const here because we may wish to use datum in addition to value:
+// issue: https://github.com/vega/vega-lite/issues/1601
+// PR: https://github.com/vega/vega-lite/pull/4201
+//
+function itmEncodingByAes(aesName: string): vl.Encoding {
+
+  // assuming that vl.ValueDefWithConditionMarkPropFieldDefNumber, etc.
+  // are all subclasses of vl.Encoding
 
   // keys are ggplot2 aesthetic names
-  // values are Vega-Lite encoding constructor-functions
+  // values are Vega-Lite encoding constructor-functions for values
   const itmEncodingMap = {
     x: encodingX,
     y: encodingY,
@@ -13,7 +19,9 @@ function itmEncoding(aesName: string): vl.Encoding {
     alpha: encodingNumber,
     group: encodingDetail,
     shape: encodingShape,
-    weight: encodingNumber // aes used for stat calculations
+    weight: encodingNumber 
+    // NOTE: the weight aesthetic is used for stat calculations, it will
+    // not appear as an encoding key.
   }
 
   // validate
@@ -24,7 +32,6 @@ function itmEncoding(aesName: string): vl.Encoding {
   // return empty object
   return itmEncodingMap[aesName]();
 }
-
 
 // return empty object
 function encodingX(): vl.XClass {
