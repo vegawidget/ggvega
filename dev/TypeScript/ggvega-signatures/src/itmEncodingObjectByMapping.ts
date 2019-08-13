@@ -54,15 +54,15 @@ function itmEncodingObjectByMapping(
       if (key == 'shape') {
         // TODO: we will likely need the Geom, which I think we can get
         // from the `geom` breadcrumb included with the itmEncoding
-        value = valueShape(Number(mapping));
+        value = encodingValueShape(Number(mapping));
       } 
       
       if (key == 'colour' || key == 'fill') {
-        value = valueColor(String(mapping));
+        value = encodingValueColor(String(mapping));
       }
       
       if (key == 'size') {
-        value = valueSize(Number(mapping));
+        value = encodingValueSize(Number(mapping));
       }  
 
       encoding.value = value; 

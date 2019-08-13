@@ -1,4 +1,4 @@
-function valueSize(size: number): number {
+function encodingValueSize(size: number): number {
 
   // TODO: keep in mind that this will likely depend on the Geom,
   // so we will likely need to take this into account
@@ -7,7 +7,7 @@ function valueSize(size: number): number {
   return 20 * size;
 }
 
-function valueShape(shape: number): string {
+function encodingValueShape(shape: number): string {
 
   // TODO: think more about this map
   const shapeMap: any = {
@@ -30,7 +30,7 @@ function valueShape(shape: number): string {
   return shapeMap[shape];
 }
 
-function valueColor(color: string): string {
+function encodingValueColor(color: string): string {
   // colors in R can have numbers at the end, in Vega-Lite (css), they don't
   // - we can get a good-enough mapping by removing the numbers.
 
