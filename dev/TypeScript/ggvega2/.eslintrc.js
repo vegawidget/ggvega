@@ -48,7 +48,7 @@ module.exports = {
     "prefer-const": "error",
     "no-return-assign": "error",
     "no-useless-call": "error",
-    "no-shadow": "error",
+    "no-shadow": "off",
     "no-useless-concat": "error",
     // "prefer-template": "error", // we can do this later
     "no-console": "off", // we use console

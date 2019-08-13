@@ -18,7 +18,7 @@ module.exports = {
     sourceType: "module" // Allows for the use of imports
   },
   rules: {
-    "@typescript-eslint/array-type": ["off", "array-simple"],
+    "@typescript-eslint/array-type": ["error", "array-simple"],
     "prettier/prettier": "warn",
     // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#supported-rules
     "@typescript-eslint/explicit-function-return-type": "off",
@@ -29,7 +29,6 @@ module.exports = {
     "@typescript-eslint/no-require-imports": "error",
     "@typescript-eslint/no-parameter-properties": "off",
     "@typescript-eslint/explicit-member-accessibility": "off",
-    "@typescript-eslint/no-empty-interface": "off",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
@@ -42,7 +41,7 @@ module.exports = {
     "@typescript-eslint/no-object-literal-type-assertion": "off", // we can do this later
     "@typescript-eslint/no-namespace": "off", // we can do this later
     // https://eslint.org/docs/rules/
-    "linebreak-style": ["off", "windows"],
+    "linebreak-style": ["error", "windows"],
     "no-irregular-whitespace": ["error", { skipComments: true }],
     "no-alert": "error",
     "prefer-const": "error",
@@ -50,7 +49,7 @@ module.exports = {
     "no-useless-call": "error",
     "no-shadow": "error",
     "no-useless-concat": "error",
-    // "prefer-template": "error", // we can do this later
+    // "prefer-template": "error",  // we can do this later
     "no-console": "off", // we use console
     "no-undef": "off", // typescript takes care of this for us
     "no-unreachable": "off" // typescript takes care of this for us

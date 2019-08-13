@@ -66,7 +66,7 @@ function MappingY(gsY: gs.Encoding | undefined, gsMetadata: gs.Metadata): vl.YCl
 function MappingNumber(
   gsEncodingNumber: gs.Encoding | undefined,
   gsMetadata: gs.Metadata
-): vl.ValueDefWithConditionMarkPropFieldDefNumber | undefined {
+): vl.DefWithConditionMarkPropFieldDefNumber | undefined {
   if (!gsEncodingNumber) return undefined;
 
   let vlField: string = gsEncodingNumber.field;
@@ -75,7 +75,7 @@ function MappingNumber(
 
   vlField = vlField.replace('.', '\\.');
 
-  const vlEncodingNumber: vl.ValueDefWithConditionMarkPropFieldDefNumber = {
+  const vlEncodingNumber: vl.DefWithConditionMarkPropFieldDefNumber = {
     field: vlField,
     type: VlType
   };
@@ -86,7 +86,7 @@ function MappingNumber(
 function MappingShape(
   gsEncodingShape: gs.Encoding | undefined,
   gsMetadata: gs.Metadata
-): vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined {
+): vl.DefWithConditionMarkPropFieldDefTypeForShapeStringNull | undefined {
   if (!gsEncodingShape) return undefined;
 
   let vlField: string = gsEncodingShape.field;
@@ -95,7 +95,7 @@ function MappingShape(
 
   vlField = vlField.replace('.', '\\.');
 
-  const vlEncodingShape: vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull = {
+  const vlEncodingShape: vl.DefWithConditionMarkPropFieldDefTypeForShapeStringNull = {
     field: vlField,
     type: VlType
   };
@@ -106,7 +106,7 @@ function MappingShape(
 function MappingString(
   gsEncodingString: gs.Encoding | undefined,
   gsMetadata: gs.Metadata
-): vl.ValueDefWithConditionMarkPropFieldDefStringNull | undefined {
+): vl.DefWithConditionMarkPropFieldDefStringNull | undefined {
   if (!gsEncodingString) return undefined;
 
   let vlField: string = gsEncodingString.field;
@@ -115,7 +115,7 @@ function MappingString(
 
   vlField = vlField.replace('.', '\\.');
 
-  const vlEncodingString: vl.ValueDefWithConditionMarkPropFieldDefStringNull = {
+  const vlEncodingString: vl.DefWithConditionMarkPropFieldDefStringNull = {
     field: vlField,
     type: VlType
   };

@@ -17,7 +17,7 @@
     "test": "jest test/",
     "doc": "typedoc --out docs ./src --mode modules",
     "schema2ts": "quicktype -s schema $npm_package_vlschema -o src/vlSpec.ts --top-level TopLevelSpec --just-types  --explicit-unions  && node fixbug.js",
-    "winschema2ts": "quicktype -s schema %npm_package_vlschema% -o src/vlSpec.ts --top-level TopLevelSpec --just-types --explicit-unions && node fixbug.js"
+    "winschema2ts": "quicktype -s schema %npm_package_vlschema% -o src/vlSpec.ts --top-level TopLevelSpec --just-types  --explicit-unions  && node fixbug.js"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",
