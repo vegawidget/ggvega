@@ -1,6 +1,6 @@
 function itmLayerArrayByScaleArray(
   itmLayerArray: ItmLayer[],
-  gsScaleArray: gs.Scale[]
+  ggScaleArray: GG.Scale[]
 ) : ItmLayer[] {
   
   // suspect we will need medata

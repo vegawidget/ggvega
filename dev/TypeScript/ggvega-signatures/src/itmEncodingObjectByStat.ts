@@ -17,15 +17,15 @@
  * @see itmEncodingObjectByStatIdentity
  * 
  * @param itmEncodingObject 
- * @param gsStat 
- * @param gsStatParams 
+ * @param ggStat 
+ * @param ggStatParams 
  * 
  * @return itmEncodingObject
  */
 function itmEncodingObjectByStat(
   itmEncodingObject: ItmEncodingObject, 
-  gsStat: gs.Stat, 
-  gsStatParams: gs.StatParams
+  ggStat: GG.Stat, 
+  ggStatParams: GG.StatParams
 ): ItmEncodingObject {
 
   let statMap = {
@@ -33,14 +33,14 @@ function itmEncodingObjectByStat(
   }
 
   // validate
-  if (!contains(Object.keys(statMap), gsStat.class)) {
-    throw new Error('ggplot object contains unsupported stat: ' + gsStat.class);  
+  if (!contains(Object.keys(statMap), ggStat.class)) {
+    throw new Error('ggplot object contains unsupported stat: ' + ggStat.class);  
   }
 
   // translate
-  const functionTranslate = statMap[gsStat.class];
+  const functionTranslate = statMap[ggStat.class];
   
-  return functionTranslate(itmEncodingObject, gsStat, gsStatParams);
+  return functionTranslate(itmEncodingObject, ggStat, ggStatParams);
 }
 
 /**
@@ -53,15 +53,15 @@ function itmEncodingObjectByStat(
  * @see itmEncodingObjectByStat
  * 
  * @param itmEncodingObject 
- * @param gsStat 
- * @param gsStatParams 
+ * @param ggStat 
+ * @param ggStatParams 
  * 
  * @return itmEncodingObject
  */
 function itmEncodingObjectByStatIdentity(
   itmEncodingObject: ItmEncodingObject, 
-  gsStat: gs.Stat, 
-  gsStatParams: gs.StatParams  
+  ggStat: GG.Stat, 
+  ggStatParams: GG.StatParams  
 ): ItmEncodingObject {
 
   // do nothing

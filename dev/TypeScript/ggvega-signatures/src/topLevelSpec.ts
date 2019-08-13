@@ -27,7 +27,7 @@
  *  
  * - Functions or variables that refer to a Vega-Lite objects 
  *   do *not* use a prefix. Those that refer to a ggspec or intermidate object
- *   use the prefixes `gs` or `itm`, respectively.
+ *   use the prefixes `gg` or `itm`, respectively.
  * 
  * - Functions and files containing functions that depend on 
  *   certain ggplot2 features, e.g. `Geom`, are further named using 
@@ -62,12 +62,12 @@
  * @see layerArray
  * @see facet
  * 
- * @param ggspec - `gs.TopLevelSpec`, validated ggspec
+ * @param ggSpec - `GG.TopLevelSpec`, validated ggspec
  *
- * @returns `vl.TopLevelSpec`, Vega-Lite specification
+ * @returns `VL.TopLevelSpec`, Vega-Lite specification
  *
  */
-function topLevelSpec(ggspec: gs.TopLevelSpec): vl.TopLevelSpec {
+function topLevelSpec(ggSpec: GG.TopLevelSpec): VL.TopLevelSpec {
 
   // TODO: don't forget the title!
 
@@ -78,21 +78,21 @@ function topLevelSpec(ggspec: gs.TopLevelSpec): vl.TopLevelSpec {
   // also - what mechanism do we use to update the Vega-Lite schema?
   const schema = 'https://vega.github.io/schema/vega-lite/v3.json';
 
-  let topLevelSpec: vl.TopLevelSpec = {};
+  let topLevelSpec: VL.TopLevelSpec = {};
 
   // faceted
-  if (ggspec.facet.class != 'FacetNull') {
+  if (ggSpec.facet.class != 'FacetNull') {
 
     // at the moment, this code will not run because 
     // `facet()`, by design, throws an error
 
     topLevelSpec = {
       $schema: schema,
-      datasets: datasetsObject(ggspec.data),
+      datasets: datasetsObject(ggSpec.data),
       spec: {
-        layer: layerArray(ggspec.data, ggspec.layers, ggspec.scales, ggspec.labels, ggspec.coordinates)
+        layer: layerArray(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
       },
-      facet: facet(ggspec.facet)
+      facet: facet(ggSpec.facet)
     }
 
     return topLevelSpec;
@@ -101,8 +101,8 @@ function topLevelSpec(ggspec: gs.TopLevelSpec): vl.TopLevelSpec {
   // not faceted
   topLevelSpec = {
     $schema: schema,
-    datasets: datasetsObject(ggspec.data),
-    layer: layerArray(ggspec.data, ggspec.layers, ggspec.scales, ggspec.labels, ggspec.coordinates)
+    datasets: datasetsObject(ggSpec.data),
+    layer: layerArray(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
   };
 
   return topLevelSpec;

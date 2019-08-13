@@ -14,10 +14,12 @@
  * requires additional information, then you can build a new function, like 
  * {@link markByGeomBoxplot}, to handle the creation of the `mark` object.
  * 
- * @param gsGeom - `gs.Geom`, contains class of the ggplot2 `geom`; 
+ * @param ggGeom - `GG.Geom`, contains class of the ggplot2 `geom`; 
  *   these map to the `mark` type
- * @param gsGeomParams - `gs.GeomParams`
- * @param gsStatParams - `gs.StatParams`
+ * @param gsGeomParams - `GG.GeomParams`
+ * @param ggStatParams - `GG.StatParams`
+ * 
+ * @return `VL.Mark`
  * 
  * **Called by**
  * 
@@ -30,18 +32,18 @@
  * 
  */
 function markByGeom(
-  gsGeom: gs.Geom, 
-  gsGeomParams: gs.GeomParams,
-  gsStatParams: gs.StatParams
-): vl.Mark {
+  ggGeom: GG.Geom, 
+  ggGeomParams: GG.GeomParams,
+  ggStatParams: GG.StatParams
+): VL.Mark {
   
   // use this pattern for dispatch if we have only a few exceptions to the default
   // NOTE: we don't have Boxplot defined yet
-  if (gsGeom.class == 'GeomBoxplot') {
-    return markByGeomBoxplot(gsGeom, gsGeomParams, gsStatParams);
+  if (ggGeom.class == 'GeomBoxplot') {
+    return markByGeomBoxplot(ggGeom, ggGeomParams, ggStatParams);
   } 
     
-  return markByGeomDefault(gsGeom);
+  return markByGeomDefault(ggGeom);
 }
 
 /**
@@ -59,12 +61,12 @@ function markByGeom(
  * @see markByGeom
  * @see markByBoxplot
  * 
- * @param gsGeom 
+ * @param ggGeom 
  * 
- * @return `vl.Mark`
+ * @return `VL.Mark`
  * 
  */
-function markByGeomDefault(gsGeom: gs.Geom): vl.Mark {
+function markByGeomDefault(ggGeom: GG.Geom): VL.Mark {
 
   // key: name of ggplot2 geom class
   // value: name of Vega-Lite mark type
@@ -74,13 +76,13 @@ function markByGeomDefault(gsGeom: gs.Geom): vl.Mark {
   };
 
   // validate
-  if (!contains(Object.keys(markByGeomMap), gsGeom.class)) {
+  if (!contains(Object.keys(markByGeomMap), ggGeom.class)) {
     throw new Error('ggplot object contains unsupported geom: ' + geom);  
   }
 
   // translate
-  let mark: vl.Mark = {
-    type: markByGeomMap[gsGeom.class]
+  let mark: VL.Mark = {
+    type: markByGeomMap[ggGeom.class]
   }
 
   return mark;
@@ -105,18 +107,18 @@ function markByGeomDefault(gsGeom: gs.Geom): vl.Mark {
  * 
  * @see markByGeomDefault
  * 
- * @param gsGeom - `gs.Geom`, contains class of the ggplot2 `geom`
- * @param gsGeomParams - `gs.GeomParams`
- * @param gsStatParams - `gs.StatParams`
+ * @param ggGeom - `GG.Geom`, contains class of the ggplot2 `geom`
+ * @param ggGeomParams - `GG.GeomParams`
+ * @param gsStatParams - `GG.StatParams`
  * 
- * @return `vl.Mark`
+ * @return `VL.Mark`
  * 
  */
 function markByGeomBoxplot(
-  gsGeom: gs.Geom, 
-  gsGeomParams: gs.GeomParams,
-  gsStatParams: gs.StatParams
-): vl.Mark { 
+  ggGeom: GG.Geom, 
+  ggGeomParams: GG.GeomParams,
+  ggStatParams: GG.StatParams
+): GG.Mark { 
 
   // I know we have not done boxplots yet, this is just to propose an
   // extension mechanism.
@@ -124,7 +126,7 @@ function markByGeomBoxplot(
   // validate (look for GeomParams and StatParams we can't translate)
 
   // translate
-  let mark: vl.Mark = markByGeomDefault(gsGeom);
+  let mark: VL.Mark = markByGeomDefault(ggGeom);
 
   // TODO: add geomParams 
 
@@ -137,7 +139,7 @@ function markByGeomBoxplot(
     return coef;
   }
 
-  mark.extent = coef(gsStatParams.coef); 
+  mark.extent = coef(ggStatParams.coef); 
 
   return mark;
 }

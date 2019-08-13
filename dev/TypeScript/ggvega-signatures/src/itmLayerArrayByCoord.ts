@@ -1,6 +1,6 @@
 function itmLayerArrayByCoord(
   itmLayerArray: ItmLayer[],
-  gsCoord: gs.Coord[]
+  ggCoord: GG.Coord[]
 ): ItmLayer[] {
 
   // keys: class names
@@ -10,13 +10,13 @@ function itmLayerArrayByCoord(
   };
 
   // validate
-  const className: string = gsCoord.class;
+  const className: string = ggCoord.class;
   if (!contains(Object.keys(CoordMap), className)) {
     throw new Error('ggplot object contains unsupported coordinates: ' + className);  
   }
 
   // translate
-  return CoordMap[className](itmLayerArray, gsCoord);
+  return CoordMap[className](itmLayerArray, ggCoord);
 }
 
 function itmLayerArrayByCoordCartesian(

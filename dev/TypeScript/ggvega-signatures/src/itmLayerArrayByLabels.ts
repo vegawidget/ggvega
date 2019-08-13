@@ -1,6 +1,6 @@
 function itmLayerArrayByLabelObject(
   itmLayerArray: ItmLayer[],
-  gsLabelObject: gs.Labels
+  ggLabelObject: GG.Labels
 ) : ItmLayer[] {
   
   // loop through the layers

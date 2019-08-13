@@ -27,15 +27,15 @@
  * @see {@link encodingByAes} to create an empty encoding
  * @see {@link fieldName} to handle dots, ".", in field names
  * 
- * @param gsMappingObject - `gs.Mapping` maps data varaibles to aesthetics
- * @param gsMetadataObject - `gs.Metadata` contains the metadata for the data
+ * @param ggMappingObject - `GG.Mapping` maps data varaibles to aesthetics
+ * @param ggMetadataObject - `GG.Metadata` contains the metadata for the data
  *   associated to this layer
  * 
  * @return `ItmEncodingObject`
  */
 function itmEncodingObjectByMappingObject(
-  gsMappingObject: gs.Mapping, 
-  gsMetadataObject: gs.Metadata
+  ggMappingObject: GG.Mapping, 
+  ggMetadataObject: GG.Metadata
 ): ItmEncodingObject {
 
   // translate
@@ -56,21 +56,21 @@ function itmEncodingObjectByMappingObject(
   //   - create Encoding
   //   - populate Encoding 
   //   - put Encoding into itmEncodingObject 
-  for (let aesName: string in gsMappingObject) {
-    if (gsMappingObject.hasOwnProperty(aesName)) {
+  for (let aesName: string in ggMappingObject) {
+    if (ggMappingObject.hasOwnProperty(aesName)) {
       // do we have a type/class for `mapping`?
 
       // extract information from mapping object, metatdata
-      let mapping = gsMappingObject[aesName];
+      let mapping = ggMappingObject[aesName];
 
       // TODO: we need to handle the situation where the mapping is a 
       // `stat` instead of a `field`
 
       let field: string = fieldName(mapping.field);
-      let type: vl.StandardType = gsMetadata[field].type;
+      let type: VL.StandardType = gsMetadata[field].type;
 
       // create Encoding
-      let encoding: vl.Encoding = encodingByAes(aesName);
+      let encoding: VL.Encoding = encodingByAes(aesName);
 
       // popuate Encoding  
       encoding.field = field;
@@ -127,13 +127,13 @@ function itmEncodingObjectByMappingObject(
  * @see {@link encodingValueSize} to translate size values
  * 
  * @param itmEncodingObject 
- * @param gsAesParamsObject 
+ * @param ggAesParamsObject 
  * 
  * @return `ItmEncodingObject`
  */
 function itmEncodingObjectByAesParamsObject(
   itmEncodingObject: ItmEncodingObject,
-  gsAesParamsObject: gs.AesParams,
+  ggAesParamsObject: GG.AesParams,
 ): ItmEncodingObject {
 
   // NOTE: we may have to pass the `geom` from itmLayer()
@@ -143,11 +143,11 @@ function itmEncodingObjectByAesParamsObject(
   //   - create ItmEncoding
   //   - populate ItmEncoding
   //   - put ItmEncoding into itmEncodingObject 
-  for (let aesName: string in gsAesParamsObject) {
-    if (gsAesParamsObject.hasOwnProperty(aesName)) {
+  for (let aesName: string in ggAesParamsObject) {
+    if (ggAesParamsObject.hasOwnProperty(aesName)) {
 
       // extract information from aes_params
-      let value: string | number | boolean = gsAesParamsObject[key];
+      let value: string | number | boolean = ggAesParamsObject[key];
 
       /**
        * keep in mind that values are interpreted 
@@ -176,7 +176,7 @@ function itmEncodingObjectByAesParamsObject(
       } 
 
       // create Encoding     
-      let encoding: vl.Encoding = encodingByAes(aesName);
+      let encoding: VL.Encoding = encodingByAes(aesName);
 
       // populate Encoding
       encoding.value = value;
