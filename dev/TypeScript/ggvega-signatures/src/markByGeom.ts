@@ -12,9 +12,10 @@
  * For developers of this package, when a new `geom` is added, you will have to
  * add the corresponding `mark` name to {@link markByGeomDefault}. If the `mark`
  * requires additional information, then you can build a new function, like 
- * {@link markByGeomBoxplot}, to handle the creation of the `mark` object.\
+ * {@link markByGeomBoxplot}, to handle the creation of the `mark` object.
  * 
- * @param gsGeom - `gs.Geom`
+ * @param gsGeom - `gs.Geom`, contains class of the ggplot2 `geom`; 
+ *   these map to the `mark` type
  * @param gsGeomParams - `gs.GeomParams`
  * @param gsStatParams - `gs.StatParams`
  * 
@@ -49,8 +50,9 @@ function markByGeom(
  * @remark
  * This is the default constructor for a mark object. 
  * 
- * For developers, whenever you add a new `geom` is addded, 
- * you will have to add it to the `markByGeomMap` object.
+ * For developers, whenever you add a new `geom`, you will have to add to the 
+ * `markByGeomMap` object, which maps names of ggplot2 `geom` classes to 
+ * names of Vega-Lite `mark` types.
  * 
  * @param gsGeom 
  * 
@@ -59,8 +61,8 @@ function markByGeom(
  */
 function markByGeomDefault(gsGeom: gs.Geom): vl.Mark {
 
-  // keys: names of ggplot2 Geom classes
-  // values: names of Vega-Lite marks
+  // key: name of ggplot2 geom class
+  // value: name of Vega-Lite mark type
   const markByGeomMap = {
     GeomPoint: 'point',
     GeomBoxplot: 'boxplot'
@@ -71,7 +73,7 @@ function markByGeomDefault(gsGeom: gs.Geom): vl.Mark {
     throw new Error('ggplot object contains unsupported geom: ' + geom);  
   }
 
-  // validate and translate
+  // translate
   let mark: vl.Mark = {
     type: markByGeomMap[gsGeom.class]
   }
@@ -82,9 +84,17 @@ function markByGeomDefault(gsGeom: gs.Geom): vl.Mark {
 /**
  * Create a boxplot `mark`
  * 
- * @param gsGeom 
- * @param gsGeomParams 
- * @param gsStatParams 
+ * @remark
+ * The boxplot `mark` is a compound type, defined by more than
+ * the class of the `geom`:
+ * 
+ * - `extent` is equivalent to ggplot2 `coef`, normally a number,
+ *   but we have to take into account infinite values which serialize 
+ *   and translate as strings. 
+ * 
+ * @param gsGeom - `gs.Geom`, contains class of the ggplot2 `geom`
+ * @param gsGeomParams - `gs.GeomParams`
+ * @param gsStatParams - `gs.StatParams`
  * 
  * @return `vl.Mark`
  * 
