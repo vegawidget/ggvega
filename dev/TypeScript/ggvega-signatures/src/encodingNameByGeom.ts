@@ -1,31 +1,7 @@
-
-// this function does not depend on Geom
-function fieldName(name: string): string {
-  // use regular expression to replaces all matches
-  return name.replace(/[.]/g, "\\.")
-}
-
-// keys: names of ggplot2 Geom classes
-// values: names of Vega-Lite marks
-const markByGeomMap = {
-  GeomPoint: 'point',
-  GeomBoxplot: 'boxplot'
-};
-
-function markNameByGeomName(geom: string): string {
- 
-  // validate
-  if (!contains(Object.keys(markByGeomMap), geom)) {
-    throw new Error('ggplot object contains unsupported geom: ' + geom);  
-  }
-
-  // translate
-  return markByGeomMap[geom];
-}
-
 function encodingNameByGeom(aesName: string, gsGeom: gs.Geom): string {
 
-  // default key
+  // keys: names of ggplot2 aesthetics
+  // values: names of Vega-Lite encodings
   var encodingMap = {
     x: 'x',
     y: 'y',

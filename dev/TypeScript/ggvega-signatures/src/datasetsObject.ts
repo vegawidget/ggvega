@@ -2,9 +2,12 @@
  * Create datasets object
  * 
  * @remarks
- * 
  * For each key-value pair in `gsDatasetsObject`, a key-value pair is created 
  * in the return object. 
+ * 
+ * **Called by**
+ * 
+ * @see topLevelSpec
  * 
  * @param gsDatasetsObject - `{[key: string]: gs.Data}`, key-value pairs of ggspec datasets
  * 
