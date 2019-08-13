@@ -1,12 +1,35 @@
+/**
+ * Translate a ggplot2 size to a Vega-Lite size
+ * 
+ * @remark
+ * In the future, we may have to take the geom into account.
+ * 
+ * **Called by**
+ * @see itmEncodingObjectByAesParamsObject
+ * 
+ * @param size - `number`
+ * 
+ * @return `number`
+ */
 function encodingValueSize(size: number): number {
-
-  // TODO: keep in mind that this will likely depend on the Geom,
-  // so we will likely need to take this into account
   
   // translate
   return 20 * size;
 }
-
+/**
+ * Translate a ggplot2 shape to a Vega-Lite shape
+ * 
+ * @remark
+ * 
+ * We need to think more about how this function behaves.
+ * 
+ * **Called by**
+ * @see itmEncodingObjectByAesParamsObject
+ * 
+ * @param size - `number`
+ * 
+ * @return `number`
+ */
 function encodingValueShape(shape: number): string {
 
   // TODO: think more about this map
@@ -30,6 +53,31 @@ function encodingValueShape(shape: number): string {
   return shapeMap[shape];
 }
 
+/**
+ * Translate a ggplot2 colour to a Vega-Lite color
+ * 
+ * @remark
+ * 
+ * In ggplot2, colours can be hex-codes or named colours; In Vega-Lite,
+ * colors can be hex-codes or named colors. Hex-codes mean the same thing 
+ * in both. Colours, although they have a common heritage, X11, are a little
+ * bit different.
+ * 
+ * Hex-codes are returned unchanged.
+ * 
+ * Colour-names that end in numbers have the numbers removed. 
+ * 
+ * In the future, we might imagine something more-sophisticated that preserves the 
+ * names of colours that correspond, but replace those that do not correspond
+ * with hex-codes. 
+ *
+ * **Called by**
+ * @see itmEncodingObjectByAesParamsObject
+ * 
+ * @param size - `number`
+ * 
+ * @return `number`
+ */
 function encodingValueColor(color: string): string {
   // colors in R can have numbers at the end, in Vega-Lite (css), they don't
   // - we can get a good-enough mapping by removing the numbers.
