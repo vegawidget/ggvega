@@ -54,6 +54,11 @@ function markByGeom(
  * `markByGeomMap` object, which maps names of ggplot2 `geom` classes to 
  * names of Vega-Lite `mark` types.
  * 
+ * **Called by**
+ * 
+ * @see markByGeom
+ * @see markByBoxplot
+ * 
  * @param gsGeom 
  * 
  * @return `vl.Mark`
@@ -91,6 +96,14 @@ function markByGeomDefault(gsGeom: gs.Geom): vl.Mark {
  * - `extent` is equivalent to ggplot2 `coef`, normally a number,
  *   but we have to take into account infinite values which serialize 
  *   and translate as strings. 
+ * 
+ * **Called by**
+ * 
+ * @see markByGeom
+ * 
+ * **Calls**
+ * 
+ * @see markByGeomDefault
  * 
  * @param gsGeom - `gs.Geom`, contains class of the ggplot2 `geom`
  * @param gsGeomParams - `gs.GeomParams`

@@ -8,3 +8,9 @@ function contains(a: Array, obj: any): boolean {
   }
   return false;
 }
+
+// this function does not depend on Geom
+function fieldName(name: string): string {
+  // use regular expression to replaces all matches
+  return name.replace(/[.]/g, "\\.")
+}

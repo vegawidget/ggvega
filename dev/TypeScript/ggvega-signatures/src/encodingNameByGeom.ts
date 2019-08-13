@@ -1,10 +1,3 @@
-
-// this function does not depend on Geom
-function fieldName(name: string): string {
-  // use regular expression to replaces all matches
-  return name.replace(/[.]/g, "\\.")
-}
-
 function encodingNameByGeom(aesName: string, gsGeom: gs.Geom): string {
 
   // keys: names of ggplot2 aesthetics
