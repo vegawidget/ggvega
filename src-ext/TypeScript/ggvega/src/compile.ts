@@ -2,6 +2,7 @@ import * as vl from './vlSpec';
 import * as gs from '../../ggschema/src/index';
 import {TranslateLayers} from './layers';
 import {validateGs} from './util';
+import * as npmPackage from '../package.json';
 
 /**
  * Retures vlSpec
@@ -36,7 +37,7 @@ export function gs2vlValidated(gsSpec: gs.TopLevelSpec): vl.TopLevelSpec {
   const gsLabels = gsSpec.labels;
 
   const vlSpec: vl.TopLevelSpec = {
-    $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+    $schema: npmPackage.vlschema,
 
     title: TranslateTitle(gsLabels),
 

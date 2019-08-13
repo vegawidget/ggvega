@@ -60,7 +60,9 @@ export const ggSpec01: gs.TopLevelSpec = {
       }
     }
   ],
-  scales: []
+  scales: [],
+  coordinates: {class: 'CoordCartesian'},
+  facet: {class: 'FacetNull'}
 };
 export const ggSpec02: gs.TopLevelSpec = {
   data: {'data-00': {metadata: {}, observations: {}}},
@@ -78,7 +80,9 @@ export const ggSpec02: gs.TopLevelSpec = {
       }
     }
   ],
-  scales: []
+  scales: [],
+  coordinates: {class: 'CoordCartesian'},
+  facet: {class: 'FacetNull'}
 };
 
 export const ggSpec03: gs.TopLevelSpec = {
@@ -106,7 +110,9 @@ export const ggSpec03: gs.TopLevelSpec = {
       }
     }
   ],
-  scales: []
+  scales: [],
+  coordinates: {class: 'CoordCartesian'},
+  facet: {class: 'FacetNull'}
 };
 
 export const ggSpec04: gs.TopLevelSpec = {
@@ -144,7 +150,9 @@ export const ggSpec04: gs.TopLevelSpec = {
     }
   ],
   scales: [],
-  labels: {x: 'wt', y: 'mpg'}
+  labels: {x: 'wt', y: 'mpg'},
+  coordinates: {class: 'CoordCartesian'},
+  facet: {class: 'FacetNull'}
 };
 
 export const ggSpec05: gs.TopLevelSpec = {
@@ -176,7 +184,9 @@ export const ggSpec05: gs.TopLevelSpec = {
     }
   ],
   scales: [],
-  labels: {x: 'Petal.Width', y: 'Petal.Length', colour: 'Species'}
+  labels: {x: 'Petal.Width', y: 'Petal.Length', colour: 'Species'},
+  coordinates: {class: 'CoordCartesian'},
+  facet: {class: 'FacetNull'}
 };
 
 export const ggSpec06: gs.TopLevelSpec = {
@@ -208,7 +218,9 @@ export const ggSpec06: gs.TopLevelSpec = {
     }
   ],
   scales: [],
-  labels: {x: 'Petal.Width', y: 'Petal.Length', shape: 'Species'}
+  labels: {x: 'Petal.Width', y: 'Petal.Length', shape: 'Species'},
+  coordinates: {class: 'CoordCartesian'},
+  facet: {class: 'FacetNull'}
 };
 
 export const ggSpec07: gs.TopLevelSpec = {
@@ -246,7 +258,9 @@ export const ggSpec07: gs.TopLevelSpec = {
     }
   ],
   scales: [],
-  labels: {x: 'wt', y: 'mpg', size: 'cyl'}
+  labels: {x: 'wt', y: 'mpg', size: 'cyl'},
+  coordinates: {class: 'CoordCartesian'},
+  facet: {class: 'FacetNull'}
 };
 
 export const ggSpec08: gs.TopLevelSpec = {
@@ -284,7 +298,9 @@ export const ggSpec08: gs.TopLevelSpec = {
     }
   ],
   scales: [],
-  labels: {x: 'wt', y: 'mpg', shape: 'cyl'}
+  labels: {x: 'wt', y: 'mpg', shape: 'cyl'},
+  coordinates: {class: 'CoordCartesian'},
+  facet: {class: 'FacetNull'}
 };
 
 export const ggSpec09: gs.TopLevelSpec = {
@@ -322,7 +338,9 @@ export const ggSpec09: gs.TopLevelSpec = {
     }
   ],
   scales: [],
-  labels: {x: 'wt', y: 'mpg', stroke: 'cyl'}
+  labels: {x: 'wt', y: 'mpg', stroke: 'cyl'},
+  coordinates: {class: 'CoordCartesian'},
+  facet: {class: 'FacetNull'}
 };
 
 export const ggSpec10: gs.TopLevelSpec = {
@@ -360,7 +378,9 @@ export const ggSpec10: gs.TopLevelSpec = {
     }
   ],
   scales: [],
-  labels: {x: 'wt', y: 'mpg', fill: 'cyl'}
+  labels: {x: 'wt', y: 'mpg', fill: 'cyl'},
+  coordinates: {class: 'CoordCartesian'},
+  facet: {class: 'FacetNull'}
 };
 
 export const ggSpec11: gs.TopLevelSpec = {
@@ -398,7 +418,9 @@ export const ggSpec11: gs.TopLevelSpec = {
     }
   ],
   scales: [],
-  labels: {x: 'wt', y: 'mpg', alpha: 'cyl'}
+  labels: {x: 'wt', y: 'mpg', alpha: 'cyl'},
+  coordinates: {class: 'CoordCartesian'},
+  facet: {class: 'FacetNull'}
 };
 
 /**

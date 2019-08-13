@@ -16,6 +16,9 @@ Authors@R:
              family = "Yang",
              role = c("aut"),
              email = "wenyuyang@gwmail.gwu.edu"),
+      person("Vega/Vega-Lite Developers", 
+             role = c("ctb"),
+             comment = "Vega-Lite schema"),
       person("Schneider Electric", role = "fnd"),
       person("Google Summer of Code", role = "fnd")
     )

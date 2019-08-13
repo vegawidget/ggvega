@@ -26,6 +26,24 @@
       },
       "type": "object"
     },
+    "Coord": {
+      "$ref": "#/definitions/CoordCartesian"
+    },
+    "CoordCartesian": {
+      "additionalProperties": false,
+      "properties": {
+        "class": {
+          "enum": [
+            "CoordCartesian"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "class"
+      ],
+      "type": "object"
+    },
     "Dataset": {
       "additionalProperties": false,
       "properties": {
@@ -59,6 +77,24 @@
       },
       "required": [
         "field"
+      ],
+      "type": "object"
+    },
+    "Facet": {
+      "$ref": "#/definitions/FacetNull"
+    },
+    "FacetNull": {
+      "additionalProperties": false,
+      "properties": {
+        "class": {
+          "enum": [
+            "FacetNull"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "class"
       ],
       "type": "object"
     },
@@ -432,8 +468,14 @@
     "TopLevelSpec": {
       "additionalProperties": false,
       "properties": {
+        "coordinates": {
+          "$ref": "#/definitions/Coord"
+        },
         "data": {
           "$ref": "#/definitions/Datasets"
+        },
+        "facet": {
+          "$ref": "#/definitions/Facet"
         },
         "labels": {
           "$ref": "#/definitions/Labels"
@@ -449,7 +491,9 @@
         "data",
         "layers",
         "scales",
-        "labels"
+        "labels",
+        "coordinates",
+        "facet"
       ],
       "type": "object"
     },
