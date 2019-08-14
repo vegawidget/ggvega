@@ -98,43 +98,6 @@
       ],
       "type": "object"
     },
-    "GeomPoint": {
-      "additionalProperties": false,
-      "properties": {
-        "geom": {
-          "additionalProperties": false,
-          "properties": {
-            "class": {
-              "enum": [
-                "GeomPoint"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "class"
-          ],
-          "type": "object"
-        },
-        "geom_params": {
-          "additionalProperties": false,
-          "properties": {
-            "na.rm": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "na.rm"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "geom",
-        "geom_params"
-      ],
-      "type": "object"
-    },
     "InlineDataset": {
       "anyOf": [
         {
@@ -201,104 +164,208 @@
       "type": "object"
     },
     "Layer": {
-      "additionalProperties": false,
-      "properties": {
-        "aes_params": {
-          "$ref": "#/definitions/AesParams"
-        },
-        "data": {
-          "type": "string"
-        },
-        "geom": {
+      "anyOf": [
+        {
           "additionalProperties": false,
           "properties": {
-            "class": {
-              "enum": [
-                "GeomPoint"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "class"
-          ],
-          "type": "object"
-        },
-        "geom_params": {
-          "additionalProperties": false,
-          "properties": {
-            "na.rm": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "na.rm"
-          ],
-          "type": "object"
-        },
-        "mapping": {
-          "$ref": "#/definitions/Mapping"
-        },
-        "position": {
-          "additionalProperties": false,
-          "properties": {
-            "class": {
-              "enum": [
-                "PositionIdentity"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "class"
-          ],
-          "type": "object"
-        },
-        "stat": {
-          "additionalProperties": false,
-          "properties": {
-            "class": {
-              "enum": [
-                "StatIdentity"
-              ],
+            "aes_params": {
+              "$ref": "#/definitions/AesParams"
+            },
+            "data": {
               "type": "string"
             },
-            "default_aes": {
+            "geom": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "GeomPoint"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
             },
-            "required_aes": {
+            "geom_params": {
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
+            },
+            "mapping": {
+              "$ref": "#/definitions/Mapping"
+            },
+            "position": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "PositionIdentity"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "stat": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "StatIdentity"
+                  ],
+                  "type": "string"
+                },
+                "default_aes": {
+                },
+                "required_aes": {
+                }
+              },
+              "required": [
+                "class",
+                "default_aes",
+                "required_aes"
+              ],
+              "type": "object"
+            },
+            "stat_params": {
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
             }
           },
           "required": [
-            "class",
-            "default_aes",
-            "required_aes"
+            "aes_params",
+            "data",
+            "geom",
+            "geom_params",
+            "mapping",
+            "position",
+            "stat",
+            "stat_params"
           ],
           "type": "object"
         },
-        "stat_params": {
+        {
           "additionalProperties": false,
           "properties": {
-            "na.rm": {
-              "type": "boolean"
+            "aes_params": {
+              "$ref": "#/definitions/AesParams"
+            },
+            "data": {
+              "type": "string"
+            },
+            "geom": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "GeomBar"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "geom_params": {
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
+            },
+            "mapping": {
+              "$ref": "#/definitions/Mapping"
+            },
+            "position": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "PositionIdentity"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "stat": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "StatIdentity"
+                  ],
+                  "type": "string"
+                },
+                "default_aes": {
+                },
+                "required_aes": {
+                }
+              },
+              "required": [
+                "class",
+                "default_aes",
+                "required_aes"
+              ],
+              "type": "object"
+            },
+            "stat_params": {
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
             }
           },
           "required": [
-            "na.rm"
+            "aes_params",
+            "data",
+            "geom",
+            "geom_params",
+            "mapping",
+            "position",
+            "stat",
+            "stat_params"
           ],
           "type": "object"
         }
-      },
-      "required": [
-        "aes_params",
-        "data",
-        "geom",
-        "geom_params",
-        "mapping",
-        "position",
-        "stat",
-        "stat_params"
-      ],
-      "type": "object"
+      ]
     },
     "Layers": {
       "description": "The `Layers` should have at least one layer",

@@ -1,4 +1,4 @@
-export type Geom = GeomPoint;// | GeomBar;
+export type Geom = GeomPoint | GeomBar;
 
 export interface GeomPoint {
   geom: {class: 'GeomPoint'};
