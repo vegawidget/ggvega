@@ -69,5 +69,11 @@
     "x": "Sepal.Width",
     "y": "Sepal.Length",
     "colour": "Species"
+  },
+  "coordinates": {
+    "class": "CoordCartesian"
+  },
+  "facet": {
+    "class": "FacetNull"
   }
 }

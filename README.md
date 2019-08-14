@@ -26,6 +26,7 @@ p <-
   geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
 
 as_vegaspec(p)
+#> Warning: ggSpec.layers[0].geom_params should NOT have additional properties
 ```
 
 ![](man/figures/README-example-1.svg)<!-- -->

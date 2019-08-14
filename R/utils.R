@@ -15,3 +15,7 @@ empty_named_list <- {
 
   result
 }
+
+first_class <- function(x) {
+  class(x)[[1]]
+}

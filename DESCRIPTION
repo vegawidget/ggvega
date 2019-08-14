@@ -1,6 +1,6 @@
 Package: ggvega
 Title: Translator from 'ggplot2' to 'Vega-Lite' 
-Version: 0.0.0.9006
+Version: 0.0.0.9008
 Authors@R:
     c(
       person(given = "Haley",
@@ -16,6 +16,9 @@ Authors@R:
              family = "Yang",
              role = c("aut"),
              email = "wenyuyang@gwmail.gwu.edu"),
+      person("Vega/Vega-Lite Developers", 
+             role = c("ctb"),
+             comment = "Vega-Lite schema"),
       person("Schneider Electric", role = "fnd"),
       person("Google Summer of Code", role = "fnd")
     )
