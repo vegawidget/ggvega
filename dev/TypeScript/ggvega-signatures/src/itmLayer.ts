@@ -31,11 +31,9 @@
  *     - then modified by `position`
  * 
  * **Called by**
- * 
  * @see layerArray
  * 
  * **Calls**
- * 
  * @see markByGeom
  * @see itmEncodingObjectByMappingObject
  * @see itmEncodingObjectByAesParamsObject

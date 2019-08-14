@@ -1,6 +1,14 @@
 /**
+ * Get encoding name from aesthetic name
  * 
- * @param aesName - `string` ggplot2 aesthetic-name
+ * @remarks
+ * The mapping of a ggplot aesthetic name to an encoding name depends
+ * on the Geom under consideration.
+ * 
+ * **Called by**
+ * @see layerByItmLayer
+ * 
+ * @param aesName - `string` ggplot aesthetic-name
  * @param ggGeom - `GG.Geom` ggschema Geom object
  * 
  * @returns 

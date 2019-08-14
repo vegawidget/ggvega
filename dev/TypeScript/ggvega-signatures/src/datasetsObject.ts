@@ -2,7 +2,7 @@
  * Create datasets object
  * 
  * @remarks
- * For each key-value pair in `gsDatasetsObject`, a key-value pair is created 
+ * For each key-value pair in `ggDatasetsObject`, a key-value pair is created 
  * in the return object. 
  * 
  * **Called by**

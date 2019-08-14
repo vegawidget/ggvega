@@ -68,8 +68,6 @@
  */
 function topLevelSpec(ggSpec: GG.TopLevelSpec): VL.TopLevelSpec {
 
-  // TODO: don't forget the title!
-
   // The structure of a Vega-Lite specification depends on whether or not
   // it is faceted.
 
@@ -87,6 +85,7 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec): VL.TopLevelSpec {
 
     topLevelSpec = {
       $schema: schema,
+      title: ggSpec.labels.title || '', 
       datasets: datasetsObject(ggSpec.data),
       spec: {
         layer: layerArray(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
@@ -100,6 +99,7 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec): VL.TopLevelSpec {
   // not faceted
   topLevelSpec = {
     $schema: schema,
+    title: ggSpec.labels.title || '', 
     datasets: datasetsObject(ggSpec.data),
     layer: layerArray(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
   };

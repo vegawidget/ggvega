@@ -1,3 +1,18 @@
+/**
+ * Modify an intermediate-layer array by coordinates
+ * 
+ * @remarks
+ * This function is used to dispatch according to the ggschema coordinates.
+ * 
+ * **Calls**
+ * @see itmLayerArrayByCoordCartesian
+ * 
+ * 
+ * @param itmLayerArray 
+ * @param ggCoord 
+ * 
+ * @returns `ItmLayer[]`
+ */
 function itmLayerArrayByCoord(
   itmLayerArray: ItmLayer[],
   ggCoord: GG.Coord[]
@@ -19,6 +34,20 @@ function itmLayerArrayByCoord(
   return CoordMap[className](itmLayerArray, ggCoord);
 }
 
+/**
+ * Modify an intermediate-layer array by Cartesian coordinates
+ * 
+ * @remarks
+ * Cartesian coordinates are the default; this function is a no-op.
+ * 
+ * **Called by**
+ * @see itmLayerArrayByCoord
+ * 
+ * @param itmLayerArray 
+ * @param ggCoord 
+ * 
+ * @returns `ItmLayer[]`
+ */
 function itmLayerArrayByCoordCartesian(
   itmLayerArray: ItmLayer[],
   gsCoord: gs.Coord[]

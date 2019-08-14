@@ -75,7 +75,7 @@ function encodingX(): vl.XClass {
 /**
  * Create empty Y-encoding
  *
- * @remark
+ * @remarks
  * **Called by**
  * @see encodingByAes 
  *
@@ -91,7 +91,7 @@ function encodingY(): vl.YClass {
 /**
  * Create empty number-encoding
  *
- * @remark
+ * @remarks
  * **Called by**
  * @see encodingByAes 
  *
@@ -107,7 +107,7 @@ function encodingNumber(): vl.ValueDefWithConditionMarkPropFieldDefNumber {
 /**
  * Create empty string-encoding
  *
- * @remark
+ * @remarks
  * **Called by**
  * @see encodingByAes 
  *
@@ -123,7 +123,7 @@ function encodingString(): vl.ValueDefWithConditionMarkPropFieldDefStringNull {
 /**
  * Create empty detail-encoding
  *
- * @remark
+ * @remarks
  * **Called by**
  * @see encodingByAes 
  *
@@ -139,7 +139,7 @@ function encodingDetail(): vl.Detail {
 /**
  * Create empty shape-encoding
  *
- * @remark
+ * @remarks
  * **Called by**
  * @see encodingByAes 
  *

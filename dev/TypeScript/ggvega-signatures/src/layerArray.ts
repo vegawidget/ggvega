@@ -85,10 +85,10 @@ function layerArray(
   );
 
   // incorporate labels
-  itmLayerArray = itmLayerArrayByLabelObject(itmLayerArray, ggLabelObject);
+  itmLayerArray = itmLayerArrayByLabelsObject(itmLayerArray, ggLabelObject);
 
   // incorporate scales
-  itmLayerArray = itmLayerArrayByScaleArray(itmLayerArray, ggScaleArray);
+  itmLayerArray = itmLayerArrayByScalesArray(itmLayerArray, ggScaleArray);
 
   // incorporate coordinates 
   itmLayerArray = itmLayerArrayByCoord(itmLayerArray, ggCoordinates);

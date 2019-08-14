@@ -1,9 +1,29 @@
-function itmLayerArrayByScaleArray(
+/**
+ * Modify a layer array according to a scale array
+ *
+ * I think the match-and-delete strategy for scales can be very similar
+ * to the one used in {@link itmLayerArrayByLabelsObject}.
+ * 
+ * The obvious difference is that scales are in array, rather than in an object.
+ * Another difference is that a scale has an element called `aesthetics` that
+ * can make it simpler to match to the encoding key. Perhaps {@link contains}
+ * could be used.
+ * 
+ * **Called by**
+ * @see layerArray
+ * 
+ * @param itmLayerArray 
+ * @param ggScaleArray 
+ * 
+ * @returns `ItmLayer[]`
+ */
+function itmLayerArrayByScalesArray(
   itmLayerArray: ItmLayer[],
   ggScaleArray: GG.Scale[]
 ) : ItmLayer[] {
   
-  // suspect we will need medata
+  // suspect we will need metadata 
+  // why? - looking at this later, I can't remember
 
   // loop through the layers
   // within each layer:
