@@ -106,9 +106,9 @@ gs_example_set <- function(
   path_ggspec <- fs::path_join(c(dir_ggspec, glue::glue("{example}.gs.json")))
 
   gg <- source(path_ggplot)$value
-  gs <- ggvega:::normalize(gg2spec(gg))
+  gs <- normalize(gg2spec(gg))
 
-  gs_ref <- ggvega:::normalize(ggvega:::from_json(path_ggspec))
+  gs_ref <- normalize(from_json(path_ggspec))
 
   list(gs = gs, gs_ref = gs_ref)
 }
@@ -124,10 +124,10 @@ vl_example_set <- function(
   path_ggspec <- fs::path_join(c(dir_ggspec, glue::glue("{example}.gs.json")))
   path_vegalite <- fs::path_join(c(dir_vegalite, glue::glue("{example}.vl.json")))
 
-  gs <- ggvega:::from_json(path_ggspec)
-  vl <- ggvega:::normalize(spec2vl(gs))
+  gs <- from_json(path_ggspec)
+  vl <- normalize(spec2vl(gs))
 
-  vl_ref <- ggvega:::normalize(ggvega:::from_json(path_vegalite))
+  vl_ref <- normalize(from_json(path_vegalite))
 
   list(vl = vl, vl_ref = vl_ref)
 }
