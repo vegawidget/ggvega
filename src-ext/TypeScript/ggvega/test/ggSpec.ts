@@ -61,7 +61,8 @@ export const ggSpec01: gs.TopLevelSpec = {
       },
       stat_params: {
         'na.rm': true
-      }
+      },
+      position: {class: 'PositionIdentity'}
     }
   ],
   scales: [],
@@ -78,10 +79,15 @@ export const ggSpec02: gs.TopLevelSpec = {
       geom_params: {'na.rm': true},
       mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'},
+      stat: {
+        class: 'StatIdentity',
+        default_aes: {},
+        required_aes: {}
+      },
       stat_params: {
         'na.rm': true
-      }
+      },
+      position: {class: 'PositionIdentity'}
     }
   ],
   scales: [],
@@ -108,10 +114,15 @@ export const ggSpec03: gs.TopLevelSpec = {
       geom_params: {'na.rm': true},
       mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'},
+      stat: {
+        class: 'StatIdentity',
+        default_aes: {},
+        required_aes: {}
+      },
       stat_params: {
         'na.rm': true
-      }
+      },
+      position: {class: 'PositionIdentity'}
     }
   ],
   scales: [],
@@ -147,10 +158,15 @@ export const ggSpec04: gs.TopLevelSpec = {
       geom_params: {'na.rm': true},
       mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'},
+      stat: {
+        class: 'StatIdentity',
+        default_aes: {},
+        required_aes: {}
+      },
       stat_params: {
         'na.rm': true
-      }
+      },
+      position: {class: 'PositionIdentity'}
     }
   ],
   scales: [],
@@ -181,10 +197,15 @@ export const ggSpec05: gs.TopLevelSpec = {
       geom_params: {'na.rm': true},
       mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'},
+      stat: {
+        class: 'StatIdentity',
+        default_aes: {},
+        required_aes: {}
+      },
       stat_params: {
         'na.rm': true
-      }
+      },
+      position: {class: 'PositionIdentity'}
     }
   ],
   scales: [],
@@ -215,10 +236,15 @@ export const ggSpec06: gs.TopLevelSpec = {
       geom_params: {'na.rm': true},
       mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'},
+      stat: {
+        class: 'StatIdentity',
+        default_aes: {},
+        required_aes: {}
+      },
       stat_params: {
         'na.rm': true
-      }
+      },
+      position: {class: 'PositionIdentity'}
     }
   ],
   scales: [],
@@ -255,10 +281,15 @@ export const ggSpec07: gs.TopLevelSpec = {
       geom_params: {'na.rm': true},
       mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'},
+      stat: {
+        class: 'StatIdentity',
+        default_aes: {},
+        required_aes: {}
+      },
       stat_params: {
         'na.rm': true
-      }
+      },
+      position: {class: 'PositionIdentity'}
     }
   ],
   scales: [],
@@ -295,10 +326,15 @@ export const ggSpec08: gs.TopLevelSpec = {
       geom_params: {'na.rm': true},
       mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'},
+      stat: {
+        class: 'StatIdentity',
+        default_aes: {},
+        required_aes: {}
+      },
       stat_params: {
         'na.rm': true
-      }
+      },
+      position: {class: 'PositionIdentity'}
     }
   ],
   scales: [],
@@ -335,10 +371,15 @@ export const ggSpec09: gs.TopLevelSpec = {
       geom_params: {'na.rm': true},
       mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'},
+      stat: {
+        class: 'StatIdentity',
+        default_aes: {},
+        required_aes: {}
+      },
       stat_params: {
         'na.rm': true
-      }
+      },
+      position: {class: 'PositionIdentity'}
     }
   ],
   scales: [],
@@ -375,10 +416,15 @@ export const ggSpec10: gs.TopLevelSpec = {
       geom_params: {'na.rm': true},
       mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'},
+      stat: {
+        class: 'StatIdentity',
+        default_aes: {},
+        required_aes: {}
+      },
       stat_params: {
         'na.rm': true
-      }
+      },
+      position: {class: 'PositionIdentity'}
     }
   ],
   scales: [],
@@ -415,10 +461,15 @@ export const ggSpec11: gs.TopLevelSpec = {
       geom_params: {'na.rm': true},
       mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'},
+      stat: {
+        class: 'StatIdentity',
+        default_aes: {},
+        required_aes: {}
+      },
       stat_params: {
         'na.rm': true
-      }
+      },
+      position: {class: 'PositionIdentity'}
     }
   ],
   scales: [],
