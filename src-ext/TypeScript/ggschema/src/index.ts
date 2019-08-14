@@ -8,5 +8,6 @@ export * from './coordinates';
 export * from './facet';
 
 export * from './layerGeom';
-export * from './layerStat';
 export * from './layerMapping';
+export * from './layerStat';
+export * from './layerPosition';
