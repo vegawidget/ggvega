@@ -36,19 +36,11 @@ before_install:
   - node --version
   # yarn
   - export CURRENTDIR=`pwd`
-<<<<<<< HEAD
-  - cd src-ext/Typescript/ggschema
-  - yarn install
-  - yarn build
-  - cd $CURRENTDIR
-  - cd src-ext/Typescript/ggvega
-=======
   - cd src-ext/TypeScript/ggschema
   - yarn install
   - yarn build
   - cd $CURRENTDIR
   - cd src-ext/TypeScript/ggvega
->>>>>>> master
   - yarn install
   - yarn build
   - cd $CURRENTDIR
