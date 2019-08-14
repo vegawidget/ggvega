@@ -6,7 +6,8 @@ export function getEncodingKey(geom: gs.Geom): EncodingKey {
     GeomBar: getEncodingKeyGeomBar
   };
 
-  const fn = EncodingKey[geom.geom.class];
+  const key:'GeomPoint'|'GeomBar'=geom.geom.class
+  const fn = EncodingKey[key};
 
   if (fn) return fn();
   else return DefaultEncodingKey;
@@ -23,7 +24,7 @@ export enum VlKey {
   Fill = 'fill'
 }
 
-export enum GsKey {
+export enum GGKey {
   X = 'x',
   Y = 'y',
   Colour = 'colour',
@@ -36,14 +37,14 @@ export enum GsKey {
 
 function getEncodingKeyGeomPoint(): EncodingKey {
   const PointEncodingKey: EncodingKey = {
-    x: GsKey.X,
-    y: GsKey.Y,
-    stroke: GsKey.Colour,
-    size: GsKey.Size,
-    shape: GsKey.Shape,
-    strokeWidth: GsKey.Stroke,
-    opacity: GsKey.Alpha,
-    fill: GsKey.Fill
+    x: GGKey.X,
+    y: GGKey.Y,
+    stroke: GGKey.Colour,
+    size: GGKey.Size,
+    shape: GGKey.Shape,
+    strokeWidth: GGKey.Stroke,
+    opacity: GGKey.Alpha,
+    fill: GGKey.Fill
   };
 
   return PointEncodingKey;
@@ -55,23 +56,23 @@ function getEncodingKeyGeomBar(): EncodingKey {
 }
 
 export const DefaultEncodingKey: EncodingKey = {
-  x: GsKey.X,
-  y: GsKey.Y,
-  stroke: GsKey.Colour,
-  size: GsKey.Size,
-  shape: GsKey.Shape,
-  strokeWidth: GsKey.Stroke,
-  opacity: GsKey.Alpha,
-  fill: GsKey.Fill
+  x: GGKey.X,
+  y: GGKey.Y,
+  stroke: GGKey.Colour,
+  size: GGKey.Size,
+  shape: GGKey.Shape,
+  strokeWidth: GGKey.Stroke,
+  opacity: GGKey.Alpha,
+  fill: GGKey.Fill
 };
 
 export interface EncodingKey {
-  x: GsKey;
-  y: GsKey;
-  stroke: GsKey;
-  size: GsKey;
-  shape: GsKey;
-  strokeWidth: GsKey;
-  opacity: GsKey;
-  fill: GsKey;
+  x: GGKey;
+  y: GGKey;
+  stroke: GGKey;
+  size: GGKey;
+  shape: GGKey;
+  strokeWidth: GGKey;
+  opacity: GGKey;
+  fill: GGKey;
 }

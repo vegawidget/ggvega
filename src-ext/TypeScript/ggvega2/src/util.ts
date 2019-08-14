@@ -61,3 +61,8 @@ export function contains(a: Array<any>, obj: any): boolean {
   }
   return false;
 }
+
+export function fieldName(name: string): string {
+  // use regular expression to replaces all matches
+  return name.replace(/[.]/g, '\\.');
+}

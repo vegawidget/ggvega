@@ -10,7 +10,16 @@ export interface BaseLayer {
   data: string;
   mapping: Mapping;
   aes_params: AesParams;
-  Geom(): Geom;
 }
 
 export type Layer = BaseLayer & Geom & Stat;
+
+export function layerGeom(layer: Layer): Geom {
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  return {geom: layer.geom, geom_params: layer.geom_params} as Geom;
+}
+
+export function layerStat(layer: Layer): Stat {
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  return {stat: layer.stat, stat_params: layer.stat_params} as Stat;
+}

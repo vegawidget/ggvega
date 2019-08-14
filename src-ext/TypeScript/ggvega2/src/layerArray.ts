@@ -32,30 +32,6 @@ export function layerArray(
   return layerArray;
 }
 
-/**
- * Change the `encoding` namespace
- *
- * @remark
- * To translate an intermediate `layer` to a Vega-Lite `layer`, this function
- * changes the `encoding` namespace from ggplo2 aesthetic-names to Vega-Lite
- * `encoding` keys.
- *
- * As well, a ggspec `geom` is an element of an intermediate `layer`; we use it
- * as a "breadcrumb", as the mapping of aesthetic names to encoding names depends
- * on the `geom`.
- *
- * **Called by**
- * @see layerArray
- *
- * **Calls**
- * @see encodingNameByGeom
- *
- *
- * @param itmLayer - `itmLayer`, intermediate layer-object
- *
- * @returns `VL.Layer`, Vega-Lite layer-object
- *
- */
 function layerByItmLayer(itmLayer: ItmLayer): VL.LayerSpec {
   // create new encoding
   var encoding: VL.Encoding = {};
