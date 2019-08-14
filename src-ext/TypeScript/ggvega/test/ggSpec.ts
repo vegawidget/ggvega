@@ -54,7 +54,11 @@ export const ggSpec01: gs.TopLevelSpec = {
       geom_params: {'na.rm': true},
       mapping: {},
       aes_params: {},
-      stat: {class: 'StatIdentity'},
+      stat: {
+        class: 'StatIdentity',
+        default_aes: {},
+        required_aes: {}
+      },
       stat_params: {
         'na.rm': true
       }
