@@ -6,12 +6,11 @@
  * in the return object. 
  * 
  * **Called by**
- * 
  * @see topLevelSpec
  * 
  * @param ggDatasetsObject - `{[key: string]: GG.Data}`, key-value pairs of ggspec datasets
  * 
- * @return `{[key: string]: VL.InlineDataset}`, object containing Vega-Lite inline-datasets
+ * @returns `{[key: string]: VL.InlineDataset}`, object containing Vega-Lite inline-datasets
  * 
  */ 
 function datasetsObject(ggDatasetsObject: {[key: string]: GG.Data}): {[key: string]: VL.InlineDataset} {

@@ -1,7 +1,7 @@
 /**
  * Create intermediate layer
  * 
- * @remark
+ * @remarks
  * This function is used to create an intermediate `layer`, using the 
  * information contained ggspec `layer`. Other functions will add to the
  * intermediate `layer` using the `scales`, `labels`, etc. 
@@ -45,7 +45,7 @@
  * @param ggLayer - `GG.Layer`, ggspec layer
  * @param gsData - `GG.Data`, ggspec data - used here for its `metadata`
  * 
- * @return `ItmLayer`, intermediate layer
+ * @returns `ItmLayer`, intermediate layer
  */
 function itmLayer(ggLayer: GG.Layer, ggData: GG.Data): ItmLayer {
 

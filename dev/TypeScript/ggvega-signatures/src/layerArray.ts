@@ -48,6 +48,7 @@
  * 
  * @see itmLayer
  * @see itmLayerArrayByLabelObject
+ * @see itmLayerArrayByScaleArray
  * @see itmLayerArrayByCoord
  * @see layerByItmLayer
  * 
@@ -57,7 +58,7 @@
  * @param ggLabelObject `GG.Labels` - key-value pairs of ggspec labels
  * @param ggCoordinates `GG.Coord` - ggspec coordinates
  * 
- * @return `vl.LayerSpec[]`, array containing Vega-Lite layer specs
+ * @returns `vl.LayerSpec[]`, array containing Vega-Lite layer specs
  * 
  */
 function layerArray(
@@ -111,16 +112,15 @@ function layerArray(
  * on the `geom`.
  * 
  * **Called by**
- * 
  * @see layerArray
  * 
  * **Calls**
- * 
  * @see encodingNameByGeom
+ * 
  * 
  * @param itmLayer - `itmLayer`, intermediate layer-object
  * 
- * @return `VL.Layer`, Vega-Lite layer-object
+ * @returns `VL.Layer`, Vega-Lite layer-object
  *
  */
 function layerByItmLayer(itmLayer: itmLayer): VL.Layer {

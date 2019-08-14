@@ -31,7 +31,7 @@
  * @param ggMetadataObject - `GG.Metadata` contains the metadata for the data
  *   associated to this layer
  * 
- * @return `ItmEncodingObject`
+ * @returns `ItmEncodingObject`
  */
 function itmEncodingObjectByMappingObject(
   ggMappingObject: GG.Mapping, 
@@ -91,7 +91,7 @@ function itmEncodingObjectByMappingObject(
 /**
  * Modify an intermediate `encoding` object using an `AesParams` object
  * 
- * @remark
+ * @remarks
  * This function will have side-effects, as the argument `itmEncodingObject`
  * is mutable, and is modified inside this function. We return this object
  * to signify that we intend to modify it, but we suspect that this is not
@@ -116,20 +116,19 @@ function itmEncodingObjectByMappingObject(
  * using "data" space: <https://github.com/vega/vega-lite/issues/1601>
  * 
  * **Called by**
- * 
  * @see {@link itmLayer} to create an intermediate layer
  * 
  * **Calls**
- * 
  * @see {@link encodingByAes} to create an empty encoding
  * @see {@link encodingValueShape} to translate shape values
  * @see {@link encodingValueColor} to translate color values
  * @see {@link encodingValueSize} to translate size values
  * 
+ * 
  * @param itmEncodingObject 
  * @param ggAesParamsObject 
  * 
- * @return `ItmEncodingObject`
+ * @returns `ItmEncodingObject`
  */
 function itmEncodingObjectByAesParamsObject(
   itmEncodingObject: ItmEncodingObject,

@@ -1,7 +1,7 @@
 /**
  * Translate a ggplot2 size to a Vega-Lite size
  * 
- * @remark
+ * @remarks
  * In the future, we may have to take the geom into account.
  * 
  * **Called by**
@@ -9,7 +9,7 @@
  * 
  * @param size - `number`
  * 
- * @return `number`
+ * @returns `number`
  */
 function encodingValueSize(size: number): number {
   
@@ -28,7 +28,7 @@ function encodingValueSize(size: number): number {
  * 
  * @param size - `number`
  * 
- * @return `number`
+ * @returns `number`
  */
 function encodingValueShape(shape: number): string {
 
@@ -76,7 +76,7 @@ function encodingValueShape(shape: number): string {
  * 
  * @param size - `number`
  * 
- * @return `number`
+ * @returns `number`
  */
 function encodingValueColor(color: string): string {
   // colors in R can have numbers at the end, in Vega-Lite (css), they don't

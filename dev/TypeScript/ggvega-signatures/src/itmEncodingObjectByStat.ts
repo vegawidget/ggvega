@@ -1,7 +1,7 @@
 /**
  * Modify an encoding object according to a ggspec stat
  * 
- * @remark
+ * @remarks
  * Note about side-effects.
  * 
  * This function is used to determine the specific function 
@@ -16,11 +16,12 @@
  * **Calls**
  * @see itmEncodingObjectByStatIdentity
  * 
+ * 
  * @param itmEncodingObject 
  * @param ggStat 
  * @param ggStatParams 
  * 
- * @return itmEncodingObject
+ * @returns itmEncodingObject
  */
 function itmEncodingObjectByStat(
   itmEncodingObject: ItmEncodingObject, 
@@ -46,7 +47,7 @@ function itmEncodingObjectByStat(
 /**
  * Modify an encoding object according an identity stat
  * 
- * @remark
+ * @remarks
  * This function does nothing.
  * 
  * **Called by**

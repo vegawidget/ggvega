@@ -57,7 +57,6 @@
  * ---
  * 
  * **Calls**
- * 
  * @see datasetsObject
  * @see layerArray
  * @see facet

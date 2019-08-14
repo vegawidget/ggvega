@@ -19,7 +19,7 @@
  * @param gsGeomParams - `GG.GeomParams`
  * @param ggStatParams - `GG.StatParams`
  * 
- * @return `VL.Mark`
+ * @returns `VL.Mark`
  * 
  * **Called by**
  * 
@@ -63,7 +63,7 @@ function markByGeom(
  * 
  * @param ggGeom 
  * 
- * @return `VL.Mark`
+ * @returns `VL.Mark`
  * 
  */
 function markByGeomDefault(ggGeom: GG.Geom): VL.Mark {
@@ -100,18 +100,17 @@ function markByGeomDefault(ggGeom: GG.Geom): VL.Mark {
  *   and translate as strings. 
  * 
  * **Called by**
- * 
  * @see markByGeom
  * 
  * **Calls**
- * 
  * @see markByGeomDefault
+ * 
  * 
  * @param ggGeom - `GG.Geom`, contains class of the ggplot2 `geom`
  * @param ggGeomParams - `GG.GeomParams`
  * @param gsStatParams - `GG.StatParams`
  * 
- * @return `VL.Mark`
+ * @returns `VL.Mark`
  * 
  */
 function markByGeomBoxplot(
