@@ -1,6 +1,7 @@
 import {Geom} from './layerGeom';
 import {Mapping, AesParams} from './layerMapping';
 import {Stat} from './layerStat';
+import {Position} from './layerPosition';
 /**
  * The `Layers` should have at least one layer
  * @minItems 1
@@ -12,4 +13,4 @@ export interface BaseLayer {
   aes_params: AesParams;
 }
 
-export type Layer = BaseLayer & Geom & Stat;
+export type Layer = BaseLayer & Geom & Stat & Position;

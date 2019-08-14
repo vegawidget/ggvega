@@ -1572,6 +1572,21 @@
     			mapping: {
     				$ref: "#/definitions/Mapping"
     			},
+    			position: {
+    				additionalProperties: false,
+    				properties: {
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
+    					}
+    				},
+    				required: [
+    					"class"
+    				],
+    				type: "object"
+    			},
     			stat: {
     				additionalProperties: false,
     				properties: {
@@ -1612,6 +1627,7 @@
     			"geom",
     			"geom_params",
     			"mapping",
+    			"position",
     			"stat",
     			"stat_params"
     		],
@@ -1637,6 +1653,9 @@
     			fill: {
     				$ref: "#/definitions/Encoding"
     			},
+    			group: {
+    				$ref: "#/definitions/Encoding"
+    			},
     			shape: {
     				$ref: "#/definitions/Encoding"
     			},
@@ -1644,6 +1663,9 @@
     				$ref: "#/definitions/Encoding"
     			},
     			stroke: {
+    				$ref: "#/definitions/Encoding"
+    			},
+    			weight: {
     				$ref: "#/definitions/Encoding"
     			},
     			x: {
@@ -1676,6 +1698,30 @@
     		},
     		required: [
     			"type"
+    		],
+    		type: "object"
+    	},
+    	PositionIdentity: {
+    		additionalProperties: false,
+    		properties: {
+    			position: {
+    				additionalProperties: false,
+    				properties: {
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
+    					}
+    				},
+    				required: [
+    					"class"
+    				],
+    				type: "object"
+    			}
+    		},
+    		required: [
+    			"position"
     		],
     		type: "object"
     	},
