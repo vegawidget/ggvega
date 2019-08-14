@@ -10,6 +10,7 @@ export interface BaseLayer {
   data: string;
   mapping: Mapping;
   aes_params: AesParams;
+  Geom(): Geom;
 }
 
 export type Layer = BaseLayer & Geom & Stat;

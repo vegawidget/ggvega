@@ -1,14 +1,16 @@
 import * as GG from '../../ggschema/src/index';
+import {markByGeom} from './markByGeom';
 
 export function itmLayer(ggLayer: GG.Layer, ggData: GG.Datasets): ItmLayer {
   var ggMetadataObject: GG.Metadata = ggData[ggLayer.data].metadata;
 
   const itmLayer: ItmLayer = {
     data: {name: ggLayer.data},
-    // leave `geom` as a breadcrumb so that we can use encodingNameByGeom()
-    // - will not be not included in vl.Layer
+
     geom: ggLayer.geom,
-    mark: markByGeom(ggLayer.geom, ggLayer.geom_params, ggLayer.stat_params),
+
+    mark: markByGeom({geom: ggLayer.geom, geom_params: ggLayer.geom_params} as GG.ZZ, ggLayer.stat),
+
     encoding: itmEncodingObjectByMappingObject(ggLayer.mapping, ggMetadataObject)
   };
 
