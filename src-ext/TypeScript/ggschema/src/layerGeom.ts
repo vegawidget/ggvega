@@ -1,21 +1,28 @@
-export type Geom = GeomPoint | GeomBar | GeomBoxplot;
+export type GeomSet = GeomPointSet | GeomBarSet | GeomBoxplotSet | GeomLine;
 
-export interface GeomPoint {
+export interface GeomPointSet {
   geom: {class: 'GeomPoint'};
   geom_params: {
     'na.rm': boolean;
   };
 }
 
-export interface GeomBar {
+export interface GeomBarSet {
   geom: {class: 'GeomBar'};
   geom_params: {
     'na.rm': boolean;
   };
 }
 
-export interface GeomBoxplot {
+export interface GeomBoxplotSet {
   geom: {class: 'GeomBoxplot'};
+  geom_params: {
+    'na.rm': boolean;
+  };
+}
+
+export interface GeomLine {
+  geom: {class: 'GeomLine'};
   geom_params: {
     'na.rm': boolean;
   };

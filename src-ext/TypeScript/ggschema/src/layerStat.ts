@@ -1,4 +1,4 @@
-export type Stat = StatIdentity;
+export type StatSet = StatIdentity;
 
 export interface StatIdentity {
   stat: {class: 'StatIdentity'};

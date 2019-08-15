@@ -39,7 +39,7 @@
     "rollup-plugin-node-resolve": "^5.0.1",
     "ts-jest": "^24.0.2",
     "typedoc": "^0.15.0",
-    "typescript": "*"
+    "typescript": "3.5.3"
   },
   "dependencies": {},
   "jest": {
@@ -65,6 +65,6 @@
     ],
     "coverageDirectory": "./coverage/",
     "collectCoverage": false,
-    "silent": true
+    "silent": false
   }
 }

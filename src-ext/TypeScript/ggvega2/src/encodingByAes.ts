@@ -1,16 +1,47 @@
-import {contains} from './util';
-import * as VL from './VLSpec';
+import {contains} from './utils';
+import * as VL from './vlSpec';
+import {VLMapping} from './itmEncodingObject';
+import {GGEncodingKey} from './encodingNameByGeom';
 
-export function encodingByAes(aesName: string): any {
+/**
+ * Create an empty `Encoding` according to an aesthetic-name
+ *
+ * @remarks
+ * There are different "flavors" of Vega-Lite encodings; which one is used
+ * depends on the encoding key (name), which in turn depends on the
+ * aesthetic name.
+ *
+ * In the future, maybe we could imagine an `opts` argument so that we could
+ * instantiate the encoding and set values in one step.
+ *
+ * **Called by**
+ * @see {@link itmEncodingObjectByMappingObject}
+ * @see {@link itmEncodingObjectByAesParamsObject}
+ *
+ * **Calls**
+ * @see encodingX
+ * @see encodingY
+ * @see encodingString
+ * @see encodingNumber
+ * @see encodingShape
+ * @see encodingDetail
+ *
+ * @param aesName - `string` name of ggplot2 aesthetic
+ *
+ * @returns `VL.Encoding` empty encoding
+ */
+export function encodingByAes(aesName: string): VLMapping {
   // assuming that VL.ValueDefWithConditionMarkPropFieldDefNumber, etc.
   // are all subclasses of VL.Encoding
+
+  //TODO@wenyu: Add group` and `weight` to GG.Mapping. color or colour?
 
   // keys are ggplot2 aesthetic names
   // values are Vega-Lite encoding constructor-functions for values
   const itmEncodingMap = {
     x: encodingX,
     y: encodingY,
-    color: encodingString,
+    colour: encodingString,
     fill: encodingString,
     size: encodingNumber,
     stroke: encodingNumber,
@@ -28,41 +59,97 @@ export function encodingByAes(aesName: string): any {
   }
 
   // return empty object
-  return itmEncodingMap[aesName]();
+  return itmEncodingMap[aesName as GGEncodingKey]();
 }
 
+/**
+ * Create empty X-encoding
+ *
+ * @remarks
+ * **Called by**
+ * @see encodingByAes
+ *
+ * @returns `VL.XClass`
+ */
 function encodingX(): VL.XClass {
-  let encoding: VL.XClass = {};
+  const encoding: VL.XClass = {};
 
   return encoding;
 }
 
+/**
+ * Create empty Y-encoding
+ *
+ * @remarks
+ * **Called by**
+ * @see encodingByAes
+ *
+ * @returns `VL.YClass`
+ */
 function encodingY(): VL.YClass {
-  let encoding: VL.YClass = {};
+  const encoding: VL.YClass = {};
 
   return encoding;
 }
 
+/**
+ * Create empty number-encoding
+ *
+ * @remarks
+ * **Called by**
+ * @see encodingByAes
+ *
+ * @returns `VL.DefWithConditionMarkPropFieldDefNumber`
+ */
 function encodingNumber(): VL.DefWithConditionMarkPropFieldDefNumber {
-  let encoding: VL.DefWithConditionMarkPropFieldDefNumber = {};
+  const encoding: VL.DefWithConditionMarkPropFieldDefNumber = {};
 
   return encoding;
 }
 
+/**
+ * Create empty string-encoding
+ *
+ * @remarks
+ * **Called by**
+ * @see encodingByAes
+ *
+ * @returns `VL.DefWithConditionMarkPropFieldDefStringNull`
+ */
 function encodingString(): VL.DefWithConditionMarkPropFieldDefStringNull {
-  let encoding: VL.DefWithConditionMarkPropFieldDefStringNull = {};
+  const encoding: VL.DefWithConditionMarkPropFieldDefStringNull = {};
 
   return encoding;
 }
 
-function encodingDetail(): VL.Detail {
-  let encoding: VL.Detail = {};
+//TODO@wenyu: Use VL.TypedFieldDef rather than VL.Details. Because VL.TypedFieldDef[] don't have `field`
+/**
+ * Create empty detail-encoding
+ *
+ * @remarks
+ * **Called by**
+ * @see encodingByAes
+ *
+ * @returns `VL.Detail`
+ */
+function encodingDetail(): VL.TypedFieldDef {
+  //TODO@wenyu: VL.Detail has to define the type
+  const encoding: VL.Detail = {type: VL.StandardType.Quantitative};
 
   return encoding;
 }
 
+/**
+ * Create empty shape-encoding
+ *
+ * @remarks
+ * **Called by**
+ * @see encodingByAes
+ *
+ * @returns `VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull`
+ */
 function encodingShape(): VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull {
-  let encoding: VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull = {};
+  const encoding: VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull = {};
 
   return encoding;
 }

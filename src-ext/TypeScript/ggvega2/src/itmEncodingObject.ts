@@ -1,26 +1,84 @@
 import * as VL from './vlSpec';
 import * as GG from '../../ggschema/src/index';
-import {contains, fieldName} from './util';
-import {GGKey} from './encodingkey';
+import {fieldName} from './utils';
 import {encodingByAes} from './encodingByAes';
+import {GGEncodingKey} from './encodingNameByGeom';
+import {encodingValueColor, encodingValueShape, encodingValueSize} from './encodingValue';
 
+/**
+ * Create an intermediate `encoding` object using a `mapping` object
+ *
+ * @remark
+ * This function creates an intermdiate `encoding` object using a
+ * ggspec `mapping` object and a ggspec `Metadata` object.
+ *
+ * Currently, a ggspec `mapping` is an object with a single key, `field`.
+ * Its value is a string; that string matches to a variable-name
+ * in the data.
+ *
+ * In the near future, a ggspec `mapping` may instead contain a different
+ * single key, `stat`, with a string that matches an stat (aggregation)
+ * operation, like `"count"`, or `"sum"`.
+ *
+ * This is more of a note to myself, we are starting to see the patterns
+ * of how ggplot2 mappings, aes_params, and stat default_aes are related.
+ * I suspect this should be addressed in ggschema.
+ * See <https://github.com/vegawidget/ggvega/issues/44>
+ *
+ * **Called by**
+ *
+ * @see {@link itmLayer} to create an intermediate layer
+ *
+ * **Calls**
+ *
+ * @see {@link encodingByAes} to create an empty encoding
+ * @see {@link fieldName} to handle dots, ".", in field names
+ *
+ * @param ggMappingObject - `GG.Mapping` maps data varaibles to aesthetics
+ * @param ggMetadataObject - `GG.Metadata` contains the metadata for the data
+ *   associated to this layer
+ *
+ * @returns `ItmEncodingObject`
+ */
 export function itmEncodingObjectByMappingObject(
   ggMappingObject: GG.Mapping,
   ggMetadataObject: GG.Metadata
 ): ItmEncodingObject {
-  let itmEncodingObject: ItmEncodingObject = {};
+  // translate
 
-  for (let aesName in ggMappingObject) {
-    if (ggMappingObject.hasOwnProperty(aesName)) {
-      let mapping: GG.Encoding = ggMappingObject[aesName as GGKey] as GG.Encoding;
+  // create empty itmEncodingObject
+  // TODO: define interface for ItmEncodingObject
+  const itmEncodingObject: ItmEncodingObject = {};
 
-      let field: string = fieldName(mapping.field);
-      let type: VL.StandardType = ggMetadataObject[field].type;
+  // TODO: if the type is `ordinal`, and we have level,
+  // we should set the scale domain according to the levels.
+  //
+  // larger TODO: determine and document the relationship between
+  // ggplot    - factor, ordered-factor, levels
+  // Vega-Lite - nominal, ordinal, scale-domain
 
-      let encoding:
-        | VL.DefWithConditionMarkPropFieldDefNumber
-        | VL.DefWithConditionMarkPropFieldDefStringNull
-        | VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull = encodingByAes(aesName);
+  // for each mapping in gsMappingObject:
+  //   - extract the information from the mapping object, metadata
+  //   - create Encoding
+  //   - populate Encoding
+  //   - put Encoding into itmEncodingObject
+  for (const aesName in ggMappingObject) {
+    if (Object.prototype.hasOwnProperty.call(ggMappingObject, aesName)) {
+      // do we have a type/class for `mapping`?
+
+      // extract information from mapping object, metatdata
+      const mapping: GG.Encoding = ggMappingObject[aesName as GGEncodingKey] as GG.Encoding;
+
+      // TODO: we need to handle the situation where the mapping is a
+      // `stat` instead of a `field`
+
+      //TODO@wenyu: Define `type` before we change the value of `field`
+      const type: VL.StandardType = ggMetadataObject[mapping.field].type;
+      const field: string = fieldName(mapping.field);
+
+      //TODO@wenyu: Deifine a new type VLMapping temporarily
+      // create Encoding
+      const encoding: VLMapping = encodingByAes(aesName);
 
       // popuate Encoding
       encoding.field = field;
@@ -38,8 +96,48 @@ export function itmEncodingObjectByMappingObject(
   return itmEncodingObject;
 }
 
-export type ItmEncodingObject = any;
-
+/**
+ * Modify an intermediate `encoding` object using an `AesParams` object
+ *
+ * @remarks
+ * This function will have side-effects, as the argument `itmEncodingObject`
+ * is mutable, and is modified inside this function. We return this object
+ * to signify that we intend to modify it, but we suspect that this is not
+ * strictly necessary; the function could return `null` to signify that it
+ * is called for side-effects. I am curious to know the convention here.
+ *
+ * This function modifies an intermdiate `encoding` object using a
+ * ggspec `AesParams` object. In the future, we may need the `geom`.
+ *
+ * A ggspec `AesParams` element is a key-value pair, where the key
+ * is a ggplot2 aesthetic-name, and the value can be a `string`, `number`,
+ * or `boolean` (?).
+ *
+ * For each `AesParams` element, an `encoding` object is created, and put
+ * into `itmEncodingObject` using the ggplot2 aesthetic-name as a key. The
+ * value (of this key-value pair) is an object with a single key-value
+ * pair: the key is `value`; its value is the value in "visual" space.
+ *
+ * There are helper functions to translate values for shape, color, and size.
+ *
+ * In the future, we may be able to take into account values that are specified
+ * using "data" space: <https://github.com/vega/vega-lite/issues/1601>
+ *
+ * **Called by**
+ * @see {@link itmLayer} to create an intermediate layer
+ *
+ * **Calls**
+ * @see {@link encodingByAes} to create an empty encoding
+ * @see {@link encodingValueShape} to translate shape values
+ * @see {@link encodingValueColor} to translate color values
+ * @see {@link encodingValueSize} to translate size values
+ *
+ *
+ * @param itmEncodingObject
+ * @param ggAesParamsObject
+ *
+ * @returns `ItmEncodingObject`
+ */
 export function itmEncodingObjectByAesParamsObject(
   itmEncodingObject: ItmEncodingObject,
   ggAesParamsObject: GG.AesParams
@@ -51,10 +149,12 @@ export function itmEncodingObjectByAesParamsObject(
   //   - create ItmEncoding
   //   - populate ItmEncoding
   //   - put ItmEncoding into itmEncodingObject
-  for (let aesName in ggAesParamsObject) {
-    if (ggAesParamsObject.hasOwnProperty(aesName)) {
+  for (const aesName in ggAesParamsObject) {
+    if (Object.prototype.hasOwnProperty.call(ggAesParamsObject, aesName)) {
       // extract information from aes_params
-      let value: string | number | boolean = ggAesParamsObject[key];
+
+      //TODO@wenyu: which one is boolean. Can we add it to ggschema
+      let value: string | number | undefined = ggAesParamsObject[aesName as keyof GG.AesParams];
 
       /**
        * keep in mind that values are interpreted
@@ -74,7 +174,7 @@ export function itmEncodingObjectByAesParamsObject(
         value = encodingValueShape(Number(value));
       }
 
-      if (aesName == 'colour' || key == 'fill') {
+      if (aesName == 'colour' || aesName == 'fill') {
         value = encodingValueColor(String(value));
       }
 
@@ -82,9 +182,11 @@ export function itmEncodingObjectByAesParamsObject(
         value = encodingValueSize(Number(value));
       }
 
+      //TODO@wenyu: do we need create Encoding?
       // create Encoding
-      let encoding: VL.Encoding = encodingByAes(aesName);
+      const encoding: VLAesParams = {};
 
+      //TODO@wenyu: VL.Detal(VL.TypeFieldDef) doesn't have `value`. And we don't want to define XClass.value and YClass.value
       // populate Encoding
       encoding.value = value;
 
@@ -97,39 +199,22 @@ export function itmEncodingObjectByAesParamsObject(
   return itmEncodingObject;
 }
 
-export function itmEncodingObjectByStat(itmEncodingObject: ItmEncodingObject, ggStat: GG.Stat): ItmEncodingObject {
-  const statMap = {
-    StatIdentity: itmEncodingObjectByStatIdentity
-  };
-
-  // validate
-  if (!contains(Object.keys(statMap), ggStat.stat.class)) {
-    throw new Error('ggplot object contains unsupported stat: ' + ggStat.stat.class);
-  }
-
-  const key: 'StatIdentity' = ggStat.stat.class;
-
-  const functionTranslate = statMap[key];
-
-  return functionTranslate(itmEncodingObject, ggStat);
+//TODO@wenyu: Define itmEncodingObject
+export interface ItmEncodingObject {
+  [key: string]: VLMapping;
 }
 
-/**
- * Modify an encoding object according an identity stat
- *
- * @remarks
- * This function does nothing.
- *
- * **Called by**
- * @see itmEncodingObjectByStat
- *
- * @param itmEncodingObject
- * @param ggStat
- * @param ggStatParams
- *
- * @return itmEncodingObject
- */
-function itmEncodingObjectByStatIdentity(itmEncodingObject: ItmEncodingObject, ggStat: GG.Stat): ItmEncodingObject {
-  // do nothing
-  return itmEncodingObject;
-}
+//TOFO@wenyu: Define a type which is an union type of all VL.Encoding propertities.
+export type VLMapping =
+  | VL.XClass
+  | VL.YClass
+  | VL.TypedFieldDef
+  | VL.DefWithConditionMarkPropFieldDefNumber
+  | VL.DefWithConditionMarkPropFieldDefStringNull
+  | VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull;
+
+//TODO@wenyu: Only used for AesParam
+export type VLAesParams =
+  | VL.DefWithConditionMarkPropFieldDefNumber
+  | VL.DefWithConditionMarkPropFieldDefStringNull
+  | VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull;

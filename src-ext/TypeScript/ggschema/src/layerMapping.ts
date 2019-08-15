@@ -7,6 +7,7 @@ export interface Mapping {
   stroke?: Encoding;
   alpha?: Encoding;
   fill?: Encoding;
+  group?: Encoding;
 }
 
 export interface Encoding {

@@ -1,4 +1,4 @@
-import {removeEmpty} from '../src/util';
+import {removeEmpty} from '../src/utils';
 
 describe('compile/removeEmpty', () => {
   it('should omit all empty objects in an object', () => {

@@ -1,13 +1,50 @@
 import * as VL from './vlSpec';
 import * as GG from '../../ggschema/src/index';
-import {contains} from './util';
+import {contains} from './utils';
 
-export function markByGeom(ggGeom: GG.Geom, ggStat: GG.Stat): VL.MarkDefClass {
-  if (ggGeom.geom.class == 'GeomBoxplot') {
-    return markByGeomBoxplot(ggGeom, ggStat);
+//TODO@wenyu: The use of GeomSet and StatSet
+
+/**
+ * Create a `mark` using a `geom`
+ *
+ * @remark
+ *
+ * This function creates a Vega-Lite `mark` according to a ggspec `geom`.
+ *
+ * For most classes of `geom`, we need only the name of the class. For other
+ * classes, like `GeomBoxplot`, we need additional information from `geom_params`
+ * and `stat_params`.
+ *
+ * For developers of this package, when a new `geom` is added, you will have to
+ * add the corresponding `mark` name to {@link markByGeomDefault}. If the `mark`
+ * requires additional information, then you can build a new function, like
+ * {@link markByGeomBoxplot}, to handle the creation of the `mark` object.
+ *
+ * @param ggGeom - `GG.Geom`, contains class of the ggplot2 `geom`;
+ *   these map to the `mark` type
+ * @param gsGeomParams - `GG.GeomParams`
+ * @param ggStatParams - `GG.StatParams`
+ *
+ * @returns `VL.Mark`
+ *
+ * **Called by**
+ *
+ * @see itmLayer
+ *
+ * **Calls**
+ *
+ * @see {@link markByGeomDefault} for most geoms
+ * @see {@link markByGeomBoxplot} for boxplots
+ *
+ */
+export function markByGeom(ggGeomSet: GG.GeomSet, ggStatSet: GG.StatSet): VL.MarkDefClass {
+  // use this pattern for dispatch if we have only a few exceptions to the default
+  // NOTE: we don't have Boxplot defined yet
+  if (ggGeomSet.geom.class == 'GeomBoxplot') {
+    return markByGeomBoxplot(ggGeomSet, ggStatSet);
   }
 
-  return markByGeomDefault(ggGeom);
+  return markByGeomDefault(ggGeomSet);
 }
 
 /**
@@ -30,40 +67,68 @@ export function markByGeom(ggGeom: GG.Geom, ggStat: GG.Stat): VL.MarkDefClass {
  * @returns `VL.Mark`
  *
  */
-function markByGeomDefault(ggGeom: GG.Geom): VL.MarkDefClass {
+function markByGeomDefault(ggGeomSet: GG.GeomSet): VL.MarkDefClass {
   // key: name of ggplot2 geom class
   // value: name of Vega-Lite mark type
   const markByGeomMap = {
-    GeomPoint: VL.Mark.Point,
-    GeomBar: VL.Mark.Bar,
-    GeomBoxplot: VL.Mark.Boxplot
+    GeomPoint: 'point',
+    GeomBar: 'bar',
+    GeomBoxplot: 'boxplot',
+    GeomLine: 'line'
   };
 
   // validate
-  if (!contains(Object.keys(markByGeomMap), ggGeom.geom.class)) {
-    throw new Error('ggplot object contains unsupported geom: ' + ggGeom.geom.class);
+  if (!contains(Object.keys(markByGeomMap), ggGeomSet.geom.class)) {
+    throw new Error('ggplot object contains unsupported geom: ' + ggGeomSet.geom.class);
   }
 
   // translate
-  let mark: VL.MarkDefClass = {
-    type: markByGeomMap[ggGeom.geom.class]
+  const mark: VL.MarkDefClass = {
+    type: markByGeomMap[ggGeomSet.geom.class] as VL.Mark
   };
 
   return mark;
 }
 
-function markByGeomBoxplot(ggGeom: GG.Geom, ggStat: GG.Stat): VL.MarkDefClass {
+/**
+ * Create a boxplot `mark`
+ *
+ * @remark
+ * The boxplot `mark` is a compound type, defined by more than
+ * the class of the `geom`:
+ *
+ * - `extent` is equivalent to ggplot2 `coef`, normally a number,
+ *   but we have to take into account infinite values which serialize
+ *   and translate as strings.
+ *
+ * **Called by**
+ * @see markByGeom
+ *
+ * **Calls**
+ * @see markByGeomDefault
+ *
+ *
+ * @param ggGeom - `GG.Geom`, contains class of the ggplot2 `geom`
+ * @param ggGeomParams - `GG.GeomParams`
+ * @param gsStatParams - `GG.StatParams`
+ *
+ * @returns `VL.Mark`
+ *
+ */
+function markByGeomBoxplot(ggGeomSet: GG.GeomSet, ggStatSet: GG.StatSet): VL.MarkDefClass {
   // I know we have not done boxplots yet, this is just to propose an
   // extension mechanism.
 
   // validate (look for GeomParams and StatParams we can't translate)
 
   // translate
-  let mark: VL.MarkDefClass = markByGeomDefault(ggGeom);
+  const mark: VL.MarkDefClass = markByGeomDefault(ggGeomSet);
 
   // TODO: add geomParams
 
-  function coef(coef: string | number): VL.ExtentExtent | number {
+  //TODO@wenyu: use VL.ExtentExtent.MinMax
+
+  function coef(coef: string | number | undefined): VL.ExtentExtent | number | undefined {
     if (typeof coef == 'string') {
       return VL.ExtentExtent.MinMax; // catch-all for "Inf"
     }
@@ -71,7 +136,7 @@ function markByGeomBoxplot(ggGeom: GG.Geom, ggStat: GG.Stat): VL.MarkDefClass {
     return coef;
   }
 
-  if (ggStat.stat_params.coef) mark.extent = coef(ggStat.stat_params.coef);
+  mark.extent = coef(ggStatSet.stat_params.coef);
 
   return mark;
 }

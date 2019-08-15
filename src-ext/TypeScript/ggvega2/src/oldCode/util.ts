@@ -51,18 +51,3 @@ export function removeEmpty(obj: any) {
     }
   });
 }
-
-export function contains(a: Array<any>, obj: any): boolean {
-  var i: number = a.length;
-  while (i--) {
-    if (a[i] === obj) {
-      return true;
-    }
-  }
-  return false;
-}
-
-export function fieldName(name: string): string {
-  // use regular expression to replaces all matches
-  return name.replace(/[.]/g, '\\.');
-}
