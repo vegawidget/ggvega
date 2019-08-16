@@ -167,3 +167,41 @@ data:  Data;
 Since we already has a `Data` type. And in the fisrt situation, the `UrlData` is the first type. Like `Boxplot`, quicktype use `URLData` as the final type name.
 
 ##  when the R V8 package is fully ES6 compliant, what would we need to do to change to use the Vega-Lite code directly?
+
+### Remove quicktype
+
+These two commands are used to generate `vlSpec.ts`. Now you can delete them. `schema2ts` is for Unix/Mac and `winschema2ts` is for Windows.
+
+
+```{package.json}
+"scripts": {
+	"schema2ts": "quicktype -s schema $npm_package_vlschema -o src/vlSpec.ts --top-level TopLevelSpec --just-types --explicit-unions && node fixbug.js",
+	"winschema2ts": "quicktype -s schema %npm_package_vlschema% -o src/vlSpec.ts --top-level TopLevelSpec --just-types --explicit-unions && node fixbug.js"
+}
+```
+Then you can delete the `quicktype` package in `devDependencies`
+```{package.json}
+"devDependencies": {
+"quicktype": "^15.0.199"
+}
+```
+For now, we also have a file `fixbug.js` at the root folder. It's used to change the name `Boxplot` to `Mark`. You can delete it when you don't need `quicktype`
+
+### Use Vega-lite Source Code
+ You will have to install source code packages. 
+ ```
+"vega":  "^5.4.0",
+"vega-lite":  "^3.3.0"
+"vega-util":  "^1.10.0"
+ ```
+If you want to import vega-lite type, You have to find the location of these types. Here is an example. 
+```{TypeScript}
+import  {TopLevel,  GenericLayerSpec,  UnitSpec}  from  'vega-lite/build/src/spec';
+import  {LayerSpec}  from  'vega-lite/build/src/spec/layer';
+import  {Datasets}  from  'vega-lite/build/src/spec/toplevel';
+```
+### Some Possible situations
+
+The most important difference between `vlSpec.ts` and `vega-lite source code` is that `vega-lite source code` use more union types. That means `vega-lite source code` is more specific than `vlSpec.ts`.  
+
+And **Jest** is not very friendly to test code at `./node_modules`. You can use the config in `vl-source-code` branch to solve this problem. 
