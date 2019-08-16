@@ -66,7 +66,7 @@ export function itmLayer(ggLayer: GG.Layer, ggData: GG.Datasets): ItmLayer {
     //TODO@wenyu: Use GeomSet as breadcrumb?
     // leave `geom` as a breadcrumb so that we can use encodingNameByGeom()
     // - will not be not included in vl.Layer
-    geomset: GG.layerGeomSet(ggLayer),
+    geomSet: GG.layerGeomSet(ggLayer),
     mark: markByGeom(GG.layerGeomSet(ggLayer), GG.layerStatSet(ggLayer)),
     encoding: itmEncodingObjectByMappingObject(ggLayer.mapping, ggMetadataObject)
   };
@@ -88,7 +88,7 @@ export interface ItmLayer {
   data: {name: string};
   // leave `geom` as a breadcrumb so that we can use encodingNameByGeom()
   // - will not be not included in vl.Layer
-  geomset: GG.GeomSet;
+  geomSet: GG.GeomSet;
   mark: VL.MarkDefClass;
   encoding: ItmEncodingObject;
 }

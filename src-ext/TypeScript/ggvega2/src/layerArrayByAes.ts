@@ -62,7 +62,7 @@ import {encodingNameByGeom, GGEncodingKey} from './encodingNameByGeom';
  * @see itmLayerArrayByCoord
  * @see layerByItmLayer
  *
- * @param ggData `{[key: string]: GG.Data}`, key-value pairs of ggspec datasets
+ * @param ggDatasets `GG.Datasets`, key-value pairs of ggspec datasets
  * @param ggLayerArray `GG.Layer[]` - array of ggspec layers
  * @param ggScaleArray `GG.Scale[]` - array of ggspec scales
  * @param ggLabelObject `GG.Labels` - key-value pairs of ggspec labels
@@ -139,12 +139,16 @@ function layerByItmLayer(itmLayer: ItmLayer): VL.LayerSpec {
     if (Object.prototype.hasOwnProperty.call(itmLayer.encoding, aesName)) {
       // get the encoding name, add to the encoding
       const encodingName = encodingNameByGeom(aesName as GGEncodingKey, itmLayer.geomset);
-      if (encodingName == 'x') encoding.x = itmLayer.encoding[aesName] as VL.XClass;
-      if (encodingName == 'y') encoding.y = itmLayer.encoding[aesName] as VL.YClass;
+      if (encodingName == 'x') encoding[encodingName] = itmLayer.encoding[aesName] as VL.XClass;
+
+      if (encodingName == 'y') encoding[encodingName] = itmLayer.encoding[aesName] as VL.YClass;
+
       if (encodingName == ('size' || 'strokeWidth' || 'opacity'))
         encoding[encodingName] = itmLayer.encoding[aesName] as VL.DefWithConditionMarkPropFieldDefNumber;
+
       if (encodingName == ('stroke' || 'fill'))
         encoding[encodingName] = itmLayer.encoding[aesName] as VL.DefWithConditionMarkPropFieldDefStringNull;
+
       if (encodingName == 'shape')
         encoding[encodingName] = itmLayer.encoding[
           aesName

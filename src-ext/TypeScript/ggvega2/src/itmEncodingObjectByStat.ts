@@ -31,7 +31,7 @@ export function itmEncodingObjectByStat(
   itmEncodingObject: ItmEncodingObject,
   ggStatSet: GG.StatSet
 ): ItmEncodingObject {
-  //TODO@wenyu: StatIdentity or StatIndentity
+  //TODO@wenyu: StatIdentity
   const statMap = {
     StatIdentity: itmEncodingObjectByStatIdentity
   };

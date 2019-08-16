@@ -18,6 +18,7 @@ import * as GG from '../../ggschema/src/index';
  * @returns `{[key: string]: VL.InlineDataset}`, object containing Vega-Lite inline-datasets
  *
  */
+
 export function datasetsObject(ggDatasetsObject: GG.Datasets): {[key: string]: VL.InlineDataset} {
   // validate
   if (Object.keys(ggDatasetsObject).length == 0) {
@@ -32,9 +33,9 @@ export function datasetsObject(ggDatasetsObject: GG.Datasets): {[key: string]: V
   // iterate over object: https://stackoverflow.com/a/684692
 
   //TODO@wenyu: https://eslint.org/docs/rules/no-prototype-builtins
-  for (const key in ggDatasetsObject) {
-    if (Object.prototype.hasOwnProperty.call(ggDatasetsObject, key)) {
-      datasetsObject[key] = ggDatasetsObject[key].observations;
+  for (const dataName in ggDatasetsObject) {
+    if (Object.prototype.hasOwnProperty.call(ggDatasetsObject, dataName)) {
+      datasetsObject[dataName] = ggDatasetsObject[dataName].observations;
     }
   }
 

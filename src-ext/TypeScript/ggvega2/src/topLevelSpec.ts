@@ -17,7 +17,7 @@ export function spec2vl(spec: any): VL.TopLevelSpec {
 function ggValidate(spec: any): GG.TopLevelSpec {
   // validate here
 
-  //TODO@wenyu: This function throw warnings and retuan ture(validated) or false(not validated).
+  //TODO@wenyu: This function throw warnings and return true(validated) or false(not validated).
   validateGs(spec);
 
   const ggSpec: GG.TopLevelSpec = spec as GG.TopLevelSpec;

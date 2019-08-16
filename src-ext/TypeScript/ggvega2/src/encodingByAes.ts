@@ -133,8 +133,8 @@ function encodingString(): VL.DefWithConditionMarkPropFieldDefStringNull {
  * @returns `VL.Detail`
  */
 function encodingDetail(): VL.TypedFieldDef {
-  //TODO@wenyu: VL.Detail has to define the type
-  const encoding: VL.Detail = {type: VL.StandardType.Quantitative};
+  //NOTE@wenyu: VL.Detail has to define the type - we think we can change this later
+  const encoding: VL.TypedFieldDef = {type: VL.StandardType.Nominal};
 
   return encoding;
 }

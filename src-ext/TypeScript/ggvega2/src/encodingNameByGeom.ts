@@ -19,18 +19,8 @@ import {contains} from './utils';
 export function encodingNameByGeom(aesName: GGEncodingKey, ggGeomSet: GG.GeomSet): VLEncodingKey {
   // keys: names of ggplot2 aesthetics
   // values: names of Vega-Lite encodings
-  //TODO@wenyu: Add `storke`, What's `weight`
-  const encodingMap = {
-    x: 'x',
-    y: 'y',
-    colour: 'stroke',
-    fill: 'fill',
-    size: 'size',
-    stroke: `strokeWidth`,
-    alpha: 'opacity',
-    group: 'detail',
-    shape: 'shape'
-  };
+  //TODO@wenyu: Add `stroke`, What's `weight`
+  const encodingMap = encodingMapDefault;
 
   // validate
   if (!contains(Object.keys(encodingMap), ggGeomSet.geom.class)) {
@@ -56,3 +46,31 @@ export type GGEncodingKey = keyof GG.Mapping;
 
 //TODO@wenyu: Be careful of `weight`, Add it with a correspongding VL.Encoding Aes.
 export type VLEncodingKey = 'x' | 'y' | 'stroke' | 'fill' | 'size' | 'strokeWidth' | 'opacity' | 'detail' | 'shape';
+
+interface EncodingMap {
+  x: 'x';
+  y: 'y';
+  colour: 'stroke';
+  fill: 'fill';
+  size: 'size' | 'strokeWidth';
+  stroke: 'strokeWidth';
+  alpha: 'opacity';
+  group: 'detail';
+  shape: 'shape';
+}
+
+// keys: names of ggplot2 aesthetics
+// values: names of Vega-Lite encodings
+//TODO@wenyu: Add `stroke`, What's `weight`
+const encodingMapDefault: EncodingMap = {
+  x: 'x',
+  y: 'y',
+  colour: 'stroke',
+  fill: 'fill',
+  size: 'size',
+  stroke: 'strokeWidth',
+  alpha: 'opacity',
+  group: 'detail',
+  shape: 'shape'
+};
+export type VLEncodingKey1 = keyof EncodingMap;

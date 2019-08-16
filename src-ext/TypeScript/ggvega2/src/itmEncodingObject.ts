@@ -2,7 +2,7 @@ import * as VL from './vlSpec';
 import * as GG from '../../ggschema/src/index';
 import {fieldName} from './utils';
 import {encodingByAes} from './encodingByAes';
-import {GGEncodingKey} from './encodingNameByGeom';
+import {GGEncodingKey, VLEncodingKey} from './encodingNameByGeom';
 import {encodingValueColor, encodingValueShape, encodingValueSize} from './encodingValue';
 
 /**
@@ -186,7 +186,7 @@ export function itmEncodingObjectByAesParamsObject(
       // create Encoding
       const encoding: VLAesParams = {};
 
-      //TODO@wenyu: VL.Detal(VL.TypeFieldDef) doesn't have `value`. And we don't want to define XClass.value and YClass.value
+      //TODO@wenyu: VL.Detail(VL.TypeFieldDef) doesn't have `value`. And we don't want to define XClass.value and YClass.value
       // populate Encoding
       encoding.value = value;
 
@@ -214,6 +214,8 @@ export type VLMapping =
   | VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull;
 
 //TODO@wenyu: Only used for AesParam
+//NOTE@ian - if Vega-Lite enables datum to specify a value in data-space,
+// we could add VL.XClass and VL.YClass
 export type VLAesParams =
   | VL.DefWithConditionMarkPropFieldDefNumber
   | VL.DefWithConditionMarkPropFieldDefStringNull
