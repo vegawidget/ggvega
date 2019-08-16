@@ -32,4 +32,6 @@ export function itmLayerArrayByScalesArray(itmLayerArray: ItmLayer[], ggScaleArr
   //           -  set the scale on the encoding
   //           -  set the encoing name to the scale name
   //           -  remove the scale from the scale array
+
+  return itmLayerArray;
 }

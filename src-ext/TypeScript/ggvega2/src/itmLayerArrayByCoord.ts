@@ -25,7 +25,7 @@ export function itmLayerArrayByCoord(itmLayerArray: ItmLayer[], ggCoord: GG.Coor
   };
 
   // validate
-  const className: string = ggCoord.class;
+  const className = ggCoord.class;
   if (!contains(Object.keys(CoordMap), className)) {
     throw new Error('ggplot object contains unsupported coordinates: ' + className);
   }
@@ -48,7 +48,7 @@ export function itmLayerArrayByCoord(itmLayerArray: ItmLayer[], ggCoord: GG.Coor
  *
  * @returns `ItmLayer[]`
  */
-function itmLayerArrayByCoordCartesian(itmLayerArray: ItmLayer[], gsCoord: gs.Coord[]): ItmLayer[] {
+function itmLayerArrayByCoordCartesian(itmLayerArray: ItmLayer[], gsCoord: GG.Coord): ItmLayer[] {
   // do nothing
   return itmLayerArray;
 }

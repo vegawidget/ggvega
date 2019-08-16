@@ -13,13 +13,3 @@ export interface BaseLayer {
 }
 
 export type Layer = BaseLayer & GeomSet & StatSet;
-
-export function layerGeomSet(layer: Layer): GeomSet {
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  return {geom: layer.geom, geom_params: layer.geom_params} as GeomSet;
-}
-
-export function layerStatSet(layer: Layer): StatSet {
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  return {stat: layer.stat, stat_params: layer.stat_params} as StatSet;
-}

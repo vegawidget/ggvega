@@ -2,7 +2,7 @@ import * as VL from './vlSpec';
 import * as GG from '../../ggschema/src/index';
 import {fieldName} from './utils';
 import {encodingByAes} from './encodingByAes';
-import {GGEncodingKey, VLEncodingKey} from './encodingNameByGeom';
+import {GGEncodingKey} from './encodingNameByGeom';
 import {encodingValueColor, encodingValueShape, encodingValueSize} from './encodingValue';
 
 /**
@@ -47,7 +47,6 @@ export function itmEncodingObjectByMappingObject(
   // translate
 
   // create empty itmEncodingObject
-  // TODO: define interface for ItmEncodingObject
   const itmEncodingObject: ItmEncodingObject = {};
 
   // TODO: if the type is `ordinal`, and we have level,
@@ -72,11 +71,10 @@ export function itmEncodingObjectByMappingObject(
       // TODO: we need to handle the situation where the mapping is a
       // `stat` instead of a `field`
 
-      //TODO@wenyu: Define `type` before we change the value of `field`
+      // NOTE @wenyu: Define `type` before we change the value of `field`
       const type: VL.StandardType = ggMetadataObject[mapping.field].type;
       const field: string = fieldName(mapping.field);
 
-      //TODO@wenyu: Deifine a new type VLMapping temporarily
       // create Encoding
       const encoding: VLMapping = encodingByAes(aesName);
 
@@ -153,7 +151,7 @@ export function itmEncodingObjectByAesParamsObject(
     if (Object.prototype.hasOwnProperty.call(ggAesParamsObject, aesName)) {
       // extract information from aes_params
 
-      //TODO@wenyu: which one is boolean. Can we add it to ggschema
+      // NOTE @wenyu: Maybe the `value` can have other types
       let value: string | number | undefined = ggAesParamsObject[aesName as keyof GG.AesParams];
 
       /**
@@ -169,7 +167,7 @@ export function itmEncodingObjectByAesParamsObject(
 
       // tranlsate
       if (aesName == 'shape') {
-        // TODO: we will likely need the Geom, which I think we can get
+        // NOTE: we will likely need the Geom, which I think we can get
         // from the `geom` breadcrumb included with the itmEncoding
         value = encodingValueShape(Number(value));
       }
@@ -182,11 +180,10 @@ export function itmEncodingObjectByAesParamsObject(
         value = encodingValueSize(Number(value));
       }
 
-      //TODO@wenyu: do we need create Encoding?
+      //NOTE @wenyu: do we need create Encoding?
       // create Encoding
       const encoding: VLAesParams = {};
 
-      //TODO@wenyu: VL.Detail(VL.TypeFieldDef) doesn't have `value`. And we don't want to define XClass.value and YClass.value
       // populate Encoding
       encoding.value = value;
 
@@ -199,7 +196,7 @@ export function itmEncodingObjectByAesParamsObject(
   return itmEncodingObject;
 }
 
-//TODO@wenyu: Define itmEncodingObject
+//NOTE @wenyu: Define itmEncodingObject
 export interface ItmEncodingObject {
   [key: string]: VLMapping;
 }
@@ -213,8 +210,8 @@ export type VLMapping =
   | VL.DefWithConditionMarkPropFieldDefStringNull
   | VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull;
 
-//TODO@wenyu: Only used for AesParam
-//NOTE@ian - if Vega-Lite enables datum to specify a value in data-space,
+//NOTE @wenyu: Only used for AesParam
+//NOTE @ian - if Vega-Lite enables datum to specify a value in data-space,
 // we could add VL.XClass and VL.YClass
 export type VLAesParams =
   | VL.DefWithConditionMarkPropFieldDefNumber

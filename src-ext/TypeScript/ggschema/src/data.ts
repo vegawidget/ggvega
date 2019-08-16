@@ -2,7 +2,7 @@
  * The datasets should have at least one dataset
  * @minProperties 1
  */
-export interface Datasets {
+export interface DatasetsObject {
   [key: string]: Dataset;
 }
 

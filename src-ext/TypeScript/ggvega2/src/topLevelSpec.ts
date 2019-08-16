@@ -3,7 +3,7 @@ import * as GG from '../../ggschema/src/index';
 import {validateGs} from './utils';
 import {vlschema} from '../package.json';
 import {datasetsObject} from './datasetsObject';
-import {layerArray} from './layerArray';
+import {layerArrayByAes} from './layerArrayByAes';
 import {facet} from './facet';
 
 export function spec2vl(spec: any): VL.TopLevelSpec {
@@ -17,7 +17,7 @@ export function spec2vl(spec: any): VL.TopLevelSpec {
 function ggValidate(spec: any): GG.TopLevelSpec {
   // validate here
 
-  //TODO@wenyu: This function throw warnings and return true(validated) or false(not validated).
+  //NOTE @wenyu: This function throw warnings and return true(validated) or false(not validated).
   validateGs(spec);
 
   const ggSpec: GG.TopLevelSpec = spec as GG.TopLevelSpec;
@@ -99,7 +99,7 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec): VL.TopLevelSpec {
 
   // Want to specify this URL exactly **one** place in the project
   // also - what mechanism do we use to update the Vega-Lite schema?
-  // TODO@wenyu: Remove schema and use `vlschema`
+  // NOTE @wenyu: Remove schema and use `vlschema`
   // const schema = 'https://vega.github.io/schema/vega-lite/v3.json';
 
   let topLevelSpec: VL.TopLevelSpec = {};
@@ -111,11 +111,11 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec): VL.TopLevelSpec {
 
     topLevelSpec = {
       $schema: vlschema,
-      //TODO@wenyu: It's better to use undefined rather than '' to avoid `title=''`
+      //NOTE @wenyu: It's better to use undefined rather than '' to avoid `title=''`
       title: ggSpec.labels.title || undefined,
       datasets: datasetsObject(ggSpec.data),
       spec: {
-        layer: layerArray(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
+        layer: layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
       },
       facet: facet(ggSpec.facet)
     };
@@ -128,7 +128,7 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec): VL.TopLevelSpec {
     $schema: vlschema,
     title: ggSpec.labels.title || undefined,
     datasets: datasetsObject(ggSpec.data),
-    layer: layerArray(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
+    layer: layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
   };
 
   return topLevelSpec;

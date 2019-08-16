@@ -19,11 +19,11 @@ import {contains} from './utils';
 export function encodingNameByGeom(aesName: GGEncodingKey, ggGeomSet: GG.GeomSet): VLEncodingKey {
   // keys: names of ggplot2 aesthetics
   // values: names of Vega-Lite encodings
-  //TODO@wenyu: Add `stroke`, What's `weight`
+  //NOTE @wenyu: Add `stroke`, What's `weight`
   const encodingMap = encodingMapDefault;
 
   // validate
-  if (!contains(Object.keys(encodingMap), ggGeomSet.geom.class)) {
+  if (!contains(Object.keys(encodingMap), aesName)) {
     throw new Error('ggplot object contains unsupported aesthetic: ' + aesName);
   }
 
@@ -41,10 +41,10 @@ export function encodingNameByGeom(aesName: GGEncodingKey, ggGeomSet: GG.GeomSet
   return encodingMap[aesName] as VLEncodingKey;
 }
 
-//TODO@wenyu: keyof maybe a better way than enum. But it doesn't work for Vl.Encoding, because VL.Encoding has too many keys.
+//NOTE @wenyu: keyof maybe a better way than enum. But it doesn't work for Vl.Encoding, because VL.Encoding has too many keys.
 export type GGEncodingKey = keyof GG.Mapping;
 
-//TODO@wenyu: Be careful of `weight`, Add it with a correspongding VL.Encoding Aes.
+//NOTE @wenyu: Be careful of `weight`, Add it to itmEncoding
 export type VLEncodingKey = 'x' | 'y' | 'stroke' | 'fill' | 'size' | 'strokeWidth' | 'opacity' | 'detail' | 'shape';
 
 interface EncodingMap {
@@ -61,7 +61,6 @@ interface EncodingMap {
 
 // keys: names of ggplot2 aesthetics
 // values: names of Vega-Lite encodings
-//TODO@wenyu: Add `stroke`, What's `weight`
 const encodingMapDefault: EncodingMap = {
   x: 'x',
   y: 'y',

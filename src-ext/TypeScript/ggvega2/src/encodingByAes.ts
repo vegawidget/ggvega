@@ -34,7 +34,7 @@ export function encodingByAes(aesName: string): VLMapping {
   // assuming that VL.ValueDefWithConditionMarkPropFieldDefNumber, etc.
   // are all subclasses of VL.Encoding
 
-  //TODO@wenyu: Add group` and `weight` to GG.Mapping. color or colour?
+  //NOTE @wenyu: Add group` and `weight` to GG.Mapping
 
   // keys are ggplot2 aesthetic names
   // values are Vega-Lite encoding constructor-functions for values
@@ -49,8 +49,7 @@ export function encodingByAes(aesName: string): VLMapping {
     group: encodingDetail,
     shape: encodingShape,
     weight: encodingNumber
-    // NOTE: the weight aesthetic is used for stat calculations, it will
-    // not appear as an encoding key.
+    // NOTE: the weight aesthetic is used for stat calculations, it will not appear as an encoding key.
   };
 
   // validate
@@ -122,7 +121,7 @@ function encodingString(): VL.DefWithConditionMarkPropFieldDefStringNull {
   return encoding;
 }
 
-//TODO@wenyu: Use VL.TypedFieldDef rather than VL.Details. Because VL.TypedFieldDef[] don't have `field`
+//NOTE @wenyu: Use VL.TypedFieldDef rather than VL.Details. Because we only use VL.TypedFieldDef
 /**
  * Create empty detail-encoding
  *
@@ -133,7 +132,7 @@ function encodingString(): VL.DefWithConditionMarkPropFieldDefStringNull {
  * @returns `VL.Detail`
  */
 function encodingDetail(): VL.TypedFieldDef {
-  //NOTE@wenyu: VL.Detail has to define the type - we think we can change this later
+  //NOTE @wenyu: VL.Detail has to define the type - we think we can change this later
   const encoding: VL.TypedFieldDef = {type: VL.StandardType.Nominal};
 
   return encoding;

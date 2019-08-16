@@ -64,7 +64,6 @@
       "<rootDir>/src"
     ],
     "coverageDirectory": "./coverage/",
-    "collectCoverage": false,
-    "silent": false
+    "collectCoverage": false
   }
 }

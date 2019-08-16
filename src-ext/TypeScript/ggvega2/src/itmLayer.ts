@@ -55,19 +55,19 @@ import {itmEncodingObjectByStat} from './itmEncodingObjectByStat';
  *
  * @returns `ItmLayer`, intermediate layer
  */
-export function itmLayer(ggLayer: GG.Layer, ggData: GG.Datasets): ItmLayer {
+export function itmLayer(ggLayer: GG.Layer, ggDatasetsObject: GG.DatasetsObject): ItmLayer {
   // translate
 
   // get the metadata for the data for this layer
-  var ggMetadataObject: GG.Metadata = ggData[ggLayer.data].metadata;
+  var ggMetadataObject: GG.Metadata = ggDatasetsObject[ggLayer.data].metadata;
 
   const itmLayer: ItmLayer = {
     data: {name: ggLayer.data},
-    //TODO@wenyu: Use GeomSet as breadcrumb?
+    //NOTE @wenyu: Use GeomSet as breadcrumb?
     // leave `geom` as a breadcrumb so that we can use encodingNameByGeom()
     // - will not be not included in vl.Layer
-    geomSet: GG.layerGeomSet(ggLayer),
-    mark: markByGeom(GG.layerGeomSet(ggLayer), GG.layerStatSet(ggLayer)),
+    geomSet: ggGeomSet(ggLayer),
+    mark: markByGeom(ggGeomSet(ggLayer), ggStatSet(ggLayer)),
     encoding: itmEncodingObjectByMappingObject(ggLayer.mapping, ggMetadataObject)
   };
 
@@ -75,7 +75,7 @@ export function itmLayer(ggLayer: GG.Layer, ggData: GG.Datasets): ItmLayer {
   itmLayer.encoding = itmEncodingObjectByAesParamsObject(itmLayer.encoding, ggLayer.aes_params);
 
   // incorporate stat into encoding
-  itmLayer.encoding = itmEncodingObjectByStat(itmLayer.encoding, GG.layerStatSet(ggLayer));
+  itmLayer.encoding = itmEncodingObjectByStat(itmLayer.encoding, ggStatSet(ggLayer));
 
   // incorporate position into encoding (not yet active)
   // itmLayer.encoding = itmEncodingOjectByPosition(itmLayer.encoding, gsLayer.position);
@@ -83,7 +83,7 @@ export function itmLayer(ggLayer: GG.Layer, ggData: GG.Datasets): ItmLayer {
   return itmLayer;
 }
 
-//TODO@wenyu: define a ItmLayer class
+//NOTE @wenyu: define a ItmLayer class
 export interface ItmLayer {
   data: {name: string};
   // leave `geom` as a breadcrumb so that we can use encodingNameByGeom()
@@ -91,4 +91,13 @@ export interface ItmLayer {
   geomSet: GG.GeomSet;
   mark: VL.MarkDefClass;
   encoding: ItmEncodingObject;
+}
+
+// NOTE @wenyu: Remove these 2 functions from ggschema to here. For test these functions and make ggschema clearer
+export function ggGeomSet(layer: GG.Layer): GG.GeomSet {
+  return {geom: layer.geom, geom_params: layer.geom_params} as GG.GeomSet;
+}
+
+export function ggStatSet(layer: GG.Layer): GG.StatSet {
+  return {stat: layer.stat, stat_params: layer.stat_params} as GG.StatSet;
 }

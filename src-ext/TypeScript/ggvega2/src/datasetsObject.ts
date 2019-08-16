@@ -1,7 +1,7 @@
 import * as VL from './vlSpec';
 import * as GG from '../../ggschema/src/index';
 
-//TODO@wenyu: We don't have GG.Data type. We have GG.Datasets and GG.Dataset. GG.Datasets={[key: string]: GG.Dataset}
+//NOTE @wenyu: After discussion with @ian, we decide to use GG.DatasetsObject to substitute GG.Datasets
 
 /**
  * Create datasets object
@@ -19,7 +19,7 @@ import * as GG from '../../ggschema/src/index';
  *
  */
 
-export function datasetsObject(ggDatasetsObject: GG.Datasets): {[key: string]: VL.InlineDataset} {
+export function datasetsObject(ggDatasetsObject: GG.DatasetsObject): {[key: string]: VL.InlineDataset} {
   // validate
   if (Object.keys(ggDatasetsObject).length == 0) {
     // error messages should refer to the ggplot object; end-user is not expected to know
@@ -32,7 +32,7 @@ export function datasetsObject(ggDatasetsObject: GG.Datasets): {[key: string]: V
 
   // iterate over object: https://stackoverflow.com/a/684692
 
-  //TODO@wenyu: https://eslint.org/docs/rules/no-prototype-builtins
+  //NOTE @wenyu: https://eslint.org/docs/rules/no-prototype-builtins
   for (const dataName in ggDatasetsObject) {
     if (Object.prototype.hasOwnProperty.call(ggDatasetsObject, dataName)) {
       datasetsObject[dataName] = ggDatasetsObject[dataName].observations;

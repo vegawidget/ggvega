@@ -62,7 +62,7 @@ import {encodingNameByGeom, GGEncodingKey} from './encodingNameByGeom';
  * @see itmLayerArrayByCoord
  * @see layerByItmLayer
  *
- * @param ggDatasets `GG.Datasets`, key-value pairs of ggspec datasets
+ * @param ggDatasets `GG.ggDatasetsObject`, key-value pairs of ggspec datasets
  * @param ggLayerArray `GG.Layer[]` - array of ggspec layers
  * @param ggScaleArray `GG.Scale[]` - array of ggspec scales
  * @param ggLabelObject `GG.Labels` - key-value pairs of ggspec labels
@@ -71,8 +71,8 @@ import {encodingNameByGeom, GGEncodingKey} from './encodingNameByGeom';
  * @returns `vl.LayerSpec[]`, array containing Vega-Lite layer specs
  *
  */
-export function layerArray(
-  ggDatasets: GG.Datasets,
+export function layerArrayByAes(
+  ggDatasetsObject: GG.DatasetsObject,
   ggLayerArray: GG.Layer[],
   ggScaleArray: GG.Scale[],
   ggLabelObject: GG.Labels,
@@ -88,7 +88,7 @@ export function layerArray(
   // start intermediate layers according to ggLayerArray
   // could this work?
   let itmLayerArray: ItmLayer[] = ggLayerArray.map((ggLayer: GG.Layer) => {
-    return itmLayer(ggLayer, ggDatasets);
+    return itmLayer(ggLayer, ggDatasetsObject);
   });
 
   // incorporate labels
@@ -138,7 +138,7 @@ function layerByItmLayer(itmLayer: ItmLayer): VL.LayerSpec {
   for (const aesName in itmLayer.encoding) {
     if (Object.prototype.hasOwnProperty.call(itmLayer.encoding, aesName)) {
       // get the encoding name, add to the encoding
-      const encodingName = encodingNameByGeom(aesName as GGEncodingKey, itmLayer.geomset);
+      const encodingName = encodingNameByGeom(aesName as GGEncodingKey, itmLayer.geomSet);
       if (encodingName == 'x') encoding[encodingName] = itmLayer.encoding[aesName] as VL.XClass;
 
       if (encodingName == 'y') encoding[encodingName] = itmLayer.encoding[aesName] as VL.YClass;

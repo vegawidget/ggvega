@@ -2,8 +2,6 @@ import * as VL from './vlSpec';
 import * as GG from '../../ggschema/src/index';
 import {contains} from './utils';
 
-//TODO@wenyu: The use of GeomSet and StatSet
-
 /**
  * Create a `mark` using a `geom`
  *
@@ -126,7 +124,7 @@ function markByGeomBoxplot(ggGeomSet: GG.GeomSet, ggStatSet: GG.StatSet): VL.Mar
 
   // TODO: add geomParams
 
-  //TODO@wenyu: use VL.ExtentExtent.MinMax
+  //NOTE @wenyu: use VL.ExtentExtent.MinMax
 
   function coef(coef: string | number | undefined): VL.ExtentExtent | number | undefined {
     if (typeof coef == 'string') {
