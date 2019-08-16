@@ -4,6 +4,7 @@
 \alias{example_path_dev}
 \alias{example_names_dev}
 \alias{example_dir_dev}
+\alias{gg_example_dev}
 \title{Get path to example-file from development}
 \usage{
 example_path_dev(example = NULL, type = c("ggplot2", "ggspec",
@@ -12,6 +13,8 @@ example_path_dev(example = NULL, type = c("ggplot2", "ggspec",
 example_names_dev(type = c("ggplot2", "ggspec", "vega-lite"))
 
 example_dir_dev(type = c("ggplot2", "ggspec", "vega-lite"))
+
+gg_example_dev(example)
 }
 \arguments{
 \item{example}{\code{character}, name of the example,
@@ -21,13 +24,7 @@ example_dir_dev(type = c("ggplot2", "ggspec", "vega-lite"))
 Default \code{"ggplot2"}}
 }
 \value{
-\describe{
-\item{\code{gg_example_name()}}{\code{character}, names of examples}
-\item{\code{gg_example_path()}}{S3 object with class \code{fs_path}
-(wraps \code{character}), path to R file identified by \code{example}}
-\item{\code{gg_example()}}{S3 object with classes \code{gg} and \code{ggplot};
-a ggplot2 object, identified by \code{example}}
-}
+TODO
 }
 \description{
 Get path to example-file from development

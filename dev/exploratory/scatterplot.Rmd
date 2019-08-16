@@ -1,0 +1,21 @@
+---
+title: scatterplot
+output: github_document
+---
+
+```{r message=FALSE}
+library("ggvega")
+library("ggplot2")
+```
+
+```{r echo=FALSE, results='asis'}
+example <- "scatterplot-iris"
+
+gg_dev_codeblock(example)
+
+g <- gg_example_dev(example)
+```
+
+```{r}
+g
+```
