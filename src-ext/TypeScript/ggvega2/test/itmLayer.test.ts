@@ -11,7 +11,6 @@ describe('itmLayer/itmLayer', () => {
 
     const itmLayerObject = itmSpec.iris01.layer[0];
 
-    //TODO@wenyu: remember to add title after building label function
     expect(itmLayer(ggLayer as GG.Layer, ggDatasets as GG.DatasetsObject)).toEqual(itmLayerObject as ItmLayer);
   });
 });

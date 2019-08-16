@@ -6,8 +6,6 @@ import {itmLayerArrayByScalesArray} from './itmLayerArrayByScales';
 import {itmLayerArrayByCoord} from './itmLayerArrayByCoord';
 import {encodingNameByGeom, GGEncodingKey} from './encodingNameByGeom';
 
-//TODO@wenyu: Use GG.Layer[] or GG.Layers; GG.Scale[] or GG.Scales
-
 /**
  * Create layer array
  *
