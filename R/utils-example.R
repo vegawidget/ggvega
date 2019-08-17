@@ -44,3 +44,71 @@ head_data <- function(x, n = 1L){
 }
 
 
+
+# return the names of all the examples
+.example_names <- function(type = c("ggplot", "ggspec", "vegaspec"),
+                           source = c("dev", "pkg")) {
+
+  # get the directory
+  dir <- .example_dir(type, source)
+
+  # get the filenamea, basenames, remove the extensions
+  f <- fs::dir_ls(dir, regexp = "[.]R$")
+  f <- basename(f)
+  f <- tools::file_path_sans_ext(f)
+
+  f
+}
+
+# return the root directory that contain examples
+.example_dir <-  function(type = c("ggplot", "ggspec", "vegaspec"),
+                          source = c("dev", "pkg")) {
+  # validate arguments
+  type <- match.arg(type)
+  source <- match.arg(source)
+
+  # create according to the source
+  if (identical(source, "pkg")) {
+    # use the installed-package
+    dir <- system.file("examples", package = "ggvega")
+  } else {
+    # use the development data-raw
+    if (!requireNamespace("here", quietly = TRUE)) {
+      stop("need {here} package")
+    }
+
+    dir <- here::here("data-raw", "examples")
+  }
+
+  # append the type
+  dir <- fs::path_join(c(dir, type))
+
+  dir
+}
+
+# return the path to examples
+.example_path <- function(example,
+                          type = c("ggplot", "ggspec", "vegaspec"),
+                          source = c("dev", "pkg")) {
+
+  names <- .example_names(type, source)
+  dir <- .example_dir(type, source)
+
+  if (!(example %in% names)) {
+    message(glue::glue_collapse(names, sep = "\t"))
+    stop("example not found", call. = FALSE)
+  }
+
+  fs::path_join(c(dir, glue::glue("{example}.R")))
+}
+
+# return the object the example builds
+# return the path to examples
+.example_obj <- function(example,
+                         type = c("ggplot", "ggspec", "vegaspec"),
+                         source = c("dev", "pkg")) {
+
+  path <- .example_path(example, type, source)
+
+  source(path)$value
+}

@@ -43,3 +43,23 @@ test_that("replacement function works", {
   ex("geom_point(data = iris)", "geom_point(data = head(iris, 1))")
 
 })
+
+test_that(".example_ functions work", {
+
+  library("ggplot2")
+  library("vegawidget")
+
+  names <- .example_names("ggplot", "dev")
+  expect_true("scatterplot-iris" %in% names)
+
+  expect_is(
+    .example_obj("scatterplot-iris", type = "ggplot", source = "dev"),
+    "gg"
+  )
+
+  expect_is(
+    .example_obj("scatterplot-iris", type = "vegaspec", source = "dev"),
+    "vegaspec"
+  )
+
+})

@@ -10,7 +10,7 @@
 #' @export
 #'
 example_path_dev <- function(example = NULL,
-                             type = c("ggplot2", "ggspec", "vega-lite")) {
+                             type = c("ggplot", "ggspec", "vegaspec")) {
 
   # determine directory
   dir <- example_dir_dev(type = type)
@@ -39,7 +39,7 @@ example_path_dev <- function(example = NULL,
 #' @rdname example_path_dev
 #' @export
 #'
-example_names_dev <- function(type = c("ggplot2", "ggspec", "vega-lite")) {
+example_names_dev <- function(type = c("ggplot", "ggspec", "vegaspec")) {
 
   if (!requireNamespace("here", quietly = TRUE)) {
     stop("need {stringr} package")
@@ -62,7 +62,7 @@ example_names_dev <- function(type = c("ggplot2", "ggspec", "vega-lite")) {
 #' @rdname example_path_dev
 #' @export
 #'
-example_dir_dev <- function(type = c("ggplot2", "ggspec", "vega-lite")) {
+example_dir_dev <- function(type = c("ggplot", "ggspec", "vegaspec")) {
 
   if (!requireNamespace("here", quietly = TRUE)) {
     stop("need {here} package")

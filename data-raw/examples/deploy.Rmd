@@ -46,7 +46,7 @@ library("fs")
 ```
 
 ```{r source}
-source_dir <- here("data-raw", "examples", "ggplot2")
+source_dir <- here("data-raw", "examples")
 source_files <- fs::dir_ls(source_dir, regexp = "[.]R$")
 ```
 
@@ -96,8 +96,8 @@ skip_vegaspec <- c(skip_ggspec, skip_vegaspec)
 As above, we create an empty directory to contain the testing examples.
 
 ```{r clean-testing}
-testex_dir <- here("tests", "testthat", "examples", "ggplot2")
-testex_dir
+test_example_dir <- here("tests", "testthat", "examples")
+test_example_dir
 
 if (dir_exists(testex_dir)) {
   dir_delete(testex_dir)  

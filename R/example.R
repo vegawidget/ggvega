@@ -1,3 +1,8 @@
+
+
+
+
+
 #' Use ggplot examples
 #'
 #' This package has a series of example files that hightlight the capabilities
@@ -72,6 +77,7 @@ gg_example <- function(example = NULL) {
 
 }
 
+# return the basenames of all the examples
 .gg_example_name <- function(dir) {
 
   f <- fs::dir_ls(dir, regexp = "[.]R$")
