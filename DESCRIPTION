@@ -55,5 +55,6 @@ Suggests:
     tools,
     readr,
     processx,
-    withr
+    withr,
+    htmltools
 VignetteBuilder: knitr
