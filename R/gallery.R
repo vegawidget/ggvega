@@ -22,6 +22,7 @@ gg_dev_codeblock <- function(example) {
 }
 
 #' @rdname gg_dev_codeblock
+#'
 #' @keywords internal
 #' @export
 #'
@@ -30,6 +31,8 @@ gg_dev_gallery <- function(example) {
   if (!requireNamespace("htmltools", quietly = TRUE)) {
     stop("need {htmltools} package")
   }
+
+  tags <- htmltools::tags
 
   print(gg_dev_codeblock(example))
 
@@ -46,20 +49,30 @@ gg_dev_gallery <- function(example) {
     as.character()
 
   div <-
-    htmltools::div(
-      htmltools::tags$details(
-        htmltools::tags$summary("JSON specifications"),
-        htmltools::tags$table(
-          style = "table-layout: fixed; width: 100%;",
-          htmltools::tags$tbody(
-            htmltools::tags$tr(
-              htmltools::tags$td(
+    tags$div(
+      tags$details(
+        tags$summary("JSON specifications"),
+        tags$table(
+          tags$thead(
+            tags$tr(
+              tags$td(
                 "ggspec",
+                style = "width:50%; border-width: 0px;"
+              ),
+              tags$td(
+                "vegaspec",
+                style = "width:50%; border-width: 0px;"
+              ),
+              style = "border-width: 0px;"
+            )
+          ),
+          tags$tbody(
+            tags$tr(
+              tags$td(
                 paste0("\n\n```json\n", ggspec_json, "\n```\n"),
                 style = "border-width: 0px; vertical-align: top;"
               ),
-              htmltools::tags$td(
-                "vegaspec",
+              tags$td(
                 paste0("\n\n```json\n", vegaspec_json, "\n```\n"),
                 style = "border-width: 0px; vertical-align: top;"
               ),

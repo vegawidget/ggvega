@@ -18,15 +18,33 @@ ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +
 
 <summary>JSON specifications</summary>
 
-<table style="table-layout: fixed; width: 100%;">
+<table>
+
+<thead>
+
+<tr style="border-width: 0px;">
+
+<td style="width:50%; border-width: 0px;">
+
+ggspec
+
+</td>
+
+<td style="width:50%; border-width: 0px;">
+
+vegaspec
+
+</td>
+
+</tr>
+
+</thead>
 
 <tbody>
 
 <tr style="border-width: 0px;">
 
 <td style="border-width: 0px; vertical-align: top;">
-
-ggspec
 
 ``` json
 {
@@ -112,8 +130,6 @@ ggspec
 </td>
 
 <td style="border-width: 0px; vertical-align: top;">
-
-vegaspec
 
 ``` json
 {

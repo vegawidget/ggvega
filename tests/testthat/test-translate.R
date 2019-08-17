@@ -60,6 +60,10 @@ expect_vegalite <- function(name) {
 
   vl_ref <- ggvega:::normalize(ggvega:::from_json(path_vegalite))
 
+  # TODO: refer to testthat::quasi_label()
+  #   - create vegaspec_test(), vegaspec_ref() as functions of `example`
+  #   - then call:
+  #     expect_equivalent(vegaspec_test(!!example), vegaspec_ref(!!example))
   expect_equivalent(vl, vl_ref)
 }
 

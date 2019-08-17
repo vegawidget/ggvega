@@ -15,5 +15,3 @@ gg_dev_gallery("scatterplot-iris")
 ```
 
 
-
-
