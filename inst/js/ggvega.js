@@ -9484,9 +9484,14 @@
      * @returns `ItmLayer[]`
      */
     function itmLayerArrayByLabelsObject(itmLayerArray, ggLabelObject) {
+        //NOTE@ian consider deleting labels that have keys that begin with `x` or `y` but are not `x` or `y`
+        //NOTE@ian - I think the position aesthetics are different in that we want to consider only those
+        //  labels associated with 'x' or 'y', but we want to associate an `y` label with a `ymin` aesthetic.
         itmLayerArray.map(function (itmLayer) {
             for (var encodingKey in itmLayer.encoding) {
                 for (var labelKey in ggLabelObject) {
+                    //NOTE@ian - do we need to protect
+                    //NOTE@ian - consider using a function that takes a labelKey and an encodingKey, returns a boolean
                     if (labelKey == encodingKey) {
                         itmLayer.encoding[encodingKey].title = ggLabelObject[labelKey];
                         delete ggLabelObject[labelKey];
@@ -9635,7 +9640,6 @@
         shape: 'shape'
     };
 
-    //TODO@wenyu: Use GG.Layer[] or GG.Layers; GG.Scale[] or GG.Scales
     /**
      * Create layer array
      *
