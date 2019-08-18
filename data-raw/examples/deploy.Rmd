@@ -38,16 +38,18 @@ In the R code, each example is referred-to using the `example` keyword. Above, `
 
 ```{r setup}
 library("conflicted")
+library("ggplot2")
+library("vegawidget")
 library("magrittr")
 library("ggvega")
 library("purrr")
 library("here")
+library("readr")
 library("fs")
 ```
 
 ```{r source}
 source_dir <- here("data-raw", "examples")
-source_files <- fs::dir_ls(source_dir, regexp = "[.]R$")
 ```
 
 ## Testing examples
@@ -92,19 +94,23 @@ skip_vegaspec <- c()
 skip_vegaspec <- c(skip_ggspec, skip_vegaspec)
 ```
 
-
 As above, we create an empty directory to contain the testing examples.
 
 ```{r clean-testing}
 test_example_dir <- here("tests", "testthat", "examples")
 test_example_dir
 
-if (dir_exists(testex_dir)) {
-  dir_delete(testex_dir)  
+if (dir_exists(test_example_dir)) {
+  dir_delete(test_example_dir)  
 }
 
-dir_create(testex_dir)
+dir_create(test_example_dir)
+dir_create(path_join(c(test_example_dir, "ggplot")))
+dir_create(path_join(c(test_example_dir, "ggspec")))
+dir_create(path_join(c(test_example_dir, "vegaspec")))
 ```
+
+### ggplot
 
 Next, we need a function that will:
 
@@ -113,9 +119,11 @@ Next, we need a function that will:
 - write those lines to a new file, in the test directory
 
 ```{r}
-transfer_test <- function(path) {
+deploy_test_ggplot <- function(example, dir) {
   
-  new_path <- fs::path_join(c(testex_dir, basename(path)))
+  path <- dev_example_path(example, "ggplot")
+  new_path <- 
+    fs::path_join(c(dir, "ggplot", glue::glue("{example}.R")))
   
   content <- readr::read_lines(path)
   content <- purrr::map_chr(content, ggvega:::head_data)
@@ -125,8 +133,77 @@ transfer_test <- function(path) {
 ```
 
 ```{r}
-walk(source_files, transfer_test)
+examples <- dev_example_names("ggplot")
+
+walk(examples, deploy_test_ggplot, dir = test_example_dir)
 ```
+
+### ggspec
+
+Given a ggspec `example` and a directory to put it, we want a function that will:
+
+- evaluate the ggspec example
+- truncate the datasets
+- write it out as JSON to the directory
+
+```{r}
+deploy_test_ggspec <- function(example, dir) {
+
+  path <- dev_example_path(example, "ggspec")
+  new_path <- 
+    fs::path_join(c(dir, "ggspec", glue::glue("{example}.gg.json")))
+  
+  ggspec <- source(path)$value
+  
+  # truncate data
+  ggspec <- truncate_data_ggspec(ggspec)
+  
+  ggspec_json <- ggvega:::to_json(ggspec) 
+  
+  readr::write_file(ggspec_json, new_path)
+}
+```
+
+```{r}
+examples <- dev_example_names("ggspec")
+examples <- examples[!examples %in% skip_ggspec]
+
+walk(examples, deploy_test_ggspec, dir = test_example_dir)
+```
+
+### vegaspec
+
+Given a vegaspec `example` and a directory to put it, we want a function that will:
+
+- evaluate the vegaspec example
+- truncate the datasets
+- write it out as JSON to the directory
+
+```{r}
+deploy_test_vegaspec <- function(example, dir) {
+
+  path <- dev_example_path(example, "vegaspec")
+  new_path <- 
+    fs::path_join(c(dir, "vegaspec", glue::glue("{example}.vl.json")))
+  
+  vegaspec <- source(path)$value
+  
+  # truncate data
+  vegaspec <- truncate_data_vegaspec(vegaspec)
+  
+  vegaspec_json <- ggvega:::to_json(vegaspec) 
+  
+  readr::write_file(vegaspec_json, new_path)
+}
+```
+
+```{r}
+examples <- dev_example_names("vegaspec")
+examples <- examples[!examples %in% skip_vegaspec]
+
+walk(examples, deploy_test_vegaspec, dir = test_example_dir)
+```
+
 
 ## Package examples
 
@@ -143,10 +220,19 @@ if (dir_exists(pkgex_dir)) {
 dir_create(pkgex_dir)
 ```
 
-Next, we copy all the files from the source directory to the package-example directory:
+Next, we copy all the examples from the source directory to the package-example directory - but only those examples that are tested as vegaspecs.
 
 ```{r copy-examples}
-walk(source_files, fs::file_copy, new_path = pkgex_dir)
+
+copy <- function(example) {
+  filename <- glue::glue("{example}.R")
+  path_old <- fs::path_join(c(source_dir, "ggplot", filename))
+  path_new <- fs::path_join(c(pkgex_dir, filename))
+  
+  fs::file_copy(path_old, path_new)
+}
+
+walk(examples, copy)
 ```
 
 Finally, to confirm, we list the files in the package-source directory
@@ -155,6 +241,6 @@ Finally, to confirm, we list the files in the package-source directory
 dir_ls(pkgex_dir) %>% basename()
 ```
 
-
-
 ## Adding a new example
+
+TDDOD: Some words here on what goes into a new example, and how it becomes "official". 

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "datasets": {
+    "data-00": [
+      {
+        "Sepal.Length": 5.1,
+        "Sepal.Width": 3.5,
+        "Petal.Length": 1.4,
+        "Petal.Width": 0.2,
+        "Species": "setosa"
+      }
+    ]
+  },
+  "layer": [
+    {
+      "data": {
+        "name": "data-00"
+      },
+      "mark": "point",
+      "encoding": {
+        "x": {
+          "field": "Petal\\.Width",
+          "type": "quantitative",
+          "title": "Petal.Width"
+        },
+        "y": {
+          "field": "Petal\\.Length",
+          "type": "quantitative",
+          "title": "Petal.Length"
+        },
+        "color": {
+          "field": "Species",
+          "type": "nominal",
+          "title": "Species"
+        }
+      }
+    }
+  ]
+}

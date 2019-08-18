@@ -1,19 +1,19 @@
 #' Create a markdown code-block from a ggplot2 example
 #'
-#' @inheritParams example_path_dev
+#' @inheritParams dev_example_path
 #'
 #' @return `glue::glue()` object
 #'
 #' @keywords internal
 #' @export
 #'
-gg_dev_codeblock <- function(example) {
+dev_gg_codeblock <- function(example) {
 
   if (!requireNamespace("readr", quietly = TRUE)) {
     stop("need {readr} package")
   }
 
-  filename <- example_path_dev(example)
+  filename <- dev_example_path(example, type = "ggplot")
   text <- readr::read_lines(filename)
 
   code_block <- as_codeblock(text)
@@ -21,12 +21,12 @@ gg_dev_codeblock <- function(example) {
   code_block
 }
 
-#' @rdname gg_dev_codeblock
+#' @rdname dev_gg_codeblock
 #'
 #' @keywords internal
 #' @export
 #'
-gg_dev_gallery <- function(example) {
+dev_gg_gallery <- function(example) {
 
   if (!requireNamespace("htmltools", quietly = TRUE)) {
     stop("need {htmltools} package")
@@ -34,16 +34,16 @@ gg_dev_gallery <- function(example) {
 
   tags <- htmltools::tags
 
-  print(gg_dev_codeblock(example))
+  print(dev_gg_codeblock(example))
 
   ggspec_json <-
-    source(example_path_dev(example, "ggspec"))$value %>%
+    source(dev_example_path(example, "ggspec"))$value %>%
     truncate_data_ggspec() %>%
     to_json() %>%
     as.character()
 
   vegaspec_json <-
-    source(example_path_dev(example, "vega-lite"))$value %>%
+    source(dev_example_path(example, "vega-lite"))$value %>%
     truncate_data_vegaspec() %>%
     to_json() %>%
     as.character()

@@ -43,6 +43,72 @@ head_data <- function(x, n = 1L){
   x
 }
 
+#' De-factor and transpose data frame
+#'
+#' This is a bit duplicative - it's systactic sugar to
+#' help with the galleries.
+#'
+#' @param x `data.frame`
+#'
+#' @return `list`
+#'
+#' @keywords internal
+#' @export
+#'
+flip <- function(x) {
+
+  # change factor to character
+  x <- purrr::map_if(x, is.factor, as.character)
+
+  # transpose
+  x <- purrr::transpose(x)
+
+  x
+}
+
+#' Truncate data in ggspec
+#'
+#' @param ggspec, ggspec (does this have an S3 class?)
+#'
+#' @return modified copy of `ggspec`
+#'
+#' @keywords internal
+#' @export
+#'
+truncate_data_ggspec <- function(ggspec) {
+
+  truncate_observations <- function(x) {
+    if ("observations" %in% names(x)) {
+      x$observations <- list(x$observations[[1]])
+    }
+
+    x
+  }
+
+  # truncate datasets
+  ggspec$data <-
+    purrr::map(ggspec$data, truncate_observations)
+
+  ggspec
+}
+
+#' Truncate data in vegaspec
+#'
+#' @param vegaspec, vegaspec (does this have an S3 class?)
+#'
+#' @return modified copy of `vegaspec`
+#'
+#' @keywords internal
+#' @export
+#'
+truncate_data_vegaspec <- function(vegaspec) {
+
+  # truncate datasets
+  vegaspec$datasets <-
+    purrr::map(vegaspec$datasets, ~list(.x[[1]]))
+
+  vegaspec
+}
 
 
 # return the names of all the examples
@@ -87,12 +153,17 @@ head_data <- function(x, n = 1L){
 }
 
 # return the path to examples
-.example_path <- function(example,
+.example_path <- function(example = NULL,
                           type = c("ggplot", "ggspec", "vegaspec"),
                           source = c("dev", "pkg")) {
 
   names <- .example_names(type, source)
   dir <- .example_dir(type, source)
+
+  if (is.null(example)) {
+    message(glue::glue_collapse(names, sep = "\t"))
+    return(invisible(NULL))
+  }
 
   if (!(example %in% names)) {
     message(glue::glue_collapse(names, sep = "\t"))
@@ -109,6 +180,10 @@ head_data <- function(x, n = 1L){
                          source = c("dev", "pkg")) {
 
   path <- .example_path(example, type, source)
+
+  if (is.null(path)) {
+    return(invisible(NULL))
+  }
 
   source(path)$value
 }

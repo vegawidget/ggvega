@@ -26,7 +26,7 @@ list(
         y = list(field = "Sepal.Length"),
         colour = list(field = "Species")
       ),
-      aes_params = list(),
+      aes_params = ggvega:::empty_named_list,
       stat = list(class = "StatIdentity"),
       stat_params = list(
         na.rm = FALSE
@@ -39,6 +39,6 @@ list(
     y = "Sepal.Length",
     colour = "Species"
   ),
-  coordintates = list(class = "CoordCartesian"),
+  coordinates = list(class = "CoordCartesian"),
   facet = list(class = "FacetNull")
 )
