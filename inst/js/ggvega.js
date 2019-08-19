@@ -9625,6 +9625,13 @@
         // }
         return colorNew;
     }
+    //NOTE @wenyu:
+    function encodingValueStroke(stroke) {
+        return Number(stroke);
+    }
+    function encodingValueAlpha(alpha) {
+        return Number(alpha);
+    }
 
     /**
      * Create an intermediate `encoding` object using a `mapping` object
@@ -9749,6 +9756,14 @@
         //   - create ItmEncoding
         //   - populate ItmEncoding
         //   - put ItmEncoding into itmEncodingObject
+        var itmEncodingByAesParamsMap = {
+            shape: encodingValueShape,
+            colour: encodingValueColor,
+            fill: encodingValueColor,
+            size: encodingValueSize,
+            stroke: encodingValueStroke,
+            alpha: encodingValueAlpha
+        };
         for (var aesName in ggAesParamsObject) {
             if (hasKey(ggAesParamsObject, aesName)) {
                 // extract information from aes_params
@@ -9765,16 +9780,10 @@
                  * PR: https://github.com/vega/vega-lite/pull/4201
                  */
                 // tranlsate
-                if (aesName == 'shape') {
+                if (contains$1(Object.keys(itmEncodingByAesParamsMap), aesName)) {
                     // NOTE: we will likely need the Geom, which I think we can get
                     // from the `geom` breadcrumb included with the itmEncoding
-                    value = encodingValueShape(value);
-                }
-                if (aesName == 'colour' || aesName == 'fill') {
-                    value = encodingValueColor(value);
-                }
-                if (aesName == 'size') {
-                    value = encodingValueSize(value);
+                    value = itmEncodingByAesParamsMap[aesName](value);
                 }
                 // create Encoding
                 var encoding = {};

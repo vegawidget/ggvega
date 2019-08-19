@@ -1,9 +1,15 @@
 import * as VL from './vlSpec';
 import * as GG from '../../ggschema/src/index';
-import {fieldName, hasKey} from './utils';
+import {fieldName, hasKey, contains} from './utils';
 import {encodingByAes} from './encodingByAes';
 import {GGEncodingKey} from './encodingNameByGeom';
-import {encodingValueColor, encodingValueShape, encodingValueSize} from './encodingValue';
+import {
+  encodingValueColor,
+  encodingValueShape,
+  encodingValueSize,
+  encodingValueStroke,
+  encodingValueAlpha
+} from './encodingValue';
 
 /**
  * Create an intermediate `encoding` object using a `mapping` object
@@ -147,6 +153,16 @@ export function itmEncodingObjectByAesParamsObject(
   //   - create ItmEncoding
   //   - populate ItmEncoding
   //   - put ItmEncoding into itmEncodingObject
+
+  const itmEncodingByAesParamsMap = {
+    shape: encodingValueShape,
+    colour: encodingValueColor,
+    fill: encodingValueColor,
+    size: encodingValueSize,
+    stroke: encodingValueStroke,
+    alpha: encodingValueAlpha
+  };
+
   for (const aesName in ggAesParamsObject) {
     if (hasKey(ggAesParamsObject, aesName)) {
       // extract information from aes_params
@@ -166,18 +182,10 @@ export function itmEncodingObjectByAesParamsObject(
        */
 
       // tranlsate
-      if (aesName == 'shape') {
+      if (contains(Object.keys(itmEncodingByAesParamsMap), aesName)) {
         // NOTE: we will likely need the Geom, which I think we can get
         // from the `geom` breadcrumb included with the itmEncoding
-        value = encodingValueShape(value);
-      }
-
-      if (aesName == 'colour' || aesName == 'fill') {
-        value = encodingValueColor(value);
-      }
-
-      if (aesName == 'size') {
-        value = encodingValueSize(value);
+        value = itmEncodingByAesParamsMap[aesName as keyof GG.AesParamsObject](value);
       }
 
       // create Encoding

@@ -103,3 +103,12 @@ export function encodingValueColor(color: string | number | undefined): string {
 
   return colorNew;
 }
+
+//NOTE @wenyu:
+export function encodingValueStroke(stroke: string | number | undefined): number {
+  return Number(stroke);
+}
+
+export function encodingValueAlpha(alpha: string | number | undefined): number {
+  return Number(alpha);
+}
