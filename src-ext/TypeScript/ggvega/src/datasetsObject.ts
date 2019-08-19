@@ -1,5 +1,6 @@
 import * as VL from './vlSpec';
 import * as GG from '../../ggschema/src/index';
+import {hasKey} from './utils';
 
 //NOTE @wenyu: After discussion with @ian, we decide to use GG.DatasetsObject to substitute GG.Datasets
 
@@ -34,7 +35,7 @@ export function datasetsObject(ggDatasetsObject: GG.DatasetsObject): {[key: stri
 
   //NOTE @wenyu: https://eslint.org/docs/rules/no-prototype-builtins
   for (const dataName in ggDatasetsObject) {
-    if (Object.prototype.hasOwnProperty.call(ggDatasetsObject, dataName)) {
+    if (hasKey(ggDatasetsObject, dataName)) {
       datasetsObject[dataName] = ggDatasetsObject[dataName].observations;
     }
   }

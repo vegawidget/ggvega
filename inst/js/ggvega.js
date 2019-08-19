@@ -8175,6 +8175,15 @@
         // use regular expression to replaces all matches
         return name.replace(/[.]/g, '\\.');
     }
+    /**
+     * Check if an object has a key
+     *
+     * @param obj
+     * @param key
+     */
+    function hasKey(obj, key) {
+        return Object.prototype.hasOwnProperty.call(obj, key);
+    }
 
     var vlschema = "https://vega.github.io/schema/vega-lite/v3.json";
 
@@ -8206,7 +8215,7 @@
         // iterate over object: https://stackoverflow.com/a/684692
         //NOTE @wenyu: https://eslint.org/docs/rules/no-prototype-builtins
         for (var dataName in ggDatasetsObject) {
-            if (Object.prototype.hasOwnProperty.call(ggDatasetsObject, dataName)) {
+            if (hasKey(ggDatasetsObject, dataName)) {
                 datasetsObject[dataName] = ggDatasetsObject[dataName].observations;
             }
         }
@@ -9665,7 +9674,7 @@
         //   - populate Encoding
         //   - put Encoding into itmEncodingObject
         for (var aesName in ggMappingObject) {
-            if (Object.prototype.hasOwnProperty.call(ggMappingObject, aesName)) {
+            if (hasKey(ggMappingObject, aesName)) {
                 // do we have a type/class for `mapping`?
                 // extract information from mapping object, metatdata
                 var mapping = ggMappingObject[aesName];
@@ -9738,7 +9747,7 @@
         //   - populate ItmEncoding
         //   - put ItmEncoding into itmEncodingObject
         for (var aesName in ggAesParamsObject) {
-            if (Object.prototype.hasOwnProperty.call(ggAesParamsObject, aesName)) {
+            if (hasKey(ggAesParamsObject, aesName)) {
                 // extract information from aes_params
                 // NOTE @wenyu: Maybe the `value` can have other types
                 var value = ggAesParamsObject[aesName];
@@ -9949,14 +9958,18 @@
         //  labels associated with 'x' or 'y', but we want to associate an `y` label with a `ymin` aesthetic.
         itmLayerArray.map(function (itmLayer) {
             for (var encodingKey in itmLayer.encoding) {
-                if (itmLayer.encoding[encodingKey].value)
-                    continue;
-                for (var labelKey in ggLabelObject) {
-                    //NOTE@ian - do we need to protect
-                    //NOTE@ian - consider using a function that takes a labelKey and an encodingKey, returns a boolean
-                    if (labelKey === encodingKey) {
-                        itmLayer.encoding[encodingKey].title = ggLabelObject[labelKey];
-                        delete ggLabelObject[labelKey];
+                if (hasKey(itmLayer.encoding, encodingKey)) {
+                    if (itmLayer.encoding[encodingKey].value)
+                        continue;
+                    for (var labelKey in ggLabelObject) {
+                        if (hasKey(ggLabelObject, labelKey)) {
+                            //NOTE@ian - do we need to protect
+                            //NOTE@ian - consider using a function that takes a labelKey and an encodingKey, returns a boolean
+                            if (labelKey === encodingKey) {
+                                itmLayer.encoding[encodingKey].title = ggLabelObject[labelKey];
+                                delete ggLabelObject[labelKey];
+                            }
+                        }
                     }
                 }
             }
@@ -9994,18 +10007,20 @@
     function itmLayerArrayByScalesArray(itmLayerArray, ggScaleArray) {
         itmLayerArray.map(function (itmLayer) {
             var _loop_1 = function (encodingKey) {
-                ggScaleArray.map(function (ggScale) {
-                    //NOTE @wenyu:https://love2dev.com/blog/javascript-remove-from-array/
-                    for (var i = 0; i < ggScale.aesthetics.length; i++) {
-                        if (ggScale.aesthetics[i] === encodingKey) {
-                            itmLayer.encoding[encodingKey].title = ggScale.name;
-                            if (ggScale.class === 'ScaleContinuousPosition') {
-                                itmLayer.encoding[encodingKey].scale = ggScale.transform;
+                if (hasKey(itmLayer.encoding, encodingKey)) {
+                    ggScaleArray.map(function (ggScale) {
+                        //NOTE @wenyu:https://love2dev.com/blog/javascript-remove-from-array/
+                        for (var i = 0; i < ggScale.aesthetics.length; i++) {
+                            if (ggScale.aesthetics[i] === encodingKey) {
+                                itmLayer.encoding[encodingKey].title = ggScale.name;
+                                if (ggScale.class === 'ScaleContinuousPosition') {
+                                    itmLayer.encoding[encodingKey].scale = ggScale.transform;
+                                }
+                                ggScale.aesthetics.splice(i, 1);
                             }
-                            ggScale.aesthetics.splice(i, 1);
                         }
-                    }
-                });
+                    });
+                }
             };
             for (var encodingKey in itmLayer.encoding) {
                 _loop_1(encodingKey);
@@ -10234,7 +10249,7 @@
         var encoding = {};
         // loop over aesthetic names in itmLayerEncoding
         for (var aesName in itmLayer.encoding) {
-            if (Object.prototype.hasOwnProperty.call(itmLayer.encoding, aesName)) {
+            if (hasKey(itmLayer.encoding, aesName)) {
                 // get the encoding name, add to the encoding
                 var encodingName = encodingNameByGeom(aesName, itmLayer.geomSet);
                 if (encodingName == 'x')

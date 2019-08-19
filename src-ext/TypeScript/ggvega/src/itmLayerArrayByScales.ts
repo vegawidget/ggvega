@@ -2,6 +2,7 @@ import * as GG from '../../ggschema/src/index';
 
 import {ItmLayer} from './itmLayer';
 import {VLMapping} from './itmEncodingObject';
+import {hasKey} from './utils';
 
 /**
  * Modify a layer array according to a scale array
@@ -25,19 +26,21 @@ import {VLMapping} from './itmEncodingObject';
 export function itmLayerArrayByScalesArray(itmLayerArray: ItmLayer[], ggScaleArray: GG.Scale[]): ItmLayer[] {
   itmLayerArray.map((itmLayer: ItmLayer) => {
     for (const encodingKey in itmLayer.encoding) {
-      ggScaleArray.map((ggScale: GG.Scale) => {
-        //NOTE @wenyu:https://love2dev.com/blog/javascript-remove-from-array/
+      if (hasKey(itmLayer.encoding, encodingKey)) {
+        ggScaleArray.map((ggScale: GG.Scale) => {
+          //NOTE @wenyu:https://love2dev.com/blog/javascript-remove-from-array/
 
-        for (let i = 0; i < ggScale.aesthetics.length; i++) {
-          if (ggScale.aesthetics[i] === encodingKey) {
-            itmLayer.encoding[encodingKey].title = ggScale.name;
-            if (ggScale.class === 'ScaleContinuousPosition') {
-              (itmLayer.encoding[encodingKey] as VLMapping).scale = ggScale.transform;
+          for (let i = 0; i < ggScale.aesthetics.length; i++) {
+            if (ggScale.aesthetics[i] === encodingKey) {
+              itmLayer.encoding[encodingKey].title = ggScale.name;
+              if (ggScale.class === 'ScaleContinuousPosition') {
+                (itmLayer.encoding[encodingKey] as VLMapping).scale = ggScale.transform;
+              }
+              ggScale.aesthetics.splice(i, 1);
             }
-            ggScale.aesthetics.splice(i, 1);
           }
-        }
-      });
+        });
+      }
     }
   });
 

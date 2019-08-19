@@ -5,6 +5,7 @@ import {itmLayerArrayByLabelsObject} from './itmLayerArrayByLabels';
 import {itmLayerArrayByScalesArray} from './itmLayerArrayByScales';
 import {itmLayerArrayByCoord} from './itmLayerArrayByCoord';
 import {encodingNameByGeom, GGEncodingKey} from './encodingNameByGeom';
+import {hasKey} from './utils';
 
 /**
  * Create layer array
@@ -134,7 +135,7 @@ function layerByItmLayer(itmLayer: ItmLayer): VL.LayerSpec {
 
   // loop over aesthetic names in itmLayerEncoding
   for (const aesName in itmLayer.encoding) {
-    if (Object.prototype.hasOwnProperty.call(itmLayer.encoding, aesName)) {
+    if (hasKey(itmLayer.encoding, aesName)) {
       // get the encoding name, add to the encoding
       const encodingName = encodingNameByGeom(aesName as GGEncodingKey, itmLayer.geomSet);
       if (encodingName == 'x') encoding[encodingName] = itmLayer.encoding[aesName] as VL.XClass;

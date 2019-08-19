@@ -96,3 +96,13 @@ export function fieldName(name: string): string {
   // use regular expression to replaces all matches
   return name.replace(/[.]/g, '\\.');
 }
+
+/**
+ * Check if an object has a key
+ *
+ * @param obj
+ * @param key
+ */
+export function hasKey(obj: object, key: string): boolean {
+  return Object.prototype.hasOwnProperty.call(obj, key);
+}

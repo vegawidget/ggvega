@@ -1,6 +1,7 @@
 import * as GG from '../../ggschema/src/index';
 import {ItmLayer} from './itmLayer';
 import {VLMapping} from './itmEncodingObject';
+import {hasKey} from './utils';
 
 /**
  * Modify a layer array according to a set of labels
@@ -42,14 +43,18 @@ export function itmLayerArrayByLabelsObject(itmLayerArray: ItmLayer[], ggLabelOb
   //  labels associated with 'x' or 'y', but we want to associate an `y` label with a `ymin` aesthetic.
   itmLayerArray.map((itmLayer: ItmLayer) => {
     for (const encodingKey in itmLayer.encoding) {
-      if ((itmLayer.encoding[encodingKey] as VLMapping).value) continue;
-      for (const labelKey in ggLabelObject) {
-        //NOTE@ian - do we need to protect
+      if (hasKey(itmLayer.encoding, encodingKey)) {
+        if ((itmLayer.encoding[encodingKey] as VLMapping).value) continue;
+        for (const labelKey in ggLabelObject) {
+          if (hasKey(ggLabelObject, labelKey)) {
+            //NOTE@ian - do we need to protect
 
-        //NOTE@ian - consider using a function that takes a labelKey and an encodingKey, returns a boolean
-        if (labelKey === encodingKey) {
-          itmLayer.encoding[encodingKey].title = ggLabelObject[labelKey as keyof GG.LabelObject];
-          delete ggLabelObject[labelKey as keyof GG.LabelObject];
+            //NOTE@ian - consider using a function that takes a labelKey and an encodingKey, returns a boolean
+            if (labelKey === encodingKey) {
+              itmLayer.encoding[encodingKey].title = ggLabelObject[labelKey as keyof GG.LabelObject];
+              delete ggLabelObject[labelKey as keyof GG.LabelObject];
+            }
+          }
         }
       }
     }

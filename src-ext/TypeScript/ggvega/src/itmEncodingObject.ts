@@ -1,6 +1,6 @@
 import * as VL from './vlSpec';
 import * as GG from '../../ggschema/src/index';
-import {fieldName} from './utils';
+import {fieldName, hasKey} from './utils';
 import {encodingByAes} from './encodingByAes';
 import {GGEncodingKey} from './encodingNameByGeom';
 import {encodingValueColor, encodingValueShape, encodingValueSize} from './encodingValue';
@@ -62,7 +62,7 @@ export function itmEncodingObjectByMappingObject(
   //   - populate Encoding
   //   - put Encoding into itmEncodingObject
   for (const aesName in ggMappingObject) {
-    if (Object.prototype.hasOwnProperty.call(ggMappingObject, aesName)) {
+    if (hasKey(ggMappingObject, aesName)) {
       // do we have a type/class for `mapping`?
 
       // extract information from mapping object, metatdata
@@ -148,7 +148,7 @@ export function itmEncodingObjectByAesParamsObject(
   //   - populate ItmEncoding
   //   - put ItmEncoding into itmEncodingObject
   for (const aesName in ggAesParamsObject) {
-    if (Object.prototype.hasOwnProperty.call(ggAesParamsObject, aesName)) {
+    if (hasKey(ggAesParamsObject, aesName)) {
       // extract information from aes_params
 
       // NOTE @wenyu: Maybe the `value` can have other types
