@@ -1,6 +1,6 @@
 import * as GG from '../../ggschema/src/index';
 import {ItmLayer} from './itmLayer';
-import {VLMapping} from './itmEncodingObject';
+import {VLEncodingField} from './itmEncodingObject';
 import {hasKey} from './utils';
 
 /**
@@ -44,7 +44,7 @@ export function itmLayerArrayByLabelsObject(itmLayerArray: ItmLayer[], ggLabelOb
   itmLayerArray.map((itmLayer: ItmLayer) => {
     for (const encodingKey in itmLayer.encoding) {
       if (hasKey(itmLayer.encoding, encodingKey)) {
-        if ((itmLayer.encoding[encodingKey] as VLMapping).value) continue;
+        if ((itmLayer.encoding[encodingKey] as VLEncodingField).value) continue;
         for (const labelKey in ggLabelObject) {
           if (hasKey(ggLabelObject, labelKey)) {
             //NOTE@ian - do we need to protect

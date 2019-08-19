@@ -1,7 +1,7 @@
 import * as GG from '../../ggschema/src/index';
 
 import {ItmLayer} from './itmLayer';
-import {VLMapping} from './itmEncodingObject';
+import {VLEncodingField} from './itmEncodingObject';
 import {hasKey} from './utils';
 
 /**
@@ -34,7 +34,7 @@ export function itmLayerArrayByScalesArray(itmLayerArray: ItmLayer[], ggScaleArr
             if (ggScale.aesthetics[i] === encodingKey) {
               itmLayer.encoding[encodingKey].title = ggScale.name;
               if (ggScale.class === 'ScaleContinuousPosition') {
-                (itmLayer.encoding[encodingKey] as VLMapping).scale = ggScale.transform;
+                (itmLayer.encoding[encodingKey] as VLEncodingField).scale = ggScale.transform;
               }
               ggScale.aesthetics.splice(i, 1);
             }

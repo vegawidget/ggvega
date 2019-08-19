@@ -76,7 +76,7 @@ export function itmEncodingObjectByMappingObject(
       const field: string = fieldName(mapping.field);
 
       // create Encoding
-      const encoding: VLMapping = encodingByAes(aesName);
+      const encoding: VLEncodingField = encodingByAes(aesName);
 
       // popuate Encoding
       encoding.field = field;
@@ -181,7 +181,7 @@ export function itmEncodingObjectByAesParamsObject(
       }
 
       // create Encoding
-      const encoding: VLAesParams = {};
+      const encoding: VLEncodingValue = {};
 
       //NOTE @wenyu: The encoding can only have the encoding property and the aes_params will overlap mapping. And it shouldn't have a title?
       //  https://github.com/vega/vega-lite/blob/master/src/encoding.ts#L170
@@ -200,11 +200,11 @@ export function itmEncodingObjectByAesParamsObject(
 
 //NOTE @wenyu: Define itmEncodingObject
 export interface ItmEncodingObject {
-  [key: string]: VLMapping | VL.TypedFieldDef;
+  [key: string]: VLEncodingField | VL.TypedFieldDef;
 }
 
 //NOTE @wenyu: Remove VL.TypedFieldDef from Mapping. Because VL.TypedFieldDef doesn't have `value` and `scale`. We only add scale and value to VLMapping
-export type VLMapping =
+export type VLEncodingField =
   | VL.XClass
   | VL.YClass
   | VL.DefWithConditionMarkPropFieldDefNumber
@@ -214,7 +214,7 @@ export type VLMapping =
 //NOTE @wenyu: Only used for AesParam
 //NOTE @ian - if Vega-Lite enables datum to specify a value in data-space,
 // we could add VL.XClass and VL.YClass
-export type VLAesParams =
+export type VLEncodingValue =
   | VL.DefWithConditionMarkPropFieldDefNumber
   | VL.DefWithConditionMarkPropFieldDefStringNull
   | VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull;

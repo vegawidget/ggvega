@@ -1,6 +1,6 @@
 import {contains} from './utils';
 import * as VL from './vlSpec';
-import {VLMapping} from './itmEncodingObject';
+import {VLEncodingField} from './itmEncodingObject';
 import {GGEncodingKey} from './encodingNameByGeom';
 
 /**
@@ -30,7 +30,7 @@ import {GGEncodingKey} from './encodingNameByGeom';
  *
  * @returns `VL.Encoding` empty encoding
  */
-export function encodingByAes(aesName: string): VLMapping {
+export function encodingByAes(aesName: string): VLEncodingField {
   // assuming that VL.ValueDefWithConditionMarkPropFieldDefNumber, etc.
   // are all subclasses of VL.Encoding
 
