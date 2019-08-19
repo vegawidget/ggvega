@@ -30,7 +30,9 @@ export function encodingValueSize(size: string | number | undefined): number {
  *
  * @returns `number`
  */
-export function encodingValueShape(shape: number): string {
+export function encodingValueShape(shape: string | number | undefined): string {
+  shape = Number(shape);
+
   // TODO: think more about this map
   const shapeMap: any = {
     0: 'circle',
@@ -77,9 +79,12 @@ export function encodingValueShape(shape: number): string {
  *
  * @returns `number`
  */
-export function encodingValueColor(color: string): string {
+export function encodingValueColor(color: string | number | undefined): string {
   // colors in R can have numbers at the end, in Vega-Lite (css), they don't
   // - we can get a good-enough mapping by removing the numbers.
+
+  //NOTE @wenyu: use String()?
+  color = String(color);
 
   // return hex-values as-is
   // validate

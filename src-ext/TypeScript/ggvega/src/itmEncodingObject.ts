@@ -169,15 +169,15 @@ export function itmEncodingObjectByAesParamsObject(
       if (aesName == 'shape') {
         // NOTE: we will likely need the Geom, which I think we can get
         // from the `geom` breadcrumb included with the itmEncoding
-        value = encodingValueShape(Number(value));
+        value = encodingValueShape(value);
       }
 
       if (aesName == 'colour' || aesName == 'fill') {
-        value = encodingValueColor(String(value));
+        value = encodingValueColor(value);
       }
 
       if (aesName == 'size') {
-        value = encodingValueSize(Number(value));
+        value = encodingValueSize(value);
       }
 
       // create Encoding

@@ -9562,6 +9562,7 @@
      * @returns `number`
      */
     function encodingValueShape(shape) {
+        shape = Number(shape);
         // TODO: think more about this map
         var shapeMap = {
             0: 'circle',
@@ -9608,6 +9609,8 @@
     function encodingValueColor(color) {
         // colors in R can have numbers at the end, in Vega-Lite (css), they don't
         // - we can get a good-enough mapping by removing the numbers.
+        //NOTE @wenyu: use String()?
+        color = String(color);
         // return hex-values as-is
         // validate
         if (color.match(/^(#[0-9a-f]{3}|#[0-9a-f]{6})$/i)) {
@@ -9765,13 +9768,13 @@
                 if (aesName == 'shape') {
                     // NOTE: we will likely need the Geom, which I think we can get
                     // from the `geom` breadcrumb included with the itmEncoding
-                    value = encodingValueShape(Number(value));
+                    value = encodingValueShape(value);
                 }
                 if (aesName == 'colour' || aesName == 'fill') {
-                    value = encodingValueColor(String(value));
+                    value = encodingValueColor(value);
                 }
                 if (aesName == 'size') {
-                    value = encodingValueSize(Number(value));
+                    value = encodingValueSize(value);
                 }
                 // create Encoding
                 var encoding = {};
