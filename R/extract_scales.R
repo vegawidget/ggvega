@@ -38,7 +38,7 @@ get_scales <- function(scale) {
   list(
     name = pluck_scale("name"),
     class = pluck_scale(class, 1),
-    aesthetics = pluck_scale("aesthetics", 1),
+    aesthetics = as.list(pluck_scale("aesthetics")),
     transform = list(
       name = pluck_scale("trans", "name")
     )
