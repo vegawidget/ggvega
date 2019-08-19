@@ -1,0 +1,17 @@
+---
+title: scatterplot
+output: github_document
+---
+
+```{r message=FALSE}
+library("ggvega")
+library("ggplot2")
+library("vegawidget")
+```
+
+
+```{r results='asis', echo=FALSE}
+gg_dev_gallery("scatterplot-iris")
+```
+
+

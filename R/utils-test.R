@@ -32,3 +32,66 @@ normalize <- function(x) {
 
   x
 }
+
+dir_test_examples <- function() {
+
+  if (!requireNamespace("here", quietly = TRUE)) {
+    stop("need {here} package")
+  }
+
+  here::here("tests", "testthat", "examples")
+}
+
+ggspec_test <- function(example, normalize = TRUE,
+                        dir = dir_test_examples()) {
+
+  path <- fs::path_join(c(dir, "ggplot", glue::glue("{example}.R")))
+  gg <- source(path)$value
+
+  ggspec <- gg2spec(gg)
+
+  if (normalize) {
+    ggspec <- normalize(ggspec)
+  }
+
+  ggspec
+}
+
+ggspec_ref <- function(example, normalize = TRUE,
+                      dir = dir_test_examples()) {
+
+  path <- fs::path_join(c(dir, "ggspec", glue::glue("{example}.gg.json")))
+  ggspec <- from_json(path)
+
+  if (normalize) {
+    ggspec <- normalize(ggspec)
+  }
+
+  ggspec
+}
+
+vegaspec_test <- function(example, normalize = TRUE,
+                          dir = dir_test_examples()) {
+
+  ggspec <- ggspec_ref(example, normalize, dir)
+  vegaspec <- spec2vl(ggspec)
+
+  if (normalize) {
+    vegaspec <- normalize(vegaspec)
+  }
+
+  vegaspec
+}
+
+vegaspec_ref <- function(example, normalize = TRUE,
+                         dir = dir_test_examples()) {
+
+  path <- fs::path_join(c(dir, "vegaspec", glue::glue("{example}.vl.json")))
+  vegaspec <- from_json(path)
+
+  if (normalize) {
+    vegaspec <- normalize(vegaspec)
+  }
+
+  vegaspec
+}

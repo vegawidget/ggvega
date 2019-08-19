@@ -165,7 +165,7 @@ create_meta <- function(x) {
   meta <- list(type = type_vl_local)
 
   if (type_r_local %in% c("factor", "ordered")) {
-    meta[["levels"]] <- levels(x)
+    meta[["levels"]] <- as.list(levels(x)) # TODO@ian - talk with @haley about this
   }
 
   if (identical(type_r_local, "POSIXct")) {
