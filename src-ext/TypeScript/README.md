@@ -36,7 +36,7 @@ Link : https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggveg
 
 [ggschema](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggschema) is the TypeScript definition of *ggschema* specification. 
 
-Link : https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggschema\
+Link : https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggschema
 
 - Start to use TypeScript interface/type to define *ggschema* specification.
 
