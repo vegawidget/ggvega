@@ -44,7 +44,7 @@ describe('itmLayerArrayByLabels/itmLayerArrayByLabelsObject', () => {
       }
     ];
 
-    expect(itmLayerArrayByLabelsObject(itmLayerArray as ItmLayer[], ggLabels as GG.Labels)).toEqual(
+    expect(itmLayerArrayByLabelsObject(itmLayerArray as ItmLayer[], ggLabels as GG.LabelObject)).toEqual(
       itmLayerArrayByLabels as ItmLayer[]
     );
   });
