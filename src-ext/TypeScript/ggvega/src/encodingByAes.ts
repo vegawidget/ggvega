@@ -129,7 +129,7 @@ function encodingString(): VL.DefWithConditionMarkPropFieldDefStringNull {
  * **Called by**
  * @see encodingByAes
  *
- * @returns `VL.Detail`
+ * @returns `VL.TypedFieldDef`
  */
 function encodingDetail(): VL.TypedFieldDef {
   //NOTE @wenyu: VL.Detail has to define the type - we think we can change this later

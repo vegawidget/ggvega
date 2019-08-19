@@ -1,4 +1,4 @@
-export type Scales = Scale[];
+export type ScaleArray = Scale[];
 
 export interface Scale {
   class: string;

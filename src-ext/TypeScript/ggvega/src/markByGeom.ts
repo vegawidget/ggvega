@@ -18,10 +18,9 @@ import {contains} from './utils';
  * requires additional information, then you can build a new function, like
  * {@link markByGeomBoxplot}, to handle the creation of the `mark` object.
  *
- * @param ggGeom - `GG.Geom`, contains class of the ggplot2 `geom`;
+ * @param ggGeomSet - `GG.GeomSet`, contains class of the ggplot2 `geom`;
  *   these map to the `mark` type
- * @param gsGeomParams - `GG.GeomParams`
- * @param ggStatParams - `GG.StatParams`
+ * @param ggStatSet - `GG.StatSet`
  *
  * @returns `VL.Mark`
  *
@@ -39,7 +38,7 @@ export function markByGeom(ggGeomSet: GG.GeomSet, ggStatSet: GG.StatSet): VL.Mar
   // use this pattern for dispatch if we have only a few exceptions to the default
   // NOTE: we don't have Boxplot defined yet
   if (ggGeomSet.geom.class == 'GeomBoxplot') {
-    return markByGeomBoxplot(ggGeomSet, ggStatSet);
+    return markByGeomBoxplot(ggGeomSet, ggStatSet as GG.StatSetBoxplot);
   }
 
   return markByGeomDefault(ggGeomSet);
@@ -60,7 +59,7 @@ export function markByGeom(ggGeomSet: GG.GeomSet, ggStatSet: GG.StatSet): VL.Mar
  * @see markByGeom
  * @see markByBoxplot
  *
- * @param ggGeom
+ * @param ggGeomSet
  *
  * @returns `VL.Mark`
  *
@@ -106,14 +105,13 @@ function markByGeomDefault(ggGeomSet: GG.GeomSet): VL.MarkDefClass {
  * @see markByGeomDefault
  *
  *
- * @param ggGeom - `GG.Geom`, contains class of the ggplot2 `geom`
- * @param ggGeomParams - `GG.GeomParams`
- * @param gsStatParams - `GG.StatParams`
+ * @param ggGeomSet - `GG.GeomSet`, contains class of the ggplot2 `geom`
+ * @param ggStatSetBoxplot - `GG.StatSetBoxplot`
  *
  * @returns `VL.Mark`
  *
  */
-function markByGeomBoxplot(ggGeomSet: GG.GeomSet, ggStatSet: GG.StatSet): VL.MarkDefClass {
+function markByGeomBoxplot(ggGeomSet: GG.GeomSet, ggStatSetBoxplot: GG.StatSetBoxplot): VL.MarkDefClass {
   // I know we have not done boxplots yet, this is just to propose an
   // extension mechanism.
 
@@ -134,7 +132,7 @@ function markByGeomBoxplot(ggGeomSet: GG.GeomSet, ggStatSet: GG.StatSet): VL.Mar
     return coef;
   }
 
-  mark.extent = coef(ggStatSet.stat_params.coef);
+  mark.extent = coef(ggStatSetBoxplot.stat_params.coef);
 
   return mark;
 }

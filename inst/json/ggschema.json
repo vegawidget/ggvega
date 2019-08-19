@@ -2,7 +2,7 @@
   "$ref": "#/definitions/TopLevelSpec",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
-    "AesParams": {
+    "AesParamsObject": {
       "additionalProperties": false,
       "properties": {
         "alpha": {
@@ -68,18 +68,6 @@
       "minProperties": 1,
       "type": "object"
     },
-    "Encoding": {
-      "additionalProperties": false,
-      "properties": {
-        "field": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "field"
-      ],
-      "type": "object"
-    },
     "Facet": {
       "$ref": "#/definitions/FacetNull"
     },
@@ -130,7 +118,7 @@
         }
       ]
     },
-    "Labels": {
+    "LabelObject": {
       "additionalProperties": false,
       "properties": {
         "alpha": {
@@ -169,7 +157,7 @@
           "additionalProperties": false,
           "properties": {
             "aes_params": {
-              "$ref": "#/definitions/AesParams"
+              "$ref": "#/definitions/AesParamsObject"
             },
             "data": {
               "type": "string"
@@ -202,7 +190,7 @@
               "type": "object"
             },
             "mapping": {
-              "$ref": "#/definitions/Mapping"
+              "$ref": "#/definitions/MappingObject"
             },
             "stat": {
               "additionalProperties": false,
@@ -210,6 +198,84 @@
                 "class": {
                   "enum": [
                     "StatIdentity"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "stat_params": {
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "aes_params",
+            "data",
+            "geom",
+            "geom_params",
+            "mapping",
+            "stat",
+            "stat_params"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "aes_params": {
+              "$ref": "#/definitions/AesParamsObject"
+            },
+            "data": {
+              "type": "string"
+            },
+            "geom": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "GeomPoint"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "geom_params": {
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
+            },
+            "mapping": {
+              "$ref": "#/definitions/MappingObject"
+            },
+            "stat": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "StatBoxplot"
                   ],
                   "type": "string"
                 }
@@ -253,7 +319,7 @@
           "additionalProperties": false,
           "properties": {
             "aes_params": {
-              "$ref": "#/definitions/AesParams"
+              "$ref": "#/definitions/AesParamsObject"
             },
             "data": {
               "type": "string"
@@ -286,7 +352,7 @@
               "type": "object"
             },
             "mapping": {
-              "$ref": "#/definitions/Mapping"
+              "$ref": "#/definitions/MappingObject"
             },
             "stat": {
               "additionalProperties": false,
@@ -294,6 +360,84 @@
                 "class": {
                   "enum": [
                     "StatIdentity"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "stat_params": {
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "aes_params",
+            "data",
+            "geom",
+            "geom_params",
+            "mapping",
+            "stat",
+            "stat_params"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "aes_params": {
+              "$ref": "#/definitions/AesParamsObject"
+            },
+            "data": {
+              "type": "string"
+            },
+            "geom": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "GeomBar"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "geom_params": {
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
+            },
+            "mapping": {
+              "$ref": "#/definitions/MappingObject"
+            },
+            "stat": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "StatBoxplot"
                   ],
                   "type": "string"
                 }
@@ -337,7 +481,7 @@
           "additionalProperties": false,
           "properties": {
             "aes_params": {
-              "$ref": "#/definitions/AesParams"
+              "$ref": "#/definitions/AesParamsObject"
             },
             "data": {
               "type": "string"
@@ -370,7 +514,7 @@
               "type": "object"
             },
             "mapping": {
-              "$ref": "#/definitions/Mapping"
+              "$ref": "#/definitions/MappingObject"
             },
             "stat": {
               "additionalProperties": false,
@@ -378,6 +522,84 @@
                 "class": {
                   "enum": [
                     "StatIdentity"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "stat_params": {
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "aes_params",
+            "data",
+            "geom",
+            "geom_params",
+            "mapping",
+            "stat",
+            "stat_params"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "aes_params": {
+              "$ref": "#/definitions/AesParamsObject"
+            },
+            "data": {
+              "type": "string"
+            },
+            "geom": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "GeomBoxplot"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "geom_params": {
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
+            },
+            "mapping": {
+              "$ref": "#/definitions/MappingObject"
+            },
+            "stat": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "StatBoxplot"
                   ],
                   "type": "string"
                 }
@@ -421,7 +643,7 @@
           "additionalProperties": false,
           "properties": {
             "aes_params": {
-              "$ref": "#/definitions/AesParams"
+              "$ref": "#/definitions/AesParamsObject"
             },
             "data": {
               "type": "string"
@@ -454,7 +676,7 @@
               "type": "object"
             },
             "mapping": {
-              "$ref": "#/definitions/Mapping"
+              "$ref": "#/definitions/MappingObject"
             },
             "stat": {
               "additionalProperties": false,
@@ -462,6 +684,84 @@
                 "class": {
                   "enum": [
                     "StatIdentity"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "stat_params": {
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "aes_params",
+            "data",
+            "geom",
+            "geom_params",
+            "mapping",
+            "stat",
+            "stat_params"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "aes_params": {
+              "$ref": "#/definitions/AesParamsObject"
+            },
+            "data": {
+              "type": "string"
+            },
+            "geom": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "GeomLine"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "geom_params": {
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
+            },
+            "mapping": {
+              "$ref": "#/definitions/MappingObject"
+            },
+            "stat": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "StatBoxplot"
                   ],
                   "type": "string"
                 }
@@ -503,7 +803,7 @@
         }
       ]
     },
-    "Layers": {
+    "LayerArray": {
       "description": "The `Layers` should have at least one layer",
       "items": {
         "$ref": "#/definitions/Layer"
@@ -514,32 +814,44 @@
     "Mapping": {
       "additionalProperties": false,
       "properties": {
+        "field": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "field"
+      ],
+      "type": "object"
+    },
+    "MappingObject": {
+      "additionalProperties": false,
+      "properties": {
         "alpha": {
-          "$ref": "#/definitions/Encoding"
+          "$ref": "#/definitions/Mapping"
         },
         "colour": {
-          "$ref": "#/definitions/Encoding"
+          "$ref": "#/definitions/Mapping"
         },
         "fill": {
-          "$ref": "#/definitions/Encoding"
+          "$ref": "#/definitions/Mapping"
         },
         "group": {
-          "$ref": "#/definitions/Encoding"
+          "$ref": "#/definitions/Mapping"
         },
         "shape": {
-          "$ref": "#/definitions/Encoding"
+          "$ref": "#/definitions/Mapping"
         },
         "size": {
-          "$ref": "#/definitions/Encoding"
+          "$ref": "#/definitions/Mapping"
         },
         "stroke": {
-          "$ref": "#/definitions/Encoding"
+          "$ref": "#/definitions/Mapping"
         },
         "x": {
-          "$ref": "#/definitions/Encoding"
+          "$ref": "#/definitions/Mapping"
         },
         "y": {
-          "$ref": "#/definitions/Encoding"
+          "$ref": "#/definitions/Mapping"
         }
       },
       "type": "object"
@@ -594,17 +906,17 @@
       ],
       "type": "object"
     },
+    "ScaleArray": {
+      "items": {
+        "$ref": "#/definitions/Scale"
+      },
+      "type": "array"
+    },
     "ScaleType": {
       "enum": [
         "log"
       ],
       "type": "string"
-    },
-    "Scales": {
-      "items": {
-        "$ref": "#/definitions/Scale"
-      },
-      "type": "array"
     },
     "StandardType": {
       "enum": [
@@ -614,49 +926,6 @@
         "temporal"
       ],
       "type": "string"
-    },
-    "StatIdentity": {
-      "additionalProperties": false,
-      "properties": {
-        "stat": {
-          "additionalProperties": false,
-          "properties": {
-            "class": {
-              "enum": [
-                "StatIdentity"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "class"
-          ],
-          "type": "object"
-        },
-        "stat_params": {
-          "additionalProperties": false,
-          "properties": {
-            "coef": {
-              "type": [
-                "string",
-                "number"
-              ]
-            },
-            "na.rm": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "na.rm"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "stat",
-        "stat_params"
-      ],
-      "type": "object"
     },
     "TopLevelSpec": {
       "additionalProperties": false,
@@ -671,13 +940,13 @@
           "$ref": "#/definitions/Facet"
         },
         "labels": {
-          "$ref": "#/definitions/Labels"
+          "$ref": "#/definitions/LabelObject"
         },
         "layers": {
-          "$ref": "#/definitions/Layers"
+          "$ref": "#/definitions/LayerArray"
         },
         "scales": {
-          "$ref": "#/definitions/Scales"
+          "$ref": "#/definitions/ScaleArray"
         }
       },
       "required": [

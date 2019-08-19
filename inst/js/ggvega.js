@@ -7,7 +7,7 @@
     var $ref = "#/definitions/TopLevelSpec";
     var $schema = "http://json-schema.org/draft-07/schema#";
     var definitions = {
-    	AesParams: {
+    	AesParamsObject: {
     		additionalProperties: false,
     		properties: {
     			alpha: {
@@ -73,18 +73,6 @@
     		minProperties: 1,
     		type: "object"
     	},
-    	Encoding: {
-    		additionalProperties: false,
-    		properties: {
-    			field: {
-    				type: "string"
-    			}
-    		},
-    		required: [
-    			"field"
-    		],
-    		type: "object"
-    	},
     	Facet: {
     		$ref: "#/definitions/FacetNull"
     	},
@@ -135,7 +123,7 @@
     			}
     		]
     	},
-    	Labels: {
+    	LabelObject: {
     		additionalProperties: false,
     		properties: {
     			alpha: {
@@ -174,7 +162,7 @@
     				additionalProperties: false,
     				properties: {
     					aes_params: {
-    						$ref: "#/definitions/AesParams"
+    						$ref: "#/definitions/AesParamsObject"
     					},
     					data: {
     						type: "string"
@@ -207,7 +195,7 @@
     						type: "object"
     					},
     					mapping: {
-    						$ref: "#/definitions/Mapping"
+    						$ref: "#/definitions/MappingObject"
     					},
     					stat: {
     						additionalProperties: false,
@@ -215,6 +203,84 @@
     							"class": {
     								"enum": [
     									"StatIdentity"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParamsObject"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomPoint"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatBoxplot"
     								],
     								type: "string"
     							}
@@ -258,7 +324,7 @@
     				additionalProperties: false,
     				properties: {
     					aes_params: {
-    						$ref: "#/definitions/AesParams"
+    						$ref: "#/definitions/AesParamsObject"
     					},
     					data: {
     						type: "string"
@@ -291,7 +357,7 @@
     						type: "object"
     					},
     					mapping: {
-    						$ref: "#/definitions/Mapping"
+    						$ref: "#/definitions/MappingObject"
     					},
     					stat: {
     						additionalProperties: false,
@@ -299,6 +365,84 @@
     							"class": {
     								"enum": [
     									"StatIdentity"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParamsObject"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomBar"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatBoxplot"
     								],
     								type: "string"
     							}
@@ -342,7 +486,7 @@
     				additionalProperties: false,
     				properties: {
     					aes_params: {
-    						$ref: "#/definitions/AesParams"
+    						$ref: "#/definitions/AesParamsObject"
     					},
     					data: {
     						type: "string"
@@ -375,7 +519,7 @@
     						type: "object"
     					},
     					mapping: {
-    						$ref: "#/definitions/Mapping"
+    						$ref: "#/definitions/MappingObject"
     					},
     					stat: {
     						additionalProperties: false,
@@ -383,6 +527,84 @@
     							"class": {
     								"enum": [
     									"StatIdentity"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParamsObject"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomBoxplot"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatBoxplot"
     								],
     								type: "string"
     							}
@@ -426,7 +648,7 @@
     				additionalProperties: false,
     				properties: {
     					aes_params: {
-    						$ref: "#/definitions/AesParams"
+    						$ref: "#/definitions/AesParamsObject"
     					},
     					data: {
     						type: "string"
@@ -459,7 +681,7 @@
     						type: "object"
     					},
     					mapping: {
-    						$ref: "#/definitions/Mapping"
+    						$ref: "#/definitions/MappingObject"
     					},
     					stat: {
     						additionalProperties: false,
@@ -467,6 +689,84 @@
     							"class": {
     								"enum": [
     									"StatIdentity"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParamsObject"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomLine"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatBoxplot"
     								],
     								type: "string"
     							}
@@ -508,7 +808,7 @@
     			}
     		]
     	},
-    	Layers: {
+    	LayerArray: {
     		description: "The `Layers` should have at least one layer",
     		items: {
     			$ref: "#/definitions/Layer"
@@ -519,32 +819,44 @@
     	Mapping: {
     		additionalProperties: false,
     		properties: {
+    			field: {
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"field"
+    		],
+    		type: "object"
+    	},
+    	MappingObject: {
+    		additionalProperties: false,
+    		properties: {
     			alpha: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
     			},
     			colour: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
     			},
     			fill: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
     			},
     			group: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
     			},
     			shape: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
     			},
     			size: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
     			},
     			stroke: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
     			},
     			x: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
     			},
     			y: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
     			}
     		},
     		type: "object"
@@ -599,17 +911,17 @@
     		],
     		type: "object"
     	},
+    	ScaleArray: {
+    		items: {
+    			$ref: "#/definitions/Scale"
+    		},
+    		type: "array"
+    	},
     	ScaleType: {
     		"enum": [
     			"log"
     		],
     		type: "string"
-    	},
-    	Scales: {
-    		items: {
-    			$ref: "#/definitions/Scale"
-    		},
-    		type: "array"
     	},
     	StandardType: {
     		"enum": [
@@ -619,49 +931,6 @@
     			"temporal"
     		],
     		type: "string"
-    	},
-    	StatIdentity: {
-    		additionalProperties: false,
-    		properties: {
-    			stat: {
-    				additionalProperties: false,
-    				properties: {
-    					"class": {
-    						"enum": [
-    							"StatIdentity"
-    						],
-    						type: "string"
-    					}
-    				},
-    				required: [
-    					"class"
-    				],
-    				type: "object"
-    			},
-    			stat_params: {
-    				additionalProperties: false,
-    				properties: {
-    					coef: {
-    						type: [
-    							"string",
-    							"number"
-    						]
-    					},
-    					"na.rm": {
-    						type: "boolean"
-    					}
-    				},
-    				required: [
-    					"na.rm"
-    				],
-    				type: "object"
-    			}
-    		},
-    		required: [
-    			"stat",
-    			"stat_params"
-    		],
-    		type: "object"
     	},
     	TopLevelSpec: {
     		additionalProperties: false,
@@ -676,13 +945,13 @@
     				$ref: "#/definitions/Facet"
     			},
     			labels: {
-    				$ref: "#/definitions/Labels"
+    				$ref: "#/definitions/LabelObject"
     			},
     			layers: {
-    				$ref: "#/definitions/Layers"
+    				$ref: "#/definitions/LayerArray"
     			},
     			scales: {
-    				$ref: "#/definitions/Scales"
+    				$ref: "#/definitions/ScaleArray"
     			}
     		},
     		required: [
@@ -7920,7 +8189,7 @@
      * **Called by**
      * @see topLevelSpec
      *
-     * @param ggDatasetsObject - `{[key: string]: GG.Data}`, key-value pairs of ggspec datasets
+     * @param ggDatasetsObject - `GG.DatasetsObject`, key-value pairs of ggspec datasets
      *
      * @returns `{[key: string]: VL.InlineDataset}`, object containing Vega-Lite inline-datasets
      *
@@ -9013,10 +9282,9 @@
      * requires additional information, then you can build a new function, like
      * {@link markByGeomBoxplot}, to handle the creation of the `mark` object.
      *
-     * @param ggGeom - `GG.Geom`, contains class of the ggplot2 `geom`;
+     * @param ggGeomSet - `GG.GeomSet`, contains class of the ggplot2 `geom`;
      *   these map to the `mark` type
-     * @param gsGeomParams - `GG.GeomParams`
-     * @param ggStatParams - `GG.StatParams`
+     * @param ggStatSet - `GG.StatSet`
      *
      * @returns `VL.Mark`
      *
@@ -9053,7 +9321,7 @@
      * @see markByGeom
      * @see markByBoxplot
      *
-     * @param ggGeom
+     * @param ggGeomSet
      *
      * @returns `VL.Mark`
      *
@@ -9095,14 +9363,13 @@
      * @see markByGeomDefault
      *
      *
-     * @param ggGeom - `GG.Geom`, contains class of the ggplot2 `geom`
-     * @param ggGeomParams - `GG.GeomParams`
-     * @param gsStatParams - `GG.StatParams`
+     * @param ggGeomSet - `GG.GeomSet`, contains class of the ggplot2 `geom`
+     * @param ggStatSetBoxplot - `GG.StatSetBoxplot`
      *
      * @returns `VL.Mark`
      *
      */
-    function markByGeomBoxplot(ggGeomSet, ggStatSet) {
+    function markByGeomBoxplot(ggGeomSet, ggStatSetBoxplot) {
         // I know we have not done boxplots yet, this is just to propose an
         // extension mechanism.
         // validate (look for GeomParams and StatParams we can't translate)
@@ -9116,7 +9383,7 @@
             }
             return coef;
         }
-        mark.extent = coef(ggStatSet.stat_params.coef);
+        mark.extent = coef(ggStatSetBoxplot.stat_params.coef);
         return mark;
     }
 
@@ -9233,7 +9500,7 @@
      * **Called by**
      * @see encodingByAes
      *
-     * @returns `VL.Detail`
+     * @returns `VL.TypedFieldDef`
      */
     function encodingDetail() {
         //NOTE @wenyu: VL.Detail has to define the type - we think we can change this later
@@ -9376,7 +9643,7 @@
      * @see {@link encodingByAes} to create an empty encoding
      * @see {@link fieldName} to handle dots, ".", in field names
      *
-     * @param ggMappingObject - `GG.Mapping` maps data varaibles to aesthetics
+     * @param ggMappingObject - `GG.MappingObject` maps data varaibles to aesthetics
      * @param ggMetadataObject - `GG.Metadata` contains the metadata for the data
      *   associated to this layer
      *
@@ -9531,14 +9798,14 @@
      *
      *
      * @param itmEncodingObject
-     * @param ggStat
-     * @param ggStatParams
+     * @param ggStatSet
      *
      * @returns itmEncodingObject
      */
     function itmEncodingObjectByStat(itmEncodingObject, ggStatSet) {
         var statMap = {
-            StatIdentity: itmEncodingObjectByStatIdentity
+            StatIdentity: itmEncodingObjectByStatIdentity,
+            StatBoxplot: itmEncodingObjectByStatIdentity
         };
         // validate
         if (!contains$1(Object.keys(statMap), ggStatSet.stat.class)) {
@@ -9558,8 +9825,7 @@
      * @see itmEncodingObjectByStat
      *
      * @param itmEncodingObject
-     * @param ggStat
-     * @param ggStatParams
+     * @param ggStatSet
      *
      * @return itmEncodingObject
      */
@@ -9611,7 +9877,7 @@
      * @see itmEncodingOjectByPosition
      *
      * @param ggLayer - `GG.Layer`, ggspec layer
-     * @param gsData - `GG.Data`, ggspec data - used here for its `metadata`
+     * @param ggDatasetsObject - `GG.DatasetsObject`, ggspec data - used here for its `metadata`
      *
      * @returns `ItmLayer`, intermediate layer
      */
@@ -9673,7 +9939,7 @@
      *
      *
      * @param itmLayerArray - `itmLayer[]`
-     * @param ggLabelObject - `GG.Labels`
+     * @param ggLabelObject - `GG.LabelObject`
      *
      * @returns `ItmLayer[]`
      */
@@ -9912,7 +10178,7 @@
      * @param ggDatasets `GG.ggDatasetsObject`, key-value pairs of ggspec datasets
      * @param ggLayerArray `GG.Layer[]` - array of ggspec layers
      * @param ggScaleArray `GG.Scale[]` - array of ggspec scales
-     * @param ggLabelObject `GG.Labels` - key-value pairs of ggspec labels
+     * @param ggLabelObject `GG.LabelObject` - key-value pairs of ggspec labels
      * @param ggCoordinates `GG.Coord` - ggspec coordinates
      *
      * @returns `vl.LayerSpec[]`, array containing Vega-Lite layer specs

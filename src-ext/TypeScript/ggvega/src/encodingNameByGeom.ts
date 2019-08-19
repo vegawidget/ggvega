@@ -42,7 +42,7 @@ export function encodingNameByGeom(aesName: GGEncodingKey, ggGeomSet: GG.GeomSet
 }
 
 //NOTE @wenyu: keyof maybe a better way than enum. But it doesn't work for Vl.Encoding, because VL.Encoding has too many keys.
-export type GGEncodingKey = keyof GG.Mapping;
+export type GGEncodingKey = keyof GG.MappingObject;
 
 //NOTE @wenyu: Be careful of `weight`, Add it to itmEncoding
 export type VLEncodingKey = 'x' | 'y' | 'stroke' | 'fill' | 'size' | 'strokeWidth' | 'opacity' | 'detail' | 'shape';
@@ -72,4 +72,3 @@ const encodingMapDefault: EncodingMap = {
   group: 'detail',
   shape: 'shape'
 };
-export type VLEncodingKey1 = keyof EncodingMap;

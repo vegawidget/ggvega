@@ -63,7 +63,7 @@ import {encodingNameByGeom, GGEncodingKey} from './encodingNameByGeom';
  * @param ggDatasets `GG.ggDatasetsObject`, key-value pairs of ggspec datasets
  * @param ggLayerArray `GG.Layer[]` - array of ggspec layers
  * @param ggScaleArray `GG.Scale[]` - array of ggspec scales
- * @param ggLabelObject `GG.Labels` - key-value pairs of ggspec labels
+ * @param ggLabelObject `GG.LabelObject` - key-value pairs of ggspec labels
  * @param ggCoordinates `GG.Coord` - ggspec coordinates
  *
  * @returns `vl.LayerSpec[]`, array containing Vega-Lite layer specs
@@ -73,7 +73,7 @@ export function layerArrayByAes(
   ggDatasetsObject: GG.DatasetsObject,
   ggLayerArray: GG.Layer[],
   ggScaleArray: GG.Scale[],
-  ggLabelObject: GG.Labels,
+  ggLabelObject: GG.LabelObject,
   ggCoordinates: GG.Coord
 ): VL.LayerSpec[] {
   // validate

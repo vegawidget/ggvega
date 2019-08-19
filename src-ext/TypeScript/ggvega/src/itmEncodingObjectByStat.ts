@@ -22,8 +22,7 @@ import {ItmEncodingObject} from './itmEncodingObject';
  *
  *
  * @param itmEncodingObject
- * @param ggStat
- * @param ggStatParams
+ * @param ggStatSet
  *
  * @returns itmEncodingObject
  */
@@ -32,7 +31,8 @@ export function itmEncodingObjectByStat(
   ggStatSet: GG.StatSet
 ): ItmEncodingObject {
   const statMap = {
-    StatIdentity: itmEncodingObjectByStatIdentity
+    StatIdentity: itmEncodingObjectByStatIdentity,
+    StatBoxplot: itmEncodingObjectByStatIdentity
   };
 
   // validate
@@ -56,8 +56,7 @@ export function itmEncodingObjectByStat(
  * @see itmEncodingObjectByStat
  *
  * @param itmEncodingObject
- * @param ggStat
- * @param ggStatParams
+ * @param ggStatSet
  *
  * @return itmEncodingObject
  */

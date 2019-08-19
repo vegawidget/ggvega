@@ -34,14 +34,14 @@ import {encodingValueColor, encodingValueShape, encodingValueSize} from './encod
  * @see {@link encodingByAes} to create an empty encoding
  * @see {@link fieldName} to handle dots, ".", in field names
  *
- * @param ggMappingObject - `GG.Mapping` maps data varaibles to aesthetics
+ * @param ggMappingObject - `GG.MappingObject` maps data varaibles to aesthetics
  * @param ggMetadataObject - `GG.Metadata` contains the metadata for the data
  *   associated to this layer
  *
  * @returns `ItmEncodingObject`
  */
 export function itmEncodingObjectByMappingObject(
-  ggMappingObject: GG.Mapping,
+  ggMappingObject: GG.MappingObject,
   ggMetadataObject: GG.Metadata
 ): ItmEncodingObject {
   // translate
@@ -66,7 +66,7 @@ export function itmEncodingObjectByMappingObject(
       // do we have a type/class for `mapping`?
 
       // extract information from mapping object, metatdata
-      const mapping: GG.Encoding = ggMappingObject[aesName as GGEncodingKey] as GG.Encoding;
+      const mapping: GG.Mapping = ggMappingObject[aesName as GGEncodingKey] as GG.Mapping;
 
       // TODO: we need to handle the situation where the mapping is a
       // `stat` instead of a `field`
@@ -138,7 +138,7 @@ export function itmEncodingObjectByMappingObject(
  */
 export function itmEncodingObjectByAesParamsObject(
   itmEncodingObject: ItmEncodingObject,
-  ggAesParamsObject: GG.AesParams
+  ggAesParamsObject: GG.AesParamsObject
 ): ItmEncodingObject {
   // NOTE: we may have to pass the `geom` from itmLayer()
 
@@ -152,7 +152,7 @@ export function itmEncodingObjectByAesParamsObject(
       // extract information from aes_params
 
       // NOTE @wenyu: Maybe the `value` can have other types
-      let value: string | number | undefined = ggAesParamsObject[aesName as keyof GG.AesParams];
+      let value: string | number | undefined = ggAesParamsObject[aesName as keyof GG.AesParamsObject];
 
       /**
        * keep in mind that values are interpreted

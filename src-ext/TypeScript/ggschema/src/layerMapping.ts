@@ -1,20 +1,20 @@
-export interface Mapping {
-  x?: Encoding;
-  y?: Encoding;
-  colour?: Encoding;
-  size?: Encoding;
-  shape?: Encoding;
-  stroke?: Encoding;
-  alpha?: Encoding;
-  fill?: Encoding;
-  group?: Encoding;
+export interface MappingObject {
+  x?: Mapping;
+  y?: Mapping;
+  colour?: Mapping;
+  size?: Mapping;
+  shape?: Mapping;
+  stroke?: Mapping;
+  alpha?: Mapping;
+  fill?: Mapping;
+  group?: Mapping;
 }
 
-export interface Encoding {
+export interface Mapping {
   field: string;
 }
 
-export interface AesParams {
+export interface AesParamsObject {
   size?: number;
   shape?: number;
   colour?: string;

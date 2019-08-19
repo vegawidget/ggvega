@@ -1,7 +1,14 @@
-export type StatSet = StatIdentity;
+export type StatSet = StatSetIdentity | StatSetBoxplot;
 
-export interface StatIdentity {
+export interface StatSetIdentity {
   stat: {class: 'StatIdentity'};
+  stat_params: {
+    'na.rm': boolean;
+  };
+}
+
+export interface StatSetBoxplot {
+  stat: {class: 'StatBoxplot'};
   stat_params: {
     'na.rm': boolean;
     coef?: string | number;

@@ -51,7 +51,7 @@ import {itmEncodingObjectByStat} from './itmEncodingObjectByStat';
  * @see itmEncodingOjectByPosition
  *
  * @param ggLayer - `GG.Layer`, ggspec layer
- * @param gsData - `GG.Data`, ggspec data - used here for its `metadata`
+ * @param ggDatasetsObject - `GG.DatasetsObject`, ggspec data - used here for its `metadata`
  *
  * @returns `ItmLayer`, intermediate layer
  */

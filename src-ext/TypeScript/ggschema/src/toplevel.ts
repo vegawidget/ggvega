@@ -1,15 +1,15 @@
 import {DatasetsObject} from './data';
-import {Layers} from './layer';
-import {Labels} from './labels';
-import {Scales} from './scale';
+import {LayerArray} from './layer';
+import {LabelObject} from './labels';
+import {ScaleArray} from './scale';
 import {Coord} from './coordinates';
 import {Facet} from './facet';
 
 export interface TopLevelSpec {
   data: DatasetsObject;
-  layers: Layers;
-  scales: Scales;
-  labels: Labels;
+  layers: LayerArray;
+  scales: ScaleArray;
+  labels: LabelObject;
   coordinates: Coord;
   facet: Facet;
 }

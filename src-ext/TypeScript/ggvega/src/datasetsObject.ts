@@ -13,7 +13,7 @@ import * as GG from '../../ggschema/src/index';
  * **Called by**
  * @see topLevelSpec
  *
- * @param ggDatasetsObject - `{[key: string]: GG.Data}`, key-value pairs of ggspec datasets
+ * @param ggDatasetsObject - `GG.DatasetsObject`, key-value pairs of ggspec datasets
  *
  * @returns `{[key: string]: VL.InlineDataset}`, object containing Vega-Lite inline-datasets
  *

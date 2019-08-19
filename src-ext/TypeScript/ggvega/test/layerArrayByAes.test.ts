@@ -35,7 +35,7 @@ describe('itmEncodingObject/itmEncodingObjectByMappingObject', () => {
         ggDatasetsObject as GG.DatasetsObject,
         ggLayerArray as GG.Layer[],
         ggScaleArray as GG.Scale[],
-        ggLabelsObject as GG.Labels,
+        ggLabelsObject as GG.LabelObject,
         ggCoordCartesian as GG.CoordCartesian
       )
     ).toEqual(vlLayerSpecArray as VL.LayerSpec[]);
@@ -57,7 +57,7 @@ describe('itmEncodingObject/itmEncodingObjectByMappingObject', () => {
         ggDatasetsObject as GG.DatasetsObject,
         ggLayerArray as GG.Layer[],
         ggScaleArray as GG.Scale[],
-        ggLabelsObject as GG.Labels,
+        ggLabelsObject as GG.LabelObject,
         ggCoordCartesian as GG.CoordCartesian
       )
     ).toEqual(vlLayerSpecArray as VL.LayerSpec[]);

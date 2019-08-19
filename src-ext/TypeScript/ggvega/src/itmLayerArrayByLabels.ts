@@ -31,11 +31,11 @@ import {VLMapping} from './itmEncodingObject';
  *
  *
  * @param itmLayerArray - `itmLayer[]`
- * @param ggLabelObject - `GG.Labels`
+ * @param ggLabelObject - `GG.LabelObject`
  *
  * @returns `ItmLayer[]`
  */
-export function itmLayerArrayByLabelsObject(itmLayerArray: ItmLayer[], ggLabelObject: GG.Labels): ItmLayer[] {
+export function itmLayerArrayByLabelsObject(itmLayerArray: ItmLayer[], ggLabelObject: GG.LabelObject): ItmLayer[] {
   //NOTE@ian consider deleting labels that have keys that begin with `x` or `y` but are not `x` or `y`
 
   //NOTE@ian - I think the position aesthetics are different in that we want to consider only those
@@ -48,8 +48,8 @@ export function itmLayerArrayByLabelsObject(itmLayerArray: ItmLayer[], ggLabelOb
 
         //NOTE@ian - consider using a function that takes a labelKey and an encodingKey, returns a boolean
         if (labelKey === encodingKey) {
-          itmLayer.encoding[encodingKey].title = ggLabelObject[labelKey as keyof GG.Labels];
-          delete ggLabelObject[labelKey as keyof GG.Labels];
+          itmLayer.encoding[encodingKey].title = ggLabelObject[labelKey as keyof GG.LabelObject];
+          delete ggLabelObject[labelKey as keyof GG.LabelObject];
         }
       }
     }
