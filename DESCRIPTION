@@ -1,10 +1,6 @@
 Package: ggvega
 Title: Translator from 'ggplot2' to 'Vega-Lite' 
-<<<<<<< HEAD
 Version: 0.0.0.9010
-=======
-Version: 0.0.0.9009
->>>>>>> master
 Authors@R:
     c(
       person(given = "Haley",
