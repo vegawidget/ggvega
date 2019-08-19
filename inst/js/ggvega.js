@@ -10024,6 +10024,9 @@
      * @returns `ItmLayer[]`
      */
     function itmLayerArrayByScalesArray(itmLayerArray, ggScaleArray) {
+        var scaleMap = {
+            ScaleContinuousPosition: scaleContinuousPosition
+        };
         itmLayerArray.map(function (itmLayer) {
             var _loop_1 = function (encodingKey) {
                 if (hasKey(itmLayer.encoding, encodingKey)) {
@@ -10032,9 +10035,8 @@
                         for (var i = 0; i < ggScale.aesthetics.length; i++) {
                             if (keyMatch$1(ggScale.aesthetics[i], encodingKey)) {
                                 itmLayer.encoding[encodingKey].title = ggScale.name;
-                                if (ggScale.class === 'ScaleContinuousPosition') {
-                                    itmLayer.encoding[encodingKey].scale = ggScale.transform;
-                                }
+                                //NOTE @wenyu: use function dispatch
+                                scaleMap[ggScale.class](itmLayer.encoding[encodingKey], ggScale);
                                 ggScale.aesthetics.splice(i, 1);
                             }
                         }
@@ -10064,6 +10066,9 @@
         //NOTE @wenyu: should we match `ymax` to `y`?
         //if (labelKey[0] === encodingKey) return true;
         return false;
+    }
+    function scaleContinuousPosition(vlEncodingField, ggScale) {
+        vlEncodingField.scale = ggScale.transform;
     }
 
     /**

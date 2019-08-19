@@ -24,6 +24,10 @@ import {hasKey} from './utils';
  * @returns `ItmLayer[]`
  */
 export function itmLayerArrayByScalesArray(itmLayerArray: ItmLayer[], ggScaleArray: GG.Scale[]): ItmLayer[] {
+  const scaleMap = {
+    ScaleContinuousPosition: scaleContinuousPosition
+  };
+
   itmLayerArray.map((itmLayer: ItmLayer) => {
     for (const encodingKey in itmLayer.encoding) {
       if (hasKey(itmLayer.encoding, encodingKey)) {
@@ -33,9 +37,10 @@ export function itmLayerArrayByScalesArray(itmLayerArray: ItmLayer[], ggScaleArr
           for (let i = 0; i < ggScale.aesthetics.length; i++) {
             if (keyMatch(ggScale.aesthetics[i], encodingKey)) {
               itmLayer.encoding[encodingKey].title = ggScale.name;
-              if (ggScale.class === 'ScaleContinuousPosition') {
-                (itmLayer.encoding[encodingKey] as VLEncodingField).scale = ggScale.transform;
-              }
+
+              //NOTE @wenyu: use function dispatch
+              scaleMap[ggScale.class](itmLayer.encoding[encodingKey], ggScale);
+
               ggScale.aesthetics.splice(i, 1);
             }
           }
@@ -67,4 +72,8 @@ export function keyMatch(scaleKey: string, encodingKey: string): boolean {
   //if (labelKey[0] === encodingKey) return true;
 
   return false;
+}
+
+function scaleContinuousPosition(vlEncodingField: VLEncodingField, ggScale: GG.Scale) {
+  vlEncodingField.scale = ggScale.transform;
 }

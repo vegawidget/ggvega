@@ -890,7 +890,7 @@
           "type": "array"
         },
         "class": {
-          "type": "string"
+          "$ref": "#/definitions/ScaleClass"
         },
         "name": {
           "type": "string"
@@ -911,6 +911,12 @@
         "$ref": "#/definitions/Scale"
       },
       "type": "array"
+    },
+    "ScaleClass": {
+      "enum": [
+        "ScaleContinuousPosition"
+      ],
+      "type": "string"
     },
     "ScaleType": {
       "enum": [
