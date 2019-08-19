@@ -12,9 +12,9 @@ import {contains} from './utils';
  *
  * @returns `number`
  */
-export function encodingValueSize(size: number): number {
+export function encodingValueSize(size: string | number | undefined): number {
   // translate
-  return 20 * size;
+  return 20 * Number(size);
 }
 /**
  * Translate a ggplot2 shape to a Vega-Lite shape
