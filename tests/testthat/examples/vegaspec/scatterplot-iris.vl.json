@@ -19,16 +19,16 @@
       "mark": "point",
       "encoding": {
         "x": {
-          "field": "Petal\\.Width",
+          "field": "Sepal\\.Width",
           "type": "quantitative",
-          "title": "Petal.Width"
+          "title": "Sepal.Width"
         },
         "y": {
-          "field": "Petal\\.Length",
+          "field": "Sepal\\.Length",
           "type": "quantitative",
-          "title": "Petal.Length"
+          "title": "Sepal.Length"
         },
-        "color": {
+        "stroke": {
           "field": "Species",
           "type": "nominal",
           "title": "Species"

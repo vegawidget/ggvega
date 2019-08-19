@@ -2,13 +2,10 @@
 % Please edit documentation in R/example.R
 \name{gg_example_names}
 \alias{gg_example_names}
-\alias{gg_example_path}
 \alias{gg_example}
 \title{Use ggplot examples}
 \usage{
 gg_example_names()
-
-gg_example_path(example = NULL)
 
 gg_example(example = NULL)
 }
@@ -19,8 +16,6 @@ gg_example(example = NULL)
 \value{
 \describe{
 \item{\code{gg_example_names()}}{\code{character}, names of examples}
-\item{\code{gg_example_path()}}{S3 object with class \code{fs_path}
-(wraps \code{character}), path to R file identified by \code{example}}
 \item{\code{gg_example()}}{S3 object with classes \code{gg} and \code{ggplot};
 a ggplot2 object, identified by \code{example}}
 }

@@ -8,8 +8,6 @@
 #'
 #' @return \describe{
 #'   \item{`gg_example_names()`}{`character`, names of examples}
-#'   \item{`gg_example_path()`}{S3 object with class `fs_path`
-#'     (wraps `character`), path to R file identified by `example`}
 #'   \item{`gg_example()`}{S3 object with classes `gg` and `ggplot`;
 #'     a ggplot2 object, identified by `example`}
 #' }
@@ -29,16 +27,23 @@ gg_example_names <- function() {
 #' @rdname gg_example_names
 #' @export
 #'
+gg_example <- function(example = NULL) {
+  .example_obj(example, type = "ggplot", source = "pkg")
+}
+
+#' Use ggplot examples
+#'
+#' @inheritParams gg_example_names
+#'
+#' @return S3 object with class `fs_path` (wraps `character`),
+#'    path to R file identified by `example`
+#'
+#' @keywords internal
+#' @export
+#'
 gg_example_path <- function(example = NULL) {
 
   .example_path(example, type = "ggplot", source = "pkg")
-}
-
-#' @rdname gg_example_names
-#' @export
-#'
-gg_example <- function(example = NULL) {
-  .example_obj(example, type = "ggplot", source = "pkg")
 }
 
 #' Use development examples

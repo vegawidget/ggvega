@@ -7,16 +7,16 @@ list(
       mark = "point",
       encoding = list(
         x = list(
-          field = "Petal\\.Width",
+          field = "Sepal\\.Width",
           type = "quantitative",
-          title = "Petal.Width"
+          title = "Sepal.Width"
         ),
         y = list(
-          field = "Petal\\.Length",
+          field = "Sepal\\.Length",
           type = "quantitative",
-          title = "Petal.Length"
+          title = "Sepal.Length"
         ),
-        color = list(
+        stroke = list(
           field = "Species",
           type = "nominal",
           title = "Species"
