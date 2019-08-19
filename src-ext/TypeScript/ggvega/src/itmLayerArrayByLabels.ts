@@ -50,7 +50,7 @@ export function itmLayerArrayByLabelsObject(itmLayerArray: ItmLayer[], ggLabelOb
             //NOTE@ian - do we need to protect
 
             //NOTE@ian - consider using a function that takes a labelKey and an encodingKey, returns a boolean
-            if (labelKey === encodingKey) {
+            if (keyMatch(labelKey, encodingKey)) {
               itmLayer.encoding[encodingKey].title = ggLabelObject[labelKey as keyof GG.LabelObject];
               delete ggLabelObject[labelKey as keyof GG.LabelObject];
             }
@@ -70,4 +70,14 @@ export function itmLayerArrayByLabelsObject(itmLayerArray: ItmLayer[], ggLabelOb
   //           -  remove the label from the label object
 
   return itmLayerArray;
+}
+
+export function keyMatch(labelKey: string, encodingKey: string): boolean {
+  if (labelKey === encodingKey) return true;
+
+  //NOTE @wenyu: should we match `ymax` to `y`?
+
+  //if (labelKey[0] === encodingKey) return true;
+
+  return false;
 }

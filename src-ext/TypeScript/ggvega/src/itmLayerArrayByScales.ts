@@ -31,7 +31,7 @@ export function itmLayerArrayByScalesArray(itmLayerArray: ItmLayer[], ggScaleArr
           //NOTE @wenyu:https://love2dev.com/blog/javascript-remove-from-array/
 
           for (let i = 0; i < ggScale.aesthetics.length; i++) {
-            if (ggScale.aesthetics[i] === encodingKey) {
+            if (keyMatch(ggScale.aesthetics[i], encodingKey)) {
               itmLayer.encoding[encodingKey].title = ggScale.name;
               if (ggScale.class === 'ScaleContinuousPosition') {
                 (itmLayer.encoding[encodingKey] as VLEncodingField).scale = ggScale.transform;
@@ -57,4 +57,14 @@ export function itmLayerArrayByScalesArray(itmLayerArray: ItmLayer[], ggScaleArr
   //           -  remove the scale from the scale array
 
   return itmLayerArray;
+}
+
+export function keyMatch(scaleKey: string, encodingKey: string): boolean {
+  if (scaleKey === encodingKey) return true;
+
+  //NOTE @wenyu: should we match `ymax` to `y`?
+
+  //if (labelKey[0] === encodingKey) return true;
+
+  return false;
 }

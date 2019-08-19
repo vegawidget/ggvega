@@ -9977,7 +9977,7 @@
                         if (hasKey(ggLabelObject, labelKey)) {
                             //NOTE@ian - do we need to protect
                             //NOTE@ian - consider using a function that takes a labelKey and an encodingKey, returns a boolean
-                            if (labelKey === encodingKey) {
+                            if (keyMatch(labelKey, encodingKey)) {
                                 itmLayer.encoding[encodingKey].title = ggLabelObject[labelKey];
                                 delete ggLabelObject[labelKey];
                             }
@@ -9995,6 +9995,13 @@
         //           -  set the encoding title to the label value
         //           -  remove the label from the label object
         return itmLayerArray;
+    }
+    function keyMatch(labelKey, encodingKey) {
+        if (labelKey === encodingKey)
+            return true;
+        //NOTE @wenyu: should we match `ymax` to `y`?
+        //if (labelKey[0] === encodingKey) return true;
+        return false;
     }
 
     /**
@@ -10023,7 +10030,7 @@
                     ggScaleArray.map(function (ggScale) {
                         //NOTE @wenyu:https://love2dev.com/blog/javascript-remove-from-array/
                         for (var i = 0; i < ggScale.aesthetics.length; i++) {
-                            if (ggScale.aesthetics[i] === encodingKey) {
+                            if (keyMatch$1(ggScale.aesthetics[i], encodingKey)) {
                                 itmLayer.encoding[encodingKey].title = ggScale.name;
                                 if (ggScale.class === 'ScaleContinuousPosition') {
                                     itmLayer.encoding[encodingKey].scale = ggScale.transform;
@@ -10050,6 +10057,13 @@
         //           -  set the encoing name to the scale name
         //           -  remove the scale from the scale array
         return itmLayerArray;
+    }
+    function keyMatch$1(scaleKey, encodingKey) {
+        if (scaleKey === encodingKey)
+            return true;
+        //NOTE @wenyu: should we match `ymax` to `y`?
+        //if (labelKey[0] === encodingKey) return true;
+        return false;
     }
 
     /**
