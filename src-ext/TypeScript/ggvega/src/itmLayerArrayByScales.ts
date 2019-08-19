@@ -2,7 +2,7 @@ import * as GG from '../../ggschema/src/index';
 
 import {ItmLayer} from './itmLayer';
 import {VLEncodingField} from './itmEncodingObject';
-import {hasKey} from './utils';
+import {hasKey, contains} from './utils';
 
 /**
  * Modify a layer array according to a scale array
@@ -38,6 +38,11 @@ export function itmLayerArrayByScalesArray(itmLayerArray: ItmLayer[], ggScaleArr
             if (keyMatch(ggScale.aesthetics[i], encodingKey)) {
               itmLayer.encoding[encodingKey].title = ggScale.name;
 
+              //NOTE @wenyu: validate
+              if (!contains(Object.keys(scaleMap), ggScale.class)) {
+                throw new Error('ggplot object contains unsupported scale class: ' + ggScale.class);
+              }
+
               //NOTE @wenyu: use function dispatch
               scaleMap[ggScale.class](itmLayer.encoding[encodingKey], ggScale);
 
@@ -64,7 +69,7 @@ export function itmLayerArrayByScalesArray(itmLayerArray: ItmLayer[], ggScaleArr
   return itmLayerArray;
 }
 
-export function keyMatch(scaleKey: string, encodingKey: string): boolean {
+function keyMatch(scaleKey: string, encodingKey: string): boolean {
   if (scaleKey === encodingKey) return true;
 
   //NOTE @wenyu: should we match `ymax` to `y`?

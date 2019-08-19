@@ -72,7 +72,7 @@ export function itmLayerArrayByLabelsObject(itmLayerArray: ItmLayer[], ggLabelOb
   return itmLayerArray;
 }
 
-export function keyMatch(labelKey: string, encodingKey: string): boolean {
+function keyMatch(labelKey: string, encodingKey: string): boolean {
   if (labelKey === encodingKey) return true;
 
   //NOTE @wenyu: should we match `ymax` to `y`?

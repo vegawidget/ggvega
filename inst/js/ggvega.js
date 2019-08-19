@@ -895,7 +895,7 @@
     				type: "array"
     			},
     			"class": {
-    				type: "string"
+    				$ref: "#/definitions/ScaleClass"
     			},
     			name: {
     				type: "string"
@@ -916,6 +916,12 @@
     			$ref: "#/definitions/Scale"
     		},
     		type: "array"
+    	},
+    	ScaleClass: {
+    		"enum": [
+    			"ScaleContinuousPosition"
+    		],
+    		type: "string"
     	},
     	ScaleType: {
     		"enum": [
@@ -10035,6 +10041,10 @@
                         for (var i = 0; i < ggScale.aesthetics.length; i++) {
                             if (keyMatch$1(ggScale.aesthetics[i], encodingKey)) {
                                 itmLayer.encoding[encodingKey].title = ggScale.name;
+                                //NOTE @wenyu: validate
+                                if (!contains$1(Object.keys(scaleMap), ggScale.class)) {
+                                    throw new Error('ggplot object contains unsupported scale class: ' + ggScale.class);
+                                }
                                 //NOTE @wenyu: use function dispatch
                                 scaleMap[ggScale.class](itmLayer.encoding[encodingKey], ggScale);
                                 ggScale.aesthetics.splice(i, 1);
