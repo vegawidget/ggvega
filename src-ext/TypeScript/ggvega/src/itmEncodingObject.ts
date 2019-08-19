@@ -180,9 +180,11 @@ export function itmEncodingObjectByAesParamsObject(
         value = encodingValueSize(Number(value));
       }
 
-      //NOTE @wenyu: do we need create Encoding?
       // create Encoding
       const encoding: VLAesParams = {};
+
+      //NOTE @wenyu: The encoding can only have the encoding property and the aes_params will overlap mapping. And it shouldn't have a title?
+      //  https://github.com/vega/vega-lite/blob/master/src/encoding.ts#L170
 
       // populate Encoding
       encoding.value = value;
@@ -198,14 +200,13 @@ export function itmEncodingObjectByAesParamsObject(
 
 //NOTE @wenyu: Define itmEncodingObject
 export interface ItmEncodingObject {
-  [key: string]: VLMapping;
+  [key: string]: VLMapping | VL.TypedFieldDef;
 }
 
-//TOFO@wenyu: Define a type which is an union type of all VL.Encoding propertities.
+//NOTE @wenyu: Remove VL.TypedFieldDef from Mapping. Because VL.TypedFieldDef doesn't have `value` and `scale`. We only add scale and value to VLMapping
 export type VLMapping =
   | VL.XClass
   | VL.YClass
-  | VL.TypedFieldDef
   | VL.DefWithConditionMarkPropFieldDefNumber
   | VL.DefWithConditionMarkPropFieldDefStringNull
   | VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull;

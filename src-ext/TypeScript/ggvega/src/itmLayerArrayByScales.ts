@@ -1,5 +1,7 @@
 import * as GG from '../../ggschema/src/index';
+
 import {ItmLayer} from './itmLayer';
+import {VLMapping} from './itmEncodingObject';
 
 /**
  * Modify a layer array according to a scale array
@@ -21,6 +23,24 @@ import {ItmLayer} from './itmLayer';
  * @returns `ItmLayer[]`
  */
 export function itmLayerArrayByScalesArray(itmLayerArray: ItmLayer[], ggScaleArray: GG.Scale[]): ItmLayer[] {
+  itmLayerArray.map((itmLayer: ItmLayer) => {
+    for (const encodingKey in itmLayer.encoding) {
+      ggScaleArray.map((ggScale: GG.Scale) => {
+        //NOTE @wenyu:https://love2dev.com/blog/javascript-remove-from-array/
+
+        for (let i = 0; i < ggScale.aesthetics.length; i++) {
+          if (ggScale.aesthetics[i] === encodingKey) {
+            itmLayer.encoding[encodingKey].title = ggScale.name;
+            if (ggScale.class === 'ScaleContinuousPosition') {
+              (itmLayer.encoding[encodingKey] as VLMapping).scale = ggScale.transform;
+            }
+            ggScale.aesthetics.splice(i, 1);
+          }
+        }
+      });
+    }
+  });
+
   // suspect we will need metadata
   // why? - looking at this later, I can't remember
   // loop through the layers

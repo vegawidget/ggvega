@@ -65,7 +65,7 @@
     		],
     		type: "object"
     	},
-    	Datasets: {
+    	DatasetsObject: {
     		additionalProperties: {
     			$ref: "#/definitions/Dataset"
     		},
@@ -227,6 +227,12 @@
     					stat_params: {
     						additionalProperties: false,
     						properties: {
+    							coef: {
+    								type: [
+    									"string",
+    									"number"
+    								]
+    							},
     							"na.rm": {
     								type: "boolean"
     							}
@@ -305,6 +311,180 @@
     					stat_params: {
     						additionalProperties: false,
     						properties: {
+    							coef: {
+    								type: [
+    									"string",
+    									"number"
+    								]
+    							},
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomBoxplot"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/Mapping"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatIdentity"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							coef: {
+    								type: [
+    									"string",
+    									"number"
+    								]
+    							},
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomLine"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/Mapping"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatIdentity"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							coef: {
+    								type: [
+    									"string",
+    									"number"
+    								]
+    							},
     							"na.rm": {
     								type: "boolean"
     							}
@@ -346,6 +526,9 @@
     				$ref: "#/definitions/Encoding"
     			},
     			fill: {
+    				$ref: "#/definitions/Encoding"
+    			},
+    			group: {
     				$ref: "#/definitions/Encoding"
     			},
     			shape: {
@@ -399,6 +582,9 @@
     				},
     				type: "array"
     			},
+    			"class": {
+    				type: "string"
+    			},
     			name: {
     				type: "string"
     			},
@@ -407,6 +593,7 @@
     			}
     		},
     		required: [
+    			"class",
     			"aesthetics",
     			"transform"
     		],
@@ -454,6 +641,12 @@
     			stat_params: {
     				additionalProperties: false,
     				properties: {
+    					coef: {
+    						type: [
+    							"string",
+    							"number"
+    						]
+    					},
     					"na.rm": {
     						type: "boolean"
     					}
@@ -477,7 +670,7 @@
     				$ref: "#/definitions/Coord"
     			},
     			data: {
-    				$ref: "#/definitions/Datasets"
+    				$ref: "#/definitions/DatasetsObject"
     			},
     			facet: {
     				$ref: "#/definitions/Facet"
@@ -9304,9 +9497,10 @@
                 if (aesName == 'size') {
                     value = encodingValueSize(Number(value));
                 }
-                //NOTE @wenyu: do we need create Encoding?
                 // create Encoding
                 var encoding = {};
+                //NOTE @wenyu: The encoding can only have the encoding property and the aes_params will overlap mapping. And it shouldn't have a title?
+                //  https://github.com/vega/vega-lite/blob/master/src/encoding.ts#L170
                 // populate Encoding
                 encoding.value = value;
                 // put Encoding into ItmEncodingObject
@@ -9489,10 +9683,12 @@
         //  labels associated with 'x' or 'y', but we want to associate an `y` label with a `ymin` aesthetic.
         itmLayerArray.map(function (itmLayer) {
             for (var encodingKey in itmLayer.encoding) {
+                if (itmLayer.encoding[encodingKey].value)
+                    continue;
                 for (var labelKey in ggLabelObject) {
                     //NOTE@ian - do we need to protect
                     //NOTE@ian - consider using a function that takes a labelKey and an encodingKey, returns a boolean
-                    if (labelKey == encodingKey) {
+                    if (labelKey === encodingKey) {
                         itmLayer.encoding[encodingKey].title = ggLabelObject[labelKey];
                         delete ggLabelObject[labelKey];
                     }
@@ -9530,6 +9726,25 @@
      * @returns `ItmLayer[]`
      */
     function itmLayerArrayByScalesArray(itmLayerArray, ggScaleArray) {
+        itmLayerArray.map(function (itmLayer) {
+            var _loop_1 = function (encodingKey) {
+                ggScaleArray.map(function (ggScale) {
+                    //NOTE @wenyu:https://love2dev.com/blog/javascript-remove-from-array/
+                    for (var i = 0; i < ggScale.aesthetics.length; i++) {
+                        if (ggScale.aesthetics[i] === encodingKey) {
+                            itmLayer.encoding[encodingKey].title = ggScale.name;
+                            if (ggScale.class === 'ScaleContinuousPosition') {
+                                itmLayer.encoding[encodingKey].scale = ggScale.transform;
+                            }
+                            ggScale.aesthetics.splice(i, 1);
+                        }
+                    }
+                });
+            };
+            for (var encodingKey in itmLayer.encoding) {
+                _loop_1(encodingKey);
+            }
+        });
         // suspect we will need metadata
         // why? - looking at this later, I can't remember
         // loop through the layers
@@ -9717,7 +9932,7 @@
         // incorporate labels
         itmLayerArray = itmLayerArrayByLabelsObject(itmLayerArray, ggLabelObject);
         // incorporate scales
-        itmLayerArray = itmLayerArrayByScalesArray(itmLayerArray);
+        itmLayerArray = itmLayerArrayByScalesArray(itmLayerArray, ggScaleArray);
         // incorporate coordinates
         itmLayerArray = itmLayerArrayByCoord(itmLayerArray, ggCoordinates);
         // change encoding-key namespace from ggplot2 to Vega-Lite

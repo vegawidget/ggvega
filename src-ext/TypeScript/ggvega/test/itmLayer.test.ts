@@ -5,11 +5,25 @@ import * as itmSpec from './itmSpec';
 
 describe('itmLayer/itmLayer', () => {
   it('should create intermediate layer', () => {
-    const ggLayer = ggSpec.iris01.layers[0];
+    let ggLayer: any;
 
-    const ggDatasets = ggSpec.iris01.data;
+    let ggDatasets: any;
 
-    const itmLayerObject = itmSpec.iris01.layer[0];
+    let itmLayerObject: any;
+
+    ggLayer = ggSpec.iris01.layers[0];
+
+    ggDatasets = ggSpec.iris01.data;
+
+    itmLayerObject = itmSpec.iris01.layer[0];
+
+    expect(itmLayer(ggLayer as GG.Layer, ggDatasets as GG.DatasetsObject)).toEqual(itmLayerObject as ItmLayer);
+
+    ggLayer = ggSpec.iris02.layers[0];
+
+    ggDatasets = ggSpec.iris02.data;
+
+    itmLayerObject = itmSpec.iris02.layer[0];
 
     expect(itmLayer(ggLayer as GG.Layer, ggDatasets as GG.DatasetsObject)).toEqual(itmLayerObject as ItmLayer);
   });

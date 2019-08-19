@@ -1,9 +1,10 @@
 export type Scales = Scale[];
 
 export interface Scale {
+  class: string;
+  name?: string;
   aesthetics: string[];
   transform: Transform;
-  name?: string;
 }
 
 export interface Transform {

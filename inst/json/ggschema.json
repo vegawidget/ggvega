@@ -60,7 +60,7 @@
       ],
       "type": "object"
     },
-    "Datasets": {
+    "DatasetsObject": {
       "additionalProperties": {
         "$ref": "#/definitions/Dataset"
       },
@@ -222,6 +222,12 @@
             "stat_params": {
               "additionalProperties": false,
               "properties": {
+                "coef": {
+                  "type": [
+                    "string",
+                    "number"
+                  ]
+                },
                 "na.rm": {
                   "type": "boolean"
                 }
@@ -300,6 +306,180 @@
             "stat_params": {
               "additionalProperties": false,
               "properties": {
+                "coef": {
+                  "type": [
+                    "string",
+                    "number"
+                  ]
+                },
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "aes_params",
+            "data",
+            "geom",
+            "geom_params",
+            "mapping",
+            "stat",
+            "stat_params"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "aes_params": {
+              "$ref": "#/definitions/AesParams"
+            },
+            "data": {
+              "type": "string"
+            },
+            "geom": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "GeomBoxplot"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "geom_params": {
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
+            },
+            "mapping": {
+              "$ref": "#/definitions/Mapping"
+            },
+            "stat": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "StatIdentity"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "stat_params": {
+              "additionalProperties": false,
+              "properties": {
+                "coef": {
+                  "type": [
+                    "string",
+                    "number"
+                  ]
+                },
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "aes_params",
+            "data",
+            "geom",
+            "geom_params",
+            "mapping",
+            "stat",
+            "stat_params"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "aes_params": {
+              "$ref": "#/definitions/AesParams"
+            },
+            "data": {
+              "type": "string"
+            },
+            "geom": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "GeomLine"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "geom_params": {
+              "additionalProperties": false,
+              "properties": {
+                "na.rm": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "na.rm"
+              ],
+              "type": "object"
+            },
+            "mapping": {
+              "$ref": "#/definitions/Mapping"
+            },
+            "stat": {
+              "additionalProperties": false,
+              "properties": {
+                "class": {
+                  "enum": [
+                    "StatIdentity"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "class"
+              ],
+              "type": "object"
+            },
+            "stat_params": {
+              "additionalProperties": false,
+              "properties": {
+                "coef": {
+                  "type": [
+                    "string",
+                    "number"
+                  ]
+                },
                 "na.rm": {
                   "type": "boolean"
                 }
@@ -341,6 +521,9 @@
           "$ref": "#/definitions/Encoding"
         },
         "fill": {
+          "$ref": "#/definitions/Encoding"
+        },
+        "group": {
           "$ref": "#/definitions/Encoding"
         },
         "shape": {
@@ -394,6 +577,9 @@
           },
           "type": "array"
         },
+        "class": {
+          "type": "string"
+        },
         "name": {
           "type": "string"
         },
@@ -402,6 +588,7 @@
         }
       },
       "required": [
+        "class",
         "aesthetics",
         "transform"
       ],
@@ -449,6 +636,12 @@
         "stat_params": {
           "additionalProperties": false,
           "properties": {
+            "coef": {
+              "type": [
+                "string",
+                "number"
+              ]
+            },
             "na.rm": {
               "type": "boolean"
             }
@@ -472,7 +665,7 @@
           "$ref": "#/definitions/Coord"
         },
         "data": {
-          "$ref": "#/definitions/Datasets"
+          "$ref": "#/definitions/DatasetsObject"
         },
         "facet": {
           "$ref": "#/definitions/Facet"
