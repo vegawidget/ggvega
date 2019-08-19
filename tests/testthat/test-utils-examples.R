@@ -43,3 +43,53 @@ test_that("replacement function works", {
   ex("geom_point(data = iris)", "geom_point(data = head(iris, 1))")
 
 })
+
+test_that("truncate_data functions work", {
+
+  library("vegawidget")
+
+  # test only if the data-raw directory is available
+  skip_if_not(fs::dir_exists(here::here("data-raw")))
+
+  example <- "scatterplot-iris"
+
+  gg_scatter <- source(dev_example_path(example, "ggspec"))$value
+
+  gg_scatter_truncate <- gg_scatter
+  gg_scatter_truncate$data$`data-00`$observations <-
+    list(gg_scatter_truncate$data$`data-00`$observations[[1]])
+
+  expect_identical(truncate_data_ggspec(gg_scatter), gg_scatter_truncate)
+
+  vl_scatter <- source(dev_example_path(example, "vegaspec"))$value
+
+  vl_scatter_truncate <- vl_scatter
+  vl_scatter_truncate$datasets$`data-00` <-
+    list(vl_scatter_truncate$datasets$`data-00`[[1]])
+
+  expect_identical(truncate_data_vegaspec(vl_scatter), vl_scatter_truncate)
+
+})
+
+test_that(".example_ functions work", {
+
+  library("ggplot2")
+  library("vegawidget")
+
+  # test only if the data-raw directory is available
+  skip_if_not(fs::dir_exists(here::here("data-raw")))
+
+  names <- .example_names("ggplot", "dev")
+  expect_true("scatterplot-iris" %in% names)
+
+  expect_is(
+    .example_obj("scatterplot-iris", type = "ggplot", source = "dev"),
+    "gg"
+  )
+
+  expect_is(
+    .example_obj("scatterplot-iris", type = "vegaspec", source = "dev"),
+    "vegaspec"
+  )
+
+})

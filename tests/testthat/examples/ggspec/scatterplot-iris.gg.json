@@ -16,7 +16,11 @@
         },
         "Species": {
           "type": "nominal",
-          "levels": ["setosa", "versicolor", "virginica"]
+          "levels": [
+            "setosa",
+            "versicolor",
+            "virginica"
+          ]
         }
       },
       "observations": [

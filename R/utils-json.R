@@ -7,5 +7,5 @@ to_json <- function(x, pretty = TRUE) {
 }
 
 from_json <- function(x) {
-  jsonlite::fromJSON(x, simplifyVector = TRUE, simplifyDataFrame = FALSE)
+  jsonlite::fromJSON(x, simplifyVector = FALSE, simplifyDataFrame = FALSE)
 }

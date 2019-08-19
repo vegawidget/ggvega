@@ -102,13 +102,13 @@ test_that("create_meta works", {
   # factor
   expect_identical(
     create_meta(factor(c("1", "2"))),
-    list(type = "nominal", levels = c("1", "2"))
+    list(type = "nominal", levels = list("1", "2"))
   )
 
   # ordered
   expect_identical(
     create_meta(factor(c("1", "2"), ordered = TRUE)),
-    list(type = "ordinal", levels = c("1", "2"))
+    list(type = "ordinal", levels = list("1", "2"))
   )
 
 })
@@ -140,7 +140,7 @@ test_that("format_data_int works", {
       `Sepal.Width` = list(type = "quantitative"),
       `Petal.Length` = list(type = "quantitative"),
       `Petal.Width` = list(type = "quantitative"),
-      `Species` = list(type = "nominal", levels = levels(iris$Species))
+      `Species` = list(type = "nominal", levels = as.list(levels(iris$Species)))
     )
   )
 
