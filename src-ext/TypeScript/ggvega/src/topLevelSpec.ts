@@ -99,7 +99,6 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec): VL.TopLevelSpec {
 
   // Want to specify this URL exactly **one** place in the project
   // also - what mechanism do we use to update the Vega-Lite schema?
-  // NOTE @wenyu: Remove schema and use `vlschema`
   // const schema = 'https://vega.github.io/schema/vega-lite/v3.json';
 
   let topLevelSpec: VL.TopLevelSpec = {};
@@ -110,7 +109,7 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec): VL.TopLevelSpec {
     // `facet()`, by design, throws an error
 
     topLevelSpec = {
-      $schema: vlschema,
+      $schema: vlschema, // vlschema defined in package.json
       //NOTE @wenyu: It's better to use undefined rather than '' to avoid `title=''`
       title: ggSpec.labels.title || undefined,
       datasets: datasetsObject(ggSpec.data),

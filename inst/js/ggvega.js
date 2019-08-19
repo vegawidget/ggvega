@@ -10363,7 +10363,6 @@
         // it is faceted.
         // Want to specify this URL exactly **one** place in the project
         // also - what mechanism do we use to update the Vega-Lite schema?
-        // NOTE @wenyu: Remove schema and use `vlschema`
         // const schema = 'https://vega.github.io/schema/vega-lite/v3.json';
         var topLevelSpec = {};
         // faceted
