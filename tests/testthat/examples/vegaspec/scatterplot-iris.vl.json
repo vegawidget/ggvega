@@ -16,7 +16,9 @@
       "data": {
         "name": "data-00"
       },
-      "mark": "point",
+      "mark": {
+        "type": "point"
+      },
       "encoding": {
         "x": {
           "field": "Sepal\\.Width",
