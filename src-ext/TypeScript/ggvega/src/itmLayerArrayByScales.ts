@@ -79,6 +79,6 @@ function keyMatch(scaleKey: string, encodingKey: string): boolean {
   return false;
 }
 
-function scaleContinuousPosition(vlEncodingField: VLEncodingField, ggScale: GG.Scale) {
+function scaleContinuousPosition(vlEncodingField: VLEncodingField, ggScale: GG.ScaleContinuousPosition) {
   vlEncodingField.scale = ggScale.transform;
 }

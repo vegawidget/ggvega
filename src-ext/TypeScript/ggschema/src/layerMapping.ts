@@ -14,7 +14,7 @@ export interface Mapping {
   field: string;
 }
 
-export interface AesParamsObject {
+export interface AesParams {
   size?: number;
   shape?: number;
   colour?: string;

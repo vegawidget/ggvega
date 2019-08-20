@@ -1,5 +1,5 @@
 import {GeomSet} from './layerGeom';
-import {MappingObject, AesParamsObject} from './layerMapping';
+import {MappingObject, AesParams} from './layerMapping';
 import {StatSet} from './layerStat';
 /**
  * The `Layers` should have at least one layer
@@ -12,5 +12,5 @@ export type Layer = BaseLayer & GeomSet & StatSet;
 export interface BaseLayer {
   data: string;
   mapping: MappingObject;
-  aes_params: AesParamsObject;
+  aes_params: AesParams;
 }

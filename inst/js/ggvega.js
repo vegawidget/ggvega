@@ -7,7 +7,7 @@
     var $ref = "#/definitions/TopLevelSpec";
     var $schema = "http://json-schema.org/draft-07/schema#";
     var definitions = {
-    	AesParamsObject: {
+    	AesParams: {
     		additionalProperties: false,
     		properties: {
     			alpha: {
@@ -162,7 +162,7 @@
     				additionalProperties: false,
     				properties: {
     					aes_params: {
-    						$ref: "#/definitions/AesParamsObject"
+    						$ref: "#/definitions/AesParams"
     					},
     					data: {
     						type: "string"
@@ -240,7 +240,7 @@
     				additionalProperties: false,
     				properties: {
     					aes_params: {
-    						$ref: "#/definitions/AesParamsObject"
+    						$ref: "#/definitions/AesParams"
     					},
     					data: {
     						type: "string"
@@ -324,7 +324,7 @@
     				additionalProperties: false,
     				properties: {
     					aes_params: {
-    						$ref: "#/definitions/AesParamsObject"
+    						$ref: "#/definitions/AesParams"
     					},
     					data: {
     						type: "string"
@@ -402,7 +402,7 @@
     				additionalProperties: false,
     				properties: {
     					aes_params: {
-    						$ref: "#/definitions/AesParamsObject"
+    						$ref: "#/definitions/AesParams"
     					},
     					data: {
     						type: "string"
@@ -486,7 +486,7 @@
     				additionalProperties: false,
     				properties: {
     					aes_params: {
-    						$ref: "#/definitions/AesParamsObject"
+    						$ref: "#/definitions/AesParams"
     					},
     					data: {
     						type: "string"
@@ -564,7 +564,7 @@
     				additionalProperties: false,
     				properties: {
     					aes_params: {
-    						$ref: "#/definitions/AesParamsObject"
+    						$ref: "#/definitions/AesParams"
     					},
     					data: {
     						type: "string"
@@ -648,7 +648,7 @@
     				additionalProperties: false,
     				properties: {
     					aes_params: {
-    						$ref: "#/definitions/AesParamsObject"
+    						$ref: "#/definitions/AesParams"
     					},
     					data: {
     						type: "string"
@@ -726,7 +726,7 @@
     				additionalProperties: false,
     				properties: {
     					aes_params: {
-    						$ref: "#/definitions/AesParamsObject"
+    						$ref: "#/definitions/AesParams"
     					},
     					data: {
     						type: "string"
@@ -886,6 +886,15 @@
     		type: "object"
     	},
     	Scale: {
+    		$ref: "#/definitions/ScaleContinuousPosition"
+    	},
+    	ScaleArray: {
+    		items: {
+    			$ref: "#/definitions/Scale"
+    		},
+    		type: "array"
+    	},
+    	ScaleContinuousPosition: {
     		additionalProperties: false,
     		properties: {
     			aesthetics: {
@@ -895,7 +904,10 @@
     				type: "array"
     			},
     			"class": {
-    				$ref: "#/definitions/ScaleClass"
+    				"enum": [
+    					"ScaleContinuousPosition"
+    				],
+    				type: "string"
     			},
     			name: {
     				type: "string"
@@ -910,18 +922,6 @@
     			"transform"
     		],
     		type: "object"
-    	},
-    	ScaleArray: {
-    		items: {
-    			$ref: "#/definitions/Scale"
-    		},
-    		type: "array"
-    	},
-    	ScaleClass: {
-    		"enum": [
-    			"ScaleContinuousPosition"
-    		],
-    		type: "string"
     	},
     	ScaleType: {
     		"enum": [

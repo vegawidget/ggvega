@@ -144,7 +144,7 @@ export function itmEncodingObjectByMappingObject(
  */
 export function itmEncodingObjectByAesParamsObject(
   itmEncodingObject: ItmEncodingObject,
-  ggAesParamsObject: GG.AesParamsObject
+  ggAesParamsObject: GG.AesParams
 ): ItmEncodingObject {
   // NOTE: we may have to pass the `geom` from itmLayer()
 
@@ -168,7 +168,7 @@ export function itmEncodingObjectByAesParamsObject(
       // extract information from aes_params
 
       // NOTE @wenyu: Maybe the `value` can have other types
-      let value: string | number | undefined = ggAesParamsObject[aesName as keyof GG.AesParamsObject];
+      let value: string | number | undefined = ggAesParamsObject[aesName as keyof GG.AesParams];
 
       /**
        * keep in mind that values are interpreted
@@ -185,7 +185,7 @@ export function itmEncodingObjectByAesParamsObject(
       if (contains(Object.keys(itmEncodingByAesParamsMap), aesName)) {
         // NOTE: we will likely need the Geom, which I think we can get
         // from the `geom` breadcrumb included with the itmEncoding
-        value = itmEncodingByAesParamsMap[aesName as keyof GG.AesParamsObject](value);
+        value = itmEncodingByAesParamsMap[aesName as keyof GG.AesParams](value);
       }
 
       // create Encoding
