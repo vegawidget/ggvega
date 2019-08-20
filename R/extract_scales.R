@@ -36,11 +36,11 @@ get_scales <- function(scale) {
   pluck_scale <- purrr::partial(purrr::pluck, .x = scale)
 
   list(
-    name = pluck_scale("name"),
     class = pluck_scale(class, 1),
     aesthetics = as.list(pluck_scale("aesthetics")),
-    transform = list(
-      name = pluck_scale("trans", "name")
-    )
+    name = pluck_scale("name")#, removing transform temporaily
+    # transform = list(
+    #   name = pluck_scale("trans", "name")
+    # )
   )
 }
