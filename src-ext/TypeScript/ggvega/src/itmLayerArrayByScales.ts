@@ -80,5 +80,5 @@ function keyMatch(scaleKey: string, encodingKey: string): boolean {
 }
 
 function scaleContinuousPosition(vlEncodingField: VLEncodingField, ggScale: GG.ScaleContinuousPosition) {
-  vlEncodingField.scale = ggScale.transform;
+  //TODO：translate the ScaleContinuousPosition
 }

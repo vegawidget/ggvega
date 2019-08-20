@@ -911,23 +911,13 @@
     			},
     			name: {
     				type: "string"
-    			},
-    			transform: {
-    				$ref: "#/definitions/Transform"
     			}
     		},
     		required: [
     			"class",
-    			"aesthetics",
-    			"transform"
+    			"aesthetics"
     		],
     		type: "object"
-    	},
-    	ScaleType: {
-    		"enum": [
-    			"log"
-    		],
-    		type: "string"
     	},
     	StandardType: {
     		"enum": [
@@ -967,22 +957,6 @@
     			"labels",
     			"coordinates",
     			"facet"
-    		],
-    		type: "object"
-    	},
-    	Transform: {
-    		additionalProperties: false,
-    		properties: {
-    			base: {
-    				type: "number"
-    			},
-    			type: {
-    				$ref: "#/definitions/ScaleType"
-    			}
-    		},
-    		required: [
-    			"type",
-    			"base"
     		],
     		type: "object"
     	}
@@ -10078,7 +10052,7 @@
         return false;
     }
     function scaleContinuousPosition(vlEncodingField, ggScale) {
-        vlEncodingField.scale = ggScale.transform;
+        //TODO：translate the ScaleContinuousPosition
     }
 
     /**

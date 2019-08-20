@@ -68,11 +68,7 @@ export const iris02 = {
         y: {
           field: 'Sepal\\.Length',
           type: 'quantitative',
-          title: 'yScale',
-          scale: {
-            type: 'log',
-            base: 10
-          }
+          title: 'yScale'
         },
         stroke: {
           value: 'red'
