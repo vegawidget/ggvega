@@ -57,6 +57,7 @@ interface EncodingMap {
   alpha: 'opacity';
   group: 'detail';
   shape: 'shape';
+  weight: null;
 }
 
 // keys: names of ggplot2 aesthetics
@@ -70,5 +71,6 @@ const encodingMapDefault: EncodingMap = {
   stroke: 'strokeWidth',
   alpha: 'opacity',
   group: 'detail',
-  shape: 'shape'
+  shape: 'shape',
+  weight: null
 };

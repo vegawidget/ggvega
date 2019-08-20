@@ -280,6 +280,101 @@
     						properties: {
     							"class": {
     								"enum": [
+    									"StatCount"
+    								],
+    								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								properties: {
+    									weight: {
+    										type: "number"
+    									},
+    									y: {
+    										$ref: "#/definitions/MappingStat"
+    									}
+    								},
+    								required: [
+    									"y",
+    									"weight"
+    								],
+    								type: "object"
+    							}
+    						},
+    						required: [
+    							"class",
+    							"default_aes"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomPoint"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
     									"StatBoxplot"
     								],
     								type: "string"
@@ -371,6 +466,101 @@
     						},
     						required: [
     							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomBar"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatCount"
+    								],
+    								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								properties: {
+    									weight: {
+    										type: "number"
+    									},
+    									y: {
+    										$ref: "#/definitions/MappingStat"
+    									}
+    								},
+    								required: [
+    									"y",
+    									"weight"
+    								],
+    								type: "object"
+    							}
+    						},
+    						required: [
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -533,6 +723,101 @@
     						},
     						required: [
     							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomBoxplot"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatCount"
+    								],
+    								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								properties: {
+    									weight: {
+    										type: "number"
+    									},
+    									y: {
+    										$ref: "#/definitions/MappingStat"
+    									}
+    								},
+    								required: [
+    									"y",
+    									"weight"
+    								],
+    								type: "object"
+    							}
+    						},
+    						required: [
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -695,6 +980,101 @@
     						},
     						required: [
     							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomLine"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatCount"
+    								],
+    								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								properties: {
+    									weight: {
+    										type: "number"
+    									},
+    									y: {
+    										$ref: "#/definitions/MappingStat"
+    									}
+    								},
+    								required: [
+    									"y",
+    									"weight"
+    								],
+    								type: "object"
+    							}
+    						},
+    						required: [
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -817,6 +1197,22 @@
     		type: "array"
     	},
     	Mapping: {
+    		anyOf: [
+    			{
+    				$ref: "#/definitions/MappingField"
+    			},
+    			{
+    				$ref: "#/definitions/MappingFieldExpression"
+    			},
+    			{
+    				$ref: "#/definitions/MappingStat"
+    			},
+    			{
+    				$ref: "#/definitions/MappingStatExpression"
+    			}
+    		]
+    	},
+    	MappingField: {
     		additionalProperties: false,
     		properties: {
     			field: {
@@ -825,6 +1221,18 @@
     		},
     		required: [
     			"field"
+    		],
+    		type: "object"
+    	},
+    	MappingFieldExpression: {
+    		additionalProperties: false,
+    		properties: {
+    			field_expression: {
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"field_expression"
     		],
     		type: "object"
     	},
@@ -852,6 +1260,9 @@
     			stroke: {
     				$ref: "#/definitions/Mapping"
     			},
+    			weight: {
+    				$ref: "#/definitions/Mapping"
+    			},
     			x: {
     				$ref: "#/definitions/Mapping"
     			},
@@ -859,6 +1270,30 @@
     				$ref: "#/definitions/Mapping"
     			}
     		},
+    		type: "object"
+    	},
+    	MappingStat: {
+    		additionalProperties: false,
+    		properties: {
+    			stat: {
+    				$ref: "#/definitions/StatClass"
+    			}
+    		},
+    		required: [
+    			"stat"
+    		],
+    		type: "object"
+    	},
+    	MappingStatExpression: {
+    		additionalProperties: false,
+    		properties: {
+    			stat_expression: {
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"stat_expression"
+    		],
     		type: "object"
     	},
     	Metadata: {
@@ -925,6 +1360,12 @@
     			"ordinal",
     			"quantitative",
     			"temporal"
+    		],
+    		type: "string"
+    	},
+    	StatClass: {
+    		"enum": [
+    			"StatIdentity"
     		],
     		type: "string"
     	},
@@ -9806,6 +10247,7 @@
     function itmEncodingObjectByStat(itmEncodingObject, ggStatSet) {
         var statMap = {
             StatIdentity: itmEncodingObjectByStatIdentity,
+            StatCount: itmEncodingObjectByStatCount,
             StatBoxplot: itmEncodingObjectByStatIdentity
         };
         // validate
@@ -9831,6 +10273,10 @@
      * @return itmEncodingObject
      */
     function itmEncodingObjectByStatIdentity(itmEncodingObject, ggStatSet) {
+        // do nothing
+        return itmEncodingObject;
+    }
+    function itmEncodingObjectByStatCount(itmEncodingObject, ggStatSet) {
         // do nothing
         return itmEncodingObject;
     }
@@ -10148,7 +10594,8 @@
         stroke: 'strokeWidth',
         alpha: 'opacity',
         group: 'detail',
-        shape: 'shape'
+        shape: 'shape',
+        weight: null
     };
 
     /**

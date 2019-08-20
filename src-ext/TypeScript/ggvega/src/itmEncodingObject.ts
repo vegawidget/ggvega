@@ -72,7 +72,7 @@ export function itmEncodingObjectByMappingObject(
       // do we have a type/class for `mapping`?
 
       // extract information from mapping object, metatdata
-      const mapping: GG.Mapping = ggMappingObject[aesName as GGEncodingKey] as GG.Mapping;
+      const mapping: GG.MappingField = ggMappingObject[aesName as GGEncodingKey] as GG.MappingField;
 
       // TODO: we need to handle the situation where the mapping is a
       // `stat` instead of a `field`

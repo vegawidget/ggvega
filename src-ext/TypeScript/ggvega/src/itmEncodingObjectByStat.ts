@@ -32,6 +32,7 @@ export function itmEncodingObjectByStat(
 ): ItmEncodingObject {
   const statMap = {
     StatIdentity: itmEncodingObjectByStatIdentity,
+    StatCount: itmEncodingObjectByStatCount,
     StatBoxplot: itmEncodingObjectByStatIdentity
   };
 
@@ -64,6 +65,10 @@ function itmEncodingObjectByStatIdentity(
   itmEncodingObject: ItmEncodingObject,
   ggStatSet: GG.StatSet
 ): ItmEncodingObject {
+  // do nothing
+  return itmEncodingObject;
+}
+function itmEncodingObjectByStatCount(itmEncodingObject: ItmEncodingObject, ggStatSet: GG.StatSet): ItmEncodingObject {
   // do nothing
   return itmEncodingObject;
 }
