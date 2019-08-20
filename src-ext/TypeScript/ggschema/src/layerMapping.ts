@@ -14,6 +14,25 @@ export interface Mapping {
   field: string;
 }
 
+export interface MappingField {
+  field: string;
+}
+
+export interface MappingFieldExpression {
+  fieldExpression: string;
+}
+
+export interface MappingStat {
+  stat: string;
+}
+
+export interface MappingStatExpression {
+  statExpression: string;
+}
+
+//TODO @wenyu: define Mapping
+// export type Mapping = MappingField | MappingFieldExpression | MappingStat | MappingStatExpression;
+
 export interface AesParams {
   size?: number;
   shape?: number;
@@ -22,3 +41,16 @@ export interface AesParams {
   alpha?: number;
   fill?: string;
 }
+
+export type Value = number | string;
+
+//TODO @wenyu: define AesParams
+
+// export interface AesParams {
+//   size?: Value;
+//   shape?: Value;
+//   colour?: Value;
+//   stroke?: Value;
+//   alpha?: Value;
+//   fill?: Value;
+// }
