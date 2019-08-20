@@ -69,6 +69,7 @@ export function itmLayerArrayByScalesArray(itmLayerArray: ItmLayer[], ggScaleArr
   return itmLayerArray;
 }
 
+// consider folding this back into the code
 function keyMatch(scaleKey: string, encodingKey: string): boolean {
   if (scaleKey === encodingKey) return true;
 

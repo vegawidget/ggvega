@@ -10208,7 +10208,10 @@
                 }
                 // create Encoding
                 var encoding = {};
-                //NOTE @wenyu: The encoding can only have the encoding property and the aes_params will overlap mapping. And it shouldn't have a title?
+                //NOTE @wenyu: The encoding can only have the encoding property and the aes_params will take precedence
+                // over mapping. In ggplot, we can specify aes_params only in the layer - so this should take precedence
+                // over a mapping made in the ggplot() call.
+                //  VL encodings based on value should not have titles!
                 //  https://github.com/vega/vega-lite/blob/master/src/encoding.ts#L170
                 // populate Encoding
                 encoding.value = value;
@@ -10490,6 +10493,7 @@
         //           -  remove the scale from the scale array
         return itmLayerArray;
     }
+    // consider folding this back into the code
     function keyMatch$1(scaleKey, encodingKey) {
         if (scaleKey === encodingKey)
             return true;
