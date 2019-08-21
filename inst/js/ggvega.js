@@ -32,7 +32,14 @@
     		type: "object"
     	},
     	Coord: {
-    		$ref: "#/definitions/CoordCartesian"
+    		anyOf: [
+    			{
+    				$ref: "#/definitions/CoordCartesian"
+    			},
+    			{
+    				$ref: "#/definitions/CoordFlip"
+    			}
+    		]
     	},
     	CoordCartesian: {
     		additionalProperties: false,
@@ -40,6 +47,21 @@
     			"class": {
     				"enum": [
     					"CoordCartesian"
+    				],
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"class"
+    		],
+    		type: "object"
+    	},
+    	CoordFlip: {
+    		additionalProperties: false,
+    		properties: {
+    			"class": {
+    				"enum": [
+    					"CoordFlip"
     				],
     				type: "string"
     			}
@@ -10525,7 +10547,8 @@
         // keys: class names
         // values: function to call
         var CoordMap = {
-            CoordCartesian: itmLayerArrayByCoordCartesian
+            CoordCartesian: itmLayerArrayByCoordCartesian,
+            CoordFlip: itmLayerArrayByCoordFlip
         };
         // validate
         var className = ggCoord.class;
@@ -10551,6 +10574,24 @@
      */
     function itmLayerArrayByCoordCartesian(itmLayerArray, gsCoord) {
         // do nothing
+        return itmLayerArray;
+    }
+    /**
+     * Modify an intermediate-layer array by flipped Cartesian coordinates
+     *
+     * @remarks
+     * This function will switch x-encodings with y-encodings
+     *
+     * **Called by**
+     * @see itmLayerArrayByCoord
+     *
+     * @param itmLayerArray
+     * @param ggCoord
+     *
+     * @returns `ItmLayer[]`
+     */
+    function itmLayerArrayByCoordFlip(itmLayerArray, gsCoord) {
+        // will do something
         return itmLayerArray;
     }
 
@@ -10717,7 +10758,7 @@
         // loop over aesthetic names in itmLayerEncoding
         for (var aesName in itmLayer.encoding) {
             if (hasKey(itmLayer.encoding, aesName)) {
-                // get the encoding name, add to the encoding
+                // get the encoding name,and add to the encoding
                 var encodingName = encodingNameByGeom(aesName, itmLayer.geomSet);
                 if (encodingName == 'x')
                     encoding[encodingName] = itmLayer.encoding[aesName];

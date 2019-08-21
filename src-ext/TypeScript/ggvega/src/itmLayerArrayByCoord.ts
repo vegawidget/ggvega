@@ -21,7 +21,8 @@ export function itmLayerArrayByCoord(itmLayerArray: ItmLayer[], ggCoord: GG.Coor
   // keys: class names
   // values: function to call
   const CoordMap = {
-    CoordCartesian: itmLayerArrayByCoordCartesian
+    CoordCartesian: itmLayerArrayByCoordCartesian,
+    CoordFlip: itmLayerArrayByCoordFlip
   };
 
   // validate
@@ -50,5 +51,24 @@ export function itmLayerArrayByCoord(itmLayerArray: ItmLayer[], ggCoord: GG.Coor
  */
 function itmLayerArrayByCoordCartesian(itmLayerArray: ItmLayer[], gsCoord: GG.Coord): ItmLayer[] {
   // do nothing
+  return itmLayerArray;
+}
+
+/**
+ * Modify an intermediate-layer array by flipped Cartesian coordinates
+ *
+ * @remarks
+ * This function will switch x-encodings with y-encodings
+ *
+ * **Called by**
+ * @see itmLayerArrayByCoord
+ *
+ * @param itmLayerArray
+ * @param ggCoord
+ *
+ * @returns `ItmLayer[]`
+ */
+function itmLayerArrayByCoordFlip(itmLayerArray: ItmLayer[], gsCoord: GG.Coord): ItmLayer[] {
+  // will do something
   return itmLayerArray;
 }
