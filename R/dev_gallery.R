@@ -67,9 +67,17 @@ dev_gg_gallery <- function(example, width = NULL, height = NULL) {
 
   vw_write_svg(vl, path = file_vl)
 
-  print(tags$img(src = file_gg, width = 400))
-  print(tags$img(src = file_vl))
+  div <-
+    tags$div(
+      tags$table(
+        tags$tr(
+          tags$td(tags$img(src = file_gg, width = 400)),
+          tags$td(tags$img(src = file_vl))
+        )
+      )
+    )
 
+  print(div)
 
   # JSON spec for ggspec & vegaspec
   ggspec_json <-

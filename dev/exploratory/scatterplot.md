@@ -12,8 +12,29 @@ ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +
   geom_point(aes(color = Species))
 ```
 
+<div>
+
+<table>
+
+<tr>
+
+<td>
+
 <img src="scatterplot_files/scatterplot-iris-gg.png" width="400"/>
+
+</td>
+
+<td>
+
 <img src="scatterplot_files/scatterplot-iris-vl.svg"/>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
 
 <div>
 
