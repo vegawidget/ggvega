@@ -1,4 +1,4 @@
-export {TopLevelSpec} from './toplevel';
+export {TopLevelSpec} from './topLevelSpec';
 
 export * from './data';
 export * from './layer';
