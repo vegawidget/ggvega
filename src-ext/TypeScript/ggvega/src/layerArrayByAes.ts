@@ -139,6 +139,7 @@ function layerByItmLayer(itmLayer: ItmLayer): VL.LayerSpec {
       // get the encoding name,and add to the encoding
 
       const encodingName = encodingNameByGeom(aesName as GGEncodingKey, itmLayer.geomSet);
+
       if (encodingName == 'x') encoding[encodingName] = itmLayer.encoding[aesName] as VL.XClass;
 
       if (encodingName == 'y') encoding[encodingName] = itmLayer.encoding[aesName] as VL.YClass;
