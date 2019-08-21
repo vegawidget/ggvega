@@ -3,7 +3,7 @@
 Since the R V8 package is not fully ES6 compliant yet, we faced the some error on using Vega-Lite source code directly. To work around this problem, we have to generate the Vega-Lite type from the [vega-lite schema](https://vega.github.io/schema/vega-lite/v3.json).  We have tried different ways to generate TypeScript from json-schema. The best result is provided by  [quicktype](https://quicktype.io/typescript/). Here is a [link](https://app.quicktype.io?share=1KFE6qo8KU8cupEl5gh6) about how they translate json-schema to TypeScript. 
 
 ## BoxPlot Enum
-But the quicktype also has a "bug".  When it translate json-schema to TypeScript, it cannot seperate Enum type. Here is the [link of the issue](https://github.com/quicktype/quicktype/issues/1284). 
+But the quicktype also has a "bug".  When it translate json-schema to TypeScript, it cannot seperate Enum type. 
 
 For example,  here is my input: [The link of the example in QuickType](https://app.quicktype.io?share=mSby87Y3k9npwXjcBeZm)
 
@@ -141,6 +141,9 @@ datasets?: {[key:  string]:  Array<boolean  |  number  | {[key:  string]:  any} 
 ```
 Without an explicit unions type, the definition of a type is too long and complicated.
 
+Finally, we decide to use `--explicit-unions`.
+
+
 ## URLData
 
 Another confused name is `URLData`. Although we don't use `topLevelSpec.data`, we find it's strange. 
@@ -165,6 +168,20 @@ data:  Data;
 }
 ```
 Since we already has a `Data` type. And in the fisrt situation, the `UrlData` is the first type. Like `Boxplot`, quicktype use `URLData` as the final type name.
+
+## Our Plan for now
+
+ Here is the code about how we use quicktype and solve these problems:
+```
+"schema2ts": "quicktype -s schema $npm_package_vlschema -o src/vlSpec.ts --top-level TopLevelSpec --just-types --explicit-unions && node fixbug.js"
+```
+- `$npm_package_vlschema` is the Vega-Lite version
+- `src/vlSpec.ts` is the generated TypeScript class
+- `--just-types` means only generating type, no functions
+- `--top-level TopLevelSpec` means our toplevel called `TopLevelSpec`
+- `--explicit-unions` means we use `explicit-unions` to name and construct the types
+- `node fixbug.js` runs a javascript to rename some class.
+
 
 ## Reverting to using Vega-Lite classes 
 
@@ -207,3 +224,53 @@ import  {Datasets}  from  'vega-lite/build/src/spec/toplevel';
 The most important difference between `vlSpec.ts` and `vega-lite source code` is that `vega-lite source code` use more union types. That means `vega-lite source code` is more specific than `vlSpec.ts`.  
 
 And **Jest** is not very friendly to test code at `./node_modules`. You can use the config in `vl-source-code` branch to solve this problem. 
+
+### How to use Vega-Lite 
+
+When we revert to using the Vega-Lite classes, we will have to rename the classes we use in ggvega. And Some structure of the classes change as well. Here are some example changes:
+
+- `VL.TopLevelSpec`==>`TopLevelSpec` 
+
+```{TypeScript}
+import {TopLevelSpec} from  'vega-lite';
+``` 
+
+- `VL.LayerSpec`==>`(GenericUnitSpec<CompositeEncoding, AnyMark> |  GenericLayerSpec<GenericUnitSpec<CompositeEncoding, AnyMark>>)[]`
+
+```{TypeScript}
+import {GenericLayerSpec, GenericUnitSpec} from  'vega-lite/src/spec';
+import {CompositeEncoding} from  'vega-lite/build/src/compositemark';
+import {AnyMark} from  'vega-lite/src/mark';
+
+/**
+* NOTE@wenyu: You can simplify the class if you need. For example, in our case,
+* we only need `GenericUnitSpec`. You can just use `GenericUnitSpec<CompositeEncoding, AnyMark>`.
+*/
+```
+
+- `VL.Encoding`==>`CompositeEncoding`
+```{TypeScript}
+import {CompositeEncoding} from  'vega-lite/build/src/compositemark';
+```
+
+- `VL.XClass`==>`PositionFieldDef<'x'>`
+
+```{TypeScript}
+import {PositionFieldDef} from  'vega-lite/build/src/channeldef';
+```
+
+Since the class structures are very similar, I believe you can find the corresponding class in Vega-Lite source code. And for now, we haven't change the structure of our class. That's because we use unions type which contains all possible class structures. But it you want to define the class more  precise. Here is an example.
+
+I will use `Encoding.size` as an example. When we use Vega-Lite source code, If we only change the name of class, the `Encoding.size` should be:
+
+```
+encoding['size']=  itmLayer.encoding['size'] as  
+FieldDefWithCondition<MarkPropFieldDef<Field,StandardType>, number> 
+|ValueDefWithCondition<MarkPropFieldDef<Field, StandardType>, number>
+```
+
+As we already know, `Encoding.size` has two types. One is based on `Field`. One is based on `Value`. In our current code, we haven't seperate these two types, because `quicktype` combines these two types. But if we want to define the `Encoding.size` more precise and clearer, we can do it by using Vega-Lite source code.
+
+For example, when we define `encoding` based on `aes_params`, we should use `ValueDefWithCondition` type. These can prevent us giving `title` or `scale` to them, becase these properties only belong to `FieldDefWithConditions`.
+
+I think there must be more details, but I believe Vega-Lite source code is a better choice.
