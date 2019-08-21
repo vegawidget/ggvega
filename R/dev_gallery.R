@@ -31,7 +31,7 @@ dev_gg_codeblock <- function(example) {
 #' @keywords internal
 #' @export
 #'
-dev_gg_gallery <- function(example, arrange = c("side", "top"),
+dev_gallery <- function(example, arrange = c("side", "top"),
                            vl_width = 275, vl_height = 275,
                            gg_width = 400, gg_height = 320) {
 

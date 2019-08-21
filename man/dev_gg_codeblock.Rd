@@ -2,12 +2,12 @@
 % Please edit documentation in R/dev_gallery.R
 \name{dev_gg_codeblock}
 \alias{dev_gg_codeblock}
-\alias{dev_gg_gallery}
+\alias{dev_gallery}
 \title{Create a markdown code-block from a ggplot2 example}
 \usage{
 dev_gg_codeblock(example)
 
-dev_gg_gallery(example, arrange = c("side", "top"), vl_width = 275,
+dev_gallery(example, arrange = c("side", "top"), vl_width = 275,
   vl_height = 275, gg_width = 400, gg_height = 320)
 }
 \arguments{

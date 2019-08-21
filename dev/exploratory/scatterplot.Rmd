@@ -10,7 +10,7 @@ library("vegawidget")
 ```
 
 ```{r results='asis', echo=FALSE}
-dev_gg_gallery("scatterplot-iris")
+dev_gallery("scatterplot-iris")
 ```
 
 
