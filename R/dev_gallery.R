@@ -39,6 +39,8 @@ dev_gg_gallery <- function(example, width = NULL, height = NULL) {
 
   tags <- htmltools::tags
 
+  print(dev_gg_codeblock(example))
+
   # knitr directory
   dir_files <-
     glue::glue("{tools::file_path_sans_ext(knitr::current_input())}_files")
@@ -65,24 +67,9 @@ dev_gg_gallery <- function(example, width = NULL, height = NULL) {
 
   vw_write_svg(vl, path = file_vl)
 
-  # ggplot and vegaspec rendered
-  div <- tags$div(
-    tags$table(
-      tags$tr(
-        tags$td(
-          tags$img(src = file_gg),
-          style = "width:50%; border-width: 0px;"
-        ),
-        tags$td(
-          tags$img(src = file_vl),
-          style = "width:50%; border-width: 0px;"
-        ),
-        style = "border-width: 0px;"
-      )
-    )
-  )
+  print(tags$img(src = file_gg, width = 425))
+  print(tags$img(src = file_vl))
 
-  print(div)
 
   # JSON spec for ggspec & vegaspec
   ggspec_json <-

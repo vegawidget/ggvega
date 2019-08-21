@@ -7,29 +7,13 @@ library("ggplot2")
 library("vegawidget")
 ```
 
-<div>
+``` r
+ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +
+  geom_point(aes(color = Species))
+```
 
-<table>
-
-<tr style="border-width: 0px;">
-
-<td style="width:50%; border-width: 0px;">
-
-<img src="scatterplot_files/scatterplot-iris-gg.png"/>
-
-</td>
-
-<td style="width:50%; border-width: 0px;">
-
+<img src="scatterplot_files/scatterplot-iris-gg.png" width="425"/>
 <img src="scatterplot_files/scatterplot-iris-vl.svg"/>
-
-</td>
-
-</tr>
-
-</table>
-
-</div>
 
 <div>
 
