@@ -9847,7 +9847,6 @@
     function encodingByAes(aesName) {
         // assuming that VL.ValueDefWithConditionMarkPropFieldDefNumber, etc.
         // are all subclasses of VL.Encoding
-        //NOTE @wenyu: Add group` and `weight` to GG.Mapping
         // keys are ggplot2 aesthetic names
         // values are Vega-Lite encoding constructor-functions for values
         var itmEncodingMap = {
