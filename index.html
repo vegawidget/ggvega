@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ggvega</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9006</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.90011</span>
       </span>
     </div>
 
@@ -44,7 +44,28 @@
   </a>
 </li>
 <li>
+  <a href="articles/ggvega.html">Get started</a>
+</li>
+<li>
   <a href="reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/articles/gallery/01-scatterplot.html">Scatterplot</a>
+    </li>
+    <li>
+      <a href="articles/articles/gallery/02-bar-chart.html">Bar chart</a>
+    </li>
+    <li>
+      <a href="articles/articles/layers/geom/geom_point.html">geom_point</a>
+    </li>
+  </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -86,8 +107,8 @@
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>(<span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> Petal.Width, <span class="dt">y =</span> Petal.Length, <span class="dt">colour =</span> Species))</a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw"><a href="reference/as_vegaspec.html">as_vegaspec</a></span>(p)</a></code></pre></div>
-<div id="htmlwidget-527e76b054f8543daaf4" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-527e76b054f8543daaf4">{"x":{
+<div id="htmlwidget-d616d26058b3a8062c31" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d616d26058b3a8062c31">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "datasets": {
@@ -1149,7 +1170,9 @@
         "data": {
           "name": "data-00"
         },
-        "mark": "point",
+        "mark": {
+          "type": "point"
+        },
         "encoding": {
           "x": {
             "field": "Petal\\.Width",
@@ -1222,6 +1245,7 @@
 <li>Wenyu Yang <br><small class="roles"> Author </small>  </li>
 <li>Schneider Electric <br><small class="roles"> Funder </small>  </li>
 <li>Google Summer of Code <br><small class="roles"> Funder </small>  </li>
+<li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 

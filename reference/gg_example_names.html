@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Contributor Code of Conduct • ggvega</title>
+<title>Use ggplot examples — gg_example_names • ggvega</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -25,12 +25,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
 
 
 
-<meta property="og:title" content="Contributor Code of Conduct" />
+<meta property="og:title" content="Use ggplot examples — gg_example_names" />
+
+<meta property="og:description" content="This package has a series of example files that hightlight the capabilities
+of ggvega. As more capabilities are developed, more examples will be added." />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -47,7 +51,7 @@
   </head>
 
   <body>
-    <div class="container template-title-body">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -59,7 +63,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">ggvega</a>
+        <a class="navbar-link" href="../index.html">ggvega</a>
         <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.90011</span>
       </span>
     </div>
@@ -67,16 +71,16 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="articles/ggvega.html">Get started</a>
+  <a href="../articles/ggvega.html">Get started</a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -86,13 +90,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/articles/gallery/01-scatterplot.html">Scatterplot</a>
+      <a href="../articles/articles/gallery/01-scatterplot.html">Scatterplot</a>
     </li>
     <li>
-      <a href="articles/articles/gallery/02-bar-chart.html">Bar chart</a>
+      <a href="../articles/articles/gallery/02-bar-chart.html">Bar chart</a>
     </li>
     <li>
-      <a href="articles/articles/layers/geom/geom_point.html">geom_point</a>
+      <a href="../articles/articles/layers/geom/geom_point.html">geom_point</a>
     </li>
   </ul>
 </li>
@@ -115,25 +119,61 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Contributor Code of Conduct</h1>
+    <h1>Use ggplot examples</h1>
+    <small class="dont-index">Source: <a href='https://github.com/vegawidget/ggvega/blob/master/R/example.R'><code>R/example.R</code></a></small>
+    <div class="hidden name"><code>gg_example_names.Rd</code></div>
     </div>
 
-<div id="contributor-code-of-conduct" class="section level1">
+    <div class="ref-description">
+    
+    <p>This package has a series of example files that hightlight the capabilities
+of ggvega. As more capabilities are developed, more examples will be added.</p>
+    
+    </div>
 
-<p>As contributors and maintainers of this project, we pledge to respect all people who contribute through reporting issues, posting feature requests, updating documentation, submitting pull requests or patches, and other activities.</p>
-<p>We are committed to making participation in this project a harassment-free experience for everyone, regardless of level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, or religion.</p>
-<p>Examples of unacceptable behavior by participants include the use of sexual language or imagery, derogatory comments or personal attacks, trolling, public or private harassment, insults, or other unprofessional conduct.</p>
-<p>Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct. Project maintainers who do not follow the Code of Conduct may be removed from the project team.</p>
-<p>Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by opening an issue or contacting one or more of the project maintainers.</p>
-<p>This Code of Conduct is adapted from the Contributor Covenant (<a href="https://www.contributor-covenant.org" class="uri">https://www.contributor-covenant.org</a>), version 1.0.0, available at <a href="https://contributor-covenant.org/version/1/0/0/" class="uri">https://contributor-covenant.org/version/1/0/0/</a>.</p>
-</div>
+    <pre class="usage"><span class='fu'>gg_example_names</span>()
+
+<span class='fu'>gg_example</span>(<span class='kw'>example</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>example</th>
+      <td><p><code>character</code>, name of the example,
+<code>NULL</code> prints message containing names of all examples</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    
+<dl class='dl-horizontal'>
+<dt><code>gg_example_names()</code></dt><dd><p><code>character</code>, names of examples</p></dd>
+<dt><code>gg_example()</code></dt><dd><p>S3 object with classes <code>gg</code> and <code>ggplot</code>;
+a ggplot2 object, identified by <code>example</code></p></dd>
+</dl>
+
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='st'>"ggplot2"</span>)
+  <span class='fu'>gg_example_names</span>()</div><div class='output co'>#&gt; [1] "scat-scale-name-iris" "scatterplot-iris"    </div><div class='input'>  <span class='fu'><a href='gg_example_path.html'>gg_example_path</a></span>(<span class='st'>"scatterplot-iris"</span>)</div><div class='output co'>#&gt; /home/travis/build/vegawidget/ggvega/inst/examples/ggplot/scatterplot-iris.R</div><div class='input'>  <span class='fu'>gg_example</span>(<span class='st'>"scatterplot-iris"</span>)</div><div class='img'><img src='gg_example_names-1.png' alt='' width='700' height='433' /></div><div class='input'>  <span class='fu'>gg_example</span>(<span class='st'>"scatterplot-iris"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='as_vegaspec.html'>as_vegaspec</a></span>()</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
-
 </div>
-
 
       <footer>
       <div class="copyright">

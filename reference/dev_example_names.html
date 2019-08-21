@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Shiny-output for vegawidget — vegawidgetOutput • ggvega</title>
+<title>Use development examples — dev_example_names • ggvega</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="Shiny-output for vegawidget — vegawidgetOutput" />
+<meta property="og:title" content="Use development examples — dev_example_names" />
 
-<meta property="og:description" content="See vegawidget::vegawidgetOutput for details." />
+<meta property="og:description" content="Note that for dev_translation(), type refers to the type to which
+the translation is made." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -120,24 +121,58 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Shiny-output for vegawidget</h1>
-    <small class="dont-index">Source: <a href='https://github.com/vegawidget/ggvega/blob/master/R/utils-vegawidget.R'><code>R/utils-vegawidget.R</code></a></small>
-    <div class="hidden name"><code>vegawidgetOutput.Rd</code></div>
+    <h1>Use development examples</h1>
+    <small class="dont-index">Source: <a href='https://github.com/vegawidget/ggvega/blob/master/R/example.R'><code>R/example.R</code></a></small>
+    <div class="hidden name"><code>dev_example_names.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>See <code>vegawidget::<a href='https://www.rdocumentation.org/packages/vegawidget/topics/vegawidgetOutput'>vegawidgetOutput</a></code> for details.</p>
+    <p>Note that for <code>dev_translation()</code>, <code>type</code> refers to the type <em>to</em> which
+the translation is made.</p>
     
     </div>
 
-        
+    <pre class="usage"><span class='fu'>dev_example_names</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"ggplot"</span>, <span class='st'>"ggspec"</span>, <span class='st'>"vegaspec"</span>))
+
+<span class='fu'>dev_example_path</span>(<span class='kw'>example</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"ggplot"</span>, <span class='st'>"ggspec"</span>,
+  <span class='st'>"vegaspec"</span>))
+
+<span class='fu'>dev_example</span>(<span class='kw'>example</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"ggplot"</span>, <span class='st'>"ggspec"</span>, <span class='st'>"vegaspec"</span>))
+
+<span class='fu'>dev_translation</span>(<span class='kw'>example</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"ggspec"</span>, <span class='st'>"vegaspec"</span>))</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>example</th>
+      <td><p><code>character</code>, name of the example,
+<code>NULL</code> prints message containing names of all examples</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    
+<dl class='dl-horizontal'>
+<dt><code>dev_example_names()</code></dt><dd><p><code>character</code>, names of examples</p></dd>
+<dt><code>dev_example_path()</code></dt><dd><p>S3 object with class <code>fs_path</code>
+(wraps <code>character</code>), path to R file identified by <code>example</code></p></dd>
+<dt><code>dev_example()</code></dt><dd><p>not type-stable, depending on <code>type</code>, returns
+either a ggplot object, a ggspec, or a vegaspec</p></dd>
+</dl>
+
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>
