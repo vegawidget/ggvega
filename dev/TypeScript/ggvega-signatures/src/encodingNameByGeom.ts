@@ -1,4 +1,19 @@
-function encodingNameByGeom(aesName: string, gsGeom: gs.Geom): string {
+/**
+ * Get encoding name from aesthetic name
+ * 
+ * @remarks
+ * The mapping of a ggplot aesthetic name to an encoding name depends
+ * on the Geom under consideration.
+ * 
+ * **Called by**
+ * @see layerByItmLayer
+ * 
+ * @param aesName - `string` ggplot aesthetic-name
+ * @param ggGeom - `GG.Geom` ggschema Geom object
+ * 
+ * @returns 
+ */
+function encodingNameByGeom(aesName: string, ggGeom: GG.Geom): string {
 
   // keys: names of ggplot2 aesthetics
   // values: names of Vega-Lite encodings
@@ -14,18 +29,18 @@ function encodingNameByGeom(aesName: string, gsGeom: gs.Geom): string {
   }
 
   // validate
-  if (!contains(Object.keys(encodingMap), gsGeom.class)) {
+  if (!contains(Object.keys(encodingMap), ggGeom.class)) {
     throw new Error('ggplot object contains unsupported aesthetic: ' + aesName);  
   }
   
   // translate
 
   // exceptions
-  if (gsGeom.class == "GeomLine") {
+  if (ggGeom.class == "GeomLine") {
     encodingMap.size = "strokeWidth";
   }
 
-  if (gsGeom.class == "GeomBar") {
+  if (ggGeom.class == "GeomBar") {
     encodingMap.size = "strokeWidth";
   } 
 

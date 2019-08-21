@@ -1,7 +1,7 @@
 /**
  * Create an empty `Encoding` according to an aesthetic-name
  * 
- * @remark
+ * @remarks
  * There are different "flavors" of Vega-Lite encodings; which one is used
  * depends on the encoding key (name), which in turn depends on the 
  * aesthetic name.
@@ -10,12 +10,10 @@
  * instantiate the encoding and set values in one step.
  * 
  * **Called by**
- * 
  * @see {@link itmEncodingObjectByMappingObject}
  * @see {@link itmEncodingObjectByAesParamsObject}
  * 
  * **Calls**
- * 
  * @see encodingX
  * @see encodingY
  * @see encodingString
@@ -25,7 +23,7 @@
  * 
  * @param aesName - `string` name of ggplot2 aesthetic
  * 
- * @return `vl.Encoding` empty encoding
+ * @returns `vl.Encoding` empty encoding
  */
 function encodingByAes(aesName: string): vl.Encoding {
 
@@ -61,12 +59,11 @@ function encodingByAes(aesName: string): vl.Encoding {
 /**
  * Create empty X-encoding
  *
- * @remark
+ * @remarks
  * **Called by**
- * 
  * @see encodingByAes 
  *
- * @return `vl.XClass`
+ * @returns `vl.XClass`
  */
 function encodingX(): vl.XClass {
 
@@ -78,12 +75,11 @@ function encodingX(): vl.XClass {
 /**
  * Create empty Y-encoding
  *
- * @remark
+ * @remarks
  * **Called by**
- * 
  * @see encodingByAes 
  *
- * @return `vl.YClass`
+ * @returns `vl.YClass`
  */
 function encodingY(): vl.YClass {
 
@@ -95,12 +91,11 @@ function encodingY(): vl.YClass {
 /**
  * Create empty number-encoding
  *
- * @remark
+ * @remarks
  * **Called by**
- * 
  * @see encodingByAes 
  *
- * @return `vl.ValueDefWithConditionMarkPropFieldDefNumber`
+ * @returns `vl.ValueDefWithConditionMarkPropFieldDefNumber`
  */
 function encodingNumber(): vl.ValueDefWithConditionMarkPropFieldDefNumber {
 
@@ -112,12 +107,11 @@ function encodingNumber(): vl.ValueDefWithConditionMarkPropFieldDefNumber {
 /**
  * Create empty string-encoding
  *
- * @remark
+ * @remarks
  * **Called by**
- * 
  * @see encodingByAes 
  *
- * @return `vl.ValueDefWithConditionMarkPropFieldDefNumber`
+ * @returns `vl.ValueDefWithConditionMarkPropFieldDefNumber`
  */
 function encodingString(): vl.ValueDefWithConditionMarkPropFieldDefStringNull {
 
@@ -129,12 +123,11 @@ function encodingString(): vl.ValueDefWithConditionMarkPropFieldDefStringNull {
 /**
  * Create empty detail-encoding
  *
- * @remark
+ * @remarks
  * **Called by**
- * 
  * @see encodingByAes 
  *
- * @return `vl.Detail`
+ * @returns `vl.Detail`
  */
 function encodingDetail(): vl.Detail {
 
@@ -146,12 +139,11 @@ function encodingDetail(): vl.Detail {
 /**
  * Create empty shape-encoding
  *
- * @remark
+ * @remarks
  * **Called by**
- * 
  * @see encodingByAes 
  *
- * @return `vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull`
+ * @returns `vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull`
  */
 function encodingShape(): vl.ValueDefWithConditionMarkPropFieldDefTypeForShapeStringNull {
 

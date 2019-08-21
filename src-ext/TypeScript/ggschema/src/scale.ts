@@ -1,16 +1,8 @@
-export type Scales = Scale[];
+export type ScaleArray = Scale[];
 
-export interface Scale {
+export type Scale = ScaleContinuousPosition;
+export interface ScaleContinuousPosition {
+  class: 'ScaleContinuousPosition';
   aesthetics: string[];
-  transform: Transform;
   name?: string;
-}
-
-export interface Transform {
-  type: ScaleType;
-  base: number;
-}
-
-export enum ScaleType {
-  Log = 'log'
 }

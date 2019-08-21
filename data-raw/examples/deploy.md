@@ -290,7 +290,7 @@ Finally, to confirm, we list the files in the package-source directory
 dir_ls(pkgex_dir) %>% basename()
 ```
 
-    ## [1] "scatterplot-iris.R"
+    ## [1] "scat-scale-name-iris.R" "scatterplot-iris.R"
 
 ## Adding a new example
 

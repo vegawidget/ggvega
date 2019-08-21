@@ -16,7 +16,7 @@
 #'
 normalize <- function(x) {
 
-  if (length(x) <= 1L) {
+  if (length(x) <= 1L && !is.list(x)) {
     return(x)
   }
 

@@ -1,4 +1,4 @@
-export interface Labels {
+export interface LabelObject {
   x?: string;
   y?: string;
   colour?: string;

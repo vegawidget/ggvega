@@ -4,7 +4,7 @@ list(
   layer = list(
     list(
       data = list(name = "data-00"),
-      mark = "point",
+      mark = list(type = "point"),
       encoding = list(
         x = list(
           field = "Sepal\\.Width",

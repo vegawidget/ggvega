@@ -48,52 +48,53 @@
  * 
  * @see itmLayer
  * @see itmLayerArrayByLabelObject
+ * @see itmLayerArrayByScaleArray
  * @see itmLayerArrayByCoord
  * @see layerByItmLayer
  * 
- * @param gsData `{[key: string]: gs.Data}`, key-value pairs of ggspec datasets
- * @param gsLayerArray `gs.Layer[]` - array of ggspec layers
- * @param gsScaleArray `gs.Scale[]` - array of ggspec scales
- * @param gsLabelObject `gs.Labels` - key-value pairs of ggspec labels
- * @param gsCoordinates `gs.Coord` - ggspec coordinates
+ * @param ggData `{[key: string]: GG.Data}`, key-value pairs of ggspec datasets
+ * @param ggLayerArray `GG.Layer[]` - array of ggspec layers
+ * @param ggScaleArray `GG.Scale[]` - array of ggspec scales
+ * @param ggLabelObject `GG.Labels` - key-value pairs of ggspec labels
+ * @param ggCoordinates `GG.Coord` - ggspec coordinates
  * 
- * @return `vl.LayerSpec[]`, array containing Vega-Lite layer specs
+ * @returns `vl.LayerSpec[]`, array containing Vega-Lite layer specs
  * 
  */
 function layerArray(
-  gsData: {[key: string]: gs.Data},
-  gsLayerArray: gs.Layer[],
-  gsScaleArray: gs.Scale[],
-  gsLabelObject: gs.Labels,
-  gsCoordinates: gs.Coord
-): vl.LayerSpec[] {
+  ggData: {[key: string]: GG.Data},
+  ggLayerArray: GG.Layer[],
+  ggScaleArray: GG.Scale[],
+  ggLabelObject: GG.Labels,
+  ggCoordinates: GG.Coord
+): VL.LayerSpec[] {
 
   // validate
-  if (gsLayerArray.length == 0) {
+  if (ggLayerArray.length == 0) {
     throw new Error('ggplot object has no layers, requires at least one layer');
   }
 
   // translate
 
-  // start intermediate layers according to gsLayerArray
+  // start intermediate layers according to ggLayerArray
   // could this work?
-  let itmLayerArray: ItmLayer[] = gsLayerArray.map(
-    (gsLayer: gs.Layer) => {
-      return itmLayer(gsLayer, gsData);
+  let itmLayerArray: ItmLayer[] = ggLayerArray.map(
+    (ggLayer: GG.Layer) => {
+      return itmLayer(ggLayer, ggData);
     }
   );
 
   // incorporate labels
-  itmLayerArray = itmLayerArrayByLabelObject(itmLayerArray, gsLabelObject);
+  itmLayerArray = itmLayerArrayByLabelsObject(itmLayerArray, ggLabelObject);
 
   // incorporate scales
-  itmLayerArray = itmLayerArrayByScaleArray(itmLayerArray, gsScaleArray);
+  itmLayerArray = itmLayerArrayByScalesArray(itmLayerArray, ggScaleArray);
 
   // incorporate coordinates 
-  itmLayerArray = itmLayerArrayByCoord(itmLayerArray, gsCoordinates);
+  itmLayerArray = itmLayerArrayByCoord(itmLayerArray, ggCoordinates);
 
   // change encoding-key namespace from ggplot2 to Vega-Lite
-  const layerArray: vl.LayerSpec[] = itmLayerArray.map(layerByItmLayer);
+  const layerArray: VL.LayerSpec[] = itmLayerArray.map(layerByItmLayer);
 
   return layerArray;
 }
@@ -111,22 +112,21 @@ function layerArray(
  * on the `geom`.
  * 
  * **Called by**
- * 
  * @see layerArray
  * 
  * **Calls**
- * 
  * @see encodingNameByGeom
+ * 
  * 
  * @param itmLayer - `itmLayer`, intermediate layer-object
  * 
- * @return `vl.Layer`, Vega-Lite layer-object
+ * @returns `VL.Layer`, Vega-Lite layer-object
  *
  */
-function layerByItmLayer(itmLayer: itmLayer): vl.Layer {
+function layerByItmLayer(itmLayer: itmLayer): VL.Layer {
 
   // create new encoding
-  var encoding: vl.Encoding = {};
+  var encoding: VL.Encoding = {};
 
   // loop over aesthetic names in itmLayerEncoding
   for (let aesName in itmLayer.encoding) {
@@ -137,7 +137,7 @@ function layerByItmLayer(itmLayer: itmLayer): vl.Layer {
     }
   }
 
-  const layer: vl.Layer = {
+  const layer: VL.Layer = {
     data: itmLayer.data,
     mark: itmLayer.mark,
     encoding: encoding
