@@ -269,7 +269,7 @@ FieldDefWithCondition<MarkPropFieldDef<Field,StandardType>, number>
 |ValueDefWithCondition<MarkPropFieldDef<Field, StandardType>, number>
 ```
 
-As we already know, `Encoding.size` has two types. One is based on `Field`. One is based on `Value`. In our current code, we haven't seperate these two types, because `quicktype` combines these two types. But if we want to define the `Encoding.size` more precise and clearer, we can do it by using Vega-Lite source code.
+As we already known, `Encoding.size` has two types. One is based on `Field`. One is based on `Value`. In our current code, we haven't seperate these two types, because `quicktype` combines these two types. But if we want to define the `Encoding.size` more precise and clearer, we can do it by using Vega-Lite source code.
 
 For example, when we define `encoding` based on `aes_params`, we should use `ValueDefWithCondition` type. These can prevent us giving `title` or `scale` to them, becase these properties only belong to `FieldDefWithConditions`.
 
