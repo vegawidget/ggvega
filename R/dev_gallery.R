@@ -30,8 +30,8 @@ dev_gg_codeblock <- function(example) {
 #'
 dev_gg_gallery <- function(example, width = NULL, height = NULL) {
 
-  width <- width %||% 300
-  height <- height %||% 300
+  width <- width %||% 275
+  height <- height %||% 275
 
   if (!requireNamespace("htmltools", quietly = TRUE)) {
     stop("need {htmltools} package")
@@ -67,7 +67,7 @@ dev_gg_gallery <- function(example, width = NULL, height = NULL) {
 
   vw_write_svg(vl, path = file_vl)
 
-  print(tags$img(src = file_gg, width = 425))
+  print(tags$img(src = file_gg, width = 400))
   print(tags$img(src = file_vl))
 
 
