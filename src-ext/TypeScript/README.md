@@ -1,6 +1,8 @@
+
 # TypeScript part of ggvega
 
-This is the TypeScript part of ggvega. The goal of ggvega is to translate a ggplot2 object to a Vega-Lite specification. The R part of ggvega is to translate a ggplot2 object to a *ggschema* specification. The TypeScript part of ggvega is to translate a *ggschema* specification to a Vega-Lite specification.
+The purpose of this document is to introduce the TypeScript part of ggvega. This document will also summarize our work during the GSoC 2019 and the possible ways of extent our project.
+
 
 
 ## Google Summer of Code 2019 
@@ -10,7 +12,20 @@ This is the TypeScript part of ggvega. The goal of ggvega is to translate a ggpl
 
 ***Mentors : [Ian Lyttle](https://github.com/ijlyttle) , [Haley Jeppson](https://github.com/haleyjeppson)***
 
-During the GSoC 2019, I am responsible for the [TypeScript part of ggvega](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript). In general, it includes [ggvega TypeScript](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggvega) and [ggschema](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggschema). 
+During the GSoC 2019, I am responsible for the [TypeScript part of ggvega](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript).  The goal of this part is to translate a *ggschema* specification to a Vega-Lite specification. In general, it includes [ggvega TypeScript](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggvega) and [ggschema](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggschema). 
+
+
+### ggschema
+
+[ggschema](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggschema) is the TypeScript definition of *ggschema* specification. 
+
+Link : https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggschema
+
+- Start to use TypeScript interface/type to define *ggschema* specification.
+
+- Use [ts-json-schema-generator](https://github.com/vega/ts-json-schema-generator) to generate [`ggschema.json`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggschema/build/ggschema.json).  This is the json-schema of *ggschema* specification.
+
+
 
 ### ggvega TypeScript
 
@@ -29,18 +44,6 @@ Link : https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggveg
 - Use [typedoc](https://github.com/TypeStrong/typedoc) to generat documentation for this TypeScript project.
 
 - Use [`ggschema.json`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggschema/build/ggschema.json) to validate the *ggschema* specification. `ggschema.json` is the json-schema of *ggschema* specification.
-
-
-
-### ggschema
-
-[ggschema](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggschema) is the TypeScript definition of *ggschema* specification. 
-
-Link : https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggschema
-
-- Start to use TypeScript interface/type to define *ggschema* specification.
-
-- Use [ts-json-schema-generator](https://github.com/vega/ts-json-schema-generator) to generate [`ggschema.json`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggschema/build/ggschema.json).  This is the json-schema of *ggschema* specification.
 
 
 
