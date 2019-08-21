@@ -10463,7 +10463,9 @@
                         //NOTE @wenyu:https://love2dev.com/blog/javascript-remove-from-array/
                         for (var i = 0; i < ggScale.aesthetics.length; i++) {
                             if (keyMatch$1(ggScale.aesthetics[i], encodingKey)) {
-                                itmLayer.encoding[encodingKey].title = ggScale.name;
+                                //NOTE @wenyu: define name onlu when ggScale has a name
+                                if (ggScale.name)
+                                    itmLayer.encoding[encodingKey].title = ggScale.name;
                                 //NOTE @wenyu: validate
                                 if (!contains$1(Object.keys(scaleMap), ggScale.class)) {
                                     throw new Error('ggplot object contains unsupported scale class: ' + ggScale.class);

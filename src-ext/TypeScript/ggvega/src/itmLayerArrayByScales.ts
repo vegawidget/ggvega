@@ -36,7 +36,8 @@ export function itmLayerArrayByScalesArray(itmLayerArray: ItmLayer[], ggScaleArr
 
           for (let i = 0; i < ggScale.aesthetics.length; i++) {
             if (keyMatch(ggScale.aesthetics[i], encodingKey)) {
-              itmLayer.encoding[encodingKey].title = ggScale.name;
+              //NOTE @wenyu: define name onlu when ggScale has a name
+              if (ggScale.name) itmLayer.encoding[encodingKey].title = ggScale.name;
 
               //NOTE @wenyu: validate
               if (!contains(Object.keys(scaleMap), ggScale.class)) {
