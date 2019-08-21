@@ -21,6 +21,7 @@ module.exports = {
     "@typescript-eslint/array-type": ["off", "array-simple"],
     "prettier/prettier": "warn",
     // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#supported-rules
+    "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-use-before-define": "off",
@@ -48,7 +49,7 @@ module.exports = {
     "prefer-const": "error",
     "no-return-assign": "error",
     "no-useless-call": "error",
-    "no-shadow": "error",
+    "no-shadow": "off",
     "no-useless-concat": "error",
     // "prefer-template": "error", // we can do this later
     "no-console": "off", // we use console

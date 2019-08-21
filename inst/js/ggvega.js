@@ -4,1334 +4,6 @@
     (global = global || self, factory(global.ggvega = {}));
 }(this, function (exports) { 'use strict';
 
-    /**
-     * The alignment to apply to symbol legends rows and columns. The supported string values
-     * are `"all"`, `"each"` (the default), and `none`. For more information, see the [grid
-     * layout documentation](https://vega.github.io/vega/docs/layout).
-     *
-     * __Default value:__ `"each"`.
-     */
-    var LayoutAlign;
-    (function (LayoutAlign) {
-        LayoutAlign["All"] = "all";
-        LayoutAlign["Each"] = "each";
-        LayoutAlign["None"] = "none";
-    })(LayoutAlign || (LayoutAlign = {}));
-    /**
-     * Determines how size calculation should be performed, one of `"content"` or `"padding"`.
-     * The default setting (`"content"`) interprets the width and height settings as the data
-     * rectangle (plotting) dimensions, to which padding is then added. In contrast, the
-     * `"padding"` setting includes the padding within the view size calculations, such that the
-     * width and height settings indicate the **total** intended size of the view.
-     *
-     * __Default value__: `"content"`
-     */
-    var Contains;
-    (function (Contains) {
-        Contains["Content"] = "content";
-        Contains["Padding"] = "padding";
-    })(Contains || (Contains = {}));
-    /**
-     * The sizing format type. One of `"pad"`, `"fit"` or `"none"`. See the [autosize
-     * type](https://vega.github.io/vega-lite/docs/size.html#autosize) documentation for
-     * descriptions of each.
-     *
-     * __Default value__: `"pad"`
-     */
-    var AutosizeType;
-    (function (AutosizeType) {
-        AutosizeType["Fit"] = "fit";
-        AutosizeType["None"] = "none";
-        AutosizeType["Pad"] = "pad";
-    })(AutosizeType || (AutosizeType = {}));
-    /**
-     * The bounds calculation method to use for determining the extent of a sub-plot. One of
-     * `full` (the default) or `flush`.
-     *
-     * - If set to `full`, the entire calculated bounds (including axes, title, and legend) will
-     * be used.
-     * - If set to `flush`, only the specified width and height values for the sub-view will be
-     * used. The `flush` setting can be useful when attempting to place sub-plots without axes
-     * or legends into a uniform grid structure.
-     *
-     * __Default value:__ `"full"`
-     */
-    var BoundsEnum;
-    (function (BoundsEnum) {
-        BoundsEnum["Flush"] = "flush";
-        BoundsEnum["Full"] = "full";
-    })(BoundsEnum || (BoundsEnum = {}));
-    /**
-     * Type of input data: `"json"`, `"csv"`, `"tsv"`, `"dsv"`.
-     *
-     * __Default value:__  The default format type is determined by the extension of the file
-     * URL.
-     * If no extension is detected, `"json"` will be used by default.
-     */
-    var DataFormatType;
-    (function (DataFormatType) {
-        DataFormatType["CSV"] = "csv";
-        DataFormatType["Dsv"] = "dsv";
-        DataFormatType["JSON"] = "json";
-        DataFormatType["Topojson"] = "topojson";
-        DataFormatType["Tsv"] = "tsv";
-    })(DataFormatType || (DataFormatType = {}));
-    /**
-     * An [aggregate operation](https://vega.github.io/vega-lite/docs/aggregate.html#ops) to
-     * perform on the field prior to sorting (e.g., `"count"`, `"mean"` and `"median"`).
-     * An aggregation is required when there are multiple values of the sort field for each
-     * encoded data field.
-     * The input data objects will be aggregated, grouped by the encoded data field.
-     *
-     * For a full list of operations, please see the documentation for
-     * [aggregate](https://vega.github.io/vega-lite/docs/aggregate.html#ops).
-     *
-     * __Default value:__ `"sum"` for stacked plots. Otherwise, `"mean"`.
-     *
-     * The aggregation operation to apply to the fields (e.g., sum, average or count).
-     * See the [full list of supported aggregation
-     * operations](https://vega.github.io/vega-lite/docs/aggregate.html#ops)
-     * for more information.
-     *
-     * The aggregation operation to apply (e.g., sum, average or count). See the list of all
-     * supported operations [here](https://vega.github.io/vega-lite/docs/aggregate.html#ops).
-     */
-    var AggregateOp;
-    (function (AggregateOp) {
-        AggregateOp["Argmax"] = "argmax";
-        AggregateOp["Argmin"] = "argmin";
-        AggregateOp["Average"] = "average";
-        AggregateOp["Ci0"] = "ci0";
-        AggregateOp["Ci1"] = "ci1";
-        AggregateOp["Count"] = "count";
-        AggregateOp["Distinct"] = "distinct";
-        AggregateOp["Max"] = "max";
-        AggregateOp["Mean"] = "mean";
-        AggregateOp["Median"] = "median";
-        AggregateOp["Min"] = "min";
-        AggregateOp["Missing"] = "missing";
-        AggregateOp["Q1"] = "q1";
-        AggregateOp["Q3"] = "q3";
-        AggregateOp["Stderr"] = "stderr";
-        AggregateOp["Stdev"] = "stdev";
-        AggregateOp["Stdevp"] = "stdevp";
-        AggregateOp["Sum"] = "sum";
-        AggregateOp["Valid"] = "valid";
-        AggregateOp["Values"] = "values";
-        AggregateOp["Variance"] = "variance";
-        AggregateOp["Variancep"] = "variancep";
-    })(AggregateOp || (AggregateOp = {}));
-    /**
-     * Time unit for the field to be filtered.
-     *
-     * Time unit (e.g., `year`, `yearmonth`, `month`, `hours`) for a temporal field.
-     * or [a temporal field that gets casted as
-     * ordinal](https://vega.github.io/vega-lite/docs/type.html#cast).
-     *
-     * __Default value:__ `undefined` (None)
-     *
-     * __See also:__ [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html)
-     * documentation.
-     *
-     * The timeUnit.
-     */
-    var TimeUnit;
-    (function (TimeUnit) {
-        TimeUnit["Date"] = "date";
-        TimeUnit["Day"] = "day";
-        TimeUnit["Hours"] = "hours";
-        TimeUnit["Hoursminutes"] = "hoursminutes";
-        TimeUnit["Hoursminutesseconds"] = "hoursminutesseconds";
-        TimeUnit["Milliseconds"] = "milliseconds";
-        TimeUnit["Minutes"] = "minutes";
-        TimeUnit["Minutesseconds"] = "minutesseconds";
-        TimeUnit["Month"] = "month";
-        TimeUnit["Monthdate"] = "monthdate";
-        TimeUnit["Monthdatehours"] = "monthdatehours";
-        TimeUnit["Quarter"] = "quarter";
-        TimeUnit["Quartermonth"] = "quartermonth";
-        TimeUnit["Seconds"] = "seconds";
-        TimeUnit["Secondsmilliseconds"] = "secondsmilliseconds";
-        TimeUnit["Utcdate"] = "utcdate";
-        TimeUnit["Utcday"] = "utcday";
-        TimeUnit["Utchours"] = "utchours";
-        TimeUnit["Utchoursminutes"] = "utchoursminutes";
-        TimeUnit["Utchoursminutesseconds"] = "utchoursminutesseconds";
-        TimeUnit["Utcmilliseconds"] = "utcmilliseconds";
-        TimeUnit["Utcminutes"] = "utcminutes";
-        TimeUnit["Utcminutesseconds"] = "utcminutesseconds";
-        TimeUnit["Utcmonth"] = "utcmonth";
-        TimeUnit["Utcmonthdate"] = "utcmonthdate";
-        TimeUnit["Utcmonthdatehours"] = "utcmonthdatehours";
-        TimeUnit["Utcquarter"] = "utcquarter";
-        TimeUnit["Utcquartermonth"] = "utcquartermonth";
-        TimeUnit["Utcseconds"] = "utcseconds";
-        TimeUnit["Utcsecondsmilliseconds"] = "utcsecondsmilliseconds";
-        TimeUnit["Utcyear"] = "utcyear";
-        TimeUnit["Utcyearmonth"] = "utcyearmonth";
-        TimeUnit["Utcyearmonthdate"] = "utcyearmonthdate";
-        TimeUnit["Utcyearmonthdatehours"] = "utcyearmonthdatehours";
-        TimeUnit["Utcyearmonthdatehoursminutes"] = "utcyearmonthdatehoursminutes";
-        TimeUnit["Utcyearmonthdatehoursminutesseconds"] = "utcyearmonthdatehoursminutesseconds";
-        TimeUnit["Utcyearquarter"] = "utcyearquarter";
-        TimeUnit["Utcyearquartermonth"] = "utcyearquartermonth";
-        TimeUnit["Year"] = "year";
-        TimeUnit["Yearmonth"] = "yearmonth";
-        TimeUnit["Yearmonthdate"] = "yearmonthdate";
-        TimeUnit["Yearmonthdatehours"] = "yearmonthdatehours";
-        TimeUnit["Yearmonthdatehoursminutes"] = "yearmonthdatehoursminutes";
-        TimeUnit["Yearmonthdatehoursminutesseconds"] = "yearmonthdatehoursminutesseconds";
-        TimeUnit["Yearquarter"] = "yearquarter";
-        TimeUnit["Yearquartermonth"] = "yearquartermonth";
-    })(TimeUnit || (TimeUnit = {}));
-    var RepeatEnum;
-    (function (RepeatEnum) {
-        RepeatEnum["Column"] = "column";
-        RepeatEnum["Repeat"] = "repeat";
-        RepeatEnum["Row"] = "row";
-    })(RepeatEnum || (RepeatEnum = {}));
-    /**
-     * The orientation of a non-stacked bar, tick, area, and line charts.
-     * The value is either horizontal (default) or vertical.
-     * - For bar, rule and tick, this determines whether the size of the bar and tick
-     * should be applied to x or y dimension.
-     * - For area, this property determines the orient property of the Vega output.
-     * - For line and trail marks, this property determines the sort order of the points in the
-     * line
-     * if `config.sortLineBy` is not specified.
-     * For stacked charts, this is always determined by the orientation of the stack;
-     * therefore explicitly specified value will be ignored.
-     *
-     * The default direction (`"horizontal"` or `"vertical"`) for gradient legends.
-     *
-     * __Default value:__ `"vertical"`.
-     *
-     * The default direction (`"horizontal"` or `"vertical"`) for symbol legends.
-     *
-     * __Default value:__ `"vertical"`.
-     *
-     * The direction of the legend, one of `"vertical"` or `"horizontal"`.
-     *
-     * __Default value:__
-     * - For top-/bottom-`orient`ed legends, `"horizontal"`
-     * - For left-/right-`orient`ed legends, `"vertical"`
-     * - For top/bottom-left/right-`orient`ed legends, `"horizontal"` for gradient legends and
-     * `"vertical"` for symbol legends.
-     *
-     * Orientation of the box plot.  This is normally automatically determined based on types of
-     * fields on x and y channels. However, an explicit `orient` be specified when the
-     * orientation is ambiguous.
-     *
-     * __Default value:__ `"vertical"`.
-     *
-     * Orientation of the error bar.  This is normally automatically determined, but can be
-     * specified when the orientation is ambiguous and cannot be automatically determined.
-     *
-     * Orientation of the error band. This is normally automatically determined, but can be
-     * specified when the orientation is ambiguous and cannot be automatically determined.
-     */
-    var Orientation;
-    (function (Orientation) {
-        Orientation["Horizontal"] = "horizontal";
-        Orientation["Vertical"] = "vertical";
-    })(Orientation || (Orientation = {}));
-    /**
-     * The format type for labels (`"number"` or `"time"`).
-     *
-     * __Default value:__
-     * - `"time"` for temporal fields and ordinal and nomimal fields with `timeUnit`.
-     * - `"number"` for quantitative fields as well as ordinal and nomimal fields without
-     * `timeUnit`.
-     */
-    var FormatType;
-    (function (FormatType) {
-        FormatType["Number"] = "number";
-        FormatType["Time"] = "time";
-    })(FormatType || (FormatType = {}));
-    /**
-     * The horizontal alignment of the text. One of `"left"`, `"right"`, `"center"`.
-     *
-     * Horizontal text alignment of axis tick labels, overriding the default setting for the
-     * current axis orientation.
-     *
-     * Horizontal text alignment of axis titles.
-     *
-     * Horizontal text alignment of header labels.
-     *
-     * Horizontal text alignment (to the anchor) of header titles.
-     *
-     * The alignment of the legend label, can be left, center, or right.
-     *
-     * Horizontal text alignment for legend titles.
-     *
-     * __Default value:__ `"left"`.
-     */
-    var Align;
-    (function (Align) {
-        Align["Center"] = "center";
-        Align["Left"] = "left";
-        Align["Right"] = "right";
-    })(Align || (Align = {}));
-    /**
-     * The vertical alignment of the text. One of `"top"`, `"middle"`, `"bottom"`.
-     *
-     * __Default value:__ `"middle"`
-     *
-     * Vertical text baseline of axis tick labels, overriding the default setting for the
-     * current axis orientation. Can be `"top"`, `"middle"`, `"bottom"`, or `"alphabetic"`.
-     *
-     * Vertical text baseline for axis titles.
-     *
-     * Vertical text baseline for the header title. One of `"top"`, `"bottom"`, `"middle"`.
-     *
-     * __Default value:__ `"middle"`
-     *
-     * The position of the baseline of legend label, can be `"top"`, `"middle"`, `"bottom"`, or
-     * `"alphabetic"`.
-     *
-     * __Default value:__ `"middle"`.
-     *
-     * Vertical text baseline for legend titles.
-     *
-     * __Default value:__ `"top"`.
-     *
-     * Vertical text baseline for title text. One of `"top"`, `"middle"`, `"bottom"`, or
-     * `"alphabetic"`.
-     */
-    var TextBaseline;
-    (function (TextBaseline) {
-        TextBaseline["Alphabetic"] = "alphabetic";
-        TextBaseline["Bottom"] = "bottom";
-        TextBaseline["Middle"] = "middle";
-        TextBaseline["Top"] = "top";
-    })(TextBaseline || (TextBaseline = {}));
-    var FontWeightEnum;
-    (function (FontWeightEnum) {
-        FontWeightEnum["Bold"] = "bold";
-        FontWeightEnum["Bolder"] = "bolder";
-        FontWeightEnum["Lighter"] = "lighter";
-        FontWeightEnum["Normal"] = "normal";
-    })(FontWeightEnum || (FontWeightEnum = {}));
-    var LabelOverlapEnum;
-    (function (LabelOverlapEnum) {
-        LabelOverlapEnum["Greedy"] = "greedy";
-        LabelOverlapEnum["Parity"] = "parity";
-    })(LabelOverlapEnum || (LabelOverlapEnum = {}));
-    /**
-     * The orientation of the legend, which determines how the legend is positioned within the
-     * scene. One of "left", "right", "top-left", "top-right", "bottom-left", "bottom-right",
-     * "none".
-     *
-     * __Default value:__ `"right"`
-     *
-     * The orientation of the legend, which determines how the legend is positioned within the
-     * scene. One of `"left"`, `"right"`, `"top"`, `"bottom"`, `"top-left"`, `"top-right"`,
-     * `"bottom-left"`, `"bottom-right"`, `"none"`.
-     *
-     * __Default value:__ `"right"`
-     */
-    var LegendOrient;
-    (function (LegendOrient) {
-        LegendOrient["Bottom"] = "bottom";
-        LegendOrient["BottomLeft"] = "bottom-left";
-        LegendOrient["BottomRight"] = "bottom-right";
-        LegendOrient["Left"] = "left";
-        LegendOrient["None"] = "none";
-        LegendOrient["Right"] = "right";
-        LegendOrient["Top"] = "top";
-        LegendOrient["TopLeft"] = "top-left";
-        LegendOrient["TopRight"] = "top-right";
-    })(LegendOrient || (LegendOrient = {}));
-    var TitleAnchor;
-    (function (TitleAnchor) {
-        TitleAnchor["End"] = "end";
-        TitleAnchor["Middle"] = "middle";
-        TitleAnchor["Start"] = "start";
-    })(TitleAnchor || (TitleAnchor = {}));
-    /**
-     * The orientation of the header label. One of `"top"`, `"bottom"`, `"left"` or `"right"`.
-     *
-     * The orientation of the header title. One of `"top"`, `"bottom"`, `"left"` or `"right"`.
-     *
-     * Orientation of the legend title.
-     *
-     * The orientation of the axis. One of `"top"`, `"bottom"`, `"left"` or `"right"`. The
-     * orientation can be used to further specialize the axis type (e.g., a y-axis oriented
-     * towards the right edge of the chart).
-     *
-     * __Default value:__ `"bottom"` for x-axes and `"left"` for y-axes.
-     */
-    var Orient;
-    (function (Orient) {
-        Orient["Bottom"] = "bottom";
-        Orient["Left"] = "left";
-        Orient["Right"] = "right";
-        Orient["Top"] = "top";
-    })(Orient || (Orient = {}));
-    /**
-     * The type of the legend. Use `"symbol"` to create a discrete legend and `"gradient"` for a
-     * continuous color gradient.
-     *
-     * __Default value:__ `"gradient"` for non-binned quantitative fields and temporal fields;
-     * `"symbol"` otherwise.
-     */
-    var LegendType;
-    (function (LegendType) {
-        LegendType["Gradient"] = "gradient";
-        LegendType["Symbol"] = "symbol";
-    })(LegendType || (LegendType = {}));
-    var Domain;
-    (function (Domain) {
-        Domain["Unaggregated"] = "unaggregated";
-    })(Domain || (Domain = {}));
-    var ScaleInterpolateParamsType;
-    (function (ScaleInterpolateParamsType) {
-        ScaleInterpolateParamsType["Cubehelix"] = "cubehelix";
-        ScaleInterpolateParamsType["CubehelixLong"] = "cubehelix-long";
-        ScaleInterpolateParamsType["RGB"] = "rgb";
-    })(ScaleInterpolateParamsType || (ScaleInterpolateParamsType = {}));
-    var ScaleInterpolate;
-    (function (ScaleInterpolate) {
-        ScaleInterpolate["Cubehelix"] = "cubehelix";
-        ScaleInterpolate["CubehelixLong"] = "cubehelix-long";
-        ScaleInterpolate["HCL"] = "hcl";
-        ScaleInterpolate["HCLLong"] = "hcl-long";
-        ScaleInterpolate["Hsl"] = "hsl";
-        ScaleInterpolate["HslLong"] = "hsl-long";
-        ScaleInterpolate["Lab"] = "lab";
-        ScaleInterpolate["RGB"] = "rgb";
-    })(ScaleInterpolate || (ScaleInterpolate = {}));
-    var NiceTime;
-    (function (NiceTime) {
-        NiceTime["Day"] = "day";
-        NiceTime["Hour"] = "hour";
-        NiceTime["Minute"] = "minute";
-        NiceTime["Month"] = "month";
-        NiceTime["Second"] = "second";
-        NiceTime["Week"] = "week";
-        NiceTime["Year"] = "year";
-    })(NiceTime || (NiceTime = {}));
-    /**
-     * The type of scale.  Vega-Lite supports the following categories of scale types:
-     *
-     * 1) [**Continuous Scales**](https://vega.github.io/vega-lite/docs/scale.html#continuous)
-     * -- mapping continuous domains to continuous output ranges
-     * ([`"linear"`](https://vega.github.io/vega-lite/docs/scale.html#linear),
-     * [`"pow"`](https://vega.github.io/vega-lite/docs/scale.html#pow),
-     * [`"sqrt"`](https://vega.github.io/vega-lite/docs/scale.html#sqrt),
-     * [`"symlog"`](https://vega.github.io/vega-lite/docs/scale.html#symlog),
-     * [`"log"`](https://vega.github.io/vega-lite/docs/scale.html#log),
-     * [`"time"`](https://vega.github.io/vega-lite/docs/scale.html#time),
-     * [`"utc"`](https://vega.github.io/vega-lite/docs/scale.html#utc).
-     *
-     * 2) [**Discrete Scales**](https://vega.github.io/vega-lite/docs/scale.html#discrete) --
-     * mapping discrete domains to discrete
-     * ([`"ordinal"`](https://vega.github.io/vega-lite/docs/scale.html#ordinal)) or continuous
-     * ([`"band"`](https://vega.github.io/vega-lite/docs/scale.html#band) and
-     * [`"point"`](https://vega.github.io/vega-lite/docs/scale.html#point)) output ranges.
-     *
-     * 3) [**Discretizing
-     * Scales**](https://vega.github.io/vega-lite/docs/scale.html#discretizing) -- mapping
-     * continuous domains to discrete output ranges
-     * [`"bin-ordinal"`](https://vega.github.io/vega-lite/docs/scale.html#bin-ordinal),
-     * [`"quantile"`](https://vega.github.io/vega-lite/docs/scale.html#quantile),
-     * [`"quantize"`](https://vega.github.io/vega-lite/docs/scale.html#quantize) and
-     * [`"threshold"`](https://vega.github.io/vega-lite/docs/scale.html#threshold).
-     *
-     * __Default value:__ please see the [scale type
-     * table](https://vega.github.io/vega-lite/docs/scale.html#type).
-     */
-    var ScaleType;
-    (function (ScaleType) {
-        ScaleType["Band"] = "band";
-        ScaleType["BinOrdinal"] = "bin-ordinal";
-        ScaleType["Linear"] = "linear";
-        ScaleType["Log"] = "log";
-        ScaleType["Ordinal"] = "ordinal";
-        ScaleType["Point"] = "point";
-        ScaleType["Pow"] = "pow";
-        ScaleType["Quantile"] = "quantile";
-        ScaleType["Quantize"] = "quantize";
-        ScaleType["Sqrt"] = "sqrt";
-        ScaleType["Symlog"] = "symlog";
-        ScaleType["Threshold"] = "threshold";
-        ScaleType["Time"] = "time";
-        ScaleType["UTC"] = "utc";
-    })(ScaleType || (ScaleType = {}));
-    /**
-     * The [encoding channel](https://vega.github.io/vega-lite/docs/encoding.html#channels) to
-     * sort by (e.g., `"x"`, `"y"`)
-     */
-    var SingleDefUnitChannel;
-    (function (SingleDefUnitChannel) {
-        SingleDefUnitChannel["Color"] = "color";
-        SingleDefUnitChannel["Fill"] = "fill";
-        SingleDefUnitChannel["FillOpacity"] = "fillOpacity";
-        SingleDefUnitChannel["Href"] = "href";
-        SingleDefUnitChannel["Key"] = "key";
-        SingleDefUnitChannel["Latitude"] = "latitude";
-        SingleDefUnitChannel["Latitude2"] = "latitude2";
-        SingleDefUnitChannel["Longitude"] = "longitude";
-        SingleDefUnitChannel["Longitude2"] = "longitude2";
-        SingleDefUnitChannel["Opacity"] = "opacity";
-        SingleDefUnitChannel["Shape"] = "shape";
-        SingleDefUnitChannel["Size"] = "size";
-        SingleDefUnitChannel["Stroke"] = "stroke";
-        SingleDefUnitChannel["StrokeOpacity"] = "strokeOpacity";
-        SingleDefUnitChannel["StrokeWidth"] = "strokeWidth";
-        SingleDefUnitChannel["Text"] = "text";
-        SingleDefUnitChannel["Tooltip"] = "tooltip";
-        SingleDefUnitChannel["X"] = "x";
-        SingleDefUnitChannel["X2"] = "x2";
-        SingleDefUnitChannel["Y"] = "y";
-        SingleDefUnitChannel["Y2"] = "y2";
-    })(SingleDefUnitChannel || (SingleDefUnitChannel = {}));
-    /**
-     * The sort order. One of `"ascending"` (default) or `"descending"`.
-     */
-    var SortOrder;
-    (function (SortOrder) {
-        SortOrder["Ascending"] = "ascending";
-        SortOrder["Descending"] = "descending";
-    })(SortOrder || (SortOrder = {}));
-    /**
-     * The encoded field's type of measurement (`"quantitative"`, `"temporal"`, `"ordinal"`, or
-     * `"nominal"`).
-     * It can also be a `"geojson"` type for encoding
-     * ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).
-     *
-     *
-     * __Note:__
-     *
-     * - Data values for a temporal field can be either a date-time string (e.g., `"2015-03-07
-     * 12:32:17"`, `"17:01"`, `"2015-03-16"`. `"2015"`) or a timestamp number (e.g.,
-     * `1552199579097`).
-     * - Data `type` describes the semantics of the data rather than the primitive data types
-     * (`number`, `string`, etc.). The same primitive data type can have different types of
-     * measurement. For example, numeric data can represent quantitative, ordinal, or nominal
-     * data.
-     * - When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type`
-     * property can be either `"quantitative"` (for using a linear bin scale) or [`"ordinal"`
-     * (for using an ordinal bin
-     * scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
-     * - When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the
-     * `type` property can be either `"temporal"` (for using a temporal scale) or [`"ordinal"`
-     * (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
-     * - When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html),
-     * the `type` property refers to the post-aggregation data type. For example, we can
-     * calculate count `distinct` of a categorical field `"cat"` using `{"aggregate":
-     * "distinct", "field": "cat", "type": "quantitative"}`. The `"type"` of the aggregate
-     * output is `"quantitative"`.
-     * - Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they
-     * have exactly the same type as their primary channels (e.g., `x`, `y`).
-     *
-     * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
-     */
-    var StandardType;
-    (function (StandardType) {
-        StandardType["Nominal"] = "nominal";
-        StandardType["Ordinal"] = "ordinal";
-        StandardType["Quantitative"] = "quantitative";
-        StandardType["Temporal"] = "temporal";
-    })(StandardType || (StandardType = {}));
-    var BinEnum;
-    (function (BinEnum) {
-        BinEnum["Binned"] = "binned";
-    })(BinEnum || (BinEnum = {}));
-    /**
-     * The encoded field's type of measurement (`"quantitative"`, `"temporal"`, `"ordinal"`, or
-     * `"nominal"`).
-     * It can also be a `"geojson"` type for encoding
-     * ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).
-     *
-     *
-     * __Note:__
-     *
-     * - Data values for a temporal field can be either a date-time string (e.g., `"2015-03-07
-     * 12:32:17"`, `"17:01"`, `"2015-03-16"`. `"2015"`) or a timestamp number (e.g.,
-     * `1552199579097`).
-     * - Data `type` describes the semantics of the data rather than the primitive data types
-     * (`number`, `string`, etc.). The same primitive data type can have different types of
-     * measurement. For example, numeric data can represent quantitative, ordinal, or nominal
-     * data.
-     * - When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type`
-     * property can be either `"quantitative"` (for using a linear bin scale) or [`"ordinal"`
-     * (for using an ordinal bin
-     * scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
-     * - When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the
-     * `type` property can be either `"temporal"` (for using a temporal scale) or [`"ordinal"`
-     * (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
-     * - When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html),
-     * the `type` property refers to the post-aggregation data type. For example, we can
-     * calculate count `distinct` of a categorical field `"cat"` using `{"aggregate":
-     * "distinct", "field": "cat", "type": "quantitative"}`. The `"type"` of the aggregate
-     * output is `"quantitative"`.
-     * - Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they
-     * have exactly the same type as their primary channels (e.g., `x`, `y`).
-     *
-     * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
-     */
-    var LatitudeType;
-    (function (LatitudeType) {
-        LatitudeType["Quantitative"] = "quantitative";
-    })(LatitudeType || (LatitudeType = {}));
-    /**
-     * The encoded field's type of measurement (`"quantitative"`, `"temporal"`, `"ordinal"`, or
-     * `"nominal"`).
-     * It can also be a `"geojson"` type for encoding
-     * ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).
-     *
-     *
-     * __Note:__
-     *
-     * - Data values for a temporal field can be either a date-time string (e.g., `"2015-03-07
-     * 12:32:17"`, `"17:01"`, `"2015-03-16"`. `"2015"`) or a timestamp number (e.g.,
-     * `1552199579097`).
-     * - Data `type` describes the semantics of the data rather than the primitive data types
-     * (`number`, `string`, etc.). The same primitive data type can have different types of
-     * measurement. For example, numeric data can represent quantitative, ordinal, or nominal
-     * data.
-     * - When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type`
-     * property can be either `"quantitative"` (for using a linear bin scale) or [`"ordinal"`
-     * (for using an ordinal bin
-     * scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
-     * - When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the
-     * `type` property can be either `"temporal"` (for using a temporal scale) or [`"ordinal"`
-     * (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
-     * - When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html),
-     * the `type` property refers to the post-aggregation data type. For example, we can
-     * calculate count `distinct` of a categorical field `"cat"` using `{"aggregate":
-     * "distinct", "field": "cat", "type": "quantitative"}`. The `"type"` of the aggregate
-     * output is `"quantitative"`.
-     * - Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they
-     * have exactly the same type as their primary channels (e.g., `x`, `y`).
-     *
-     * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
-     */
-    var TypeForShape;
-    (function (TypeForShape) {
-        TypeForShape["Geojson"] = "geojson";
-        TypeForShape["Nominal"] = "nominal";
-        TypeForShape["Ordinal"] = "ordinal";
-    })(TypeForShape || (TypeForShape = {}));
-    /**
-     * The imputation method to use for the field value of imputed data objects.
-     * One of `value`, `mean`, `median`, `max` or `min`.
-     *
-     * __Default value:__  `"value"`
-     */
-    var ImputeMethod;
-    (function (ImputeMethod) {
-        ImputeMethod["Max"] = "max";
-        ImputeMethod["Mean"] = "mean";
-        ImputeMethod["Median"] = "median";
-        ImputeMethod["Min"] = "min";
-        ImputeMethod["Value"] = "value";
-    })(ImputeMethod || (ImputeMethod = {}));
-    /**
-     * Default stack offset for stackable mark.
-     *
-     * Mode for stacking marks.
-     * __Default value:__ `"zero"`
-     */
-    var StackOffset;
-    (function (StackOffset) {
-        StackOffset["Center"] = "center";
-        StackOffset["Normalize"] = "normalize";
-        StackOffset["Zero"] = "zero";
-    })(StackOffset || (StackOffset = {}));
-    var XEnum;
-    (function (XEnum) {
-        XEnum["Width"] = "width";
-    })(XEnum || (XEnum = {}));
-    var YEnum;
-    (function (YEnum) {
-        YEnum["Height"] = "height";
-    })(YEnum || (YEnum = {}));
-    /**
-     * The mouse cursor used over the mark. Any valid [CSS cursor
-     * type](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor#Values) can be used.
-     */
-    var Cursor;
-    (function (Cursor) {
-        Cursor["Alias"] = "alias";
-        Cursor["AllScroll"] = "all-scroll";
-        Cursor["Auto"] = "auto";
-        Cursor["Cell"] = "cell";
-        Cursor["ColResize"] = "col-resize";
-        Cursor["ContextMenu"] = "context-menu";
-        Cursor["Copy"] = "copy";
-        Cursor["Crosshair"] = "crosshair";
-        Cursor["Default"] = "default";
-        Cursor["EResize"] = "e-resize";
-        Cursor["EwResize"] = "ew-resize";
-        Cursor["Grab"] = "grab";
-        Cursor["Grabbing"] = "grabbing";
-        Cursor["Help"] = "help";
-        Cursor["Move"] = "move";
-        Cursor["NResize"] = "n-resize";
-        Cursor["NSResize"] = "ns-resize";
-        Cursor["NeResize"] = "ne-resize";
-        Cursor["NeswResize"] = "nesw-resize";
-        Cursor["NoDrop"] = "no-drop";
-        Cursor["None"] = "none";
-        Cursor["NotAllowed"] = "not-allowed";
-        Cursor["NwResize"] = "nw-resize";
-        Cursor["NwseResize"] = "nwse-resize";
-        Cursor["Pointer"] = "pointer";
-        Cursor["Progress"] = "progress";
-        Cursor["RowResize"] = "row-resize";
-        Cursor["SEResize"] = "se-resize";
-        Cursor["SResize"] = "s-resize";
-        Cursor["SwResize"] = "sw-resize";
-        Cursor["Text"] = "text";
-        Cursor["VerticalText"] = "vertical-text";
-        Cursor["WResize"] = "w-resize";
-        Cursor["Wait"] = "wait";
-        Cursor["ZoomIn"] = "zoom-in";
-        Cursor["ZoomOut"] = "zoom-out";
-    })(Cursor || (Cursor = {}));
-    /**
-     * The direction of the text. One of `"ltr"` (left-to-right) or `"rtl"` (right-to-left).
-     * This property determines on which side is truncated in response to the limit parameter.
-     *
-     * __Default value:__ `"ltr"`
-     */
-    var Dir;
-    (function (Dir) {
-        Dir["LTR"] = "ltr";
-        Dir["RTL"] = "rtl";
-    })(Dir || (Dir = {}));
-    /**
-     * The line interpolation method to use for line and area marks. One of the following:
-     * - `"linear"`: piecewise linear segments, as in a polyline.
-     * - `"linear-closed"`: close the linear segments to form a polygon.
-     * - `"step"`: alternate between horizontal and vertical segments, as in a step function.
-     * - `"step-before"`: alternate between vertical and horizontal segments, as in a step
-     * function.
-     * - `"step-after"`: alternate between horizontal and vertical segments, as in a step
-     * function.
-     * - `"basis"`: a B-spline, with control point duplication on the ends.
-     * - `"basis-open"`: an open B-spline; may not intersect the start or end.
-     * - `"basis-closed"`: a closed B-spline, as in a loop.
-     * - `"cardinal"`: a Cardinal spline, with control point duplication on the ends.
-     * - `"cardinal-open"`: an open Cardinal spline; may not intersect the start or end, but
-     * will intersect other control points.
-     * - `"cardinal-closed"`: a closed Cardinal spline, as in a loop.
-     * - `"bundle"`: equivalent to basis, except the tension parameter is used to straighten the
-     * spline.
-     * - `"monotone"`: cubic interpolation that preserves monotonicity in y.
-     *
-     * The line interpolation method for the error band. One of the following:
-     * - `"linear"`: piecewise linear segments, as in a polyline.
-     * - `"linear-closed"`: close the linear segments to form a polygon.
-     * - `"step"`: a piecewise constant function (a step function) consisting of alternating
-     * horizontal and vertical lines. The y-value changes at the midpoint of each pair of
-     * adjacent x-values.
-     * - `"step-before"`: a piecewise constant function (a step function) consisting of
-     * alternating horizontal and vertical lines. The y-value changes before the x-value.
-     * - `"step-after"`: a piecewise constant function (a step function) consisting of
-     * alternating horizontal and vertical lines. The y-value changes after the x-value.
-     * - `"basis"`: a B-spline, with control point duplication on the ends.
-     * - `"basis-open"`: an open B-spline; may not intersect the start or end.
-     * - `"basis-closed"`: a closed B-spline, as in a loop.
-     * - `"cardinal"`: a Cardinal spline, with control point duplication on the ends.
-     * - `"cardinal-open"`: an open Cardinal spline; may not intersect the start or end, but
-     * will intersect other control points.
-     * - `"cardinal-closed"`: a closed Cardinal spline, as in a loop.
-     * - `"bundle"`: equivalent to basis, except the tension parameter is used to straighten the
-     * spline.
-     * - `"monotone"`: cubic interpolation that preserves monotonicity in y.
-     */
-    var Interpolate;
-    (function (Interpolate) {
-        Interpolate["Basis"] = "basis";
-        Interpolate["BasisClosed"] = "basis-closed";
-        Interpolate["BasisOpen"] = "basis-open";
-        Interpolate["Bundle"] = "bundle";
-        Interpolate["Cardinal"] = "cardinal";
-        Interpolate["CardinalClosed"] = "cardinal-closed";
-        Interpolate["CardinalOpen"] = "cardinal-open";
-        Interpolate["Linear"] = "linear";
-        Interpolate["LinearClosed"] = "linear-closed";
-        Interpolate["Monotone"] = "monotone";
-        Interpolate["Step"] = "step";
-        Interpolate["StepAfter"] = "step-after";
-        Interpolate["StepBefore"] = "step-before";
-    })(Interpolate || (Interpolate = {}));
-    /**
-     * The stroke cap for line ending style. One of `"butt"`, `"round"`, or `"square"`.
-     *
-     * __Default value:__ `"square"`
-     */
-    var StrokeCap;
-    (function (StrokeCap) {
-        StrokeCap["Butt"] = "butt";
-        StrokeCap["Round"] = "round";
-        StrokeCap["Square"] = "square";
-    })(StrokeCap || (StrokeCap = {}));
-    /**
-     * The stroke line join method. One of `"miter"`, `"round"` or `"bevel"`.
-     *
-     * __Default value:__ `"miter"`
-     */
-    var StrokeJoin;
-    (function (StrokeJoin) {
-        StrokeJoin["Bevel"] = "bevel";
-        StrokeJoin["Miter"] = "miter";
-        StrokeJoin["Round"] = "round";
-    })(StrokeJoin || (StrokeJoin = {}));
-    var Content;
-    (function (Content) {
-        Content["Data"] = "data";
-        Content["Encoding"] = "encoding";
-    })(Content || (Content = {}));
-    /**
-     * The extent of the band. Available options include:
-     * - `"ci"`: Extend the band to the confidence interval of the mean.
-     * - `"stderr"`: The size of band are set to the value of standard error, extending from the
-     * mean.
-     * - `"stdev"`: The size of band are set to the value of standard deviation, extending from
-     * the mean.
-     * - `"iqr"`: Extend the band to the q1 and q3.
-     *
-     * __Default value:__ `"stderr"`.
-     *
-     * The extent of the rule. Available options include:
-     * - `"ci"`: Extend the rule to the confidence interval of the mean.
-     * - `"stderr"`: The size of rule are set to the value of standard error, extending from the
-     * mean.
-     * - `"stdev"`: The size of rule are set to the value of standard deviation, extending from
-     * the mean.
-     * - `"iqr"`: Extend the rule to the q1 and q3.
-     *
-     * __Default value:__ `"stderr"`.
-     */
-    var ExtentExtent;
-    (function (ExtentExtent) {
-        ExtentExtent["Ci"] = "ci";
-        ExtentExtent["Iqr"] = "iqr";
-        ExtentExtent["MinMax"] = "min-max";
-        ExtentExtent["Stderr"] = "stderr";
-        ExtentExtent["Stdev"] = "stdev";
-    })(ExtentExtent || (ExtentExtent = {}));
-    var PointEnum;
-    (function (PointEnum) {
-        PointEnum["Transparent"] = "transparent";
-    })(PointEnum || (PointEnum = {}));
-    /**
-     * The mark type. This could a primitive mark type
-     * (one of `"bar"`, `"circle"`, `"square"`, `"tick"`, `"line"`,
-     * `"area"`, `"point"`, `"geoshape"`, `"rule"`, and `"text"`)
-     * or a composite mark type (`"boxplot"`, `"errorband"`, `"errorbar"`).
-     *
-     * All types of primitive marks.
-     */
-    var Mark;
-    (function (Mark) {
-        Mark["Area"] = "area";
-        Mark["Bar"] = "bar";
-        Mark["Boxplot"] = "boxplot";
-        Mark["Circle"] = "circle";
-        Mark["Errorband"] = "errorband";
-        Mark["Errorbar"] = "errorbar";
-        Mark["Geoshape"] = "geoshape";
-        Mark["Line"] = "line";
-        Mark["Point"] = "point";
-        Mark["Rect"] = "rect";
-        Mark["Rule"] = "rule";
-        Mark["Square"] = "square";
-        Mark["Text"] = "text";
-        Mark["Tick"] = "tick";
-        Mark["Trail"] = "trail";
-    })(Mark || (Mark = {}));
-    /**
-     * The cartographic projection to use. This value is case-insensitive, for example
-     * `"albers"` and `"Albers"` indicate the same projection type. You can find all valid
-     * projection types [in the
-     * documentation](https://vega.github.io/vega-lite/docs/projection.html#projection-types).
-     *
-     * __Default value:__ `mercator`
-     */
-    var ProjectionType;
-    (function (ProjectionType) {
-        ProjectionType["Albers"] = "albers";
-        ProjectionType["AlbersUsa"] = "albersUsa";
-        ProjectionType["AzimuthalEqualArea"] = "azimuthalEqualArea";
-        ProjectionType["AzimuthalEquidistant"] = "azimuthalEquidistant";
-        ProjectionType["ConicConformal"] = "conicConformal";
-        ProjectionType["ConicEqualArea"] = "conicEqualArea";
-        ProjectionType["ConicEquidistant"] = "conicEquidistant";
-        ProjectionType["Equirectangular"] = "equirectangular";
-        ProjectionType["Gnomonic"] = "gnomonic";
-        ProjectionType["Identity"] = "identity";
-        ProjectionType["Mercator"] = "mercator";
-        ProjectionType["NaturalEarth1"] = "naturalEarth1";
-        ProjectionType["Orthographic"] = "orthographic";
-        ProjectionType["Stereographic"] = "stereographic";
-        ProjectionType["TransverseMercator"] = "transverseMercator";
-    })(ProjectionType || (ProjectionType = {}));
-    var ResolveMode;
-    (function (ResolveMode) {
-        ResolveMode["Independent"] = "independent";
-        ResolveMode["Shared"] = "shared";
-    })(ResolveMode || (ResolveMode = {}));
-    /**
-     * Establishes a two-way binding between the interval selection and the scales
-     * used within the same view. This allows a user to interactively pan and
-     * zoom the view.
-     *
-     * __See also:__ [`bind`](https://vega.github.io/vega-lite/docs/bind.html) documentation.
-     */
-    var BindEnum;
-    (function (BindEnum) {
-        BindEnum["Scales"] = "scales";
-    })(BindEnum || (BindEnum = {}));
-    /**
-     * By default, `all` data values are considered to lie within an empty selection.
-     * When set to `none`, empty selections contain no data values.
-     */
-    var Empty;
-    (function (Empty) {
-        Empty["All"] = "all";
-        Empty["None"] = "none";
-    })(Empty || (Empty = {}));
-    /**
-     * With layered and multi-view displays, a strategy that determines how
-     * selections' data queries are resolved when applied in a filter transform,
-     * conditional encoding rule, or scale domain.
-     *
-     * __See also:__ [`resolve`](https://vega.github.io/vega-lite/docs/selection-resolve.html)
-     * documentation.
-     */
-    var SelectionResolution;
-    (function (SelectionResolution) {
-        SelectionResolution["Global"] = "global";
-        SelectionResolution["Intersect"] = "intersect";
-        SelectionResolution["Union"] = "union";
-    })(SelectionResolution || (SelectionResolution = {}));
-    /**
-     * Determines the default event processing and data query for the selection. Vega-Lite
-     * currently supports three selection types:
-     *
-     * - `single` -- to select a single discrete data value on `click`.
-     * - `multi` -- to select multiple discrete data value; the first value is selected on
-     * `click` and additional values toggled on shift-`click`.
-     * - `interval` -- to select a continuous range of data values on `drag`.
-     */
-    var SelectionDefType;
-    (function (SelectionDefType) {
-        SelectionDefType["Interval"] = "interval";
-        SelectionDefType["Multi"] = "multi";
-        SelectionDefType["Single"] = "single";
-    })(SelectionDefType || (SelectionDefType = {}));
-    /**
-     * The reference frame for the anchor position, one of `"bounds"` (to anchor relative to the
-     * full bounding box) or `"group"` (to anchor relative to the group width or height).
-     */
-    var TitleFrame;
-    (function (TitleFrame) {
-        TitleFrame["Bounds"] = "bounds";
-        TitleFrame["Group"] = "group";
-    })(TitleFrame || (TitleFrame = {}));
-    /**
-     * Default title orientation (`"top"`, `"bottom"`, `"left"`, or `"right"`)
-     */
-    var TitleOrient;
-    (function (TitleOrient) {
-        TitleOrient["Bottom"] = "bottom";
-        TitleOrient["Left"] = "left";
-        TitleOrient["None"] = "none";
-        TitleOrient["Right"] = "right";
-        TitleOrient["Top"] = "top";
-    })(TitleOrient || (TitleOrient = {}));
-    /**
-     * The window or aggregation operation to apply within a window (e.g.,`rank`, `lead`, `sum`,
-     * `average` or `count`). See the list of all supported operations
-     * [here](https://vega.github.io/vega-lite/docs/window.html#ops).
-     *
-     * An [aggregate operation](https://vega.github.io/vega-lite/docs/aggregate.html#ops) to
-     * perform on the field prior to sorting (e.g., `"count"`, `"mean"` and `"median"`).
-     * An aggregation is required when there are multiple values of the sort field for each
-     * encoded data field.
-     * The input data objects will be aggregated, grouped by the encoded data field.
-     *
-     * For a full list of operations, please see the documentation for
-     * [aggregate](https://vega.github.io/vega-lite/docs/aggregate.html#ops).
-     *
-     * __Default value:__ `"sum"` for stacked plots. Otherwise, `"mean"`.
-     *
-     * The aggregation operation to apply to the fields (e.g., sum, average or count).
-     * See the [full list of supported aggregation
-     * operations](https://vega.github.io/vega-lite/docs/aggregate.html#ops)
-     * for more information.
-     *
-     * The aggregation operation to apply (e.g., sum, average or count). See the list of all
-     * supported operations [here](https://vega.github.io/vega-lite/docs/aggregate.html#ops).
-     */
-    var Op;
-    (function (Op) {
-        Op["Argmax"] = "argmax";
-        Op["Argmin"] = "argmin";
-        Op["Average"] = "average";
-        Op["Ci0"] = "ci0";
-        Op["Ci1"] = "ci1";
-        Op["Count"] = "count";
-        Op["CumeDist"] = "cume_dist";
-        Op["DenseRank"] = "dense_rank";
-        Op["Distinct"] = "distinct";
-        Op["FirstValue"] = "first_value";
-        Op["Lag"] = "lag";
-        Op["LastValue"] = "last_value";
-        Op["Lead"] = "lead";
-        Op["Max"] = "max";
-        Op["Mean"] = "mean";
-        Op["Median"] = "median";
-        Op["Min"] = "min";
-        Op["Missing"] = "missing";
-        Op["NthValue"] = "nth_value";
-        Op["Ntile"] = "ntile";
-        Op["PercentRank"] = "percent_rank";
-        Op["Q1"] = "q1";
-        Op["Q3"] = "q3";
-        Op["Rank"] = "rank";
-        Op["RowNumber"] = "row_number";
-        Op["Stderr"] = "stderr";
-        Op["Stdev"] = "stdev";
-        Op["Stdevp"] = "stdevp";
-        Op["Sum"] = "sum";
-        Op["Valid"] = "valid";
-        Op["Values"] = "values";
-        Op["Variance"] = "variance";
-        Op["Variancep"] = "variancep";
-    })(Op || (Op = {}));
-    var ExtentEnum;
-    (function (ExtentEnum) {
-        ExtentEnum["MinMax"] = "min-max";
-    })(ExtentEnum || (ExtentEnum = {}));
-    /**
-     * The extent of the band. Available options include:
-     * - `"ci"`: Extend the band to the confidence interval of the mean.
-     * - `"stderr"`: The size of band are set to the value of standard error, extending from the
-     * mean.
-     * - `"stdev"`: The size of band are set to the value of standard deviation, extending from
-     * the mean.
-     * - `"iqr"`: Extend the band to the q1 and q3.
-     *
-     * __Default value:__ `"stderr"`.
-     *
-     * The extent of the rule. Available options include:
-     * - `"ci"`: Extend the rule to the confidence interval of the mean.
-     * - `"stderr"`: The size of rule are set to the value of standard error, extending from the
-     * mean.
-     * - `"stdev"`: The size of rule are set to the value of standard deviation, extending from
-     * the mean.
-     * - `"iqr"`: Extend the rule to the q1 and q3.
-     *
-     * __Default value:__ `"stderr"`.
-     */
-    var ErrorbandExtent;
-    (function (ErrorbandExtent) {
-        ErrorbandExtent["Ci"] = "ci";
-        ErrorbandExtent["Iqr"] = "iqr";
-        ErrorbandExtent["Stderr"] = "stderr";
-        ErrorbandExtent["Stdev"] = "stdev";
-    })(ErrorbandExtent || (ErrorbandExtent = {}));
-    /**
-     * Defines how Vega-Lite generates title for fields.  There are three possible styles:
-     * - `"verbal"` (Default) - displays function in a verbal style (e.g., "Sum of field",
-     * "Year-month of date", "field (binned)").
-     * - `"function"` - displays function using parentheses and capitalized texts (e.g.,
-     * "SUM(field)", "YEARMONTH(date)", "BIN(field)").
-     * - `"plain"` - displays only the field name without functions (e.g., "field", "date",
-     * "field").
-     */
-    var FieldTitle;
-    (function (FieldTitle) {
-        FieldTitle["Functional"] = "functional";
-        FieldTitle["Plain"] = "plain";
-        FieldTitle["Verbal"] = "verbal";
-    })(FieldTitle || (FieldTitle = {}));
-    var InvalidValues;
-    (function (InvalidValues) {
-        InvalidValues["Filter"] = "filter";
-    })(InvalidValues || (InvalidValues = {}));
-
-    function AesParamsSize(gsSize, vlMark) {
-        if (gsSize)
-            if (vlMark == Mark.Point)
-                return gsSize * 20;
-    }
-    function AesParamsShape(gsShape) {
-        if (gsShape) {
-            var gs2vlPointShape = {
-                0: 'circle',
-                1: 'square',
-                3: 'cross',
-                4: 'diamond',
-                5: 'triangle-up',
-                6: 'triangle-down',
-                7: 'triangle-right',
-                8: 'triangle-left'
-            };
-            return gs2vlPointShape[gsShape % 8];
-        }
-    }
-
-    function getEncodingKey(geom) {
-        var EncodingKey = {
-            GeomPoint: getEncodingKeyGeomPoint,
-            GeomBar: getEncodingKeyGeomBar
-        };
-        var fn = EncodingKey[geom.geom.class];
-        if (fn)
-            return fn();
-        else
-            return DefaultEncodingKey;
-    }
-    var VlKey;
-    (function (VlKey) {
-        VlKey["x"] = "x";
-        VlKey["y"] = "y";
-        VlKey["Stroke"] = "stroke";
-        VlKey["Size"] = "size";
-        VlKey["Shape"] = "shape";
-        VlKey["StrokeWidth"] = "strokeWidth";
-        VlKey["Opacity"] = "opacity";
-        VlKey["Fill"] = "fill";
-    })(VlKey || (VlKey = {}));
-    var GsKey;
-    (function (GsKey) {
-        GsKey["X"] = "x";
-        GsKey["Y"] = "y";
-        GsKey["Colour"] = "colour";
-        GsKey["Size"] = "size";
-        GsKey["Shape"] = "shape";
-        GsKey["Stroke"] = "stroke";
-        GsKey["Alpha"] = "alpha";
-        GsKey["Fill"] = "fill";
-    })(GsKey || (GsKey = {}));
-    function getEncodingKeyGeomPoint() {
-        var PointEncodingKey = {
-            x: GsKey.X,
-            y: GsKey.Y,
-            stroke: GsKey.Colour,
-            size: GsKey.Size,
-            shape: GsKey.Shape,
-            strokeWidth: GsKey.Stroke,
-            opacity: GsKey.Alpha,
-            fill: GsKey.Fill
-        };
-        return PointEncodingKey;
-    }
-    function getEncodingKeyGeomBar() {
-        // logic for this function
-        return DefaultEncodingKey;
-    }
-    var DefaultEncodingKey = {
-        x: GsKey.X,
-        y: GsKey.Y,
-        stroke: GsKey.Colour,
-        size: GsKey.Size,
-        shape: GsKey.Shape,
-        strokeWidth: GsKey.Stroke,
-        opacity: GsKey.Alpha,
-        fill: GsKey.Fill
-    };
-
-    function TranslateEncoding(gsLayer, gsMetadata, vlMark) {
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        var encodingKey = getEncodingKey({ geom: gsLayer.geom, geom_params: gsLayer.geom_params });
-        var vlEncoding = EncodingMapping(gsLayer.mapping, gsMetadata, encodingKey);
-        vlEncoding = EncodingAesParams(vlEncoding, gsLayer.aes_params, vlMark);
-        return vlEncoding;
-    }
-    function EncodingMapping(gsMapping, gsMetadata, encodingKey) {
-        var vlEncoding = {
-            x: MappingX(gsMapping[encodingKey.x], gsMetadata),
-            y: MappingY(gsMapping[encodingKey.y], gsMetadata),
-            size: MappingNumber(gsMapping[encodingKey.size], gsMetadata),
-            shape: MappingShape(gsMapping[encodingKey.shape], gsMetadata),
-            stroke: MappingString(gsMapping[encodingKey.stroke], gsMetadata),
-            strokeWidth: MappingNumber(gsMapping[encodingKey.strokeWidth], gsMetadata),
-            opacity: MappingNumber(gsMapping[encodingKey.opacity], gsMetadata),
-            fill: MappingString(gsMapping[encodingKey.fill], gsMetadata)
-        };
-        return vlEncoding;
-    }
-    function MappingX(gsX, gsMetadata) {
-        if (!gsX)
-            return undefined;
-        var vlField = gsX.field;
-        var vlType = gsMetadata[vlField].type;
-        vlField = vlField.replace('.', '\\.');
-        var vlXClass = {
-            field: vlField,
-            type: vlType
-        };
-        return vlXClass;
-    }
-    function MappingY(gsY, gsMetadata) {
-        if (!gsY)
-            return undefined;
-        var vlField = gsY.field;
-        var vlType = gsMetadata[vlField].type;
-        vlField = vlField.replace('.', '\\.');
-        var vlYClass = {
-            field: vlField,
-            type: vlType
-        };
-        return vlYClass;
-    }
-    function MappingNumber(gsEncodingNumber, gsMetadata) {
-        if (!gsEncodingNumber)
-            return undefined;
-        var vlField = gsEncodingNumber.field;
-        var VlType = gsMetadata[vlField].type;
-        vlField = vlField.replace('.', '\\.');
-        var vlEncodingNumber = {
-            field: vlField,
-            type: VlType
-        };
-        return vlEncodingNumber;
-    }
-    function MappingShape(gsEncodingShape, gsMetadata) {
-        if (!gsEncodingShape)
-            return undefined;
-        var vlField = gsEncodingShape.field;
-        var VlType = gsMetadata[vlField].type;
-        vlField = vlField.replace('.', '\\.');
-        var vlEncodingShape = {
-            field: vlField,
-            type: VlType
-        };
-        return vlEncodingShape;
-    }
-    function MappingString(gsEncodingString, gsMetadata) {
-        if (!gsEncodingString)
-            return undefined;
-        var vlField = gsEncodingString.field;
-        var VlType = gsMetadata[vlField].type;
-        vlField = vlField.replace('.', '\\.');
-        var vlEncodingString = {
-            field: vlField,
-            type: VlType
-        };
-        return vlEncodingString;
-    }
-    function EncodingAesParams(vlEncoding, gsAesParams, vlMark) {
-        if (gsAesParams.size) {
-            vlEncoding.size = { value: AesParamsSize(gsAesParams.size, vlMark) };
-        }
-        if (gsAesParams.shape) {
-            vlEncoding.shape = { value: AesParamsShape(gsAesParams.shape) };
-        }
-        if (gsAesParams.colour) {
-            vlEncoding.stroke = { value: gsAesParams.colour };
-        }
-        if (gsAesParams.stroke) {
-            vlEncoding.strokeWidth = { value: gsAesParams.stroke };
-        }
-        if (gsAesParams.alpha) {
-            vlEncoding.opacity = { value: gsAesParams.alpha };
-        }
-        if (gsAesParams.fill) {
-            vlEncoding.fill = { value: gsAesParams.fill };
-        }
-        return vlEncoding;
-    }
-
-    /**
-     * @param gsLayer
-     * @param labels
-     * @param data
-     * @param scales
-     */
-    function TranslateLayer(gsData, gsLayer) {
-        var gsMetadata = GetMetadata(gsData, gsLayer);
-        var vlLayer = StartLayer(gsLayer, gsMetadata);
-        return vlLayer;
-    }
-    function GetMetadata(gsData, gsLayer) {
-        return gsData[gsLayer.data].metadata;
-    }
-    function StartLayer(gsLayer, gsMetadata) {
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        var vlMark = TranslateMark({ geom: gsLayer.geom, geom_params: gsLayer.geom_params });
-        var vlLayer = {
-            data: {
-                name: gsLayer.data
-            },
-            mark: vlMark,
-            encoding: TranslateEncoding(gsLayer, gsMetadata, vlMark)
-        };
-        return vlLayer;
-    }
-    function TranslateMark(geom) {
-        var mark;
-        if (geom.geom.class == 'GeomPoint') {
-            mark = Mark.Point;
-        }
-        else {
-            throw new Error('geom.class can only be `GeomPoint`');
-        }
-        return mark;
-    }
-
-    function TranslateLayers(gsData, gsLayers, gsScales, gsLabels) {
-        if (gsLayers.length == 0) {
-            throw new Error('`Layers` should have at least 1 `Layer`');
-        }
-        var vlLayers = [];
-        gsLayers.map(function (gslayer) {
-            vlLayers.push(TranslateLayer(gsData, gslayer));
-        });
-        vlLayers = LayersLabels(vlLayers, gsLabels);
-        vlLayers = LayersScales(vlLayers, gsScales);
-        return vlLayers;
-    }
-    //ToDo: if we use Encodingkey, We should use GeomType? But every layer has different GeomType
-    //for Each and map don't support break?
-    function LayersLabels(vlLayers, gsLabels) {
-        for (var key in DefaultEncodingKey) {
-            if (gsLabels[DefaultEncodingKey[key]]) {
-                for (var _i = 0, vlLayers_1 = vlLayers; _i < vlLayers_1.length; _i++) {
-                    var vlLayer = vlLayers_1[_i];
-                    if (vlLayer.encoding) {
-                        var vlLayerEncodingValue = vlLayer.encoding[key];
-                        if (vlLayerEncodingValue) {
-                            vlLayerEncodingValue.title = gsLabels[DefaultEncodingKey[key]];
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        return vlLayers;
-    }
-    function LayersScales(vlLayers, gsScales) {
-        gsScales.map(function (gsScale) {
-            vlLayers[0] = LayerScale(vlLayers[0], gsScale);
-        });
-        return vlLayers;
-    }
-    /**
-     * TODO: Use methoad loading to add four scales
-     * @param vlLayer
-     * @param gsScale
-     */
-    function LayerScale(vlLayer, gsScale) {
-        if (!vlLayer.encoding)
-            return vlLayer;
-        if (gsScale.aesthetics[0] == 'x' && vlLayer.encoding.x) {
-            vlLayer.encoding.x.scale = gsScale.transform;
-        }
-        if (gsScale.aesthetics[0] == 'y' && vlLayer.encoding.y) {
-            vlLayer.encoding.y.scale = gsScale.transform;
-        }
-        return vlLayer;
-    }
-
     var $ref = "#/definitions/TopLevelSpec";
     var $schema = "http://json-schema.org/draft-07/schema#";
     var definitions = {
@@ -1381,7 +53,7 @@
     		additionalProperties: false,
     		properties: {
     			metadata: {
-    				$ref: "#/definitions/Metadata"
+    				$ref: "#/definitions/MetadataObject"
     			},
     			observations: {
     				$ref: "#/definitions/InlineDataset"
@@ -1393,24 +65,12 @@
     		],
     		type: "object"
     	},
-    	Datasets: {
+    	DatasetObject: {
     		additionalProperties: {
     			$ref: "#/definitions/Dataset"
     		},
     		description: "The datasets should have at least one dataset",
     		minProperties: 1,
-    		type: "object"
-    	},
-    	Encoding: {
-    		additionalProperties: false,
-    		properties: {
-    			field: {
-    				type: "string"
-    			}
-    		},
-    		required: [
-    			"field"
-    		],
     		type: "object"
     	},
     	Facet: {
@@ -1463,7 +123,7 @@
     			}
     		]
     	},
-    	Labels: {
+    	LabelObject: {
     		additionalProperties: false,
     		properties: {
     			alpha: {
@@ -1535,7 +195,264 @@
     						type: "object"
     					},
     					mapping: {
-    						$ref: "#/definitions/Mapping"
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatIdentity"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomPoint"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatCount"
+    								],
+    								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								properties: {
+    									weight: {
+    										type: "number"
+    									},
+    									y: {
+    										$ref: "#/definitions/MappingStat"
+    									}
+    								},
+    								required: [
+    									"y",
+    									"weight"
+    								],
+    								type: "object"
+    							}
+    						},
+    						required: [
+    							"class",
+    							"default_aes"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomPoint"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatBoxplot"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							coef: {
+    								type: [
+    									"string",
+    									"number"
+    								]
+    							},
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomBar"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
     					},
     					stat: {
     						additionalProperties: false,
@@ -1613,7 +530,186 @@
     						type: "object"
     					},
     					mapping: {
-    						$ref: "#/definitions/Mapping"
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatCount"
+    								],
+    								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								properties: {
+    									weight: {
+    										type: "number"
+    									},
+    									y: {
+    										$ref: "#/definitions/MappingStat"
+    									}
+    								},
+    								required: [
+    									"y",
+    									"weight"
+    								],
+    								type: "object"
+    							}
+    						},
+    						required: [
+    							"class",
+    							"default_aes"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomBar"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatBoxplot"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							coef: {
+    								type: [
+    									"string",
+    									"number"
+    								]
+    							},
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomBoxplot"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
     					},
     					stat: {
     						additionalProperties: false,
@@ -1653,10 +749,446 @@
     					"stat_params"
     				],
     				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomBoxplot"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatCount"
+    								],
+    								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								properties: {
+    									weight: {
+    										type: "number"
+    									},
+    									y: {
+    										$ref: "#/definitions/MappingStat"
+    									}
+    								},
+    								required: [
+    									"y",
+    									"weight"
+    								],
+    								type: "object"
+    							}
+    						},
+    						required: [
+    							"class",
+    							"default_aes"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomBoxplot"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatBoxplot"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							coef: {
+    								type: [
+    									"string",
+    									"number"
+    								]
+    							},
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomLine"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatIdentity"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomLine"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatCount"
+    								],
+    								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								properties: {
+    									weight: {
+    										type: "number"
+    									},
+    									y: {
+    										$ref: "#/definitions/MappingStat"
+    									}
+    								},
+    								required: [
+    									"y",
+    									"weight"
+    								],
+    								type: "object"
+    							}
+    						},
+    						required: [
+    							"class",
+    							"default_aes"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomLine"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatBoxplot"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							coef: {
+    								type: [
+    									"string",
+    									"number"
+    								]
+    							},
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
     			}
     		]
     	},
-    	Layers: {
+    	LayerArray: {
     		description: "The `Layers` should have at least one layer",
     		items: {
     			$ref: "#/definitions/Layer"
@@ -1665,42 +1197,106 @@
     		type: "array"
     	},
     	Mapping: {
+    		anyOf: [
+    			{
+    				$ref: "#/definitions/MappingField"
+    			},
+    			{
+    				$ref: "#/definitions/MappingFieldExpression"
+    			},
+    			{
+    				$ref: "#/definitions/MappingStat"
+    			},
+    			{
+    				$ref: "#/definitions/MappingStatExpression"
+    			}
+    		]
+    	},
+    	MappingField: {
+    		additionalProperties: false,
+    		properties: {
+    			field: {
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"field"
+    		],
+    		type: "object"
+    	},
+    	MappingFieldExpression: {
+    		additionalProperties: false,
+    		properties: {
+    			field_expression: {
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"field_expression"
+    		],
+    		type: "object"
+    	},
+    	MappingObject: {
     		additionalProperties: false,
     		properties: {
     			alpha: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
     			},
     			colour: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
     			},
     			fill: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
+    			},
+    			group: {
+    				$ref: "#/definitions/Mapping"
     			},
     			shape: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
     			},
     			size: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
     			},
     			stroke: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
+    			},
+    			weight: {
+    				$ref: "#/definitions/Mapping"
     			},
     			x: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
     			},
     			y: {
-    				$ref: "#/definitions/Encoding"
+    				$ref: "#/definitions/Mapping"
     			}
     		},
     		type: "object"
     	},
-    	Metadata: {
-    		additionalProperties: {
-    			$ref: "#/definitions/Metadatum"
+    	MappingStat: {
+    		additionalProperties: false,
+    		properties: {
+    			stat: {
+    				$ref: "#/definitions/StatClass"
+    			}
     		},
+    		required: [
+    			"stat"
+    		],
     		type: "object"
     	},
-    	Metadatum: {
+    	MappingStatExpression: {
+    		additionalProperties: false,
+    		properties: {
+    			stat_expression: {
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"stat_expression"
+    		],
+    		type: "object"
+    	},
+    	Metadata: {
     		additionalProperties: false,
     		properties: {
     			levels: {
@@ -1718,7 +1314,22 @@
     		],
     		type: "object"
     	},
+    	MetadataObject: {
+    		additionalProperties: {
+    			$ref: "#/definitions/Metadata"
+    		},
+    		type: "object"
+    	},
     	Scale: {
+    		$ref: "#/definitions/ScaleContinuousPosition"
+    	},
+    	ScaleArray: {
+    		items: {
+    			$ref: "#/definitions/Scale"
+    		},
+    		type: "array"
+    	},
+    	ScaleContinuousPosition: {
     		additionalProperties: false,
     		properties: {
     			aesthetics: {
@@ -1727,30 +1338,21 @@
     				},
     				type: "array"
     			},
-    			name: {
+    			"class": {
+    				"enum": [
+    					"ScaleContinuousPosition"
+    				],
     				type: "string"
     			},
-    			transform: {
-    				$ref: "#/definitions/Transform"
+    			name: {
+    				type: "string"
     			}
     		},
     		required: [
-    			"aesthetics",
-    			"transform"
+    			"class",
+    			"aesthetics"
     		],
     		type: "object"
-    	},
-    	ScaleType: {
-    		"enum": [
-    			"log"
-    		],
-    		type: "string"
-    	},
-    	Scales: {
-    		items: {
-    			$ref: "#/definitions/Scale"
-    		},
-    		type: "array"
     	},
     	StandardType: {
     		"enum": [
@@ -1761,42 +1363,11 @@
     		],
     		type: "string"
     	},
-    	StatIdentity: {
-    		additionalProperties: false,
-    		properties: {
-    			stat: {
-    				additionalProperties: false,
-    				properties: {
-    					"class": {
-    						"enum": [
-    							"StatIdentity"
-    						],
-    						type: "string"
-    					}
-    				},
-    				required: [
-    					"class"
-    				],
-    				type: "object"
-    			},
-    			stat_params: {
-    				additionalProperties: false,
-    				properties: {
-    					"na.rm": {
-    						type: "boolean"
-    					}
-    				},
-    				required: [
-    					"na.rm"
-    				],
-    				type: "object"
-    			}
-    		},
-    		required: [
-    			"stat",
-    			"stat_params"
+    	StatClass: {
+    		"enum": [
+    			"StatIdentity"
     		],
-    		type: "object"
+    		type: "string"
     	},
     	TopLevelSpec: {
     		additionalProperties: false,
@@ -1805,19 +1376,19 @@
     				$ref: "#/definitions/Coord"
     			},
     			data: {
-    				$ref: "#/definitions/Datasets"
+    				$ref: "#/definitions/DatasetObject"
     			},
     			facet: {
     				$ref: "#/definitions/Facet"
     			},
     			labels: {
-    				$ref: "#/definitions/Labels"
+    				$ref: "#/definitions/LabelObject"
     			},
     			layers: {
-    				$ref: "#/definitions/Layers"
+    				$ref: "#/definitions/LayerArray"
     			},
     			scales: {
-    				$ref: "#/definitions/Scales"
+    				$ref: "#/definitions/ScaleArray"
     			}
     		},
     		required: [
@@ -1827,22 +1398,6 @@
     			"labels",
     			"coordinates",
     			"facet"
-    		],
-    		type: "object"
-    	},
-    	Transform: {
-    		additionalProperties: false,
-    		properties: {
-    			base: {
-    				type: "number"
-    			},
-    			type: {
-    				$ref: "#/definitions/ScaleType"
-    			}
-    		},
-    		required: [
-    			"type",
-    			"base"
     		],
     		type: "object"
     	}
@@ -8989,6 +8544,10 @@
         schemaId: 'auto'
     });
     var gsValidate = ajv$1.compile(ggSpecJsonSchema);
+    /**
+     * This function is used to validate ggSpec
+     * @param spec
+     */
     function validateGs(spec) {
         var valid = gsValidate(spec);
         var errors = gsValidate.errors;
@@ -8999,57 +8558,2322 @@
             });
         return valid;
     }
+    // https://stackoverflow.com/a/237176
+    /**
+     * Determine if an array contains an object
+     *
+     * @remarks
+     * **Called by**
+     * a *lot* of functions
+     *
+     * @param a - `Array`
+     * @param obj - `any`
+     *
+     * @returns `boolean`
+     */
+    function contains$1(a, obj) {
+        var i = a.length;
+        while (i--) {
+            if (a[i] === obj) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * Make a field-name safe
+     *
+     * @remarks
+     * Dots have a special meaning in Vega-Lite field-names, so if
+     * we use them as variable names, we have to escape any dots.
+     *
+     *
+     * @param name - `string`
+     *
+     * @returns `string`
+     */
+    function fieldName(name) {
+        // use regular expression to replaces all matches
+        return name.replace(/[.]/g, '\\.');
+    }
+    /**
+     * Check if an object has a key
+     *
+     * @param obj
+     * @param key
+     */
+    function hasKey(obj, key) {
+        return Object.prototype.hasOwnProperty.call(obj, key);
+    }
 
     var vlschema = "https://vega.github.io/schema/vega-lite/v3.json";
 
+    //NOTE @wenyu: After discussion with @ian, we decide to use GG.DatasetsObject to substitute GG.Datasets
     /**
-     * Retures vlSpec
-     * Here is an example of comments in Typescript. For now vscode can generate `Jsdoc` automaticly.
-     * And `Tsdoc` is under active developing. ***Typedoc*** supports both `Jsdoc` and `Tsdoc`
+     * Create datasets object
      *
      * @remarks
-     * This method is ...
-     * @param ggJson - Input ggSpec
+     * For each key-value pair in `ggDatasetObject`, a key-value pair is created
+     * in the return object.
      *
-     * @see {@link https://github.com/Microsoft/TypeScript/issues/16498}
+     * **Called by**
+     * @see topLevelSpec
      *
-     * @returns vlSpec
+     * @param ggDatasetObject - `GG.DatasetObject`, key-value pairs of ggspec datasets
      *
-     * @beta
+     * @returns `{[key: string]: VL.InlineDataset}`, object containing Vega-Lite inline-datasets
+     *
      */
-    function gs2vl(ggJson) {
-        validateGs(ggJson);
-        var gsSpec = ggJson;
-        return gs2vlValidated(gsSpec);
-    }
-    function gs2vlValidated(gsSpec) {
-        var gsData = gsSpec.data;
-        var gsLayers = gsSpec.layers;
-        var gsScales = gsSpec.scales;
-        var gsLabels = gsSpec.labels;
-        var vlSpec = {
-            $schema: vlschema,
-            title: TranslateTitle(gsLabels),
-            datasets: TranslateDatasets(gsData),
-            layer: TranslateLayers(gsData, gsLayers, gsScales, gsLabels)
-        };
-        return vlSpec;
-    }
-    function TranslateTitle(gsLabels) {
-        return gsLabels['title'];
-    }
-    function TranslateDatasets(gsData) {
-        var datasets = {};
-        for (var dataset in gsData) {
-            datasets[dataset] = gsData[dataset].observations;
+    function datasetObject(ggDatasetObject) {
+        // validate
+        if (Object.keys(ggDatasetObject).length == 0) {
+            // error messages should refer to the ggplot object; end-user is not expected to know
+            // about ggspec/ggschema
+            throw new Error('ggplot object has no datasets, requires at least one dataset');
         }
-        if (Object.keys(datasets).length == 0) {
-            throw new Error('gsSpec.datasets should have at least 1 dataset');
+        // translate
+        var datasetObject = {};
+        // iterate over object: https://stackoverflow.com/a/684692
+        //NOTE @wenyu: https://eslint.org/docs/rules/no-prototype-builtins
+        for (var dataName in ggDatasetObject) {
+            if (hasKey(ggDatasetObject, dataName)) {
+                datasetObject[dataName] = ggDatasetObject[dataName].observations;
+            }
         }
-        return datasets;
+        return datasetObject;
     }
 
-    exports.gs2vl = gs2vl;
+    /**
+     * The alignment to apply to symbol legends rows and columns. The supported string values
+     * are `"all"`, `"each"` (the default), and `none`. For more information, see the [grid
+     * layout documentation](https://vega.github.io/vega/docs/layout).
+     *
+     * __Default value:__ `"each"`.
+     */
+    var LayoutAlign;
+    (function (LayoutAlign) {
+        LayoutAlign["All"] = "all";
+        LayoutAlign["Each"] = "each";
+        LayoutAlign["None"] = "none";
+    })(LayoutAlign || (LayoutAlign = {}));
+    /**
+     * Determines how size calculation should be performed, one of `"content"` or `"padding"`.
+     * The default setting (`"content"`) interprets the width and height settings as the data
+     * rectangle (plotting) dimensions, to which padding is then added. In contrast, the
+     * `"padding"` setting includes the padding within the view size calculations, such that the
+     * width and height settings indicate the **total** intended size of the view.
+     *
+     * __Default value__: `"content"`
+     */
+    var Contains;
+    (function (Contains) {
+        Contains["Content"] = "content";
+        Contains["Padding"] = "padding";
+    })(Contains || (Contains = {}));
+    /**
+     * The sizing format type. One of `"pad"`, `"fit"` or `"none"`. See the [autosize
+     * type](https://vega.github.io/vega-lite/docs/size.html#autosize) documentation for
+     * descriptions of each.
+     *
+     * __Default value__: `"pad"`
+     */
+    var AutosizeType;
+    (function (AutosizeType) {
+        AutosizeType["Fit"] = "fit";
+        AutosizeType["None"] = "none";
+        AutosizeType["Pad"] = "pad";
+    })(AutosizeType || (AutosizeType = {}));
+    /**
+     * The bounds calculation method to use for determining the extent of a sub-plot. One of
+     * `full` (the default) or `flush`.
+     *
+     * - If set to `full`, the entire calculated bounds (including axes, title, and legend) will
+     * be used.
+     * - If set to `flush`, only the specified width and height values for the sub-view will be
+     * used. The `flush` setting can be useful when attempting to place sub-plots without axes
+     * or legends into a uniform grid structure.
+     *
+     * __Default value:__ `"full"`
+     */
+    var BoundsEnum;
+    (function (BoundsEnum) {
+        BoundsEnum["Flush"] = "flush";
+        BoundsEnum["Full"] = "full";
+    })(BoundsEnum || (BoundsEnum = {}));
+    /**
+     * Type of input data: `"json"`, `"csv"`, `"tsv"`, `"dsv"`.
+     *
+     * __Default value:__  The default format type is determined by the extension of the file
+     * URL.
+     * If no extension is detected, `"json"` will be used by default.
+     */
+    var DataFormatType;
+    (function (DataFormatType) {
+        DataFormatType["CSV"] = "csv";
+        DataFormatType["Dsv"] = "dsv";
+        DataFormatType["JSON"] = "json";
+        DataFormatType["Topojson"] = "topojson";
+        DataFormatType["Tsv"] = "tsv";
+    })(DataFormatType || (DataFormatType = {}));
+    /**
+     * An [aggregate operation](https://vega.github.io/vega-lite/docs/aggregate.html#ops) to
+     * perform on the field prior to sorting (e.g., `"count"`, `"mean"` and `"median"`).
+     * An aggregation is required when there are multiple values of the sort field for each
+     * encoded data field.
+     * The input data objects will be aggregated, grouped by the encoded data field.
+     *
+     * For a full list of operations, please see the documentation for
+     * [aggregate](https://vega.github.io/vega-lite/docs/aggregate.html#ops).
+     *
+     * __Default value:__ `"sum"` for stacked plots. Otherwise, `"mean"`.
+     *
+     * The aggregation operation to apply to the fields (e.g., sum, average or count).
+     * See the [full list of supported aggregation
+     * operations](https://vega.github.io/vega-lite/docs/aggregate.html#ops)
+     * for more information.
+     *
+     * The aggregation operation to apply (e.g., sum, average or count). See the list of all
+     * supported operations [here](https://vega.github.io/vega-lite/docs/aggregate.html#ops).
+     */
+    var AggregateOp;
+    (function (AggregateOp) {
+        AggregateOp["Argmax"] = "argmax";
+        AggregateOp["Argmin"] = "argmin";
+        AggregateOp["Average"] = "average";
+        AggregateOp["Ci0"] = "ci0";
+        AggregateOp["Ci1"] = "ci1";
+        AggregateOp["Count"] = "count";
+        AggregateOp["Distinct"] = "distinct";
+        AggregateOp["Max"] = "max";
+        AggregateOp["Mean"] = "mean";
+        AggregateOp["Median"] = "median";
+        AggregateOp["Min"] = "min";
+        AggregateOp["Missing"] = "missing";
+        AggregateOp["Q1"] = "q1";
+        AggregateOp["Q3"] = "q3";
+        AggregateOp["Stderr"] = "stderr";
+        AggregateOp["Stdev"] = "stdev";
+        AggregateOp["Stdevp"] = "stdevp";
+        AggregateOp["Sum"] = "sum";
+        AggregateOp["Valid"] = "valid";
+        AggregateOp["Values"] = "values";
+        AggregateOp["Variance"] = "variance";
+        AggregateOp["Variancep"] = "variancep";
+    })(AggregateOp || (AggregateOp = {}));
+    /**
+     * Time unit for the field to be filtered.
+     *
+     * Time unit (e.g., `year`, `yearmonth`, `month`, `hours`) for a temporal field.
+     * or [a temporal field that gets casted as
+     * ordinal](https://vega.github.io/vega-lite/docs/type.html#cast).
+     *
+     * __Default value:__ `undefined` (None)
+     *
+     * __See also:__ [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html)
+     * documentation.
+     *
+     * The timeUnit.
+     */
+    var TimeUnit;
+    (function (TimeUnit) {
+        TimeUnit["Date"] = "date";
+        TimeUnit["Day"] = "day";
+        TimeUnit["Hours"] = "hours";
+        TimeUnit["Hoursminutes"] = "hoursminutes";
+        TimeUnit["Hoursminutesseconds"] = "hoursminutesseconds";
+        TimeUnit["Milliseconds"] = "milliseconds";
+        TimeUnit["Minutes"] = "minutes";
+        TimeUnit["Minutesseconds"] = "minutesseconds";
+        TimeUnit["Month"] = "month";
+        TimeUnit["Monthdate"] = "monthdate";
+        TimeUnit["Monthdatehours"] = "monthdatehours";
+        TimeUnit["Quarter"] = "quarter";
+        TimeUnit["Quartermonth"] = "quartermonth";
+        TimeUnit["Seconds"] = "seconds";
+        TimeUnit["Secondsmilliseconds"] = "secondsmilliseconds";
+        TimeUnit["Utcdate"] = "utcdate";
+        TimeUnit["Utcday"] = "utcday";
+        TimeUnit["Utchours"] = "utchours";
+        TimeUnit["Utchoursminutes"] = "utchoursminutes";
+        TimeUnit["Utchoursminutesseconds"] = "utchoursminutesseconds";
+        TimeUnit["Utcmilliseconds"] = "utcmilliseconds";
+        TimeUnit["Utcminutes"] = "utcminutes";
+        TimeUnit["Utcminutesseconds"] = "utcminutesseconds";
+        TimeUnit["Utcmonth"] = "utcmonth";
+        TimeUnit["Utcmonthdate"] = "utcmonthdate";
+        TimeUnit["Utcmonthdatehours"] = "utcmonthdatehours";
+        TimeUnit["Utcquarter"] = "utcquarter";
+        TimeUnit["Utcquartermonth"] = "utcquartermonth";
+        TimeUnit["Utcseconds"] = "utcseconds";
+        TimeUnit["Utcsecondsmilliseconds"] = "utcsecondsmilliseconds";
+        TimeUnit["Utcyear"] = "utcyear";
+        TimeUnit["Utcyearmonth"] = "utcyearmonth";
+        TimeUnit["Utcyearmonthdate"] = "utcyearmonthdate";
+        TimeUnit["Utcyearmonthdatehours"] = "utcyearmonthdatehours";
+        TimeUnit["Utcyearmonthdatehoursminutes"] = "utcyearmonthdatehoursminutes";
+        TimeUnit["Utcyearmonthdatehoursminutesseconds"] = "utcyearmonthdatehoursminutesseconds";
+        TimeUnit["Utcyearquarter"] = "utcyearquarter";
+        TimeUnit["Utcyearquartermonth"] = "utcyearquartermonth";
+        TimeUnit["Year"] = "year";
+        TimeUnit["Yearmonth"] = "yearmonth";
+        TimeUnit["Yearmonthdate"] = "yearmonthdate";
+        TimeUnit["Yearmonthdatehours"] = "yearmonthdatehours";
+        TimeUnit["Yearmonthdatehoursminutes"] = "yearmonthdatehoursminutes";
+        TimeUnit["Yearmonthdatehoursminutesseconds"] = "yearmonthdatehoursminutesseconds";
+        TimeUnit["Yearquarter"] = "yearquarter";
+        TimeUnit["Yearquartermonth"] = "yearquartermonth";
+    })(TimeUnit || (TimeUnit = {}));
+    var RepeatEnum;
+    (function (RepeatEnum) {
+        RepeatEnum["Column"] = "column";
+        RepeatEnum["Repeat"] = "repeat";
+        RepeatEnum["Row"] = "row";
+    })(RepeatEnum || (RepeatEnum = {}));
+    /**
+     * The orientation of a non-stacked bar, tick, area, and line charts.
+     * The value is either horizontal (default) or vertical.
+     * - For bar, rule and tick, this determines whether the size of the bar and tick
+     * should be applied to x or y dimension.
+     * - For area, this property determines the orient property of the Vega output.
+     * - For line and trail marks, this property determines the sort order of the points in the
+     * line
+     * if `config.sortLineBy` is not specified.
+     * For stacked charts, this is always determined by the orientation of the stack;
+     * therefore explicitly specified value will be ignored.
+     *
+     * The default direction (`"horizontal"` or `"vertical"`) for gradient legends.
+     *
+     * __Default value:__ `"vertical"`.
+     *
+     * The default direction (`"horizontal"` or `"vertical"`) for symbol legends.
+     *
+     * __Default value:__ `"vertical"`.
+     *
+     * The direction of the legend, one of `"vertical"` or `"horizontal"`.
+     *
+     * __Default value:__
+     * - For top-/bottom-`orient`ed legends, `"horizontal"`
+     * - For left-/right-`orient`ed legends, `"vertical"`
+     * - For top/bottom-left/right-`orient`ed legends, `"horizontal"` for gradient legends and
+     * `"vertical"` for symbol legends.
+     *
+     * Orientation of the box plot.  This is normally automatically determined based on types of
+     * fields on x and y channels. However, an explicit `orient` be specified when the
+     * orientation is ambiguous.
+     *
+     * __Default value:__ `"vertical"`.
+     *
+     * Orientation of the error bar.  This is normally automatically determined, but can be
+     * specified when the orientation is ambiguous and cannot be automatically determined.
+     *
+     * Orientation of the error band. This is normally automatically determined, but can be
+     * specified when the orientation is ambiguous and cannot be automatically determined.
+     */
+    var Orientation;
+    (function (Orientation) {
+        Orientation["Horizontal"] = "horizontal";
+        Orientation["Vertical"] = "vertical";
+    })(Orientation || (Orientation = {}));
+    /**
+     * The format type for labels (`"number"` or `"time"`).
+     *
+     * __Default value:__
+     * - `"time"` for temporal fields and ordinal and nomimal fields with `timeUnit`.
+     * - `"number"` for quantitative fields as well as ordinal and nomimal fields without
+     * `timeUnit`.
+     */
+    var FormatType;
+    (function (FormatType) {
+        FormatType["Number"] = "number";
+        FormatType["Time"] = "time";
+    })(FormatType || (FormatType = {}));
+    /**
+     * The horizontal alignment of the text. One of `"left"`, `"right"`, `"center"`.
+     *
+     * Horizontal text alignment of axis tick labels, overriding the default setting for the
+     * current axis orientation.
+     *
+     * Horizontal text alignment of axis titles.
+     *
+     * Horizontal text alignment of header labels.
+     *
+     * Horizontal text alignment (to the anchor) of header titles.
+     *
+     * The alignment of the legend label, can be left, center, or right.
+     *
+     * Horizontal text alignment for legend titles.
+     *
+     * __Default value:__ `"left"`.
+     */
+    var Align;
+    (function (Align) {
+        Align["Center"] = "center";
+        Align["Left"] = "left";
+        Align["Right"] = "right";
+    })(Align || (Align = {}));
+    /**
+     * The vertical alignment of the text. One of `"top"`, `"middle"`, `"bottom"`.
+     *
+     * __Default value:__ `"middle"`
+     *
+     * Vertical text baseline of axis tick labels, overriding the default setting for the
+     * current axis orientation. Can be `"top"`, `"middle"`, `"bottom"`, or `"alphabetic"`.
+     *
+     * Vertical text baseline for axis titles.
+     *
+     * Vertical text baseline for the header title. One of `"top"`, `"bottom"`, `"middle"`.
+     *
+     * __Default value:__ `"middle"`
+     *
+     * The position of the baseline of legend label, can be `"top"`, `"middle"`, `"bottom"`, or
+     * `"alphabetic"`.
+     *
+     * __Default value:__ `"middle"`.
+     *
+     * Vertical text baseline for legend titles.
+     *
+     * __Default value:__ `"top"`.
+     *
+     * Vertical text baseline for title text. One of `"top"`, `"middle"`, `"bottom"`, or
+     * `"alphabetic"`.
+     */
+    var TextBaseline;
+    (function (TextBaseline) {
+        TextBaseline["Alphabetic"] = "alphabetic";
+        TextBaseline["Bottom"] = "bottom";
+        TextBaseline["Middle"] = "middle";
+        TextBaseline["Top"] = "top";
+    })(TextBaseline || (TextBaseline = {}));
+    var FontWeightEnum;
+    (function (FontWeightEnum) {
+        FontWeightEnum["Bold"] = "bold";
+        FontWeightEnum["Bolder"] = "bolder";
+        FontWeightEnum["Lighter"] = "lighter";
+        FontWeightEnum["Normal"] = "normal";
+    })(FontWeightEnum || (FontWeightEnum = {}));
+    var LabelOverlapEnum;
+    (function (LabelOverlapEnum) {
+        LabelOverlapEnum["Greedy"] = "greedy";
+        LabelOverlapEnum["Parity"] = "parity";
+    })(LabelOverlapEnum || (LabelOverlapEnum = {}));
+    /**
+     * The orientation of the legend, which determines how the legend is positioned within the
+     * scene. One of "left", "right", "top-left", "top-right", "bottom-left", "bottom-right",
+     * "none".
+     *
+     * __Default value:__ `"right"`
+     *
+     * The orientation of the legend, which determines how the legend is positioned within the
+     * scene. One of `"left"`, `"right"`, `"top"`, `"bottom"`, `"top-left"`, `"top-right"`,
+     * `"bottom-left"`, `"bottom-right"`, `"none"`.
+     *
+     * __Default value:__ `"right"`
+     */
+    var LegendOrient;
+    (function (LegendOrient) {
+        LegendOrient["Bottom"] = "bottom";
+        LegendOrient["BottomLeft"] = "bottom-left";
+        LegendOrient["BottomRight"] = "bottom-right";
+        LegendOrient["Left"] = "left";
+        LegendOrient["None"] = "none";
+        LegendOrient["Right"] = "right";
+        LegendOrient["Top"] = "top";
+        LegendOrient["TopLeft"] = "top-left";
+        LegendOrient["TopRight"] = "top-right";
+    })(LegendOrient || (LegendOrient = {}));
+    var TitleAnchor;
+    (function (TitleAnchor) {
+        TitleAnchor["End"] = "end";
+        TitleAnchor["Middle"] = "middle";
+        TitleAnchor["Start"] = "start";
+    })(TitleAnchor || (TitleAnchor = {}));
+    /**
+     * The orientation of the header label. One of `"top"`, `"bottom"`, `"left"` or `"right"`.
+     *
+     * The orientation of the header title. One of `"top"`, `"bottom"`, `"left"` or `"right"`.
+     *
+     * Orientation of the legend title.
+     *
+     * The orientation of the axis. One of `"top"`, `"bottom"`, `"left"` or `"right"`. The
+     * orientation can be used to further specialize the axis type (e.g., a y-axis oriented
+     * towards the right edge of the chart).
+     *
+     * __Default value:__ `"bottom"` for x-axes and `"left"` for y-axes.
+     */
+    var Orient;
+    (function (Orient) {
+        Orient["Bottom"] = "bottom";
+        Orient["Left"] = "left";
+        Orient["Right"] = "right";
+        Orient["Top"] = "top";
+    })(Orient || (Orient = {}));
+    /**
+     * The type of the legend. Use `"symbol"` to create a discrete legend and `"gradient"` for a
+     * continuous color gradient.
+     *
+     * __Default value:__ `"gradient"` for non-binned quantitative fields and temporal fields;
+     * `"symbol"` otherwise.
+     */
+    var LegendType;
+    (function (LegendType) {
+        LegendType["Gradient"] = "gradient";
+        LegendType["Symbol"] = "symbol";
+    })(LegendType || (LegendType = {}));
+    var Domain;
+    (function (Domain) {
+        Domain["Unaggregated"] = "unaggregated";
+    })(Domain || (Domain = {}));
+    var ScaleInterpolateParamsType;
+    (function (ScaleInterpolateParamsType) {
+        ScaleInterpolateParamsType["Cubehelix"] = "cubehelix";
+        ScaleInterpolateParamsType["CubehelixLong"] = "cubehelix-long";
+        ScaleInterpolateParamsType["RGB"] = "rgb";
+    })(ScaleInterpolateParamsType || (ScaleInterpolateParamsType = {}));
+    var ScaleInterpolate;
+    (function (ScaleInterpolate) {
+        ScaleInterpolate["Cubehelix"] = "cubehelix";
+        ScaleInterpolate["CubehelixLong"] = "cubehelix-long";
+        ScaleInterpolate["HCL"] = "hcl";
+        ScaleInterpolate["HCLLong"] = "hcl-long";
+        ScaleInterpolate["Hsl"] = "hsl";
+        ScaleInterpolate["HslLong"] = "hsl-long";
+        ScaleInterpolate["Lab"] = "lab";
+        ScaleInterpolate["RGB"] = "rgb";
+    })(ScaleInterpolate || (ScaleInterpolate = {}));
+    var NiceTime;
+    (function (NiceTime) {
+        NiceTime["Day"] = "day";
+        NiceTime["Hour"] = "hour";
+        NiceTime["Minute"] = "minute";
+        NiceTime["Month"] = "month";
+        NiceTime["Second"] = "second";
+        NiceTime["Week"] = "week";
+        NiceTime["Year"] = "year";
+    })(NiceTime || (NiceTime = {}));
+    /**
+     * The type of scale.  Vega-Lite supports the following categories of scale types:
+     *
+     * 1) [**Continuous Scales**](https://vega.github.io/vega-lite/docs/scale.html#continuous)
+     * -- mapping continuous domains to continuous output ranges
+     * ([`"linear"`](https://vega.github.io/vega-lite/docs/scale.html#linear),
+     * [`"pow"`](https://vega.github.io/vega-lite/docs/scale.html#pow),
+     * [`"sqrt"`](https://vega.github.io/vega-lite/docs/scale.html#sqrt),
+     * [`"symlog"`](https://vega.github.io/vega-lite/docs/scale.html#symlog),
+     * [`"log"`](https://vega.github.io/vega-lite/docs/scale.html#log),
+     * [`"time"`](https://vega.github.io/vega-lite/docs/scale.html#time),
+     * [`"utc"`](https://vega.github.io/vega-lite/docs/scale.html#utc).
+     *
+     * 2) [**Discrete Scales**](https://vega.github.io/vega-lite/docs/scale.html#discrete) --
+     * mapping discrete domains to discrete
+     * ([`"ordinal"`](https://vega.github.io/vega-lite/docs/scale.html#ordinal)) or continuous
+     * ([`"band"`](https://vega.github.io/vega-lite/docs/scale.html#band) and
+     * [`"point"`](https://vega.github.io/vega-lite/docs/scale.html#point)) output ranges.
+     *
+     * 3) [**Discretizing
+     * Scales**](https://vega.github.io/vega-lite/docs/scale.html#discretizing) -- mapping
+     * continuous domains to discrete output ranges
+     * [`"bin-ordinal"`](https://vega.github.io/vega-lite/docs/scale.html#bin-ordinal),
+     * [`"quantile"`](https://vega.github.io/vega-lite/docs/scale.html#quantile),
+     * [`"quantize"`](https://vega.github.io/vega-lite/docs/scale.html#quantize) and
+     * [`"threshold"`](https://vega.github.io/vega-lite/docs/scale.html#threshold).
+     *
+     * __Default value:__ please see the [scale type
+     * table](https://vega.github.io/vega-lite/docs/scale.html#type).
+     */
+    var ScaleType;
+    (function (ScaleType) {
+        ScaleType["Band"] = "band";
+        ScaleType["BinOrdinal"] = "bin-ordinal";
+        ScaleType["Linear"] = "linear";
+        ScaleType["Log"] = "log";
+        ScaleType["Ordinal"] = "ordinal";
+        ScaleType["Point"] = "point";
+        ScaleType["Pow"] = "pow";
+        ScaleType["Quantile"] = "quantile";
+        ScaleType["Quantize"] = "quantize";
+        ScaleType["Sqrt"] = "sqrt";
+        ScaleType["Symlog"] = "symlog";
+        ScaleType["Threshold"] = "threshold";
+        ScaleType["Time"] = "time";
+        ScaleType["UTC"] = "utc";
+    })(ScaleType || (ScaleType = {}));
+    /**
+     * The [encoding channel](https://vega.github.io/vega-lite/docs/encoding.html#channels) to
+     * sort by (e.g., `"x"`, `"y"`)
+     */
+    var SingleDefUnitChannel;
+    (function (SingleDefUnitChannel) {
+        SingleDefUnitChannel["Color"] = "color";
+        SingleDefUnitChannel["Fill"] = "fill";
+        SingleDefUnitChannel["FillOpacity"] = "fillOpacity";
+        SingleDefUnitChannel["Href"] = "href";
+        SingleDefUnitChannel["Key"] = "key";
+        SingleDefUnitChannel["Latitude"] = "latitude";
+        SingleDefUnitChannel["Latitude2"] = "latitude2";
+        SingleDefUnitChannel["Longitude"] = "longitude";
+        SingleDefUnitChannel["Longitude2"] = "longitude2";
+        SingleDefUnitChannel["Opacity"] = "opacity";
+        SingleDefUnitChannel["Shape"] = "shape";
+        SingleDefUnitChannel["Size"] = "size";
+        SingleDefUnitChannel["Stroke"] = "stroke";
+        SingleDefUnitChannel["StrokeOpacity"] = "strokeOpacity";
+        SingleDefUnitChannel["StrokeWidth"] = "strokeWidth";
+        SingleDefUnitChannel["Text"] = "text";
+        SingleDefUnitChannel["Tooltip"] = "tooltip";
+        SingleDefUnitChannel["X"] = "x";
+        SingleDefUnitChannel["X2"] = "x2";
+        SingleDefUnitChannel["Y"] = "y";
+        SingleDefUnitChannel["Y2"] = "y2";
+    })(SingleDefUnitChannel || (SingleDefUnitChannel = {}));
+    /**
+     * The sort order. One of `"ascending"` (default) or `"descending"`.
+     */
+    var SortOrder;
+    (function (SortOrder) {
+        SortOrder["Ascending"] = "ascending";
+        SortOrder["Descending"] = "descending";
+    })(SortOrder || (SortOrder = {}));
+    /**
+     * The encoded field's type of measurement (`"quantitative"`, `"temporal"`, `"ordinal"`, or
+     * `"nominal"`).
+     * It can also be a `"geojson"` type for encoding
+     * ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).
+     *
+     *
+     * __Note:__
+     *
+     * - Data values for a temporal field can be either a date-time string (e.g., `"2015-03-07
+     * 12:32:17"`, `"17:01"`, `"2015-03-16"`. `"2015"`) or a timestamp number (e.g.,
+     * `1552199579097`).
+     * - Data `type` describes the semantics of the data rather than the primitive data types
+     * (`number`, `string`, etc.). The same primitive data type can have different types of
+     * measurement. For example, numeric data can represent quantitative, ordinal, or nominal
+     * data.
+     * - When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type`
+     * property can be either `"quantitative"` (for using a linear bin scale) or [`"ordinal"`
+     * (for using an ordinal bin
+     * scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
+     * - When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the
+     * `type` property can be either `"temporal"` (for using a temporal scale) or [`"ordinal"`
+     * (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
+     * - When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html),
+     * the `type` property refers to the post-aggregation data type. For example, we can
+     * calculate count `distinct` of a categorical field `"cat"` using `{"aggregate":
+     * "distinct", "field": "cat", "type": "quantitative"}`. The `"type"` of the aggregate
+     * output is `"quantitative"`.
+     * - Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they
+     * have exactly the same type as their primary channels (e.g., `x`, `y`).
+     *
+     * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
+     */
+    var StandardType;
+    (function (StandardType) {
+        StandardType["Nominal"] = "nominal";
+        StandardType["Ordinal"] = "ordinal";
+        StandardType["Quantitative"] = "quantitative";
+        StandardType["Temporal"] = "temporal";
+    })(StandardType || (StandardType = {}));
+    var BinEnum;
+    (function (BinEnum) {
+        BinEnum["Binned"] = "binned";
+    })(BinEnum || (BinEnum = {}));
+    /**
+     * The encoded field's type of measurement (`"quantitative"`, `"temporal"`, `"ordinal"`, or
+     * `"nominal"`).
+     * It can also be a `"geojson"` type for encoding
+     * ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).
+     *
+     *
+     * __Note:__
+     *
+     * - Data values for a temporal field can be either a date-time string (e.g., `"2015-03-07
+     * 12:32:17"`, `"17:01"`, `"2015-03-16"`. `"2015"`) or a timestamp number (e.g.,
+     * `1552199579097`).
+     * - Data `type` describes the semantics of the data rather than the primitive data types
+     * (`number`, `string`, etc.). The same primitive data type can have different types of
+     * measurement. For example, numeric data can represent quantitative, ordinal, or nominal
+     * data.
+     * - When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type`
+     * property can be either `"quantitative"` (for using a linear bin scale) or [`"ordinal"`
+     * (for using an ordinal bin
+     * scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
+     * - When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the
+     * `type` property can be either `"temporal"` (for using a temporal scale) or [`"ordinal"`
+     * (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
+     * - When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html),
+     * the `type` property refers to the post-aggregation data type. For example, we can
+     * calculate count `distinct` of a categorical field `"cat"` using `{"aggregate":
+     * "distinct", "field": "cat", "type": "quantitative"}`. The `"type"` of the aggregate
+     * output is `"quantitative"`.
+     * - Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they
+     * have exactly the same type as their primary channels (e.g., `x`, `y`).
+     *
+     * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
+     */
+    var LatitudeType;
+    (function (LatitudeType) {
+        LatitudeType["Quantitative"] = "quantitative";
+    })(LatitudeType || (LatitudeType = {}));
+    /**
+     * The encoded field's type of measurement (`"quantitative"`, `"temporal"`, `"ordinal"`, or
+     * `"nominal"`).
+     * It can also be a `"geojson"` type for encoding
+     * ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).
+     *
+     *
+     * __Note:__
+     *
+     * - Data values for a temporal field can be either a date-time string (e.g., `"2015-03-07
+     * 12:32:17"`, `"17:01"`, `"2015-03-16"`. `"2015"`) or a timestamp number (e.g.,
+     * `1552199579097`).
+     * - Data `type` describes the semantics of the data rather than the primitive data types
+     * (`number`, `string`, etc.). The same primitive data type can have different types of
+     * measurement. For example, numeric data can represent quantitative, ordinal, or nominal
+     * data.
+     * - When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type`
+     * property can be either `"quantitative"` (for using a linear bin scale) or [`"ordinal"`
+     * (for using an ordinal bin
+     * scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
+     * - When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the
+     * `type` property can be either `"temporal"` (for using a temporal scale) or [`"ordinal"`
+     * (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
+     * - When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html),
+     * the `type` property refers to the post-aggregation data type. For example, we can
+     * calculate count `distinct` of a categorical field `"cat"` using `{"aggregate":
+     * "distinct", "field": "cat", "type": "quantitative"}`. The `"type"` of the aggregate
+     * output is `"quantitative"`.
+     * - Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they
+     * have exactly the same type as their primary channels (e.g., `x`, `y`).
+     *
+     * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
+     */
+    var TypeForShape;
+    (function (TypeForShape) {
+        TypeForShape["Geojson"] = "geojson";
+        TypeForShape["Nominal"] = "nominal";
+        TypeForShape["Ordinal"] = "ordinal";
+    })(TypeForShape || (TypeForShape = {}));
+    /**
+     * The imputation method to use for the field value of imputed data objects.
+     * One of `value`, `mean`, `median`, `max` or `min`.
+     *
+     * __Default value:__  `"value"`
+     */
+    var ImputeMethod;
+    (function (ImputeMethod) {
+        ImputeMethod["Max"] = "max";
+        ImputeMethod["Mean"] = "mean";
+        ImputeMethod["Median"] = "median";
+        ImputeMethod["Min"] = "min";
+        ImputeMethod["Value"] = "value";
+    })(ImputeMethod || (ImputeMethod = {}));
+    /**
+     * Default stack offset for stackable mark.
+     *
+     * Mode for stacking marks.
+     * __Default value:__ `"zero"`
+     */
+    var StackOffset;
+    (function (StackOffset) {
+        StackOffset["Center"] = "center";
+        StackOffset["Normalize"] = "normalize";
+        StackOffset["Zero"] = "zero";
+    })(StackOffset || (StackOffset = {}));
+    var XEnum;
+    (function (XEnum) {
+        XEnum["Width"] = "width";
+    })(XEnum || (XEnum = {}));
+    var YEnum;
+    (function (YEnum) {
+        YEnum["Height"] = "height";
+    })(YEnum || (YEnum = {}));
+    /**
+     * The mouse cursor used over the mark. Any valid [CSS cursor
+     * type](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor#Values) can be used.
+     */
+    var Cursor;
+    (function (Cursor) {
+        Cursor["Alias"] = "alias";
+        Cursor["AllScroll"] = "all-scroll";
+        Cursor["Auto"] = "auto";
+        Cursor["Cell"] = "cell";
+        Cursor["ColResize"] = "col-resize";
+        Cursor["ContextMenu"] = "context-menu";
+        Cursor["Copy"] = "copy";
+        Cursor["Crosshair"] = "crosshair";
+        Cursor["Default"] = "default";
+        Cursor["EResize"] = "e-resize";
+        Cursor["EwResize"] = "ew-resize";
+        Cursor["Grab"] = "grab";
+        Cursor["Grabbing"] = "grabbing";
+        Cursor["Help"] = "help";
+        Cursor["Move"] = "move";
+        Cursor["NResize"] = "n-resize";
+        Cursor["NSResize"] = "ns-resize";
+        Cursor["NeResize"] = "ne-resize";
+        Cursor["NeswResize"] = "nesw-resize";
+        Cursor["NoDrop"] = "no-drop";
+        Cursor["None"] = "none";
+        Cursor["NotAllowed"] = "not-allowed";
+        Cursor["NwResize"] = "nw-resize";
+        Cursor["NwseResize"] = "nwse-resize";
+        Cursor["Pointer"] = "pointer";
+        Cursor["Progress"] = "progress";
+        Cursor["RowResize"] = "row-resize";
+        Cursor["SEResize"] = "se-resize";
+        Cursor["SResize"] = "s-resize";
+        Cursor["SwResize"] = "sw-resize";
+        Cursor["Text"] = "text";
+        Cursor["VerticalText"] = "vertical-text";
+        Cursor["WResize"] = "w-resize";
+        Cursor["Wait"] = "wait";
+        Cursor["ZoomIn"] = "zoom-in";
+        Cursor["ZoomOut"] = "zoom-out";
+    })(Cursor || (Cursor = {}));
+    /**
+     * The direction of the text. One of `"ltr"` (left-to-right) or `"rtl"` (right-to-left).
+     * This property determines on which side is truncated in response to the limit parameter.
+     *
+     * __Default value:__ `"ltr"`
+     */
+    var Dir;
+    (function (Dir) {
+        Dir["LTR"] = "ltr";
+        Dir["RTL"] = "rtl";
+    })(Dir || (Dir = {}));
+    /**
+     * The line interpolation method to use for line and area marks. One of the following:
+     * - `"linear"`: piecewise linear segments, as in a polyline.
+     * - `"linear-closed"`: close the linear segments to form a polygon.
+     * - `"step"`: alternate between horizontal and vertical segments, as in a step function.
+     * - `"step-before"`: alternate between vertical and horizontal segments, as in a step
+     * function.
+     * - `"step-after"`: alternate between horizontal and vertical segments, as in a step
+     * function.
+     * - `"basis"`: a B-spline, with control point duplication on the ends.
+     * - `"basis-open"`: an open B-spline; may not intersect the start or end.
+     * - `"basis-closed"`: a closed B-spline, as in a loop.
+     * - `"cardinal"`: a Cardinal spline, with control point duplication on the ends.
+     * - `"cardinal-open"`: an open Cardinal spline; may not intersect the start or end, but
+     * will intersect other control points.
+     * - `"cardinal-closed"`: a closed Cardinal spline, as in a loop.
+     * - `"bundle"`: equivalent to basis, except the tension parameter is used to straighten the
+     * spline.
+     * - `"monotone"`: cubic interpolation that preserves monotonicity in y.
+     *
+     * The line interpolation method for the error band. One of the following:
+     * - `"linear"`: piecewise linear segments, as in a polyline.
+     * - `"linear-closed"`: close the linear segments to form a polygon.
+     * - `"step"`: a piecewise constant function (a step function) consisting of alternating
+     * horizontal and vertical lines. The y-value changes at the midpoint of each pair of
+     * adjacent x-values.
+     * - `"step-before"`: a piecewise constant function (a step function) consisting of
+     * alternating horizontal and vertical lines. The y-value changes before the x-value.
+     * - `"step-after"`: a piecewise constant function (a step function) consisting of
+     * alternating horizontal and vertical lines. The y-value changes after the x-value.
+     * - `"basis"`: a B-spline, with control point duplication on the ends.
+     * - `"basis-open"`: an open B-spline; may not intersect the start or end.
+     * - `"basis-closed"`: a closed B-spline, as in a loop.
+     * - `"cardinal"`: a Cardinal spline, with control point duplication on the ends.
+     * - `"cardinal-open"`: an open Cardinal spline; may not intersect the start or end, but
+     * will intersect other control points.
+     * - `"cardinal-closed"`: a closed Cardinal spline, as in a loop.
+     * - `"bundle"`: equivalent to basis, except the tension parameter is used to straighten the
+     * spline.
+     * - `"monotone"`: cubic interpolation that preserves monotonicity in y.
+     */
+    var Interpolate;
+    (function (Interpolate) {
+        Interpolate["Basis"] = "basis";
+        Interpolate["BasisClosed"] = "basis-closed";
+        Interpolate["BasisOpen"] = "basis-open";
+        Interpolate["Bundle"] = "bundle";
+        Interpolate["Cardinal"] = "cardinal";
+        Interpolate["CardinalClosed"] = "cardinal-closed";
+        Interpolate["CardinalOpen"] = "cardinal-open";
+        Interpolate["Linear"] = "linear";
+        Interpolate["LinearClosed"] = "linear-closed";
+        Interpolate["Monotone"] = "monotone";
+        Interpolate["Step"] = "step";
+        Interpolate["StepAfter"] = "step-after";
+        Interpolate["StepBefore"] = "step-before";
+    })(Interpolate || (Interpolate = {}));
+    /**
+     * The stroke cap for line ending style. One of `"butt"`, `"round"`, or `"square"`.
+     *
+     * __Default value:__ `"square"`
+     */
+    var StrokeCap;
+    (function (StrokeCap) {
+        StrokeCap["Butt"] = "butt";
+        StrokeCap["Round"] = "round";
+        StrokeCap["Square"] = "square";
+    })(StrokeCap || (StrokeCap = {}));
+    /**
+     * The stroke line join method. One of `"miter"`, `"round"` or `"bevel"`.
+     *
+     * __Default value:__ `"miter"`
+     */
+    var StrokeJoin;
+    (function (StrokeJoin) {
+        StrokeJoin["Bevel"] = "bevel";
+        StrokeJoin["Miter"] = "miter";
+        StrokeJoin["Round"] = "round";
+    })(StrokeJoin || (StrokeJoin = {}));
+    var Content;
+    (function (Content) {
+        Content["Data"] = "data";
+        Content["Encoding"] = "encoding";
+    })(Content || (Content = {}));
+    /**
+     * The extent of the band. Available options include:
+     * - `"ci"`: Extend the band to the confidence interval of the mean.
+     * - `"stderr"`: The size of band are set to the value of standard error, extending from the
+     * mean.
+     * - `"stdev"`: The size of band are set to the value of standard deviation, extending from
+     * the mean.
+     * - `"iqr"`: Extend the band to the q1 and q3.
+     *
+     * __Default value:__ `"stderr"`.
+     *
+     * The extent of the rule. Available options include:
+     * - `"ci"`: Extend the rule to the confidence interval of the mean.
+     * - `"stderr"`: The size of rule are set to the value of standard error, extending from the
+     * mean.
+     * - `"stdev"`: The size of rule are set to the value of standard deviation, extending from
+     * the mean.
+     * - `"iqr"`: Extend the rule to the q1 and q3.
+     *
+     * __Default value:__ `"stderr"`.
+     */
+    var ExtentExtent;
+    (function (ExtentExtent) {
+        ExtentExtent["Ci"] = "ci";
+        ExtentExtent["Iqr"] = "iqr";
+        ExtentExtent["MinMax"] = "min-max";
+        ExtentExtent["Stderr"] = "stderr";
+        ExtentExtent["Stdev"] = "stdev";
+    })(ExtentExtent || (ExtentExtent = {}));
+    var PointEnum;
+    (function (PointEnum) {
+        PointEnum["Transparent"] = "transparent";
+    })(PointEnum || (PointEnum = {}));
+    /**
+     * The mark type. This could a primitive mark type
+     * (one of `"bar"`, `"circle"`, `"square"`, `"tick"`, `"line"`,
+     * `"area"`, `"point"`, `"geoshape"`, `"rule"`, and `"text"`)
+     * or a composite mark type (`"boxplot"`, `"errorband"`, `"errorbar"`).
+     *
+     * All types of primitive marks.
+     */
+    var Mark;
+    (function (Mark) {
+        Mark["Area"] = "area";
+        Mark["Bar"] = "bar";
+        Mark["Boxplot"] = "boxplot";
+        Mark["Circle"] = "circle";
+        Mark["Errorband"] = "errorband";
+        Mark["Errorbar"] = "errorbar";
+        Mark["Geoshape"] = "geoshape";
+        Mark["Line"] = "line";
+        Mark["Point"] = "point";
+        Mark["Rect"] = "rect";
+        Mark["Rule"] = "rule";
+        Mark["Square"] = "square";
+        Mark["Text"] = "text";
+        Mark["Tick"] = "tick";
+        Mark["Trail"] = "trail";
+    })(Mark || (Mark = {}));
+    /**
+     * The cartographic projection to use. This value is case-insensitive, for example
+     * `"albers"` and `"Albers"` indicate the same projection type. You can find all valid
+     * projection types [in the
+     * documentation](https://vega.github.io/vega-lite/docs/projection.html#projection-types).
+     *
+     * __Default value:__ `mercator`
+     */
+    var ProjectionType;
+    (function (ProjectionType) {
+        ProjectionType["Albers"] = "albers";
+        ProjectionType["AlbersUsa"] = "albersUsa";
+        ProjectionType["AzimuthalEqualArea"] = "azimuthalEqualArea";
+        ProjectionType["AzimuthalEquidistant"] = "azimuthalEquidistant";
+        ProjectionType["ConicConformal"] = "conicConformal";
+        ProjectionType["ConicEqualArea"] = "conicEqualArea";
+        ProjectionType["ConicEquidistant"] = "conicEquidistant";
+        ProjectionType["Equirectangular"] = "equirectangular";
+        ProjectionType["Gnomonic"] = "gnomonic";
+        ProjectionType["Identity"] = "identity";
+        ProjectionType["Mercator"] = "mercator";
+        ProjectionType["NaturalEarth1"] = "naturalEarth1";
+        ProjectionType["Orthographic"] = "orthographic";
+        ProjectionType["Stereographic"] = "stereographic";
+        ProjectionType["TransverseMercator"] = "transverseMercator";
+    })(ProjectionType || (ProjectionType = {}));
+    var ResolveMode;
+    (function (ResolveMode) {
+        ResolveMode["Independent"] = "independent";
+        ResolveMode["Shared"] = "shared";
+    })(ResolveMode || (ResolveMode = {}));
+    /**
+     * Establishes a two-way binding between the interval selection and the scales
+     * used within the same view. This allows a user to interactively pan and
+     * zoom the view.
+     *
+     * __See also:__ [`bind`](https://vega.github.io/vega-lite/docs/bind.html) documentation.
+     */
+    var BindEnum;
+    (function (BindEnum) {
+        BindEnum["Scales"] = "scales";
+    })(BindEnum || (BindEnum = {}));
+    /**
+     * By default, `all` data values are considered to lie within an empty selection.
+     * When set to `none`, empty selections contain no data values.
+     */
+    var Empty;
+    (function (Empty) {
+        Empty["All"] = "all";
+        Empty["None"] = "none";
+    })(Empty || (Empty = {}));
+    /**
+     * With layered and multi-view displays, a strategy that determines how
+     * selections' data queries are resolved when applied in a filter transform,
+     * conditional encoding rule, or scale domain.
+     *
+     * __See also:__ [`resolve`](https://vega.github.io/vega-lite/docs/selection-resolve.html)
+     * documentation.
+     */
+    var SelectionResolution;
+    (function (SelectionResolution) {
+        SelectionResolution["Global"] = "global";
+        SelectionResolution["Intersect"] = "intersect";
+        SelectionResolution["Union"] = "union";
+    })(SelectionResolution || (SelectionResolution = {}));
+    /**
+     * Determines the default event processing and data query for the selection. Vega-Lite
+     * currently supports three selection types:
+     *
+     * - `single` -- to select a single discrete data value on `click`.
+     * - `multi` -- to select multiple discrete data value; the first value is selected on
+     * `click` and additional values toggled on shift-`click`.
+     * - `interval` -- to select a continuous range of data values on `drag`.
+     */
+    var SelectionDefType;
+    (function (SelectionDefType) {
+        SelectionDefType["Interval"] = "interval";
+        SelectionDefType["Multi"] = "multi";
+        SelectionDefType["Single"] = "single";
+    })(SelectionDefType || (SelectionDefType = {}));
+    /**
+     * The reference frame for the anchor position, one of `"bounds"` (to anchor relative to the
+     * full bounding box) or `"group"` (to anchor relative to the group width or height).
+     */
+    var TitleFrame;
+    (function (TitleFrame) {
+        TitleFrame["Bounds"] = "bounds";
+        TitleFrame["Group"] = "group";
+    })(TitleFrame || (TitleFrame = {}));
+    /**
+     * Default title orientation (`"top"`, `"bottom"`, `"left"`, or `"right"`)
+     */
+    var TitleOrient;
+    (function (TitleOrient) {
+        TitleOrient["Bottom"] = "bottom";
+        TitleOrient["Left"] = "left";
+        TitleOrient["None"] = "none";
+        TitleOrient["Right"] = "right";
+        TitleOrient["Top"] = "top";
+    })(TitleOrient || (TitleOrient = {}));
+    /**
+     * The window or aggregation operation to apply within a window (e.g.,`rank`, `lead`, `sum`,
+     * `average` or `count`). See the list of all supported operations
+     * [here](https://vega.github.io/vega-lite/docs/window.html#ops).
+     *
+     * An [aggregate operation](https://vega.github.io/vega-lite/docs/aggregate.html#ops) to
+     * perform on the field prior to sorting (e.g., `"count"`, `"mean"` and `"median"`).
+     * An aggregation is required when there are multiple values of the sort field for each
+     * encoded data field.
+     * The input data objects will be aggregated, grouped by the encoded data field.
+     *
+     * For a full list of operations, please see the documentation for
+     * [aggregate](https://vega.github.io/vega-lite/docs/aggregate.html#ops).
+     *
+     * __Default value:__ `"sum"` for stacked plots. Otherwise, `"mean"`.
+     *
+     * The aggregation operation to apply to the fields (e.g., sum, average or count).
+     * See the [full list of supported aggregation
+     * operations](https://vega.github.io/vega-lite/docs/aggregate.html#ops)
+     * for more information.
+     *
+     * The aggregation operation to apply (e.g., sum, average or count). See the list of all
+     * supported operations [here](https://vega.github.io/vega-lite/docs/aggregate.html#ops).
+     */
+    var Op;
+    (function (Op) {
+        Op["Argmax"] = "argmax";
+        Op["Argmin"] = "argmin";
+        Op["Average"] = "average";
+        Op["Ci0"] = "ci0";
+        Op["Ci1"] = "ci1";
+        Op["Count"] = "count";
+        Op["CumeDist"] = "cume_dist";
+        Op["DenseRank"] = "dense_rank";
+        Op["Distinct"] = "distinct";
+        Op["FirstValue"] = "first_value";
+        Op["Lag"] = "lag";
+        Op["LastValue"] = "last_value";
+        Op["Lead"] = "lead";
+        Op["Max"] = "max";
+        Op["Mean"] = "mean";
+        Op["Median"] = "median";
+        Op["Min"] = "min";
+        Op["Missing"] = "missing";
+        Op["NthValue"] = "nth_value";
+        Op["Ntile"] = "ntile";
+        Op["PercentRank"] = "percent_rank";
+        Op["Q1"] = "q1";
+        Op["Q3"] = "q3";
+        Op["Rank"] = "rank";
+        Op["RowNumber"] = "row_number";
+        Op["Stderr"] = "stderr";
+        Op["Stdev"] = "stdev";
+        Op["Stdevp"] = "stdevp";
+        Op["Sum"] = "sum";
+        Op["Valid"] = "valid";
+        Op["Values"] = "values";
+        Op["Variance"] = "variance";
+        Op["Variancep"] = "variancep";
+    })(Op || (Op = {}));
+    var ExtentEnum;
+    (function (ExtentEnum) {
+        ExtentEnum["MinMax"] = "min-max";
+    })(ExtentEnum || (ExtentEnum = {}));
+    /**
+     * The extent of the band. Available options include:
+     * - `"ci"`: Extend the band to the confidence interval of the mean.
+     * - `"stderr"`: The size of band are set to the value of standard error, extending from the
+     * mean.
+     * - `"stdev"`: The size of band are set to the value of standard deviation, extending from
+     * the mean.
+     * - `"iqr"`: Extend the band to the q1 and q3.
+     *
+     * __Default value:__ `"stderr"`.
+     *
+     * The extent of the rule. Available options include:
+     * - `"ci"`: Extend the rule to the confidence interval of the mean.
+     * - `"stderr"`: The size of rule are set to the value of standard error, extending from the
+     * mean.
+     * - `"stdev"`: The size of rule are set to the value of standard deviation, extending from
+     * the mean.
+     * - `"iqr"`: Extend the rule to the q1 and q3.
+     *
+     * __Default value:__ `"stderr"`.
+     */
+    var ErrorbandExtent;
+    (function (ErrorbandExtent) {
+        ErrorbandExtent["Ci"] = "ci";
+        ErrorbandExtent["Iqr"] = "iqr";
+        ErrorbandExtent["Stderr"] = "stderr";
+        ErrorbandExtent["Stdev"] = "stdev";
+    })(ErrorbandExtent || (ErrorbandExtent = {}));
+    /**
+     * Defines how Vega-Lite generates title for fields.  There are three possible styles:
+     * - `"verbal"` (Default) - displays function in a verbal style (e.g., "Sum of field",
+     * "Year-month of date", "field (binned)").
+     * - `"function"` - displays function using parentheses and capitalized texts (e.g.,
+     * "SUM(field)", "YEARMONTH(date)", "BIN(field)").
+     * - `"plain"` - displays only the field name without functions (e.g., "field", "date",
+     * "field").
+     */
+    var FieldTitle;
+    (function (FieldTitle) {
+        FieldTitle["Functional"] = "functional";
+        FieldTitle["Plain"] = "plain";
+        FieldTitle["Verbal"] = "verbal";
+    })(FieldTitle || (FieldTitle = {}));
+    var InvalidValues;
+    (function (InvalidValues) {
+        InvalidValues["Filter"] = "filter";
+    })(InvalidValues || (InvalidValues = {}));
+
+    /**
+     * Create a `mark` using a `geom`
+     *
+     * @remark
+     *
+     * This function creates a Vega-Lite `mark` according to a ggspec `geom`.
+     *
+     * For most classes of `geom`, we need only the name of the class. For other
+     * classes, like `GeomBoxplot`, we need additional information from `geom_params`
+     * and `stat_params`.
+     *
+     * For developers of this package, when a new `geom` is added, you will have to
+     * add the corresponding `mark` name to {@link markByGeomDefault}. If the `mark`
+     * requires additional information, then you can build a new function, like
+     * {@link markByGeomBoxplot}, to handle the creation of the `mark` object.
+     *
+     * @param ggGeomSet - `GG.GeomSet`, contains class of the ggplot2 `geom`;
+     *   these map to the `mark` type
+     * @param ggStatSet - `GG.StatSet`
+     *
+     * @returns `VL.Mark`
+     *
+     * **Called by**
+     *
+     * @see itmLayer
+     *
+     * **Calls**
+     *
+     * @see {@link markByGeomDefault} for most geoms
+     * @see {@link markByGeomBoxplot} for boxplots
+     *
+     */
+    function markByGeom(ggGeomSet, ggStatSet) {
+        // use this pattern for dispatch if we have only a few exceptions to the default
+        // NOTE: we don't have Boxplot defined yet
+        if (ggGeomSet.geom.class == 'GeomBoxplot') {
+            return markByGeomBoxplot(ggGeomSet, ggStatSet);
+        }
+        return markByGeomDefault(ggGeomSet);
+    }
+    /**
+     * Create a mark object given a geom class
+     *
+     * @remark
+     * This is the default constructor for a mark object.
+     *
+     * For developers, whenever you add a new `geom`, you will have to add to the
+     * `markByGeomMap` object, which maps names of ggplot2 `geom` classes to
+     * names of Vega-Lite `mark` types.
+     *
+     * **Called by**
+     *
+     * @see markByGeom
+     * @see markByBoxplot
+     *
+     * @param ggGeomSet
+     *
+     * @returns `VL.Mark`
+     *
+     */
+    function markByGeomDefault(ggGeomSet) {
+        // key: name of ggplot2 geom class
+        // value: name of Vega-Lite mark type
+        var markByGeomMap = {
+            GeomPoint: 'point',
+            GeomBar: 'bar',
+            GeomBoxplot: 'boxplot',
+            GeomLine: 'line'
+        };
+        // validate
+        if (!contains$1(Object.keys(markByGeomMap), ggGeomSet.geom.class)) {
+            throw new Error('ggplot object contains unsupported geom: ' + ggGeomSet.geom.class);
+        }
+        // translate
+        var mark = {
+            type: markByGeomMap[ggGeomSet.geom.class]
+        };
+        return mark;
+    }
+    /**
+     * Create a boxplot `mark`
+     *
+     * @remark
+     * The boxplot `mark` is a compound type, defined by more than
+     * the class of the `geom`:
+     *
+     * - `extent` is equivalent to ggplot2 `coef`, normally a number,
+     *   but we have to take into account infinite values which serialize
+     *   and translate as strings.
+     *
+     * **Called by**
+     * @see markByGeom
+     *
+     * **Calls**
+     * @see markByGeomDefault
+     *
+     *
+     * @param ggGeomSet - `GG.GeomSet`, contains class of the ggplot2 `geom`
+     * @param ggStatSetBoxplot - `GG.StatSetBoxplot`
+     *
+     * @returns `VL.Mark`
+     *
+     */
+    function markByGeomBoxplot(ggGeomSet, ggStatSetBoxplot) {
+        // I know we have not done boxplots yet, this is just to propose an
+        // extension mechanism.
+        // validate (look for GeomParams and StatParams we can't translate)
+        // translate
+        var mark = markByGeomDefault(ggGeomSet);
+        // TODO: add geomParams
+        //NOTE @wenyu: use VL.ExtentExtent.MinMax
+        function coef(coef) {
+            if (typeof coef == 'string') {
+                return ExtentExtent.MinMax; // catch-all for "Inf"
+            }
+            return coef;
+        }
+        mark.extent = coef(ggStatSetBoxplot.stat_params.coef);
+        return mark;
+    }
+
+    /**
+     * Create an empty `Encoding` according to an aesthetic-name
+     *
+     * @remarks
+     * There are different "flavors" of Vega-Lite encodings; which one is used
+     * depends on the encoding key (name), which in turn depends on the
+     * aesthetic name.
+     *
+     * In the future, maybe we could imagine an `opts` argument so that we could
+     * instantiate the encoding and set values in one step.
+     *
+     * **Called by**
+     * @see {@link itmEncodingObjectByMappingObject}
+     * @see {@link itmEncodingObjectByAesParamsObject}
+     *
+     * **Calls**
+     * @see encodingX
+     * @see encodingY
+     * @see encodingString
+     * @see encodingNumber
+     * @see encodingShape
+     * @see encodingDetail
+     *
+     * @param aesName - `string` name of ggplot2 aesthetic
+     *
+     * @returns `VL.Encoding` empty encoding
+     */
+    function encodingByAes(aesName) {
+        // assuming that VL.ValueDefWithConditionMarkPropFieldDefNumber, etc.
+        // are all subclasses of VL.Encoding
+        // keys are ggplot2 aesthetic names
+        // values are Vega-Lite encoding constructor-functions for values
+        var itmEncodingMap = {
+            x: encodingX,
+            y: encodingY,
+            colour: encodingString,
+            fill: encodingString,
+            size: encodingNumber,
+            stroke: encodingNumber,
+            alpha: encodingNumber,
+            group: encodingDetail,
+            shape: encodingShape,
+            weight: encodingNumber
+            // NOTE: the weight aesthetic is used for stat calculations, it will not appear as an encoding key.
+        };
+        // validate
+        if (!contains$1(Object.keys(itmEncodingMap), aesName)) {
+            throw new Error('ggplot object contains unsupported aesthetic: ' + aesName);
+        }
+        // return empty object
+        return itmEncodingMap[aesName]();
+    }
+    /**
+     * Create empty X-encoding
+     *
+     * @remarks
+     * **Called by**
+     * @see encodingByAes
+     *
+     * @returns `VL.XClass`
+     */
+    function encodingX() {
+        var encoding = {};
+        return encoding;
+    }
+    /**
+     * Create empty Y-encoding
+     *
+     * @remarks
+     * **Called by**
+     * @see encodingByAes
+     *
+     * @returns `VL.YClass`
+     */
+    function encodingY() {
+        var encoding = {};
+        return encoding;
+    }
+    /**
+     * Create empty number-encoding
+     *
+     * @remarks
+     * **Called by**
+     * @see encodingByAes
+     *
+     * @returns `VL.DefWithConditionMarkPropFieldDefNumber`
+     */
+    function encodingNumber() {
+        var encoding = {};
+        return encoding;
+    }
+    /**
+     * Create empty string-encoding
+     *
+     * @remarks
+     * **Called by**
+     * @see encodingByAes
+     *
+     * @returns `VL.DefWithConditionMarkPropFieldDefStringNull`
+     */
+    function encodingString() {
+        var encoding = {};
+        return encoding;
+    }
+    //NOTE @wenyu: Use VL.TypedFieldDef rather than VL.Details. Because we only use VL.TypedFieldDef
+    /**
+     * Create empty detail-encoding
+     *
+     * @remarks
+     * **Called by**
+     * @see encodingByAes
+     *
+     * @returns `VL.TypedFieldDef`
+     */
+    function encodingDetail() {
+        //NOTE @wenyu: VL.Detail has to define the type - we think we can change this later
+        var encoding = { type: StandardType.Nominal };
+        return encoding;
+    }
+    /**
+     * Create empty shape-encoding
+     *
+     * @remarks
+     * **Called by**
+     * @see encodingByAes
+     *
+     * @returns `VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull`
+     */
+    function encodingShape() {
+        var encoding = {};
+        return encoding;
+    }
+
+    /**
+     * Translate a ggplot2 size to a Vega-Lite size
+     *
+     * @remarks
+     * In the future, we may have to take the geom into account.
+     *
+     * **Called by**
+     * @see itmEncodingObjectByAesParamsObject
+     *
+     * @param size - `number`
+     *
+     * @returns `number`
+     */
+    function encodingValueSize(size) {
+        // translate
+        return 20 * Number(size);
+    }
+    /**
+     * Translate a ggplot2 shape to a Vega-Lite shape
+     *
+     * @remark
+     *
+     * We need to think more about how this function behaves.
+     *
+     * **Called by**
+     * @see itmEncodingObjectByAesParamsObject
+     *
+     * @param size - `number`
+     *
+     * @returns `number`
+     */
+    function encodingValueShape(shape) {
+        shape = Number(shape);
+        // TODO: think more about this map
+        var shapeMap = {
+            0: 'circle',
+            1: 'square',
+            3: 'cross',
+            4: 'diamond',
+            5: 'triangle-up',
+            6: 'triangle-down',
+            7: 'triangle-right',
+            8: 'triangle-left'
+        };
+        // validate
+        if (!contains$1(Object.keys(shapeMap), shape)) {
+            throw new Error('ggplot object contains unsupported shape: ' + shape);
+        }
+        // translate
+        return shapeMap[shape];
+    }
+    /**
+     * Translate a ggplot2 colour to a Vega-Lite color
+     *
+     * @remark
+     *
+     * In ggplot2, colours can be hex-codes or named colours; In Vega-Lite,
+     * colors can be hex-codes or named colors. Hex-codes mean the same thing
+     * in both. Colours, although they have a common heritage, X11, are a little
+     * bit different.
+     *
+     * Hex-codes are returned unchanged.
+     *
+     * Colour-names that end in numbers have the numbers removed.
+     *
+     * In the future, we might imagine something more-sophisticated that preserves the
+     * names of colours that correspond, but replace those that do not correspond
+     * with hex-codes.
+     *
+     * **Called by**
+     * @see itmEncodingObjectByAesParamsObject
+     *
+     * @param size - `number`
+     *
+     * @returns `number`
+     */
+    function encodingValueColor(color) {
+        // colors in R can have numbers at the end, in Vega-Lite (css), they don't
+        // - we can get a good-enough mapping by removing the numbers.
+        //NOTE @wenyu: use String()?
+        color = String(color);
+        // return hex-values as-is
+        // validate
+        if (color.match(/^(#[0-9a-f]{3}|#[0-9a-f]{6})$/i)) {
+            // translate
+            return color;
+        }
+        // translate
+        var colorNew = color.replace(/[0-9]+$/, '');
+        // TODO validate - check that color is in Vega-Lite colors
+        // if (!validColorNew) {
+        //   throw new Error('ggplot object contains unsupported color: ' + color);
+        // }
+        return colorNew;
+    }
+    //NOTE @wenyu:
+    function encodingValueStroke(stroke) {
+        return Number(stroke);
+    }
+    function encodingValueAlpha(alpha) {
+        return Number(alpha);
+    }
+
+    /**
+     * Create an intermediate `encoding` object using a `mapping` object
+     *
+     * @remark
+     * This function creates an intermdiate `encoding` object using a
+     * ggspec `mapping` object and a ggspec `Metadata` object.
+     *
+     * Currently, a ggspec `mapping` is an object with a single key, `field`.
+     * Its value is a string; that string matches to a variable-name
+     * in the data.
+     *
+     * In the near future, a ggspec `mapping` may instead contain a different
+     * single key, `stat`, with a string that matches an stat (aggregation)
+     * operation, like `"count"`, or `"sum"`.
+     *
+     * This is more of a note to myself, we are starting to see the patterns
+     * of how ggplot2 mappings, aes_params, and stat default_aes are related.
+     * I suspect this should be addressed in ggschema.
+     * See <https://github.com/vegawidget/ggvega/issues/44>
+     *
+     * **Called by**
+     *
+     * @see {@link itmLayer} to create an intermediate layer
+     *
+     * **Calls**
+     *
+     * @see {@link encodingByAes} to create an empty encoding
+     * @see {@link fieldName} to handle dots, ".", in field names
+     *
+     * @param ggMappingObject - `GG.MappingObject` maps data varaibles to aesthetics
+     * @param ggMetadataObject - `GG.MetadataObject` contains the metadata for the data
+     *   associated to this layer
+     *
+     * @returns `ItmEncodingObject`
+     */
+    function itmEncodingObjectByMappingObject(ggMappingObject, ggMetadataObject) {
+        // translate
+        // create empty itmEncodingObject
+        var itmEncodingObject = {};
+        // TODO: if the type is `ordinal`, and we have level,
+        // we should set the scale domain according to the levels.
+        //
+        // larger TODO: determine and document the relationship between
+        // ggplot    - factor, ordered-factor, levels
+        // Vega-Lite - nominal, ordinal, scale-domain
+        // for each mapping in gsMappingObject:
+        //   - extract the information from the mapping object, metadata
+        //   - create Encoding
+        //   - populate Encoding
+        //   - put Encoding into itmEncodingObject
+        for (var aesName in ggMappingObject) {
+            if (hasKey(ggMappingObject, aesName)) {
+                // do we have a type/class for `mapping`?
+                // extract information from mapping object, metatdata
+                var mapping = ggMappingObject[aesName];
+                // TODO: we need to handle the situation where the mapping is a
+                // `stat` instead of a `field`
+                // NOTE @wenyu: Define `type` before we change the value of `field`
+                var type = ggMetadataObject[mapping.field].type;
+                var field = fieldName(mapping.field);
+                // create Encoding
+                var encoding = encodingByAes(aesName);
+                // popuate Encoding
+                encoding.field = field;
+                encoding.type = type;
+                // assuming that TypeScript will protect us from setting
+                // properties that are not available
+                // put Encoding into ItmEncodingObject
+                itmEncodingObject[aesName] = encoding;
+            }
+        }
+        // return
+        return itmEncodingObject;
+    }
+    /**
+     * Modify an intermediate `encoding` object using an `AesParams` object
+     *
+     * @remarks
+     * This function will have side-effects, as the argument `itmEncodingObject`
+     * is mutable, and is modified inside this function. We return this object
+     * to signify that we intend to modify it, but we suspect that this is not
+     * strictly necessary; the function could return `null` to signify that it
+     * is called for side-effects. I am curious to know the convention here.
+     *
+     * This function modifies an intermdiate `encoding` object using a
+     * ggspec `AesParams` object. In the future, we may need the `geom`.
+     *
+     * A ggspec `AesParams` element is a key-value pair, where the key
+     * is a ggplot2 aesthetic-name, and the value can be a `string`, `number`,
+     * or `boolean` (?).
+     *
+     * For each `AesParams` element, an `encoding` object is created, and put
+     * into `itmEncodingObject` using the ggplot2 aesthetic-name as a key. The
+     * value (of this key-value pair) is an object with a single key-value
+     * pair: the key is `value`; its value is the value in "visual" space.
+     *
+     * There are helper functions to translate values for shape, color, and size.
+     *
+     * In the future, we may be able to take into account values that are specified
+     * using "data" space: <https://github.com/vega/vega-lite/issues/1601>
+     *
+     * **Called by**
+     * @see {@link itmLayer} to create an intermediate layer
+     *
+     * **Calls**
+     * @see {@link encodingByAes} to create an empty encoding
+     * @see {@link encodingValueShape} to translate shape values
+     * @see {@link encodingValueColor} to translate color values
+     * @see {@link encodingValueSize} to translate size values
+     *
+     *
+     * @param itmEncodingObject
+     * @param ggAesParamsObject
+     *
+     * @returns `ItmEncodingObject`
+     */
+    function itmEncodingObjectByAesParamsObject(itmEncodingObject, ggAesParamsObject) {
+        // NOTE: we may have to pass the `geom` from itmLayer()
+        // for each member of gsAesParams:
+        //   - extract information from aesParams
+        //   - create ItmEncoding
+        //   - populate ItmEncoding
+        //   - put ItmEncoding into itmEncodingObject
+        var itmEncodingByAesParamsMap = {
+            shape: encodingValueShape,
+            colour: encodingValueColor,
+            fill: encodingValueColor,
+            size: encodingValueSize,
+            stroke: encodingValueStroke,
+            alpha: encodingValueAlpha
+        };
+        for (var aesName in ggAesParamsObject) {
+            if (hasKey(ggAesParamsObject, aesName)) {
+                // extract information from aes_params
+                // NOTE @wenyu: Maybe the `value` can have other types
+                var value = ggAesParamsObject[aesName];
+                /**
+                 * keep in mind that values are interpreted
+                 * in the "visual" space, not the "data" space
+                 *
+                 * this will be an issue for geom_hline and geom_vline,
+                 * as their x & y aes_params are specified in "data" space
+                 *
+                 * issue: https://github.com/vega/vega-lite/issues/1601
+                 * PR: https://github.com/vega/vega-lite/pull/4201
+                 */
+                // tranlsate
+                if (contains$1(Object.keys(itmEncodingByAesParamsMap), aesName)) {
+                    // NOTE: we will likely need the Geom, which I think we can get
+                    // from the `geom` breadcrumb included with the itmEncoding
+                    value = itmEncodingByAesParamsMap[aesName](value);
+                }
+                // create Encoding
+                var encoding = {};
+                //NOTE @wenyu: The encoding can only have the encoding property and the aes_params will take precedence
+                // over mapping. In ggplot, we can specify aes_params only in the layer - so this should take precedence
+                // over a mapping made in the ggplot() call.
+                //  VL encodings based on value should not have titles!
+                //  https://github.com/vega/vega-lite/blob/master/src/encoding.ts#L170
+                // populate Encoding
+                encoding.value = value;
+                // put Encoding into ItmEncodingObject
+                itmEncodingObject[aesName] = encoding;
+            }
+        }
+        // return
+        return itmEncodingObject;
+    }
+
+    /**
+     * Modify an encoding object according to a ggspec stat
+     *
+     * @remarks
+     * Note about side-effects.
+     *
+     * This function is used to determine the specific function
+     * according to the class of the ggspec stat. The actual work
+     * is done in these specific functions.
+     *
+     * Right now, we support only one ggspec stat: `StatIdentity`.
+     *
+     * **Called by**
+     * @see itmLayer
+     *
+     * **Calls**
+     * @see itmEncodingObjectByStatIdentity
+     *
+     *
+     * @param itmEncodingObject
+     * @param ggStatSet
+     *
+     * @returns itmEncodingObject
+     */
+    function itmEncodingObjectByStat(itmEncodingObject, ggStatSet) {
+        var statMap = {
+            StatIdentity: itmEncodingObjectByStatIdentity,
+            StatCount: itmEncodingObjectByStatCount,
+            StatBoxplot: itmEncodingObjectByStatIdentity
+        };
+        // validate
+        if (!contains$1(Object.keys(statMap), ggStatSet.stat.class)) {
+            throw new Error('ggplot object contains unsupported stat: ' + ggStatSet.stat.class);
+        }
+        // translate
+        var functionTranslate = statMap[ggStatSet.stat.class];
+        return functionTranslate(itmEncodingObject, ggStatSet);
+    }
+    /**
+     * Modify an encoding object according an identity stat
+     *
+     * @remarks
+     * This function does nothing.
+     *
+     * **Called by**
+     * @see itmEncodingObjectByStat
+     *
+     * @param itmEncodingObject
+     * @param ggStatSet
+     *
+     * @return itmEncodingObject
+     */
+    function itmEncodingObjectByStatIdentity(itmEncodingObject, ggStatSet) {
+        // do nothing
+        return itmEncodingObject;
+    }
+    function itmEncodingObjectByStatCount(itmEncodingObject, ggStatSet) {
+        // do nothing
+        return itmEncodingObject;
+    }
+
+    /**
+     * Create intermediate layer
+     *
+     * @remarks
+     * This function is used to create an intermediate `layer`, using the
+     * information contained ggspec `layer`. Other functions will add to the
+     * intermediate `layer` using the `scales`, `labels`, etc.
+     *
+     * Within a `layer`, an `encoding` needs to know the type, e.g.
+     * `"quantitative"`, of the variables (`field`s) it uses; this information
+     * is kept in the ggspec `data`.
+     *
+     * An intermediate `layer` has two difference from a Vega-Lite `layer`:
+     *
+     * - It keeps the ggspec `geom` as an element, using it as a breadcrumb.
+     * - Its `encoding` keys use ggplot2 aesthetic names as its namespace,
+     *   rather than using Vega-Lite `encoding` names.
+     *
+     * This function compiles four elements of the `layer`:
+     *
+     * - `data`: name of the dataframe used for the layer
+     * - `geom`: breadcrumb, contains the class of the ggplot2 `geom`
+     * - `mark`: determined mainly using the `geom`
+     * - `encoding` this is an intermediate encoding, where
+     *     the keys use the ggplot2-aesthetic namespace,
+     *     rather than the Vega-Lite encoding namespace:
+     *     - initial version is built using ggplot2 `mapping`,
+     *       as well as the `metadata`
+     *     - then modified by `aes_params`
+     *     - then modified by `stat` and `stat_params`
+     *     - then modified by `position`
+     *
+     * **Called by**
+     * @see layerArray
+     *
+     * **Calls**
+     * @see markByGeom
+     * @see itmEncodingObjectByMappingObject
+     * @see itmEncodingObjectByAesParamsObject
+     * @see itmEncodingObjectByStat
+     * @see itmEncodingOjectByPosition
+     *
+     * @param ggLayer - `GG.Layer`, ggspec layer
+     * @param ggDatasetObject - `GG.DatasetObject`, ggspec data - used here for its `metadata`
+     *
+     * @returns `ItmLayer`, intermediate layer
+     */
+    function itmLayer(ggLayer, ggDatasetObject) {
+        // translate
+        // get the metadata for the data for this layer
+        var ggMetadataObject = ggDatasetObject[ggLayer.data].metadata;
+        var itmLayer = {
+            data: { name: ggLayer.data },
+            //NOTE @wenyu: Use GeomSet as breadcrumb?
+            // leave `geom` as a breadcrumb so that we can use encodingNameByGeom()
+            // - will not be not included in vl.Layer
+            geomSet: ggGeomSet(ggLayer),
+            mark: markByGeom(ggGeomSet(ggLayer), ggStatSet(ggLayer)),
+            encoding: itmEncodingObjectByMappingObject(ggLayer.mapping, ggMetadataObject)
+        };
+        // incorporate aes_params into encoding
+        itmLayer.encoding = itmEncodingObjectByAesParamsObject(itmLayer.encoding, ggLayer.aes_params);
+        // incorporate stat into encoding
+        itmLayer.encoding = itmEncodingObjectByStat(itmLayer.encoding, ggStatSet(ggLayer));
+        // incorporate position into encoding (not yet active)
+        // itmLayer.encoding = itmEncodingOjectByPosition(itmLayer.encoding, gsLayer.position);
+        return itmLayer;
+    }
+    // NOTE @wenyu: Remove these 2 functions from ggschema to here. For test these functions and make ggschema clearer
+    function ggGeomSet(layer) {
+        return { geom: layer.geom, geom_params: layer.geom_params };
+    }
+    function ggStatSet(layer) {
+        return { stat: layer.stat, stat_params: layer.stat_params };
+    }
+
+    /**
+     * Modify a layer array according to a set of labels
+     *
+     * @remark
+     * We want to attach a label to the first match that it finds, but we want it
+     * to match only once.
+     *
+     * One way we can do this is to delete an item from the label object as
+     * as soon as we match it - this way it can be used no more than once.
+     *
+     * We need to define what is a match - I think a match is made between:
+     *   - a key (aesthetic name) of an encoding object
+     *   - a key of a label
+     *
+     * Is this always an exact match? Perhaps for position channels, x & y,
+     * it need match only the first character. A function could be useful here
+     * to determine a match between two strings.
+     *
+     * I think we have to start by looping over the layers.
+     *
+     * Then we can have a function that takes an (intermediate) encoding object
+     * and a label object. This function can loop over both the enconding object
+     * and the label object, looking for a match.
+     *
+     * **Called by**
+     * @see layerArray
+     *
+     *
+     * @param itmLayerArray - `itmLayer[]`
+     * @param ggLabelObject - `GG.LabelObject`
+     *
+     * @returns `ItmLayer[]`
+     */
+    function itmLayerArrayByLabelsObject(itmLayerArray, ggLabelObject) {
+        //NOTE@ian consider deleting labels that have keys that begin with `x` or `y` but are not `x` or `y`
+        //NOTE@ian - I think the position aesthetics are different in that we want to consider only those
+        //  labels associated with 'x' or 'y', but we want to associate an `y` label with a `ymin` aesthetic.
+        itmLayerArray.map(function (itmLayer) {
+            for (var encodingKey in itmLayer.encoding) {
+                if (hasKey(itmLayer.encoding, encodingKey)) {
+                    if (itmLayer.encoding[encodingKey].value)
+                        continue;
+                    for (var labelKey in ggLabelObject) {
+                        if (hasKey(ggLabelObject, labelKey)) {
+                            //NOTE@ian - do we need to protect
+                            //NOTE@ian - consider using a function that takes a labelKey and an encodingKey, returns a boolean
+                            if (keyMatch(labelKey, encodingKey)) {
+                                itmLayer.encoding[encodingKey].title = ggLabelObject[labelKey];
+                                delete ggLabelObject[labelKey];
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        // loop through the layers
+        // within each layer:
+        //   - get the encoding keys (aesthetic names)
+        //   - get the label keys (aesthetic names)
+        //   - for each label key:
+        //       - if there is a match with an encoding key (first match that is not value-only):
+        //           -  set the encoding title to the label value
+        //           -  remove the label from the label object
+        return itmLayerArray;
+    }
+    function keyMatch(labelKey, encodingKey) {
+        if (labelKey === encodingKey)
+            return true;
+        //NOTE @wenyu: should we match `ymax` to `y`?
+        //if (labelKey[0] === encodingKey) return true;
+        return false;
+    }
+
+    /**
+     * Modify a layer array according to a scale array
+     *
+     * I think the match-and-delete strategy for scales can be very similar
+     * to the one used in {@link itmLayerArrayByLabelsObject}.
+     *
+     * The obvious difference is that scales are in array, rather than in an object.
+     * Another difference is that a scale has an element called `aesthetics` that
+     * can make it simpler to match to the encoding key. Perhaps {@link contains}
+     * could be used.
+     *
+     * **Called by**
+     * @see layerArray
+     *
+     * @param itmLayerArray
+     * @param ggScaleArray
+     *
+     * @returns `ItmLayer[]`
+     */
+    function itmLayerArrayByScalesArray(itmLayerArray, ggScaleArray) {
+        var scaleMap = {
+            ScaleContinuousPosition: scaleContinuousPosition
+        };
+        itmLayerArray.map(function (itmLayer) {
+            var _loop_1 = function (encodingKey) {
+                if (hasKey(itmLayer.encoding, encodingKey)) {
+                    ggScaleArray.map(function (ggScale) {
+                        //NOTE @wenyu:https://love2dev.com/blog/javascript-remove-from-array/
+                        for (var i = 0; i < ggScale.aesthetics.length; i++) {
+                            if (keyMatch$1(ggScale.aesthetics[i], encodingKey)) {
+                                //NOTE @wenyu: define name onlu when ggScale has a name
+                                if (ggScale.name)
+                                    itmLayer.encoding[encodingKey].title = ggScale.name;
+                                //NOTE @wenyu: validate
+                                if (!contains$1(Object.keys(scaleMap), ggScale.class)) {
+                                    throw new Error('ggplot object contains unsupported scale class: ' + ggScale.class);
+                                }
+                                //NOTE @wenyu: use function dispatch
+                                scaleMap[ggScale.class](itmLayer.encoding[encodingKey], ggScale);
+                                ggScale.aesthetics.splice(i, 1);
+                            }
+                        }
+                    });
+                }
+            };
+            for (var encodingKey in itmLayer.encoding) {
+                _loop_1(encodingKey);
+            }
+        });
+        // suspect we will need metadata
+        // why? - looking at this later, I can't remember
+        // loop through the layers
+        // within each layer:
+        //   - get the encoding keys (aesthetic names)
+        //   - get the scale keys (aesthetic names)
+        //   - for each scale key:
+        //       - if there is a match with an encoding key (first match that is not value-only):
+        //           -  set the scale on the encoding
+        //           -  set the encoing name to the scale name
+        //           -  remove the scale from the scale array
+        return itmLayerArray;
+    }
+    // consider folding this back into the code
+    function keyMatch$1(scaleKey, encodingKey) {
+        if (scaleKey === encodingKey)
+            return true;
+        //NOTE @wenyu: should we match `ymax` to `y`?
+        //if (labelKey[0] === encodingKey) return true;
+        return false;
+    }
+    function scaleContinuousPosition(vlEncodingField, ggScale) {
+        //TODO：translate the ScaleContinuousPosition
+    }
+
+    /**
+     * Modify an intermediate-layer array by coordinates
+     *
+     * @remarks
+     * This function is used to dispatch according to the ggschema coordinates.
+     *
+     * **Calls**
+     * @see itmLayerArrayByCoordCartesian
+     *
+     *
+     * @param itmLayerArray
+     * @param ggCoord
+     *
+     * @returns `ItmLayer[]`
+     */
+    function itmLayerArrayByCoord(itmLayerArray, ggCoord) {
+        // keys: class names
+        // values: function to call
+        var CoordMap = {
+            CoordCartesian: itmLayerArrayByCoordCartesian
+        };
+        // validate
+        var className = ggCoord.class;
+        if (!contains$1(Object.keys(CoordMap), className)) {
+            throw new Error('ggplot object contains unsupported coordinates: ' + className);
+        }
+        // translate
+        return CoordMap[className](itmLayerArray, ggCoord);
+    }
+    /**
+     * Modify an intermediate-layer array by Cartesian coordinates
+     *
+     * @remarks
+     * Cartesian coordinates are the default; this function is a no-op.
+     *
+     * **Called by**
+     * @see itmLayerArrayByCoord
+     *
+     * @param itmLayerArray
+     * @param ggCoord
+     *
+     * @returns `ItmLayer[]`
+     */
+    function itmLayerArrayByCoordCartesian(itmLayerArray, gsCoord) {
+        // do nothing
+        return itmLayerArray;
+    }
+
+    // keys: names of ggplot2 aesthetics
+    // values: names of Vega-Lite encodings
+    var encodingMapDefault = {
+        x: 'x',
+        y: 'y',
+        colour: 'stroke',
+        fill: 'fill',
+        size: 'size',
+        stroke: 'strokeWidth',
+        alpha: 'opacity',
+        group: 'detail',
+        shape: 'shape',
+        weight: null
+    };
+    /**
+     * Get encoding name from aesthetic name
+     *
+     * @remarks
+     * The mapping of a ggplot aesthetic name to an encoding name depends
+     * on the Geom under consideration.
+     *
+     * **Called by**
+     * @see layerByItmLayer
+     *
+     * @param aesName - `GGEncodingKey` ggplot aesthetic-name
+     * @param ggGeom - `GG.GeomSet` ggschema GeomSet object
+     *
+     * @returns
+     */
+    function encodingNameByGeom(aesName, ggGeomSet) {
+        // keys: names of ggplot2 aesthetics
+        // values: names of Vega-Lite encodings
+        //NOTE @wenyu: Add `stroke`, What's `weight`
+        var encodingMap = encodingMapDefault;
+        // validate
+        if (!contains$1(Object.keys(encodingMap), aesName)) {
+            throw new Error('ggplot object contains unsupported aesthetic: ' + aesName);
+        }
+        // translate
+        // exceptions
+        if (ggGeomSet.geom.class == 'GeomLine') {
+            encodingMap.size = 'strokeWidth';
+        }
+        if (ggGeomSet.geom.class == 'GeomBar') {
+            encodingMap.size = 'strokeWidth';
+        }
+        return encodingMap[aesName];
+    }
+
+    /**
+     * Create layer array
+     *
+     * @remark
+     * A layer array is composed of individual layers. Here, the translation
+     * process has two parts; the layer array is built in stages:
+     *
+     *  - Each Vega-Lite `layer` is built according to its corresponding
+     *    ggspec `layer`.
+     *
+     *  - The Vega-Lite layer array is then modified according to:
+     *
+     *    - ggspec `labels`:
+     *       - each label is associated with a group of aesthetics
+     *       - each aesthetic-group is to be labelled no more than once
+     *       - as such, we apply a label to its first match in a layer array:
+     *         the first matching aesthetic in the first matching layer
+     *
+     *    - ggspec `scales`:
+     *       - each scale is associated with a group of aesthetics
+     *       - each aesthetic-group is to have a scale defined no more than once
+     *       - as such, we apply a scale to its first match in a layer array:
+     *         the first matching aesthetic in the first matching layer
+     *
+     *    - ggspec `coordinates`:
+     *       - for the immediate future, Vega-Lite can support only Cartesian
+     *         coordinates: <https://github.com/vega/vega-lite/issues/408>
+     *       - ggplot2 offers "flipped" (Cartesian) coordinates,
+     *         which we will support
+     *
+     *  There is one other process happening here - each `layer` is initially
+     *  constructed not as a Vega-Lite `layer`, but as an "intermediate" `layer`.
+     *
+     *  When constructing a `layer` (array), we found to simpler to keep the
+     *  `encoding` namespace, i.e. the names of the keys in the `encoding`
+     *  object, based on ggplot2's aesthetic names, rather than Vega-Lite's encoding
+     *  names. This makes it easier to incorporate `stat`s, `scales`, `labels`, etc.
+     *
+     *  This means, at the end of this process, to convert from an intermediate
+     *  `layer` array Vega-Lite `layer` array, we have change the `encoding`
+     *  namespace to conform to Vega-Lite.
+     *
+     * **Called by**
+     *
+     * @see topLevelSpec
+     *
+     * **Calls**
+     *
+     * @see itmLayer
+     * @see itmLayerArrayByLabelObject
+     * @see itmLayerArrayByScaleArray
+     * @see itmLayerArrayByCoord
+     * @see layerByItmLayer
+     *
+     * @param ggDatasetObject `GG.DatasetObject`, key-value pairs of ggspec datasets
+     * @param ggLayerArray `GG.Layer[]` - array of ggspec layers
+     * @param ggScaleArray `GG.Scale[]` - array of ggspec scales
+     * @param ggLabelObject `GG.LabelObject` - key-value pairs of ggspec labels
+     * @param ggCoordinates `GG.Coord` - ggspec coordinates
+     *
+     * @returns `vl.LayerSpec[]`, array containing Vega-Lite layer specs
+     *
+     */
+    function layerArrayByAes(ggDatasetObject, ggLayerArray, ggScaleArray, ggLabelObject, ggCoordinates) {
+        // validate
+        if (ggLayerArray.length == 0) {
+            throw new Error('ggplot object has no layers, requires at least one layer');
+        }
+        // translate
+        // start intermediate layers according to ggLayerArray
+        // could this work?
+        var itmLayerArray = ggLayerArray.map(function (ggLayer) {
+            return itmLayer(ggLayer, ggDatasetObject);
+        });
+        // incorporate labels
+        itmLayerArray = itmLayerArrayByLabelsObject(itmLayerArray, ggLabelObject);
+        // incorporate scales
+        itmLayerArray = itmLayerArrayByScalesArray(itmLayerArray, ggScaleArray);
+        // incorporate coordinates
+        itmLayerArray = itmLayerArrayByCoord(itmLayerArray, ggCoordinates);
+        // change encoding-key namespace from ggplot2 to Vega-Lite
+        var layerArray = itmLayerArray.map(layerByItmLayer);
+        return layerArray;
+    }
+    /**
+     * Change the `encoding` namespace
+     *
+     * @remark
+     * To translate an intermediate `layer` to a Vega-Lite `layer`, this function
+     * changes the `encoding` namespace from ggplo2 aesthetic-names to Vega-Lite
+     * `encoding` keys.
+     *
+     * As well, a ggspec `geom` is an element of an intermediate `layer`; we use it
+     * as a "breadcrumb", as the mapping of aesthetic names to encoding names depends
+     * on the `geom`.
+     *
+     * **Called by**
+     * @see layerArray
+     *
+     * **Calls**
+     * @see encodingNameByGeom
+     *
+     *
+     * @param itmLayer - `itmLayer`, intermediate layer-object
+     *
+     * @returns `VL.Layer`, Vega-Lite layer-object
+     *
+     */
+    function layerByItmLayer(itmLayer) {
+        // create new encoding
+        var encoding = {};
+        // loop over aesthetic names in itmLayerEncoding
+        for (var aesName in itmLayer.encoding) {
+            if (hasKey(itmLayer.encoding, aesName)) {
+                // get the encoding name, add to the encoding
+                var encodingName = encodingNameByGeom(aesName, itmLayer.geomSet);
+                if (encodingName == 'x')
+                    encoding[encodingName] = itmLayer.encoding[aesName];
+                if (encodingName == 'y')
+                    encoding[encodingName] = itmLayer.encoding[aesName];
+                if (encodingName == ('size'  ))
+                    encoding[encodingName] = itmLayer.encoding[aesName];
+                if (encodingName == ('stroke' ))
+                    encoding[encodingName] = itmLayer.encoding[aesName];
+                if (encodingName == 'shape')
+                    encoding[encodingName] = itmLayer.encoding[aesName];
+            }
+        }
+        var layer = {
+            data: itmLayer.data,
+            mark: itmLayer.mark,
+            encoding: encoding
+        };
+        return layer;
+    }
+
+    /**
+     * Create a Facet object
+     *
+     * @remarks
+     * This is just a stub right now - to be built soon.
+     *
+     * **Called by**
+     * @see topLevelSpec
+     *
+     *
+     * @param ggFacet - `GG.Facet` ggschema Facet object
+     *
+     * @returns `VL.Facet`
+     */
+    function facet(ggFacet) {
+        // validate
+        throw new Error('ggplot object contains unsupported facet: ' + ggFacet.class);
+        var facet = {};
+        return facet;
+    }
+
+    function spec2vl(spec) {
+        var ggSpec = ggValidate(spec);
+        var vlSpec = topLevelSpec(ggSpec);
+        return vlSpec;
+    }
+    function ggValidate(spec) {
+        // validate here
+        //NOTE @wenyu: This function throw warnings and return true(validated) or false(not validated).
+        validateGs(spec);
+        var ggSpec = spec;
+        return ggSpec;
+    }
+    /**
+     * Create a TopLevelSpec
+     *
+     * @remarks
+     * This seems like a good place to discuss coding ideas.
+     *
+     * **Motivation**
+     *
+     * When we add another ggplot2 `Geom`, `Stat`, `Position`, etc., we want to make it
+     * as simple as possible to add the translation code here.
+     *
+     * **Principles**
+     *
+     * - Use short, focused functions.
+     * - Use class-dispatch where appropriate.
+     * - Keep in mind that ggplot/ggspec can provide redundant or conflicting
+     *   information, develop rules to resolve those conflicts.
+     *
+     * **Conventions**
+     *
+     * - The word `translate` is not used in function names because virtually
+     *   every function performs a translation; the word is not telling us
+     *   anything new.
+     *
+     * - Functions are named after the type of object they return,
+     *   e.g. this function is named `topLevelSpec`.
+     *
+     * - Functions or variables that refer to a Vega-Lite objects
+     *   do *not* use a prefix. Those that refer to a ggspec or intermidate object
+     *   use the prefixes `gg` or `itm`, respectively.
+     *
+     * - Functions and files containing functions that depend on
+     *   certain ggplot2 features, e.g. `Geom`, are further named using
+     *   the preposition `By`, e.g. `markByGeom`.
+     *
+     *   - Functions that operate on different types of a ggplot2 feature,
+     *     e.g. `markByGeom`: `markByGeomDefault`, `markByGeomBoxplot`,
+     *     are collected in a single file, e.g. `markByGeom.ts`
+     *
+     * - Functions or variables that refer to collections of similar things,
+     *   e.g. `layerArray` or `encodingObject`, use the suffixes `Array` or
+     *   `Object`.
+     *
+     * - TODO: find out the convention for noting that mutable function-arguments
+     *   are changed as a side-effect of calling, and that sometimes we might do this
+     *   intentionally.
+     *
+     * - End-users are not expected to know about ggspec or ggschema;
+     *   error messages should refer to the ggplot object.
+     *
+     * **Resolutions**
+     *
+     *  - In an `encoding`:
+     *   - a ggplot2 `scale` name takes precedence over a ggplot2 `label` value.
+     *   - a ggplot2 `mapping` takes precedence over a ggplot2 `stat` `default_aes`.
+     *
+     * ---
+     *
+     * **Calls**
+     * @see datasetsObject
+     * @see layerArray
+     * @see facet
+     *
+     * @param ggSpec - `GG.TopLevelSpec`, validated ggspec
+     *
+     * @returns `VL.TopLevelSpec`, Vega-Lite specification
+     *
+     */
+    function topLevelSpec(ggSpec) {
+        // The structure of a Vega-Lite specification depends on whether or not
+        // it is faceted.
+        // Want to specify this URL exactly **one** place in the project
+        // also - what mechanism do we use to update the Vega-Lite schema?
+        // const schema = 'https://vega.github.io/schema/vega-lite/v3.json';
+        var topLevelSpec = {};
+        // faceted
+        if (ggSpec.facet.class != 'FacetNull') {
+            // at the moment, this code will not run because
+            // `facet()`, by design, throws an error
+            topLevelSpec = {
+                $schema: vlschema,
+                //NOTE @wenyu: It's better to use undefined rather than '' to avoid `title=''`
+                title: ggSpec.labels.title || undefined,
+                datasets: datasetObject(ggSpec.data),
+                spec: {
+                    layer: layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
+                },
+                facet: facet(ggSpec.facet)
+            };
+            return topLevelSpec;
+        }
+        // not faceted
+        topLevelSpec = {
+            $schema: vlschema,
+            title: ggSpec.labels.title || undefined,
+            datasets: datasetObject(ggSpec.data),
+            layer: layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
+        };
+        return topLevelSpec;
+    }
+
+    exports.spec2vl = spec2vl;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

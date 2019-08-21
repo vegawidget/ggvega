@@ -21,7 +21,25 @@
   "eslint.validate": [
     "javascript",
     "javascriptreact",
-    { "language": "typescript", "autoFix": true },
-    { "language": "typescriptreact", "autoFix": true }
-  ]
+    {"language": "typescript", "autoFix": true},
+    {"language": "typescriptreact", "autoFix": true}
+  ],
+  "todo-tree.tags": ["TODO", "FIXME", "NOTE"],
+  "todo-tree.defaultHighlight": {
+    "icon": "alert",
+    "type": "text",
+    "background": "grey",
+    "opacity": 50
+  },
+  "todo-tree.customHighlight": {
+    "TODO": {
+      "foreground": "red",
+      "icon": "check",
+      "type": "line"
+    },
+    "NOTE": {
+      "foreground": "#ffab00",
+      "iconColour": "yellow"
+    }
+  }
 }

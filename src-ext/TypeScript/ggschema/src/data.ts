@@ -2,19 +2,19 @@
  * The datasets should have at least one dataset
  * @minProperties 1
  */
-export interface Datasets {
+export interface DatasetObject {
   [key: string]: Dataset;
 }
 
 export interface Dataset {
-  metadata: Metadata;
+  metadata: MetadataObject;
   observations: InlineDataset;
 }
 
-export interface Metadata {
-  [key: string]: Metadatum;
+export interface MetadataObject {
+  [key: string]: Metadata;
 }
-export interface Metadatum {
+export interface Metadata {
   type: StandardType;
   levels?: string[];
 }

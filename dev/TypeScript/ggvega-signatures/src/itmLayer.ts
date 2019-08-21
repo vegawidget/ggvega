@@ -1,7 +1,7 @@
 /**
  * Create intermediate layer
  * 
- * @remark
+ * @remarks
  * This function is used to create an intermediate `layer`, using the 
  * information contained ggspec `layer`. Other functions will add to the
  * intermediate `layer` using the `scales`, `labels`, etc. 
@@ -31,43 +31,41 @@
  *     - then modified by `position`
  * 
  * **Called by**
- * 
  * @see layerArray
  * 
  * **Calls**
- * 
  * @see markByGeom
  * @see itmEncodingObjectByMappingObject
  * @see itmEncodingObjectByAesParamsObject
  * @see itmEncodingObjectByStat
  * @see itmEncodingOjectByPosition
  * 
- * @param gsLayer - `gs.Layer`, ggspec layer
- * @param gsData - `gs.Data`, ggspec data - used here for its `metadata`
+ * @param ggLayer - `GG.Layer`, ggspec layer
+ * @param gsData - `GG.Data`, ggspec data - used here for its `metadata`
  * 
- * @return `ItmLayer`, intermediate layer
+ * @returns `ItmLayer`, intermediate layer
  */
-function itmLayer(gsLayer: gs.Layer, gsData: gsData): ItmLayer {
+function itmLayer(ggLayer: GG.Layer, ggData: GG.Data): ItmLayer {
 
   // translate
 
   // get the metadata for the data for this layer
-  var gsMetadataObject: gs.Metadata = gsData[gsLayer.data].metadata;
+  var ggMetadataObject: GG.Metadata = ggData[ggLayer.data].metadata;
 
   let itmLayer: ItmLayer = {
-    data: {name: gsLayer.data},
+    data: {name: ggLayer.data},
     // leave `geom` as a breadcrumb so that we can use encodingNameByGeom()
     // - will not be not included in vl.Layer
-    geom: gsLayer.geom, 
-    mark: markByGeom(gsLayer.geom, gsLayer.geom_params, gsLayer.stat_params),
-    encoding: itmEncodingObjectByMappingObject(gsLayer.mapping, gsMetadataObject)
+    geom: ggLayer.geom, 
+    mark: markByGeom(ggLayer.geom, ggLayer.geom_params, ggLayer.stat_params),
+    encoding: itmEncodingObjectByMappingObject(ggLayer.mapping, ggMetadataObject)
   };
 
   // incorporate aes_params into encoding
-  itmLayer.encoding = itmEncodingObjectByAesParamsObject(itmLayer.encoding, gsLayer.aes_params)
+  itmLayer.encoding = itmEncodingObjectByAesParamsObject(itmLayer.encoding, ggLayer.aes_params)
 
   // incorporate stat into encoding 
-  itmLayer.encoding = itmEncodingObjectByStat(itmLayer.encoding, gsLayer.stat, gsLayer.stat_params);
+  itmLayer.encoding = itmEncodingObjectByStat(itmLayer.encoding, ggLayer.stat, ggLayer.stat_params);
 
   // incorporate position into encoding (not yet active)
   // itmLayer.encoding = itmEncodingOjectByPosition(itmLayer.encoding, gsLayer.position);
