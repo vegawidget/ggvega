@@ -14,6 +14,30 @@ ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +
 
 <div>
 
+<table>
+
+<tr style="border-width: 0px;">
+
+<td style="border-width: 0px;">
+
+<img src="scatterplot_files/scatterplot-iris-gg.png" width="400"/>
+
+</td>
+
+<td style="border-width: 0px;">
+
+<img src="scatterplot_files/scatterplot-iris-vl.svg"/>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+<div>
+
 <details>
 
 <summary>JSON specifications</summary>
@@ -103,7 +127,7 @@ vegaspec
           "field": "Species"
         }
       },
-      "aes_params": [],
+      "aes_params": {},
       "stat": {
         "class": "StatIdentity"
       },
@@ -118,7 +142,7 @@ vegaspec
     "y": "Sepal.Length",
     "colour": "Species"
   },
-  "coordintates": {
+  "coordinates": {
     "class": "CoordCartesian"
   },
   "facet": {
@@ -153,16 +177,16 @@ vegaspec
       "mark": "point",
       "encoding": {
         "x": {
-          "field": "Petal\\.Width",
+          "field": "Sepal\\.Width",
           "type": "quantitative",
-          "title": "Petal.Width"
+          "title": "Sepal.Width"
         },
         "y": {
-          "field": "Petal\\.Length",
+          "field": "Sepal\\.Length",
           "type": "quantitative",
-          "title": "Petal.Length"
+          "title": "Sepal.Length"
         },
-        "color": {
+        "stroke": {
           "field": "Species",
           "type": "nominal",
           "title": "Species"

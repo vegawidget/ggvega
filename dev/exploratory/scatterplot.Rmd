@@ -9,9 +9,8 @@ library("ggplot2")
 library("vegawidget")
 ```
 
-
 ```{r results='asis', echo=FALSE}
-gg_dev_gallery("scatterplot-iris")
+dev_gallery("scatterplot-iris")
 ```
 
 

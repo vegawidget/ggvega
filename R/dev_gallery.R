@@ -1,6 +1,11 @@
 #' Create a markdown code-block from a ggplot2 example
 #'
 #' @inheritParams dev_example_path
+#' @param arrange `character`, arrangement of plots
+#' @param vl_width `integer`, width of VL chart (px.)
+#' @param vl_height `integer`, height of VL chart (px.)
+#' @param gg_height `integer`, width of GG chart (px.)
+#' @param gg_width `integer`, height of GG chart (px.)
 #'
 #' @return `glue::glue()` object
 #'
@@ -26,7 +31,11 @@ dev_gg_codeblock <- function(example) {
 #' @keywords internal
 #' @export
 #'
-dev_gg_gallery <- function(example) {
+dev_gallery <- function(example, arrange = c("side", "top"),
+                           vl_width = 275, vl_height = 275,
+                           gg_width = 400, gg_height = 320) {
+
+  # note to include stacked arrangement of plots
 
   if (!requireNamespace("htmltools", quietly = TRUE)) {
     stop("need {htmltools} package")
@@ -36,6 +45,52 @@ dev_gg_gallery <- function(example) {
 
   print(dev_gg_codeblock(example))
 
+  # knitr directory
+  dir_files <-
+    glue::glue("{tools::file_path_sans_ext(knitr::current_input())}_files")
+
+  file_gg <- fs::path_join(c(dir_files, glue::glue("{example}-gg.png")))
+  file_vl <- fs::path_join(c(dir_files, glue::glue("{example}-vl.svg")))
+
+  fs::dir_create(dir_files)
+
+  suppressMessages(
+    ggplot2::ggsave(
+      file_gg,
+      plot = gg_example(example),
+      device = "png",
+      width = 5,
+      height = 5 * gg_height / gg_width,
+      units = "in"
+    )
+  )
+
+  vl <- dev_example(example, "vegaspec")
+  vl$width <- vl_width
+  vl$height <- vl_height
+
+  vw_write_svg(vl, path = file_vl)
+
+  div <-
+    tags$div(
+      tags$table(
+        tags$tr(
+          tags$td(
+            tags$img(src = file_gg, width = gg_width),
+            style = "border-width: 0px;"
+          ),
+          tags$td(
+            tags$img(src = file_vl),
+            style = "border-width: 0px;"
+          ),
+          style = "border-width: 0px;"
+        )
+      )
+    )
+
+  print(div)
+
+  # JSON spec for ggspec & vegaspec
   ggspec_json <-
     source(dev_example_path(example, "ggspec"))$value %>%
     truncate_data_ggspec() %>%
@@ -43,7 +98,7 @@ dev_gg_gallery <- function(example) {
     as.character()
 
   vegaspec_json <-
-    source(dev_example_path(example, "vega-lite"))$value %>%
+    source(dev_example_path(example, "vegaspec"))$value %>%
     truncate_data_vegaspec() %>%
     to_json() %>%
     as.character()
