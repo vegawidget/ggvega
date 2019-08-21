@@ -17,7 +17,7 @@ describe('itmLayer/itmLayer', () => {
 
     itmLayerObject = itmSpec.iris01.layer[0];
 
-    expect(itmLayer(ggLayer as GG.Layer, ggDatasets as GG.DatasetsObject)).toEqual(itmLayerObject as ItmLayer);
+    expect(itmLayer(ggLayer as GG.Layer, ggDatasets as GG.DatasetObject)).toEqual(itmLayerObject as ItmLayer);
 
     ggLayer = ggSpec.iris02.layers[0];
 
@@ -25,6 +25,6 @@ describe('itmLayer/itmLayer', () => {
 
     itmLayerObject = itmSpec.iris02.layer[0];
 
-    expect(itmLayer(ggLayer as GG.Layer, ggDatasets as GG.DatasetsObject)).toEqual(itmLayerObject as ItmLayer);
+    expect(itmLayer(ggLayer as GG.Layer, ggDatasets as GG.DatasetObject)).toEqual(itmLayerObject as ItmLayer);
   });
 });

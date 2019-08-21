@@ -11,8 +11,8 @@ describe('itmEncodingObject/itmEncodingObjectByMappingObject', () => {
 
     const itmEncodingObject = itmLayer.iris01.layer[0].encoding;
 
-    expect(itmEncodingObjectByMappingObject(ggMapping as GG.MappingObject, ggMetadataObject as GG.Metadata)).toEqual(
-      itmEncodingObject as ItmEncodingObject
-    );
+    expect(
+      itmEncodingObjectByMappingObject(ggMapping as GG.MappingObject, ggMetadataObject as GG.MetadataObject)
+    ).toEqual(itmEncodingObject as ItmEncodingObject);
   });
 });
