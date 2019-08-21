@@ -1,6 +1,6 @@
 # Quicktype 
 
-Since the R V8 package is not fully ES6 compliant yet, we faced the some error on using vega-lite source code directly. To solve this problem, we have to generate the vega-lite type from the [vega-lite schema](https://vega.github.io/schema/vega-lite/v3.json).  We have tried different ways to generate TypeScript from json-schema. The best result is provided by  [quicktype](https://quicktype.io/typescript/). Here is a[link](https://app.quicktype.io?share=1KFE6qo8KU8cupEl5gh6) about how they translate json-schema to TypeScript. 
+Since the R V8 package is not fully ES6 compliant yet, we faced the some error on using Vega-Lite source code directly. To work around this problem, we have to generate the Vega-Lite type from the [vega-lite schema](https://vega.github.io/schema/vega-lite/v3.json).  We have tried different ways to generate TypeScript from json-schema. The best result is provided by  [quicktype](https://quicktype.io/typescript/). Here is a [link](https://app.quicktype.io?share=1KFE6qo8KU8cupEl5gh6) about how they translate json-schema to TypeScript. 
 
 ## BoxPlot Enum
 But the quicktype also has a "bug".  When it translate json-schema to TypeScript, it cannot seperate Enum type. Here is the [link of the issue](https://github.com/quicktype/quicktype/issues/1284). 
@@ -150,23 +150,25 @@ data?:  URLData  |  null;
 data:  Data;
 ```
 ```{json}
- "DataSource": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/UrlData"
-        },
-        {
-          "$ref": "#/definitions/InlineData"
-        },
-        {
-          "$ref": "#/definitions/NamedData"
-        }
-      ]
+"DataSource": {
+  "anyOf": [
+    {
+      "$ref": "#/definitions/UrlData"
+    },
+    {
+      "$ref": "#/definitions/InlineData"
+    },
+    {
+      "$ref": "#/definitions/NamedData"
     }
+  ]
+}
 ```
 Since we already has a `Data` type. And in the fisrt situation, the `UrlData` is the first type. Like `Boxplot`, quicktype use `URLData` as the final type name.
 
-##  when the R V8 package is fully ES6 compliant, what would we need to do to change to use the Vega-Lite code directly?
+## Reverting to using Vega-Lite classes 
+
+When the R V8 package is fully ES6 compliant, these are some things we would need to do to change to use the Vega-Lite code directly.
 
 ### Remove quicktype
 
@@ -175,17 +177,17 @@ These two commands are used to generate `vlSpec.ts`. Now you can delete them. `s
 
 ```{package.json}
 "scripts": {
-	"schema2ts": "quicktype -s schema $npm_package_vlschema -o src/vlSpec.ts --top-level TopLevelSpec --just-types --explicit-unions && node fixbug.js",
-	"winschema2ts": "quicktype -s schema %npm_package_vlschema% -o src/vlSpec.ts --top-level TopLevelSpec --just-types --explicit-unions && node fixbug.js"
+    "schema2ts": "quicktype -s schema $npm_package_vlschema -o src/vlSpec.ts --top-level TopLevelSpec --just-types --explicit-unions && node fixbug.js",
+    "winschema2ts": "quicktype -s schema %npm_package_vlschema% -o src/vlSpec.ts --top-level TopLevelSpec --just-types --explicit-unions && node fixbug.js"
 }
 ```
 Then you can delete the `quicktype` package in `devDependencies`
 ```{package.json}
 "devDependencies": {
-"quicktype": "^15.0.199"
+  "quicktype": "^15.0.199"
 }
 ```
-For now, we also have a file `fixbug.js` at the root folder. It's used to change the name `Boxplot` to `Mark`. You can delete it when you don't need `quicktype`
+For now, we also have a file `fixbug.js` at the root folder. It's used to change the name `Boxplot` to `Mark`. You can delete it when you don't need `quicktype`.
 
 ### Use Vega-lite Source Code
  You will have to install source code packages. 
