@@ -53,7 +53,7 @@
     		additionalProperties: false,
     		properties: {
     			metadata: {
-    				$ref: "#/definitions/Metadata"
+    				$ref: "#/definitions/MetadataObject"
     			},
     			observations: {
     				$ref: "#/definitions/InlineDataset"
@@ -65,7 +65,7 @@
     		],
     		type: "object"
     	},
-    	DatasetsObject: {
+    	DatasetObject: {
     		additionalProperties: {
     			$ref: "#/definitions/Dataset"
     		},
@@ -1297,12 +1297,6 @@
     		type: "object"
     	},
     	Metadata: {
-    		additionalProperties: {
-    			$ref: "#/definitions/Metadatum"
-    		},
-    		type: "object"
-    	},
-    	Metadatum: {
     		additionalProperties: false,
     		properties: {
     			levels: {
@@ -1318,6 +1312,12 @@
     		required: [
     			"type"
     		],
+    		type: "object"
+    	},
+    	MetadataObject: {
+    		additionalProperties: {
+    			$ref: "#/definitions/Metadata"
+    		},
     		type: "object"
     	},
     	Scale: {
@@ -1376,7 +1376,7 @@
     				$ref: "#/definitions/Coord"
     			},
     			data: {
-    				$ref: "#/definitions/DatasetsObject"
+    				$ref: "#/definitions/DatasetObject"
     			},
     			facet: {
     				$ref: "#/definitions/Facet"
@@ -8613,34 +8613,34 @@
      * Create datasets object
      *
      * @remarks
-     * For each key-value pair in `ggDatasetsObject`, a key-value pair is created
+     * For each key-value pair in `ggDatasetObject`, a key-value pair is created
      * in the return object.
      *
      * **Called by**
      * @see topLevelSpec
      *
-     * @param ggDatasetsObject - `GG.DatasetsObject`, key-value pairs of ggspec datasets
+     * @param ggDatasetObject - `GG.DatasetObject`, key-value pairs of ggspec datasets
      *
      * @returns `{[key: string]: VL.InlineDataset}`, object containing Vega-Lite inline-datasets
      *
      */
-    function datasetsObject(ggDatasetsObject) {
+    function datasetObject(ggDatasetObject) {
         // validate
-        if (Object.keys(ggDatasetsObject).length == 0) {
+        if (Object.keys(ggDatasetObject).length == 0) {
             // error messages should refer to the ggplot object; end-user is not expected to know
             // about ggspec/ggschema
             throw new Error('ggplot object has no datasets, requires at least one dataset');
         }
         // translate
-        var datasetsObject = {};
+        var datasetObject = {};
         // iterate over object: https://stackoverflow.com/a/684692
         //NOTE @wenyu: https://eslint.org/docs/rules/no-prototype-builtins
-        for (var dataName in ggDatasetsObject) {
-            if (hasKey(ggDatasetsObject, dataName)) {
-                datasetsObject[dataName] = ggDatasetsObject[dataName].observations;
+        for (var dataName in ggDatasetObject) {
+            if (hasKey(ggDatasetObject, dataName)) {
+                datasetObject[dataName] = ggDatasetObject[dataName].observations;
             }
         }
-        return datasetsObject;
+        return datasetObject;
     }
 
     /**
@@ -10084,7 +10084,7 @@
      * @see {@link fieldName} to handle dots, ".", in field names
      *
      * @param ggMappingObject - `GG.MappingObject` maps data varaibles to aesthetics
-     * @param ggMetadataObject - `GG.Metadata` contains the metadata for the data
+     * @param ggMetadataObject - `GG.MetadataObject` contains the metadata for the data
      *   associated to this layer
      *
      * @returns `ItmEncodingObject`
@@ -10327,14 +10327,14 @@
      * @see itmEncodingOjectByPosition
      *
      * @param ggLayer - `GG.Layer`, ggspec layer
-     * @param ggDatasetsObject - `GG.DatasetsObject`, ggspec data - used here for its `metadata`
+     * @param ggDatasetObject - `GG.DatasetObject`, ggspec data - used here for its `metadata`
      *
      * @returns `ItmLayer`, intermediate layer
      */
-    function itmLayer(ggLayer, ggDatasetsObject) {
+    function itmLayer(ggLayer, ggDatasetObject) {
         // translate
         // get the metadata for the data for this layer
-        var ggMetadataObject = ggDatasetsObject[ggLayer.data].metadata;
+        var ggMetadataObject = ggDatasetObject[ggLayer.data].metadata;
         var itmLayer = {
             data: { name: ggLayer.data },
             //NOTE @wenyu: Use GeomSet as breadcrumb?
@@ -10656,7 +10656,7 @@
      * @see itmLayerArrayByCoord
      * @see layerByItmLayer
      *
-     * @param ggDatasets `GG.ggDatasetsObject`, key-value pairs of ggspec datasets
+     * @param ggDatasetObject `GG.DatasetObject`, key-value pairs of ggspec datasets
      * @param ggLayerArray `GG.Layer[]` - array of ggspec layers
      * @param ggScaleArray `GG.Scale[]` - array of ggspec scales
      * @param ggLabelObject `GG.LabelObject` - key-value pairs of ggspec labels
@@ -10665,7 +10665,7 @@
      * @returns `vl.LayerSpec[]`, array containing Vega-Lite layer specs
      *
      */
-    function layerArrayByAes(ggDatasetsObject, ggLayerArray, ggScaleArray, ggLabelObject, ggCoordinates) {
+    function layerArrayByAes(ggDatasetObject, ggLayerArray, ggScaleArray, ggLabelObject, ggCoordinates) {
         // validate
         if (ggLayerArray.length == 0) {
             throw new Error('ggplot object has no layers, requires at least one layer');
@@ -10674,7 +10674,7 @@
         // start intermediate layers according to ggLayerArray
         // could this work?
         var itmLayerArray = ggLayerArray.map(function (ggLayer) {
-            return itmLayer(ggLayer, ggDatasetsObject);
+            return itmLayer(ggLayer, ggDatasetObject);
         });
         // incorporate labels
         itmLayerArray = itmLayerArrayByLabelsObject(itmLayerArray, ggLabelObject);
@@ -10854,7 +10854,7 @@
                 $schema: vlschema,
                 //NOTE @wenyu: It's better to use undefined rather than '' to avoid `title=''`
                 title: ggSpec.labels.title || undefined,
-                datasets: datasetsObject(ggSpec.data),
+                datasets: datasetObject(ggSpec.data),
                 spec: {
                     layer: layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
                 },
@@ -10866,7 +10866,7 @@
         topLevelSpec = {
             $schema: vlschema,
             title: ggSpec.labels.title || undefined,
-            datasets: datasetsObject(ggSpec.data),
+            datasets: datasetObject(ggSpec.data),
             layer: layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
         };
         return topLevelSpec;

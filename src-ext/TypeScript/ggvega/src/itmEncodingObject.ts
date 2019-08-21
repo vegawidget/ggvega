@@ -41,14 +41,14 @@ import {
  * @see {@link fieldName} to handle dots, ".", in field names
  *
  * @param ggMappingObject - `GG.MappingObject` maps data varaibles to aesthetics
- * @param ggMetadataObject - `GG.Metadata` contains the metadata for the data
+ * @param ggMetadataObject - `GG.MetadataObject` contains the metadata for the data
  *   associated to this layer
  *
  * @returns `ItmEncodingObject`
  */
 export function itmEncodingObjectByMappingObject(
   ggMappingObject: GG.MappingObject,
-  ggMetadataObject: GG.Metadata
+  ggMetadataObject: GG.MetadataObject
 ): ItmEncodingObject {
   // translate
 

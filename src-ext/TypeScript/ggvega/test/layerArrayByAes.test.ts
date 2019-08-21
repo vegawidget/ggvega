@@ -6,7 +6,7 @@ import * as vlSpec from './vlSpec';
 
 describe('itmEncodingObject/itmEncodingObjectByMappingObject', () => {
   it('should create an intermediate `encoding` object using a `mapping` object', () => {
-    let ggDatasetsObject;
+    let ggDatasetObject;
 
     let ggLayerArray;
 
@@ -18,7 +18,7 @@ describe('itmEncodingObject/itmEncodingObjectByMappingObject', () => {
 
     let vlLayerSpecArray;
 
-    ggDatasetsObject = ggSpec.iris01.data;
+    ggDatasetObject = ggSpec.iris01.data;
 
     ggLayerArray = ggSpec.iris01.layers;
 
@@ -32,7 +32,7 @@ describe('itmEncodingObject/itmEncodingObjectByMappingObject', () => {
 
     expect(
       layerArrayByAes(
-        ggDatasetsObject as GG.DatasetsObject,
+        ggDatasetObject as GG.DatasetObject,
         ggLayerArray as GG.Layer[],
         ggScaleArray as GG.Scale[],
         ggLabelsObject as GG.LabelObject,
@@ -40,7 +40,7 @@ describe('itmEncodingObject/itmEncodingObjectByMappingObject', () => {
       )
     ).toEqual(vlLayerSpecArray as VL.LayerSpec[]);
 
-    ggDatasetsObject = ggSpec.iris02.data;
+    ggDatasetObject = ggSpec.iris02.data;
 
     ggLayerArray = ggSpec.iris02.layers;
 
@@ -54,7 +54,7 @@ describe('itmEncodingObject/itmEncodingObjectByMappingObject', () => {
 
     expect(
       layerArrayByAes(
-        ggDatasetsObject as GG.DatasetsObject,
+        ggDatasetObject as GG.DatasetObject,
         ggLayerArray as GG.Layer[],
         ggScaleArray as GG.Scale[],
         ggLabelsObject as GG.LabelObject,

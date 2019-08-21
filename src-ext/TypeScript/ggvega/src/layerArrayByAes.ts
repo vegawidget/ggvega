@@ -61,7 +61,7 @@ import {hasKey} from './utils';
  * @see itmLayerArrayByCoord
  * @see layerByItmLayer
  *
- * @param ggDatasets `GG.ggDatasetsObject`, key-value pairs of ggspec datasets
+ * @param ggDatasetObject `GG.DatasetObject`, key-value pairs of ggspec datasets
  * @param ggLayerArray `GG.Layer[]` - array of ggspec layers
  * @param ggScaleArray `GG.Scale[]` - array of ggspec scales
  * @param ggLabelObject `GG.LabelObject` - key-value pairs of ggspec labels
@@ -71,7 +71,7 @@ import {hasKey} from './utils';
  *
  */
 export function layerArrayByAes(
-  ggDatasetsObject: GG.DatasetsObject,
+  ggDatasetObject: GG.DatasetObject,
   ggLayerArray: GG.Layer[],
   ggScaleArray: GG.Scale[],
   ggLabelObject: GG.LabelObject,
@@ -87,7 +87,7 @@ export function layerArrayByAes(
   // start intermediate layers according to ggLayerArray
   // could this work?
   let itmLayerArray: ItmLayer[] = ggLayerArray.map((ggLayer: GG.Layer) => {
-    return itmLayer(ggLayer, ggDatasetsObject);
+    return itmLayer(ggLayer, ggDatasetObject);
   });
 
   // incorporate labels

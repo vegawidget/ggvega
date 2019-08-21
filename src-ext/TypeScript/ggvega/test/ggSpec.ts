@@ -137,8 +137,7 @@ export const iris02 = {
     {
       name: 'yScale',
       class: 'ScaleContinuousPosition',
-      aesthetics: ['y', 'ymax', 'ymin'],
-      transform: {type: 'log', base: 10}
+      aesthetics: ['y', 'ymax', 'ymin']
     }
   ],
   labels: {

@@ -48,7 +48,7 @@
       "additionalProperties": false,
       "properties": {
         "metadata": {
-          "$ref": "#/definitions/Metadata"
+          "$ref": "#/definitions/MetadataObject"
         },
         "observations": {
           "$ref": "#/definitions/InlineDataset"
@@ -60,7 +60,7 @@
       ],
       "type": "object"
     },
-    "DatasetsObject": {
+    "DatasetObject": {
       "additionalProperties": {
         "$ref": "#/definitions/Dataset"
       },
@@ -1292,12 +1292,6 @@
       "type": "object"
     },
     "Metadata": {
-      "additionalProperties": {
-        "$ref": "#/definitions/Metadatum"
-      },
-      "type": "object"
-    },
-    "Metadatum": {
       "additionalProperties": false,
       "properties": {
         "levels": {
@@ -1313,6 +1307,12 @@
       "required": [
         "type"
       ],
+      "type": "object"
+    },
+    "MetadataObject": {
+      "additionalProperties": {
+        "$ref": "#/definitions/Metadata"
+      },
       "type": "object"
     },
     "Scale": {
@@ -1371,7 +1371,7 @@
           "$ref": "#/definitions/Coord"
         },
         "data": {
-          "$ref": "#/definitions/DatasetsObject"
+          "$ref": "#/definitions/DatasetObject"
         },
         "facet": {
           "$ref": "#/definitions/Facet"

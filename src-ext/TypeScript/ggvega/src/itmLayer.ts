@@ -51,15 +51,15 @@ import {itmEncodingObjectByStat} from './itmEncodingObjectByStat';
  * @see itmEncodingOjectByPosition
  *
  * @param ggLayer - `GG.Layer`, ggspec layer
- * @param ggDatasetsObject - `GG.DatasetsObject`, ggspec data - used here for its `metadata`
+ * @param ggDatasetObject - `GG.DatasetObject`, ggspec data - used here for its `metadata`
  *
  * @returns `ItmLayer`, intermediate layer
  */
-export function itmLayer(ggLayer: GG.Layer, ggDatasetsObject: GG.DatasetsObject): ItmLayer {
+export function itmLayer(ggLayer: GG.Layer, ggDatasetObject: GG.DatasetObject): ItmLayer {
   // translate
 
   // get the metadata for the data for this layer
-  var ggMetadataObject: GG.Metadata = ggDatasetsObject[ggLayer.data].metadata;
+  var ggMetadataObject: GG.MetadataObject = ggDatasetObject[ggLayer.data].metadata;
 
   const itmLayer: ItmLayer = {
     data: {name: ggLayer.data},

@@ -2,7 +2,7 @@ import * as VL from './vlSpec';
 import * as GG from '../../ggschema/src/index';
 import {validateGs} from './utils';
 import {vlschema} from '../package.json';
-import {datasetsObject} from './datasetsObject';
+import {datasetObject} from './datasetObject';
 import {layerArrayByAes} from './layerArrayByAes';
 import {facet} from './facet';
 
@@ -112,7 +112,7 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec): VL.TopLevelSpec {
       $schema: vlschema, // vlschema defined in package.json
       //NOTE @wenyu: It's better to use undefined rather than '' to avoid `title=''`
       title: ggSpec.labels.title || undefined,
-      datasets: datasetsObject(ggSpec.data),
+      datasets: datasetObject(ggSpec.data),
       spec: {
         layer: layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
       },
@@ -126,7 +126,7 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec): VL.TopLevelSpec {
   topLevelSpec = {
     $schema: vlschema,
     title: ggSpec.labels.title || undefined,
-    datasets: datasetsObject(ggSpec.data),
+    datasets: datasetObject(ggSpec.data),
     layer: layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
   };
 

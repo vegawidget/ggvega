@@ -1,4 +1,4 @@
-import {datasetsObject} from '../src/datasetsObject';
+import {datasetObject} from '../src/datasetObject';
 import * as VL from '../src/vlSpec';
 import * as GG from '../../ggschema/src/index';
 import * as ggSpec from './ggSpec';
@@ -6,11 +6,11 @@ import * as vlSpec from './vlSpec';
 
 describe('datasetsObject/datasetsObject', () => {
   it('should create datasets object', () => {
-    const ggDatasetsObject = ggSpec.iris01.data;
+    const ggDatasetObject = ggSpec.iris01.data;
 
     const vlDatasetsObject = vlSpec.iris01.datasets;
 
-    expect(datasetsObject(ggDatasetsObject as GG.DatasetsObject)).toEqual(vlDatasetsObject as {
+    expect(datasetObject(ggDatasetObject as GG.DatasetObject)).toEqual(vlDatasetsObject as {
       [key: string]: VL.InlineDataset;
     });
   });
