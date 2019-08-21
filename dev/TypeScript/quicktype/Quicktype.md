@@ -1,3 +1,4 @@
+
 # Quicktype 
 
 Since the R V8 package is not fully ES6 compliant yet, we faced the some error on using Vega-Lite source code directly. To work around this problem, we have to generate the Vega-Lite type from the [vega-lite schema](https://vega.github.io/schema/vega-lite/v3.json).  We have tried different ways to generate TypeScript from json-schema. The best result is provided by  [quicktype](https://quicktype.io/typescript/). Here is a [link](https://app.quicktype.io?share=1KFE6qo8KU8cupEl5gh6) about how they translate json-schema to TypeScript. 
@@ -81,7 +82,7 @@ For example, In vlSpec.ts, you can find the definition of bins are stange:
 bin?:  PurpleBin;
 bin?:  FluffyBin;
 ```
-Actually, the definition of `bin` in vega-lite schema is:
+Actually, the definition of `bin` in Vega-Lite schema is:
 ```{json-schema}
 "ConditionalSelection<TextFieldDef>.bin": {
           "anyOf": [
@@ -117,7 +118,7 @@ Actually, the definition of `bin` in vega-lite schema is:
           ]
         }
 ```
-That means vega-lite has two kinds of `bin`. One has four different types: `boolean`, `BinParams`, `enum` and `null`. One has three different types `boolean`, `BinParams`, and `null`.
+That means Vega-Lite has two kinds of `bin`. One has four different types: `boolean`, `BinParams`, `enum` and `null`. One has three different types `boolean`, `BinParams`, and `null`.
 To solve these case, quicktype build 2 new types:
 ```{TypeScript}
 export  type  FluffyBin  =  boolean  |  BinParams  |  BinEnum  |  null;
@@ -171,7 +172,7 @@ Since we already has a `Data` type. And in the fisrt situation, the `UrlData` is
 
 ## Our Plan for now
 
- Here is the code about how we use quicktype and solve these problems:
+Here is the code about how we use quicktype and solve these problems:
 ```
 "schema2ts": "quicktype -s schema $npm_package_vlschema -o src/vlSpec.ts --top-level TopLevelSpec --just-types --explicit-unions && node fixbug.js"
 ```
@@ -182,12 +183,19 @@ Since we already has a `Data` type. And in the fisrt situation, the `UrlData` is
 - `--explicit-unions` means we use `explicit-unions` to name and construct the types
 - `node fixbug.js` runs a javascript to rename some class.
 
+These code locates at  [`package.json`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/package.json).  If you want use another Vega-Lite version. You can change the value of `vlschema`.
+```
+"vlschema":  "https://vega.github.io/schema/vega-lite/v3.json",
+```
+
 
 ## Reverting to using Vega-Lite classes 
 
 When the R V8 package is fully ES6 compliant, these are some things we would need to do to change to use the Vega-Lite code directly.
 
 ### Remove quicktype
+
+The only file you need to change is [`package.json`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/package.json).  And we also have a file [`fixbug.js`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/fixbug.js). It's used to change the name `Boxplot` to `Mark`. You can delete it when you don't need `quicktype`.
 
 These two commands are used to generate `vlSpec.ts`. Now you can delete them. `schema2ts` is for Unix/Mac and `winschema2ts` is for Windows.
 
@@ -204,9 +212,11 @@ Then you can delete the `quicktype` package in `devDependencies`
   "quicktype": "^15.0.199"
 }
 ```
-For now, we also have a file `fixbug.js` at the root folder. It's used to change the name `Boxplot` to `Mark`. You can delete it when you don't need `quicktype`.
+As a reminder, these changes all should be made in the file [`package.json`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/package.json). 
 
-### Use Vega-lite Source Code
+
+
+### Use Vega-Lite Source Code
  You will have to install source code packages. 
  ```
 "vega":  "^5.4.0",
@@ -221,9 +231,9 @@ import  {Datasets}  from  'vega-lite/build/src/spec/toplevel';
 ```
 ### Some Possible situations
 
-The most important difference between `vlSpec.ts` and `vega-lite source code` is that `vega-lite source code` use more union types. That means `vega-lite source code` is more specific than `vlSpec.ts`.  
+The most important difference between `vlSpec.ts` and `Vega-lLite source code` is that `Vega-Lite source code` use more union types. That means `Vega-Lite source code` is more specific than `vlSpec.ts`.  
 
-And **Jest** is not very friendly to test code at `./node_modules`. You can use the config in `vl-source-code` branch to solve this problem. 
+And **Jest** is not very friendly to test code at `./node_modules`. You can use the config in [`vl-source-code`]([https://github.com/vegawidget/ggvega/tree/vl-source-code](https://github.com/vegawidget/ggvega/tree/vl-source-code)) branch to solve this problem. 
 
 ### How to use Vega-Lite 
 
@@ -273,4 +283,4 @@ As we already known, `Encoding.size` has two types. One is based on `Field`. One
 
 For example, when we define `encoding` based on `aes_params`, we should use `ValueDefWithCondition` type. These can prevent us giving `title` or `scale` to them, becase these properties only belong to `FieldDefWithConditions`.
 
-I think there must be more details, but I believe Vega-Lite source code is a better choice.
+If we can use Vega-Lite source code someday, I believe it will be a  better choice.
