@@ -34,8 +34,54 @@ dev_gg_gallery <- function(example) {
 
   tags <- htmltools::tags
 
+  # ggplot code block
   print(dev_gg_codeblock(example))
 
+  file_gg <- tempfile()
+  suppressMessages(
+    ggsave(
+      file_gg,
+      plot = gg_example(example),
+      device = "png",
+      width = 5,
+      height = 4,
+      units = "in"
+    )
+  )
+
+  gg_img <- base64enc::dataURI(file = file_gg, mime = "image/png")
+  unlink(file_gg)
+
+  file_vl <- tempfile()
+  vl <- dev_example("scatterplot-iris", "vegaspec")
+
+  vw_write_png(vl, path = file_vl, scale = 2)
+
+  vl_img <- base64enc::dataURI(file = file_vl, mime = "image/png")
+  unlink(file_vl)
+
+  # vl_img <- vw_to_svg(vl)
+
+  # ggplot and vegaspec rendered
+  div <- tags$div(
+    tags$table(
+      tags$tr(
+        tags$td(
+          tags$img(src = gg_img),
+          style = "width:50%; border-width: 0px;"
+        ),
+        tags$td(
+          tags$img(src = vl_img),
+          style = "width:50%; border-width: 0px;"
+        ),
+        style = "border-width: 0px;"
+      )
+    )
+  )
+
+  print(div)
+
+  # JSON spec for ggspec & vegaspec
   ggspec_json <-
     source(dev_example_path(example, "ggspec"))$value %>%
     truncate_data_ggspec() %>%
@@ -43,7 +89,7 @@ dev_gg_gallery <- function(example) {
     as.character()
 
   vegaspec_json <-
-    source(dev_example_path(example, "vega-lite"))$value %>%
+    source(dev_example_path(example, "vegaspec"))$value %>%
     truncate_data_vegaspec() %>%
     to_json() %>%
     as.character()
