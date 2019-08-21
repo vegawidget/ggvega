@@ -1,6 +1,40 @@
 import * as GG from '../../ggschema/src/index';
 import {contains} from './utils';
 
+//NOTE @wenyu: keyof maybe a better way than enum. But it doesn't work for Vl.Encoding, because VL.Encoding has too many keys.
+export type GGEncodingKey = keyof GG.MappingObject;
+
+export type VLEncodingKey = 'x' | 'y' | 'stroke' | 'fill' | 'size' | 'strokeWidth' | 'opacity' | 'detail' | 'shape';
+
+//NOTE @wenyu: To extend EncodingMap<key,value>: key is GGEncodingKey, value is VLEncodingKey. If value is `null`, means VLEncodingKey doesn't have this key.
+interface EncodingMap {
+  x: 'x';
+  y: 'y';
+  colour: 'stroke';
+  fill: 'fill';
+  size: 'size' | 'strokeWidth';
+  stroke: 'strokeWidth';
+  alpha: 'opacity';
+  group: 'detail';
+  shape: 'shape';
+  weight: null;
+}
+
+// keys: names of ggplot2 aesthetics
+// values: names of Vega-Lite encodings
+const encodingMapDefault: EncodingMap = {
+  x: 'x',
+  y: 'y',
+  colour: 'stroke',
+  fill: 'fill',
+  size: 'size',
+  stroke: 'strokeWidth',
+  alpha: 'opacity',
+  group: 'detail',
+  shape: 'shape',
+  weight: null
+};
+
 /**
  * Get encoding name from aesthetic name
  *
@@ -40,37 +74,3 @@ export function encodingNameByGeom(aesName: GGEncodingKey, ggGeomSet: GG.GeomSet
 
   return encodingMap[aesName] as VLEncodingKey;
 }
-
-//NOTE @wenyu: keyof maybe a better way than enum. But it doesn't work for Vl.Encoding, because VL.Encoding has too many keys.
-export type GGEncodingKey = keyof GG.MappingObject;
-
-//NOTE @wenyu: Be careful of `weight`, Add it to itmEncoding
-export type VLEncodingKey = 'x' | 'y' | 'stroke' | 'fill' | 'size' | 'strokeWidth' | 'opacity' | 'detail' | 'shape';
-
-interface EncodingMap {
-  x: 'x';
-  y: 'y';
-  colour: 'stroke';
-  fill: 'fill';
-  size: 'size' | 'strokeWidth';
-  stroke: 'strokeWidth';
-  alpha: 'opacity';
-  group: 'detail';
-  shape: 'shape';
-  weight: null;
-}
-
-// keys: names of ggplot2 aesthetics
-// values: names of Vega-Lite encodings
-const encodingMapDefault: EncodingMap = {
-  x: 'x',
-  y: 'y',
-  colour: 'stroke',
-  fill: 'fill',
-  size: 'size',
-  stroke: 'strokeWidth',
-  alpha: 'opacity',
-  group: 'detail',
-  shape: 'shape',
-  weight: null
-};

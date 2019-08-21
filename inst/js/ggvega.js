@@ -10554,6 +10554,20 @@
         return itmLayerArray;
     }
 
+    // keys: names of ggplot2 aesthetics
+    // values: names of Vega-Lite encodings
+    var encodingMapDefault = {
+        x: 'x',
+        y: 'y',
+        colour: 'stroke',
+        fill: 'fill',
+        size: 'size',
+        stroke: 'strokeWidth',
+        alpha: 'opacity',
+        group: 'detail',
+        shape: 'shape',
+        weight: null
+    };
     /**
      * Get encoding name from aesthetic name
      *
@@ -10588,20 +10602,6 @@
         }
         return encodingMap[aesName];
     }
-    // keys: names of ggplot2 aesthetics
-    // values: names of Vega-Lite encodings
-    var encodingMapDefault = {
-        x: 'x',
-        y: 'y',
-        colour: 'stroke',
-        fill: 'fill',
-        size: 'size',
-        stroke: 'strokeWidth',
-        alpha: 'opacity',
-        group: 'detail',
-        shape: 'shape',
-        weight: null
-    };
 
     /**
      * Create layer array
