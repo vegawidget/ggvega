@@ -7,11 +7,15 @@
 \usage{
 dev_gg_codeblock(example)
 
-dev_gg_gallery(example)
+dev_gg_gallery(example, width = NULL, height = NULL)
 }
 \arguments{
 \item{example}{\code{character}, name of the example,
 \code{NULL} prints message containing names of all examples}
+
+\item{width}{\code{integer} width of VL chart (px.)}
+
+\item{height}{\code{integer} height of VL chart (px.)}
 }
 \value{
 \code{glue::glue()} object

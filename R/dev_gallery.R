@@ -1,6 +1,8 @@
 #' Create a markdown code-block from a ggplot2 example
 #'
 #' @inheritParams dev_example_path
+#' @param width `integer` width of VL chart (px.)
+#' @param height `integer` height of VL chart (px.)
 #'
 #' @return `glue::glue()` object
 #'
@@ -26,7 +28,10 @@ dev_gg_codeblock <- function(example) {
 #' @keywords internal
 #' @export
 #'
-dev_gg_gallery <- function(example) {
+dev_gg_gallery <- function(example, width = NULL, height = NULL) {
+
+  width <- width %||% 300
+  height <- height %||% 300
 
   if (!requireNamespace("htmltools", quietly = TRUE)) {
     stop("need {htmltools} package")
@@ -34,12 +39,17 @@ dev_gg_gallery <- function(example) {
 
   tags <- htmltools::tags
 
-  # ggplot code block
-  print(dev_gg_codeblock(example))
+  # knitr directory
+  dir_files <-
+    glue::glue("{tools::file_path_sans_ext(knitr::current_input())}_files")
 
-  file_gg <- tempfile()
+  file_gg <- fs::path_join(c(dir_files, glue::glue("{example}-gg.png")))
+  file_vl <- fs::path_join(c(dir_files, glue::glue("{example}-vl.svg")))
+
+  fs::dir_create(dir_files)
+
   suppressMessages(
-    ggsave(
+    ggplot2::ggsave(
       file_gg,
       plot = gg_example(example),
       device = "png",
@@ -49,29 +59,22 @@ dev_gg_gallery <- function(example) {
     )
   )
 
-  gg_img <- base64enc::dataURI(file = file_gg, mime = "image/png")
-  unlink(file_gg)
+  vl <- dev_example(example, "vegaspec")
+  vl$width <- width
+  vl$height <- height
 
-  file_vl <- tempfile()
-  vl <- dev_example("scatterplot-iris", "vegaspec")
-
-  vw_write_png(vl, path = file_vl, scale = 2)
-
-  vl_img <- base64enc::dataURI(file = file_vl, mime = "image/png")
-  unlink(file_vl)
-
-  # vl_img <- vw_to_svg(vl)
+  vw_write_svg(vl, path = file_vl)
 
   # ggplot and vegaspec rendered
   div <- tags$div(
     tags$table(
       tags$tr(
         tags$td(
-          tags$img(src = gg_img),
+          tags$img(src = file_gg),
           style = "width:50%; border-width: 0px;"
         ),
         tags$td(
-          tags$img(src = vl_img),
+          tags$img(src = file_vl),
           style = "width:50%; border-width: 0px;"
         ),
         style = "border-width: 0px;"
