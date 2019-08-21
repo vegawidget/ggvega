@@ -136,7 +136,8 @@ function layerByItmLayer(itmLayer: ItmLayer): VL.LayerSpec {
   // loop over aesthetic names in itmLayerEncoding
   for (const aesName in itmLayer.encoding) {
     if (hasKey(itmLayer.encoding, aesName)) {
-      // get the encoding name, add to the encoding
+      // get the encoding name,and add to the encoding
+
       const encodingName = encodingNameByGeom(aesName as GGEncodingKey, itmLayer.geomSet);
       if (encodingName == 'x') encoding[encodingName] = itmLayer.encoding[aesName] as VL.XClass;
 

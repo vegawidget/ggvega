@@ -3,8 +3,12 @@ import {contains} from './utils';
 
 //NOTE @wenyu: keyof maybe a better way than enum. But it doesn't work for Vl.Encoding, because VL.Encoding has too many keys.
 export type GGEncodingKey = keyof GG.MappingObject;
+// these are ggplot aesthetic names
+// export type GGEncodingKey = 'x' | 'y' | 'colour' | 'size' | etc.
 
 export type VLEncodingKey = 'x' | 'y' | 'stroke' | 'fill' | 'size' | 'strokeWidth' | 'opacity' | 'detail' | 'shape';
+// these are Vega-Lite encoding names
+// export type VLEncodingKey = valueOf EncodingMap
 
 //NOTE @wenyu: To extend EncodingMap<key,value>: key is GGEncodingKey, value is VLEncodingKey. If value is `null`, means VLEncodingKey doesn't have this key.
 interface EncodingMap {
