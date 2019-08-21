@@ -71,8 +71,15 @@ dev_gg_gallery <- function(example, width = NULL, height = NULL) {
     tags$div(
       tags$table(
         tags$tr(
-          tags$td(tags$img(src = file_gg, width = 400)),
-          tags$td(tags$img(src = file_vl))
+          tags$td(
+            tags$img(src = file_gg, width = 400),
+            style = "border-width: 0px;"
+          ),
+          tags$td(
+            tags$img(src = file_vl),
+            style = "border-width: 0px;"
+          ),
+          style = "border-width: 0px;"
         )
       )
     )
