@@ -7,15 +7,22 @@
 \usage{
 dev_gg_codeblock(example)
 
-dev_gg_gallery(example, width = NULL, height = NULL)
+dev_gg_gallery(example, arrange = c("side", "top"), vl_width = 275,
+  vl_height = 275, gg_width = 400, gg_height = 320)
 }
 \arguments{
 \item{example}{\code{character}, name of the example,
 \code{NULL} prints message containing names of all examples}
 
-\item{width}{\code{integer} width of VL chart (px.)}
+\item{arrange}{\code{character}, arrangement of plots}
 
-\item{height}{\code{integer} height of VL chart (px.)}
+\item{vl_width}{\code{integer}, width of VL chart (px.)}
+
+\item{vl_height}{\code{integer}, height of VL chart (px.)}
+
+\item{gg_width}{\code{integer}, height of GG chart (px.)}
+
+\item{gg_height}{\code{integer}, width of GG chart (px.)}
 }
 \value{
 \code{glue::glue()} object

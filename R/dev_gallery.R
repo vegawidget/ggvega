@@ -1,8 +1,11 @@
 #' Create a markdown code-block from a ggplot2 example
 #'
 #' @inheritParams dev_example_path
-#' @param width `integer` width of VL chart (px.)
-#' @param height `integer` height of VL chart (px.)
+#' @param arrange `character`, arrangement of plots
+#' @param vl_width `integer`, width of VL chart (px.)
+#' @param vl_height `integer`, height of VL chart (px.)
+#' @param gg_height `integer`, width of GG chart (px.)
+#' @param gg_width `integer`, height of GG chart (px.)
 #'
 #' @return `glue::glue()` object
 #'
@@ -28,10 +31,11 @@ dev_gg_codeblock <- function(example) {
 #' @keywords internal
 #' @export
 #'
-dev_gg_gallery <- function(example, width = NULL, height = NULL) {
+dev_gg_gallery <- function(example, arrange = c("side", "top"),
+                           vl_width = 275, vl_height = 275,
+                           gg_width = 400, gg_height = 320) {
 
-  width <- width %||% 275
-  height <- height %||% 275
+  # note to include stacked arrangement of plots
 
   if (!requireNamespace("htmltools", quietly = TRUE)) {
     stop("need {htmltools} package")
@@ -56,14 +60,14 @@ dev_gg_gallery <- function(example, width = NULL, height = NULL) {
       plot = gg_example(example),
       device = "png",
       width = 5,
-      height = 4,
+      height = 5 * gg_height / gg_width,
       units = "in"
     )
   )
 
   vl <- dev_example(example, "vegaspec")
-  vl$width <- width
-  vl$height <- height
+  vl$width <- vl_width
+  vl$height <- vl_height
 
   vw_write_svg(vl, path = file_vl)
 
@@ -72,7 +76,7 @@ dev_gg_gallery <- function(example, width = NULL, height = NULL) {
       tags$table(
         tags$tr(
           tags$td(
-            tags$img(src = file_gg, width = 400),
+            tags$img(src = file_gg, width = gg_width),
             style = "border-width: 0px;"
           ),
           tags$td(
