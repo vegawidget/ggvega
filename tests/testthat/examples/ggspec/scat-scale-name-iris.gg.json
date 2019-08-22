@@ -1,0 +1,101 @@
+{
+  "data": {
+    "data-00": {
+      "metadata": {
+        "Sepal.Length": {
+          "type": "quantitative"
+        },
+        "Sepal.Width": {
+          "type": "quantitative"
+        },
+        "Petal.Length": {
+          "type": "quantitative"
+        },
+        "Petal.Width": {
+          "type": "quantitative"
+        },
+        "Species": {
+          "type": "nominal",
+          "levels": [
+            "setosa",
+            "versicolor",
+            "virginica"
+          ]
+        }
+      },
+      "observations": [
+        {
+          "Sepal.Length": 5.1,
+          "Sepal.Width": 3.5,
+          "Petal.Length": 1.4,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        }
+      ]
+    }
+  },
+  "layers": [
+    {
+      "data": "data-00",
+      "geom": {
+        "class": "GeomPoint"
+      },
+      "geom_params": {
+        "na.rm": false
+      },
+      "mapping": {
+        "x": {
+          "field": "Sepal.Width"
+        },
+        "y": {
+          "field": "Sepal.Length"
+        },
+        "colour": {
+          "field": "Species"
+        }
+      },
+      "aes_params": {},
+      "stat": {
+        "class": "StatIdentity",
+        "default_aes": {},
+        "required_aes": {}
+      },
+      "stat_params": {
+        "na.rm": false
+      },
+      "position": {
+        "class": "PositionIdentity"
+      }
+    }
+  ],
+  "scales": [
+    {
+      "class": "ScaleContinuousPosition",
+      "name": "test name",
+      "aesthetics": [
+        "y",
+        "ymin",
+        "ymax",
+        "yend",
+        "yintercept",
+        "ymin_final",
+        "ymax_final",
+        "lower",
+        "middle",
+        "upper",
+        "y0"
+      ]
+    }
+  ],
+  "labels": {
+    "x": "Sepal.Width",
+    "y": "Sepal.Length",
+    "colour": "Species"
+  },
+  "coordinates": {
+    "class": "CoordCartesian"
+  },
+  "facet": {
+    "class": "FacetNull"
+  }
+}

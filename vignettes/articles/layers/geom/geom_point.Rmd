@@ -13,6 +13,3 @@ knitr::opts_chunk$set(
 library("ggvega")
 ```
 
-```{r}
-knitr::read_chunk(gg_example_file_("scatterplot-iris"))
-```

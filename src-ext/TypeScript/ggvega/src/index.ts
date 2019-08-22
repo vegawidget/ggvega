@@ -1,1 +1,1 @@
-export {gs2vl} from './compile';
+export {spec2vl} from './topLevelSpec';

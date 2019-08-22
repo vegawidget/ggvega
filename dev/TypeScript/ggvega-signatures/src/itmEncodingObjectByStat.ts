@@ -1,7 +1,7 @@
 /**
  * Modify an encoding object according to a ggspec stat
  * 
- * @remark
+ * @remarks
  * Note about side-effects.
  * 
  * This function is used to determine the specific function 
@@ -16,16 +16,17 @@
  * **Calls**
  * @see itmEncodingObjectByStatIdentity
  * 
- * @param itmEncodingObject 
- * @param gsStat 
- * @param gsStatParams 
  * 
- * @return itmEncodingObject
+ * @param itmEncodingObject 
+ * @param ggStat 
+ * @param ggStatParams 
+ * 
+ * @returns itmEncodingObject
  */
 function itmEncodingObjectByStat(
   itmEncodingObject: ItmEncodingObject, 
-  gsStat: gs.Stat, 
-  gsStatParams: gs.StatParams
+  ggStat: GG.Stat, 
+  ggStatParams: GG.StatParams
 ): ItmEncodingObject {
 
   let statMap = {
@@ -33,35 +34,35 @@ function itmEncodingObjectByStat(
   }
 
   // validate
-  if (!contains(Object.keys(statMap), gsStat.class)) {
-    throw new Error('ggplot object contains unsupported stat: ' + gsStat.class);  
+  if (!contains(Object.keys(statMap), ggStat.class)) {
+    throw new Error('ggplot object contains unsupported stat: ' + ggStat.class);  
   }
 
   // translate
-  const functionTranslate = statMap[gsStat.class];
+  const functionTranslate = statMap[ggStat.class];
   
-  return functionTranslate(itmEncodingObject, gsStat, gsStatParams);
+  return functionTranslate(itmEncodingObject, ggStat, ggStatParams);
 }
 
 /**
  * Modify an encoding object according an identity stat
  * 
- * @remark
+ * @remarks
  * This function does nothing.
  * 
  * **Called by**
  * @see itmEncodingObjectByStat
  * 
  * @param itmEncodingObject 
- * @param gsStat 
- * @param gsStatParams 
+ * @param ggStat 
+ * @param ggStatParams 
  * 
  * @return itmEncodingObject
  */
 function itmEncodingObjectByStatIdentity(
   itmEncodingObject: ItmEncodingObject, 
-  gsStat: gs.Stat, 
-  gsStatParams: gs.StatParams  
+  ggStat: GG.Stat, 
+  ggStatParams: GG.StatParams  
 ): ItmEncodingObject {
 
   // do nothing

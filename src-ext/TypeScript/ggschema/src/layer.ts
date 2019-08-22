@@ -1,16 +1,16 @@
-import {Geom} from './layerGeom';
-import {Mapping, AesParams} from './layerMapping';
-import {Stat} from './layerStat';
-import {Position} from './layerPosition';
+import {GeomSet} from './layerGeom';
+import {MappingObject, AesParams} from './layerMapping';
+import {StatSet} from './layerStat';
 /**
  * The `Layers` should have at least one layer
  * @minItems 1
  */
-export type Layers = Layer[];
+export type LayerArray = Layer[];
+
+export type Layer = BaseLayer & GeomSet & StatSet;
+
 export interface BaseLayer {
   data: string;
-  mapping: Mapping;
+  mapping: MappingObject;
   aes_params: AesParams;
 }
-
-export type Layer = BaseLayer & Geom & Stat & Position;

@@ -7,129 +7,111 @@
 #'   `NULL` prints message containing names of all examples
 #'
 #' @return \describe{
-#'   \item{`gg_example_name()`}{`character`, names of examples}
-#'   \item{`gg_example_path()`}{S3 object with class `fs_path`
-#'     (wraps `character`), path to R file identified by `example`}
+#'   \item{`gg_example_names()`}{`character`, names of examples}
 #'   \item{`gg_example()`}{S3 object with classes `gg` and `ggplot`;
 #'     a ggplot2 object, identified by `example`}
 #' }
 #'
 #' @examples
 #'   library("ggplot2")
-#'   gg_example_name()
+#'   gg_example_names()
 #'   gg_example_path("scatterplot-iris")
 #'   gg_example("scatterplot-iris")
 #'   gg_example("scatterplot-iris") %>% as_vegaspec()
 #' @export
 #'
-gg_example_name <- function() {
-  .gg_example_name(dir = .gg_example_dir())
+gg_example_names <- function() {
+  .example_names(type = "ggplot", source = "pkg")
 }
 
-#' @rdname gg_example_name
-#' @export
-#'
-gg_example_path <- function(example = NULL) {
-  .gg_example_path(example, dir = .gg_example_dir())
-}
-
-#' @rdname gg_example_name
+#' @rdname gg_example_names
 #' @export
 #'
 gg_example <- function(example = NULL) {
-
-  content <- gg_example_path(example)
-
-  if (is.null(content)) {
-    return(invisible(NULL))
-  }
-
-  src <- source(content)
-
-  src$value
+  .example_obj(example, type = "ggplot", source = "pkg")
 }
 
-.gg_example_path <- function(example = NULL, dir) {
-
-  if (is.null(example)) {
-    # print filenames in directory
-    f <- .gg_example_name(dir)
-    f <- glue::glue_collapse(f, sep = "\t")
-
-    message(f)
-
-    return(invisible(NULL))
-  }
-
-  path <- fs::path_join(c(dir, glue::glue("{example}.R")))
-
-  # check that path exists
-  if (!fs::file_exists(path)) {
-    stop(glue::glue("File `{example}.R` not found in example directory"))
-  }
-
-  path
-
-}
-
-.gg_example_name <- function(dir) {
-
-  f <- fs::dir_ls(dir, regexp = "[.]R$")
-  f <- basename(f)
-  f <- tools::file_path_sans_ext(f)
-
-  f
-}
-
-# internal functions to identify the example-directories
-
-.gg_example_dir <- function() {
-  system.file("examples", "ggplot2", package = "ggvega")
-}
-
-
-#' Return a translated, refrence specs
+#' Use ggplot examples
 #'
-#' @inheritParams gg_example
+#' @inheritParams gg_example_names
 #'
-#' @noRd
+#' @return S3 object with class `fs_path` (wraps `character`),
+#'    path to R file identified by `example`
 #'
-gs_example_set <- function(
-                    example,
-                    path = here::here("tests", "testthat", "examples")
-                  ) {
+#' @keywords internal
+#' @export
+#'
+gg_example_path <- function(example = NULL) {
 
-  dir_ggplot2 <- fs::path_join(c(path, "ggplot2"))
-  dir_ggspec <- fs::path_join(c(path, "ggspec"))
-
-  path_ggplot <- fs::path_join(c(dir_ggplot2, glue::glue("{example}.R")))
-  path_ggspec <- fs::path_join(c(dir_ggspec, glue::glue("{example}.gs.json")))
-
-  gg <- source(path_ggplot)$value
-  gs <- normalize(gg2spec(gg))
-
-  gs_ref <- normalize(from_json(path_ggspec))
-
-  list(gs = gs, gs_ref = gs_ref)
+  .example_path(example, type = "ggplot", source = "pkg")
 }
 
-vl_example_set <- function(
-                    example,
-                    path = here::here("tests", "testthat", "examples")
-                  ) {
+#' Use development examples
+#'
+#' Note that for `dev_translation()`, `type` refers to the type *to* which
+#' the translation is made.
+#'
+#' @inheritParams gg_example_names
+#'
+#' @return \describe{
+#'   \item{`dev_example_names()`}{`character`, names of examples}
+#'   \item{`dev_example_path()`}{S3 object with class `fs_path`
+#'     (wraps `character`), path to R file identified by `example`}
+#'   \item{`dev_example()`}{not type-stable, depending on `type`, returns
+#'   either a ggplot object, a ggspec, or a vegaspec}
+#' }
+#'
+#' @keywords internal
+#' @export
+#'
+dev_example_names <- function(type = c("ggplot", "ggspec", "vegaspec")) {
+  .example_names(type = type, source = "dev")
+}
 
-  dir_ggspec <- fs::path_join(c(path, "ggspec"))
-  dir_vegalite <- fs::path_join(c(path, "vega-lite"))
+#' @rdname dev_example_names
+#' @keywords internal
+#' @export
+#'
+dev_example_path <- function(example = NULL,
+                             type = c("ggplot", "ggspec", "vegaspec")) {
 
-  path_ggspec <- fs::path_join(c(dir_ggspec, glue::glue("{example}.gs.json")))
-  path_vegalite <- fs::path_join(c(dir_vegalite, glue::glue("{example}.vl.json")))
+  .example_path(example, type = type, source = "dev")
+}
 
-  gs <- from_json(path_ggspec)
-  vl <- normalize(spec2vl(gs))
+#' @rdname dev_example_names
+#' @keywords internal
+#' @export
+#'
+dev_example <- function(example = NULL,
+                        type = c("ggplot", "ggspec", "vegaspec")) {
 
-  vl_ref <- normalize(from_json(path_vegalite))
+  .example_obj(example, type = type, source = "dev")
+}
 
-  list(vl = vl, vl_ref = vl_ref)
+#' @rdname dev_example_names
+#' @keywords internal
+#' @export
+#'
+dev_translation <- function(example = NULL,
+                            type = c("ggspec", "vegaspec")) {
+
+  type <- match.arg(type)
+
+  source_type = list(
+    ggspec = "ggplot",
+    vegaspec = "ggspec"
+  )
+
+  source_obj <- dev_example(example, type = source_type[[type]])
+
+  fn_translate <- list(
+    ggspec = gg2spec,
+    vegaspec = spec2vl
+  )
+
+  translation <- fn_translate[[type]](source_obj)
+
+  translation
 }
 
 

@@ -1,6 +1,6 @@
 Package: ggvega
 Title: Translator from 'ggplot2' to 'Vega-Lite' 
-Version: 0.0.0.9008
+Version: 0.0.0.90011
 Authors@R:
     c(
       person(given = "Haley",
@@ -55,5 +55,9 @@ Suggests:
     tools,
     readr,
     processx,
-    withr
+    withr,
+    htmltools,
+    shiny,
+    listviewer,
+    base64enc
 VignetteBuilder: knitr

@@ -1,4 +1,4 @@
-export {TopLevelSpec} from './toplevel';
+export {TopLevelSpec} from './topLevelSpec';
 
 export * from './data';
 export * from './layer';
@@ -8,6 +8,5 @@ export * from './coordinates';
 export * from './facet';
 
 export * from './layerGeom';
-export * from './layerMapping';
 export * from './layerStat';
-export * from './layerPosition';
+export * from './layerMapping';
