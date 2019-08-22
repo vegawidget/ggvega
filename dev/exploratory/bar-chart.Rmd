@@ -10,7 +10,7 @@ library("vegawidget")
 ```
 
 ```{r results='asis'}
-dev_gallery("scatterplot-iris")
+dev_gallery("barchart-mpg")
 ```
 
 

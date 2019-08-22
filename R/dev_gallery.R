@@ -57,7 +57,7 @@ dev_gallery <- function(example, arrange = c("side", "top"),
   suppressMessages(
     ggplot2::ggsave(
       file_gg,
-      plot = gg_example(example),
+      plot = dev_example(example, "ggplot"),
       device = "png",
       width = 5,
       height = 5 * gg_height / gg_width,
