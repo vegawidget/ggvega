@@ -231,6 +231,7 @@ vegaspec
         },
         "y": {
           "aggregate": "count",
+          "stack": "zero",
           "type": "quantitative",
           "title": "count"
         }

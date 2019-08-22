@@ -8,4 +8,5 @@ export interface LabelObject {
   stroke?: string;
   alpha?: string;
   fill?: string;
+  weight?: string;
 }

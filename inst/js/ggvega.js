@@ -169,6 +169,9 @@
     			title: {
     				type: "string"
     			},
+    			weight: {
+    				type: "string"
+    			},
     			x: {
     				type: "string"
     			},
