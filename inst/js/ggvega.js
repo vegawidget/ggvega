@@ -10592,6 +10592,12 @@
      */
     function itmLayerArrayByCoordFlip(itmLayerArray, gsCoord) {
         // will do something
+        // exchange encoding.x and encoding.y
+        itmLayerArray.map(function (itmLayer) {
+            var itmEncoding = itmLayer.encoding.x;
+            itmLayer.encoding.x = itmLayer.encoding.y;
+            itmLayer.encoding.y = itmEncoding;
+        });
         return itmLayerArray;
     }
 

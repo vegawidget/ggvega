@@ -61,7 +61,7 @@ library("purrr")
 library("here")
 ```
 
-    ## here() starts at /Users/sesa19001/Documents/repos/public/vegawidget/ggvega
+    ## here() starts at C:/Users/jtxys/Documents/ggvega
 
 ``` r
 library("readr")
@@ -121,7 +121,7 @@ directory.
 
 skip_ggspec <- c()
 
-skip_vegaspec <- c("scat-coord-flip-iris")
+skip_vegaspec <- c()
 
 # if something is skipped for ggspec, it is also skipped for vegaspec
 skip_vegaspec <- c(skip_ggspec, skip_vegaspec)
@@ -134,7 +134,7 @@ test_example_dir <- here("tests", "testthat", "examples")
 test_example_dir
 ```
 
-    ## [1] "/Users/sesa19001/Documents/repos/public/vegawidget/ggvega/tests/testthat/examples"
+    ## [1] "C:/Users/jtxys/Documents/ggvega/tests/testthat/examples"
 
 ``` r
 if (dir_exists(test_example_dir)) {
@@ -258,7 +258,7 @@ pkgex_dir <- here("inst", "examples", "ggplot")
 pkgex_dir
 ```
 
-    ## [1] "/Users/sesa19001/Documents/repos/public/vegawidget/ggvega/inst/examples/ggplot"
+    ## [1] "C:/Users/jtxys/Documents/ggvega/inst/examples/ggplot"
 
 ``` r
 if (dir_exists(pkgex_dir)) {
@@ -290,7 +290,8 @@ Finally, to confirm, we list the files in the package-source directory
 dir_ls(pkgex_dir) %>% basename()
 ```
 
-    ## [1] "scat-scale-name-iris.R" "scatterplot-iris.R"
+    ## [1] "scat-coord-flip-iris.R" "scat-scale-name-iris.R"
+    ## [3] "scatterplot-iris.R"
 
 ## Adding a new example
 

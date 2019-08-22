@@ -70,5 +70,13 @@ function itmLayerArrayByCoordCartesian(itmLayerArray: ItmLayer[], gsCoord: GG.Co
  */
 function itmLayerArrayByCoordFlip(itmLayerArray: ItmLayer[], gsCoord: GG.Coord): ItmLayer[] {
   // will do something
+
+  // exchange encoding.x and encoding.y
+  itmLayerArray.map(itmLayer => {
+    const itmEncoding = itmLayer.encoding.x;
+    itmLayer.encoding.x = itmLayer.encoding.y;
+    itmLayer.encoding.y = itmEncoding;
+  });
+
   return itmLayerArray;
 }
