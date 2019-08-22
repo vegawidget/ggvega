@@ -9,4 +9,5 @@ export * from './facet';
 
 export * from './layerGeom';
 export * from './layerStat';
+export * from './layerPosition';
 export * from './layerMapping';

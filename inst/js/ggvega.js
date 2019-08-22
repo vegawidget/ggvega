@@ -164,6 +164,12 @@
     					aes_params: {
     						$ref: "#/definitions/AesParams"
     					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
+    					},
     					data: {
     						type: "string"
     					},
@@ -205,10 +211,15 @@
     									"StatIdentity"
     								],
     								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
     							}
     						},
     						required: [
-    							"class"
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -227,6 +238,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -241,6 +253,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -322,6 +340,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -336,6 +355,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -378,10 +403,15 @@
     									"StatBoxplot"
     								],
     								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
     							}
     						},
     						required: [
-    							"class"
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -406,6 +436,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -420,6 +451,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -462,10 +499,15 @@
     									"StatIdentity"
     								],
     								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
     							}
     						},
     						required: [
-    							"class"
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -484,6 +526,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -498,6 +541,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -579,6 +628,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -593,6 +643,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -635,10 +691,15 @@
     									"StatBoxplot"
     								],
     								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
     							}
     						},
     						required: [
-    							"class"
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -663,6 +724,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -677,6 +739,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -719,10 +787,15 @@
     									"StatIdentity"
     								],
     								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
     							}
     						},
     						required: [
-    							"class"
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -741,6 +814,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -755,6 +829,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -836,6 +916,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -850,6 +931,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -892,10 +979,15 @@
     									"StatBoxplot"
     								],
     								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
     							}
     						},
     						required: [
-    							"class"
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -920,6 +1012,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -934,6 +1027,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -976,10 +1075,15 @@
     									"StatIdentity"
     								],
     								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
     							}
     						},
     						required: [
-    							"class"
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -998,6 +1102,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -1012,6 +1117,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -1093,6 +1204,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -1107,6 +1219,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -1149,10 +1267,15 @@
     									"StatBoxplot"
     								],
     								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
     							}
     						},
     						required: [
-    							"class"
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -1177,6 +1300,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -1318,6 +1442,21 @@
     		additionalProperties: {
     			$ref: "#/definitions/Metadata"
     		},
+    		type: "object"
+    	},
+    	PositionIdentity: {
+    		additionalProperties: false,
+    		properties: {
+    			"class": {
+    				"enum": [
+    					"PositionIdentity"
+    				],
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"class"
+    		],
     		type: "object"
     	},
     	Scale: {
