@@ -10591,14 +10591,29 @@
      * @returns `ItmLayer[]`
      */
     function itmLayerArrayByCoordFlip(itmLayerArray, gsCoord) {
-        // will do something
-        // exchange encoding.x and encoding.y
+        // exchange encoding.x+ and encoding.y+
         itmLayerArray.map(function (itmLayer) {
-            var itmEncoding = itmLayer.encoding.x;
-            itmLayer.encoding.x = itmLayer.encoding.y;
-            itmLayer.encoding.y = itmEncoding;
+            //NOTE @wenyu: Copy the encoding. Use Object.assign() to  keep safe. Because object is mutable
+            var encoding = Object.assign({}, itmLayer.encoding);
+            for (var aesName in itmLayer.encoding) {
+                if (hasKey(itmLayer.encoding, aesName)) {
+                    itmLayer.encoding[replaceXY(aesName)] = encoding[aesName];
+                }
+            }
         });
         return itmLayerArray;
+    }
+    /**
+     * This function is to replace x+ to y+
+     *
+     * @param aesName `string`
+     */
+    function replaceXY(aesName) {
+        if (aesName[0] == 'x')
+            return 'y' + aesName.substr(1);
+        if (aesName[0] == 'y')
+            return 'x' + aesName.substr(1);
+        return aesName;
     }
 
     // keys: names of ggplot2 aesthetics

@@ -1,6 +1,6 @@
 import * as GG from '../../ggschema/src/index';
 import {ItmLayer} from './itmLayer';
-import {contains} from './utils';
+import {contains, hasKey} from './utils';
 
 /**
  * Modify an intermediate-layer array by coordinates
@@ -69,14 +69,31 @@ function itmLayerArrayByCoordCartesian(itmLayerArray: ItmLayer[], gsCoord: GG.Co
  * @returns `ItmLayer[]`
  */
 function itmLayerArrayByCoordFlip(itmLayerArray: ItmLayer[], gsCoord: GG.Coord): ItmLayer[] {
-  // will do something
+  // exchange encoding.x+ and encoding.y+
 
-  // exchange encoding.x and encoding.y
   itmLayerArray.map(itmLayer => {
-    const itmEncoding = itmLayer.encoding.x;
-    itmLayer.encoding.x = itmLayer.encoding.y;
-    itmLayer.encoding.y = itmEncoding;
+    //NOTE @wenyu: Copy the encoding. Use Object.assign() to  keep safe. Because object is mutable
+    const encoding = Object.assign({}, itmLayer.encoding);
+
+    for (const aesName in itmLayer.encoding) {
+      if (hasKey(itmLayer.encoding, aesName)) {
+        itmLayer.encoding[replaceXY(aesName)] = encoding[aesName];
+      }
+    }
   });
 
   return itmLayerArray;
+}
+
+/**
+ * This function is to replace x+ to y+
+ *
+ * @param aesName `string`
+ */
+function replaceXY(aesName: string): string {
+  if (aesName[0] == 'x') return 'y' + aesName.substr(1);
+
+  if (aesName[0] == 'y') return 'x' + aesName.substr(1);
+
+  return aesName;
 }
