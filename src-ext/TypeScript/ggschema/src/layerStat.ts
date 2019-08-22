@@ -30,7 +30,10 @@ export interface StatSetCount {
 }
 
 export interface StatSetBoxplot {
-  stat: {class: 'StatBoxplot'};
+  stat: {
+    class: 'StatBoxplot';
+    default_aes: {};
+  };
   stat_params: {
     'na.rm': boolean;
     coef?: string | number;
