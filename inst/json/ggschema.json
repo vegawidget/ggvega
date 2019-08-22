@@ -27,7 +27,14 @@
       "type": "object"
     },
     "Coord": {
-      "$ref": "#/definitions/CoordCartesian"
+      "anyOf": [
+        {
+          "$ref": "#/definitions/CoordCartesian"
+        },
+        {
+          "$ref": "#/definitions/CoordFlip"
+        }
+      ]
     },
     "CoordCartesian": {
       "additionalProperties": false,
@@ -35,6 +42,21 @@
         "class": {
           "enum": [
             "CoordCartesian"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "class"
+      ],
+      "type": "object"
+    },
+    "CoordFlip": {
+      "additionalProperties": false,
+      "properties": {
+        "class": {
+          "enum": [
+            "CoordFlip"
           ],
           "type": "string"
         }

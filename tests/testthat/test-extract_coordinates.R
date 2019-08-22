@@ -9,9 +9,9 @@ test_that("coordinates works", {
   )
 
   # Flip
-  expect_error(
+  expect_identical(
     coordinates(coord_flip()),
-    "CoordFlip"
+    list(class = "CoordFlip")
   )
 
 })

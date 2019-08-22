@@ -32,7 +32,14 @@
     		type: "object"
     	},
     	Coord: {
-    		$ref: "#/definitions/CoordCartesian"
+    		anyOf: [
+    			{
+    				$ref: "#/definitions/CoordCartesian"
+    			},
+    			{
+    				$ref: "#/definitions/CoordFlip"
+    			}
+    		]
     	},
     	CoordCartesian: {
     		additionalProperties: false,
@@ -40,6 +47,21 @@
     			"class": {
     				"enum": [
     					"CoordCartesian"
+    				],
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"class"
+    		],
+    		type: "object"
+    	},
+    	CoordFlip: {
+    		additionalProperties: false,
+    		properties: {
+    			"class": {
+    				"enum": [
+    					"CoordFlip"
     				],
     				type: "string"
     			}
@@ -10781,7 +10803,8 @@
         // keys: class names
         // values: function to call
         var CoordMap = {
-            CoordCartesian: itmLayerArrayByCoordCartesian
+            CoordCartesian: itmLayerArrayByCoordCartesian,
+            CoordFlip: itmLayerArrayByCoordFlip
         };
         // validate
         var className = ggCoord.class;
@@ -10808,6 +10831,53 @@
     function itmLayerArrayByCoordCartesian(itmLayerArray, gsCoord) {
         // do nothing
         return itmLayerArray;
+    }
+    /**
+     * Modify an intermediate-layer array by flipped Cartesian coordinates
+     *
+     * @remarks
+     * This function will switch x-encodings with y-encodings
+     *
+     * **Called by**
+     * @see itmLayerArrayByCoord
+     *
+     * @param itmLayerArray
+     * @param ggCoord
+     *
+     * @returns `ItmLayer[]`
+     */
+    function itmLayerArrayByCoordFlip(itmLayerArray, gsCoord) {
+        // exchange encoding.x+ and encoding.y+
+        itmLayerArray.map(function (itmLayer) {
+            //NOTE @wenyu: Copy the encoding. Use Object.assign() to  keep safe. Because object is mutable
+            var encoding = copy$1(itmLayer.encoding);
+            for (var aesName in itmLayer.encoding) {
+                if (hasKey(itmLayer.encoding, aesName)) {
+                    itmLayer.encoding[replaceXY(aesName)] = encoding[aesName];
+                }
+            }
+        });
+        return itmLayerArray;
+    }
+    /**
+     * This function is to replace x+ to y+
+     *
+     * @param aesName `string`
+     */
+    function replaceXY(aesName) {
+        if (aesName[0] == 'x')
+            return 'y' + aesName.substr(1);
+        if (aesName[0] == 'y')
+            return 'x' + aesName.substr(1);
+        return aesName;
+    }
+    //NOTE@wenyu: Since Object.assign() is not a part of es5. Use this function to copy. Can be moved to ./utils.ts
+    function copy$1(mainObj) {
+        var objCopy = {}; // objCopy will store a copy of the mainObj
+        for (var key in mainObj) {
+            objCopy[key] = mainObj[key]; // copies each property to the objCopy object
+        }
+        return objCopy;
     }
 
     // keys: names of ggplot2 aesthetics

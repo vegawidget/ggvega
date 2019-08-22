@@ -41,4 +41,11 @@ coordinates.CoordCartesian <- function(coordinates_plt, ...) {
   list(class = class)
 }
 
+coordinates.CoordFlip <- function(coordinates_plt, ...) {
+
+  class <- first_class(coordinates_plt)
+
+  list(class = class)
+}
+
 
