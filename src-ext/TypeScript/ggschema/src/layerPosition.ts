@@ -1,5 +1,8 @@
 export type Position = PositionIdentity;
 
 export interface PositionIdentity {
-  class: 'PositionIdentity';
+
+  position: {
+    class: 'PositionIdentity';
+  }
 }
