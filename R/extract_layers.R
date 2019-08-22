@@ -58,8 +58,8 @@ get_layers <- function(layer, int_data, int_map) {
     ),
     stat = list(
       class = pluck_layer("stat", class, 1),
-      default_aes = pluck_layer("stat", "default_aes") %>% purrr::map(get_mappings),
-      required_aes = pluck_layer("stat", "required_aes")
+      default_aes = pluck_layer("stat", "default_aes") %>% purrr::map(get_mappings)#,
+      # required_aes = pluck_layer("stat", "required_aes")
     ),
     stat_params = pluck_layer("stat_params")
   )
