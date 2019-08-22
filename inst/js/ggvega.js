@@ -10594,7 +10594,7 @@
         // exchange encoding.x+ and encoding.y+
         itmLayerArray.map(function (itmLayer) {
             //NOTE @wenyu: Copy the encoding. Use Object.assign() to  keep safe. Because object is mutable
-            var encoding = Object.assign({}, itmLayer.encoding);
+            var encoding = copy$1(itmLayer.encoding);
             for (var aesName in itmLayer.encoding) {
                 if (hasKey(itmLayer.encoding, aesName)) {
                     itmLayer.encoding[replaceXY(aesName)] = encoding[aesName];
@@ -10614,6 +10614,14 @@
         if (aesName[0] == 'y')
             return 'x' + aesName.substr(1);
         return aesName;
+    }
+    //NOTE@wenyu: Since Object.assign() is not a part of es5. Use this function to copy. Can be moved to ./utils.ts
+    function copy$1(mainObj) {
+        var objCopy = {}; // objCopy will store a copy of the mainObj
+        for (var key in mainObj) {
+            objCopy[key] = mainObj[key]; // copies each property to the objCopy object
+        }
+        return objCopy;
     }
 
     // keys: names of ggplot2 aesthetics

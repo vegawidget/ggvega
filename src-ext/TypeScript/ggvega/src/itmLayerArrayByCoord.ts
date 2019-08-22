@@ -73,7 +73,7 @@ function itmLayerArrayByCoordFlip(itmLayerArray: ItmLayer[], gsCoord: GG.Coord):
 
   itmLayerArray.map(itmLayer => {
     //NOTE @wenyu: Copy the encoding. Use Object.assign() to  keep safe. Because object is mutable
-    const encoding = Object.assign({}, itmLayer.encoding);
+    const encoding = copy(itmLayer.encoding);
 
     for (const aesName in itmLayer.encoding) {
       if (hasKey(itmLayer.encoding, aesName)) {
@@ -96,4 +96,14 @@ function replaceXY(aesName: string): string {
   if (aesName[0] == 'y') return 'x' + aesName.substr(1);
 
   return aesName;
+}
+
+//NOTE@wenyu: Since Object.assign() is not a part of es5. Use this function to copy. Can be moved to ./utils.ts
+export function copy(mainObj: any) {
+  const objCopy: any = {}; // objCopy will store a copy of the mainObj
+
+  for (const key in mainObj) {
+    objCopy[key] = mainObj[key]; // copies each property to the objCopy object
+  }
+  return objCopy;
 }
