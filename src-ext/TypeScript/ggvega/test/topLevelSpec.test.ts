@@ -17,5 +17,10 @@ describe('topLevelSpec/spec2vl', () => {
     vlSpecObject = vlSpec.iris02;
 
     expect(spec2vl(ggSpecObject)).toEqual(vlSpecObject as VL.TopLevelSpec);
+
+    ggSpecObject = ggSpec.iris03;
+    vlSpecObject = vlSpec.iris03;
+
+    expect(spec2vl(ggSpecObject)).toEqual(vlSpecObject as VL.TopLevelSpec);
   });
 });

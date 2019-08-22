@@ -1,0 +1,23 @@
+---
+title: CoordFlip
+output: github_document
+---
+
+```{r message=FALSE}
+library("ggvega")
+library("ggplot2")
+library("vegawidget")
+```
+
+The idea with `CoordFlip` is that for every (intermediate) layer, for every encoding in the layer:
+
+- an aesthetic whose name begins with an `x` has the (first) `x` in its name replaced with a `y`.
+- an aesthetic whose name begins with a `y` has the (first) `y` in its name replaced with an `x`.
+
+It may also be necessary to change the class of the encodings from `VL.XClass` to `VL.YClass`, and vice-versa.
+
+```{r results='asis', echo=FALSE}
+dev_gallery("scat-coord-flip-iris")
+```
+
+
