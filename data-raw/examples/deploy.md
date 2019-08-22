@@ -61,7 +61,7 @@ library("purrr")
 library("here")
 ```
 
-    ## here() starts at C:/Users/jtxys/Documents/ggvega
+    ## here() starts at /Users/sesa19001/Documents/repos/public/vegawidget/ggvega
 
 ``` r
 library("readr")
@@ -134,7 +134,7 @@ test_example_dir <- here("tests", "testthat", "examples")
 test_example_dir
 ```
 
-    ## [1] "C:/Users/jtxys/Documents/ggvega/tests/testthat/examples"
+    ## [1] "/Users/sesa19001/Documents/repos/public/vegawidget/ggvega/tests/testthat/examples"
 
 ``` r
 if (dir_exists(test_example_dir)) {
@@ -258,7 +258,7 @@ pkgex_dir <- here("inst", "examples", "ggplot")
 pkgex_dir
 ```
 
-    ## [1] "C:/Users/jtxys/Documents/ggvega/inst/examples/ggplot"
+    ## [1] "/Users/sesa19001/Documents/repos/public/vegawidget/ggvega/inst/examples/ggplot"
 
 ``` r
 if (dir_exists(pkgex_dir)) {
