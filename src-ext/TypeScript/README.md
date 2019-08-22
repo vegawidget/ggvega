@@ -43,7 +43,6 @@ Here are some comments on [ggschema package.json](https://github.com/vegawidget/
 },
 
 "devDependencies":  {
-
 // Use TypeScript coding pattern
 "@typescript-eslint/eslint-plugin":  "^1.13.0",
 
@@ -95,7 +94,6 @@ Link : https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggveg
 Here are some comments on [ggvega package.json](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/package.json):
 
 ```
-
 // The version of Vega-Lite schema. You can update Vega-Lite schema version by change this URL
 "vlschema":  "https://vega.github.io/schema/vega-lite/v3.json",
 
@@ -211,11 +209,6 @@ To add another Geom/Stat/Scale/etc, what you have to do is complete the `Geom/St
 	Since the R V8 package is not fully ES6 compliant yet, we faced the some error on using Vega-Lite source code directly. To work around this problem, we have to generate the Vega-Lite type from the [vega-lite schema](https://vega.github.io/schema/vega-lite/v3.json). We have tried different ways to generate TypeScript from json-schema. The best result is provided by [quicktype](https://quicktype.io/typescript/). Here is a [link](https://app.quicktype.io/?share=1KFE6qo8KU8cupEl5gh6) about how they translate json-schema to TypeScript.
 
 	You can read more details on [quicktype.md](https://github.com/vegawidget/ggvega/blob/quicktype/dev/TypeScript/quicktype/quicktype.md).
-
--   discuss the design choices and compromises we made
-    -   example: why TypeScript? At the root is that we wanted to base our code on Vega-Lite schema, and we needed an environment where we can "do something" with the schema.
-    -   example: is the ES5/quicktype issue. A summary will be good here, you can provide a link to your other report for more details.
-
 
 
 
