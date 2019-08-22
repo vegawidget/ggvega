@@ -31,13 +31,17 @@ mapping_spc <- function(mapping_plt){
 #' p <- p + geom_point(aes(x = Petal.Width, y = Petal.Length))
 #' get_mappings(p$layers[[1]]$mapping[[1]])
 get_mappings <- function(aes) {
+
   if(is_data_variable(aes)) {
     return(translate_data_variable(aes))
   }
+
   if(is_stat_operation(aes)) {
     return(translate_stat_operation(aes))
   }
-  list(value = aes)
+
+  # return bare value
+  aes
 }
 
 
