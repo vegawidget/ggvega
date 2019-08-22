@@ -200,10 +200,15 @@
                     "StatIdentity"
                   ],
                   "type": "string"
+                },
+                "default_aes": {
+                  "additionalProperties": false,
+                  "type": "object"
                 }
               },
               "required": [
-                "class"
+                "class",
+                "default_aes"
               ],
               "type": "object"
             },
@@ -457,10 +462,15 @@
                     "StatIdentity"
                   ],
                   "type": "string"
+                },
+                "default_aes": {
+                  "additionalProperties": false,
+                  "type": "object"
                 }
               },
               "required": [
-                "class"
+                "class",
+                "default_aes"
               ],
               "type": "object"
             },
@@ -714,10 +724,15 @@
                     "StatIdentity"
                   ],
                   "type": "string"
+                },
+                "default_aes": {
+                  "additionalProperties": false,
+                  "type": "object"
                 }
               },
               "required": [
-                "class"
+                "class",
+                "default_aes"
               ],
               "type": "object"
             },
@@ -971,10 +986,15 @@
                     "StatIdentity"
                   ],
                   "type": "string"
+                },
+                "default_aes": {
+                  "additionalProperties": false,
+                  "type": "object"
                 }
               },
               "required": [
-                "class"
+                "class",
+                "default_aes"
               ],
               "type": "object"
             },

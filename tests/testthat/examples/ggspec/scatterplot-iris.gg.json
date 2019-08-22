@@ -57,8 +57,7 @@
       "aes_params": {},
       "stat": {
         "class": "StatIdentity",
-        "default_aes": {},
-        "required_aes": {}
+        "default_aes": {}
       },
       "stat_params": {
         "na.rm": false

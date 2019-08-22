@@ -29,8 +29,7 @@ list(
       aes_params = ggvega:::empty_named_list,
       stat = list(
         class = "StatIdentity",
-        default_aes = ggvega:::empty_named_list,
-        required_aes = ggvega:::empty_named_list
+        default_aes = ggvega:::empty_named_list
       ),
       stat_params = list(
         na.rm = FALSE
