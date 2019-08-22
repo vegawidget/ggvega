@@ -6,8 +6,17 @@ list(
       data = list(name = "data-00"),
       mark = list(type = "bar"),
       encoding = list(
-        x = list(field = "class", type = "nominal", title = "class"),
-        y = list(aggregate = "count", type = "quantitative", title = "count")
+        x = list(
+          field = "class",
+          type = "nominal",
+          title = "class"
+        ),
+        y = list(
+          aggregate = "count",
+          stack = "zero",
+          type = "quantitative",
+          title = "count"
+        )
       )
     )
   )

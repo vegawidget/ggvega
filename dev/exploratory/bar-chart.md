@@ -7,6 +7,18 @@ library("ggplot2")
 library("vegawidget")
 ```
 
+The purpose of this document is to show how bar-chart examples can be
+translated.
+
+## “Simple” bar chart
+
+The is the simplest bar chart we can imagine. On the `x`-axis, we have
+the `class` of the car; on the `y`-axis we have the number of cars
+(obsewrvations) in each class.
+
+Also note that I have specified the `width` and `height` of the
+*rendering* of the vegaspec; this is *not* part of the translation.
+
 ``` r
 dev_gallery("barchart-mpg")
 ```
