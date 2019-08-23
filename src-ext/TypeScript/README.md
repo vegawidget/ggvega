@@ -48,26 +48,14 @@ Here are some comments on [ggschema package.json](https://github.com/vegawidget/
 // Use TypeScript coding pattern
 "@typescript-eslint/eslint-plugin":  "^1.13.0",
 
-"@typescript-eslint/parser":  "^1.13.0",
-
 // Copy files
 "copyfiles":  "^2.1.1",
-
-"eslint":  "^5.16.0",
-
-"eslint-config-google":  "^0.13.0",
-
-"eslint-config-prettier":  "^4.3.0",
-
-"eslint-plugin-prettier":  "^3.1.0",
 
 // Code formatter
 "prettier":  "^1.17.1",
 
 // Generate json schema from TypeScript class
 "ts-json-schema-generator":  "^0.51.0",
-
-"typescript":  "^3.5.3"
 
 }
 ```
@@ -127,31 +115,14 @@ Here are some comments on [ggvega package.json](https://github.com/vegawidget/gg
 
 "devDependencies":  {
 
-//Test TypeScript Code
-"@types/jest": "^24.0.15",
-
 // Use TypeScript coding pattern
 "@typescript-eslint/eslint-plugin": "^1.12.0",
-
-"@typescript-eslint/parser":  "^1.12.0",
 
 //Use ggschema.ts validate ggSpec
 "ajv": "^6.10.2",
 
 //Copy files
 "copyfiles": "^2.1.0",
-
-"eslint": "^6.0.1",
-
-"eslint-config-google":  "^0.13.0",
-
-"eslint-config-prettier": "^6.0.0",
-
-"eslint-plugin-prettier": "^3.1.0",
-
-"jest": "^24.8.0",
-
-"lodash": "^4.17.15",
 
 //Code formatter
 "prettier":  "^1.17.1",
@@ -162,18 +133,11 @@ Here are some comments on [ggvega package.json](https://github.com/vegawidget/gg
 //Combine JavaScripts into one JavaScript
 "rollup": "^1.14.3",
 
-"rollup-plugin-commonjs":  "^10.0.0",
-
-"rollup-plugin-json": "^4.0.0",
-
-"rollup-plugin-node-resolve": "^5.0.1",
-
+//Test TypeScript Code
 "ts-jest": "^24.0.2",
 
 //Generate TypeScript documentation
 "typedoc":  "^0.15.0",
-
-"typescript":  "3.5.3"
 
 }
 ```
@@ -231,7 +195,7 @@ vlSpec={
 
 When I design the first framework, my idea is very simple: I tried to translate all properties of ggSpec to their corresponding part of Vega-Lite spec. The order to translate is based the order of Vega-Lite spec. We can find it's easy to translate the `$schema` and `datasets`. When we translate the `layer`, our work becomes difficult, especially when we translate the `encoding`.  Here I want to summarize some faults of the first framework.
 
--      Too many repeats
+- Too many repeats
 
 Think about it. If we use a function `encodingX()` to translate `vlSpec.Layer.encoding.x`, what information we need? To get the `field`, we need `mapping` in ggSpec. To get `type`, we need `metadata` in ggSpec. To get `title`, we need `labels` in ggSpec. To get `scale`, we need `scale` in ggSpec.   And we have to repeat these steps when we translate other aesthetics, like y, size, color, shape, etc..  We have to repeat these complicated steps and we want to respect the principle of "Don't Repeat Yourself", or DRY. That's the first reason we want to drop this framework.
 
