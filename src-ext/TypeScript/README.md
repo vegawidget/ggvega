@@ -7,7 +7,7 @@ Welcome to the **TypeScript part of ggvega (TS ggvega)**. The purpose of this do
 
 The goal of **ggvega** is to translate a ggplot2 object to a Vega-Lite specification. To achieve this goal, we divided the task into two parts. The first one is **ggspec** which is to convert a ggplot2 object into a ggschema specification. The second one is this part: **TS ggvega** which is to translate a ggschema specification to a Vega-Lite specification. 
 
-The reason why we divide **ggvega** into two parts is that we want to use TypeScript in this R package.  [Vega-Lite](https://vega.github.io/vega-lite/) is an TypeScript project.  We wanted to base our code on Vega-Lite schema, and we needed an environment where we can "do something" with the schema. In the TypeScript environment, we can use the source code of  [Vega-Lite](https://vega.github.io/vega-lite/). We can also convert TypeScript and JSON schema to each other. I think that's why we have to build **TS ggvega** and why we want to use TypeScript.
+The reason why we divide **ggvega** into two parts is that we want to use TypeScript in this R package.  [Vega-Lite](https://vega.github.io/vega-lite/) is a TypeScript project.  We wanted to base our code on Vega-Lite schema, and we needed an environment where we can "do something" with the schema. In the TypeScript environment, we can use the source code of  [Vega-Lite](https://vega.github.io/vega-lite/). We can also convert TypeScript and JSON schema to each other. I think that's why we have to build **TS ggvega** and why we want to use TypeScript.
 
 Fortunately, during the GSoC 2019, I  can be responsible for the [TS ggvega](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript). Very thanks for the guidance from my mentors: ***[Ian Lyttle](https://github.com/ijlyttle)*** ,  ***[Haley Jeppson](https://github.com/haleyjeppson)*** and the support from ***[Google Summer of Code](https://summerofcode.withgoogle.com/)*** .
 
@@ -22,7 +22,7 @@ When we develop **TS ggvega**, we divided it into two TypeScript projects. The m
 ### Repository Setup
 1. Make sure you have  [node.js](https://nodejs.org/en/). 
 2. Cd into [TS ggvega directory](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggvega) in your local clone of the repository and install all the npm dependencies. We use [yarn](https://yarnpkg.com/) to have reproducible dependencies:
-```
+```sh
 cd ./src-ext/TypeScript/ggvega
 yarn 
 ```
@@ -61,8 +61,8 @@ Since we generate [`vlSpec.ts`](https://github.com/vegawidget/ggvega/blob/master
 
  1. Go to the [package.json](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/package.json) of **TS ggvega**
  2. Change the value of `vlschema`. It should be the URL of the new Vega-Lite schema.
- ```
- "vlschema":  "https://vega.github.io/schema/vega-lite/v3.json",
+ ```JSON
+ "vlschema":  "https://vega.github.io/schema/vega-lite/v3.json"
  ```
  3. Run `yarn schema2ts` (for Windows users, it's `yarn winschema2ts`) to generate a new `src/vlSpec.ts`.
  
@@ -86,7 +86,7 @@ All pull requests will be tested on [Travis](https://travis-ci.org/). If your PR
 ### Repository Setup
  1. Make sure you have  [node.js](https://nodejs.org/en/). 
  2. Cd into [TS ggschema directory](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggvega) in your local clone of the repository, and install all the npm dependencies. We use [yarn](https://yarnpkg.com/) to have reproducible dependencies:
- ```
+ ```sh
 cd ./src-ext/TypeScript/ggschema
 yarn 
 ```
@@ -104,7 +104,7 @@ To work around this problem, we believe that generating the Vega-Lite classes fr
 ### Boxplot enum bug
 However, when we use quicktype generate Vega-Lite classes, we encounter a bug that quicktype cannot separate Enum type. [Here is the link of the example in QuickType](https://app.quicktype.io/?share=mSby87Y3k9npwXjcBeZm). 
 The output we expected is:
-```
+```ts
 export type AnyMark = Mark | Boxplot;
 
 export enum Mark {
@@ -119,7 +119,7 @@ export enum Boxplot {
 ```
 But the final output is:
 
-```
+```ts
 export type AnyMark = Boxplot;
 
 export enum Boxplot{
@@ -152,8 +152,8 @@ Since the class structures are very similar, I believe you can find the correspo
 
 I will use  `Encoding.size`  as an example. When we use Vega-Lite source code, if we only change the name of class, the  `Encoding.size`  should be:
 
-```
-encoding['size'] =  itmLayer.encoding['size'] as  
+```ts
+encoding.size =  itmLayer.encoding.size as  
 FieldDefWithCondition<MarkPropFieldDef<Field,StandardType>, number> 
 |ValueDefWithCondition<MarkPropFieldDef<Field, StandardType>, number>
 
@@ -208,7 +208,7 @@ Since the functions of this framework are high cohesion and low coupling, it sho
 
  1. Make the examples by hand to show what the ggschema specification and Vega-Lite specification should look like. This can help us design ggschema and test ggvega.
  2. Build the new class of this ggschema specification in ggschema.
- ```
+ ```ts
 //Add GeomSetLine to GeomSet
 export  type  GeomSet  =  GeomSetPoint  |  GeomSetBar  |  GeomSetBoxplot  |  GeomSetLine;
 
@@ -219,7 +219,7 @@ export  interface  GeomSetLine {
 }
 ``` 
  3. Write or complete functions in **TS ggvega** to support these new features.
-```
+```ts
 //Add new `geom` to markByGeomMap in function markByGeom()
 const  markByGeomMap  = {
 GeomPoint:  'point',
@@ -238,7 +238,7 @@ if (ggGeomSet.geom.class  ==  'GeomLine') {
 - Add `CoordFlip`
  1. Make the examples by hand to show what the ggschema specification and Vega-Lite specification should look like. This can help us design ggschema and test ggvega.
  2. Build the new class of this ggschema specification in ggschema.
-```
+```ts
 //Add CoordFlip to Coord  
 export  type  Coord  =  CoordCartesian  |  CoordFlip;
 
@@ -248,7 +248,7 @@ export  interface  CoordFlip {
 }
 ```
   3. Write or complete functions in **TS ggvega** to support these new features.
-```
+```ts
 //Change CoordMap in function itmLayerArrayByCoord()
 const  CoordMap  = {
     CoordCartesian:  itmLayerArrayByCoordCartesian,
