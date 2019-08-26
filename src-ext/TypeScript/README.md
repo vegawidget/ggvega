@@ -9,7 +9,7 @@ The goal of **ggvega** is to translate a ggplot2 object to a Vega-Lite specifica
 
 The reason why we divide **ggvega** into two parts is that we want to use TypeScript in this R package.  [Vega-Lite](https://vega.github.io/vega-lite/) is an TypeScript project.  We wanted to base our code on Vega-Lite schema, and we needed an environment where we can "do something" with the schema. In the TypeScript environment, we can use the source code of  [Vega-Lite](https://vega.github.io/vega-lite/). We can also convert TypeScript and JSON schema to each other. I think that's why we have to build **TS ggvega** and why we want to use TypeScript.
 
-Fortunately，during the GSoC 2019, I  can be responsible for the [TS ggvega](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript). Very thanks for the guidance from my mentors: ***[Ian Lyttle](https://github.com/ijlyttle)*** ,  ***[Haley Jeppson](https://github.com/haleyjeppson)*** and the support from ***[Google Summer of Code](https://summerofcode.withgoogle.com/)*** .
+Fortunately, during the GSoC 2019, I  can be responsible for the [TS ggvega](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript). Very thanks for the guidance from my mentors: ***[Ian Lyttle](https://github.com/ijlyttle)*** ,  ***[Haley Jeppson](https://github.com/haleyjeppson)*** and the support from ***[Google Summer of Code](https://summerofcode.withgoogle.com/)*** .
 
 
 # Development Guide
@@ -21,7 +21,7 @@ When we develop **TS ggvega**, we divided it into two TypeScript projects. The m
 
 ### Repository Setup
 1. Make sure you have  [node.js](https://nodejs.org/en/). 
-2. Cd into [TS ggvega directory](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggvega) in your local clone of the repository and install all the npm dependencies. We use [yarn](https://yarnpkg.com/)to have reproducible dependencies:
+2. Cd into [TS ggvega directory](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggvega) in your local clone of the repository and install all the npm dependencies. We use [yarn](https://yarnpkg.com/) to have reproducible dependencies:
 ```
 cd ./src-ext/TypeScript/ggvega
 yarn 
@@ -31,7 +31,7 @@ Now you should be able to build and test the code.
 ### Directory Structure
 
 - `src/`  - Main source code directory.
-- `test/`  - Code for unit testing.  `test`'s name reflects  `src`'s name. For example,  `topLevelSpec.ts`'s test file named  `topLevelSpec.test.ts`. 
+- `test/`  - Code for unit testing.  `test`'s name reflects  `src`'s name. For example,  `src/topLevelSpec.ts`'s test file named  `topLevelSpec.test.ts`. 
 
 ### Libraries
 
@@ -51,16 +51,16 @@ This section lists TypeScript libraries which are used during development. See  
 ### Commands
 This section lists commands that are commonly used during development. See  `package.json`  for other commands.
 
-- Build: You can run  `yarn build`  to compile **TS ggvega** and generate `ggvega.js`. Then copy it into ./inst/js/ggveg.js.
-- Test: You can run `yarn test` to test all unit-tests respectively. You can read [jest configuration](https://jestjs.io/docs/en/configuration) to know how to change the setting of your test. For example, run `yarn test --coverage` to see if specific lines are covered in the unit test. If you want to ignore all warning or error messages, run `yarn test silent = true`
-- Documentation: You can run `yarn doc` to generate the documentation of **TS ggvega** comments. The documentation should under `./docs`
-- Generate `src/vlSpec.ts`： You can run `yarn schema2ts` to generate the `src/vlSpec.ts` from Vega-Lite schema. If you are using Windows system, please run `yarn winschema2ts`
+- Build: You can run  `yarn build`  to compile **TS ggvega** and generate `ggvega.js`. Then copy it into `./inst/js/ggvega.js`.
+- Test: You can run `yarn test` to test all unit-tests respectively. You can read [jest configuration](https://jestjs.io/docs/en/configuration) to know how to change the setting of your test. For example, run `yarn test --coverage` to see if specific lines are covered in the unit test. If you want to ignore all warning or error messages, run `yarn test silent = true`.
+- Documentation: You can run `yarn doc` to generate the documentation of **TS ggvega** comments. The documentation should under `./docs`.
+- Generate `src/vlSpec.ts`： You can run `yarn schema2ts` to generate the `src/vlSpec.ts` from Vega-Lite schema. If you are using Windows system, please run `yarn winschema2ts`.
 
 ### Retrieve a new Vega-Lite schema
 Since we generate [`vlSpec.ts`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/src/vlSpec.ts) from [`Vega-Lite schema`](https://vega.github.io/schema/vega-lite/v3.json) and we need Vega-Lite schema when we build the Vega-Lite specification, the version of Vega-Lite schema is very important for us. If you are prepared to retrieve a new Vega-Lite schema,   do the following.
 
  1. Go to the [package.json](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/package.json) of **TS ggvega**
- 2. Change the value of vlschema. It should be the URL of the new Vega-Lite schema.
+ 2. Change the value of `vlschema`. It should be the URL of the new Vega-Lite schema.
  ```
  "vlschema":  "https://vega.github.io/schema/vega-lite/v3.json",
  ```
@@ -85,7 +85,7 @@ All pull requests will be tested on [Travis](https://travis-ci.org/). If your PR
 
 ### Repository Setup
  1. Make sure you have  [node.js](https://nodejs.org/en/). 
- 2. Cd into [TS ggschema directory](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggvega) in your local clone of the repository, and install all the npm dependencies. We use [yarn](https://yarnpkg.com/)to have reproducible dependencies:
+ 2. Cd into [TS ggschema directory](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggvega) in your local clone of the repository, and install all the npm dependencies. We use [yarn](https://yarnpkg.com/) to have reproducible dependencies:
  ```
 cd ./src-ext/TypeScript/ggschema
 yarn 
@@ -169,7 +169,7 @@ You can read more details on [quicktype.md](https://github.com/vegawidget/ggvega
 
 ## The extensibility of the framework
 
-Since our package is still under active development, what we are most concerned about is the extensibility of the framework.    When I build **TS ggvega**, I pay more attention to implementation rather than the extensibility. Then we find it is difficult to add a new Geom/Scale/Stat/etc., which is why we went through the big effort to make a new framework for the **TS ggvega**. In our framework, the top-level function is topLevelSpec()
+Since our package is still under active development, what we are most concerned about is the extensibility of the framework.    When I build **TS ggvega**, I pay more attention to implementation rather than the extensibility. Then we find it is difficult to add a new Geom/Scale/Stat/etc., which is why we went through the big effort to make a new framework for the **TS ggvega**. In our framework, the top-level function is `topLevelSpec()`.
 
 ### Framework structure 
 
@@ -190,19 +190,19 @@ In our framework, the top-level function is `topLevelSpec()` which create a Vega
 	- `layerByItmLayer()`, generate Vega-Lite `layer` from intermediate layers.
 		- `encodingNameByGeom()`, get Vega-Lite encoding name from ggplot2 aesthetic name based on ggplot2 `Geom` type.
 
-Then I want to talk about why use this framework.
+Then I want to talk about why we use this framework.
 
 ### "Don't Repeat Yourself"
 
-When we design the framework, we want to respect the principle of "Don't Repeat Yourself". Think about it. If you want to translate the `encoding.x`of Vega-Lite specification, what information we need? Get `x.field` from ggplot2 `mapping`. Get `type` from ggplot2 `data`. Get `x.title` from ggplot2 `labels`. Get `x.scale` from ggplot2 `scales`. If you put all of them into one function `encodingX()`, it will be so large and complicated.  And you will have to repeat these steps when you translate other aesthetics, like y, size, color, shape, etc. However, in this framework, the translation process has been simplified. For example, you can translate all ggplot2 `mapping` by function `itmEncodingObjectByMappingObject()`. You can translate all ggplot2 `scales` by function `itmLayerArrayByScalesArray()`.  Their translation functions are kind of high cohesion and low coupling so that you don't need care that they influence each other.
+When we design the framework, we want to respect the principle of "Don't Repeat Yourself". Think about it. If you want to translate the `encoding.x` of Vega-Lite specification, what information we need? We have to get `x.field` from ggplot2 `mapping`, get `type` from ggplot2 `data`, get `x.title` from ggplot2 `labels` and get `x.scale` from ggplot2 `scales`. If you put all of them into one function `encodingX()`, it will be so large and complicated.  And you will have to repeat these steps when you translate other aesthetics, like y, size, color, shape, etc. However, in this framework, the translation process has been simplified. For example, you can translate all ggplot2 `mapping` by function `itmEncodingObjectByMappingObject()`. You can translate all ggplot2 `scales` by function `itmLayerArrayByScalesArray()`.  These translation functions are kind of high cohesion and low coupling so that you don't need care that they influence each other.
 
-### Friendly to `scales` and `labels`
+### Respect the philosophy of ggplot2
 
 When we design the framework, we noticed one important thing that `scales` and `labels` in ggplot2 are very different from them in Vega-Lite spec. In the philosophy of ggplot2, all layers share the same `scales`, `labels` and `coordinates`. But in Vega-Lite, every layer has its `title` and `scale`. Then we decide to only specify a `scale` or a `label` for the first appearance of the aesthetic in the layers list.  That's why we put `itmLayer()`, `itmLayerArrayByLabelsObject()` and `itmLayerArrayByScalesArray()` at the same level. We translate ggplot2 `labels` and `scales` based on all the intermediate layers rather than the intermediate encoding. We also care about the order of the functions. For example,  `itmLayerArrayByLabelsObject()` is before `itmLayerArrayByScalesArray()`. If the `scales` has a `name`, it will substitute the corresponding `name` in `labels`. The framework just does what ggplot2 does.
 
 ### Easy to add another Geom/Stat/Scale/etc.
 
-Since the functions of this framework are high cohesion and low coupling, it should be easy to add a new Geom/Stat/Scale/etc. If you want add another `geom` type, you can just change the function `markByGeom()` and function `encodingNameByGeom()`. If you want to add another `scale`, you can just change the function `itmLayerArrayByScalesArray()`. If you want to add another, you can just change the function `itmEncodingObjectByStat()`.   Here are some examples of adding another Geom/Stat/Scale/etc.
+Since the functions of this framework are high cohesion and low coupling, it should be easy to add a new Geom/Stat/Scale/etc. If you want add another `geom` type, you can just change the function `markByGeom()` and function `encodingNameByGeom()`. If you want to add another `scale`, you can just change the function `itmLayerArrayByScalesArray()`. If you want to add another `stat`, you can just change the function `itmEncodingObjectByStat()`.   Here are some examples of adding another Geom/Stat/Scale/etc.
 
 - Add `GeomLine` 
 
