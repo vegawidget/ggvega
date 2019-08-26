@@ -1,10 +1,11 @@
 
-# Quicktype 
 
-Since the R V8 package is not fully ES6 compliant yet, we faced the some error on using Vega-Lite source code directly. To work around this problem, we have to generate the Vega-Lite type from the [vega-lite schema](https://vega.github.io/schema/vega-lite/v3.json).  We have tried different ways to generate TypeScript from json-schema. The best result is provided by  [quicktype](https://quicktype.io/typescript/). Here is a [link](https://app.quicktype.io?share=1KFE6qo8KU8cupEl5gh6) about how they translate json-schema to TypeScript. 
+# quicktype 
 
-## BoxPlot Enum
-But the quicktype also has a "bug".  When it translate json-schema to TypeScript, it cannot seperate Enum type. 
+Since the R V8 package is not fully ES6 compliant yet, we faced the same error on using Vega-Lite source code directly. To work around this problem, we have to generate the Vega-Lite type from the [vega-lite schema](https://vega.github.io/schema/vega-lite/v3.json).  We have tried different ways to generate TypeScript from JSON schema. The best result is provided by  [quicktype](https://quicktype.io/typescript/). Here is a [link](https://app.quicktype.io?share=1KFE6qo8KU8cupEl5gh6) about how they translate JSON-schema to TypeScript. 
+
+## Boxplot Enum
+But the quicktype also has a "bug".  When it translates json schema to TypeScript, it cannot separate Enum type. 
 
 For example,  here is my input: [The link of the example in QuickType](https://app.quicktype.io?share=mSby87Y3k9npwXjcBeZm)
 
@@ -75,7 +76,7 @@ export enum Mark {
 ```
 ## PurpleBin
 
-To be clear, this problem not just happened on the **BoxPlot Enum**.  All the `anyOf`  structures in json-schema have the potential risks to face this problem. [https://json-schema.org/understanding-json-schema/reference/combining.html](https://json-schema.org/understanding-json-schema/reference/combining.html) tells us the definitions of `anyOf`, `allOf` and `oneOf`. And it's diificult for quicktype to understand the logic of them. What quicktype has done is to combine similar type and use the first one to name the new class. If these classes are not similar, it will generate a new type.
+To be clear, this problem not just happened on the **BoxPlot Enum**.  All the `anyOf`  structures in JSON schema have the potential risks to face this problem. [https://json-schema.org/understanding-json-schema/reference/combining.html](https://json-schema.org/understanding-json-schema/reference/combining.html) tells us the definitions of `anyOf`, `allOf` and `oneOf`. And it's difficult for quicktype to understand the logic of them. What quicktype has done is to combine similar type and use the first one to name the new class. If these classes are not similar, it will generate a new type.
 
 For example, In vlSpec.ts, you can find the definition of bins are stange:
 ```{TypeScript}
@@ -119,12 +120,12 @@ Actually, the definition of `bin` in Vega-Lite schema is:
         }
 ```
 That means Vega-Lite has two kinds of `bin`. One has four different types: `boolean`, `BinParams`, `enum` and `null`. One has three different types `boolean`, `BinParams`, and `null`.
-To solve these case, quicktype build 2 new types:
+To solve this case, quicktype build 2 new types:
 ```{TypeScript}
 export  type  FluffyBin  =  boolean  |  BinParams  |  BinEnum  |  null;
 export  type  PurpleBin  =  boolean  |  BinParams  |  null;
 ```
-I think this solution is acceptable. Although the names of these new types are ambiguous, it gives a new type to the types union.  And we can also avoid this by remove the `--explicit-unions` option from the command line.
+I think this solution is acceptable. Although the names of these new types are ambiguous, it gives a new type to the types union.  And we can also avoid this by removing the `--explicit-unions` option from the command line.
 
 Once you remove `--explicit-unions`, the new TypeScript code is:
 ```{TypeScript}
@@ -147,7 +148,7 @@ Finally, we decide to use `--explicit-unions`.
 
 ## URLData
 
-Another confused name is `URLData`. Although we don't use `topLevelSpec.data`, we find it's strange. 
+Another confusing name is `URLData`. Although we don't use `topLevelSpec.data`, we find it's strange. 
 I think the reason is in thi we have 2 `data`
 ```{TypeScript}
 data?:  URLData  |  null;
@@ -183,7 +184,7 @@ Here is the code about how we use quicktype and solve these problems:
 - `--explicit-unions` means we use `explicit-unions` to name and construct the types
 - `node fixbug.js` runs a javascript to rename some class.
 
-These code locates at  [`package.json`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/package.json).  If you want use another Vega-Lite version. You can change the value of `vlschema`.
+These codes locate at  [`package.json`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/package.json).  If you want to use another Vega-Lite version. You can change the value of `vlschema`.
 ```
 "vlschema":  "https://vega.github.io/schema/vega-lite/v3.json",
 ```
@@ -231,13 +232,13 @@ import  {Datasets}  from  'vega-lite/build/src/spec/toplevel';
 ```
 ### Some Possible situations
 
-The most important difference between `vlSpec.ts` and `Vega-lLite source code` is that `Vega-Lite source code` use more union types. That means `Vega-Lite source code` is more specific than `vlSpec.ts`.  
+The most important difference between `vlSpec.ts` and `Vega-Lite source code` is that `Vega-Lite source code` use more union types. That means `Vega-Lite source code` is more specific than `vlSpec.ts`.  
 
 And **Jest** is not very friendly to test code at `./node_modules`. You can use the config in [`vl-source-code`]([https://github.com/vegawidget/ggvega/tree/vl-source-code](https://github.com/vegawidget/ggvega/tree/vl-source-code)) branch to solve this problem. 
 
 ### How to use Vega-Lite 
 
-When we revert to using the Vega-Lite classes, we will have to rename the classes we use in ggvega. And Some structure of the classes change as well. Here are some example changes:
+When we revert to using the Vega-Lite classes, we will have to rename the classes we use in ggvega. And Some structure of the classes changes as well. Here are some example changes:
 
 - `VL.TopLevelSpec`==>`TopLevelSpec` 
 
@@ -269,7 +270,7 @@ import {CompositeEncoding} from  'vega-lite/build/src/compositemark';
 import {PositionFieldDef} from  'vega-lite/build/src/channeldef';
 ```
 
-Since the class structures are very similar, I believe you can find the corresponding class in Vega-Lite source code. And for now, we haven't change the structure of our class. That's because we use unions type which contains all possible class structures. But it you want to define the class more  precise. Here is an example.
+Since the class structures are very similar, I believe you can find the corresponding class in Vega-Lite source code. And for now, we haven't change the structure of our class. That's because we use unions type which contains all possible class structures. But if you want to define the class more precise. Here is an example.
 
 I will use `Encoding.size` as an example. When we use Vega-Lite source code, If we only change the name of class, the `Encoding.size` should be:
 
@@ -279,8 +280,8 @@ FieldDefWithCondition<MarkPropFieldDef<Field,StandardType>, number>
 |ValueDefWithCondition<MarkPropFieldDef<Field, StandardType>, number>
 ```
 
-As we already known, `Encoding.size` has two types. One is based on `Field`. One is based on `Value`. In our current code, we haven't seperate these two types, because `quicktype` combines these two types. But if we want to define the `Encoding.size` more precise and clearer, we can do it by using Vega-Lite source code.
+As we have already known, `Encoding.size` has two types. One is based on `Field`. One is based on `Value`. In our current code, we haven't separated these two types, because `quicktype` combines these two types. But if we want to define the `Encoding.size` more precise and clearer, we can do it by using Vega-Lite source code.
 
-For example, when we define `encoding` based on `aes_params`, we should use `ValueDefWithCondition` type. These can prevent us giving `title` or `scale` to them, becase these properties only belong to `FieldDefWithConditions`.
+For example, when we define `encoding` based on `aes_params`, we should use `ValueDefWithCondition` type. These can prevent us from giving `title` or `scale` to them because these properties only belong to `FieldDefWithConditions`.
 
 If we can use Vega-Lite source code someday, I believe it will be a  better choice.
