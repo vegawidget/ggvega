@@ -1,5 +1,5 @@
 
-Welcome to the **TypeScript part of ggvega (TS ggvega)**. The purpose of this document is to summarize our work during the **GSoC 2019**. 
+Welcome to the **TypeScript part of ggvega (TS ggvega)**. The purpose of this document is to summarize my work during the **GSoC 2019**. 
 
 ***Author: [Wenyu Yang](https://github.com/wenyuyangpku)***
 
@@ -14,7 +14,7 @@ Fortunately, during the GSoC 2019, I  can be responsible for the [TS ggvega](htt
 
 # Development Guide
 
-When we develop **TS ggvega**, we divided it into two TypeScript projects. The major one is [TS ggvega](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggvega)  which contains all translation functions. Another one is called [TS ggschema](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggschema) which contains all the definition of ggschema specification. On the one hand, **TS ggvega** can use the classes in **TS ggschema**. On the other hand,  **TS ggschema** generates the  [`ggschema.json`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggschema/build/ggschema.json) which can validate ggschema specification.
+When we develop **TS ggvega**, we divided it into two TypeScript projects. The major one is [TS ggvega](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggvega)  which contains all translation functions. Another one is called [TS ggschema](https://github.com/vegawidget/ggvega/tree/master/src-ext/TypeScript/ggschema) which contains all the definitions of ggschema specification. On the one hand, **TS ggvega** can use the TypeScript classes in **TS ggschema**. On the other hand,  **TS ggschema** can generate the  [`ggschema.json`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggschema/build/ggschema.json) which is used for validating ggschema specification.
 
 
 ## TS ggvega
@@ -59,7 +59,7 @@ This section lists commands that are commonly used during development. See  `pac
 ### Retrieve a new Vega-Lite schema
 Since we generate [`vlSpec.ts`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/src/vlSpec.ts) from [`Vega-Lite schema`](https://vega.github.io/schema/vega-lite/v3.json) and we need Vega-Lite schema when we build the Vega-Lite specification, the version of Vega-Lite schema is very important for us. If you are prepared to retrieve a new Vega-Lite schema,   do the following.
 
- 1. Go to the [package.json](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/package.json) of **TS ggvega**
+ 1. Go to the [package.json](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/package.json) of **TS ggvega**.
  2. Change the value of `vlschema`. It should be the URL of the new Vega-Lite schema.
  ```JSON
  "vlschema":  "https://vega.github.io/schema/vega-lite/v3.json"
@@ -102,7 +102,7 @@ In **TS ggvega**, we use quicktype to generate [`vlSpec.ts`](https://github.com/
 To work around this problem, we believe that generating the Vega-Lite classes from the [Vega-Lite schema](https://vega.github.io/schema/vega-lite/v3.json) is a feasible solution. Because Vega-Lite contains all information about Vega-Lite classes and we can generate TypeScript classes from JSON schema. After trying several ways to generate TypeScript classes, I found the best result is provided by [quicktype](https://quicktype.io/typescript/). So, we decide to use it to generate Vega-Lite classes. Here is a [link](https://app.quicktype.io/?share=1KFE6qo8KU8cupEl5gh6) about how quicktype translate JSON schema to TypeScript.
 
 ### Boxplot enum bug
-However, when we use quicktype generate Vega-Lite classes, we encounter a bug that quicktype cannot separate Enum type. [Here is the link of the example in QuickType](https://app.quicktype.io/?share=mSby87Y3k9npwXjcBeZm). 
+However, when we used quicktype to generate Vega-Lite classes, we encountered a bug that quicktype cannot separate Enum type. [Here is the link of the example in QuickType](https://app.quicktype.io/?share=mSby87Y3k9npwXjcBeZm). 
 The output we expected is:
 ```ts
 export type AnyMark = Mark | Boxplot;
@@ -132,13 +132,13 @@ export enum Boxplot{
 
 That's because the logic of `anyOf`, `allOf` and `oneOf` in JSON schema is too difficult and the developers of quicktype are still working on this issue [https://github.com/quicktype/quicktype/issues/493](https://github.com/quicktype/quicktype/issues/493).
 
-To solve this bug, I wrote a file [`fixbug.js`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/fixbug.js) which is used to change the name `Boxplot` to `Mark`. If you want to change other names of Vega-Lite classes, you can add them into this file.
+To solve this bug, I wrote a file [`fixbug.js`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/fixbug.js) which is used for changing the name `Boxplot` to `Mark`. If you want to change other names of Vega-Lite classes, you can add them into this file.
 
 ### Use Vega-Lite Source Code
 
 If we can use Vega-Lite source code someday, I hope this guide can help you. 
 
-When you revert to using the Vega-Lite classes in Vega-Lite source code, you will have to rename the classes you are using in **TS ggvega**. And you will have to adjust your code because some structure of the classes changes as well. Here are some examples of the changes and the location of these Vega-Lite classes:
+When you revert to using the Vega-Lite classes in Vega-Lite source code, you will have to rename the classes you are using in **TS ggvega**. And you will have to adjust your code because some structure of the classes changes as well. Here are some examples of the changes and the locations of these Vega-Lite classes:
 
 -   `VL.TopLevelSpec`==>`TopLevelSpec`
 
@@ -148,9 +148,9 @@ When you revert to using the Vega-Lite classes in Vega-Lite source code, you wil
 
 -   `VL.XClass`==>`PositionFieldDef<'x'>`
 
-Since the class structures are very similar, I believe you can find the corresponding class in Vega-Lite source code. And for now, we haven't changed the structure of our class. That's because we use unions type which contains all possible class structures. But if you want to define the class more precise. Here is an example.
+Since the class structures are very similar, I believe you can find the corresponding class in Vega-Lite source code. And for now, we haven't changed the structure of our class. That's because, in `vlSpec.ts`, we use unions type which contains all possible class structures. But if you want to define the class more precise. Here is an example.
 
-I will use  `Encoding.size`  as an example. When we use Vega-Lite source code, if we only change the name of class, the  `Encoding.size`  should be:
+I will use  `encoding.size`  as an example. When we use Vega-Lite source code, if we only change the name of class, the  `Encoding.size`  should be:
 
 ```ts
 encoding.size =  itmLayer.encoding.size as  
@@ -161,7 +161,7 @@ FieldDefWithCondition<MarkPropFieldDef<Field,StandardType>, number>
 
 As we already knew,  `Encoding.size`  has two types. One is based on  `Field`. One is based on  `Value`. In our current code, we haven't separated these two types, because  `quicktype`  combines these two types. But if we want to define the  `Encoding.size`  more precise, we can do it by using Vega-Lite source code. 
 
-For example, when we define  `encoding`  based on  `aes_params`, we should use  `ValueDefWithCondition`  type. This type can prevent us from giving  `title`  or  `scale`  to `Encoding.size` because these properties only belong to  `FieldDefWithConditions`.
+For example, when we define  `encoding`  based on ggplot2 `aes_params`, we should use  `ValueDefWithCondition`  type. This type can prevent us from giving  `title`  or  `scale`  to `Encoding.size` because these properties only belong to  `FieldDefWithConditions`.
 
 You can read more details on [quicktype.md](https://github.com/vegawidget/ggvega/blob/quicktype/dev/TypeScript/quicktype/quicktype.md).
 
@@ -169,7 +169,8 @@ You can read more details on [quicktype.md](https://github.com/vegawidget/ggvega
 
 ## The extensibility of the framework
 
-Since our package is still under active development, what we are most concerned about is the extensibility of the framework.    When I build **TS ggvega**, I pay more attention to implementation rather than the extensibility. Then we find it is difficult to add a new Geom/Scale/Stat/etc., which is why we went through the big effort to make a new framework for the **TS ggvega**. In our framework, the top-level function is `topLevelSpec()`.
+Since our package is still under active development, what we are most concerned about is the extensibility of the framework.    When I build **TS ggvega**, I pay more attention to implementation rather than the extensibility. Then we find it is difficult to add a new Geom/Scale/Stat/etc., which is why we went through the big effort to make a new framework for the **TS ggvega**.
+
 
 ### Framework structure 
 
@@ -188,13 +189,13 @@ In our framework, the top-level function is `topLevelSpec()` which create a Vega
 	- `itmLayerArrayByScalesArray()`, translate ggplot2 `scales`.
 	- `itmLayerArrayByCoord()`, translate ggplot `coordinates`.
 	- `layerByItmLayer()`, generate Vega-Lite `layer` from intermediate layers.
-		- `encodingNameByGeom()`, get Vega-Lite encoding name from ggplot2 aesthetic name based on ggplot2 `Geom` type.
+		- `encodingNameByGeom()`, get Vega-Lite encoding name from ggplot2 aesthetic name, and the name map should be based on ggplot2 `Geom` type.
 
 Then I want to talk about why we use this framework.
 
 ### "Don't Repeat Yourself"
 
-When we design the framework, we want to respect the principle of "Don't Repeat Yourself". Think about it. If you want to translate the `encoding.x` of Vega-Lite specification, what information we need? We have to get `x.field` from ggplot2 `mapping`, get `type` from ggplot2 `data`, get `x.title` from ggplot2 `labels` and get `x.scale` from ggplot2 `scales`. If you put all of them into one function `encodingX()`, it will be so large and complicated.  And you will have to repeat these steps when you translate other aesthetics, like y, size, color, shape, etc. However, in this framework, the translation process has been simplified. For example, you can translate all ggplot2 `mapping` by function `itmEncodingObjectByMappingObject()`. You can translate all ggplot2 `scales` by function `itmLayerArrayByScalesArray()`.  These translation functions are kind of high cohesion and low coupling so that you don't need care that they influence each other.
+When we design the framework, we want to respect the principle of "Don't Repeat Yourself". Think about it. If you want to translate the `encoding.x` of Vega-Lite specification, what information we need? We have to get `x.field` from ggplot2 `mapping`, get `type` from ggplot2 `data`, get `x.title` from ggplot2 `labels` and get `x.scale` from ggplot2 `scales`. If you put all of them into one function `encodingX()`, it will be so large and complicated.  And you will have to repeat these steps when you translate other aesthetics, like y, size, color, shape, etc. However, in this framework, the translation process has been simplified. For example, you can translate all ggplot2 `mapping` by function `itmEncodingObjectByMappingObject()`. You can translate all ggplot2 `scales` by function `itmLayerArrayByScalesArray()`.  These translation functions are kind of high cohesion and low coupling so that you don't need to care that they influence each other.
 
 ### Respect the philosophy of ggplot2
 
