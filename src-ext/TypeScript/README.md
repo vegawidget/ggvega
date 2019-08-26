@@ -1,5 +1,5 @@
 
-Welcome to the **TypeScript part of ggvega (TS ggvega)** The purpose of this document is to summarize our work during the **GSoC 2019**. 
+Welcome to the **TypeScript part of ggvega (TS ggvega)**. The purpose of this document is to summarize our work during the **GSoC 2019**. 
 
 ***Author: [Wenyu Yang](https://github.com/wenyuyangpku)***
 
