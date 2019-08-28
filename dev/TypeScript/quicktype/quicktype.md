@@ -2,9 +2,9 @@
 
 # quicktype 
 
-In TS ggvega, we use quicktype to generate vlSpec.ts from Vega-Lite schema. That is because we want to use Vega-Lite classes when we generate the Vega-Lite specification. The quickest way is to use Vega-Lite source code directly, but the R package V8 doesn't support es6 on Ubuntu 16.04. Then we cannot use Vega-Lite source code until the V8 package is fully ES6 compliant.
+In **TS ggvega**, we use quicktype to generate [`vlSpec.ts`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/src/vlSpec.ts) from [`Vega-Lite schema`](https://vega.github.io/schema/vega-lite/v3.json). That is because we want to use Vega-Lite classes when we generate the Vega-Lite specification. The quickest way is to use Vega-Lite source code directly, but the R package [V8](https://cran.r-project.org/web/packages/V8/vignettes/v8_intro.html) doesn't support es6 on Ubuntu 16.04. Then we cannot use Vega-Lite source code until the V8 package is fully ES6 compliant.
 
-To work around this problem, we believe that generating the Vega-Lite classes from the Vega-Lite schema is a feasible solution. Because Vega-Lite contains all information about Vega-Lite classes and we can generate TypeScript classes from JSON schema. After trying several ways to generate TypeScript classes, I found the best result is provided by quicktype. So, we decide to use it to generate Vega-Lite classes. Here is a link about how quicktype translate JSON schema to TypeScript.
+To work around this problem, we believe that generating the Vega-Lite classes from the [Vega-Lite schema](https://vega.github.io/schema/vega-lite/v3.json) is a feasible solution. Because Vega-Lite contains all information about Vega-Lite classes and we can generate TypeScript classes from JSON schema. After trying several ways to generate TypeScript classes, I found the best result is provided by [quicktype](https://quicktype.io/typescript/). So, we decide to use it to generate Vega-Lite classes. Here is a [link](https://app.quicktype.io/?share=1KFE6qo8KU8cupEl5gh6) about how quicktype translate JSON schema to TypeScript.
 
 ## Boxplot Enum
 
