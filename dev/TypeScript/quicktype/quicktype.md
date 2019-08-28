@@ -2,14 +2,15 @@
 
 # quicktype 
 
-Since the R V8 package is not fully ES6 compliant yet, we faced the same error on using Vega-Lite source code directly. To work around this problem, we have to generate the Vega-Lite type from the [vega-lite schema](https://vega.github.io/schema/vega-lite/v3.json).  We have tried different ways to generate TypeScript from JSON schema. The best result is provided by  [quicktype](https://quicktype.io/typescript/). Here is a [link](https://app.quicktype.io?share=1KFE6qo8KU8cupEl5gh6) about how they translate JSON-schema to TypeScript. 
+In TS ggvega, we use quicktype to generate vlSpec.ts from Vega-Lite schema. That is because we want to use Vega-Lite classes when we generate the Vega-Lite specification. The quickest way is to use Vega-Lite source code directly, but the R package V8 doesn't support es6 on Ubuntu 16.04. Then we cannot use Vega-Lite source code until the V8 package is fully ES6 compliant.
+
+To work around this problem, we believe that generating the Vega-Lite classes from the Vega-Lite schema is a feasible solution. Because Vega-Lite contains all information about Vega-Lite classes and we can generate TypeScript classes from JSON schema. After trying several ways to generate TypeScript classes, I found the best result is provided by quicktype. So, we decide to use it to generate Vega-Lite classes. Here is a link about how quicktype translate JSON schema to TypeScript.
 
 ## Boxplot Enum
-But the quicktype also has a "bug".  When it translates json schema to TypeScript, it cannot separate Enum type. 
 
-For example,  here is my input: [The link of the example in QuickType](https://app.quicktype.io?share=mSby87Y3k9npwXjcBeZm)
+However, when we used quicktype to generate Vega-Lite classes, we encountered a bug that quicktype cannot separate Enum type. For example,  here is my input: [The link of the example in QuickType](https://app.quicktype.io?share=mSby87Y3k9npwXjcBeZm).
 
-```
+```json
 {
   "$ref": "#/definitions/AnyMark",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -38,7 +39,7 @@ For example,  here is my input: [The link of the example in QuickType](https://a
 
 The ideal output is:
 
-```
+```ts
 export type AnyMark = Mark | Boxplot;
 
 export enum Mark {
@@ -53,7 +54,7 @@ export enum Boxplot {
 ```
 
 But the final output is:
-```
+```ts
 export enum AnyMark {
     Area = "area",
     Bar = "bar",
@@ -66,7 +67,7 @@ The quicktype cannot seperate all enum class. And we are looking forward to the 
 
 To solve this bug, what we have done is rename the `Boxplot` to `Mark`.  To be clear, the type of all marks are `Mark`. Including `Boxplot` and `Errorbar`. 
 
-```
+```ts
 export enum Mark {
     Area = "area",
     Bar = "bar",
@@ -79,12 +80,12 @@ export enum Mark {
 To be clear, this problem not just happened on the **BoxPlot Enum**.  All the `anyOf`  structures in JSON schema have the potential risks to face this problem. [https://json-schema.org/understanding-json-schema/reference/combining.html](https://json-schema.org/understanding-json-schema/reference/combining.html) tells us the definitions of `anyOf`, `allOf` and `oneOf`. And it's difficult for quicktype to understand the logic of them. What quicktype has done is to combine similar type and use the first one to name the new class. If these classes are not similar, it will generate a new type.
 
 For example, In vlSpec.ts, you can find the definition of bins are stange:
-```{TypeScript}
+```ts
 bin?:  PurpleBin;
 bin?:  FluffyBin;
 ```
 Actually, the definition of `bin` in Vega-Lite schema is:
-```{json-schema}
+```json
 "ConditionalSelection<TextFieldDef>.bin": {
           "anyOf": [
             {
@@ -121,19 +122,19 @@ Actually, the definition of `bin` in Vega-Lite schema is:
 ```
 That means Vega-Lite has two kinds of `bin`. One has four different types: `boolean`, `BinParams`, `enum` and `null`. One has three different types `boolean`, `BinParams`, and `null`.
 To solve this case, quicktype build 2 new types:
-```{TypeScript}
+```ts
 export  type  FluffyBin  =  boolean  |  BinParams  |  BinEnum  |  null;
 export  type  PurpleBin  =  boolean  |  BinParams  |  null;
 ```
 I think this solution is acceptable. Although the names of these new types are ambiguous, it gives a new type to the types union.  And we can also avoid this by removing the `--explicit-unions` option from the command line.
 
 Once you remove `--explicit-unions`, the new TypeScript code is:
-```{TypeScript}
+```ts
 bin?:  boolean  |  BinParams  |  null;
 bin?:  boolean  |  BinParams  |  BinEnum  |  null;
 ```
 Which is more clear than the `PurpleBin` and `FluffyBin`. But when the types are so complicated, it's not clear for us to understand the type. For example, the `dataset`  is:
-```{TypeScript}
+```ts
 //--explicit-unions
 datasets?: {[key:  string]:  InlineDataset};
 export  type  InlineDataset  =  InlineDatasetElement[] | {[key:  string]:  any} |  string;
@@ -150,11 +151,11 @@ Finally, we decide to use `--explicit-unions`.
 
 Another confusing name is `URLData`. Although we don't use `topLevelSpec.data`, we find it's strange. 
 I think the reason is in thi we have 2 `data`
-```{TypeScript}
+```ts
 data?:  URLData  |  null;
 data:  Data;
 ```
-```{json}
+```json
 "DataSource": {
   "anyOf": [
     {
@@ -174,7 +175,7 @@ Since we already has a `Data` type. And in the fisrt situation, the `UrlData` is
 ## Our Plan for now
 
 Here is the code about how we use quicktype and solve these problems:
-```
+```json
 "schema2ts": "quicktype -s schema $npm_package_vlschema -o src/vlSpec.ts --top-level TopLevelSpec --just-types --explicit-unions && node fixbug.js"
 ```
 - `$npm_package_vlschema` is the Vega-Lite version
@@ -185,8 +186,8 @@ Here is the code about how we use quicktype and solve these problems:
 - `node fixbug.js` runs a javascript to rename some class.
 
 These codes locate at  [`package.json`](https://github.com/vegawidget/ggvega/blob/master/src-ext/TypeScript/ggvega/package.json).  If you want to use another Vega-Lite version. You can change the value of `vlschema`.
-```
-"vlschema":  "https://vega.github.io/schema/vega-lite/v3.json",
+```json
+"vlschema":  "https://vega.github.io/schema/vega-lite/v3.json"
 ```
 
 
@@ -201,14 +202,14 @@ The only file you need to change is [`package.json`](https://github.com/vegawidg
 These two commands are used to generate `vlSpec.ts`. Now you can delete them. `schema2ts` is for Unix/Mac and `winschema2ts` is for Windows.
 
 
-```{package.json}
+```json
 "scripts": {
     "schema2ts": "quicktype -s schema $npm_package_vlschema -o src/vlSpec.ts --top-level TopLevelSpec --just-types --explicit-unions && node fixbug.js",
     "winschema2ts": "quicktype -s schema %npm_package_vlschema% -o src/vlSpec.ts --top-level TopLevelSpec --just-types --explicit-unions && node fixbug.js"
 }
 ```
 Then you can delete the `quicktype` package in `devDependencies`
-```{package.json}
+```json
 "devDependencies": {
   "quicktype": "^15.0.199"
 }
@@ -219,13 +220,13 @@ As a reminder, these changes all should be made in the file [`package.json`](htt
 
 ### Use Vega-Lite Source Code
  You will have to install source code packages. 
- ```
+ ```json
 "vega":  "^5.4.0",
 "vega-lite":  "^3.3.0"
 "vega-util":  "^1.10.0"
  ```
 If you want to import vega-lite type, You have to find the location of these types. Here is an example. 
-```{TypeScript}
+```ts
 import  {TopLevel,  GenericLayerSpec,  UnitSpec}  from  'vega-lite/build/src/spec';
 import  {LayerSpec}  from  'vega-lite/build/src/spec/layer';
 import  {Datasets}  from  'vega-lite/build/src/spec/toplevel';
@@ -242,13 +243,13 @@ When we revert to using the Vega-Lite classes, we will have to rename the classe
 
 - `VL.TopLevelSpec`==>`TopLevelSpec` 
 
-```{TypeScript}
+```ts
 import {TopLevelSpec} from  'vega-lite';
 ``` 
 
 - `VL.LayerSpec`==>`(GenericUnitSpec<CompositeEncoding, AnyMark> |  GenericLayerSpec<GenericUnitSpec<CompositeEncoding, AnyMark>>)[]`
 
-```{TypeScript}
+```ts
 import {GenericLayerSpec, GenericUnitSpec} from  'vega-lite/src/spec';
 import {CompositeEncoding} from  'vega-lite/build/src/compositemark';
 import {AnyMark} from  'vega-lite/src/mark';
@@ -260,13 +261,13 @@ import {AnyMark} from  'vega-lite/src/mark';
 ```
 
 - `VL.Encoding`==>`CompositeEncoding`
-```{TypeScript}
+```ts
 import {CompositeEncoding} from  'vega-lite/build/src/compositemark';
 ```
 
 - `VL.XClass`==>`PositionFieldDef<'x'>`
 
-```{TypeScript}
+```ts
 import {PositionFieldDef} from  'vega-lite/build/src/channeldef';
 ```
 
@@ -274,7 +275,7 @@ Since the class structures are very similar, I believe you can find the correspo
 
 I will use `Encoding.size` as an example. When we use Vega-Lite source code, If we only change the name of class, the `Encoding.size` should be:
 
-```
+```ts
 encoding['size']=  itmLayer.encoding['size'] as  
 FieldDefWithCondition<MarkPropFieldDef<Field,StandardType>, number> 
 |ValueDefWithCondition<MarkPropFieldDef<Field, StandardType>, number>
