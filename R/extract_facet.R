@@ -18,7 +18,7 @@
 #' facet(p$facet)
 #'
 facet <- function (facet_plt, ...) {
-  UseMethod("facet", facet_plt)
+  UseMethod("facet")
 }
 
 facet.default <- function(facet_plt, ...) {
