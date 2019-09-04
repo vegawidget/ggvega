@@ -43,25 +43,21 @@ layer_spc <- function(layer_plt, int_data, int_map) {
 get_layers <- function(layer, int_data, int_map) {
   pluck_layer <- purrr::partial(purrr::pluck, .x = layer, .default = empty_named_list)
 
-  layer_map = pluck_layer("mapping") %>% purrr::map(get_mappings)
+  layer_map <- pluck_layer("mapping") %>% purrr::map(get_mappings)
+  layer_geom <- geom_set(layer$geom, layer$geom_params)
+  layer_stat <- stat_set(layer$stat, layer$stat_params)
 
   list(
     aes_params = pluck_layer("aes_params"),
     data = purrr::pluck(layer, "data") %>% get_data_name(int_data),
-    geom = list(
-      class = pluck_layer("geom", class, 1)
-    ),
-    geom_params = pluck_layer("geom_params"),
+    geom = layer_geom$geom,
+    geom_params = layer_geom$geom_params,
     mapping = pluck_layer("inherit.aes") %>% modify_mappings(int_map, layer_map),
     position = list(
       class = pluck_layer("position", class, 1)
     ),
-    stat = list(
-      class = pluck_layer("stat", class, 1),
-      default_aes = pluck_layer("stat", "default_aes") %>% purrr::map(get_mappings)#,
-      # required_aes = pluck_layer("stat", "required_aes")
-    ),
-    stat_params = pluck_layer("stat_params")
+    stat = layer_stat$stat,
+    stat_params = layer_stat$stat_params
   )
 }
 
