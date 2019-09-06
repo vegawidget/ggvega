@@ -35,10 +35,11 @@ Vega, Vega-Lite is more concise, but less expressive.
 
 ### Design philosophy
 
-Our philosophy was to manage a **small** set of plots (perhaps something
-like scatter-plots, line-charts, bar-charts, and histograms), but to
-manage these translations in a robust way that we can extend in the
-future. In other words, **a narrow scope built on a firm foundation**.
+Our *initial* philosophy was to manage a small set of plots (perhaps
+something like scatter-plots, line-charts, bar-charts, and histograms),
+but to manage these translations in a robust way that we can extend in
+the future. In other words, **a narrow scope built on a firm
+foundation**.
 
 **Design choice \#1**: Do we capture the intention or the
 implementation?
@@ -163,6 +164,8 @@ the Vega-Lite specification only.
   - How to capture transformation logic in the Vega-Lite spec so that it
     can stand more “independently” as a single repository of the intent
     of the visualization – for deployments where R is not available?
+    
+      - build in R but deploy independently of R
 
   - How to translate an R expression into a JS expression
 

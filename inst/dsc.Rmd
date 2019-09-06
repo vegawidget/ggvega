@@ -46,7 +46,7 @@ Vega-Lite is developed by Interactive Data Lab, U Washington. Built on Vega, Veg
 
 ### Design philosophy
 
-Our philosophy was to manage a **small** set of plots (perhaps something like scatter-plots, line-charts, bar-charts, and histograms), but to manage these translations in a robust way that we can extend in the future. In other words, **a narrow scope built on a firm foundation**.
+Our  *initial* philosophy was to manage a small set of plots (perhaps something like scatter-plots, line-charts, bar-charts, and histograms), but to manage these translations in a robust way that we can extend in the future. In other words, **a narrow scope built on a firm foundation**.
 
 
 
@@ -138,6 +138,8 @@ Option 2: Have the output (the Vega-Lite specification) act as a component so th
 **Questions**: 
 
 - How to capture transformation logic in the Vega-Lite spec so that it can stand more "independently" as a single repository of the intent of the visualization -- for deployments where R is not available?
+
+  - build in R but deploy independently of R
 
 - How to translate an R expression into a JS expression
 
