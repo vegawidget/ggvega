@@ -10946,6 +10946,7 @@
             datasets: datasets,
             layer: layer
         };
+        // single-view not-faceted
         if (singleView) {
             if (layer.length > 1) {
                 // warn that we cannot create a single view with more than one layer
@@ -10957,6 +10958,7 @@
                 title: title,
                 datasets: datasets,
             };
+            // append the layer-elements into the top-level spec
             Object.assign(topLevelSingleViewSpec, layer[0]);
             return topLevelSingleViewSpec;
         }
