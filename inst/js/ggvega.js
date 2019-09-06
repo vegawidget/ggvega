@@ -10830,9 +10830,10 @@
         return facet;
     }
 
-    function spec2vl(spec) {
+    function spec2vl(spec, singleView) {
+        if (singleView === void 0) { singleView = false; }
         var ggSpec = ggValidate(spec);
-        var vlSpec = topLevelSpec(ggSpec);
+        var vlSpec = topLevelSpec(ggSpec, singleView);
         return vlSpec;
     }
     function ggValidate(spec) {
@@ -10906,28 +10907,33 @@
      * @see facet
      *
      * @param ggSpec - `GG.TopLevelSpec`, validated ggspec
+     * @param singleView - `boolean`, indicates to "collapse" spec with one layer to
+     *   a single-view spec (default `false`)
      *
      * @returns `VL.TopLevelSpec`, Vega-Lite specification
      *
      */
-    function topLevelSpec(ggSpec) {
+    function topLevelSpec(ggSpec, singleView) {
         // The structure of a Vega-Lite specification depends on whether or not
         // it is faceted.
+        if (singleView === void 0) { singleView = false; }
         // Want to specify this URL exactly **one** place in the project
         // also - what mechanism do we use to update the Vega-Lite schema?
         // const schema = 'https://vega.github.io/schema/vega-lite/v3.json';
         var topLevelSpec = {};
+        var title = ggSpec.labels.title || undefined;
+        var datasets = datasetObject(ggSpec.data);
+        var layer = layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates);
         // faceted
         if (ggSpec.facet.class != 'FacetNull') {
             // at the moment, this code will not run because
             // `facet()`, by design, throws an error
             topLevelSpec = {
                 $schema: vlschema,
-                //NOTE @wenyu: It's better to use undefined rather than '' to avoid `title=''`
-                title: ggSpec.labels.title || undefined,
-                datasets: datasetObject(ggSpec.data),
+                title: title,
+                datasets: datasets,
                 spec: {
-                    layer: layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
+                    layer: layer
                 },
                 facet: facet(ggSpec.facet)
             };
@@ -10936,10 +10942,24 @@
         // not faceted
         topLevelSpec = {
             $schema: vlschema,
-            title: ggSpec.labels.title || undefined,
-            datasets: datasetObject(ggSpec.data),
-            layer: layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
+            title: title,
+            datasets: datasets,
+            layer: layer
         };
+        if (singleView) {
+            if (layer.length > 1) {
+                // warn that we cannot create a single view with more than one layer
+                return topLevelSpec;
+            }
+            // put all of the elements of into single view
+            var topLevelSingleViewSpec = {
+                $schema: vlschema,
+                title: title,
+                datasets: datasets,
+            };
+            Object.assign(topLevelSingleViewSpec, layer[0]);
+            return topLevelSingleViewSpec;
+        }
         return topLevelSpec;
     }
 

@@ -6,10 +6,10 @@ import {datasetObject} from './datasetObject';
 import {layerArrayByAes} from './layerArrayByAes';
 import {facet} from './facet';
 
-export function spec2vl(spec: any): VL.TopLevelSpec {
+export function spec2vl(spec: any, singleView = false): VL.TopLevelSpec {
   const ggSpec: GG.TopLevelSpec = ggValidate(spec);
 
-  const vlSpec: VL.TopLevelSpec = topLevelSpec(ggSpec);
+  const vlSpec: VL.TopLevelSpec = topLevelSpec(ggSpec, singleView);
 
   return vlSpec;
 }
@@ -89,11 +89,13 @@ function ggValidate(spec: any): GG.TopLevelSpec {
  * @see facet
  *
  * @param ggSpec - `GG.TopLevelSpec`, validated ggspec
+ * @param singleView - `boolean`, indicates to "collapse" spec with one layer to
+ *   a single-view spec (default `false`)
  *
  * @returns `VL.TopLevelSpec`, Vega-Lite specification
  *
  */
-function topLevelSpec(ggSpec: GG.TopLevelSpec): VL.TopLevelSpec {
+function topLevelSpec(ggSpec: GG.TopLevelSpec, singleView = false): VL.TopLevelSpec {
   // The structure of a Vega-Lite specification depends on whether or not
   // it is faceted.
 
@@ -103,18 +105,21 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec): VL.TopLevelSpec {
 
   let topLevelSpec: VL.TopLevelSpec = {};
 
+  let title = ggSpec.labels.title || undefined;
+  let datasets = datasetObject(ggSpec.data);
+  let layer = layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates);
+
   // faceted
   if (ggSpec.facet.class != 'FacetNull') {
+
     // at the moment, this code will not run because
     // `facet()`, by design, throws an error
-
     topLevelSpec = {
       $schema: vlschema, // vlschema defined in package.json
-      //NOTE @wenyu: It's better to use undefined rather than '' to avoid `title=''`
-      title: ggSpec.labels.title || undefined,
-      datasets: datasetObject(ggSpec.data),
+      title: title,
+      datasets: datasets,
       spec: {
-        layer: layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
+        layer: layer
       },
       facet: facet(ggSpec.facet)
     };
@@ -125,10 +130,31 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec): VL.TopLevelSpec {
   // not faceted
   topLevelSpec = {
     $schema: vlschema,
-    title: ggSpec.labels.title || undefined,
-    datasets: datasetObject(ggSpec.data),
-    layer: layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates)
+    title: title,
+    datasets: datasets,
+    layer: layer
   };
+
+  // single-view not-faceted
+  if (singleView) {
+
+    if (layer.length > 1) {
+      // warn that we cannot create a single view with more than one layer
+      return topLevelSpec;
+    }
+
+    // put all of the elements of into single view
+    let topLevelSingleViewSpec: VL.TopLevelSpec = {
+      $schema: vlschema,
+      title: title,
+      datasets: datasets,
+    }
+
+    // append the layer-elements into the top-level spec
+    Object.assign(topLevelSingleViewSpec, layer[0]);
+
+    return topLevelSingleViewSpec;
+  }
 
   return topLevelSpec;
 }
