@@ -32,55 +32,47 @@ geom_set.default <- function(geom, geom_params, ...) {
 
 geom_set.GeomPoint <- function(geom, geom_params, ...) {
 
-  # if (!is.null(geom_params$not_supported)) {
-  #   warning()
-  # }
+  # TODO: some code to validate/sanitize geom_params
+  # na.rm - should we support?
 
-  class <- first_class(geom)
+  param_spec <-
+    list(
+      na.rm = list(required = FALSE)
+    )
 
-  list(
-    geom = list(class = class),
-    geom_params = geom_params
-  )
+  geom_params <- validate_params(geom_params, param_spec)
+
+  .geom_set(geom, geom_params)
 }
 
 geom_set.GeomBar <- function(geom, geom_params, ...) {
 
-  if (!is.null(geom_params$width)) {
-    warning("geom parameter `width` not supported")
-  }
+  # TODO: some code to validate/sanitize geom_params
+  # na.rm - should we support?
+  # width - not supported
 
-  class <- first_class(geom)
+  param_spec <-
+    list(
+      na.rm = list(required = FALSE)
+    )
 
+  geom_params <- validate_params(geom_params, param_spec)
+
+  .geom_set(geom, geom_params)
+}
+
+# internal function to create the geom_set
+# - this might become its own class-constructor
+.geom_set <- function(geom, geom_params) {
   list(
-    geom = list(class = class),
+    geom = list(class = first_class(geom)),
     geom_params = geom_params
   )
 }
 
-geom_set.GeomBar <- function(geom, geom_params, ...) {
+validate_params <- function(params, spec) {
 
-  if (!is.null(geom_params$width)) {
-    warning("geom parameter `width` not supported")
-  }
+  # need to actually do something here
 
-  if (!is.null(geom_params$binwidth)) {
-    warning("geom parameter `binwidth` not supported")
-  }
-
-  if (!is.null(geom_params$bins)) {
-    warning("geom parameter `bins` not supported")
-  }
-
-  if (!is.null(geom_params$pad)) {
-    warning("geom parameter `pad` not supported")
-  }
-
-  class <- first_class(geom)
-
-  list(
-    geom = list(class = class),
-    geom_params = geom_params
-  )
+  params
 }
-
