@@ -10830,6 +10830,17 @@
         return facet;
     }
 
+    var __assign = (undefined && undefined.__assign) || function () {
+        __assign = Object.assign || function(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                    t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
     function spec2vl(spec, singleView) {
         if (singleView === void 0) { singleView = false; }
         var ggSpec = ggValidate(spec);
@@ -10950,6 +10961,7 @@
         if (singleView) {
             if (layer.length > 1) {
                 // warn that we cannot create a single view with more than one layer
+                //console.warn('Cannot create single-view spec, returning spec with multiple layers.');
                 return topLevelSpec;
             }
             // put all of the elements of into single view
@@ -10959,7 +10971,8 @@
                 datasets: datasets,
             };
             // append the layer-elements into the top-level spec
-            Object.assign(topLevelSingleViewSpec, layer[0]);
+            topLevelSingleViewSpec = __assign({}, topLevelSingleViewSpec, layer[0]);
+            //Object.assign(topLevelSingleViewSpec, layer[0]);
             return topLevelSingleViewSpec;
         }
         return topLevelSpec;

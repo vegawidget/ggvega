@@ -152,7 +152,8 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec, singleView = false): VL.TopLevelS
     }
 
     // append the layer-elements into the top-level spec
-    Object.assign(topLevelSingleViewSpec, layer[0]);
+    topLevelSingleViewSpec = {...topLevelSingleViewSpec, ...layer[0]};
+    //Object.assign(topLevelSingleViewSpec, layer[0]);
 
     return topLevelSingleViewSpec;
   }
