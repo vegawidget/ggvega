@@ -2,6 +2,7 @@ import {spec2vl} from '../src/topLevelSpec';
 import * as VL from '../src/vlSpec';
 import * as ggSpec from './ggSpec';
 import * as vlSpec from './vlSpec';
+import {convertCompilerOptionsFromJson} from 'typescript';
 
 // helper function to preserve ggspecs by copying
 let cp = function (x: any) {
@@ -27,6 +28,11 @@ describe('topLevelSpec/spec2vl', () => {
 
     // single-view option
     expect(spec2vl(cp(ggSpec.iris03), true)).toEqual(vlSpec.iris03Single);
+    expect(spec2vl(cp(ggSpec.iris04))).toEqual(vlSpec.iris04)
 
   });
 });
+
+let specnew = spec2vl(cp(ggSpec.iris04));
+
+

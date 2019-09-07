@@ -158,3 +158,11 @@ export const iris03Single = {
   }
 
 };
+
+// duplicate the layer
+export let iris04 = JSON.parse(JSON.stringify(iris03));
+iris04.layer.push(JSON.parse(JSON.stringify(iris04.layer[0])));
+// remove titles from second layer
+iris04.layer[1].encoding.x.title = undefined;
+iris04.layer[1].encoding.y.title = undefined;
+iris04.layer[1].encoding.stroke.title = undefined;

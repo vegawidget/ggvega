@@ -140,6 +140,7 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec, singleView = false): VL.TopLevelS
 
     if (layer.length > 1) {
       // warn that we cannot create a single view with more than one layer
+      //console.warn('Cannot create single-view spec, returning spec with multiple layers.');
       return topLevelSpec;
     }
 
