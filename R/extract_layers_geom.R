@@ -32,47 +32,32 @@ geom_set.default <- function(geom, geom_params, ...) {
 
 geom_set.GeomPoint <- function(geom, geom_params, ...) {
 
-  # TODO: some code to validate/sanitize geom_params
-  # na.rm - should we support?
+  # define which parameters should be supported or ignored
+  # - by default "na.rm" is ignored
+  param_spec <- .param_spec()
 
-  param_spec <-
-    list(
-      na.rm = list(required = FALSE)
-    )
-
-  geom_params <- validate_params(geom_params, param_spec)
-
-  .geom_set(geom, geom_params)
+  .geom_set(geom, geom_params, param_spec)
 }
 
 geom_set.GeomBar <- function(geom, geom_params, ...) {
 
-  # TODO: some code to validate/sanitize geom_params
-  # na.rm - should we support?
-  # width - not supported
+  param_spec <- .param_spec()
 
-  param_spec <-
-    list(
-      na.rm = list(required = FALSE)
-    )
-
-  geom_params <- validate_params(geom_params, param_spec)
-
-  .geom_set(geom, geom_params)
+  .geom_set(geom, geom_params, param_spec)
 }
 
 # internal function to create the geom_set
 # - this might become its own class-constructor
-.geom_set <- function(geom, geom_params) {
+.geom_set <- function(geom, geom_params, param_spec) {
+
+  class <- first_class(geom)
+
+  # validate and sanitize geom_params (will issue warnings as needed)
+  geom_params <- .validate_params(geom_params, param_spec, class)
+
   list(
-    geom = list(class = first_class(geom)),
+    geom = list(class = class),
     geom_params = geom_params
   )
 }
 
-validate_params <- function(params, spec) {
-
-  # need to actually do something here
-
-  params
-}
