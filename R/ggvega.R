@@ -67,11 +67,12 @@ spec2vl <- function(ggspec, single_view = FALSE) {
   ct$assign("ggspec", jsonlite::toJSON(ggspec, auto_unbox = TRUE, null = "null"))
 
   ct$assign("ggspec", V8::JS("JSON.parse(ggspec)"))
-  ct$assign("singleView", single_view)
+
+  singleView <- ifelse(single_view, "true", "false")
 
   vlspec <-
     ct$get(
-      V8::JS("ggvega.spec2vl(ggspec, singleView)"),
+      V8::JS(glue::glue("ggvega.spec2vl(ggspec, {singleView})")),
       simplifyVector = FALSE,
       simplifyDataFrame = FALSE
     )
