@@ -22,8 +22,7 @@ list(
       data = "data-00",
       geom = list(class = "GeomBar"),
       geom_params = list(
-        na.rm = FALSE,
-        width = NULL
+        na.rm = FALSE
       ),
       mapping = list(
         x = list(field = "class")

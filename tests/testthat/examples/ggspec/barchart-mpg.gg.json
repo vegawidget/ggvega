@@ -60,8 +60,7 @@
         "class": "GeomBar"
       },
       "geom_params": {
-        "na.rm": false,
-        "width": null
+        "na.rm": false
       },
       "mapping": {
         "x": {
