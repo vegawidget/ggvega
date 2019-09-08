@@ -4,10 +4,13 @@
 \alias{as_vegaspec.gg}
 \title{Translate ggplot2 object to vegaspec}
 \usage{
-\method{as_vegaspec}{gg}(spec, ...)
+\method{as_vegaspec}{gg}(spec, single_view = FALSE, ...)
 }
 \arguments{
 \item{spec}{An object to be coerced to \code{vegaspec}, a Vega/Vega-Lite specification}
+
+\item{single_view}{\code{boolean}, indicates to collapse an unfaceted
+single-layer spec to a single-view spec}
 
 \item{...}{Other arguments (attempt to future-proof)}
 }
@@ -16,4 +19,9 @@ An object with S3 class \code{vegaspec}
 }
 \description{
 Translate ggplot2 object to vegaspec
+}
+\details{
+To return a single-view spec, rather than a single-layer spec, use
+\code{single_view = TRUE}. Of course, this is effective only for ggplot objects
+that have exactly one layer.
 }

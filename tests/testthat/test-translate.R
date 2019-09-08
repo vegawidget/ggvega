@@ -22,7 +22,7 @@ get_names <- function(path, regexp = NULL) {
 
 names_ggplot <- get_names(dir_ggplot, regexp = "[.]R$")
 names_ggspec <- get_names(dir_ggspec, regexp = "[.]gg[.]json$")
-names_vegaspec<- get_names(dir_vegaspec, regexp = "[.]vl[.]json$")
+names_vegaspec <- get_names(dir_vegaspec, regexp = "[.]vl[.]json$")
 
 expect_ggspec <- function(name) {
   # see testthat::quasi_label()
@@ -50,5 +50,25 @@ test_that("gg2spec works", {
 test_that("spec2vl works", {
   names_test <- intersect(names_ggspec, names_vegaspec)
   map(names_test, expect_vegaspec)
+})
+
+test_that("single_view works", {
+
+  # we are takng a single-layer spec and making sure that
+  # it converts properly to a single-view spec
+
+  name <- "scatterplot-iris"
+
+  ggspec_test <- ggspec_ref(name, dir = dir_ex)
+
+  vegaspec_ref <- vegaspec_ref(name, dir = dir_ex)
+  # collapse layer into top-level spec
+  vegaspec_ref <- c(vegaspec_ref, vegaspec_ref$layer[[1]])
+  vegaspec_ref$layer <- NULL
+
+  vegaspec_test <- spec2vl(ggspec_test, single_view = TRUE)
+
+  expect_identical(normalize(vegaspec_test), normalize(vegaspec_ref))
+
 })
 

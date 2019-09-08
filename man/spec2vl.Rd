@@ -4,10 +4,13 @@
 \alias{spec2vl}
 \title{Translate ggspec object to vegaspec}
 \usage{
-spec2vl(ggspec)
+spec2vl(ggspec, single_view = FALSE)
 }
 \arguments{
 \item{ggspec}{\code{list}, a ggspec object}
+
+\item{single_view}{\code{boolean}, indicates to collapse an unfaceted
+single-layer spec to a single-view spec}
 }
 \value{
 An object with S3 class \code{vegaspec}
