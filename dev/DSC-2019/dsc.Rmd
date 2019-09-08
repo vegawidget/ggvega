@@ -74,7 +74,7 @@ Accordingly, we think to specify things in Vega-Lite only if they differ from th
 
 The ggspec is then converted into a vegaspec. As a first approach, we took inspiration from Vega-Lite itself, which translates a Vega-Lite specification into a Vega specification. This compiler is developed in TypeScript, then compiled into ECMAScript 6 (JavaScript), as described in the [Vega-Lite contribution guide](https://github.com/vega/vega-lite/blob/master/CONTRIBUTING.md#suggested-programming-environment).
 
-We hope that the ggspec can be a useful abstraction to help us understand  "what is going on in ggplot2" and "how does this intersecct with Vega-Lite?". As well, should ggplot2 or Vega-Lite change, we hope that we could keep ggspec "fixed" such that we would have to adapt only that part of the translation process (ggplot2-to-ggspec or ggspec-to-Vega-Lite) that would be impacted by such a change.
+We hope that the ggspec can be a useful abstraction to help us understand  "what is going on in ggplot2" and "how does this intersect with Vega-Lite?". As well, should ggplot2 or Vega-Lite change, we hope that we could keep ggspec "fixed" such that we would have to adapt only that part of the translation process (ggplot2-to-ggspec or ggspec-to-Vega-Lite) that would be impacted by such a change.
 
 As we developed ggspec, we had a couple of idea about what it should be:
 
@@ -151,9 +151,19 @@ New to Vega-Lite 4.0 (currently in beta):
 
 **Design choice #2**: Should the transformations take place in R or put into the Vega-lite specification?
 
-Option 1: If the Vega-Lite spec does an aggregate, do the aggregation in R instead of JS so that the resulting htmlwidget has a much smaller data set
+Option 1: If the Vega-Lite spec does an aggregate, do the aggregation in R instead of JS so that the resulting htmlwidget has a much smaller data set. 
 
 Option 2: Have the output (the Vega-Lite specification) act as a component so that we can the change different data sets in and out of the Vega-Lite specification only.
+
+More generally, can we write a specification such that the transformation is done *somewhere*? For example somewhere could be:
+
+- a remote R session (using Shiny)
+- a remote SQL database 
+- the JavaScript client (the browser itself)
+
+Then the questions could become:
+- How do we write the Vega(-Lite) specification such that the transformation could be done anywhere?
+- Given a Vega-Lite specification, how to we implement the transformation so that it will be made at a given place?
 
 **Questions**: 
 
