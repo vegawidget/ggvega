@@ -94,7 +94,7 @@ We are very restrictive on the expressions we will allow for aesthetic mappings 
 
 **Mismatches between ggplot2 and Vega-Lite**:
 
-- `positionDodge` and `positionJitter` -- Vega-Lite is working on implementing this?
+- `positionDodge` and `positionJitter` -- Vega-Lite is working on implementing this? PR: vega/vega-lite#4969
 
 - `geom_path()` based on order (there used to be an order aesthetic?) vs. in Vega-Lite there is an order encoding  
 
@@ -141,6 +141,13 @@ With vlbuildr, we can add selections and conditional encodings without addresssi
 <br />
 
 ### Potential future paths
+
+New to Vega-Lite 4.0 (currently in beta):
+
+- [regression](https://vega.github.io/vega-lite/docs/regression.html)
+- [loess](https://vega.github.io/vega-lite/docs/loess.html)
+- [density](https://vega.github.io/vega-lite/docs/density.html)
+
 
 **Design choice #2**: Should the transformations take place in R or put into the Vega-lite specification?
 
