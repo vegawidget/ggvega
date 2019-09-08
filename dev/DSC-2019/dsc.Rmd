@@ -16,15 +16,11 @@ knitr::opts_chunk$set(
 
 ### GGVEGA
 
-The ggvega package was created to translate from ggplot2 to Vega-Lite, inspired by the capability `plotly::ggplotly()` provides to translate from ggplot2 to plotly. 
+The ggvega package was created to translate from ggplot2 to Vega-Lite, inspired by the capability `plotly::ggplotly()` provides to translate from ggplot2 to plotly. This project has been supported by Iowa State University, Schneider Electric, and GSOC.
 
-Motivation for project was to have interactive graphics... take a ggplot and add selections
+The main motivation for project is to achieve a system that allows us to work in the familiar ggplot2 environment but also has interactive capabilities, such as linked brushing. Additionally, on the Schneider Electric side of this project, one of the main goals is to build & deploy visual components (in JS and HTML) that can be extensible to new data. (think "update-able" dashboards)
 
-This project has been supported by Schneider Electric and GSOC.
-
-One of the main goals on the Schneider Electric side of this project is to build & deploy visual components (in JS and HTML) that can be extensible to new data. (think "update-able" dashboards)
-
-This goal, being extensible to new data, has been a guiding principle when making fundamental design choices. This is one aspect to distinguished this effort from `plotly::ggplotly()` ([link](https://plotly-r.com/client-side-linking.html#statistical-queries-ggplot)):
+This goal, being extensible to new data, has been a guiding principle when making fundamental design choices. This is one aspect to distinguish this effort from `plotly::ggplotly()` ([link](https://plotly-r.com/client-side-linking.html#statistical-queries-ggplot)):
 
 > Compared to `plot_ly()`, statistical queries (client-side) with `ggplotly()` are fundamentally limited. That’s because, the statistical R functions that ggplot2 relies on to generate the graphical layers can’t necessarily be recomputed with different input data in your web browser.
 
@@ -40,7 +36,7 @@ Vega-Lite is developed by the Interactive Data Lab, U Washington. Built on Vega,
 
 **Grammar of Graphics / relation to ggplot2**:
 
-This would seem a great opportunity to build on a popular, well-written, and well-illustrated book on cooking :)
+This would seem a great opportunity to build on a popular, well-written, and well-illustrated book on cooking :) (absolutely!)
 
 <br />
 

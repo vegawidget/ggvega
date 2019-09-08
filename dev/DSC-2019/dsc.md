@@ -7,20 +7,19 @@ DSC prep
 
 The ggvega package was created to translate from ggplot2 to Vega-Lite,
 inspired by the capability `plotly::ggplotly()` provides to translate
-from ggplot2 to plotly.
+from ggplot2 to plotly. This project has been supported by Iowa State
+University, Schneider Electric, and GSOC.
 
-Motivation for project was to have interactive graphics… take a ggplot
-and add selections
-
-This project has been supported by Schneider Electric and GSOC.
-
-One of the main goals on the Schneider Electric side of this project is
-to build & deploy visual components (in JS and HTML) that can be
-extensible to new data. (think “update-able” dashboards)
+The main motivation for project is to achieve a system that allows us to
+work in the familiar ggplot2 environment but also has interactive
+capabilities, such as linked brushing. Additionally, on the Schneider
+Electric side of this project, one of the main goals is to build &
+deploy visual components (in JS and HTML) that can be extensible to new
+data. (think “update-able” dashboards)
 
 This goal, being extensible to new data, has been a guiding principle
 when making fundamental design choices. This is one aspect to
-distinguished this effort from `plotly::ggplotly()`
+distinguish this effort from `plotly::ggplotly()`
 ([link](https://plotly-r.com/client-side-linking.html#statistical-queries-ggplot)):
 
 > Compared to `plot_ly()`, statistical queries (client-side) with
@@ -41,6 +40,9 @@ on Vega, Vega-Lite is more concise, but less expressive.
 
 **Grammar of Graphics / relation to ggplot2**:
 
+This would seem a great opportunity to build on a popular, well-written,
+and well-illustrated book on cooking :) (absolutely\!)
+
 <br />
 
 ### Design philosophy
@@ -51,12 +53,18 @@ but to manage these translations in a robust way that we can extend in
 the future. In other words, **a narrow scope built on a firm
 foundation**.
 
+We hope that the foundation that we develop supporet this sub-set of
+capabilities will serve us well as we expand.
+
 **Design choice \#1**: Do we capture the intention or the
 implementation?
 
 ggvega seeks to capture the *intent* of a ggplot. This is distinct from
-the *implementation* of a ggplot (the path `ggplotly()` takes).
-<!-- Our idea is to let the powerful defaults of the two packages take care of most of the work. In addition, we anticipated (at some point in the distant future) creating a Vega-lite theme for the visual components. -->
+the *implementation* of a ggplot (the path `ggplotly()` takes). Our idea
+is to let the powerful defaults of the two packages take care of most of
+the work. In addition, we anticipated (at some point in the (hopefully
+not-too-)distant future) creating a Vega-lite theme for the visual
+components.
 
 <br />
 
@@ -65,11 +73,13 @@ the *implementation* of a ggplot (the path `ggplotly()` takes).
 We convert a ggplot2 object into a “ggspec”, a JSON-serializable list,
 and then convert “ggspec” into a Vega-Lite specification.
 
-The idea for “ggspec” was to remain faithful to the ggplot2 object and
-philosophy and to publish a JSON schema that represents the range of
-“things” that we will be able to translate, and to provide the means
-to generate a JSON specification that meets this schema, given a ggplot2
-object.
+The ideas for “ggspec” were
+
+  - to remain faithful to the ggplot2 object and philosophy
+  - to publish a JSON schema that represents the range of “things” that
+    we will be able to translate,
+  - to provide the means to generate a JSON specification that meets
+    this schema, given a ggplot2 object.
 
 The ggspec should record only those things that deviate from ggplot2
 defaults. Accordingly, we think to specify things in Vega-Lite only if
@@ -127,7 +137,8 @@ plot <- ggplot(iris) +
 as_vegaspec(plot)
 ```
 
-![](dsc_files/figure-gfm/unnamed-chunk-1-1.svg)<!-- -->
+    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
+    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
 
 Once the Vega-Lite specification has been created, we can use vlbuildr,
 another package within the vegawidget GitHub organization, to modify the
