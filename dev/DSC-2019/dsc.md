@@ -32,18 +32,76 @@ distinguish this effort from `plotly::ggplotly()`
 
 ### Why Vega-Lite?
 
-Vega-Lite is developed by the Interactive Data Lab, U Washington. Built
-on Vega, Vega-Lite is more concise, but less expressive.
+Our requirements for the javascipt library:
 
-  - interactive grammar-of-graphics
-  - JavaScript, rendered in the browser
+  - has the grammar of graphics at its foundation  
+  - is easy to use  
+  - is able to be linked with other preexisting htmlwidgets  
+  - can be tied to ggplot2
 
-**Grammar of Graphics / relation to ggplot2**:
+Vega is a JavaScript library designed to be a visualization grammar that
+is built for analysis. If Vega is the grammar, then D3 can be considered
+the alphabet for the grammar. Vega and Vega-lite are led by a team from
+the University Washington Interactive Data Lab directed by Jeff Heer.
 
-This would seem a great opportunity to build on an analogy to a popular,
-well-written, and well-illustrated book on cooking :)
+A large part of the appeal of Vega and Vega-lite is the implementation
+of visualization terms. With the grammar of graphics at its core, Vega
+and Vega-lite are built on a stable foundation. Vega-lite is “a
+higher-level grammar for visual analysis, comparable to ggplot or
+Tableau, that generates complete Vega specifications.” Both Vega and
+Vega-lite use a JSON specification to create a visualization, with
+Vega-lite first compiling to Vega and then rendered using Vega’s
+compiler.
+
+### Grammar of Graphics
+
+Developed by Leland Wilkinson in 1999, the grammar of graphics provides
+an abstraction which makes thinking, reasoning, and communicating
+graphics easier. Rather than thinking about a limited set of graphs, the
+grammar instructs to think about graphical forms.
+
+(transition?)
+
+**Grammar-of-Graphics as Food**
+
+Four basic factors that determine how good your food will taste:
+
+  - **salt**, which enhances flavor  
+  - **fat**, which amplifies flavor and makes appealing textures
+    possible
+  - **acid**, which brightens and balances
+  - **heat**, which ultimately determines the texture of food
+
+Salt, Fat, Acid, and Heat are the four cardinal directions of cooking.
+These four elements are what allow *all* great cooks to cook
+consistently delicious food.
 
 <br />
+
+**A *layered* Grammar-of-Graphics**
+
+Four basic components that form a layer:
+
+  - **data**,  
+  - **stat**,  
+  - **mapping**,  
+  - **geom**,
+
+Layers are responsible for creating the objects that we perceive on the
+plot. By implementing the grammar of graphics, ggplot2 has transformed
+not only the way we make visualizations, but also the way we *think*
+about the components of a graphic.
+
+<br />
+
+**Vega-Lite’s realtion to ggplot2**
+
+Four basic components that …
+
+  - **data**,  
+  - **transform**,  
+  - **encoding**,  
+  - **mark**,
 
 ### Design philosophy
 
@@ -161,8 +219,7 @@ plot <- ggplot(iris) +
 as_vegaspec(plot)
 ```
 
-    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
-    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
+![](dsc_files/figure-gfm/unnamed-chunk-1-1.svg)<!-- -->
 
 Once the Vega-Lite specification has been created, we can use vlbuildr,
 another package within the vegawidget GitHub organization, to modify the
@@ -232,3 +289,10 @@ so that it will be made at a given place?
 
   - How to create a general translation capability between dplyr and a
     set of Vega-Lite transformations?
+
+### Parting thoughts
+
+Visualization and modeling are complementary steps in the data-analysis
+process (Hadley Wickham) - visualization requires people to scale - easy
+to get more CPU’s, less easy to get more people - we can use interactive
+visualization to make people more-efficient
