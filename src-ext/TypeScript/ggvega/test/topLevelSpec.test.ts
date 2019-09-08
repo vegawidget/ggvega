@@ -2,6 +2,12 @@ import {spec2vl} from '../src/topLevelSpec';
 import * as VL from '../src/vlSpec';
 import * as ggSpec from './ggSpec';
 import * as vlSpec from './vlSpec';
+import {convertCompilerOptionsFromJson} from 'typescript';
+
+// helper function to preserve ggspecs by copying
+let cp = function (x: any) {
+  return JSON.parse(JSON.stringify(x))
+}
 
 describe('topLevelSpec/spec2vl', () => {
   it('should create a vega-lite TopLevelSpec from a ggSpec', () => {
@@ -18,9 +24,15 @@ describe('topLevelSpec/spec2vl', () => {
 
     expect(spec2vl(ggSpecObject)).toEqual(vlSpecObject as VL.TopLevelSpec);
 
-    ggSpecObject = ggSpec.iris03;
-    vlSpecObject = vlSpec.iris03;
+    expect(spec2vl(cp(ggSpec.iris03))).toEqual(vlSpec.iris03);
 
-    expect(spec2vl(ggSpecObject)).toEqual(vlSpecObject as VL.TopLevelSpec);
+    // single-view option
+    expect(spec2vl(cp(ggSpec.iris03), true)).toEqual(vlSpec.iris03Single);
+    expect(spec2vl(cp(ggSpec.iris04))).toEqual(vlSpec.iris04)
+
   });
 });
+
+let specnew = spec2vl(cp(ggSpec.iris04));
+
+

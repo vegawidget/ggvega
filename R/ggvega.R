@@ -1,18 +1,24 @@
 #' Translate ggplot2 object to vegaspec
 #'
+#' @details
+#' To return a single-view spec, rather than a single-layer spec, use
+#' `single_view = TRUE`. Of course, this is effective only for ggplot objects
+#' that have exactly one layer.
+#'
 #' @inheritParams vegawidget::as_vegaspec
+#' @inheritParams spec2vl
 #'
 #' @inherit vegawidget::as_vegaspec return
 #'
 #' @export
 #'
-as_vegaspec.gg <- function(spec, ...) {
+as_vegaspec.gg <- function(spec, single_view = FALSE, ...) {
 
   # convert to ggspec
   ggspec <- gg2spec(spec)
 
   # convert to vegaspec
-  spec2vl(ggspec)
+  spec2vl(ggspec, single_view)
 }
 
 #' Translate ggplot2 object into a ggspec
@@ -44,13 +50,15 @@ gg2spec <- function(plt){
 #' Translate ggspec object to vegaspec
 #'
 #' @param ggspec `list`, a ggspec object
+#' @param single_view `boolean`, indicates to collapse an unfaceted
+#'   single-layer spec to a single-view spec
 #'
 #' @inherit vegawidget::as_vegaspec return
 #'
 #' @export
 #' @keywords internal
 #'
-spec2vl <- function(ggspec) {
+spec2vl <- function(ggspec, single_view = FALSE) {
 
   ct <- V8::v8()
 
@@ -58,11 +66,13 @@ spec2vl <- function(ggspec) {
 
   ct$assign("ggspec", jsonlite::toJSON(ggspec, auto_unbox = TRUE, null = "null"))
 
-  ct$assign("ggspec",V8::JS("JSON.parse(ggspec)"))
+  ct$assign("ggspec", V8::JS("JSON.parse(ggspec)"))
+
+  singleView <- ifelse(single_view, "true", "false")
 
   vlspec <-
     ct$get(
-      V8::JS("ggvega.spec2vl(ggspec)"),
+      V8::JS(glue::glue("ggvega.spec2vl(ggspec, {singleView})")),
       simplifyVector = FALSE,
       simplifyDataFrame = FALSE
     )
