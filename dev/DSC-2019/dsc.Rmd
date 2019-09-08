@@ -40,7 +40,7 @@ Vega-Lite is developed by the Interactive Data Lab, U Washington. Built on Vega,
 
 **Grammar of Graphics / relation to ggplot2**:
 
-
+This would seem a great opportunity to build on a popular, well-written, and well-illustrated book on cooking :)
 
 <br />
 
@@ -49,13 +49,11 @@ Vega-Lite is developed by the Interactive Data Lab, U Washington. Built on Vega,
 
 Our  *initial* philosophy was to manage a small set of plots (perhaps something like scatter-plots, line-charts, bar-charts, and histograms), but to manage these translations in a robust way that we can extend in the future. In other words, **a narrow scope built on a firm foundation**.
 
-
+We hope that the foundation that we develop supporet this sub-set of capabilities will serve us well as we expand.
 
 **Design choice #1**: Do we capture the intention or the implementation?
 
-ggvega seeks to capture the *intent* of a ggplot. This is distinct from the *implementation* of a ggplot (the path `ggplotly()` takes). <!-- Our idea is to let the powerful defaults of the two packages take care of most of the work. In addition, we anticipated (at some point in the distant future) creating a Vega-lite theme for the visual components. -->
-
-
+ggvega seeks to capture the *intent* of a ggplot. This is distinct from the *implementation* of a ggplot (the path `ggplotly()` takes). Our idea is to let the powerful defaults of the two packages take care of most of the work. In addition, we anticipated (at some point in the (hopefully not-too-)distant future) creating a Vega-lite theme for the visual components.
 
 <br />
 
@@ -64,7 +62,11 @@ ggvega seeks to capture the *intent* of a ggplot. This is distinct from the *imp
 
 We convert a ggplot2 object into a "ggspec", a JSON-serializable list, and then convert "ggspec" into a Vega-Lite specification.
 
-The idea for "ggspec" was to remain faithful to the ggplot2 object and philosophy and to publish a JSON schema that represents the range of "things" that we will be able to translate, and to provide the means to generate a JSON specification that meets this schema, given a ggplot2 object.
+The ideas for "ggspec" were 
+
+- to remain faithful to the ggplot2 object and philosophy
+- to publish a JSON schema that represents the range of "things" that we will be able to translate,
+- to provide the means to generate a JSON specification that meets this schema, given a ggplot2 object.
 
 The ggspec should record only those things that deviate from ggplot2 defaults. Accordingly, we think to specify things in Vega-Lite only if they differ from the Vega-Lite defaults. Our goal is to capture the “essence” of the ggplot, its intentions. To replicate the default color-maps and appearance, we recommend using a Vega theme (we hope to propose a better ggplot2-theme for Vega).
 
