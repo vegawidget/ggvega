@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Translate ggplot2 object to vegaspec — as_vegaspec.gg • ggvega</title>
+<title>Changelog • ggvega</title>
 
 
 <!-- jquery -->
@@ -35,9 +35,7 @@
 
 
 
-<meta property="og:title" content="Translate ggplot2 object to vegaspec — as_vegaspec.gg" />
-<meta property="og:description" content="Translate ggplot2 object to vegaspec" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Changelog" />
 
 
 
@@ -56,7 +54,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -129,55 +127,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Translate ggplot2 object to vegaspec</h1>
-    <small class="dont-index">Source: <a href='https://github.com/vegawidget/ggvega/blob/master/R/ggvega.R'><code>R/ggvega.R</code></a></small>
-    <div class="hidden name"><code>as_vegaspec.gg.Rd</code></div>
+      <h1>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/vegawidget/ggvega/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="ref-description">
-    <p>Translate ggplot2 object to vegaspec</p>
-    </div>
-
-    <pre class="usage"><span class='co'># S3 method for gg</span>
-<span class='fu'><a href='as_vegaspec.html'>as_vegaspec</a></span>(<span class='no'>spec</span>, <span class='kw'>single_view</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>spec</th>
-      <td><p>An object to be coerced to <code>vegaspec</code>, a Vega/Vega-Lite specification</p></td>
-    </tr>
-    <tr>
-      <th>single_view</th>
-      <td><p><code>boolean</code>, indicates to collapse an unfaceted
-single-layer spec to a single-view spec</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Other arguments (attempt to future-proof)</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>An object with S3 class <code>vegaspec</code></p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>To return a single-view spec, rather than a single-layer spec, use
-<code>single_view = TRUE</code>. Of course, this is effective only for ggplot objects
-that have exactly one layer.</p>
-
+    <div id="ggvega-0-0-0-development-version" class="section level1">
+<h1 class="page-header">
+<a href="#ggvega-0-0-0-development-version" class="anchor"></a>ggvega 0.0.0 (development version)</h1>
+<ul>
+<li><p>Added an option to <code><a href="../reference/as_vegaspec.html">as_vegaspec()</a></code>, <code>single_view</code> to indicate to collapse a single-layer ggplot2 object into a single-view Vega-Lite specification. This makes it easier to add selections and conditional encodings using {vlbuildr} (<a href='https://github.com/vegawidget/ggvega/issues/70'>#70</a>).</p></li>
+<li><p>Added support for <code><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">ggplot2::coord_flip()</a></code>.</p></li>
+<li><p>Added support for basic scatterplots (<code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">ggplot2::geom_point()</a></code>), not faceted.</p></li>
+<li><p>Added a <code>NEWS.md</code> file to track changes to the package.</p></li>
+</ul>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-    </ul>
-
+    <div id="tocnav">
+      <h2>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#ggvega-0-0-0-development-version">0.0.0</a></li>
+      </ul>
+    </div>
   </div>
+
 </div>
 
 
