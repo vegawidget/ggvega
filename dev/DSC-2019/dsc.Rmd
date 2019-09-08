@@ -16,11 +16,15 @@ knitr::opts_chunk$set(
 
 ### GGVEGA
 
-The ggvega package was created to translate from ggplot2 to Vega-Lite, inspired by the capability `plotly::ggplotly()` provides to translate from ggplot2 to plotly. This project has been supported by Iowa State University, Schneider Electric, and GSOC.
+The ggvega package was created to translate from ggplot2 to Vega-Lite, inspired by the capability `plotly::ggplotly()` provides to translate from ggplot2 to plotly. 
 
-The main motivation for project is to achieve a system that allows us to work in the familiar ggplot2 environment but also has interactive capabilities, such as linked brushing. Additionally, on the Schneider Electric side of this project, one of the main goals is to build & deploy visual components (in JS and HTML) that can be extensible to new data. (think "update-able" dashboards)
+Motivation for project was to have interactive graphics... take a ggplot and add selections
 
-This goal, being extensible to new data, has been a guiding principle when making fundamental design choices. This is one aspect to distinguish this effort from `plotly::ggplotly()` ([link](https://plotly-r.com/client-side-linking.html#statistical-queries-ggplot)):
+This project has been supported by Schneider Electric and GSOC.
+
+One of the main goals on the Schneider Electric side of this project is to build & deploy visual components (in JS and HTML) that can be extensible to new data. (think "update-able" dashboards)
+
+This goal, being extensible to new data, has been a guiding principle when making fundamental design choices. This is one aspect to distinguished this effort from `plotly::ggplotly()` ([link](https://plotly-r.com/client-side-linking.html#statistical-queries-ggplot)):
 
 > Compared to `plot_ly()`, statistical queries (client-side) with `ggplotly()` are fundamentally limited. That’s because, the statistical R functions that ggplot2 relies on to generate the graphical layers can’t necessarily be recomputed with different input data in your web browser.
 
@@ -36,7 +40,7 @@ Vega-Lite is developed by the Interactive Data Lab, U Washington. Built on Vega,
 
 **Grammar of Graphics / relation to ggplot2**:
 
-This would seem a great opportunity to build on a popular, well-written, and well-illustrated book on cooking :) (absolutely!)
+This would seem a great opportunity to build on an analogy to a popular, well-written, and well-illustrated book on cooking :)
 
 <br />
 
@@ -56,18 +60,28 @@ ggvega seeks to capture the *intent* of a ggplot. This is distinct from the *imp
 
 ### Our approach
 
-We convert a ggplot2 object into a "ggspec", a JSON-serializable list, and then convert "ggspec" into a Vega-Lite specification.
+We convert a ggplot2 object into a "ggspec", a JSON-serializable list, and then convert a "ggspec" into a Vega-Lite specification or "vegaspec".
 
-The ideas for "ggspec" were 
+The ideas for "ggspec" are 
 
 - to remain faithful to the ggplot2 object and philosophy
-- to publish a JSON schema that represents the range of "things" that we will be able to translate,
+- to publish a JSON schema that represents the range of "things" that we will be able to translate
 - to provide the means to generate a JSON specification that meets this schema, given a ggplot2 object.
 
-The ggspec should record only those things that deviate from ggplot2 defaults. Accordingly, we think to specify things in Vega-Lite only if they differ from the Vega-Lite defaults. Our goal is to capture the “essence” of the ggplot, its intentions. To replicate the default color-maps and appearance, we recommend using a Vega theme (we hope to propose a better ggplot2-theme for Vega).
+The ggspec should record only those things that deviate from ggplot2 defaults; one should be able to take a ggspec and recreate the ggplot object that it came from.
 
-The ggschema JSON-specification is then converted into a Vega-Lite JSON-specification. Here, as a first approach, we took inspiration from Vega-Lite itself, which translates a Vega-Lite specification into a Vega specification. This is developed in TypeScript, then compiled into ECMAScript 6 (JavaScript), as described in the [Vega-Lite contribution guide](https://github.com/vega/vega-lite/blob/master/CONTRIBUTING.md#suggested-programming-environment).
+Accordingly, we think to specify things in Vega-Lite only if they differ from the Vega-Lite defaults. Our goal is to capture the “essence” of the ggplot, its intentions. To replicate the default color-maps and appearance, we recommend using a Vega theme (we hope to propose a better ggplot2-theme for Vega).
 
+The ggspec is then converted into a vegaspec. As a first approach, we took inspiration from Vega-Lite itself, which translates a Vega-Lite specification into a Vega specification. This compiler is developed in TypeScript, then compiled into ECMAScript 6 (JavaScript), as described in the [Vega-Lite contribution guide](https://github.com/vega/vega-lite/blob/master/CONTRIBUTING.md#suggested-programming-environment).
+
+We hope that the ggspec can be a useful abstraction to help us understand  "what is going on in ggplot2" and "how does this intersecct with Vega-Lite?". As well, should ggplot2 or Vega-Lite change, we hope that we could keep ggspec "fixed" such that we would have to adapt only that part of the translation process (ggplot2-to-ggspec or ggspec-to-Vega-Lite) that would be impacted by such a change.
+
+As we developed ggspec, we had a couple of idea about what it should be:
+
+- the idealized version *could be* a JSON-serializable representation of any possible ggplot object; that it could also be a lossless representation of any ggplot object.
+- the actualized version *is* a JSON-serializable representation of a ggplot object that we can translate into Vega-Lite.
+
+In an ideal world, we might have taken on the *idealized* ggspec, then defined an *actualized* subset. However, in the interests of "getting something done", we considered briefly the first possibility, then went straight for the second possibility. 
 
 <br />
 
