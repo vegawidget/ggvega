@@ -10,18 +10,16 @@ inspired by the capability `plotly::ggplotly()` provides to translate
 from ggplot2 to plotly. This project has been supported by Iowa State
 University, Schneider Electric, and GSOC.
 
-Motivation for project was to have interactive graphics… take a ggplot
-and add selections The main motivation for project is to achieve a
-system that allows us to work in the familiar ggplot2 environment but
-also has interactive capabilities, such as linked brushing.
-Additionally, on the Schneider Electric side of this project, one of the
-main goals is to build & deploy visual components (in JS and HTML) that
-can be extensible to new data. (think “update-able” dashboards)
+The main motivation for project is to achieve a system that allows us to
+work in the familiar ggplot2 environment but also has interactive
+capabilities, such as linked brushing. Additionally, on the Schneider
+Electric side of this project, one of the main goals is to build &
+deploy visual components (in JS and HTML) that can be extensible to new
+data. (think “update-able” dashboards)
 
-This project has been supported by Schneider Electric and GSOC. This
-goal, being extensible to new data, has been a guiding principle when
-making fundamental design choices. This is one aspect to distinguish
-this effort from `plotly::ggplotly()`
+This goal, being extensible to new data, has been a guiding principle
+when making fundamental design choices. This is one aspect to
+distinguish this effort from `plotly::ggplotly()`
 ([link](https://plotly-r.com/client-side-linking.html#statistical-queries-ggplot)):
 
 > Compared to `plot_ly()`, statistical queries (client-side) with
@@ -163,7 +161,8 @@ plot <- ggplot(iris) +
 as_vegaspec(plot)
 ```
 
-![](dsc_files/figure-gfm/unnamed-chunk-1-1.svg)<!-- -->
+    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
+    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
 
 Once the Vega-Lite specification has been created, we can use vlbuildr,
 another package within the vegawidget GitHub organization, to modify the
