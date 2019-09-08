@@ -227,3 +227,9 @@ export const iris03 = {
     class: 'FacetNull'
   }
 };
+
+// duplicate the layer
+export let iris04 = JSON.parse(JSON.stringify(iris03));
+iris04.layers.push(JSON.parse(JSON.stringify(iris04.layers[0])));
+//console.log(iris04);
+
