@@ -10830,17 +10830,6 @@
         return facet;
     }
 
-    var __assign = (undefined && undefined.__assign) || function () {
-        __assign = Object.assign || function(t) {
-            for (var s, i = 1, n = arguments.length; i < n; i++) {
-                s = arguments[i];
-                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                    t[p] = s[p];
-            }
-            return t;
-        };
-        return __assign.apply(this, arguments);
-    };
     function spec2vl(spec, singleView) {
         if (singleView === void 0) { singleView = false; }
         var ggSpec = ggValidate(spec);
@@ -10965,14 +10954,18 @@
                 return topLevelSpec;
             }
             // put all of the elements of into single view
+            // NOTE: This assumes that the only elements in a layer are
+            // `data`, `mark`. and `encoding`. It would be nice not to have
+            // to name explicitly all the elements of `layer[0]`, but `Object.assign()`
+            // works only in ES6
             var topLevelSingleViewSpec = {
                 $schema: vlschema,
                 title: title,
                 datasets: datasets,
+                data: layer[0].data,
+                mark: layer[0].mark,
+                encoding: layer[0].encoding
             };
-            // append the layer-elements into the top-level spec
-            // Object.assign() is ES6; using this instead: https://stackoverflow.com/a/43675279
-            topLevelSingleViewSpec = __assign({}, topLevelSingleViewSpec, layer[0]);
             return topLevelSingleViewSpec;
         }
         return topLevelSpec;

@@ -5,6 +5,7 @@ import {vlschema} from '../package.json';
 import {datasetObject} from './datasetObject';
 import {layerArrayByAes} from './layerArrayByAes';
 import {facet} from './facet';
+import {hasKey} from './utils';
 
 export function spec2vl(spec: any, singleView = false): VL.TopLevelSpec {
   const ggSpec: GG.TopLevelSpec = ggValidate(spec);
@@ -145,15 +146,18 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec, singleView = false): VL.TopLevelS
     }
 
     // put all of the elements of into single view
+    // NOTE: This assumes that the only elements in a layer are
+    // `data`, `mark`. and `encoding`. It would be nice not to have
+    // to name explicitly all the elements of `layer[0]`, but `Object.assign()`
+    // works only in ES6
     let topLevelSingleViewSpec: VL.TopLevelSpec = {
       $schema: vlschema,
       title: title,
       datasets: datasets,
+      data: layer[0].data,
+      mark: layer[0].mark,
+      encoding: layer[0].encoding
     }
-
-    // append the layer-elements into the top-level spec
-    // Object.assign() is ES6; using this instead: https://stackoverflow.com/a/43675279
-    topLevelSingleViewSpec = {...topLevelSingleViewSpec, ...layer[0]};
 
     return topLevelSingleViewSpec;
   }
