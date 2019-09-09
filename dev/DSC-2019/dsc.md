@@ -60,9 +60,22 @@ an abstraction which makes thinking, reasoning, and communicating
 graphics easier. Rather than thinking about a limited set of graphs, the
 grammar instructs to think about graphical forms.
 
-(transition?)
+Having this abstraction is benificial both the user and the developer of
+statistical graphics. It encourages us to customize graphics for a
+particular problem rather than relying on generic names graphics.
+([link](https://byrneslab.net/classes/biol607/readings/wickham_layered-grammar.pdf))
+In addition, new capabilities are easier to create.
+
+<br />
+
+The empowerment of an abstract decomposition (such as the grammar) is
+not unique to the world of statistical graphics.
+
+<br />
 
 **Grammar-of-Graphics as Food**
+
+<img src="dsc_files/ggfood2.png" height="100">
 
 Four basic factors that determine how good your food will taste:
 
@@ -80,6 +93,12 @@ consistently delicious food.
 
 **A *layered* Grammar-of-Graphics**
 
+<img src="dsc_files/ggplot2.png" height="100">
+
+By implementing the grammar of graphics, ggplot2 has transformed not
+only the way we make visualizations, but also the way we *think* about
+the components of a graphic.
+
 Four basic components that form a layer:
 
   - **data**,  
@@ -87,14 +106,16 @@ Four basic components that form a layer:
   - **mapping**,  
   - **geom**,
 
-Layers are responsible for creating the objects that we perceive on the
-plot. By implementing the grammar of graphics, ggplot2 has transformed
-not only the way we make visualizations, but also the way we *think*
-about the components of a graphic.
+The layer component is particularly important as it determines the
+physical representation of the data, with the combination of stat and
+geom defining many familiar named graphics: the scatterplot, histogram,
+contourplot, and so on.
 
 <br />
 
 **Vega-Lite’s realtion to ggplot2**
+
+<img src="dsc_files/vl2.png" height="100">
 
 Four basic components that …
 
@@ -220,7 +241,8 @@ plot <- ggplot(iris) +
 as_vegaspec(plot)
 ```
 
-![](dsc_files/figure-gfm/unnamed-chunk-1-1.svg)<!-- -->
+    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
+    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
 
 Once the Vega-Lite specification has been created, we can use vlbuildr,
 another package within the vegawidget GitHub organization, to modify the
