@@ -241,8 +241,7 @@ plot <- ggplot(iris) +
 as_vegaspec(plot)
 ```
 
-    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
-    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
+![](dsc_files/figure-gfm/unnamed-chunk-1-1.svg)<!-- -->
 
 Once the Vega-Lite specification has been created, we can use vlbuildr,
 another package within the vegawidget GitHub organization, to modify the
