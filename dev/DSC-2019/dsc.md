@@ -10,16 +10,16 @@ inspired by the capability `plotly::ggplotly()` provides to translate
 from ggplot2 to plotly. This project has been supported by Iowa State
 University, Schneider Electric, and GSOC.
 
-The main motivation for project is to achieve a system that allows us to
-work in the familiar ggplot2 environment but also has interactive
+The main motivation for this project is to achieve a system that allows
+us to work in the familiar ggplot2 environment but with interactive
 capabilities, such as linked brushing. Additionally, on the Schneider
-Electric side of this project, one of the main goals is to build &
-deploy visual components (in JS and HTML) that can be extensible to new
-data. (think “update-able” dashboards)
+Electric side of this project, one of the main goals is to be able to
+build & deploy visual components (in JS and HTML) that can be extensible
+to new data. (think “update-able” dashboards)
 
 This goal, being extensible to new data, has been a guiding principle
-when making fundamental design choices. This is one aspect to
-distinguish this effort from `plotly::ggplotly()`
+when making fundamental design choices. This is one aspect that
+distinguishes this effort from `plotly::ggplotly()`
 ([link](https://plotly-r.com/client-side-linking.html#statistical-queries-ggplot)):
 
 > Compared to `plot_ly()`, statistical queries (client-side) with
@@ -32,7 +32,7 @@ distinguish this effort from `plotly::ggplotly()`
 
 ### Why Vega-Lite?
 
-Our requirements for the javascipt library:
+Our requirements for the JavaScript library:
 
   - has the grammar of graphics at its foundation  
   - is easy to use  
@@ -60,34 +60,11 @@ an abstraction which makes thinking, reasoning, and communicating
 graphics easier. Rather than thinking about a limited set of graphs, the
 grammar instructs to think about graphical forms.
 
-Having this abstraction is benificial both the user and the developer of
+Having this abstraction is beneficial both the user and the developer of
 statistical graphics. It encourages us to customize graphics for a
 particular problem rather than relying on generic names graphics.
 ([link](https://byrneslab.net/classes/biol607/readings/wickham_layered-grammar.pdf))
 In addition, new capabilities are easier to create.
-
-<br />
-
-The empowerment of an abstract decomposition (such as the grammar) is
-not unique to the world of statistical graphics.
-
-<br />
-
-**Grammar-of-Graphics as Food**
-
-<img src="dsc_files/ggfood2.png" height="100">
-
-Four basic factors that determine how good your food will taste:
-
-  - **salt**, which enhances flavor  
-  - **fat**, which amplifies flavor and makes appealing textures
-    possible
-  - **acid**, which brightens and balances
-  - **heat**, which ultimately determines the texture of food
-
-Salt, Fat, Acid, and Heat are the four cardinal directions of cooking.
-These four elements are what allow *all* great cooks to cook
-consistently delicious food.
 
 <br />
 
@@ -113,7 +90,7 @@ contourplot, and so on.
 
 <br />
 
-**Vega-Lite’s realtion to ggplot2**
+**Vega-Lite’s relation to ggplot2**
 
 <img src="dsc_files/vl2.png" height="100">
 
@@ -124,6 +101,31 @@ Four basic components that …
   - **encoding**,  
   - **mark**,
 
+<br />
+
+The empowerment of an abstract decomposition (such as the grammar) is
+not unique to the world of statistical graphics.
+
+<br />
+
+**Grammar-of-Graphics as Food**
+
+<img src="dsc_files/ggfood2.png" height="100">
+
+Four basic factors that determine how good your food will taste:
+
+  - **salt**, which enhances flavor  
+  - **fat**, which amplifies flavor and makes appealing textures
+    possible
+  - **acid**, which brightens and balances
+  - **heat**, which ultimately determines the texture of food
+
+Salt, Fat, Acid, and Heat are the four cardinal directions of cooking.
+These four elements are what allow *all* great cooks to cook
+consistently delicious food.
+
+<br/>
+
 ### Design philosophy
 
 Our *initial* philosophy was to manage a small set of plots (perhaps
@@ -132,7 +134,7 @@ but to manage these translations in a robust way that we can extend in
 the future. In other words, **a narrow scope built on a firm
 foundation**.
 
-We hope that the foundation that we develop supporet this sub-set of
+We hope that the foundation that we develop support this sub-set of
 capabilities will serve us well as we expand.
 
 **Design choice \#1**: Do we capture the intention or the
@@ -189,7 +191,7 @@ ggspec-to-Vega-Lite) that would be impacted by such a change.
 As we developed ggspec, we had a couple of idea about what it should be:
 
   - the idealized version *could be* a JSON-serializable representation
-    of any possible ggplot object; that it could also be a lossless
+    of any possible ggplot object; that it could also be a loss-less
     representation of any ggplot object.
   - the actualized version *is* a JSON-serializable representation of a
     ggplot object that we can translate into Vega-Lite.
@@ -221,7 +223,7 @@ foreseeable exception to this will be to manage factors.
     
       - ex. populations of cities bar chart
           - In ggplot2, use forcats package to order according to
-            population sie – cannot capture this because it happens
+            population size – cannot capture this because it happens
             outside the ggplot object.
           - Can we use (create?) a `stat_order()` to do this??
 
@@ -264,7 +266,7 @@ vl_encode_fill("Species:N")
 ![](dsc_files/figure-gfm/unnamed-chunk-2-1.svg)<!-- -->
 
 With vlbuildr, we can add selections and conditional encodings without
-addresssing this issue in ggvega/ggplot2.
+addressing this issue in ggvega/ggplot2.
 
 <br />
 
@@ -294,10 +296,11 @@ transformation is done *somewhere*? For example somewhere could be:
   - a remote SQL database
   - the JavaScript client (the browser itself)
 
-Then the questions could become: - How do we write the Vega(-Lite)
-specification such that the transformation could be done anywhere? -
-Given a Vega-Lite specification, how to we implement the transformation
-so that it will be made at a given place?
+Then the questions could become:  
+\- How do we write the Vega(-Lite) specification such that the
+transformation could be done anywhere?  
+\- Given a Vega-Lite specification, how to we implement the
+transformation so that it will be made at a given place?
 
 **Questions**:
 
@@ -355,6 +358,7 @@ As these capabilities are released in Vega-Lite:
 ### Parting thoughts
 
 Visualization and modeling are complementary steps in the data-analysis
-process (Hadley Wickham) - visualization requires people to scale - easy
-to get more CPU’s, less easy to get more people - we can use interactive
-visualization to make people more-efficient
+process (Hadley Wickham)  
+\- visualization requires people to scale  
+\- easy to get more CPU’s, less easy to get more people  
+\- we can use interactive visualization to make people more-efficient
