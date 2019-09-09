@@ -114,11 +114,11 @@ The ideas for "ggspec" are
 
 - to remain faithful to the ggplot2 object and philosophy
 - to publish a JSON schema that represents the range of "things" that we will be able to translate
-- to provide the means to generate a JSON specification that meets this schema, given a ggplot2 object.
+- to provide the means to generate a JSON specification that meets this schema, given a ggplot2 object
 
 The ggspec should record only those things that deviate from ggplot2 defaults; one should be able to take a ggspec and recreate the ggplot object that it came from.
 
-Accordingly, we think to specify things in Vega-Lite only if they differ from the Vega-Lite defaults. Our goal is to capture the “essence” of the ggplot, its intentions. To replicate the default color-maps and appearance, we recommend using a Vega theme (we hope to propose a better ggplot2-theme for Vega).
+Accordingly, we think to specify things in Vega-Lite only as they differ from the Vega-Lite defaults. Our goal is to capture the “essence” of the ggplot, its intentions, then to implement in a default Vega-Lite specification. To replicate the default color-maps and appearance, we recommend using a Vega theme (we hope to propose a better ggplot2-theme for Vega).
 
 The ggspec is then converted into a vegaspec. As a first approach, we took inspiration from Vega-Lite itself, which translates a Vega-Lite specification into a Vega specification. This compiler is developed in TypeScript, then compiled into ECMAScript 6 (JavaScript), as described in the [Vega-Lite contribution guide](https://github.com/vega/vega-lite/blob/master/CONTRIBUTING.md#suggested-programming-environment).
 
@@ -222,6 +222,44 @@ Then the questions could become:
 - How to translate an R expression into a JS expression
 
 - How to create a general translation capability between dplyr and a set of Vega-Lite transformations?
+
+### Roadmap
+
+Here's what we can do now (hopefully as of the DSC presentation):
+
+- `geom_point()` and `geom_bar()`
+- `stat_count()`
+- `position_stack()` and `position_fill()`
+- `coord_flip()`
+- labels
+- extract name from scales
+- if we have a single-layer ggplot object, we can create a single-view Vega-Lite specification
+
+Here's what we will take on next:
+
+- `stat_bin()`, enabling histograms
+- `geom_line()`
+- `facet_grid()` and `facet_wrap()`
+- `geom_boxplot()` (`stat_boxplot()`)
+- scales (this will be an undertaking)
+- a framework to handle temporal values (another undertaking)
+
+Smaller-scale extensions:
+
+- implement `geom_path2()`, using an order aesthetic
+- implement `stat_reorder()`
+
+Larger-scale extensions:
+
+- stat-expressions
+- field-expressions
+- this question of being able to specify where a transformation is done
+
+As these capabilities are released in Vega-Lite:
+
+- `geom_smooth()`
+- `geom_density()`
+- `position_dodge()` and `position_jitter()`
 
 ### Parting thoughts
 
