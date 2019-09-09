@@ -1,0 +1,123 @@
+---
+title: "ggvega"
+subtitle: "  "
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "extra-theme.css"]
+    nature:
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+library(tidyverse)
+
+# install_github("hadley/emo")
+library(emo)
+emo_pray <- emo::ji("pray")
+emo_up <- emo::ji("+1")
+emo_down <- emo::ji("-1")
+emo_disappointed <- emo::ji("disappointed")
+emo_heart_eyes <- emo::ji("smiling face with heart-eyes")
+```
+
+### ggvega
+
+The ggvega package was created to translate from ggplot2 to Vega-Lite, inspired by the capability `plotly::ggplotly()` provides to translate from ggplot2 to plotly. This project has been supported by Iowa State University, Schneider Electric, and GSOC.
+
+
+---
+class: inverse, center, middle
+# Motivation
+
+---
+### m
+
+---
+### Why Vega-Lite?
+
+
+
+
+---
+### Grammar of Graphics
+
+
+
+---
+class: inverse, center, middle
+# Design Philosophy
+
+---
+### Our approach
+
+
+
+
+---
+### Limitations
+
+---
+class: inverse, center, middle
+# Examples
+
+---
+### ggvega
+
+
+
+```{r message=FALSE, warning=FALSE}
+library("ggplot2")
+library("ggvega")
+plot <- ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
+
+as_vegaspec(plot)
+```
+
+???
+vegawidget, an htmlwidget within the vegawidget GitHub organization, is used to render the specification created by ggvega. 
+
+---
+### ggvega + vlbuildr
+
+
+```{r}
+library("ggplot2")
+library("ggvega")
+library("vlbuildr")
+
+plot <- ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
+
+as_vegaspec(plot) %>%
+vl_encode_fill("Species:N")
+```
+
+???
+Once the Vega-Lite specification has been created, we can use vlbuildr, another package within the vegawidget GitHub organization, to modify the specification. vlbuildr is "a functional approach to building up specifications" and the package contains functions that can add various components to a specification.
+
+---
+### Add selections with vlbuildr!
+
+
+???
+
+With vlbuildr, we can add selections and conditional encodings without addressing this issue in ggvega/ggplot2.
+
+---
+class: inverse, center, middle
+# Future Work
+
+---
+### Decisions, questions, etc.
+
+
+
+
+---
+### Roadmap
