@@ -36,8 +36,7 @@ list(
         )
       ),
       stat_params = list(
-        na.rm = FALSE,
-        width = NULL
+        na.rm = FALSE
       ),
       position = list(class = "PositionStack")
     )

@@ -32,63 +32,26 @@ stat_set.default <- function(stat, stat_params, ...) {
 
 stat_set.StatIdentity <- function(stat, stat_params, ...) {
 
-  # if (!is.null(stat_params$not_supported)) {
-  #   warning()
-  # }
+  param_spec <- .param_spec()
 
-  list(
-    stat = list(
-      class = first_class(stat),
-      default_aes = stat$default_aes %>% purrr::map(get_mappings)
-      ),
-    stat_params = stat_params
-  )
-}
-
-stat_set.StatBin <- function(stat, stat_params, ...) {
-
-  if (!is.null(stat_params$binwidth)) {
-    warning("stat parameter `binwidth` not supported")
-  }
-
-  if (!is.null(stat_params$bins)) {
-    warning("stat parameter `bins` not supported")
-  }
-
-  if (!is.null(stat_params$center)) {
-    warning("stat parameter `center` not supported")
-  }
-
-  if (!is.null(stat_params$boundary)) {
-    warning("stat parameter `boundary` not supported")
-  }
-
-  if (!is.null(stat_params$breaks)) {
-    warning("stat parameter `breaks` not supported")
-  }
-
-  if (!is.null(stat_params$closed)) {
-    warning("stat parameter `closed` not supported")
-  }
-
-  if (!is.null(stat_params$pad)) {
-    warning("stat parameter `pad` not supported")
-  }
-
-  list(
-    stat = list(
-      class = first_class(stat),
-      default_aes = stat$default_aes %>% purrr::map(get_mappings)
-    ),
-    stat_params = stat_params
-  )
+  .stat_set(stat, stat_params, param_spec)
 }
 
 stat_set.StatCount <- function(stat, stat_params, ...) {
 
-  if (!is.null(stat_params$width)) {
-    warning("stat parameter `width` not supported")
-  }
+  param_spec <- .param_spec()
+
+  .stat_set(stat, stat_params, param_spec)
+}
+
+# internal function to create the geom_set
+# - this might become its own class-constructor
+.stat_set <- function(stat, stat_params, param_spec) {
+
+  class <- first_class(stat)
+
+  # validate and sanitize stat_params (will issue warnings as needed)
+  stat_params <- .validate_params(stat_params, param_spec, class)
 
   list(
     stat = list(

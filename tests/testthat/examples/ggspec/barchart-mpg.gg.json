@@ -78,8 +78,7 @@
         }
       },
       "stat_params": {
-        "na.rm": false,
-        "width": null
+        "na.rm": false
       },
       "position": {
         "class": "PositionStack"
