@@ -69,7 +69,14 @@ h1, h2, h3 {
     font-size: 15px;
 }
 .remark-code, .remark-inline-code {
-  font-family: Londrina Solid;
+  font-family: Inconsolata, 'Lucida Console', Monaco, monospace;
+}
+.remark-code {
+  font-size: 0.9em;
+}
+.remark-inline-code {
+  font-size: 1.1em;
+  color: #bbbe4a;
 }
 
 strong{color:#efba38;}
@@ -114,13 +121,5 @@ a, a > code {
 .remark-slide-content h3 {
     font-size: 51px;
 }
-.remark-code, .remark-inline-code {
-  font-family: Londrina Solid;
-}
-.remark-code {
-  font-size: 0.9em;
-}
-.remark-inline-code {
-  font-size: 1em;
-  color: #bbbe4a;
-}
+
+

@@ -27,15 +27,26 @@ emo_heart_eyes <- emo::ji("smiling face with heart-eyes")
 
 ### ggvega
 
-The ggvega package was created to translate from ggplot2 to Vega-Lite, inspired by the capability `plotly::ggplotly()` provides to translate from ggplot2 to plotly. This project has been supported by Iowa State University, Schneider Electric, and GSOC.
+Created to translate from ggplot2 to Vega-Lite  
 
+- inspired by the capability `plotly::ggplotly()` provides 
+
+
+
+.footnote[
+This project has been supported by Iowa State University, Schneider Electric, and GSOC.
+]
 
 ---
 class: inverse, center, middle
 # Motivation
 
 ---
-### m
+### Main goals
+
+ggplot2 + interactivity
+
+build & deploy visual components (in JS and HTML) that can be extensible to new data
 
 ---
 ### Why Vega-Lite?
