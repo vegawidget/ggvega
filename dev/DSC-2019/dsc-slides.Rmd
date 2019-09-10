@@ -161,13 +161,24 @@ class: inverse, center, middle
 # Design Philosophy
 
 ---
+### Fundamental design choices
+
+
+---
 ### Our approach
+
+
+---
+### ggplot -> ggspec
 
 
 
 
 ---
-### Limitations
+### ggspec -> vlspec
+
+
+
 
 ---
 class: inverse, center, middle
@@ -216,6 +227,22 @@ Once the Vega-Lite specification has been created, we can use vlbuildr, another 
 ???
 
 With vlbuildr, we can add selections and conditional encodings without addressing this issue in ggvega/ggplot2.
+
+
+---
+class: inverse, center, middle
+# Limitations
+
+---
+### Issues
+
+
+---
+### Mismatches
+
+
+---
+### Other limitations
 
 ---
 class: inverse, center, middle
