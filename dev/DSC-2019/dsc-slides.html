@@ -29,7 +29,10 @@ Created to translate from ggplot2 to Vega-Lite
 
 - inspired by the capability `plotly::ggplotly()` provides 
 
-
+.center[
+&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+**(add visual of ggplot2 -&gt; vl)**
+]
 
 .footnote[
 This project has been supported by Iowa State University, Schneider Electric, and GSOC.
@@ -40,21 +43,115 @@ class: inverse, center, middle
 # Motivation
 
 ---
-### Main goals
+### Goals
 
-ggplot2 + interactivity
+**ggplot2 + interactivity**
 
-build &amp; deploy visual components (in JS and HTML) that can be extensible to new data
+**build &amp; deploy visual components** (in JS and HTML) 
+
+- extensible to new data  
+
+  - a guiding principle when making fundamental design choices
+
+  - distinguishes this effort from `plotly::ggplotly()`
+
+.center[
+&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+**(example with update-able data??)**
+]
+
+???
 
 ---
-### Why Vega-Lite?
+### ggplot2 + interactivity
+
+Our requirements for the JavaScript library:
+
+  - has the grammar of graphics at its foundation  
+  
+  - is easy to use  
+  
+  - is able to be linked with other preexisting htmlwidgets  
+  
+  - can be tied to ggplot2  
+
+---
+### Vega + Vega-Lite
 
 
+Designed to be a visualization grammar that is built for analysis
+
+Both Vega and Vega-lite use a JSON specification to create a visualization, with Vega-lite first compiling to
+Vega and then rendered using Vega’s compiler.
+
+An implementation of visualization terms with the
+**grammar of graphics** at its core
+
+---
+.left-third2[
+&lt;img src="dsc_files/ggplot2.png" height="100"&gt;
+
+Four basic components that form a layer:
+
+  - **data**,     
+  - **stat**,  
+  - **mapping**,  
+  - **geom**,  
+  
+].left-third2[
+&lt;img src="dsc_files/vl2.png" height="100"&gt;
+
+
+Four basic components that ...
+
+  - **data**,     
+  - **transform**,  
+  - **encoding**,  
+  - **mark**,  
+
+].right-third2[
+&lt;img src="dsc_files/ggfood2.png" height="100"&gt;
+
+Four basic factors that determine how good your food will taste: 
+
+  - **salt**, which enhances flavor  
+  - **fat**, which amplifies flavor and makes appealing textures possible
+  - **acid**, which brightens and balances
+  - **heat**, which ultimately determines the texture of food
+
+]
+
+---
+### Motivating use-case for ggvega
+
+
+A data-scientist designs a visualization using R with ggplot2  
 
 
 ---
-### Grammar of Graphics
+### Motivating use-case for ggvega
 
+
+A data-scientist designs a visualization using R with ggplot2  
+
+&lt;br/&gt;
+
+The ggplot2 object is translated to a Vega-Lite specification (using ggvega)  
+
+
+---
+### Motivating use-case for ggvega
+
+
+A data-scientist designs a visualization using R with ggplot2  
+
+&lt;br/&gt;
+
+The ggplot2 object is translated to a Vega-Lite specification (using ggvega)  
+
+&lt;br/&gt;
+
+The Vega-Lite specification can be deployed to production, independently of the data used to design it. Vega provides the means to update Vega views with new data.
 
 
 ---
@@ -89,8 +186,8 @@ plot &lt;- ggplot(iris) +
 as_vegaspec(plot)
 ```
 
-<div id="htmlwidget-0ebf6785de49116598c9" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0ebf6785de49116598c9">{"x":{
+<div id="htmlwidget-d21fbfe35c9b3b9b8d01" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d21fbfe35c9b3b9b8d01">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "datasets": {
@@ -1201,8 +1298,8 @@ as_vegaspec(plot) %&gt;%
 vl_encode_fill("Species:N")
 ```
 
-<div id="htmlwidget-630953d742f6675141dd" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-630953d742f6675141dd">{"x":{
+<div id="htmlwidget-b73089821f9837c8a129" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b73089821f9837c8a129">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "datasets": {
