@@ -149,8 +149,7 @@ vegaspec
         "class": "GeomBar"
       },
       "geom_params": {
-        "na.rm": false,
-        "width": null
+        "na.rm": false
       },
       "mapping": {
         "x": {
@@ -168,8 +167,7 @@ vegaspec
         }
       },
       "stat_params": {
-        "na.rm": false,
-        "width": null
+        "na.rm": false
       },
       "position": {
         "class": "PositionStack"
@@ -252,3 +250,68 @@ vegaspec
 </details>
 
 </div>
+
+One thing to note is that the `stat` contains a `default_aes` elementm
+which we would use in the absence of an explicit aesthetic-mapping for
+`y`:
+
+``` r
+g <- last_plot()
+
+g$layers[[1]]$stat$default_aes
+```
+
+    ## Aesthetic mapping: 
+    ## * `y`      -> `stat(count)`
+    ## * `weight` -> 1
+
+For example, we could define the aesthetic mapping for `y`:
+
+``` r
+  g <- ggplot(data = mpg, aes(x = class, y = stat(count) + 100)) +
+  geom_bar()
+
+  g
+```
+
+![](bar-chart_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+This formulation specifies an aesthetic mapping using (what we call) a
+`stat_expression`, which we do not yet support.
+
+``` r
+g$mapping$y
+```
+
+    ## <quosure>
+    ## expr: ^stat(count) + 100
+    ## env:  global
+
+However, we would be able to support (once we support `StatBin`)
+specifying the type of stat explicitly, using its `default_aes`.
+
+``` r
+g <- ggplot(data = mpg, aes(x = displ)) +
+  geom_bar(stat = "bin")
+
+g
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](bar-chart_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+In short, for now I think that we can use only the `default_aes` for the
+`y` aesthetic, but we need to keep in mind that it could be overriden by
+a `stat_expression` in the future. We will have to handle the `weight`
+aesthetic as a `field`.
+
+### Translation
+
+For `StatCount`, we build a `y` encoding:
+
+  - `type: "quantitative"`
+  - `if (identical(weight, 1L))`, `agg: "count"`
+  - if `weight` is a field, `agg: "sum", field: "<field>"`
+
+For `PositionStack`,

@@ -21,5 +21,60 @@ Also note that I have specified the `width` and `height` of the *rendering* of t
 dev_gallery("barchart-mpg")
 ```
 
+One thing to note is that the `stat` contains a `default_aes` elementm which we would use in the absence of an explicit aesthetic-mapping for `y`:
+
+```{r}
+g <- last_plot()
+
+g$layers[[1]]$stat$default_aes
+```
+
+For example, we could define the aesthetic mapping for `y`:
+
+```{r}
+  g <- ggplot(data = mpg, aes(x = class, y = stat(count) + 100)) +
+  geom_bar()
+
+  g
+```
+
+This formulation specifies an aesthetic mapping using (what we call) a `stat_expression`, which we do not yet support.
+
+```{r}
+g$mapping$y
+```
+
+However, we would be able to support (once we support `StatBin`) specifying the type of stat explicitly, using its `default_aes`.
+
+
+```{r}
+g <- ggplot(data = mpg, aes(x = displ)) +
+  geom_bar(stat = "bin")
+
+g
+```
+
+In short, for now I think that we can use only the `default_aes` for the `y` aesthetic, but we need to keep in mind that it could be overriden by a `stat_expression` in the future. We will have to handle the `weight` aesthetic as a `field`.
+
+### Translation
+
+For `StatCount`, we build a `y` encoding:
+
+- `type: "quantitative"`
+- `if (identical(weight, 1L))`, `agg: "count"`
+-  if `weight` is a field, `agg: "sum", field: "<field>"`
+
+For `PositionStack`, we add to the `y` encoding:
+
+- `stack: "zero"`
+
+For `PositionFill`, we add to the `y` encoding:
+
+- `stack: "normalize"`
+
+We should also note that the functions `position_stack()` and `position_fill()` each have two parameters:
+
+- `vjust`: numeric, default `1`
+- `reverse`: logical, default `FALSE`
 
 

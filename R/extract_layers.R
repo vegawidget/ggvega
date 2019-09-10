@@ -46,6 +46,7 @@ get_layers <- function(layer, int_data, int_map) {
   layer_map <- pluck_layer("mapping") %>% purrr::map(get_mappings)
   layer_geom <- geom_set(layer$geom, layer$geom_params)
   layer_stat <- stat_set(layer$stat, layer$stat_params)
+  layer_position <- position(layer$position)
 
   list(
     aes_params = pluck_layer("aes_params"),
@@ -53,9 +54,7 @@ get_layers <- function(layer, int_data, int_map) {
     geom = layer_geom$geom,
     geom_params = layer_geom$geom_params,
     mapping = pluck_layer("inherit.aes") %>% modify_mappings(int_map, layer_map),
-    position = list(
-      class = pluck_layer("position", class, 1)
-    ),
+    position = layer_position,
     stat = layer_stat$stat,
     stat_params = layer_stat$stat_params
   )
