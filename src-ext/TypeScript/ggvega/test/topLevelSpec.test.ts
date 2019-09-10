@@ -33,6 +33,6 @@ describe('topLevelSpec/spec2vl', () => {
   });
 });
 
-let specnew = spec2vl(cp(ggSpec.iris04));
+
 
 

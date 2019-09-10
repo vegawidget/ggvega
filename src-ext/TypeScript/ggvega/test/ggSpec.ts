@@ -52,10 +52,14 @@ export const iris01 = {
       },
       aes_params: {},
       stat: {
-        class: 'StatIdentity'
+        class: 'StatIdentity',
+        default_aes: {}
       },
       stat_params: {
         'na.rm': false
+      },
+      position: {
+        class: 'PositionIdentity'
       }
     }
   ],
@@ -126,10 +130,14 @@ export const iris02 = {
         colour: 'red'
       },
       stat: {
-        class: 'StatIdentity'
+        class: 'StatIdentity',
+        default_aes: {}
       },
       stat_params: {
         'na.rm': false
+      },
+      position: {
+        class: 'PositionIdentity'
       }
     }
   ],
@@ -207,10 +215,14 @@ export const iris03 = {
       },
       aes_params: {},
       stat: {
-        class: 'StatIdentity'
+        class: 'StatIdentity',
+        default_aes: {}
       },
       stat_params: {
         'na.rm': false
+      },
+      position: {
+        class: 'PositionIdentity'
       }
     }
   ],
