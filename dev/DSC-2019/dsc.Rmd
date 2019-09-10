@@ -182,11 +182,19 @@ At the outset of our efforts (May 2019), we were not aware of tools that could g
 
 Although Python is accessible from R, there can be installation frustrations. 
 
-This leaves us with JavaScript. The {V8} package makes it very easy for to call JavaScript code from R; the installation-process is much-less frustrating than Python.
+This leaves us with JavaScript. The {V8} package makes it very easy to call JavaScript code from R; the installation-process is much-less frustrating than Python. Our goal is compile a JSON object that follows one schema (ggschema) into a JSON object that follows another schema (Vega-Lite). In very broad terms, this is what Vega-Lite itself does. Like the Vega team, we use JavaScript's strongly-typed friend TypeScript to compose the code.
 
+JavaScript does present some complications, though. Although there are many versions of JavaScript, two loom large: ES5 and ES6. For example, all modern browsers support ES6; infamously, the last version of Internet Explorer supports only ES5. For the {V8} package, as of its latest CRAN release, supports ES6 for all platforms except some older Linux platforms, e.g. Ubuntu 16.04. This platform is still in wide usage, as it forms the foundation for RStudio Cloud.
 
+Therefore, we have to write code that can be run on an ES5 JavaScript engine. As of version 3.0, Vega-Lite is written using ES6.
 
+The Vega-Lite team have made a tool to convert JavaScript classes into a schema; we use this to create ggschema from classes. We also need a way to recover the Vega-Lite classes from the schema. If we had complete support for ES6, we could use the Vega-Lite classes themselves. 
 
+Instead, because we have to use ES5, we use a JavaScript library called "quicktype" to recover a set of Vega-Lite classes using the Vega-Lite schema. However, the "recovered" classes from the schema are not identical to the Vega-Lite classes. This might be a little bit like a translating from English to French, then back to English, recovering different prose.
+
+This leads to quicktype giving some "Vega-Lite" classes some strange names due to its interpretation of the schema.
+
+This "problem" will go away when we have sufficuent ES6 coverage for {V8}, or when we are able to recover faithfully the Vega-Lite classes in R.
 
 **Mismatches between ggplot2 and Vega-Lite**:
 
