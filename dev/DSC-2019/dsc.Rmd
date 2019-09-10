@@ -75,8 +75,6 @@ A motivating use-case for ggvega:
 - the ggplot2 object is translated to a Vega-Lite specification (using ggvega)
 - the Vega-Lite specification can be deployed to production, independently of the data used to design it. Vega provides the means to update Vega views with new data.
 
-
-
 **A *layered* Grammar-of-Graphics**  
 
 <img src="dsc_files/ggplot2.png" height="100">
@@ -177,6 +175,18 @@ We are very restrictive on the expressions we will allow for aesthetic mappings 
 
 **Issues with ES5/ES6/V8/node.js**:
 
+One of the inspirations for this project is the Altair Python library, which generates its functions automatically according to the Vega-Lite schema. As a result, when Vega-Lite updates, much of the Python code that makes up the Altair package can be updated automatically. 
+
+At the outset of our efforts (May 2019), we were not aware of tools that could generate R code automatically using a JSON schema as a blueprint. This changes with the development of {vlmetbuildr}, which we would consider using as it matures. 
+
+Although Python is accessible from R, there can be installation frustrations. 
+
+This leaves us with JavaScript. The {V8} package makes it very easy for to call JavaScript code from R; the installation-process is much-less frustrating than Python.
+
+
+
+
+
 **Mismatches between ggplot2 and Vega-Lite**:
 
 - `positionDodge` and `positionJitter` -- Vega-Lite is working on implementing this? PR: vega/vega-lite#4969
@@ -189,8 +199,19 @@ We are very restrictive on the expressions we will allow for aesthetic mappings 
     - Can we use (create?) a `stat_order()` to do this??
 
 
-<br />
+**Limitations in Vega-Lite**:
 
+- Temporal values: In R, a `POSIX.ct` object has access to a timezone database via the operating system. In JavaScript, a `Date` object has access only to the timezone of the browser and UTC. The Vega-Lite `temporal` type is based on the JavaScript `Date` type, so its access to timezone information is similarly limited. 
+
+This becomes a problem if the timezone of the data does not match the timezone of the browser; this would not be an uncommon situation. 
+
+There are workarounds, but they involve compromises.
+
+- There is a lot of flexibility in specifying interactions (which is good), but not a lot of support for signifying the presence of interactivity or showing how it is expected to work. This is an area where Plotly has an advantage.
+
+- Related, Vega-Lite selections do not work well on mobile devices.
+
+<br />
 
 ### Examples: ggvega in use
 
