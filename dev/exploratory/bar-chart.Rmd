@@ -77,4 +77,30 @@ We should also note that the functions `position_stack()` and `position_fill()` 
 - `vjust`: numeric, default `1`
 - `reverse`: logical, default `FALSE`
 
+For the time being, we will not handle these parameters. (I suspect that we can use vjust only with `geom_text()`, so I don't look forward to having to handle that interaction between `Geom` and `Position`)
 
+It seems we have more examples to handle:
+
+## Stacked bar-chart
+
+```{r results='asis'}
+dev_gallery("barchart-stacked-mpg")
+```
+
+## Weighted bar-chart
+
+```{r results='asis'}
+dev_gallery("barchart-weighted-mpg")
+```
+
+## Normalized bar-chart
+
+```{r results='asis'}
+dev_gallery("barchart-normalized-mpg")
+```
+
+## Flipped, stacked, weighted, normalized, bar-chart
+
+```{r results='asis'}
+dev_gallery("barchart-flipped-weighted-normalized-mpg")
+```

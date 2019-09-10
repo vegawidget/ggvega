@@ -121,7 +121,13 @@ directory.
 
 skip_ggspec <- c()
 
-skip_vegaspec <- c("barchart-mpg")
+skip_vegaspec <- c(
+  "barchart-mpg",
+  "barchart-stacked-mpg",
+  "barchart-normalized-mpg",
+  "barchart-weighted-mpg",
+  "barchart-flipped-weighted-normalized-mpg"
+)
 
 # if something is skipped for ggspec, it is also skipped for vegaspec
 skip_vegaspec <- c(skip_ggspec, skip_vegaspec)
