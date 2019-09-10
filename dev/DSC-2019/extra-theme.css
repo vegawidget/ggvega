@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,400i);
 @import url(https://fonts.googleapis.com/css?family=Inconsolata);
-@import url(https://fonts.googleapis.com/css?family=Londrina+Solid:300,400&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Londrina+Solid:100);
 
 /* extra */
 
@@ -54,21 +54,22 @@ body {
   color: #657b83;
 }
 h1, h2, h3 {
-  font-family: 'Londrina Solid', cursive;
+  font-family: Londrina Solid;
   font-weight: normal;
   color: #78b0b4;
+  letter-spacing: 5px;
   text-shadow:
   1px 1px 0 #353839,
-   -1px -.5px 0 #353839,
-    .5px -1px 0 #353839,
-    -.5px 1px 0 #353839,
-     2px .5px 0 #353839;
+   -1px -1px 0 #353839,
+    1px -1px 0 #353839,
+    -1px 1px 0 #353839,
+     1px 1px 0 #353839;
 }
 .remark-slide-content .small p {
     font-size: 15px;
 }
 .remark-code, .remark-inline-code {
-  font-family: 'Londrina Solid', cursive;
+  font-family: Londrina Solid;
 }
 
 strong{color:#efba38;}
@@ -85,12 +86,13 @@ a, a > code {
 .inverse h1, .inverse h2, .inverse h3 {
   color: #f5ab4d;
   font-size: 120px;
+  letter-spacing: 4px;
   text-shadow:
-  2px 2px 0 #353839,
-   -2px -1px 0 #353839,
-    1px -3px 0 #353839,
-    -1px 2px 0 #353839,
-     3px 1px 0 #353839;
+  1px 1px 0 #353839,
+   -1px -1px 0 #353839,
+    1px -1px 0 #353839,
+    -1px 1px 0 #353839,
+     1px 1px 0 #353839;
 }
 .title-slide h2, .title-slide h3 {
   color: #fdf6e3;
@@ -99,20 +101,21 @@ a, a > code {
   background-color: #fafafa;
 }
 .title-slide h1{
-  font-size: 151px;
+  font-size: 121px;
+  letter-spacing: 8px;
   color: #f96c3b;
   text-shadow:
-  3px 3px 0 #353839,
-   -3px -2px 0 #353839,
-    2px -4px 0 #353839,
-    -2px 3px 0 #353839,
-     4px 2px 0 #353839;
+  1px 1px 0 #353839,
+   -1px -1px 0 #353839,
+    1px -1px 0 #353839,
+    -1px 1px 0 #353839,
+     1px 1px 0 #353839;
 }
 .remark-slide-content h3 {
     font-size: 51px;
 }
 .remark-code, .remark-inline-code {
-  font-family: 'Londrina Solid', cursive;
+  font-family: Londrina Solid;
 }
 .remark-code {
   font-size: 0.9em;

@@ -118,6 +118,7 @@ The empowerment of an abstract decomposition (such as the grammar) is not unique
 
 <img src="dsc_files/ggfood2.png" height="100">
 
+
 Four basic factors that determine how good your food will taste: 
 
   - **salt**, which enhances flavor  
