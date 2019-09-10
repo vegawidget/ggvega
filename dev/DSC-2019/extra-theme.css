@@ -43,8 +43,15 @@
   height: 92%;
   float: right;
 }
-
-
+.left-third2 {
+  width: 30%;
+  float: left;
+  padding-right: 1.5em;
+}
+.right-third2 {
+  width: 30%;
+  float: right;
+}
 
 /* Modifications */
 

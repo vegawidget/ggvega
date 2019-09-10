@@ -31,7 +31,10 @@ Created to translate from ggplot2 to Vega-Lite
 
 - inspired by the capability `plotly::ggplotly()` provides 
 
-
+.center[
+<br/><br/><br/>
+**(add visual of ggplot2 -> vl)**
+]
 
 .footnote[
 This project has been supported by Iowa State University, Schneider Electric, and GSOC.
@@ -42,21 +45,115 @@ class: inverse, center, middle
 # Motivation
 
 ---
-### Main goals
+### Goals
 
-ggplot2 + interactivity
+**ggplot2 + interactivity**
 
-build & deploy visual components (in JS and HTML) that can be extensible to new data
+**build & deploy visual components** (in JS and HTML) 
+
+- extensible to new data  
+
+  - a guiding principle when making fundamental design choices
+
+  - distinguishes this effort from `plotly::ggplotly()`
+
+.center[
+<br/><br/><br/>
+**(example with update-able data??)**
+]
+
+???
 
 ---
-### Why Vega-Lite?
+### ggplot2 + interactivity
+
+Our requirements for the JavaScript library:
+
+  - has the grammar of graphics at its foundation  
+  
+  - is easy to use  
+  
+  - is able to be linked with other preexisting htmlwidgets  
+  
+  - can be tied to ggplot2  
+
+---
+### Vega + Vega-Lite
 
 
+Designed to be a visualization grammar that is built for analysis
+
+Both Vega and Vega-lite use a JSON specification to create a visualization, with Vega-lite first compiling to
+Vega and then rendered using Vega’s compiler.
+
+An implementation of visualization terms with the
+**grammar of graphics** at its core
+
+---
+.left-third2[
+<img src="dsc_files/ggplot2.png" height="100">
+
+Four basic components that form a layer:
+
+  - **data**,     
+  - **stat**,  
+  - **mapping**,  
+  - **geom**,  
+  
+].left-third2[
+<img src="dsc_files/vl2.png" height="100">
+
+
+Four basic components that ...
+
+  - **data**,     
+  - **transform**,  
+  - **encoding**,  
+  - **mark**,  
+
+].right-third2[
+<img src="dsc_files/ggfood2.png" height="100">
+
+Four basic factors that determine how good your food will taste: 
+
+  - **salt**, which enhances flavor  
+  - **fat**, which amplifies flavor and makes appealing textures possible
+  - **acid**, which brightens and balances
+  - **heat**, which ultimately determines the texture of food
+
+]
+
+---
+### Motivating use-case for ggvega
+
+
+A data-scientist designs a visualization using R with ggplot2  
 
 
 ---
-### Grammar of Graphics
+### Motivating use-case for ggvega
 
+
+A data-scientist designs a visualization using R with ggplot2  
+
+<br/>
+
+The ggplot2 object is translated to a Vega-Lite specification (using ggvega)  
+
+
+---
+### Motivating use-case for ggvega
+
+
+A data-scientist designs a visualization using R with ggplot2  
+
+<br/>
+
+The ggplot2 object is translated to a Vega-Lite specification (using ggvega)  
+
+<br/>
+
+The Vega-Lite specification can be deployed to production, independently of the data used to design it. Vega provides the means to update Vega views with new data.
 
 
 ---
@@ -64,13 +161,24 @@ class: inverse, center, middle
 # Design Philosophy
 
 ---
+### Fundamental design choices
+
+
+---
 ### Our approach
+
+
+---
+### ggplot -> ggspec
 
 
 
 
 ---
-### Limitations
+### ggspec -> vlspec
+
+
+
 
 ---
 class: inverse, center, middle
@@ -119,6 +227,22 @@ Once the Vega-Lite specification has been created, we can use vlbuildr, another 
 ???
 
 With vlbuildr, we can add selections and conditional encodings without addressing this issue in ggvega/ggplot2.
+
+
+---
+class: inverse, center, middle
+# Limitations
+
+---
+### Issues
+
+
+---
+### Mismatches
+
+
+---
+### Other limitations
 
 ---
 class: inverse, center, middle
