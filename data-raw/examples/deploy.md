@@ -122,10 +122,10 @@ directory.
 skip_ggspec <- c()
 
 skip_vegaspec <- c(
-  "barchart-mpg",
+  # "barchart-mpg",
+  # "barchart-weighted-mpg",
   "barchart-stacked-mpg",
   "barchart-normalized-mpg",
-  "barchart-weighted-mpg",
   "barchart-flipped-weighted-normalized-mpg"
 )
 
@@ -296,8 +296,9 @@ Finally, to confirm, we list the files in the package-source directory
 dir_ls(pkgex_dir) %>% basename()
 ```
 
-    ## [1] "scat-coord-flip-iris.R" "scat-scale-name-iris.R"
-    ## [3] "scatterplot-iris.R"
+    ## [1] "barchart-mpg.R"          "barchart-weighted-mpg.R"
+    ## [3] "scat-coord-flip-iris.R"  "scat-scale-name-iris.R" 
+    ## [5] "scatterplot-iris.R"
 
 ## Adding a new example
 

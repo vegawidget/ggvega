@@ -3,6 +3,7 @@ import * as GG from '../../ggschema/src/index';
 import {contains} from './utils';
 import {ItmEncodingObject} from './itmEncodingObject';
 
+
 /**
  * Modify an encoding object according to a ggspec position
  *

@@ -1389,7 +1389,7 @@
     		additionalProperties: false,
     		properties: {
     			stat: {
-    				$ref: "#/definitions/StatClass"
+    				type: "string"
     			}
     		},
     		required: [
@@ -1531,12 +1531,6 @@
     			"ordinal",
     			"quantitative",
     			"temporal"
-    		],
-    		type: "string"
-    	},
-    	StatClass: {
-    		"enum": [
-    			"StatIdentity"
     		],
     		type: "string"
     	},

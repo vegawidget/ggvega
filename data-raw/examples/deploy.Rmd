@@ -89,10 +89,10 @@ Examples that appear in a skip collection are not copied into that testing direc
 skip_ggspec <- c()
 
 skip_vegaspec <- c(
-  "barchart-mpg",
+  # "barchart-mpg",
+  # "barchart-weighted-mpg",
   "barchart-stacked-mpg",
   "barchart-normalized-mpg",
-  "barchart-weighted-mpg",
   "barchart-flipped-weighted-normalized-mpg"
 )
 
