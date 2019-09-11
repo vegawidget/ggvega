@@ -82,7 +82,7 @@
      .5px .5px 0 #353839;
 }
 
-.acid h4 {
+.remark-slide-content .acid h4 {
     font-size: 40px;
     font-family: Londrina Solid;
   font-weight: bold;
@@ -96,7 +96,7 @@
      .5px .5px 0 #353839;
 }
 
-.heat h4 {
+.remark-slide-content .heat h4 {
     font-size: 40px;
     font-family: Londrina Solid;
   font-weight: bold;
@@ -169,8 +169,6 @@ a, a > code {
   color: #efba38;
   font-size: 41px;
   letter-spacing: 4px;
-  text-shadow:
-  0px 0px 0 #353839
 }
 .title-slide {
   background-color: #fafafa;
