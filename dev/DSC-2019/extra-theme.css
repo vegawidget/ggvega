@@ -22,6 +22,26 @@
   float: right;
   padding-top: 1em;
 }
+.left-plus {
+  width: 57%;
+  float: left;
+  padding-top: 1em;
+}
+.right-minus {
+  width: 40%;
+  float: right;
+  padding-top: 1em;
+}
+.left-minus-tall {
+  width: 40%;
+  height: 92%;
+  float: left;
+}
+.right-plus-tall {
+  width: 57%;
+  height: 92%;
+  float: right;
+}
 .left-third {
   width: 30%;
   float: left;

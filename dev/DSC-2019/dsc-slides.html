@@ -46,9 +46,29 @@ class: inverse, center, middle
 ---
 ### Goals
 
-**ggplot2 + interactivity**
+#### ggplot2 + interactivity
 
-**build &amp; deploy visual components** (in JS and HTML) 
+
+#### build &amp; deploy visual components (in JS and HTML) 
+
+
+- extensible to new data  
+
+  - a guiding principle when making fundamental design choices
+
+  - distinguishes this effort from `plotly::ggplotly()`
+
+--
+
+&gt; Compared to `plot_ly()`, statistical queries (client-side) with `ggplotly()` are fundamentally limited. That’s because, the statistical R functions that ggplot2 relies on to generate the graphical layers can’t necessarily be recomputed with different input data in your web browser.
+
+---
+### Goals
+
+#### ggplot2 + interactivity
+
+#### build &amp; deploy visual components (in JS and HTML) 
+
 
 - extensible to new data  
 
@@ -89,6 +109,10 @@ Vega and then rendered using Vega’s compiler.
 
 An implementation of visualization terms with the
 **grammar of graphics** at its core
+
+---
+class: inverse, center, middle
+# Grammar of Graphics
 
 ---
 .left-third2[
@@ -155,36 +179,19 @@ Four basic components that ... --&gt;
 ]
 
 ---
-### Motivating use-case for ggvega
-
-
-A data-scientist designs a visualization using R with ggplot2  
-
+class: inverse, center, middle
+# ggvega
 
 ---
 ### Motivating use-case for ggvega
 
+#### A data-scientist designs a visualization using R with ggplot2  
 
-A data-scientist designs a visualization using R with ggplot2  
+#### The ggplot2 object is translated to a Vega-Lite specification (using ggvega)  
 
-&lt;br/&gt;
+#### The Vega-Lite specification can be deployed to production, independently of the data used to design it. 
 
-The ggplot2 object is translated to a Vega-Lite specification (using ggvega)  
-
-
----
-### Motivating use-case for ggvega
-
-
-A data-scientist designs a visualization using R with ggplot2  
-
-&lt;br/&gt;
-
-The ggplot2 object is translated to a Vega-Lite specification (using ggvega)  
-
-&lt;br/&gt;
-
-The Vega-Lite specification can be deployed to production, independently of the data used to design it. Vega provides the means to update Vega views with new data.
+#### Vega provides the means to update Vega views with new data.
 
 
 ---
@@ -195,21 +202,92 @@ class: inverse, center, middle
 ### Fundamental design choices
 
 
+&lt;br/&gt;
+
+**Our initial philosophy:** A narrow scope built on a firm foundation.
+
+&lt;br/&gt;
+
+**Design choice #1:** intention vs. implementation?
+
+???
+
+ggvega seeks to capture the *intent* of a ggplot. This is distinct from the *implementation* of a ggplot (the path `ggplotly()` takes). Our idea is to let the powerful defaults of the two packages take care of most of the work. In addition, we anticipated (at some point in the (hopefully not-too-)distant future) creating a Vega-lite theme for the visual components.
+
 ---
 ### Our approach
 
+#### A 2 step process:
+
+1. Convert a ggplot2 object into a "ggspec", a JSON-serializable list  
+
+2. Convert a "ggspec" into a Vega-Lite specification or "vegaspec".
+
+&lt;br/&gt;
+
+#### Why 2 steps? 
+
+- We hope that the ggspec can be a useful abstraction to help us understand  "what is going on in ggplot2?" and "how does this intersect with Vega-Lite?". 
+
+- Should ggplot2 or Vega-Lite change, we hope that we could keep ggspec "fixed" such that we would have to adapt only that part of the translation process (ggplot2-to-ggspec or ggspec-to-Vega-Lite) that would be impacted by such a change.
 
 ---
 ### ggplot -&gt; ggspec
 
+The ideas for "ggspec" are 
 
+- to remain faithful to the ggplot2 object and philosophy
+
+- to publish a JSON schema that represents the range of "things" that we will be able to translate
+
+- to provide the means to generate a JSON specification that meets this schema, given a ggplot2 object
+
+&lt;br/&gt;
+
+The ggspec should record only those things that deviate from ggplot2 defaults; one should be able to take a ggspec and recreate the ggplot object that it came from.
+
+???
+
+Accordingly, we think to specify things in Vega-Lite only as they differ from the Vega-Lite defaults. Our goal is to capture the “essence” of the ggplot, its intentions, then to implement in a default Vega-Lite specification. To replicate the default color-maps and appearance, we recommend using a Vega theme (we hope to propose a better ggplot2-theme for Vega).
+
+
+
+---
+
+
+.left-minus-tall[
+&lt;br/&gt;
+&lt;img src="dsc_files/ideal_vs_real.jpg" width="400"&gt; 
+]
+.right-plus-tall[
+### Idealized vs. Actualized
+
+**Idealized version:**   
+- a JSON-serializable representation of any possible ggplot object;  
+- that it could also be a loss-less representation of any ggplot object.  
+
+**Actualized version:**
+- *is* a JSON-serializable representation of a ggplot object that we can translate into Vega-Lite.
+
+&lt;!--
+In an ideal world, we might have taken on the **idealized** ggspec, then defined an **actualized** subset. 
+
+However, in the interests of "getting something done", we considered briefly the first possibility, then went straight for the second possibility. 
+
+--&gt;
+
+]
 
 
 ---
 ### ggspec -&gt; vlspec
 
 
+The ggspec is then converted into a vegaspec. 
 
+As a first approach, we took inspiration from Vega-Lite itself, which translates a Vega-Lite specification into a Vega specification. 
+
+This compiler is developed in TypeScript, then compiled into ECMAScript 6 (JavaScript), as described in the [Vega-Lite contribution guide](https://github.com/vega/vega-lite/blob/master/CONTRIBUTING.md#suggested-programming-environment).
 
 ---
 class: inverse, center, middle
@@ -219,19 +297,27 @@ class: inverse, center, middle
 ### ggvega
 
 
+.pull-left[
 
 
 ```r
 library("ggplot2")
 library("ggvega")
+
+
 plot &lt;- ggplot(iris) + 
-  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
+  geom_point(aes(x = Petal.Width, y = Petal.Length, 
+                 colour = Species))
 
 as_vegaspec(plot)
 ```
 
-<div id="htmlwidget-43c75421138b37f17f20" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-43c75421138b37f17f20">{"x":{
+]
+
+.pull-right[
+
+<div id="htmlwidget-923ab0854b8bd64eb28f" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-923ab0854b8bd64eb28f">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "datasets": {
@@ -1322,12 +1408,15 @@ as_vegaspec(plot)
   }
 },"evals":[],"jsHooks":[]}</script>
 
+]
+
 ???
 vegawidget, an htmlwidget within the vegawidget GitHub organization, is used to render the specification created by ggvega. 
 
 ---
 ### ggvega + vlbuildr
 
+.pull-left[
 
 
 ```r
@@ -1336,14 +1425,19 @@ library("ggvega")
 library("vlbuildr")
 
 plot &lt;- ggplot(iris) + 
-  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
+  geom_point(aes(x = Petal.Width, y = Petal.Length, 
+                 colour = Species))
 
 as_vegaspec(plot) %&gt;%
 vl_encode_fill("Species:N")
 ```
 
-<div id="htmlwidget-71a1cb83e020f1dfc6c4" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-71a1cb83e020f1dfc6c4">{"x":{
+]
+
+.pull-right[
+
+<div id="htmlwidget-aad039b2ec364c93c781" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-aad039b2ec364c93c781">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "datasets": {
@@ -2439,6 +2533,8 @@ vl_encode_fill("Species:N")
     "renderer": "canvas"
   }
 },"evals":[],"jsHooks":[]}</script>
+
+]
 
 ???
 Once the Vega-Lite specification has been created, we can use vlbuildr, another package within the vegawidget GitHub organization, to modify the specification. vlbuildr is "a functional approach to building up specifications" and the package contains functions that can add various components to a specification.
