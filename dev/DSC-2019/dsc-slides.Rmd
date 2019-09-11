@@ -1,6 +1,6 @@
 ---
 title: "ggvega"
-subtitle: "  "
+subtitle: "ggplot2 to Vega-Lite translator"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -14,15 +14,10 @@ output:
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
-library(tidyverse)
-
+# library(tidyverse)
 # install_github("hadley/emo")
-library(emo)
-emo_pray <- emo::ji("pray")
-emo_up <- emo::ji("+1")
-emo_down <- emo::ji("-1")
-emo_disappointed <- emo::ji("disappointed")
-emo_heart_eyes <- emo::ji("smiling face with heart-eyes")
+# library(emo)
+# emo_heart_eyes <- emo::ji("smiling face with heart-eyes")
 ```
 
 ### ggvega
@@ -91,35 +86,65 @@ An implementation of visualization terms with the
 
 ---
 .left-third2[
-<img src="dsc_files/ggplot2.png" height="100">
+<!-- <img src="dsc_files/ggplot2.png" height="100"> -->
 
-Four basic components that form a layer:
+#### A layered Grammar
 
-  - **data**,     
-  - **stat**,  
-  - **mapping**,  
-  - **geom**,  
-  
+<!-- Four basic components that form a layer: -->
+
+.salt[
+#### data
+]
+.fat[
+#### stat
+]
+.acid[
+#### mapping
+]
+.heat[
+#### geom
+]
 ].left-third2[
-<img src="dsc_files/vl2.png" height="100">
 
+#### Vega-Lite’s relation to ggplot2
+<!-- <img src="dsc_files/vl2.png" height="100">
 
-Four basic components that ...
+Four basic components that ... -->
 
-  - **data**,     
-  - **transform**,  
-  - **encoding**,  
-  - **mark**,  
+.salt[
+#### data
+]
+.fat[
+#### transform
+]
+.acid[
+#### encoding
+]
+.heat[
+#### mark
+]
 
 ].right-third2[
-<img src="dsc_files/ggfood2.png" height="100">
 
-Four basic factors that determine how good your food will taste: 
+#### Grammar-of-Graphics as Food
 
-  - **salt**, which enhances flavor  
-  - **fat**, which amplifies flavor and makes appealing textures possible
-  - **acid**, which brightens and balances
-  - **heat**, which ultimately determines the texture of food
+
+<!-- <img src="dsc_files/ggfood2.png" height="100"> -->
+
+<!-- Four basic factors that determine how good your food will taste: -->
+
+.salt[
+#### salt
+]
+.fat[
+#### fat
+]
+.acid[
+#### acid
+]
+.heat[
+#### heat
+]
 
 ]
 

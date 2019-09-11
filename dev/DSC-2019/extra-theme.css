@@ -53,6 +53,63 @@
   float: right;
 }
 
+
+.remark-slide-content .salt h4 {
+    font-size: 40px;
+    font-family: Londrina Solid;
+  font-weight: bold;
+  color: #78b0b4;
+  letter-spacing: 4px;
+  text-shadow:
+  .5px .5px 0 #353839,
+   -.5px -.5px 0 #353839,
+    .5px -.5px 0 #353839,
+    -.5px .5px 0 #353839,
+     .5px .5px 0 #353839;
+}
+
+.remark-slide-content .fat h4 {
+    font-size: 40px;
+    font-family: Londrina Solid;
+  font-weight: bold;
+  color: #efba38;
+  letter-spacing: 4px;
+  text-shadow:
+  .5px .5px 0 #353839,
+   -.5px -.5px 0 #353839,
+    .5px -.5px 0 #353839,
+    -.5px .5px 0 #353839,
+     .5px .5px 0 #353839;
+}
+
+.acid h4 {
+    font-size: 40px;
+    font-family: Londrina Solid;
+  font-weight: bold;
+  color: #bbbe4a;
+  letter-spacing: 4px;
+  text-shadow:
+  .5px .5px 0 #353839,
+   -.5px -.5px 0 #353839,
+    .5px -.5px 0 #353839,
+    -.5px .5px 0 #353839,
+     .5px .5px 0 #353839;
+}
+
+.heat h4 {
+    font-size: 40px;
+    font-family: Londrina Solid;
+  font-weight: bold;
+  color: #f96c3b;
+  letter-spacing: 4px;
+  text-shadow:
+  .5px .5px 0 #353839,
+   -.5px -.5px 0 #353839,
+    .5px -.5px 0 #353839,
+    -.5px .5px 0 #353839,
+     .5px .5px 0 #353839;
+}
+
 /* Modifications */
 
 body {
@@ -83,10 +140,10 @@ h1, h2, h3 {
 }
 .remark-inline-code {
   font-size: 1.1em;
-  color: #bbbe4a;
+  color: #f96c3b;
 }
 
-strong{color:#efba38;}
+strong{color:#bbbe4a;}
 a, a > code {
   color: #f5ab4d;
   text-decoration: none;
@@ -109,7 +166,11 @@ a, a > code {
      1px 1px 0 #353839;
 }
 .title-slide h2, .title-slide h3 {
-  color: #fdf6e3;
+  color: #efba38;
+  font-size: 41px;
+  letter-spacing: 4px;
+  text-shadow:
+  0px 0px 0 #353839
 }
 .title-slide {
   background-color: #fafafa;
