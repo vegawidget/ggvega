@@ -49,6 +49,9 @@ describe('itmEncodingObject/itmEncodingObjectByMappingObject', () => {
   it('should work with StatSetIdentity', () => {
     expect(itmEncodingObjectByStat(cp(itmEncObj), statSetIdentity)).
       toEqual(itmEncObj);
+
+    expect(itmEncodingObjectByStat(cp(itmEncObjWeight), statSetIdentity)).
+      toEqual(itmEncObjWeight);
   });
 
   const itmEncObjCount = {
@@ -62,9 +65,24 @@ describe('itmEncodingObject/itmEncodingObjectByMappingObject', () => {
     }
   } as ItmEncodingObject;
 
+  const itmEncObjCountWeight = {
+    x: {
+      field: "class",
+      type: "nominal" as VL.StandardType
+    },
+    y: {
+      aggregate: "sum" as VL.AggregateOp,
+      field: "displ",
+      type: "quantitative" as VL.StandardType
+    }
+  } as ItmEncodingObject;
+
   it('should work with StatSetCount', () => {
     expect(itmEncodingObjectByStat(cp(itmEncObj), statSetCount)).
       toEqual(itmEncObjCount);
+
+    expect(itmEncodingObjectByStat(cp(itmEncObjWeight), statSetCount)).
+      toEqual(itmEncObjCountWeight);
   });
 
 });
