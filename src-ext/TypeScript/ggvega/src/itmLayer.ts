@@ -7,6 +7,7 @@ import {
   ItmEncodingObject
 } from './itmEncodingObject';
 import {itmEncodingObjectByStat} from './itmEncodingObjectByStat';
+import {itmEncodingObjectByPosition} from './itmEncodingObjectByPosition';
 
 /**
  * Create intermediate layer
@@ -77,8 +78,8 @@ export function itmLayer(ggLayer: GG.Layer, ggDatasetObject: GG.DatasetObject): 
   // incorporate stat into encoding
   itmLayer.encoding = itmEncodingObjectByStat(itmLayer.encoding, ggStatSet(ggLayer));
 
-  // incorporate position into encoding (not yet active)
-  // itmLayer.encoding = itmEncodingOjectByPosition(itmLayer.encoding, gsLayer.position);
+  // incorporate position into encoding
+  itmLayer.encoding = itmEncodingObjectByPosition(itmLayer.encoding, {position: ggLayer.position} as GG.Position);
 
   return itmLayer;
 }
@@ -101,3 +102,4 @@ export function ggGeomSet(layer: GG.Layer): GG.GeomSet {
 export function ggStatSet(layer: GG.Layer): GG.StatSet {
   return {stat: layer.stat, stat_params: layer.stat_params} as GG.StatSet;
 }
+

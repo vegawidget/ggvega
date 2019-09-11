@@ -3,13 +3,13 @@ import {contains} from './utils';
 import {ItmEncodingObject} from './itmEncodingObject';
 
 /**
- * Modify an encoding object according to a ggspec stat
+ * Modify an encoding object according to a ggspec position
  *
  * @remarks
  * Note about side-effects.
  *
  * This function is used to determine the specific function
- * according to the class of the ggspec stat. The actual work
+ * according to the class of the ggspec position. The actual work
  * is done in these specific functions.
  *
  * **Called by**
@@ -17,33 +17,32 @@ import {ItmEncodingObject} from './itmEncodingObject';
  *
  * **Calls**
  * @see itmEncodingObjectByStatIdentity
- * @see itmEncodingObjectByStatCount
- * @see itmEncodingObjectByStatBoxplot
+ *
  *
  * @param itmEncodingObject
  * @param ggStatSet
  *
  * @returns itmEncodingObject
  */
-export function itmEncodingObjectByStat(
+export function itmEncodingObjectByPosition(
   itmEncodingObject: ItmEncodingObject,
-  ggStatSet: GG.StatSet
+  ggPosition: GG.Position
 ): ItmEncodingObject {
-  const statMap = {
-    StatIdentity: itmEncodingObjectByStatIdentity,
-    StatCount: itmEncodingObjectByStatCount,
-    StatBoxplot: itmEncodingObjectByStatBoxplot
+  const positionMap = {
+    PositionIdentity: itmEncodingObjectByPositionIdentity,
+    PositionStack: itmEncodingObjectByPositionStack,
+    PositionFill: itmEncodingObjectByPositionFill
   };
 
   // validate
-  if (!contains(Object.keys(statMap), ggStatSet.stat.class)) {
-    throw new Error('ggplot object contains unsupported stat: ' + ggStatSet.stat.class);
+  if (!contains(Object.keys(positionMap), ggPosition.position.class)) {
+    throw new Error('ggplot object contains unsupported stat: ' + ggPosition.position.class);
   }
 
   // translate
-  const functionTranslate = statMap[ggStatSet.stat.class];
+  const functionTranslate = positionMap[ggPosition.position.class];
 
-  return functionTranslate(itmEncodingObject, ggStatSet);
+  return functionTranslate(itmEncodingObject, ggPosition);
 }
 
 /**
@@ -53,32 +52,33 @@ export function itmEncodingObjectByStat(
  * This function does nothing.
  *
  * **Called by**
- * @see itmEncodingObjectByStat
+ * @see itmEncodingObjectByPosition
  *
  * @param itmEncodingObject
- * @param ggStatSet
+ * @param ggPosition
  *
  * @return itmEncodingObject
  */
-function itmEncodingObjectByStatIdentity(
+function itmEncodingObjectByPositionIdentity(
   itmEncodingObject: ItmEncodingObject,
-  ggStatSet: GG.StatSet
+  ggPosition: GG.Position
 ): ItmEncodingObject {
   // do nothing
   return itmEncodingObject;
 }
 
-function itmEncodingObjectByStatCount(
+function itmEncodingObjectByPositionStack(
   itmEncodingObject: ItmEncodingObject,
-  ggStatSet: GG.StatSet
+  ggPosition: GG.Position
 ): ItmEncodingObject {
   // do nothing
   return itmEncodingObject;
 }
 
-function itmEncodingObjectByStatBoxplot(
+
+function itmEncodingObjectByPositionFill(
   itmEncodingObject: ItmEncodingObject,
-  ggStatSet: GG.StatSet
+  ggPosition: GG.Position
 ): ItmEncodingObject {
   // do nothing
   return itmEncodingObject;

@@ -13009,14 +13009,13 @@
      * according to the class of the ggspec stat. The actual work
      * is done in these specific functions.
      *
-     * Right now, we support only one ggspec stat: `StatIdentity`.
-     *
      * **Called by**
      * @see itmLayer
      *
      * **Calls**
      * @see itmEncodingObjectByStatIdentity
-     *
+     * @see itmEncodingObjectByStatCount
+     * @see itmEncodingObjectByStatBoxplot
      *
      * @param itmEncodingObject
      * @param ggStatSet
@@ -13027,7 +13026,7 @@
         var statMap = {
             StatIdentity: itmEncodingObjectByStatIdentity,
             StatCount: itmEncodingObjectByStatCount,
-            StatBoxplot: itmEncodingObjectByStatIdentity
+            StatBoxplot: itmEncodingObjectByStatBoxplot
         };
         // validate
         if (!contains$1(Object.keys(statMap), ggStatSet.stat.class)) {
@@ -13056,6 +13055,73 @@
         return itmEncodingObject;
     }
     function itmEncodingObjectByStatCount(itmEncodingObject, ggStatSet) {
+        // do nothing
+        return itmEncodingObject;
+    }
+    function itmEncodingObjectByStatBoxplot(itmEncodingObject, ggStatSet) {
+        // do nothing
+        return itmEncodingObject;
+    }
+
+    /**
+     * Modify an encoding object according to a ggspec position
+     *
+     * @remarks
+     * Note about side-effects.
+     *
+     * This function is used to determine the specific function
+     * according to the class of the ggspec position. The actual work
+     * is done in these specific functions.
+     *
+     * **Called by**
+     * @see itmLayer
+     *
+     * **Calls**
+     * @see itmEncodingObjectByStatIdentity
+     *
+     *
+     * @param itmEncodingObject
+     * @param ggStatSet
+     *
+     * @returns itmEncodingObject
+     */
+    function itmEncodingObjectByPosition(itmEncodingObject, ggPosition) {
+        var positionMap = {
+            PositionIdentity: itmEncodingObjectByPositionIdentity,
+            PositionStack: itmEncodingObjectByPositionStack,
+            PositionFill: itmEncodingObjectByPositionFill
+        };
+        // validate
+        if (!contains$1(Object.keys(positionMap), ggPosition.position.class)) {
+            throw new Error('ggplot object contains unsupported stat: ' + ggPosition.position.class);
+        }
+        // translate
+        var functionTranslate = positionMap[ggPosition.position.class];
+        return functionTranslate(itmEncodingObject, ggPosition);
+    }
+    /**
+     * Modify an encoding object according an identity stat
+     *
+     * @remarks
+     * This function does nothing.
+     *
+     * **Called by**
+     * @see itmEncodingObjectByPosition
+     *
+     * @param itmEncodingObject
+     * @param ggPosition
+     *
+     * @return itmEncodingObject
+     */
+    function itmEncodingObjectByPositionIdentity(itmEncodingObject, ggPosition) {
+        // do nothing
+        return itmEncodingObject;
+    }
+    function itmEncodingObjectByPositionStack(itmEncodingObject, ggPosition) {
+        // do nothing
+        return itmEncodingObject;
+    }
+    function itmEncodingObjectByPositionFill(itmEncodingObject, ggPosition) {
         // do nothing
         return itmEncodingObject;
     }
@@ -13124,8 +13190,8 @@
         itmLayer.encoding = itmEncodingObjectByAesParamsObject(itmLayer.encoding, ggLayer.aes_params);
         // incorporate stat into encoding
         itmLayer.encoding = itmEncodingObjectByStat(itmLayer.encoding, ggStatSet(ggLayer));
-        // incorporate position into encoding (not yet active)
-        // itmLayer.encoding = itmEncodingOjectByPosition(itmLayer.encoding, gsLayer.position);
+        // incorporate position into encoding
+        itmLayer.encoding = itmEncodingObjectByPosition(itmLayer.encoding, { position: ggLayer.position });
         return itmLayer;
     }
     // NOTE @wenyu: Remove these 2 functions from ggschema to here. For test these functions and make ggschema clearer
