@@ -23,7 +23,7 @@ export interface MappingField {
 // this uses the classes of all the Stats we have defined
 // we might have to redefine this manually
 export interface MappingStat {
-  stat: StatClass;
+  stat: string;
 }
 
 //NOTE@ian: we will not expect to implement MappingFieldExpression

@@ -24,7 +24,10 @@ describe('topLevelSpec/spec2vl', () => {
 
     // single-view option
     expect(spec2vl(cp(ggSpec.iris03), true)).toEqual(vlSpec.iris03Single);
-    expect(spec2vl(cp(ggSpec.iris04))).toEqual(vlSpec.iris04)
+    expect(spec2vl(cp(ggSpec.iris04))).toEqual(vlSpec.iris04);
+
+    // bar-chart
+    expect(spec2vl(cp(ggSpec.barMpg))).toEqual(vlSpec.barMpg);
 
   });
 });

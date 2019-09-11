@@ -109,5 +109,5 @@ export function hasKey(obj: object, key: string): boolean {
 
 // helper function to preserve ggspecs by copying
 export function cp(x: any) {
-  return JSON.parse(JSON.stringify(x))
+  return JSON.parse(JSON.stringify(x));
 }

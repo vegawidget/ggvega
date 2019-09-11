@@ -246,102 +246,102 @@ iris04.layers.push(JSON.parse(JSON.stringify(iris04.layers[0])));
 //console.log(iris04);
 
 export let barMpg = {
-  "data": {
-    "data-00": {
-      "metadata": {
-        "manufacturer": {
-          "type": "nominal"
+  data: {
+    'data-00': {
+      metadata: {
+        manufacturer: {
+          type: "nominal"
         },
-        "model": {
-          "type": "nominal"
+        model: {
+          type: "nominal"
         },
-        "displ": {
-          "type": "quantitative"
+        displ: {
+          type: "quantitative"
         },
-        "year": {
-          "type": "quantitative"
+        year: {
+          type: "quantitative"
         },
-        "cyl": {
-          "type": "quantitative"
+        cyl: {
+          type: "quantitative"
         },
-        "trans": {
-          "type": "nominal"
+        trans: {
+          type: "nominal"
         },
-        "drv": {
-          "type": "nominal"
+        drv: {
+          type: "nominal"
         },
-        "cty": {
-          "type": "quantitative"
+        cty: {
+          type: "quantitative"
         },
-        "hwy": {
-          "type": "quantitative"
+        hwy: {
+          type: "quantitative"
         },
-        "fl": {
-          "type": "nominal"
+        fl: {
+          type: "nominal"
         },
-        "class": {
-          "type": "nominal"
+        class: {
+          type: "nominal"
         }
       },
-      "observations": [
+      observations: [
         {
-          "manufacturer": "audi",
-          "model": "a4",
-          "displ": 1.8,
-          "year": 1999,
-          "cyl": 4,
-          "trans": "auto(l5)",
-          "drv": "f",
-          "cty": 18,
-          "hwy": 29,
-          "fl": "p",
-          "class": "compact"
+          manufacturer: "audi",
+          model: "a4",
+          displ: 1.8,
+          year: 1999,
+          cyl: 4,
+          trans: "auto(l5)",
+          drv: "f",
+          cty: 18,
+          hwy: 29,
+          fl: "p",
+          class: "compact"
         }
       ]
     }
   },
-  "layers": [
+  layers: [
     {
-      "data": "data-00",
-      "geom": {
-        "class": "GeomBar"
+      data: "data-00",
+      geom: {
+        class: "GeomBar"
       },
-      "geom_params": {
-        "na.rm": false
+      geom_params: {
+        'na.rm': false
       },
-      "mapping": {
-        "x": {
-          "field": "class"
+      mapping: {
+        x: {
+          field: "class"
         }
       },
-      "aes_params": {},
-      "stat": {
-        "class": "StatCount",
-        "default_aes": {
-          "y": {
-            "stat": "count"
+      aes_params: {},
+      stat: {
+        class: "StatCount",
+        default_aes: {
+          y: {
+            stat: "count"
           },
-          "weight": 1
+          weight: 1
         }
       },
-      "stat_params": {
-        "na.rm": false
+      stat_params: {
+        'na.rm': false
       },
-      "position": {
-        "class": "PositionStack"
+      position: {
+        class: "PositionStack"
       }
     }
   ],
-  "scales": [],
-  "labels": {
-    "x": "class",
-    "y": "count",
-    "weight": "weight"
+  scales: [],
+  labels: {
+    x: "class",
+    y: "count",
+    weight: "weight"
   },
-  "coordinates": {
-    "class": "CoordCartesian"
+  coordinates: {
+    class: "CoordCartesian"
   },
-  "facet": {
-    "class": "FacetNull"
+  facet: {
+    class: "FacetNull"
   }
 };
