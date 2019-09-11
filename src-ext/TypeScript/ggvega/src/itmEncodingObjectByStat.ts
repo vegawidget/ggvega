@@ -88,7 +88,7 @@ function itmEncodingObjectByStatCount(
     y.field = itmEncodingObject.weight.field;
 
     // remove weight from encoding-object
-    delete itmEncodingObject.weight
+    delete itmEncodingObject.weight;
 
   } else {
     y.aggregate = "count" as VL.AggregateOp;
