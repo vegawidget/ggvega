@@ -79,7 +79,7 @@ export function itmLayer(ggLayer: GG.Layer, ggDatasetObject: GG.DatasetObject): 
   itmLayer.encoding = itmEncodingObjectByStat(itmLayer.encoding, ggStatSet(ggLayer));
 
   // incorporate position into encoding
-  itmLayer.encoding = itmEncodingObjectByPosition(itmLayer.encoding, {position: ggLayer.position} as GG.Position);
+  itmLayer.encoding = itmEncodingObjectByPosition(itmLayer.encoding, ggLayer.position);
 
   return itmLayer;
 }

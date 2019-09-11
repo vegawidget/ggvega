@@ -8,10 +8,11 @@ import {Position} from './layerPosition';
  */
 export type LayerArray = Layer[];
 
-export type Layer = BaseLayer & GeomSet & StatSet & Position;
+export type Layer = BaseLayer & GeomSet & StatSet;
 
 export interface BaseLayer {
   data: string;
   mapping: MappingObject;
   aes_params: AesParams;
+  position: Position;
 }

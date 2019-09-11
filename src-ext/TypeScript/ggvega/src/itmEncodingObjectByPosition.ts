@@ -35,12 +35,12 @@ export function itmEncodingObjectByPosition(
   };
 
   // validate
-  if (!contains(Object.keys(positionMap), ggPosition.position.class)) {
-    throw new Error('ggplot object contains unsupported stat: ' + ggPosition.position.class);
+  if (!contains(Object.keys(positionMap), ggPosition.class)) {
+    throw new Error('ggplot object contains unsupported stat: ' + ggPosition.class);
   }
 
   // translate
-  const functionTranslate = positionMap[ggPosition.position.class];
+  const functionTranslate = positionMap[ggPosition.class];
 
   return functionTranslate(itmEncodingObject, ggPosition);
 }

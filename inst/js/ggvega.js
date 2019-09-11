@@ -189,104 +189,11 @@
     					aes_params: {
     						$ref: "#/definitions/AesParams"
     					},
-    					data: {
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
     						type: "string"
-    					},
-    					geom: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"GeomPoint"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
-    					},
-    					geom_params: {
-    						additionalProperties: false,
-    						properties: {
-    							"na.rm": {
-    								type: "boolean"
-    							}
-    						},
-    						required: [
-    							"na.rm"
-    						],
-    						type: "object"
-    					},
-    					mapping: {
-    						$ref: "#/definitions/MappingObject"
-    					},
-    					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionIdentity"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
-    					},
-    					stat: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"StatIdentity"
-    								],
-    								type: "string"
-    							},
-    							default_aes: {
-    								additionalProperties: false,
-    								type: "object"
-    							}
-    						},
-    						required: [
-    							"class",
-    							"default_aes"
-    						],
-    						type: "object"
-    					},
-    					stat_params: {
-    						additionalProperties: false,
-    						properties: {
-    							"na.rm": {
-    								type: "boolean"
-    							}
-    						},
-    						required: [
-    							"na.rm"
-    						],
-    						type: "object"
-    					}
-    				},
-    				required: [
-    					"aes_params",
-    					"data",
-    					"geom",
-    					"geom_params",
-    					"mapping",
-    					"position",
-    					"stat",
-    					"stat_params"
-    				],
-    				type: "object"
-    			},
-    			{
-    				additionalProperties: false,
-    				properties: {
-    					aes_params: {
-    						$ref: "#/definitions/AesParams"
     					},
     					data: {
     						type: "string"
@@ -322,19 +229,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionStack"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -371,6 +266,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -386,6 +282,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionStack"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -421,19 +323,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionFill"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -470,6 +360,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -485,6 +376,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionFill"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -520,43 +417,19 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionIdentity"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
     						properties: {
     							"class": {
     								"enum": [
-    									"StatCount"
+    									"StatIdentity"
     								],
     								type: "string"
     							},
     							default_aes: {
     								additionalProperties: false,
-    								properties: {
-    									weight: {
-    										type: "number"
-    									},
-    									y: {
-    										$ref: "#/definitions/MappingStat"
-    									}
-    								},
-    								required: [
-    									"y",
-    									"weight"
-    								],
     								type: "object"
     							}
     						},
@@ -581,6 +454,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -596,6 +470,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -631,19 +511,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionStack"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -692,6 +560,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -707,6 +576,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionStack"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -742,19 +617,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionFill"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -803,6 +666,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -818,6 +682,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionFill"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -853,31 +723,31 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionIdentity"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
     						properties: {
     							"class": {
     								"enum": [
-    									"StatBoxplot"
+    									"StatCount"
     								],
     								type: "string"
     							},
     							default_aes: {
     								additionalProperties: false,
+    								properties: {
+    									weight: {
+    										type: "number"
+    									},
+    									y: {
+    										$ref: "#/definitions/MappingStat"
+    									}
+    								},
+    								required: [
+    									"y",
+    									"weight"
+    								],
     								type: "object"
     							}
     						},
@@ -890,12 +760,6 @@
     					stat_params: {
     						additionalProperties: false,
     						properties: {
-    							coef: {
-    								type: [
-    									"string",
-    									"number"
-    								]
-    							},
     							"na.rm": {
     								type: "boolean"
     							}
@@ -908,6 +772,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -923,6 +788,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -958,19 +829,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionStack"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -1013,6 +872,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -1028,6 +888,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionStack"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -1063,19 +929,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionFill"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -1118,6 +972,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -1133,6 +988,112 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionFill"
+    						],
+    						type: "string"
+    					},
+    					data: {
+    						type: "string"
+    					},
+    					geom: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"GeomPoint"
+    								],
+    								type: "string"
+    							}
+    						},
+    						required: [
+    							"class"
+    						],
+    						type: "object"
+    					},
+    					geom_params: {
+    						additionalProperties: false,
+    						properties: {
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					},
+    					mapping: {
+    						$ref: "#/definitions/MappingObject"
+    					},
+    					position: {
+    						$ref: "#/definitions/Position"
+    					},
+    					stat: {
+    						additionalProperties: false,
+    						properties: {
+    							"class": {
+    								"enum": [
+    									"StatBoxplot"
+    								],
+    								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
+    							}
+    						},
+    						required: [
+    							"class",
+    							"default_aes"
+    						],
+    						type: "object"
+    					},
+    					stat_params: {
+    						additionalProperties: false,
+    						properties: {
+    							coef: {
+    								type: [
+    									"string",
+    									"number"
+    								]
+    							},
+    							"na.rm": {
+    								type: "boolean"
+    							}
+    						},
+    						required: [
+    							"na.rm"
+    						],
+    						type: "object"
+    					}
+    				},
+    				required: [
+    					"aes_params",
+    					"class",
+    					"data",
+    					"geom",
+    					"geom_params",
+    					"mapping",
+    					"position",
+    					"stat",
+    					"stat_params"
+    				],
+    				type: "object"
+    			},
+    			{
+    				additionalProperties: false,
+    				properties: {
+    					aes_params: {
+    						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -1168,19 +1129,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionIdentity"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -1217,6 +1166,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -1232,6 +1182,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionStack"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -1267,19 +1223,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionStack"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -1316,6 +1260,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -1331,6 +1276,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionFill"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -1366,19 +1317,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionFill"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -1415,6 +1354,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -1430,6 +1370,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -1465,19 +1411,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionIdentity"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -1526,6 +1460,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -1541,6 +1476,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionStack"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -1576,19 +1517,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionStack"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -1637,6 +1566,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -1652,6 +1582,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionFill"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -1687,19 +1623,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionFill"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -1748,6 +1672,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -1763,6 +1688,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -1798,19 +1729,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionIdentity"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -1853,6 +1772,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -1868,6 +1788,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionStack"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -1903,19 +1829,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionStack"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -1958,6 +1872,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -1973,6 +1888,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionFill"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -2008,19 +1929,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionFill"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -2063,6 +1972,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -2078,6 +1988,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -2113,19 +2029,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionIdentity"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -2162,6 +2066,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -2177,6 +2082,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionStack"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -2212,19 +2123,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionStack"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -2261,6 +2160,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -2276,6 +2176,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionFill"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -2311,19 +2217,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionFill"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -2360,6 +2254,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -2375,6 +2270,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -2410,19 +2311,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionIdentity"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -2471,6 +2360,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -2486,6 +2376,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionStack"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -2521,19 +2417,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionStack"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -2582,6 +2466,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -2597,6 +2482,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionFill"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -2632,19 +2523,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionFill"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -2693,6 +2572,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -2708,6 +2588,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -2743,19 +2629,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionIdentity"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -2798,6 +2672,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -2813,6 +2688,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionStack"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -2848,19 +2729,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionStack"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -2903,6 +2772,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -2918,6 +2788,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionFill"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -2953,19 +2829,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionFill"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -3008,6 +2872,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -3023,6 +2888,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -3058,19 +2929,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionIdentity"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -3107,6 +2966,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -3122,6 +2982,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionStack"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -3157,19 +3023,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionStack"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -3206,6 +3060,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -3221,6 +3076,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionFill"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -3256,19 +3117,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionFill"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -3305,6 +3154,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -3320,6 +3170,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -3355,19 +3211,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionIdentity"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -3416,6 +3260,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -3431,6 +3276,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionStack"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -3466,19 +3317,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionStack"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -3527,6 +3366,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -3542,6 +3382,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionFill"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -3577,19 +3423,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionFill"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -3638,6 +3472,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -3653,6 +3488,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionIdentity"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -3688,19 +3529,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionIdentity"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -3743,6 +3572,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -3758,6 +3588,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionStack"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -3793,19 +3629,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionStack"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -3848,6 +3672,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -3863,6 +3688,12 @@
     				properties: {
     					aes_params: {
     						$ref: "#/definitions/AesParams"
+    					},
+    					"class": {
+    						"enum": [
+    							"PositionFill"
+    						],
+    						type: "string"
     					},
     					data: {
     						type: "string"
@@ -3898,19 +3729,7 @@
     						$ref: "#/definitions/MappingObject"
     					},
     					position: {
-    						additionalProperties: false,
-    						properties: {
-    							"class": {
-    								"enum": [
-    									"PositionFill"
-    								],
-    								type: "string"
-    							}
-    						},
-    						required: [
-    							"class"
-    						],
-    						type: "object"
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -3953,6 +3772,7 @@
     				},
     				required: [
     					"aes_params",
+    					"class",
     					"data",
     					"geom",
     					"geom_params",
@@ -4095,6 +3915,64 @@
     		additionalProperties: {
     			$ref: "#/definitions/Metadata"
     		},
+    		type: "object"
+    	},
+    	Position: {
+    		anyOf: [
+    			{
+    				$ref: "#/definitions/PositionIdentity"
+    			},
+    			{
+    				$ref: "#/definitions/PositionStack"
+    			},
+    			{
+    				$ref: "#/definitions/PositionFill"
+    			}
+    		]
+    	},
+    	PositionFill: {
+    		additionalProperties: false,
+    		properties: {
+    			"class": {
+    				"enum": [
+    					"PositionFill"
+    				],
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"class"
+    		],
+    		type: "object"
+    	},
+    	PositionIdentity: {
+    		additionalProperties: false,
+    		properties: {
+    			"class": {
+    				"enum": [
+    					"PositionIdentity"
+    				],
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"class"
+    		],
+    		type: "object"
+    	},
+    	PositionStack: {
+    		additionalProperties: false,
+    		properties: {
+    			"class": {
+    				"enum": [
+    					"PositionStack"
+    				],
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"class"
+    		],
     		type: "object"
     	},
     	Scale: {
@@ -13092,11 +12970,11 @@
             PositionFill: itmEncodingObjectByPositionFill
         };
         // validate
-        if (!contains$1(Object.keys(positionMap), ggPosition.position.class)) {
-            throw new Error('ggplot object contains unsupported stat: ' + ggPosition.position.class);
+        if (!contains$1(Object.keys(positionMap), ggPosition.class)) {
+            throw new Error('ggplot object contains unsupported stat: ' + ggPosition.class);
         }
         // translate
-        var functionTranslate = positionMap[ggPosition.position.class];
+        var functionTranslate = positionMap[ggPosition.class];
         return functionTranslate(itmEncodingObject, ggPosition);
     }
     /**
@@ -13191,7 +13069,7 @@
         // incorporate stat into encoding
         itmLayer.encoding = itmEncodingObjectByStat(itmLayer.encoding, ggStatSet(ggLayer));
         // incorporate position into encoding
-        itmLayer.encoding = itmEncodingObjectByPosition(itmLayer.encoding, { position: ggLayer.position });
+        itmLayer.encoding = itmEncodingObjectByPosition(itmLayer.encoding, ggLayer.position);
         return itmLayer;
     }
     // NOTE @wenyu: Remove these 2 functions from ggschema to here. For test these functions and make ggschema clearer
