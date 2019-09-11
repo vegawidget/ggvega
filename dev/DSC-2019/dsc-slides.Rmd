@@ -66,6 +66,8 @@ Our requirements for the JavaScript library:
 
   - has the grammar of graphics at its foundation  
   
+  - is open source  
+  
   - is easy to use  
   
   - is able to be linked with other preexisting htmlwidgets  

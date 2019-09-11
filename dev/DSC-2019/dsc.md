@@ -30,6 +30,35 @@ distinguishes this effort from `plotly::ggplotly()`
 
 <br/>
 
+### Motivation
+
+One of our motivations (as Schneider Electric) is to provide a stronger
+connection between the data-scientists who design visualizations and the
+customers who use these visualizations.
+
+One of the challenges to the data-scientist is to design visualizations
+that take into account new data, and especially new data that the
+data-scientist may not have seen. The design of the visualization has to
+be extensible to new data; the implementation of the visualization also
+has to be extensible to new data.
+
+The grammar-of-graphics, as implemented in ggplot2, provides an R user
+with a tremendous set of capabilities with which to design
+data-visualizations.
+
+The ggplot2 package is declarative; we tell it what we want, and ggplot2
+handles the rest with a set of sensible defaults. Vega-Lite is similarly
+declarative, but with a different set of defaults.
+
+A motivating use-case for ggvega:
+
+  - a data-scientist designs a visualization using R with ggplot2
+  - the ggplot2 object is translated to a Vega-Lite specification (using
+    ggvega)
+  - the Vega-Lite specification can be deployed to production,
+    independently of the data used to design it. Vega provides the means
+    to update Vega views with new data.
+
 ### Why Vega-Lite?
 
 Our requirements for the JavaScript library:
@@ -65,40 +94,6 @@ statistical graphics. It encourages us to customize graphics for a
 particular problem rather than relying on generic names graphics.
 ([link](https://byrneslab.net/classes/biol607/readings/wickham_layered-grammar.pdf))
 In addition, new capabilities are easier to create.
-
-### Motivation
-
-(Note to Haley: instead of staring blankly at the screen, I am just
-going to write stuff in hopes that I can rearrange it later into
-something more-coherent - this is likely repeated elsewhere and I will
-need to clean that up, too.)
-
-The grammar-of-graphics, as implemented in ggplot2, provides an R user
-with a tremendous set of capabilities with which to design
-data-visualizations.
-
-One of our motivations (as Schneider Electric) is to provide a stronger
-connection between the data-scientists who design visualizations and the
-customers who use these visualizations.
-
-One of the challenges to the data-scientist is to design visualizations
-that take into account new data, and especially new data that the
-data-scientist may not have seen. The design of the visualization has to
-be extensible to new data; the implementation of the visualization also
-has to be extensible to new data.
-
-The ggplot2 package is declarative; we tell it what we want, and ggplot2
-handles the rest with a set of sensible defaults. Vega-Lite is similarly
-declarative, but with a different set of defaults.
-
-A motivating use-case for ggvega:
-
-  - a data-scientist designs a visualization using R with ggplot2
-  - the ggplot2 object is translated to a Vega-Lite specification (using
-    ggvega)
-  - the Vega-Lite specification can be deployed to production,
-    independently of the data used to design it. Vega provides the means
-    to update Vega views with new data.
 
 **A *layered* Grammar-of-Graphics**
 
