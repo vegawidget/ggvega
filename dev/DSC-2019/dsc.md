@@ -243,6 +243,57 @@ foreseeable exception to this will be to manage factors.
 
 **Issues with ES5/ES6/V8/node.js**:
 
+One of the inspirations for this project is the Altair Python library,
+which generates its functions automatically according to the Vega-Lite
+schema. As a result, when Vega-Lite updates, much of the Python code
+that makes up the Altair package can be updated automatically.
+
+At the outset of our efforts (May 2019), we were not aware of tools that
+could generate R code automatically using a JSON schema as a blueprint.
+This changes with the development of {vlmetbuildr}, which we would
+consider using as it matures.
+
+Although Python is accessible from R, there can be installation
+frustrations.
+
+This leaves us with JavaScript. The {V8} package makes it very easy to
+call JavaScript code from R; the installation-process is much-less
+frustrating than Python. Our goal is compile a JSON object that follows
+one schema (ggschema) into a JSON object that follows another schema
+(Vega-Lite). In very broad terms, this is what Vega-Lite itself does.
+Like the Vega team, we use JavaScript’s strongly-typed friend TypeScript
+to compose the code.
+
+JavaScript does present some complications, though. Although there are
+many versions of JavaScript, two loom large: ES5 and ES6. For example,
+all modern browsers support ES6; infamously, the last version of
+Internet Explorer supports only ES5. For the {V8} package, as of its
+latest CRAN release, supports ES6 for all platforms except some older
+Linux platforms, e.g. Ubuntu 16.04. This platform is still in wide
+usage, as it forms the foundation for RStudio Cloud.
+
+Therefore, we have to write code that can be run on an ES5 JavaScript
+engine. As of version 3.0, Vega-Lite is written using ES6.
+
+The Vega-Lite team have made a tool to convert JavaScript classes into a
+schema; we use this to create ggschema from classes. We also need a way
+to recover the Vega-Lite classes from the schema. If we had complete
+support for ES6, we could use the Vega-Lite classes themselves.
+
+Instead, because we have to use ES5, we use a JavaScript library called
+“quicktype” to recover a set of Vega-Lite classes using the Vega-Lite
+schema. However, the “recovered” classes from the schema are not
+identical to the Vega-Lite classes. This might be a little bit like a
+translating from English to French, then back to English, recovering
+different prose.
+
+This leads to quicktype giving some “Vega-Lite” classes some strange
+names due to its interpretation of the schema.
+
+This “problem” will go away when we have sufficuent ES6 coverage for
+{V8}, or when we are able to recover faithfully the Vega-Lite classes in
+R.
+
 **Mismatches between ggplot2 and Vega-Lite**:
 
   - `positionDodge` and `positionJitter` – Vega-Lite is working on
@@ -258,6 +309,26 @@ foreseeable exception to this will be to manage factors.
             population size – cannot capture this because it happens
             outside the ggplot object.
           - Can we use (create?) a `stat_order()` to do this??
+
+**Limitations in Vega-Lite**:
+
+  - Temporal values: In R, a `POSIX.ct` object has access to a timezone
+    database via the operating system. In JavaScript, a `Date` object
+    has access only to the timezone of the browser and UTC. The
+    Vega-Lite `temporal` type is based on the JavaScript `Date` type, so
+    its access to timezone information is similarly limited.
+
+This becomes a problem if the timezone of the data does not match the
+timezone of the browser; this would not be an uncommon situation.
+
+There are workarounds, but they involve compromises.
+
+  - There is a lot of flexibility in specifying interactions (which is
+    good), but not a lot of support for signifying the presence of
+    interactivity or showing how it is expected to work. This is an area
+    where Plotly has an advantage.
+
+  - Related, Vega-Lite selections do not work well on mobile devices.
 
 <br />
 
