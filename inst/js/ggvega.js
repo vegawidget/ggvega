@@ -10509,7 +10509,7 @@
         return functionTranslate(itmEncodingObject, ggPosition);
     }
     /**
-     * Modify an encoding object according an identity stat
+     * Modify an encoding object according an identity position
      *
      * @remarks
      * This function does nothing.
@@ -10526,14 +10526,44 @@
         // do nothing
         return itmEncodingObject;
     }
+    /**
+     * Modify an encoding object according an stack position
+     *
+     * @remarks
+     * This function adds `stack: 'zero' to a `y` encoding.
+     *
+     * **Called by**
+     * @see itmEncodingObjectByPosition
+     *
+     * @param itmEncodingObject
+     * @param ggPosition
+     *
+     * @return itmEncodingObject
+     */
     function itmEncodingObjectByPositionStack(itmEncodingObject, ggPosition) {
         var y = itmEncodingObject.y;
-        y.stack = "zero";
+        y.stack = 'zero';
         itmEncodingObject.y = y;
         return itmEncodingObject;
     }
+    /**
+     * Modify an encoding object according a fill position
+     *
+     * @remarks
+     * This function adds `stack: 'normalize' to a `y` encoding.
+     *
+     * **Called by**
+     * @see itmEncodingObjectByPosition
+     *
+     * @param itmEncodingObject
+     * @param ggPosition
+     *
+     * @return itmEncodingObject
+     */
     function itmEncodingObjectByPositionFill(itmEncodingObject, ggPosition) {
-        // do nothing
+        var y = itmEncodingObject.y;
+        y.stack = 'normalize';
+        itmEncodingObject.y = y;
         return itmEncodingObject;
     }
 

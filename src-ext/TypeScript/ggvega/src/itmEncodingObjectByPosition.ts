@@ -47,7 +47,7 @@ export function itmEncodingObjectByPosition(
 }
 
 /**
- * Modify an encoding object according an identity stat
+ * Modify an encoding object according an identity position
  *
  * @remarks
  * This function does nothing.
@@ -68,6 +68,20 @@ function itmEncodingObjectByPositionIdentity(
   return itmEncodingObject;
 }
 
+/**
+ * Modify an encoding object according an stack position
+ *
+ * @remarks
+ * This function adds `stack: 'zero' to a `y` encoding.
+ *
+ * **Called by**
+ * @see itmEncodingObjectByPosition
+ *
+ * @param itmEncodingObject
+ * @param ggPosition
+ *
+ * @return itmEncodingObject
+ */
 function itmEncodingObjectByPositionStack(
   itmEncodingObject: ItmEncodingObject,
   ggPosition: GG.Position
@@ -75,18 +89,37 @@ function itmEncodingObjectByPositionStack(
 
   var y: VL.YClass = itmEncodingObject.y as VL.YClass;
 
-  y.stack = "zero" as VL.StackOffset;
+  y.stack = 'zero' as VL.StackOffset;
 
   itmEncodingObject.y = y;
 
   return itmEncodingObject;
 }
 
-
+/**
+ * Modify an encoding object according a fill position
+ *
+ * @remarks
+ * This function adds `stack: 'normalize' to a `y` encoding.
+ *
+ * **Called by**
+ * @see itmEncodingObjectByPosition
+ *
+ * @param itmEncodingObject
+ * @param ggPosition
+ *
+ * @return itmEncodingObject
+ */
 function itmEncodingObjectByPositionFill(
   itmEncodingObject: ItmEncodingObject,
   ggPosition: GG.Position
 ): ItmEncodingObject {
-  // do nothing
+
+  var y: VL.YClass = itmEncodingObject.y as VL.YClass;
+
+  y.stack = 'normalize' as VL.StackOffset;
+
+  itmEncodingObject.y = y;
+
   return itmEncodingObject;
 }
