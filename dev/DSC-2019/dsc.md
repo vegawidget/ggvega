@@ -10,12 +10,30 @@ inspired by the capability `plotly::ggplotly()` provides to translate
 from ggplot2 to plotly. This project has been supported by Iowa State
 University, Schneider Electric, and GSOC.
 
+### Motivation
+
+#### ggplot2 + interactivy
+
 The main motivation for this project is to achieve a system that allows
 us to work in the familiar ggplot2 environment but with interactive
-capabilities, such as linked brushing. Additionally, on the Schneider
-Electric side of this project, one of the main goals is to be able to
-build & deploy visual components (in JS and HTML) that can be extensible
-to new data. (think “update-able” dashboards)
+capabilities, such as linked brushing.
+
+#### build & deploy visual components
+
+One of our motivations (as Schneider Electric) is to provide a stronger
+connection between the data-scientists who design visualizations and the
+customers who use these visualizations.
+
+One of the challenges to the data-scientist is to design visualizations
+that take into account new data, and especially new data that the
+data-scientist may not have seen. The design of the visualization has to
+be extensible to new data; the implementation of the visualization also
+has to be extensible to new data.
+
+That said, on the Schneider Electric side of this project, one of the
+main goals is to be able to build & deploy visual components (in JS and
+HTML) that can be extensible to new data. (think “update-able”
+dashboards)
 
 This goal, being extensible to new data, has been a guiding principle
 when making fundamental design choices. This is one aspect that
@@ -28,20 +46,6 @@ distinguishes this effort from `plotly::ggplotly()`
 > graphical layers can’t necessarily be recomputed with different input
 > data in your web browser.
 
-<br/>
-
-### Motivation
-
-One of our motivations (as Schneider Electric) is to provide a stronger
-connection between the data-scientists who design visualizations and the
-customers who use these visualizations.
-
-One of the challenges to the data-scientist is to design visualizations
-that take into account new data, and especially new data that the
-data-scientist may not have seen. The design of the visualization has to
-be extensible to new data; the implementation of the visualization also
-has to be extensible to new data.
-
 The grammar-of-graphics, as implemented in ggplot2, provides an R user
 with a tremendous set of capabilities with which to design
 data-visualizations.
@@ -50,20 +54,12 @@ The ggplot2 package is declarative; we tell it what we want, and ggplot2
 handles the rest with a set of sensible defaults. Vega-Lite is similarly
 declarative, but with a different set of defaults.
 
-A motivating use-case for ggvega:
-
-  - a data-scientist designs a visualization using R with ggplot2
-  - the ggplot2 object is translated to a Vega-Lite specification (using
-    ggvega)
-  - the Vega-Lite specification can be deployed to production,
-    independently of the data used to design it. Vega provides the means
-    to update Vega views with new data.
-
-### Why Vega-Lite?
+#### ggplot2 + interactivity
 
 Our requirements for the JavaScript library:
 
   - has the grammar of graphics at its foundation  
+  - is open source  
   - is easy to use  
   - is able to be linked with other preexisting htmlwidgets  
   - can be tied to ggplot2
@@ -77,10 +73,11 @@ A large part of the appeal of Vega and Vega-lite is the implementation
 of visualization terms. With the grammar of graphics at its core, Vega
 and Vega-lite are built on a stable foundation. Vega-lite is “a
 higher-level grammar for visual analysis, comparable to ggplot or
-Tableau, that generates complete Vega specifications.” Both Vega and
-Vega-lite use a JSON specification to create a visualization, with
-Vega-lite first compiling to Vega and then rendered using Vega’s
-compiler.
+Tableau, that generates complete Vega specifications.”
+
+Both Vega and Vega-lite use a JSON specification to create a
+visualization, with Vega-lite first compiling to Vega and then rendered
+using Vega’s compiler.
 
 ### Grammar of Graphics
 
@@ -153,6 +150,17 @@ consistently delicious food.
 
 <br/>
 
+### ggvega
+
+#### A motivating use-case for ggvega:
+
+  - a data-scientist designs a visualization using R with ggplot2
+  - the ggplot2 object is translated to a Vega-Lite specification (using
+    ggvega)
+  - the Vega-Lite specification can be deployed to production,
+    independently of the data used to design it. Vega provides the means
+    to update Vega views with new data.
+
 ### Design philosophy
 
 Our *initial* philosophy was to manage a small set of plots (perhaps
@@ -182,6 +190,13 @@ We convert a ggplot2 object into a “ggspec”, a JSON-serializable list,
 and then convert a “ggspec” into a Vega-Lite specification or
 “vegaspec”.
 
+We hope that the ggspec can be a useful abstraction to help us
+understand “what is going on in ggplot2” and “how does this intersect
+with Vega-Lite?”. As well, should ggplot2 or Vega-Lite change, we hope
+that we could keep ggspec “fixed” such that we would have to adapt only
+that part of the translation process (ggplot2-to-ggspec or
+ggspec-to-Vega-Lite) that would be impacted by such a change.
+
 The ideas for “ggspec” are
 
   - to remain faithful to the ggplot2 object and philosophy
@@ -208,13 +223,6 @@ TypeScript, then compiled into ECMAScript 6 (JavaScript), as described
 in the [Vega-Lite contribution
 guide](https://github.com/vega/vega-lite/blob/master/CONTRIBUTING.md#suggested-programming-environment).
 
-We hope that the ggspec can be a useful abstraction to help us
-understand “what is going on in ggplot2” and “how does this intersect
-with Vega-Lite?”. As well, should ggplot2 or Vega-Lite change, we hope
-that we could keep ggspec “fixed” such that we would have to adapt only
-that part of the translation process (ggplot2-to-ggspec or
-ggspec-to-Vega-Lite) that would be impacted by such a change.
-
 As we developed ggspec, we had a couple of idea about what it should be:
 
   - the idealized version *could be* a JSON-serializable representation
@@ -227,6 +235,47 @@ In an ideal world, we might have taken on the *idealized* ggspec, then
 defined an *actualized* subset. However, in the interests of “getting
 something done”, we considered briefly the first possibility, then went
 straight for the second possibility.
+
+<br />
+
+### Examples: ggvega in use
+
+vegawidget, an htmlwidget within the vegawidget GitHub organization, is
+used to render the specification created by ggvega.
+
+``` r
+library("ggplot2")
+library("ggvega")
+plot <- ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
+
+as_vegaspec(plot)
+```
+
+![](dsc_files/figure-gfm/unnamed-chunk-1-1.svg)<!-- -->
+
+Once the Vega-Lite specification has been created, we can use vlbuildr,
+another package within the vegawidget GitHub organization, to modify the
+specification. vlbuildr is “a functional approach to building up
+specifications” and the package contains functions that can add various
+components to a specification.
+
+``` r
+library("ggplot2")
+library("ggvega")
+library("vlbuildr")
+
+plot <- ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
+
+as_vegaspec(plot) %>%
+vl_encode_fill("Species:N")
+```
+
+![](dsc_files/figure-gfm/unnamed-chunk-2-1.svg)<!-- -->
+
+With vlbuildr, we can add selections and conditional encodings without
+addressing this issue in ggvega/ggplot2.
 
 <br />
 
@@ -324,47 +373,6 @@ There are workarounds, but they involve compromises.
     where Plotly has an advantage.
 
   - Related, Vega-Lite selections do not work well on mobile devices.
-
-<br />
-
-### Examples: ggvega in use
-
-vegawidget, an htmlwidget within the vegawidget GitHub organization, is
-used to render the specification created by ggvega.
-
-``` r
-library("ggplot2")
-library("ggvega")
-plot <- ggplot(iris) + 
-  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
-
-as_vegaspec(plot)
-```
-
-![](dsc_files/figure-gfm/unnamed-chunk-1-1.svg)<!-- -->
-
-Once the Vega-Lite specification has been created, we can use vlbuildr,
-another package within the vegawidget GitHub organization, to modify the
-specification. vlbuildr is “a functional approach to building up
-specifications” and the package contains functions that can add various
-components to a specification.
-
-``` r
-library("ggplot2")
-library("ggvega")
-library("vlbuildr")
-
-plot <- ggplot(iris) + 
-  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
-
-as_vegaspec(plot) %>%
-vl_encode_fill("Species:N")
-```
-
-![](dsc_files/figure-gfm/unnamed-chunk-2-1.svg)<!-- -->
-
-With vlbuildr, we can add selections and conditional encodings without
-addressing this issue in ggvega/ggplot2.
 
 <br />
 
