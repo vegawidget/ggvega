@@ -1,6 +1,9 @@
+import * as VL from './vlSpec';
 import * as GG from '../../ggschema/src/index';
 import {contains} from './utils';
 import {ItmEncodingObject} from './itmEncodingObject';
+import {KEYS} from 'eslint-visitor-keys';
+import {hasKey} from './utils';
 
 /**
  * Modify an encoding object according to a ggspec stat
@@ -72,7 +75,27 @@ function itmEncodingObjectByStatCount(
   itmEncodingObject: ItmEncodingObject,
   ggStatSet: GG.StatSet
 ): ItmEncodingObject {
-  // do nothing
+
+  // build y-encoding
+  var y: VL.YClass = {
+    type: 'quantitative' as VL.StandardType
+  };
+
+  // is weight an encoding?
+  if (hasKey(itmEncodingObject, 'weight')) {
+
+    y.aggregate = "sum" as VL.AggregateOp;
+    y.field = itmEncodingObject.weight.field;
+
+    // remove weight from encoding-object
+    delete itmEncodingObject.weight;
+  } else {
+    y.aggregate = "count" as VL.AggregateOp;
+  }
+
+  // put encoding into encoding object
+  itmEncodingObject.y = y;
+
   return itmEncodingObject;
 }
 

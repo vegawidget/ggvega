@@ -1,13 +1,9 @@
+import {cp} from '../src/utils';
 import {spec2vl} from '../src/topLevelSpec';
 import * as VL from '../src/vlSpec';
 import * as ggSpec from './ggSpec';
 import * as vlSpec from './vlSpec';
 import {convertCompilerOptionsFromJson} from 'typescript';
-
-// helper function to preserve ggspecs by copying
-let cp = function (x: any) {
-  return JSON.parse(JSON.stringify(x))
-}
 
 describe('topLevelSpec/spec2vl', () => {
   it('should create a vega-lite TopLevelSpec from a ggSpec', () => {

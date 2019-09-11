@@ -1,3 +1,4 @@
+import * as VL from './vlSpec';
 import * as GG from '../../ggschema/src/index';
 import {contains} from './utils';
 import {ItmEncodingObject} from './itmEncodingObject';
@@ -71,7 +72,13 @@ function itmEncodingObjectByPositionStack(
   itmEncodingObject: ItmEncodingObject,
   ggPosition: GG.Position
 ): ItmEncodingObject {
-  // do nothing
+
+  var y: VL.YClass = itmEncodingObject.y as VL.YClass;
+
+  y.stack = "zero" as VL.StackOffset;
+
+  itmEncodingObject.y = y;
+
   return itmEncodingObject;
 }
 
