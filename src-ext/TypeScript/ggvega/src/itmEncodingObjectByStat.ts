@@ -1,6 +1,9 @@
+import * as VL from './vlSpec';
 import * as GG from '../../ggschema/src/index';
 import {contains} from './utils';
 import {ItmEncodingObject} from './itmEncodingObject';
+import {KEYS} from 'eslint-visitor-keys';
+import {hasKey} from './utils';
 
 /**
  * Modify an encoding object according to a ggspec stat
@@ -12,14 +15,13 @@ import {ItmEncodingObject} from './itmEncodingObject';
  * according to the class of the ggspec stat. The actual work
  * is done in these specific functions.
  *
- * Right now, we support only one ggspec stat: `StatIdentity`.
- *
  * **Called by**
  * @see itmLayer
  *
  * **Calls**
  * @see itmEncodingObjectByStatIdentity
- *
+ * @see itmEncodingObjectByStatCount
+ * @see itmEncodingObjectByStatBoxplot
  *
  * @param itmEncodingObject
  * @param ggStatSet
@@ -33,7 +35,7 @@ export function itmEncodingObjectByStat(
   const statMap = {
     StatIdentity: itmEncodingObjectByStatIdentity,
     StatCount: itmEncodingObjectByStatCount,
-    StatBoxplot: itmEncodingObjectByStatIdentity
+    StatBoxplot: itmEncodingObjectByStatBoxplot
   };
 
   // validate
@@ -68,7 +70,40 @@ function itmEncodingObjectByStatIdentity(
   // do nothing
   return itmEncodingObject;
 }
-function itmEncodingObjectByStatCount(itmEncodingObject: ItmEncodingObject, ggStatSet: GG.StatSet): ItmEncodingObject {
+
+function itmEncodingObjectByStatCount(
+  itmEncodingObject: ItmEncodingObject,
+  ggStatSet: GG.StatSet
+): ItmEncodingObject {
+
+  // build y-encoding
+  var y: VL.YClass = {
+    type: 'quantitative' as VL.StandardType
+  };
+
+  // is weight an encoding?
+  if (hasKey(itmEncodingObject, 'weight')) {
+
+    y.aggregate = "sum" as VL.AggregateOp;
+    y.field = itmEncodingObject.weight.field;
+
+    // remove weight from encoding-object
+    delete itmEncodingObject.weight;
+
+  } else {
+    y.aggregate = "count" as VL.AggregateOp;
+  }
+
+  // put encoding into encoding object
+  itmEncodingObject.y = y;
+
+  return itmEncodingObject;
+}
+
+function itmEncodingObjectByStatBoxplot(
+  itmEncodingObject: ItmEncodingObject,
+  ggStatSet: GG.StatSet
+): ItmEncodingObject {
   // do nothing
   return itmEncodingObject;
 }

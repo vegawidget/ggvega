@@ -46,6 +46,6 @@ test_that("get_data_name works", {
 
 test_that("get_layers works", {
 
-  expect_equal(length(get_layers(p_top$layers[[1]], data_int_top, map_top)), 7)
+  expect_equal(length(get_layers(p_top$layers[[1]], data_int_top, map_top)), 8)
 
 })

@@ -1,0 +1,129 @@
+---
+title: Bar-chart demo
+output: html_document
+---
+
+```{r}
+library("ggplot2")
+library("ggvega")
+library("tibble")
+library("htmltools")
+library("purrr")
+library("jsonlite")
+library("vegawidget")
+```
+
+Let's start out with an initial dataset:
+
+```{r data-init}
+set.seed(314)
+
+n_obs <- 100
+
+lang_prob <- tribble(
+     ~language, ~probability,
+           "R",         0.40,
+      "Python",         0.30,
+         "C++",         0.15,
+  "JavaScript",         0.10,
+        "Lisp",         0.05
+)
+
+data_all <- 
+  tibble(
+    user_id = seq(1, 2 * n_obs),
+    language = 
+      sample(
+        lang_prob$language, 
+        size = 2 * n_obs, 
+        replace = TRUE, 
+        prob = lang_prob$probability
+    )
+  )  
+
+data_init <- data_all[data_all$user_id <= n_obs, ]
+data_new <- data_all[data_all$user_id > n_obs, ]
+```
+
+```{r}
+g <- ggplot(data_init, aes(x = language)) + geom_bar()
+g
+```
+
+We create a vegaspec based on the ggplot2 design. We use the `vegawidget()` function because we want to specify the element ID.
+
+```{r}
+vs <- as_vegaspec(g)
+
+vegawidget(vs, elementId = "vis")
+```
+
+Create an HTML control:
+
+```{r control}
+control <- 
+  tags$div(
+    tags$span("dataset"),
+    tags$select(
+      name = "dataset",
+      tags$option(value = "data_init", "Initial"),
+      tags$option(value = "data_new", "New")
+    )
+  )
+
+control
+```
+
+We need to get the data-frames into JavaScript somehow.
+
+```{r data}
+ser <- function(x) {
+  x <- purrr::transpose(x)
+  x <- jsonlite::toJSON(x, auto_unbox = TRUE)
+  
+  x
+}
+
+data_script <- 
+  tags$script(
+    type = "text/javascript",
+    glue_js(
+      "var data_all = {'data_init': ${ser(data_init)}, 'data_new': ${ser(data_new)}};"
+    )
+  )
+
+data_script
+```
+
+Next, we define what we want to happen when the `dataset` input changes:
+
+```{js}
+// {js}
+function on_data() {
+
+  // get a local dataset
+  var data_local = data_all[data_choice.value];
+  
+  // change Vega chart
+  Vegawidget.findViewPromise('#vis').then(function(view) {
+    var changeSet = vega.changeset()
+                        .insert(data_local)
+                        .remove(vega.truthy);
+                          
+    view.change('data-00', changeSet).run();  
+  });  
+}
+```
+
+Finally, we set a listener to implement what we want to happen when the `dataset` input changes:
+
+```{js}
+// {js}
+var data_choice = document.querySelector("[name=dataset]");
+
+// whenever the input changes, run the updating function
+data_choice.addEventListener("input", on_data);
+
+// run the updating function *once* to initialize the input to the data
+on_data();
+```

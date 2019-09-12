@@ -43,23 +43,44 @@ layer_spc <- function(layer_plt, int_data, int_map) {
 get_layers <- function(layer, int_data, int_map) {
   pluck_layer <- purrr::partial(purrr::pluck, .x = layer, .default = empty_named_list)
 
-  layer_map = pluck_layer("mapping") %>% purrr::map(get_mappings)
+  layer_map <- pluck_layer("mapping") %>% purrr::map(get_mappings)
+  layer_geom <- geom_set(layer$geom, layer$geom_params)
+  layer_stat <- stat_set(layer$stat, layer$stat_params)
+  layer_position <- position(layer$position)
 
   list(
-    data = purrr::pluck(layer, "data") %>% get_data_name(int_data),
-    geom = list(
-      class = pluck_layer("geom", class, 1)
-    ),
-    geom_params = pluck_layer("geom_params"),
-   #       inherit_aes =
-    mapping = utils::modifyList(int_map, layer_map),
     aes_params = pluck_layer("aes_params"),
-    stat = list(
-      class = pluck_layer("stat", class, 1)
-    ),
-    stat_params = pluck_layer("stat_params")
+    data = purrr::pluck(layer, "data") %>% get_data_name(int_data),
+    geom = layer_geom$geom,
+    geom_params = layer_geom$geom_params,
+    mapping = pluck_layer("inherit.aes") %>% modify_mappings(int_map, layer_map),
+    position = layer_position,
+    stat = layer_stat$stat,
+    stat_params = layer_stat$stat_params
   )
 }
+
+
+#' Modify mappings according to `inherit.aes` parameter
+#'
+#' @param inherit_aes `logical`
+#' @param int_map An intermediate-form for the mapping created by `mapping_spc()`.
+#' @param layer_map An internal intermediate-form for the mapping created in `get_layers()`.
+#'
+#' @return `list` of (possibly modified) mapping specifications
+#' @noRd
+#'
+modify_mappings <- function(inherit_aes, int_map, layer_map) {
+
+  if (!inherit_aes) {
+    return(layer_map)
+  }
+  else{
+    utils::modifyList(int_map, layer_map)
+  }
+
+}
+
 
 #' Get name of data-frame
 #'

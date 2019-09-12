@@ -169,6 +169,9 @@
     			title: {
     				type: "string"
     			},
+    			weight: {
+    				type: "string"
+    			},
     			x: {
     				type: "string"
     			},
@@ -219,6 +222,9 @@
     					mapping: {
     						$ref: "#/definitions/MappingObject"
     					},
+    					position: {
+    						$ref: "#/definitions/Position"
+    					},
     					stat: {
     						additionalProperties: false,
     						properties: {
@@ -227,10 +233,15 @@
     									"StatIdentity"
     								],
     								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
     							}
     						},
     						required: [
-    							"class"
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -253,6 +264,7 @@
     					"geom",
     					"geom_params",
     					"mapping",
+    					"position",
     					"stat",
     					"stat_params"
     				],
@@ -297,6 +309,9 @@
     					mapping: {
     						$ref: "#/definitions/MappingObject"
     					},
+    					position: {
+    						$ref: "#/definitions/Position"
+    					},
     					stat: {
     						additionalProperties: false,
     						properties: {
@@ -348,6 +363,7 @@
     					"geom",
     					"geom_params",
     					"mapping",
+    					"position",
     					"stat",
     					"stat_params"
     				],
@@ -392,6 +408,9 @@
     					mapping: {
     						$ref: "#/definitions/MappingObject"
     					},
+    					position: {
+    						$ref: "#/definitions/Position"
+    					},
     					stat: {
     						additionalProperties: false,
     						properties: {
@@ -400,10 +419,15 @@
     									"StatBoxplot"
     								],
     								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
     							}
     						},
     						required: [
-    							"class"
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -432,6 +456,7 @@
     					"geom",
     					"geom_params",
     					"mapping",
+    					"position",
     					"stat",
     					"stat_params"
     				],
@@ -476,6 +501,9 @@
     					mapping: {
     						$ref: "#/definitions/MappingObject"
     					},
+    					position: {
+    						$ref: "#/definitions/Position"
+    					},
     					stat: {
     						additionalProperties: false,
     						properties: {
@@ -484,10 +512,15 @@
     									"StatIdentity"
     								],
     								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
     							}
     						},
     						required: [
-    							"class"
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -510,6 +543,7 @@
     					"geom",
     					"geom_params",
     					"mapping",
+    					"position",
     					"stat",
     					"stat_params"
     				],
@@ -553,6 +587,9 @@
     					},
     					mapping: {
     						$ref: "#/definitions/MappingObject"
+    					},
+    					position: {
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -605,6 +642,7 @@
     					"geom",
     					"geom_params",
     					"mapping",
+    					"position",
     					"stat",
     					"stat_params"
     				],
@@ -649,6 +687,9 @@
     					mapping: {
     						$ref: "#/definitions/MappingObject"
     					},
+    					position: {
+    						$ref: "#/definitions/Position"
+    					},
     					stat: {
     						additionalProperties: false,
     						properties: {
@@ -657,10 +698,15 @@
     									"StatBoxplot"
     								],
     								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
     							}
     						},
     						required: [
-    							"class"
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -689,6 +735,7 @@
     					"geom",
     					"geom_params",
     					"mapping",
+    					"position",
     					"stat",
     					"stat_params"
     				],
@@ -733,6 +780,9 @@
     					mapping: {
     						$ref: "#/definitions/MappingObject"
     					},
+    					position: {
+    						$ref: "#/definitions/Position"
+    					},
     					stat: {
     						additionalProperties: false,
     						properties: {
@@ -741,10 +791,15 @@
     									"StatIdentity"
     								],
     								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
     							}
     						},
     						required: [
-    							"class"
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -767,6 +822,7 @@
     					"geom",
     					"geom_params",
     					"mapping",
+    					"position",
     					"stat",
     					"stat_params"
     				],
@@ -810,6 +866,9 @@
     					},
     					mapping: {
     						$ref: "#/definitions/MappingObject"
+    					},
+    					position: {
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -862,6 +921,7 @@
     					"geom",
     					"geom_params",
     					"mapping",
+    					"position",
     					"stat",
     					"stat_params"
     				],
@@ -906,6 +966,9 @@
     					mapping: {
     						$ref: "#/definitions/MappingObject"
     					},
+    					position: {
+    						$ref: "#/definitions/Position"
+    					},
     					stat: {
     						additionalProperties: false,
     						properties: {
@@ -914,10 +977,15 @@
     									"StatBoxplot"
     								],
     								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
     							}
     						},
     						required: [
-    							"class"
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -946,6 +1014,7 @@
     					"geom",
     					"geom_params",
     					"mapping",
+    					"position",
     					"stat",
     					"stat_params"
     				],
@@ -990,6 +1059,9 @@
     					mapping: {
     						$ref: "#/definitions/MappingObject"
     					},
+    					position: {
+    						$ref: "#/definitions/Position"
+    					},
     					stat: {
     						additionalProperties: false,
     						properties: {
@@ -998,10 +1070,15 @@
     									"StatIdentity"
     								],
     								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
     							}
     						},
     						required: [
-    							"class"
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -1024,6 +1101,7 @@
     					"geom",
     					"geom_params",
     					"mapping",
+    					"position",
     					"stat",
     					"stat_params"
     				],
@@ -1067,6 +1145,9 @@
     					},
     					mapping: {
     						$ref: "#/definitions/MappingObject"
+    					},
+    					position: {
+    						$ref: "#/definitions/Position"
     					},
     					stat: {
     						additionalProperties: false,
@@ -1119,6 +1200,7 @@
     					"geom",
     					"geom_params",
     					"mapping",
+    					"position",
     					"stat",
     					"stat_params"
     				],
@@ -1163,6 +1245,9 @@
     					mapping: {
     						$ref: "#/definitions/MappingObject"
     					},
+    					position: {
+    						$ref: "#/definitions/Position"
+    					},
     					stat: {
     						additionalProperties: false,
     						properties: {
@@ -1171,10 +1256,15 @@
     									"StatBoxplot"
     								],
     								type: "string"
+    							},
+    							default_aes: {
+    								additionalProperties: false,
+    								type: "object"
     							}
     						},
     						required: [
-    							"class"
+    							"class",
+    							"default_aes"
     						],
     						type: "object"
     					},
@@ -1203,6 +1293,7 @@
     					"geom",
     					"geom_params",
     					"mapping",
+    					"position",
     					"stat",
     					"stat_params"
     				],
@@ -1298,7 +1389,7 @@
     		additionalProperties: false,
     		properties: {
     			stat: {
-    				$ref: "#/definitions/StatClass"
+    				type: "string"
     			}
     		},
     		required: [
@@ -1342,6 +1433,64 @@
     		},
     		type: "object"
     	},
+    	Position: {
+    		anyOf: [
+    			{
+    				$ref: "#/definitions/PositionIdentity"
+    			},
+    			{
+    				$ref: "#/definitions/PositionStack"
+    			},
+    			{
+    				$ref: "#/definitions/PositionFill"
+    			}
+    		]
+    	},
+    	PositionFill: {
+    		additionalProperties: false,
+    		properties: {
+    			"class": {
+    				"enum": [
+    					"PositionFill"
+    				],
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"class"
+    		],
+    		type: "object"
+    	},
+    	PositionIdentity: {
+    		additionalProperties: false,
+    		properties: {
+    			"class": {
+    				"enum": [
+    					"PositionIdentity"
+    				],
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"class"
+    		],
+    		type: "object"
+    	},
+    	PositionStack: {
+    		additionalProperties: false,
+    		properties: {
+    			"class": {
+    				"enum": [
+    					"PositionStack"
+    				],
+    				type: "string"
+    			}
+    		},
+    		required: [
+    			"class"
+    		],
+    		type: "object"
+    	},
     	Scale: {
     		$ref: "#/definitions/ScaleContinuousPosition"
     	},
@@ -1382,12 +1531,6 @@
     			"ordinal",
     			"quantitative",
     			"temporal"
-    		],
-    		type: "string"
-    	},
-    	StatClass: {
-    		"enum": [
-    			"StatIdentity"
     		],
     		type: "string"
     	},
@@ -10254,14 +10397,13 @@
      * according to the class of the ggspec stat. The actual work
      * is done in these specific functions.
      *
-     * Right now, we support only one ggspec stat: `StatIdentity`.
-     *
      * **Called by**
      * @see itmLayer
      *
      * **Calls**
      * @see itmEncodingObjectByStatIdentity
-     *
+     * @see itmEncodingObjectByStatCount
+     * @see itmEncodingObjectByStatBoxplot
      *
      * @param itmEncodingObject
      * @param ggStatSet
@@ -10272,7 +10414,7 @@
         var statMap = {
             StatIdentity: itmEncodingObjectByStatIdentity,
             StatCount: itmEncodingObjectByStatCount,
-            StatBoxplot: itmEncodingObjectByStatIdentity
+            StatBoxplot: itmEncodingObjectByStatBoxplot
         };
         // validate
         if (!contains$1(Object.keys(statMap), ggStatSet.stat.class)) {
@@ -10301,7 +10443,121 @@
         return itmEncodingObject;
     }
     function itmEncodingObjectByStatCount(itmEncodingObject, ggStatSet) {
+        // build y-encoding
+        var y = {
+            type: 'quantitative'
+        };
+        // is weight an encoding?
+        if (hasKey(itmEncodingObject, 'weight')) {
+            y.aggregate = "sum";
+            y.field = itmEncodingObject.weight.field;
+            // remove weight from encoding-object
+            delete itmEncodingObject.weight;
+        }
+        else {
+            y.aggregate = "count";
+        }
+        // put encoding into encoding object
+        itmEncodingObject.y = y;
+        return itmEncodingObject;
+    }
+    function itmEncodingObjectByStatBoxplot(itmEncodingObject, ggStatSet) {
         // do nothing
+        return itmEncodingObject;
+    }
+
+    /**
+     * Modify an encoding object according to a ggspec position
+     *
+     * @remarks
+     * Note about side-effects.
+     *
+     * This function is used to determine the specific function
+     * according to the class of the ggspec position. The actual work
+     * is done in these specific functions.
+     *
+     * **Called by**
+     * @see itmLayer
+     *
+     * **Calls**
+     * @see itmEncodingObjectByStatIdentity
+     *
+     *
+     * @param itmEncodingObject
+     * @param ggStatSet
+     *
+     * @returns itmEncodingObject
+     */
+    function itmEncodingObjectByPosition(itmEncodingObject, ggPosition) {
+        var positionMap = {
+            PositionIdentity: itmEncodingObjectByPositionIdentity,
+            PositionStack: itmEncodingObjectByPositionStack,
+            PositionFill: itmEncodingObjectByPositionFill
+        };
+        // validate
+        if (!contains$1(Object.keys(positionMap), ggPosition.class)) {
+            throw new Error('ggplot object contains unsupported stat: ' + ggPosition.class);
+        }
+        // translate
+        var functionTranslate = positionMap[ggPosition.class];
+        return functionTranslate(itmEncodingObject, ggPosition);
+    }
+    /**
+     * Modify an encoding object according an identity position
+     *
+     * @remarks
+     * This function does nothing.
+     *
+     * **Called by**
+     * @see itmEncodingObjectByPosition
+     *
+     * @param itmEncodingObject
+     * @param ggPosition
+     *
+     * @return itmEncodingObject
+     */
+    function itmEncodingObjectByPositionIdentity(itmEncodingObject, ggPosition) {
+        // do nothing
+        return itmEncodingObject;
+    }
+    /**
+     * Modify an encoding object according an stack position
+     *
+     * @remarks
+     * This function adds `stack: 'zero' to a `y` encoding.
+     *
+     * **Called by**
+     * @see itmEncodingObjectByPosition
+     *
+     * @param itmEncodingObject
+     * @param ggPosition
+     *
+     * @return itmEncodingObject
+     */
+    function itmEncodingObjectByPositionStack(itmEncodingObject, ggPosition) {
+        var y = itmEncodingObject.y;
+        y.stack = 'zero';
+        itmEncodingObject.y = y;
+        return itmEncodingObject;
+    }
+    /**
+     * Modify an encoding object according a fill position
+     *
+     * @remarks
+     * This function adds `stack: 'normalize' to a `y` encoding.
+     *
+     * **Called by**
+     * @see itmEncodingObjectByPosition
+     *
+     * @param itmEncodingObject
+     * @param ggPosition
+     *
+     * @return itmEncodingObject
+     */
+    function itmEncodingObjectByPositionFill(itmEncodingObject, ggPosition) {
+        var y = itmEncodingObject.y;
+        y.stack = 'normalize';
+        itmEncodingObject.y = y;
         return itmEncodingObject;
     }
 
@@ -10369,8 +10625,8 @@
         itmLayer.encoding = itmEncodingObjectByAesParamsObject(itmLayer.encoding, ggLayer.aes_params);
         // incorporate stat into encoding
         itmLayer.encoding = itmEncodingObjectByStat(itmLayer.encoding, ggStatSet(ggLayer));
-        // incorporate position into encoding (not yet active)
-        // itmLayer.encoding = itmEncodingOjectByPosition(itmLayer.encoding, gsLayer.position);
+        // incorporate position into encoding
+        itmLayer.encoding = itmEncodingObjectByPosition(itmLayer.encoding, ggLayer.position);
         return itmLayer;
     }
     // NOTE @wenyu: Remove these 2 functions from ggschema to here. For test these functions and make ggschema clearer
@@ -10425,8 +10681,6 @@
                         continue;
                     for (var labelKey in ggLabelObject) {
                         if (hasKey(ggLabelObject, labelKey)) {
-                            //NOTE@ian - do we need to protect
-                            //NOTE@ian - consider using a function that takes a labelKey and an encodingKey, returns a boolean
                             if (keyMatch(labelKey, encodingKey)) {
                                 itmLayer.encoding[encodingKey].title = ggLabelObject[labelKey];
                                 delete ggLabelObject[labelKey];
@@ -10789,16 +11043,25 @@
             if (hasKey(itmLayer.encoding, aesName)) {
                 // get the encoding name,and add to the encoding
                 var encodingName = encodingNameByGeom(aesName, itmLayer.geomSet);
-                if (encodingName == 'x')
+                if (encodingName == 'x') {
                     encoding[encodingName] = itmLayer.encoding[aesName];
-                if (encodingName == 'y')
+                }
+                if (encodingName == 'y') {
                     encoding[encodingName] = itmLayer.encoding[aesName];
-                if (encodingName == ('size'  ))
+                }
+                if (encodingName == 'size' ||
+                    encodingName == 'strokeWidth' ||
+                    encodingName == 'opacity') {
                     encoding[encodingName] = itmLayer.encoding[aesName];
-                if (encodingName == ('stroke' ))
+                }
+                if (encodingName == 'stroke' ||
+                    encodingName == 'fill') {
                     encoding[encodingName] = itmLayer.encoding[aesName];
-                if (encodingName == 'shape')
-                    encoding[encodingName] = itmLayer.encoding[aesName];
+                }
+                if (encodingName == 'shape') {
+                    encoding[encodingName] =
+                        itmLayer.encoding[aesName];
+                }
             }
         }
         var layer = {

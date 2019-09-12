@@ -27,7 +27,6 @@ normalize <- function(x) {
     x <- x[order(names(x))]
   }
 
-  # call on each element of x
   x <- purrr::map(x, normalize)
 
   x
