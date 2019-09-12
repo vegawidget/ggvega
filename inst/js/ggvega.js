@@ -11043,16 +11043,25 @@
             if (hasKey(itmLayer.encoding, aesName)) {
                 // get the encoding name,and add to the encoding
                 var encodingName = encodingNameByGeom(aesName, itmLayer.geomSet);
-                if (encodingName == 'x')
+                if (encodingName == 'x') {
                     encoding[encodingName] = itmLayer.encoding[aesName];
-                if (encodingName == 'y')
+                }
+                if (encodingName == 'y') {
                     encoding[encodingName] = itmLayer.encoding[aesName];
-                if (encodingName == ('size'  ))
+                }
+                if (encodingName == 'size' ||
+                    encodingName == 'strokeWidth' ||
+                    encodingName == 'opacity') {
                     encoding[encodingName] = itmLayer.encoding[aesName];
-                if (encodingName == ('stroke' ))
+                }
+                if (encodingName == 'stroke' ||
+                    encodingName == 'fill') {
                     encoding[encodingName] = itmLayer.encoding[aesName];
-                if (encodingName == 'shape')
-                    encoding[encodingName] = itmLayer.encoding[aesName];
+                }
+                if (encodingName == 'shape') {
+                    encoding[encodingName] =
+                        itmLayer.encoding[aesName];
+                }
             }
         }
         var layer = {

@@ -121,13 +121,7 @@ directory.
 
 skip_ggspec <- c()
 
-skip_vegaspec <- c(
-  # "barchart-mpg",
-  # "barchart-weighted-mpg",
-  "barchart-stacked-mpg",
-  "barchart-normalized-mpg",
-  "barchart-flipped-weighted-normalized-mpg"
-)
+skip_vegaspec <- c()
 
 # if something is skipped for ggspec, it is also skipped for vegaspec
 skip_vegaspec <- c(skip_ggspec, skip_vegaspec)
@@ -296,9 +290,14 @@ Finally, to confirm, we list the files in the package-source directory
 dir_ls(pkgex_dir) %>% basename()
 ```
 
-    ## [1] "barchart-mpg.R"          "barchart-weighted-mpg.R"
-    ## [3] "scat-coord-flip-iris.R"  "scat-scale-name-iris.R" 
-    ## [5] "scatterplot-iris.R"
+    ## [1] "barchart-flipped-weighted-normalized-mpg.R"
+    ## [2] "barchart-mpg.R"                            
+    ## [3] "barchart-normalized-mpg.R"                 
+    ## [4] "barchart-stacked-mpg.R"                    
+    ## [5] "barchart-weighted-mpg.R"                   
+    ## [6] "scat-coord-flip-iris.R"                    
+    ## [7] "scat-scale-name-iris.R"                    
+    ## [8] "scatterplot-iris.R"
 
 ## Adding a new example
 

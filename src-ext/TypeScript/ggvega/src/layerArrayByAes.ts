@@ -135,31 +135,38 @@ export function layerByItmLayer(itmLayer: ItmLayer): VL.LayerSpec {
 
   // loop over aesthetic names in itmLayerEncoding
   for (const aesName in itmLayer.encoding) {
-    console.log(aesName);
+
     if (hasKey(itmLayer.encoding, aesName)) {
       // get the encoding name,and add to the encoding
-      console.log(aesName);
 
       const encodingName = encodingNameByGeom(aesName as GGEncodingKey, itmLayer.geomSet);
-      console.log(encodingName);
 
-      if (encodingName == 'x') encoding[encodingName] = itmLayer.encoding[aesName] as VL.XClass;
+      if (encodingName == 'x') {
+        encoding[encodingName] = itmLayer.encoding[aesName] as VL.XClass;
+      }
 
-      if (encodingName == 'y') encoding[encodingName] = itmLayer.encoding[aesName] as VL.YClass;
+      if (encodingName == 'y') {
+        encoding[encodingName] = itmLayer.encoding[aesName] as VL.YClass;
+      }
 
-      if (encodingName == ('size' || 'strokeWidth' || 'opacity'))
+      if (encodingName == 'size' ||
+        encodingName == 'strokeWidth' ||
+        encodingName == 'opacity'
+      ) {
         encoding[encodingName] = itmLayer.encoding[aesName] as VL.DefWithConditionMarkPropFieldDefNumber;
+      }
 
-      if (encodingName == ('stroke' || 'fill'))
+      if (encodingName == 'stroke' ||
+        encodingName == 'fill'
+      ) {
         encoding[encodingName] = itmLayer.encoding[aesName] as VL.DefWithConditionMarkPropFieldDefStringNull;
+      }
 
-      if (encodingName == 'shape')
-        encoding[encodingName] = itmLayer.encoding[
-          aesName
-        ] as VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull;
+      if (encodingName == 'shape') {
+        encoding[encodingName] =
+          itmLayer.encoding[aesName] as VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull;
+      }
 
-      console.log(itmLayer.encoding[aesName]);
-      console.log(encoding[encodingName]);
     }
   }
 

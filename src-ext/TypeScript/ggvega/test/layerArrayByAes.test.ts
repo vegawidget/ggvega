@@ -23,15 +23,15 @@ describe('layerArray', () => {
     ggCoordCartesian = ggSpec.iris01.coordinates;
     vlLayerSpecArray = vlSpec.iris01.layer;
 
-    /*     expect(
-          layerArrayByAes(
-            ggDatasetObject as GG.DatasetObject,
-            ggLayerArray as GG.Layer[],
-            ggScaleArray as GG.Scale[],
-            ggLabelsObject as GG.LabelObject,
-            ggCoordCartesian as GG.CoordCartesian
-          )
-        ).toEqual(vlLayerSpecArray as VL.LayerSpec[]); */
+    expect(
+      layerArrayByAes(
+        ggDatasetObject as GG.DatasetObject,
+        ggLayerArray as GG.Layer[],
+        ggScaleArray as GG.Scale[],
+        ggLabelsObject as GG.LabelObject,
+        ggCoordCartesian as GG.CoordCartesian
+      )
+    ).toEqual(vlLayerSpecArray as VL.LayerSpec[]);
 
     ggDatasetObject = ggSpec.iris02.data;
     ggLayerArray = ggSpec.iris02.layers;
@@ -40,23 +40,21 @@ describe('layerArray', () => {
     ggCoordCartesian = ggSpec.iris02.coordinates;
     vlLayerSpecArray = vlSpec.iris02.layer;
 
-    /*     expect(
-          layerArrayByAes(
-            ggDatasetObject as GG.DatasetObject,
-            ggLayerArray as GG.Layer[],
-            ggScaleArray as GG.Scale[],
-            ggLabelsObject as GG.LabelObject,
-            ggCoordCartesian as GG.CoordCartesian
-          )
-        ).toEqual(vlLayerSpecArray as VL.LayerSpec[]); */
+    expect(
+      layerArrayByAes(
+        ggDatasetObject as GG.DatasetObject,
+        ggLayerArray as GG.Layer[],
+        ggScaleArray as GG.Scale[],
+        ggLabelsObject as GG.LabelObject,
+        ggCoordCartesian as GG.CoordCartesian
+      )
+    ).toEqual(vlLayerSpecArray as VL.LayerSpec[]);
 
   });
 });
 
 
 describe('layer', () => {
-
-  console.log(JSON.stringify(itmSpec.barStackedMpg.layer[0], null, 2));
 
   expect(
     layerByItmLayer(itmSpec.barStackedMpg.layer[0] as ItmLayer)
