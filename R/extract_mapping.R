@@ -31,6 +31,96 @@ mapping_spc <- function(mapping_plt){
 #' p <- p + geom_point(aes(x = Petal.Width, y = Petal.Length))
 #' get_mappings(p$layers[[1]]$mapping[[1]])
 get_mappings <- function(aes) {
-  list(field = as.character(rlang::get_expr(aes))
-  )
+
+  if(is_data_variable(aes)) {
+    return(translate_data_variable(aes))
+  }
+
+  if(is_stat_operation(aes)) {
+    return(translate_stat_operation(aes))
+  }
+
+  # return bare value
+  aes
 }
+
+
+
+#' Determine if aesthetic is a variable
+#'
+#'
+#' @param x An aesthetic
+#'
+#' @return `logical`
+#' @noRd
+#'
+#' @examples
+#' is_data_variable(1)
+#'
+is_data_variable <- function(x) {
+
+  if (!rlang::is_formula(x)) {
+    return(FALSE)
+  }
+
+  expr <- rlang::quo_get_expr(x)
+
+  if (!identical(length(expr), 1L)) {
+    return(FALSE)
+  }
+
+  return(TRUE) ### will need to do something else here
+}
+
+
+#' Determine if aesthetic is a stat operation
+#'
+#'
+#' @param x An aesthetic
+#'
+#' @return `logical`
+#' @noRd
+is_stat_operation <- function(x) {
+
+  if (!rlang::is_formula(x)) {
+    return(FALSE)
+  }
+
+  expr <- rlang::quo_get_expr(x)
+
+  if (!identical(length(expr), 2L)) {
+    return(FALSE)
+  }
+
+  identical(as.character(expr[[1]]), "stat")
+}
+
+
+#' Helper function for `get_mappings()` used for stats
+#'
+#'
+#' @param x An aesthetic
+#'
+#' @return `list` of mapping specifications
+#' @noRd
+translate_stat_operation <- function(x) {
+
+  expr <- rlang::quo_get_expr(x)
+
+  list(stat = as.character(expr[[2]]))
+}
+
+#' Helper function for `get_mappings()` used for variables
+#'
+#'
+#' @param x An aesthetic
+#'
+#' @return `list` of mapping specifications
+#' @noRd
+translate_data_variable <- function(x) {
+
+  expr <- rlang::quo_get_expr(x)
+
+  list(field = as.character(expr))
+}
+

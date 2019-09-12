@@ -61,7 +61,7 @@ library("purrr")
 library("here")
 ```
 
-    ## here() starts at C:/Users/jtxys/Documents/ggvega
+    ## here() starts at /Users/sesa19001/Documents/repos/public/vegawidget/ggvega
 
 ``` r
 library("readr")
@@ -134,7 +134,7 @@ test_example_dir <- here("tests", "testthat", "examples")
 test_example_dir
 ```
 
-    ## [1] "C:/Users/jtxys/Documents/ggvega/tests/testthat/examples"
+    ## [1] "/Users/sesa19001/Documents/repos/public/vegawidget/ggvega/tests/testthat/examples"
 
 ``` r
 if (dir_exists(test_example_dir)) {
@@ -258,7 +258,7 @@ pkgex_dir <- here("inst", "examples", "ggplot")
 pkgex_dir
 ```
 
-    ## [1] "C:/Users/jtxys/Documents/ggvega/inst/examples/ggplot"
+    ## [1] "/Users/sesa19001/Documents/repos/public/vegawidget/ggvega/inst/examples/ggplot"
 
 ``` r
 if (dir_exists(pkgex_dir)) {
@@ -290,8 +290,14 @@ Finally, to confirm, we list the files in the package-source directory
 dir_ls(pkgex_dir) %>% basename()
 ```
 
-    ## [1] "scat-coord-flip-iris.R" "scat-scale-name-iris.R"
-    ## [3] "scatterplot-iris.R"
+    ## [1] "barchart-flipped-weighted-normalized-mpg.R"
+    ## [2] "barchart-mpg.R"                            
+    ## [3] "barchart-normalized-mpg.R"                 
+    ## [4] "barchart-stacked-mpg.R"                    
+    ## [5] "barchart-weighted-mpg.R"                   
+    ## [6] "scat-coord-flip-iris.R"                    
+    ## [7] "scat-scale-name-iris.R"                    
+    ## [8] "scatterplot-iris.R"
 
 ## Adding a new example
 

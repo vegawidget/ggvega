@@ -164,6 +164,9 @@
         "title": {
           "type": "string"
         },
+        "weight": {
+          "type": "string"
+        },
         "x": {
           "type": "string"
         },
@@ -214,6 +217,9 @@
             "mapping": {
               "$ref": "#/definitions/MappingObject"
             },
+            "position": {
+              "$ref": "#/definitions/Position"
+            },
             "stat": {
               "additionalProperties": false,
               "properties": {
@@ -222,10 +228,15 @@
                     "StatIdentity"
                   ],
                   "type": "string"
+                },
+                "default_aes": {
+                  "additionalProperties": false,
+                  "type": "object"
                 }
               },
               "required": [
-                "class"
+                "class",
+                "default_aes"
               ],
               "type": "object"
             },
@@ -248,6 +259,7 @@
             "geom",
             "geom_params",
             "mapping",
+            "position",
             "stat",
             "stat_params"
           ],
@@ -292,6 +304,9 @@
             "mapping": {
               "$ref": "#/definitions/MappingObject"
             },
+            "position": {
+              "$ref": "#/definitions/Position"
+            },
             "stat": {
               "additionalProperties": false,
               "properties": {
@@ -343,6 +358,7 @@
             "geom",
             "geom_params",
             "mapping",
+            "position",
             "stat",
             "stat_params"
           ],
@@ -387,6 +403,9 @@
             "mapping": {
               "$ref": "#/definitions/MappingObject"
             },
+            "position": {
+              "$ref": "#/definitions/Position"
+            },
             "stat": {
               "additionalProperties": false,
               "properties": {
@@ -395,10 +414,15 @@
                     "StatBoxplot"
                   ],
                   "type": "string"
+                },
+                "default_aes": {
+                  "additionalProperties": false,
+                  "type": "object"
                 }
               },
               "required": [
-                "class"
+                "class",
+                "default_aes"
               ],
               "type": "object"
             },
@@ -427,6 +451,7 @@
             "geom",
             "geom_params",
             "mapping",
+            "position",
             "stat",
             "stat_params"
           ],
@@ -471,6 +496,9 @@
             "mapping": {
               "$ref": "#/definitions/MappingObject"
             },
+            "position": {
+              "$ref": "#/definitions/Position"
+            },
             "stat": {
               "additionalProperties": false,
               "properties": {
@@ -479,10 +507,15 @@
                     "StatIdentity"
                   ],
                   "type": "string"
+                },
+                "default_aes": {
+                  "additionalProperties": false,
+                  "type": "object"
                 }
               },
               "required": [
-                "class"
+                "class",
+                "default_aes"
               ],
               "type": "object"
             },
@@ -505,6 +538,7 @@
             "geom",
             "geom_params",
             "mapping",
+            "position",
             "stat",
             "stat_params"
           ],
@@ -548,6 +582,9 @@
             },
             "mapping": {
               "$ref": "#/definitions/MappingObject"
+            },
+            "position": {
+              "$ref": "#/definitions/Position"
             },
             "stat": {
               "additionalProperties": false,
@@ -600,6 +637,7 @@
             "geom",
             "geom_params",
             "mapping",
+            "position",
             "stat",
             "stat_params"
           ],
@@ -644,6 +682,9 @@
             "mapping": {
               "$ref": "#/definitions/MappingObject"
             },
+            "position": {
+              "$ref": "#/definitions/Position"
+            },
             "stat": {
               "additionalProperties": false,
               "properties": {
@@ -652,10 +693,15 @@
                     "StatBoxplot"
                   ],
                   "type": "string"
+                },
+                "default_aes": {
+                  "additionalProperties": false,
+                  "type": "object"
                 }
               },
               "required": [
-                "class"
+                "class",
+                "default_aes"
               ],
               "type": "object"
             },
@@ -684,6 +730,7 @@
             "geom",
             "geom_params",
             "mapping",
+            "position",
             "stat",
             "stat_params"
           ],
@@ -728,6 +775,9 @@
             "mapping": {
               "$ref": "#/definitions/MappingObject"
             },
+            "position": {
+              "$ref": "#/definitions/Position"
+            },
             "stat": {
               "additionalProperties": false,
               "properties": {
@@ -736,10 +786,15 @@
                     "StatIdentity"
                   ],
                   "type": "string"
+                },
+                "default_aes": {
+                  "additionalProperties": false,
+                  "type": "object"
                 }
               },
               "required": [
-                "class"
+                "class",
+                "default_aes"
               ],
               "type": "object"
             },
@@ -762,6 +817,7 @@
             "geom",
             "geom_params",
             "mapping",
+            "position",
             "stat",
             "stat_params"
           ],
@@ -805,6 +861,9 @@
             },
             "mapping": {
               "$ref": "#/definitions/MappingObject"
+            },
+            "position": {
+              "$ref": "#/definitions/Position"
             },
             "stat": {
               "additionalProperties": false,
@@ -857,6 +916,7 @@
             "geom",
             "geom_params",
             "mapping",
+            "position",
             "stat",
             "stat_params"
           ],
@@ -901,6 +961,9 @@
             "mapping": {
               "$ref": "#/definitions/MappingObject"
             },
+            "position": {
+              "$ref": "#/definitions/Position"
+            },
             "stat": {
               "additionalProperties": false,
               "properties": {
@@ -909,10 +972,15 @@
                     "StatBoxplot"
                   ],
                   "type": "string"
+                },
+                "default_aes": {
+                  "additionalProperties": false,
+                  "type": "object"
                 }
               },
               "required": [
-                "class"
+                "class",
+                "default_aes"
               ],
               "type": "object"
             },
@@ -941,6 +1009,7 @@
             "geom",
             "geom_params",
             "mapping",
+            "position",
             "stat",
             "stat_params"
           ],
@@ -985,6 +1054,9 @@
             "mapping": {
               "$ref": "#/definitions/MappingObject"
             },
+            "position": {
+              "$ref": "#/definitions/Position"
+            },
             "stat": {
               "additionalProperties": false,
               "properties": {
@@ -993,10 +1065,15 @@
                     "StatIdentity"
                   ],
                   "type": "string"
+                },
+                "default_aes": {
+                  "additionalProperties": false,
+                  "type": "object"
                 }
               },
               "required": [
-                "class"
+                "class",
+                "default_aes"
               ],
               "type": "object"
             },
@@ -1019,6 +1096,7 @@
             "geom",
             "geom_params",
             "mapping",
+            "position",
             "stat",
             "stat_params"
           ],
@@ -1062,6 +1140,9 @@
             },
             "mapping": {
               "$ref": "#/definitions/MappingObject"
+            },
+            "position": {
+              "$ref": "#/definitions/Position"
             },
             "stat": {
               "additionalProperties": false,
@@ -1114,6 +1195,7 @@
             "geom",
             "geom_params",
             "mapping",
+            "position",
             "stat",
             "stat_params"
           ],
@@ -1158,6 +1240,9 @@
             "mapping": {
               "$ref": "#/definitions/MappingObject"
             },
+            "position": {
+              "$ref": "#/definitions/Position"
+            },
             "stat": {
               "additionalProperties": false,
               "properties": {
@@ -1166,10 +1251,15 @@
                     "StatBoxplot"
                   ],
                   "type": "string"
+                },
+                "default_aes": {
+                  "additionalProperties": false,
+                  "type": "object"
                 }
               },
               "required": [
-                "class"
+                "class",
+                "default_aes"
               ],
               "type": "object"
             },
@@ -1198,6 +1288,7 @@
             "geom",
             "geom_params",
             "mapping",
+            "position",
             "stat",
             "stat_params"
           ],
@@ -1293,7 +1384,7 @@
       "additionalProperties": false,
       "properties": {
         "stat": {
-          "$ref": "#/definitions/StatClass"
+          "type": "string"
         }
       },
       "required": [
@@ -1337,6 +1428,64 @@
       },
       "type": "object"
     },
+    "Position": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/PositionIdentity"
+        },
+        {
+          "$ref": "#/definitions/PositionStack"
+        },
+        {
+          "$ref": "#/definitions/PositionFill"
+        }
+      ]
+    },
+    "PositionFill": {
+      "additionalProperties": false,
+      "properties": {
+        "class": {
+          "enum": [
+            "PositionFill"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "class"
+      ],
+      "type": "object"
+    },
+    "PositionIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "class": {
+          "enum": [
+            "PositionIdentity"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "class"
+      ],
+      "type": "object"
+    },
+    "PositionStack": {
+      "additionalProperties": false,
+      "properties": {
+        "class": {
+          "enum": [
+            "PositionStack"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "class"
+      ],
+      "type": "object"
+    },
     "Scale": {
       "$ref": "#/definitions/ScaleContinuousPosition"
     },
@@ -1377,12 +1526,6 @@
         "ordinal",
         "quantitative",
         "temporal"
-      ],
-      "type": "string"
-    },
-    "StatClass": {
-      "enum": [
-        "StatIdentity"
       ],
       "type": "string"
     },

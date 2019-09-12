@@ -36,7 +36,7 @@ export function validateGs(spec: gs.TopLevelSpec) {
 export function removeEmpty(obj: any) {
   if (!(obj != null && typeof obj === 'object')) return;
 
-  Object.keys(obj).forEach(function(key) {
+  Object.keys(obj).forEach(function (key) {
     if (obj[key] && typeof obj[key] === 'object') {
       if (Object.keys(obj[key]).length === 0) {
         delete obj[key];
@@ -105,4 +105,9 @@ export function fieldName(name: string): string {
  */
 export function hasKey(obj: object, key: string): boolean {
   return Object.prototype.hasOwnProperty.call(obj, key);
+}
+
+// helper function to preserve ggspecs by copying
+export function cp(x: any) {
+  return JSON.parse(JSON.stringify(x));
 }

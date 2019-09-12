@@ -47,9 +47,6 @@ export function itmLayerArrayByLabelsObject(itmLayerArray: ItmLayer[], ggLabelOb
         if ((itmLayer.encoding[encodingKey] as VLEncodingField).value) continue;
         for (const labelKey in ggLabelObject) {
           if (hasKey(ggLabelObject, labelKey)) {
-            //NOTE@ian - do we need to protect
-
-            //NOTE@ian - consider using a function that takes a labelKey and an encodingKey, returns a boolean
             if (keyMatch(labelKey, encodingKey)) {
               itmLayer.encoding[encodingKey].title = ggLabelObject[labelKey as keyof GG.LabelObject];
               delete ggLabelObject[labelKey as keyof GG.LabelObject];

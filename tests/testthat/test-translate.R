@@ -26,7 +26,9 @@ names_vegaspec <- get_names(dir_vegaspec, regexp = "[.]vl[.]json$")
 
 expect_ggspec <- function(name) {
   # see testthat::quasi_label()
-  expect_identical(
+  # using equal because identical fails when
+  # a double gets written then parsed as an integer
+  expect_equal(
     ggspec_test(!!name, dir = dir_ex),
     ggspec_ref(!!name, dir = dir_ex)
   )
@@ -34,7 +36,7 @@ expect_ggspec <- function(name) {
 
 expect_vegaspec <- function(name) {
   # see testthat::quasi_label()
-  expect_identical(
+  expect_equal(
     vegaspec_test(!!name, dir = dir_ex),
     vegaspec_ref(!!name, dir = dir_ex)
   )

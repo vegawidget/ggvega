@@ -30,4 +30,9 @@ test_that("normalize works", {
     list(list(a = 1, b = 2))
   )
 
+  expect_norm(
+    list(list(b = 1, a = 2)),
+    list(list(a = 2, b = 1))
+  )
+
 })

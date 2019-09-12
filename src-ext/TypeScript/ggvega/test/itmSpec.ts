@@ -62,3 +62,40 @@ export const iris02 = {
     }
   ]
 };
+
+export const barStackedMpg = {
+  layer: [
+    {
+      data: {
+        name: 'data-00'
+      },
+      geomSet: {
+        geom: {
+          class: "GeomBar"
+        },
+        geom_params: {
+          'na.rm': false
+        }
+      },
+      mark: {type: 'bar'},
+      encoding: {
+        x: {
+          field: 'class',
+          type: 'nominal',
+          title: 'class'
+        },
+        y: {
+          aggregate: 'count',
+          stack: 'zero',
+          type: 'quantitative',
+          title: 'count'
+        },
+        fill: {
+          field: 'drv',
+          type: 'nominal',
+          title: 'drv'
+        }
+      }
+    }
+  ]
+};

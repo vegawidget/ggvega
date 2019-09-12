@@ -27,10 +27,14 @@ list(
         colour = list(field = "Species")
       ),
       aes_params = ggvega:::empty_named_list,
-      stat = list(class = "StatIdentity"),
+      stat = list(
+        class = "StatIdentity",
+        default_aes = ggvega:::empty_named_list
+      ),
       stat_params = list(
         na.rm = FALSE
-      )
+      ),
+      position = list(class = "PositionIdentity")
     )
   ),
   scales = list(),

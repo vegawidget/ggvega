@@ -166,10 +166,22 @@
     {
       "data": "data-00",
       "geom": {"class": "GeomPoint"},
-      "geom_params": {},
+      "geom_params": {
+        "na.rm": false
+      },
       "mapping": {"x": {"field": "Petal.Width"}, "y": {"field": "Petal.Length"}, "colour": {"field": "Species"}},
       "aes_params": {},
-      "stat": {"class": "StatIdentity"}
+      "stat": {
+        "class": "StatIdentity",
+        "default_aes": {},
+        "required_aes": {}
+      },
+      "stat_params": {
+        "na.rm": false
+      },
+      "position": {
+        "class": "PositionIdentity"
+      }
     }
   ],
   "scales": [],

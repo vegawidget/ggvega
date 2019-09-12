@@ -18,7 +18,7 @@
 #' coordinates(p$coordinates)
 #'
 coordinates <- function (coordinates_plt, ...) {
-  UseMethod("coordinates", coordinates_plt)
+  UseMethod("coordinates")
 }
 
 coordinates.default <- function(coordinates_plt, ...) {

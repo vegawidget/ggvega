@@ -56,10 +56,14 @@
       },
       "aes_params": {},
       "stat": {
-        "class": "StatIdentity"
+        "class": "StatIdentity",
+        "default_aes": {}
       },
       "stat_params": {
         "na.rm": false
+      },
+      "position": {
+        "class": "PositionIdentity"
       }
     }
   ],

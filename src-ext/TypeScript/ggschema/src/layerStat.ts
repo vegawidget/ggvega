@@ -6,8 +6,7 @@ export type StatClass = StatSet['stat']['class'];
 export interface StatSetIdentity {
   stat: {
     class: 'StatIdentity';
-    // TODO @wenyu: define default_aes
-    // default_aes: Value | MappingStat;
+    default_aes: {};
   };
   stat_params: {
     'na.rm': boolean;
@@ -31,7 +30,10 @@ export interface StatSetCount {
 }
 
 export interface StatSetBoxplot {
-  stat: {class: 'StatBoxplot'};
+  stat: {
+    class: 'StatBoxplot';
+    default_aes: {};
+  };
   stat_params: {
     'na.rm': boolean;
     coef?: string | number;
