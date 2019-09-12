@@ -28,7 +28,7 @@ describe('topLevelSpec/spec2vl', () => {
 
     // bar-chart
     expect(spec2vl(cp(ggSpec.barMpg))).toEqual(vlSpec.barMpg);
-    //expect(spec2vl(cp(ggSpec.barStackedMpg))).toEqual(vlSpec.barStackedMpg);
+    expect(spec2vl(cp(ggSpec.barStackedMpg))).toEqual(vlSpec.barStackedMpg);
 
   });
 });

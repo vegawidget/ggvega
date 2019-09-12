@@ -440,7 +440,8 @@ export let barStackedMpg = {
   labels: {
     x: "class",
     y: "count",
-    weight: "weight"
+    weight: "weight",
+    fill: "drv"
   },
   coordinates: {
     class: "CoordCartesian"
