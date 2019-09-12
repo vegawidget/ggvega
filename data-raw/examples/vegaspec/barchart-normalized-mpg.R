@@ -19,7 +19,8 @@ list(
         ),
         fill = list(
           field = "drv",
-          type = "nominal"
+          type = "nominal",
+          title = "drv"
         )
       )
     )

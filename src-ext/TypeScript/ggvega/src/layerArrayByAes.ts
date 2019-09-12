@@ -129,16 +129,19 @@ export function layerArrayByAes(
  * @returns `VL.Layer`, Vega-Lite layer-object
  *
  */
-function layerByItmLayer(itmLayer: ItmLayer): VL.LayerSpec {
+export function layerByItmLayer(itmLayer: ItmLayer): VL.LayerSpec {
   // create new encoding
   var encoding: VL.Encoding = {};
 
   // loop over aesthetic names in itmLayerEncoding
   for (const aesName in itmLayer.encoding) {
+    console.log(aesName);
     if (hasKey(itmLayer.encoding, aesName)) {
       // get the encoding name,and add to the encoding
+      console.log(aesName);
 
       const encodingName = encodingNameByGeom(aesName as GGEncodingKey, itmLayer.geomSet);
+      console.log(encodingName);
 
       if (encodingName == 'x') encoding[encodingName] = itmLayer.encoding[aesName] as VL.XClass;
 
@@ -154,6 +157,9 @@ function layerByItmLayer(itmLayer: ItmLayer): VL.LayerSpec {
         encoding[encodingName] = itmLayer.encoding[
           aesName
         ] as VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull;
+
+      console.log(itmLayer.encoding[aesName]);
+      console.log(encoding[encodingName]);
     }
   }
 
