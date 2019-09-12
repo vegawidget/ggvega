@@ -1,5 +1,7 @@
 # ggvega  0.0.0 (development version) 
 
+* Added support for `geom_bar()` and `stat_count()` (#42, #44).
+
 * Added an option to `as_vegaspec()`, `single_view` to indicate to collapse a single-layer ggplot2 object into a single-view Vega-Lite specification. This makes it easier to add selections and conditional encodings using {vlbuildr} (#70). 
 
 * Added support for `ggplot2::coord_flip()`.
