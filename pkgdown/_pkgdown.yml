@@ -1,0 +1,29 @@
+destination: docs
+template:
+  params:
+    bootswatch: sandstone
+
+development:
+  mode: auto
+
+navbar:
+  structure:
+    left:  [home, intro, reference, ggplot2, articles, news]
+    right: [github]
+  components:
+    ggplot2:
+      text: ggplot2 features
+      menu:
+      - text: geom
+        menu:
+          - text: point
+            href: articles/articles/gallery/01-scatterplot.html
+          - text: bar
+      - text: stat
+        menu:
+          - text: count
+      - text: position
+        menu:
+          - text: stack
+          - text: fill
+

@@ -1,7 +1,0 @@
-destination: docs
-template:
-  params:
-    bootswatch: sandstone
-
-development:
-  mode: auto

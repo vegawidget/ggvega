@@ -21,28 +21,38 @@ library(ggvega)
 #> Welcome to ggvega; this package is not yet fully functional, and is under active development.
 library(ggplot2)
 
-p <- 
+g <- 
   ggplot(iris) + 
   geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
 
-as_vegaspec(p)
+as_vegaspec(g)
 ```
 
-![](man/figures/README-example-1.svg)<!-- -->
+![](man/figures/README-scatter-1.svg)<!-- -->
+
+``` r
+g <- 
+  ggplot(data = mpg, aes(x = class, weight = displ)) +
+  geom_bar(aes(fill = drv), position = "fill") +
+  coord_flip()
+
+as_vegaspec(g)
+```
+
+![](man/figures/README-bar-1.svg)<!-- -->
 
 ### Important Note
 
-This package is in an *extremely* experimental state, under *very*
-active development.
+This package is in an experimental state, under *very* active
+development.
 
 At present, we can translate:
 
-  - `geom_point()`
-  - aesthetics: `x`, `y`, `colour`
+  - `geom_point()`, `geom_bar()`
+  - `stat_count()`
+  - `position_stack()`, `position_fill()`
+  - `coord_flip()`
   - unit-plots; no facetting.
-
-We have plans to expand this capability; presently, we are working out a
-system to add new capabilities quickly and reliably.
 
 ## Installation
 
