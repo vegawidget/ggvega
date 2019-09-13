@@ -14,16 +14,53 @@ navbar:
     ggplot2:
       text: ggplot2 features
       menu:
+      - text: overview
+      - text: ---
+      - text: data
       - text: geom
         menu:
-          - text: point
-            href: articles/articles/gallery/01-scatterplot.html
-          - text: bar
+        - text: point
+          href: articles/ggplot2/geom/geom_point.html
+        - text: bar
       - text: stat
         menu:
-          - text: count
+        - text: count
       - text: position
         menu:
-          - text: stack
-          - text: fill
+        - text: stack
+        - text: fill
+      - text: scales
+      - text: facet
+      - text: coordinates
+        menu:
+        - text: flip
+      - text: labels
+    articles:
+      text: Articles
+      menu:
+        - text: Gallery
+        - text: Limitations
+        - text: Roadmap
+        - text: Design Philosophy
 
+reference:
+- title: Translation
+  desc: Functions to translate to Vega-Lite
+  contents:
+  - as_vegaspec.gg
+  - gg2spec
+  - spec2vl
+- title: Examples
+  contents:
+  - gg_example_names
+- title: Rendering
+  desc: Functions exported from vegawidget package
+  contents:
+  - as_vegaspec
+  - image
+  - knit_print.vegaspec
+  - renderVegawidget
+  - vega_embed
+  - vegawidget
+  - vegawidgetOutput
+  - vw_as_json

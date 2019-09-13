@@ -56,7 +56,6 @@ gg2spec <- function(plt){
 #' @inherit vegawidget::as_vegaspec return
 #'
 #' @export
-#' @keywords internal
 #'
 spec2vl <- function(ggspec, single_view = FALSE) {
 

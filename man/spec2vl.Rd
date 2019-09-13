@@ -18,4 +18,3 @@ An object with S3 class \code{vegaspec}
 \description{
 Translate ggspec object to vegaspec
 }
-\keyword{internal}
