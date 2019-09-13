@@ -74,7 +74,7 @@
 }
 
 
-.remark-slide-content .salt {
+.salt {
     font-size: 60px;
     font-family: Londrina Solid;
   font-weight: bold;
@@ -88,7 +88,7 @@
      .5px .5px 0 #353839;
 }
 
-.remark-slide-content .fat {
+.fat {
     font-size: 60px;
     font-family: Londrina Solid;
   font-weight: bold;
@@ -102,7 +102,7 @@
      .5px .5px 0 #353839;
 }
 
-.remark-slide-content .acid {
+.acid {
     font-size: 60px;
     font-family: Londrina Solid;
   font-weight: bold;
@@ -116,7 +116,7 @@
      .5px .5px 0 #353839;
 }
 
-.remark-slide-content .heat {
+.heat {
     font-size: 60px;
     font-family: Londrina Solid;
   font-weight: bold;
@@ -149,6 +149,7 @@ h1, h2, h3 {
     -1px 1px 0 #353839,
      1px 1px 0 #353839;
 }
+
 .remark-slide-content .small p {
     font-size: 15px;
 }
@@ -187,7 +188,7 @@ a, a > code {
 }
 .title-slide h2, .title-slide h3 {
   color: #efba38;
-  font-size: 41px;
+  font-size: 51px;
   letter-spacing: 4px;
 }
 .title-slide {
@@ -204,8 +205,7 @@ a, a > code {
     -1px 1px 0 #353839,
      1px 1px 0 #353839;
 }
+
 .remark-slide-content h3 {
     font-size: 51px;
 }
-
-
