@@ -122,17 +122,19 @@ class: inverse, center, middle
 
 &lt;!-- Four basic components that form a layer: --&gt;
 
+&lt;br /&gt;
+
 .salt[
-#### data
+data
 ]
 .fat[
-#### stat
+stat
 ]
 .acid[
-#### mapping
+mapping
 ]
 .heat[
-#### geom
+geom
 ]
 ].left-third2[
 
@@ -141,39 +143,41 @@ class: inverse, center, middle
 
 Four basic components that ... --&gt;
 
+&lt;br /&gt;
+
 .salt[
-#### data
+data
 ]
 .fat[
-#### transform
+transform
 ]
 .acid[
-#### encoding
+encoding
 ]
 .heat[
-#### mark
+mark
 ]
 
 ].right-third2[
 
 #### Grammar-of-Graphics as Food
 
-
+&lt;br /&gt;
 &lt;!-- &lt;img src="dsc_files/ggfood2.png" height="100"&gt; --&gt;
 
 &lt;!-- Four basic factors that determine how good your food will taste: --&gt;
 
 .salt[
-#### salt
+salt
 ]
 .fat[
-#### fat
+fat
 ]
 .acid[
-#### acid
+acid
 ]
 .heat[
-#### heat
+heat
 ]
 
 ]
@@ -224,6 +228,13 @@ ggvega seeks to capture the *intent* of a ggplot. This is distinct from the *imp
 2. Convert a "ggspec" into a Vega-Lite specification or "vegaspec".
 
 &lt;br/&gt;
+&lt;br/&gt;
+
+.center[
+.salt[ggplot2 ].fat[ -&gt; ].acid[ ggspec ].fat[ -&gt; ].heat[ vlspec]
+]
+
+???
 
 #### Why 2 steps? 
 
@@ -232,7 +243,9 @@ ggvega seeks to capture the *intent* of a ggplot. This is distinct from the *imp
 - Should ggplot2 or Vega-Lite change, we hope that we could keep ggspec "fixed" such that we would have to adapt only that part of the translation process (ggplot2-to-ggspec or ggspec-to-Vega-Lite) that would be impacted by such a change.
 
 ---
-### ggplot -&gt; ggspec
+.salt[ggplot2 ].fat[ -&gt; ].acid[ ggspec ]
+
+&lt;br/&gt;
 
 The ideas for "ggspec" are 
 
@@ -264,6 +277,7 @@ Accordingly, we think to specify things in Vega-Lite only as they differ from th
 
 **Idealized version:**   
 - a JSON-serializable representation of any possible ggplot object;  
+
 - that it could also be a loss-less representation of any ggplot object.  
 
 **Actualized version:**
@@ -280,8 +294,9 @@ However, in the interests of "getting something done", we considered briefly the
 
 
 ---
-### ggspec -&gt; vlspec
+.acid[ ggspec ].fat[ -&gt; ].heat[ vlspec]
 
+&lt;br/&gt;
 
 The ggspec is then converted into a vegaspec. 
 
@@ -316,8 +331,8 @@ as_vegaspec(plot)
 
 .pull-right[
 
-<div id="htmlwidget-923ab0854b8bd64eb28f" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-923ab0854b8bd64eb28f">{"x":{
+<div id="htmlwidget-d2bb9a904bbcf8dc7768" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d2bb9a904bbcf8dc7768">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "datasets": {
@@ -1436,8 +1451,8 @@ vl_encode_fill("Species:N")
 
 .pull-right[
 
-<div id="htmlwidget-aad039b2ec364c93c781" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-aad039b2ec364c93c781">{"x":{
+<div id="htmlwidget-c327e3eb89054130e971" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c327e3eb89054130e971">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "datasets": {

@@ -118,17 +118,19 @@ class: inverse, center, middle
 
 <!-- Four basic components that form a layer: -->
 
+<br />
+
 .salt[
-#### data
+data
 ]
 .fat[
-#### stat
+stat
 ]
 .acid[
-#### mapping
+mapping
 ]
 .heat[
-#### geom
+geom
 ]
 ].left-third2[
 
@@ -137,39 +139,41 @@ class: inverse, center, middle
 
 Four basic components that ... -->
 
+<br />
+
 .salt[
-#### data
+data
 ]
 .fat[
-#### transform
+transform
 ]
 .acid[
-#### encoding
+encoding
 ]
 .heat[
-#### mark
+mark
 ]
 
 ].right-third2[
 
 #### Grammar-of-Graphics as Food
 
-
+<br />
 <!-- <img src="dsc_files/ggfood2.png" height="100"> -->
 
 <!-- Four basic factors that determine how good your food will taste: -->
 
 .salt[
-#### salt
+salt
 ]
 .fat[
-#### fat
+fat
 ]
 .acid[
-#### acid
+acid
 ]
 .heat[
-#### heat
+heat
 ]
 
 ]
@@ -220,6 +224,13 @@ ggvega seeks to capture the *intent* of a ggplot. This is distinct from the *imp
 2. Convert a "ggspec" into a Vega-Lite specification or "vegaspec".
 
 <br/>
+<br/>
+
+.center[
+.salt[ggplot2 ].fat[ -> ].acid[ ggspec ].fat[ -> ].heat[ vlspec]
+]
+
+???
 
 #### Why 2 steps? 
 
@@ -228,7 +239,9 @@ ggvega seeks to capture the *intent* of a ggplot. This is distinct from the *imp
 - Should ggplot2 or Vega-Lite change, we hope that we could keep ggspec "fixed" such that we would have to adapt only that part of the translation process (ggplot2-to-ggspec or ggspec-to-Vega-Lite) that would be impacted by such a change.
 
 ---
-### ggplot -> ggspec
+.salt[ggplot2 ].fat[ -> ].acid[ ggspec ]
+
+<br/>
 
 The ideas for "ggspec" are 
 
@@ -260,6 +273,7 @@ Accordingly, we think to specify things in Vega-Lite only as they differ from th
 
 **Idealized version:**   
 - a JSON-serializable representation of any possible ggplot object;  
+
 - that it could also be a loss-less representation of any ggplot object.  
 
 **Actualized version:**
@@ -276,8 +290,9 @@ However, in the interests of "getting something done", we considered briefly the
 
 
 ---
-### ggspec -> vlspec
+.acid[ ggspec ].fat[ -> ].heat[ vlspec]
 
+<br/>
 
 The ggspec is then converted into a vegaspec. 
 

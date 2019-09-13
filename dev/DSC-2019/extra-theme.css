@@ -74,8 +74,8 @@
 }
 
 
-.remark-slide-content .salt h4 {
-    font-size: 40px;
+.remark-slide-content .salt {
+    font-size: 60px;
     font-family: Londrina Solid;
   font-weight: bold;
   color: #78b0b4;
@@ -88,8 +88,8 @@
      .5px .5px 0 #353839;
 }
 
-.remark-slide-content .fat h4 {
-    font-size: 40px;
+.remark-slide-content .fat {
+    font-size: 60px;
     font-family: Londrina Solid;
   font-weight: bold;
   color: #efba38;
@@ -102,8 +102,8 @@
      .5px .5px 0 #353839;
 }
 
-.remark-slide-content .acid h4 {
-    font-size: 40px;
+.remark-slide-content .acid {
+    font-size: 60px;
     font-family: Londrina Solid;
   font-weight: bold;
   color: #bbbe4a;
@@ -116,8 +116,8 @@
      .5px .5px 0 #353839;
 }
 
-.remark-slide-content .heat h4 {
-    font-size: 40px;
+.remark-slide-content .heat {
+    font-size: 60px;
     font-family: Londrina Solid;
   font-weight: bold;
   color: #f96c3b;
