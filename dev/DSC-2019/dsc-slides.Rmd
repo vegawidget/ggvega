@@ -13,11 +13,14 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 options(htmltools.dir.version = FALSE)
 library(tidyverse)
 # install_github("hadley/emo")
 # library(emo)
 # emo_heart_eyes <- emo::ji("smiling face with heart-eyes")
+library(ggvega)
+cars <- jsonlite::fromJSON("https://vega.github.io/vega-lite/data/cars.json")
 ```
 
 ### ggvega
@@ -25,6 +28,26 @@ library(tidyverse)
 Created to translate from ggplot2 to Vega-Lite  
 
 - inspired by the capability `plotly::ggplotly()` provides 
+
+.pull-left[
+
+```{r echo=FALSE, fig.width=5, fig.height=4}
+p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
+  geom_point(aes(color = Origin)) 
+
+p
+```
+]
+.pull-right[
+```{r echo=FALSE, fig.asp=.65}
+p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
+  geom_point(aes(color = Origin)) 
+
+as_vegaspec(p)
+```
+]
+
+
 
 .center[
 <br/><br/><br/>
@@ -269,8 +292,8 @@ Accordingly, we think to specify things in Vega-Lite only as they differ from th
 .pull-left[
 
 ```{r fig.asp=.65}
-p <- ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +
-  geom_point(aes(color = Species))
+p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
+  geom_point(aes(color = Origin)) 
 
 p
 ```
@@ -388,7 +411,7 @@ ggvega::gg2spec(p)
 ```
 ]
 .pull-right[
-```{r}
+```{r eval = FALSE}
 ggvega::as_vegaspec(p)
 ```
 
