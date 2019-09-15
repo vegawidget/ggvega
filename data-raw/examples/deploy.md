@@ -160,7 +160,7 @@ Next, we need a function that will:
 ``` r
 deploy_test_ggplot <- function(example, dir) {
   
-  path <- dev_example_path(example, "ggplot")
+  path <- ggv_dev_path(example, "ggplot")
   new_path <- 
     fs::path_join(c(dir, "ggplot", glue::glue("{example}.R")))
   
@@ -172,7 +172,7 @@ deploy_test_ggplot <- function(example, dir) {
 ```
 
 ``` r
-examples <- dev_example_names("ggplot")
+examples <- ggv_dev_names("ggplot")
 
 walk(examples, deploy_test_ggplot, dir = test_example_dir)
 ```
@@ -191,7 +191,7 @@ that will:
 ``` r
 deploy_test_ggspec <- function(example, dir) {
 
-  path <- dev_example_path(example, "ggspec")
+  path <- ggv_dev_path(example, "ggspec")
   new_path <- 
     fs::path_join(c(dir, "ggspec", glue::glue("{example}.gg.json")))
   
@@ -207,7 +207,7 @@ deploy_test_ggspec <- function(example, dir) {
 ```
 
 ``` r
-examples <- dev_example_names("ggspec")
+examples <- ggv_dev_names("ggspec")
 examples <- examples[!examples %in% skip_ggspec]
 
 walk(examples, deploy_test_ggspec, dir = test_example_dir)
@@ -227,7 +227,7 @@ that will:
 ``` r
 deploy_test_vegaspec <- function(example, dir) {
 
-  path <- dev_example_path(example, "vegaspec")
+  path <- ggv_dev_path(example, "vegaspec")
   new_path <- 
     fs::path_join(c(dir, "vegaspec", glue::glue("{example}.vl.json")))
   
@@ -243,7 +243,7 @@ deploy_test_vegaspec <- function(example, dir) {
 ```
 
 ``` r
-examples <- dev_example_names("vegaspec")
+examples <- ggv_dev_names("vegaspec")
 examples <- examples[!examples %in% skip_vegaspec]
 
 walk(examples, deploy_test_vegaspec, dir = test_example_dir)

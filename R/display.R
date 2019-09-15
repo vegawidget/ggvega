@@ -1,6 +1,6 @@
 #' Create a markdown code-block from a ggplot2 example
 #'
-#' @inheritParams dev_example_path
+#' @inheritParams ggv_dev_path
 #' @param arrange `character`, arrangement of plots
 #' @param vl_width `integer`, width of VL chart (px.)
 #' @param vl_height `integer`, height of VL chart (px.)
@@ -12,38 +12,31 @@
 #' @keywords internal
 #' @export
 #'
-ggv_example_codeblock <- function(example) {
-
-  if (!requireNamespace("readr", quietly = TRUE)) {
-    stop("need {readr} package")
-  }
-
-  filename <- dev_example_path(example, type = "ggplot")
-  text <- readr::read_lines(filename)
-
-  code_block <- as_codeblock(text)
-
-  code_block
-}
-
-#' @rdname ggv_example_codeblock
-#'
-#' @keywords internal
-#' @export
-#'
 ggv_dev_display <- function(example, arrange = c("side", "top"),
                             vl_width = 275, vl_height = 275,
                             gg_width = 400, gg_height = 320) {
 
+
   # note to include stacked arrangement of plots
+
+  tags <- htmltools::tags
 
   if (!requireNamespace("htmltools", quietly = TRUE)) {
     stop("need {htmltools} package")
   }
 
-  tags <- htmltools::tags
+  if (!requireNamespace("readr", quietly = TRUE)) {
+    stop("need {readr} package")
+  }
 
-  print(ggv_example_codeblock(example))
+  # code block
+  filename <- ggv_dev_path(example, type = "ggplot")
+  text <- readr::read_lines(filename)
+
+  code_block <- as_codeblock(text)
+
+
+  # comparison
 
   # knitr directory
   dir_files <-
@@ -57,7 +50,7 @@ ggv_dev_display <- function(example, arrange = c("side", "top"),
   suppressMessages(
     ggplot2::ggsave(
       file_gg,
-      plot = dev_example(example, "ggplot"),
+      plot = ggv_dev(example, "ggplot"),
       device = "png",
       width = 5,
       height = 5 * gg_height / gg_width,
@@ -65,13 +58,13 @@ ggv_dev_display <- function(example, arrange = c("side", "top"),
     )
   )
 
-  vl <- dev_example(example, "vegaspec")
+  vl <- ggv_dev(example, "vegaspec")
   vl$width <- vl_width
   vl$height <- vl_height
 
   vw_write_svg(vl, path = file_vl)
 
-  div <-
+  div_compare <-
     tags$div(
       tags$table(
         tags$tr(
@@ -88,22 +81,20 @@ ggv_dev_display <- function(example, arrange = c("side", "top"),
       )
     )
 
-  print(div)
-
   # JSON spec for ggspec & vegaspec
   ggspec_json <-
-    source(dev_example_path(example, "ggspec"))$value %>%
+    source(ggv_dev_path(example, "ggspec"))$value %>%
     truncate_data_ggspec() %>%
     to_json() %>%
     as.character()
 
   vegaspec_json <-
-    source(dev_example_path(example, "vegaspec"))$value %>%
+    source(ggv_dev_path(example, "vegaspec"))$value %>%
     truncate_data_vegaspec() %>%
     to_json() %>%
     as.character()
 
-  div <-
+  div_json <-
     tags$div(
       tags$details(
         tags$summary("JSON specifications"),
@@ -138,11 +129,15 @@ ggv_dev_display <- function(example, arrange = c("side", "top"),
       )
     )
 
-  print(div)
+
+  # print
+
+  print(code_block)
+  print(div_compare)
+  print(div_json)
 
   invisible(NULL)
 }
-
 
 as_codeblock <- function(text) {
 

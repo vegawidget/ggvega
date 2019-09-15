@@ -53,7 +53,7 @@ test_that("truncate_data functions work", {
 
   example <- "scatterplot-iris"
 
-  gg_scatter <- source(dev_example_path(example, "ggspec"))$value
+  gg_scatter <- source(ggv_dev_path(example, "ggspec"))$value
 
   gg_scatter_truncate <- gg_scatter
   gg_scatter_truncate$data$`data-00`$observations <-
@@ -61,7 +61,7 @@ test_that("truncate_data functions work", {
 
   expect_identical(truncate_data_ggspec(gg_scatter), gg_scatter_truncate)
 
-  vl_scatter <- source(dev_example_path(example, "vegaspec"))$value
+  vl_scatter <- source(ggv_dev_path(example, "vegaspec"))$value
 
   vl_scatter_truncate <- vl_scatter
   vl_scatter_truncate$datasets$`data-00` <-

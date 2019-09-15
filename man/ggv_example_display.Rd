@@ -9,7 +9,7 @@ ggv_example_display(example, arrange = c("side", "top"),
 }
 \arguments{
 \item{example}{\code{character} or \code{ggplot2} object, if \code{character}, uses
-\code{gg_example()} to retrieve a ggplot2 object.}
+\code{ggv_example()} to retrieve a ggplot2 object.}
 
 \item{arrange}{\code{character}, arrangement of plots}
 

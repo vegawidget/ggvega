@@ -52,7 +52,7 @@ reference:
   - spec2vl
 - title: Examples
   contents:
-  - gg_example_names
+  - ggv_example_names
 - title: Rendering
   desc: Functions exported from vegawidget package
   contents:
@@ -68,4 +68,4 @@ reference:
   desc: Functions used to support the documentation
   contents:
   - ggv_example_display
-  - ggv_example_codeblock
+  - ggv_dev

@@ -58,6 +58,6 @@ Suggests:
     withr,
     htmltools,
     shiny,
-    listviewer,
+    listviewer (>= 2.1.0),
     base64enc
 VignetteBuilder: knitr

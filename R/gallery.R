@@ -3,7 +3,7 @@
 #'
 #' @inheritParams ggv_dev_display
 #' @param example `character` or `ggplot2` object, if `character`, uses
-#'   `gg_example()` to retrieve a ggplot2 object.
+#'   `ggv_example()` to retrieve a ggplot2 object.
 #'
 #' @return Invisible `NULL`, called for side-effects.
 #' @keywords internal
