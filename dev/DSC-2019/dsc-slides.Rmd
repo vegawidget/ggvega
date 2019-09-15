@@ -85,38 +85,12 @@ This project has been supported by Iowa State University, Schneider Electric, an
 class: inverse, center, middle
 # Motivation
 
----
-### Goals
-
-#### 1. ggplot2 + interactivity
-
-
-#### 2. Build & deploy visual components (in JS and HTML) 
-
----
-### Build & deploy visual components
-
-
-Needs to be extensible to new data  
-
-  - a guiding principle when making fundamental design choices
-
-  - distinguishes this effort from `plotly::ggplotly()`
-
-<br/>
-
---
-
-
-> Compared to `plot_ly()`, statistical queries (client-side) with `ggplotly()` are fundamentally limited. That’s because, the statistical R functions that ggplot2 relies on to generate the graphical layers can’t necessarily be recomputed with different input data in your web browser.
 
 ---
 ### Build & deploy visual components 
 
 
-- extensible to new data  
-
-  - a guiding principle when making fundamental design choices
+A guiding principle for fundamental design choices was for the result to be extensible to new data.
 
 <br/>
 
@@ -198,6 +172,20 @@ on_data();
 ]
 
 ???
+
+---
+### Build & deploy visual components
+
+
+A guiding principle for fundamental design choices was for the result to be extensible to new data.  
+
+This distinguishes this effort from `plotly::ggplotly()`
+
+<br/>
+
+
+> Compared to `plot_ly()`, statistical queries (client-side) with `ggplotly()` are fundamentally limited. That’s because, the statistical R functions that ggplot2 relies on to generate the graphical layers can’t necessarily be recomputed with different input data in your web browser.
+
 
 ---
 ### ggplot2 + interactivity
