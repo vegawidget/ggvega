@@ -57,10 +57,14 @@ reference:
   desc: Functions exported from vegawidget package
   contents:
   - as_vegaspec
+  - vegawidget
   - image
   - knit_print.vegaspec
   - renderVegawidget
-  - vega_embed
-  - vegawidget
   - vegawidgetOutput
+  - vega_embed
   - vw_as_json
+- title: Internal
+  desc: Functions used to support the documentation
+  contents:
+  - ggv_example_display

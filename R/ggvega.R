@@ -21,7 +21,7 @@ as_vegaspec.gg <- function(spec, single_view = FALSE, ...) {
   spec2vl(ggspec, single_view)
 }
 
-#' Translate ggplot2 object into a ggspec
+#' Translate ggplot2 object to ggspec
 #'
 #' @param plt A ggplot2 object.
 #'

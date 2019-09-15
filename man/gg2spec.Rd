@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggvega.R
 \name{gg2spec}
 \alias{gg2spec}
-\title{Translate ggplot2 object into a ggspec}
+\title{Translate ggplot2 object to ggspec}
 \usage{
 gg2spec(plt)
 }
@@ -13,7 +13,7 @@ gg2spec(plt)
 \code{list}, a ggspec list.
 }
 \description{
-Translate ggplot2 object into a ggspec
+Translate ggplot2 object to ggspec
 }
 \examples{
 library(ggplot2)
