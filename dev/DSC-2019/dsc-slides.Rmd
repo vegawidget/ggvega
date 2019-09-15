@@ -27,25 +27,25 @@ cars <- jsonlite::fromJSON("https://vega.github.io/vega-lite/data/cars.json")
 set.seed(314)
 n_obs <- 100
 
-lang_prob <- tribble(
-     ~language, ~probability,
-           "R",         0.40,
-      "Python",         0.30,
-         "C++",         0.15,
-  "JavaScript",         0.10,
-        "Lisp",         0.05
+toy_prob <- tribble(
+  ~value, ~probability,
+  "a",         0.35,
+  "b",         0.25,
+  "c",         0.10,
+  "d",         0.10,
+  "e",         0.1
 )
 
 data_all <- 
   tibble(
     user_id = seq(1, 2 * n_obs),
-    language = 
+    value = 
       sample(
-        lang_prob$language, 
+        toy_prob$value, 
         size = 2 * n_obs, 
         replace = TRUE, 
-        prob = lang_prob$probability
-    )
+        prob = toy_prob$probability
+      )
   )  
 
 data_init <- data_all[data_all$user_id <= n_obs, ]
@@ -60,11 +60,12 @@ Created to translate from ggplot2 to Vega-Lite
 
 .pull-left[
 
-```{r echo=FALSE, fig.width=5, fig.height=4}
+```{r echo=FALSE, fig.width=4, fig.height=3}
 p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
   geom_point(aes(color = Origin)) 
 
 p
+# ggvega::dev_gallery()
 ```
 ]
 .pull-right[
@@ -97,7 +98,7 @@ A guiding principle for fundamental design choices was for the result to be exte
 .center[
 
 ```{r echo=FALSE}
-g <- ggplot(data_init, aes(x = language)) + geom_bar()
+g <- ggplot(data_init, aes(x = value)) + geom_bar()
 
 vs <- as_vegaspec(g)
 
@@ -245,6 +246,7 @@ class: inverse, center, middle
 ---
 ### Fundamental design choices
 
+**Design choice #1:** intention vs. implementation?
 
 <br/>
 
@@ -252,22 +254,15 @@ class: inverse, center, middle
 
 <br/>
 
-**Design choice #1:** intention vs. implementation?
+**Our approach:** A 2 step process
 
-???
+1. ggplot2 -> ggspec
 
-ggvega seeks to capture the *intent* of a ggplot. This is distinct from the *implementation* of a ggplot (the path `ggplotly()` takes). Our idea is to let the powerful defaults of the two packages take care of most of the work. In addition, we anticipated (at some point in the (hopefully not-too-)distant future) creating a Vega-lite theme for the visual components.
+  - Convert a ggplot2 object into a "ggspec", a JSON-serializable list  
 
----
-.salt[ggplot2 ].fat[ -> ].acid[ ggspec ].fat[ -> ].heat[ vlspec]
+2. ggspec -> vlspec
 
-<br/>
-
-#### A 2 step process:
-
-1. Convert a ggplot2 object into a "ggspec", a JSON-serializable list  
-
-2. Convert a "ggspec" into a Vega-Lite specification or "vegaspec".
+  - Convert a "ggspec" into a Vega-Lite specification or "vegaspec".
 
 <br/>
 
@@ -284,6 +279,7 @@ ggvega seeks to capture the *intent* of a ggplot. This is distinct from the *imp
 - Should ggplot2 or Vega-Lite change, we hope that we could keep ggspec "fixed" such that we would have to adapt only that part of the translation process (ggplot2-to-ggspec or ggspec-to-Vega-Lite) that would be impacted by such a change.
 
 ---
+.pull-left[
 .salt[ggplot2 ].fat[ -> ].acid[ ggspec ]
 
 <br/>
@@ -296,16 +292,63 @@ The ideas for "ggspec" are
 
 - to provide the means to generate a JSON specification that meets this schema, given a ggplot2 object
 
+]
+
+.pull-right[
+
+.acid[ ggspec ].fat[ -> ].heat[ vlspec]
+
 <br/>
 
-???
+- took inspiration from Vega-Lite itself which translates a Vega-Lite specification into a Vega specification. 
 
-The ggspec should record only those things that deviate from ggplot2 defaults; one should be able to take a ggspec and recreate the ggplot object that it came from.
+- this compiler is developed in TypeScript, then compiled into ECMAScript 6 (JavaScript), as described in the [Vega-Lite contribution guide](https://github.com/vega/vega-lite/blob/master/CONTRIBUTING.md#suggested-programming-environment).
 
-Accordingly, we think to specify things in Vega-Lite only as they differ from the Vega-Lite defaults. Our goal is to capture the “essence” of the ggplot, its intentions, then to implement in a default Vega-Lite specification. To replicate the default color-maps and appearance, we recommend using a Vega theme (we hope to propose a better ggplot2-theme for Vega).
+]
 
 
+---
 
+
+.left-minus-tall[
+<br/>
+<img src="dsc_files/ideal_vs_real.jpg" width="400"> 
+]
+.right-plus-tall[
+### Idealized vs. Actualized
+
+**Idealized version:**   
+- a JSON-serializable representation of any possible ggplot object;  
+
+- that it could also be a loss-less representation of any ggplot object.  
+
+**Actualized version:**
+- *is* a JSON-serializable representation of a ggplot object that we can translate into Vega-Lite.
+
+<!--
+In an ideal world, we might have taken on the **idealized** ggspec, then defined an **actualized** subset. 
+
+However, in the interests of "getting something done", we considered briefly the first possibility, then went straight for the second possibility. 
+
+-->
+
+]
+
+
+---
+.salt[ggplot2 ]
+
+
+.pull-left[
+
+```{r fig.asp=.65}
+p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
+  geom_point(aes(color = Origin)) 
+
+p
+```
+
+]
 
 ---
 .salt[ggplot2 ].fat[ -> ].acid[ ggspec ]
@@ -356,47 +399,47 @@ ggvega::gg2spec(p)
 ```
 ]
 
+
 ---
+.acid[ggspec ]
+
+.pull-left[
 
 
-.left-minus-tall[
-<br/>
-<img src="dsc_files/ideal_vs_real.jpg" width="400"> 
+```{r eval=FALSE}
+ggvega::gg2spec(p)
+```
+
+```json
+{
+  "data": {
+    "data-00": {
+      "metadata": {},
+      "observations": []
+    }
+  },
+  "layers": [
+    {
+      "data": "data-00",
+      "geom": {},
+      "geom_params": {},
+      "mapping": {},
+      "aes_params": {},
+      "stat": {},
+      "stat_params": {},
+      "position": {}
+    }
+  ],
+  "scales": [],
+  "labels": {},
+  "coordinates": {},
+  "facet": {}
+}
+```
 ]
-.right-plus-tall[
-### Idealized vs. Actualized
-
-**Idealized version:**   
-- a JSON-serializable representation of any possible ggplot object;  
-
-- that it could also be a loss-less representation of any ggplot object.  
-
-**Actualized version:**
-- *is* a JSON-serializable representation of a ggplot object that we can translate into Vega-Lite.
-
-<!--
-In an ideal world, we might have taken on the **idealized** ggspec, then defined an **actualized** subset. 
-
-However, in the interests of "getting something done", we considered briefly the first possibility, then went straight for the second possibility. 
-
--->
-
-]
 
 ---
-.acid[ ggspec ].fat[ -> ].heat[ vlspec]
-
-<br/>
-
-The ggspec is then converted into a vegaspec. 
-
-As a first approach, we took inspiration from Vega-Lite itself, which translates a Vega-Lite specification into a Vega specification. 
-
-This compiler is developed in TypeScript, then compiled into ECMAScript 6 (JavaScript), as described in the [Vega-Lite contribution guide](https://github.com/vega/vega-lite/blob/master/CONTRIBUTING.md#suggested-programming-environment).
-
-
----
-.acid[ ggspec ].fat[ -> ].heat[ vlspec]
+.acid[ggspec ].fat[ -> ].heat[ vlspec]
 
 .pull-left[
 
@@ -457,6 +500,17 @@ ggvega::as_vegaspec(p)
   ]
 }
 ```
+]
+
+---
+.heat[vlspec]
+
+.pull-left[
+
+```{r}
+ggvega::as_vegaspec(p)
+```
+
 ]
 
 
@@ -601,8 +655,8 @@ The ordering of ordered factors and being extensible to new data.
 ### Other limitations
 
 #### Expressions + aesthetic mappings:
-- We are *very* restrictive on the expressions we will allow for aesthetic mappings in ggplot. 
-- We currently support variable-names only; the only foreseeable exception to this will be to manage factors.
+- We are **very restrictive** on the expressions we will allow for aesthetic mappings in ggplot. 
+- We currently support **variable-names only**; the only foreseeable exception to this will be to manage factors.
 
 #### Temporal values:
 - In R, a `POSIX.ct` object has access to a timezone database via the operating system.  
@@ -673,17 +727,17 @@ Then the questions could become:
 
 
 ---
-### New features on the horizon
+### New features on the horizon?
 
 
-New to Vega-Lite 4.0 (currently in beta):
+#### New to Vega-Lite 4.0 (currently in beta):
 
 - [regression](https://vega.github.io/vega-lite/docs/regression.html)
 - [loess](https://vega.github.io/vega-lite/docs/loess.html)
 - [density](https://vega.github.io/vega-lite/docs/density.html)
 
 
-As these new capabilities are released in Vega-Lite:
+#### As these new capabilities are released in Vega-Lite:
 
 - `geom_smooth()`
 - `geom_density()`

@@ -75,7 +75,7 @@
 
 
 .salt {
-    font-size: 60px;
+    font-size: 40px;
     font-family: Londrina Solid;
   font-weight: bold;
   color: #78b0b4;
@@ -89,7 +89,7 @@
 }
 
 .fat {
-    font-size: 60px;
+    font-size: 40px;
     font-family: Londrina Solid;
   font-weight: bold;
   color: #efba38;
@@ -103,7 +103,7 @@
 }
 
 .acid {
-    font-size: 60px;
+    font-size: 40px;
     font-family: Londrina Solid;
   font-weight: bold;
   color: #bbbe4a;
@@ -117,10 +117,24 @@
 }
 
 .heat {
-    font-size: 60px;
+    font-size: 40px;
     font-family: Londrina Solid;
   font-weight: bold;
   color: #f96c3b;
+  letter-spacing: 4px;
+  text-shadow:
+  .5px .5px 0 #353839,
+   -.5px -.5px 0 #353839,
+    .5px -.5px 0 #353839,
+    -.5px .5px 0 #353839,
+     .5px .5px 0 #353839;
+}
+
+.other {
+    font-size: 40px;
+    font-family: Londrina Solid;
+  font-weight: bold;
+  color: #f5ab4d;
   letter-spacing: 4px;
   text-shadow:
   .5px .5px 0 #353839,
@@ -148,6 +162,11 @@ h1, h2, h3 {
     1px -1px 0 #353839,
     -1px 1px 0 #353839,
      1px 1px 0 #353839;
+}
+
+.remark-slide-content .large p {
+    font-size: 25px;
+    font-weight: bold;
 }
 
 .remark-slide-content .small p {
