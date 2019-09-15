@@ -16,11 +16,40 @@ output:
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 options(htmltools.dir.version = FALSE)
 library(tidyverse)
-# install_github("hadley/emo")
-# library(emo)
-# emo_heart_eyes <- emo::ji("smiling face with heart-eyes")
+library(htmltools)
 library(ggvega)
+library(vegawidget)
+```
+
+```{r setupmore, include=FALSE}
 cars <- jsonlite::fromJSON("https://vega.github.io/vega-lite/data/cars.json")
+
+set.seed(314)
+n_obs <- 100
+
+lang_prob <- tribble(
+     ~language, ~probability,
+           "R",         0.40,
+      "Python",         0.30,
+         "C++",         0.15,
+  "JavaScript",         0.10,
+        "Lisp",         0.05
+)
+
+data_all <- 
+  tibble(
+    user_id = seq(1, 2 * n_obs),
+    language = 
+      sample(
+        lang_prob$language, 
+        size = 2 * n_obs, 
+        replace = TRUE, 
+        prob = lang_prob$probability
+    )
+  )  
+
+data_init <- data_all[data_all$user_id <= n_obs, ]
+data_new <- data_all[data_all$user_id > n_obs, ]
 ```
 
 ### ggvega
@@ -48,12 +77,6 @@ as_vegaspec(p)
 ]
 
 
-
-.center[
-<br/><br/><br/>
-**(add visual of ggplot2 -> vl)**
-]
-
 .footnote[
 This project has been supported by Iowa State University, Schneider Electric, and GSOC.
 ]
@@ -65,39 +88,113 @@ class: inverse, center, middle
 ---
 ### Goals
 
-#### ggplot2 + interactivity
+#### 1. ggplot2 + interactivity
 
 
-#### build & deploy visual components (in JS and HTML) 
+#### 2. Build & deploy visual components (in JS and HTML) 
+
+---
+### Build & deploy visual components
 
 
-- extensible to new data  
+Needs to be extensible to new data  
 
   - a guiding principle when making fundamental design choices
 
   - distinguishes this effort from `plotly::ggplotly()`
 
+<br/>
+
 --
+
 
 > Compared to `plot_ly()`, statistical queries (client-side) with `ggplotly()` are fundamentally limited. That’s because, the statistical R functions that ggplot2 relies on to generate the graphical layers can’t necessarily be recomputed with different input data in your web browser.
 
 ---
-### Goals
-
-#### ggplot2 + interactivity
-
-#### build & deploy visual components (in JS and HTML) 
+### Build & deploy visual components 
 
 
 - extensible to new data  
 
   - a guiding principle when making fundamental design choices
 
-  - distinguishes this effort from `plotly::ggplotly()`
+<br/>
 
 .center[
-<br/><br/><br/>
-**(example with update-able data??)**
+
+```{r echo=FALSE}
+g <- ggplot(data_init, aes(x = language)) + geom_bar()
+
+vs <- as_vegaspec(g)
+
+vegawidget(vs, elementId = "vis")
+```
+
+```{r control, echo=FALSE}
+control <- 
+  tags$div(
+    tags$span("dataset"),
+    tags$select(
+      name = "dataset",
+      tags$option(value = "data_init", "Initial"),
+      tags$option(value = "data_new", "New")
+    )
+  )
+
+control
+```
+
+
+```{r data, echo=FALSE}
+ser <- function(x) {
+  x <- purrr::transpose(x)
+  x <- jsonlite::toJSON(x, auto_unbox = TRUE)
+  
+  x
+}
+
+data_script <- 
+  tags$script(
+    type = "text/javascript",
+    glue_js(
+      "var data_all = {'data_init': ${ser(data_init)}, 'data_new': ${ser(data_new)}};"
+    )
+  )
+
+data_script
+```
+
+
+```{js echo=FALSE}
+// {js}
+function on_data() {
+
+  // get a local dataset
+  var data_local = data_all[data_choice.value];
+  
+  // change Vega chart
+  Vegawidget.findViewPromise('#vis').then(function(view) {
+    var changeSet = vega.changeset()
+                        .insert(data_local)
+                        .remove(vega.truthy);
+                          
+    view.change('data-00', changeSet).run();  
+  });  
+}
+```
+
+
+```{js echo=FALSE}
+// {js}
+var data_choice = document.querySelector("[name=dataset]");
+
+// whenever the input changes, run the updating function
+data_choice.addEventListener("input", on_data);
+
+// run the updating function *once* to initialize the input to the data
+on_data();
+```
+
 ]
 
 ???

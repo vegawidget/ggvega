@@ -24,6 +24,8 @@ class: center, middle, inverse, title-slide
 
 
 
+
+
 ### ggvega
 
 Created to translate from ggplot2 to Vega-Lite  
@@ -35,8 +37,8 @@ Created to translate from ggplot2 to Vega-Lite
 ![](dsc-slides_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
-<div id="htmlwidget-ac4d05a4ff529b99590a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ac4d05a4ff529b99590a">{"x":{
+<div id="htmlwidget-607b3f3c0ff1d025eb68" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-607b3f3c0ff1d025eb68">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "datasets": {
@@ -4545,12 +4547,6 @@ Created to translate from ggplot2 to Vega-Lite
 ]
 
 
-
-.center[
-&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
-**(add visual of ggplot2 -&gt; vl)**
-]
-
 .footnote[
 This project has been supported by Iowa State University, Schneider Electric, and GSOC.
 ]
@@ -4562,39 +4558,520 @@ class: inverse, center, middle
 ---
 ### Goals
 
-#### ggplot2 + interactivity
+#### 1. ggplot2 + interactivity
 
 
-#### build &amp; deploy visual components (in JS and HTML) 
+#### 2. Build &amp; deploy visual components (in JS and HTML) 
+
+---
+### Build &amp; deploy visual components
 
 
-- extensible to new data  
+Needs to be extensible to new data  
 
   - a guiding principle when making fundamental design choices
 
   - distinguishes this effort from `plotly::ggplotly()`
 
+&lt;br/&gt;
+
 --
+
 
 &gt; Compared to `plot_ly()`, statistical queries (client-side) with `ggplotly()` are fundamentally limited. That’s because, the statistical R functions that ggplot2 relies on to generate the graphical layers can’t necessarily be recomputed with different input data in your web browser.
 
 ---
-### Goals
-
-#### ggplot2 + interactivity
-
-#### build &amp; deploy visual components (in JS and HTML) 
+### Build &amp; deploy visual components 
 
 
 - extensible to new data  
 
   - a guiding principle when making fundamental design choices
 
-  - distinguishes this effort from `plotly::ggplotly()`
+&lt;br/&gt;
 
 .center[
-&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
-**(example with update-able data??)**
+
+<div id="vis" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="vis">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "datasets": {
+      "data-00": [
+        {
+          "user_id": 1,
+          "language": "R"
+        },
+        {
+          "user_id": 2,
+          "language": "R"
+        },
+        {
+          "user_id": 3,
+          "language": "C++"
+        },
+        {
+          "user_id": 4,
+          "language": "R"
+        },
+        {
+          "user_id": 5,
+          "language": "R"
+        },
+        {
+          "user_id": 6,
+          "language": "R"
+        },
+        {
+          "user_id": 7,
+          "language": "R"
+        },
+        {
+          "user_id": 8,
+          "language": "R"
+        },
+        {
+          "user_id": 9,
+          "language": "Python"
+        },
+        {
+          "user_id": 10,
+          "language": "C++"
+        },
+        {
+          "user_id": 11,
+          "language": "R"
+        },
+        {
+          "user_id": 12,
+          "language": "R"
+        },
+        {
+          "user_id": 13,
+          "language": "R"
+        },
+        {
+          "user_id": 14,
+          "language": "R"
+        },
+        {
+          "user_id": 15,
+          "language": "Python"
+        },
+        {
+          "user_id": 16,
+          "language": "R"
+        },
+        {
+          "user_id": 17,
+          "language": "C++"
+        },
+        {
+          "user_id": 18,
+          "language": "Python"
+        },
+        {
+          "user_id": 19,
+          "language": "R"
+        },
+        {
+          "user_id": 20,
+          "language": "R"
+        },
+        {
+          "user_id": 21,
+          "language": "Python"
+        },
+        {
+          "user_id": 22,
+          "language": "Python"
+        },
+        {
+          "user_id": 23,
+          "language": "Python"
+        },
+        {
+          "user_id": 24,
+          "language": "R"
+        },
+        {
+          "user_id": 25,
+          "language": "R"
+        },
+        {
+          "user_id": 26,
+          "language": "Python"
+        },
+        {
+          "user_id": 27,
+          "language": "R"
+        },
+        {
+          "user_id": 28,
+          "language": "R"
+        },
+        {
+          "user_id": 29,
+          "language": "R"
+        },
+        {
+          "user_id": 30,
+          "language": "Python"
+        },
+        {
+          "user_id": 31,
+          "language": "R"
+        },
+        {
+          "user_id": 32,
+          "language": "Python"
+        },
+        {
+          "user_id": 33,
+          "language": "R"
+        },
+        {
+          "user_id": 34,
+          "language": "Python"
+        },
+        {
+          "user_id": 35,
+          "language": "Python"
+        },
+        {
+          "user_id": 36,
+          "language": "R"
+        },
+        {
+          "user_id": 37,
+          "language": "Lisp"
+        },
+        {
+          "user_id": 38,
+          "language": "JavaScript"
+        },
+        {
+          "user_id": 39,
+          "language": "Python"
+        },
+        {
+          "user_id": 40,
+          "language": "Python"
+        },
+        {
+          "user_id": 41,
+          "language": "R"
+        },
+        {
+          "user_id": 42,
+          "language": "C++"
+        },
+        {
+          "user_id": 43,
+          "language": "Python"
+        },
+        {
+          "user_id": 44,
+          "language": "JavaScript"
+        },
+        {
+          "user_id": 45,
+          "language": "Python"
+        },
+        {
+          "user_id": 46,
+          "language": "C++"
+        },
+        {
+          "user_id": 47,
+          "language": "Python"
+        },
+        {
+          "user_id": 48,
+          "language": "R"
+        },
+        {
+          "user_id": 49,
+          "language": "R"
+        },
+        {
+          "user_id": 50,
+          "language": "R"
+        },
+        {
+          "user_id": 51,
+          "language": "C++"
+        },
+        {
+          "user_id": 52,
+          "language": "Python"
+        },
+        {
+          "user_id": 53,
+          "language": "Python"
+        },
+        {
+          "user_id": 54,
+          "language": "C++"
+        },
+        {
+          "user_id": 55,
+          "language": "R"
+        },
+        {
+          "user_id": 56,
+          "language": "Python"
+        },
+        {
+          "user_id": 57,
+          "language": "Python"
+        },
+        {
+          "user_id": 58,
+          "language": "JavaScript"
+        },
+        {
+          "user_id": 59,
+          "language": "R"
+        },
+        {
+          "user_id": 60,
+          "language": "R"
+        },
+        {
+          "user_id": 61,
+          "language": "Python"
+        },
+        {
+          "user_id": 62,
+          "language": "C++"
+        },
+        {
+          "user_id": 63,
+          "language": "R"
+        },
+        {
+          "user_id": 64,
+          "language": "R"
+        },
+        {
+          "user_id": 65,
+          "language": "R"
+        },
+        {
+          "user_id": 66,
+          "language": "R"
+        },
+        {
+          "user_id": 67,
+          "language": "Python"
+        },
+        {
+          "user_id": 68,
+          "language": "R"
+        },
+        {
+          "user_id": 69,
+          "language": "R"
+        },
+        {
+          "user_id": 70,
+          "language": "R"
+        },
+        {
+          "user_id": 71,
+          "language": "R"
+        },
+        {
+          "user_id": 72,
+          "language": "Python"
+        },
+        {
+          "user_id": 73,
+          "language": "Lisp"
+        },
+        {
+          "user_id": 74,
+          "language": "Python"
+        },
+        {
+          "user_id": 75,
+          "language": "C++"
+        },
+        {
+          "user_id": 76,
+          "language": "Python"
+        },
+        {
+          "user_id": 77,
+          "language": "Python"
+        },
+        {
+          "user_id": 78,
+          "language": "JavaScript"
+        },
+        {
+          "user_id": 79,
+          "language": "R"
+        },
+        {
+          "user_id": 80,
+          "language": "R"
+        },
+        {
+          "user_id": 81,
+          "language": "R"
+        },
+        {
+          "user_id": 82,
+          "language": "Python"
+        },
+        {
+          "user_id": 83,
+          "language": "JavaScript"
+        },
+        {
+          "user_id": 84,
+          "language": "R"
+        },
+        {
+          "user_id": 85,
+          "language": "Python"
+        },
+        {
+          "user_id": 86,
+          "language": "R"
+        },
+        {
+          "user_id": 87,
+          "language": "Lisp"
+        },
+        {
+          "user_id": 88,
+          "language": "C++"
+        },
+        {
+          "user_id": 89,
+          "language": "R"
+        },
+        {
+          "user_id": 90,
+          "language": "R"
+        },
+        {
+          "user_id": 91,
+          "language": "Python"
+        },
+        {
+          "user_id": 92,
+          "language": "R"
+        },
+        {
+          "user_id": 93,
+          "language": "Python"
+        },
+        {
+          "user_id": 94,
+          "language": "Python"
+        },
+        {
+          "user_id": 95,
+          "language": "JavaScript"
+        },
+        {
+          "user_id": 96,
+          "language": "JavaScript"
+        },
+        {
+          "user_id": 97,
+          "language": "Python"
+        },
+        {
+          "user_id": 98,
+          "language": "R"
+        },
+        {
+          "user_id": 99,
+          "language": "Python"
+        },
+        {
+          "user_id": 100,
+          "language": "R"
+        }
+      ]
+    },
+    "layer": [
+      {
+        "data": {
+          "name": "data-00"
+        },
+        "mark": {
+          "type": "bar"
+        },
+        "encoding": {
+          "x": {
+            "field": "language",
+            "type": "nominal",
+            "title": "language"
+          },
+          "y": {
+            "type": "quantitative",
+            "aggregate": "count",
+            "stack": "zero",
+            "title": "count"
+          }
+        }
+      }
+    ]
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script>
+
+<div>
+<span>dataset</span>
+<select name="dataset">
+<option value="data_init">Initial</option>
+<option value="data_new">New</option>
+</select>
+</div>
+
+
+<script type="text/javascript">var data_all = {'data_init': [{"user_id":1,"language":"R"},{"user_id":2,"language":"R"},{"user_id":3,"language":"C++"},{"user_id":4,"language":"R"},{"user_id":5,"language":"R"},{"user_id":6,"language":"R"},{"user_id":7,"language":"R"},{"user_id":8,"language":"R"},{"user_id":9,"language":"Python"},{"user_id":10,"language":"C++"},{"user_id":11,"language":"R"},{"user_id":12,"language":"R"},{"user_id":13,"language":"R"},{"user_id":14,"language":"R"},{"user_id":15,"language":"Python"},{"user_id":16,"language":"R"},{"user_id":17,"language":"C++"},{"user_id":18,"language":"Python"},{"user_id":19,"language":"R"},{"user_id":20,"language":"R"},{"user_id":21,"language":"Python"},{"user_id":22,"language":"Python"},{"user_id":23,"language":"Python"},{"user_id":24,"language":"R"},{"user_id":25,"language":"R"},{"user_id":26,"language":"Python"},{"user_id":27,"language":"R"},{"user_id":28,"language":"R"},{"user_id":29,"language":"R"},{"user_id":30,"language":"Python"},{"user_id":31,"language":"R"},{"user_id":32,"language":"Python"},{"user_id":33,"language":"R"},{"user_id":34,"language":"Python"},{"user_id":35,"language":"Python"},{"user_id":36,"language":"R"},{"user_id":37,"language":"Lisp"},{"user_id":38,"language":"JavaScript"},{"user_id":39,"language":"Python"},{"user_id":40,"language":"Python"},{"user_id":41,"language":"R"},{"user_id":42,"language":"C++"},{"user_id":43,"language":"Python"},{"user_id":44,"language":"JavaScript"},{"user_id":45,"language":"Python"},{"user_id":46,"language":"C++"},{"user_id":47,"language":"Python"},{"user_id":48,"language":"R"},{"user_id":49,"language":"R"},{"user_id":50,"language":"R"},{"user_id":51,"language":"C++"},{"user_id":52,"language":"Python"},{"user_id":53,"language":"Python"},{"user_id":54,"language":"C++"},{"user_id":55,"language":"R"},{"user_id":56,"language":"Python"},{"user_id":57,"language":"Python"},{"user_id":58,"language":"JavaScript"},{"user_id":59,"language":"R"},{"user_id":60,"language":"R"},{"user_id":61,"language":"Python"},{"user_id":62,"language":"C++"},{"user_id":63,"language":"R"},{"user_id":64,"language":"R"},{"user_id":65,"language":"R"},{"user_id":66,"language":"R"},{"user_id":67,"language":"Python"},{"user_id":68,"language":"R"},{"user_id":69,"language":"R"},{"user_id":70,"language":"R"},{"user_id":71,"language":"R"},{"user_id":72,"language":"Python"},{"user_id":73,"language":"Lisp"},{"user_id":74,"language":"Python"},{"user_id":75,"language":"C++"},{"user_id":76,"language":"Python"},{"user_id":77,"language":"Python"},{"user_id":78,"language":"JavaScript"},{"user_id":79,"language":"R"},{"user_id":80,"language":"R"},{"user_id":81,"language":"R"},{"user_id":82,"language":"Python"},{"user_id":83,"language":"JavaScript"},{"user_id":84,"language":"R"},{"user_id":85,"language":"Python"},{"user_id":86,"language":"R"},{"user_id":87,"language":"Lisp"},{"user_id":88,"language":"C++"},{"user_id":89,"language":"R"},{"user_id":90,"language":"R"},{"user_id":91,"language":"Python"},{"user_id":92,"language":"R"},{"user_id":93,"language":"Python"},{"user_id":94,"language":"Python"},{"user_id":95,"language":"JavaScript"},{"user_id":96,"language":"JavaScript"},{"user_id":97,"language":"Python"},{"user_id":98,"language":"R"},{"user_id":99,"language":"Python"},{"user_id":100,"language":"R"}], 'data_new': [{"user_id":101,"language":"R"},{"user_id":102,"language":"Python"},{"user_id":103,"language":"Python"},{"user_id":104,"language":"R"},{"user_id":105,"language":"C++"},{"user_id":106,"language":"Python"},{"user_id":107,"language":"C++"},{"user_id":108,"language":"R"},{"user_id":109,"language":"Python"},{"user_id":110,"language":"C++"},{"user_id":111,"language":"R"},{"user_id":112,"language":"R"},{"user_id":113,"language":"R"},{"user_id":114,"language":"Python"},{"user_id":115,"language":"JavaScript"},{"user_id":116,"language":"JavaScript"},{"user_id":117,"language":"C++"},{"user_id":118,"language":"C++"},{"user_id":119,"language":"R"},{"user_id":120,"language":"Python"},{"user_id":121,"language":"Python"},{"user_id":122,"language":"C++"},{"user_id":123,"language":"JavaScript"},{"user_id":124,"language":"C++"},{"user_id":125,"language":"Python"},{"user_id":126,"language":"Python"},{"user_id":127,"language":"Python"},{"user_id":128,"language":"Python"},{"user_id":129,"language":"R"},{"user_id":130,"language":"Python"},{"user_id":131,"language":"Python"},{"user_id":132,"language":"R"},{"user_id":133,"language":"C++"},{"user_id":134,"language":"R"},{"user_id":135,"language":"C++"},{"user_id":136,"language":"R"},{"user_id":137,"language":"Lisp"},{"user_id":138,"language":"JavaScript"},{"user_id":139,"language":"Python"},{"user_id":140,"language":"JavaScript"},{"user_id":141,"language":"R"},{"user_id":142,"language":"R"},{"user_id":143,"language":"JavaScript"},{"user_id":144,"language":"Lisp"},{"user_id":145,"language":"R"},{"user_id":146,"language":"Lisp"},{"user_id":147,"language":"R"},{"user_id":148,"language":"JavaScript"},{"user_id":149,"language":"R"},{"user_id":150,"language":"C++"},{"user_id":151,"language":"JavaScript"},{"user_id":152,"language":"R"},{"user_id":153,"language":"JavaScript"},{"user_id":154,"language":"Python"},{"user_id":155,"language":"Python"},{"user_id":156,"language":"C++"},{"user_id":157,"language":"Python"},{"user_id":158,"language":"R"},{"user_id":159,"language":"Python"},{"user_id":160,"language":"JavaScript"},{"user_id":161,"language":"C++"},{"user_id":162,"language":"C++"},{"user_id":163,"language":"R"},{"user_id":164,"language":"Python"},{"user_id":165,"language":"R"},{"user_id":166,"language":"R"},{"user_id":167,"language":"R"},{"user_id":168,"language":"R"},{"user_id":169,"language":"Python"},{"user_id":170,"language":"Lisp"},{"user_id":171,"language":"R"},{"user_id":172,"language":"R"},{"user_id":173,"language":"C++"},{"user_id":174,"language":"JavaScript"},{"user_id":175,"language":"Python"},{"user_id":176,"language":"Python"},{"user_id":177,"language":"Python"},{"user_id":178,"language":"R"},{"user_id":179,"language":"JavaScript"},{"user_id":180,"language":"JavaScript"},{"user_id":181,"language":"R"},{"user_id":182,"language":"Python"},{"user_id":183,"language":"Python"},{"user_id":184,"language":"C++"},{"user_id":185,"language":"Python"},{"user_id":186,"language":"Lisp"},{"user_id":187,"language":"Lisp"},{"user_id":188,"language":"Python"},{"user_id":189,"language":"Lisp"},{"user_id":190,"language":"C++"},{"user_id":191,"language":"Python"},{"user_id":192,"language":"Python"},{"user_id":193,"language":"JavaScript"},{"user_id":194,"language":"Lisp"},{"user_id":195,"language":"Python"},{"user_id":196,"language":"Python"},{"user_id":197,"language":"Python"},{"user_id":198,"language":"R"},{"user_id":199,"language":"JavaScript"},{"user_id":200,"language":"R"}]};</script>
+
+
+&lt;script type="text/javascript"&gt;
+// {js}
+function on_data() {
+
+  // get a local dataset
+  var data_local = data_all[data_choice.value];
+  
+  // change Vega chart
+  Vegawidget.findViewPromise('#vis').then(function(view) {
+    var changeSet = vega.changeset()
+                        .insert(data_local)
+                        .remove(vega.truthy);
+                          
+    view.change('data-00', changeSet).run();  
+  });  
+}
+&lt;/script&gt;
+
+
+&lt;script type="text/javascript"&gt;
+// {js}
+var data_choice = document.querySelector("[name=dataset]");
+
+// whenever the input changes, run the updating function
+data_choice.addEventListener("input", on_data);
+
+// run the updating function *once* to initialize the input to the data
+on_data();
+&lt;/script&gt;
+
 ]
 
 ???
@@ -4733,7 +5210,7 @@ p &lt;- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
 p
 ```
 
-![](dsc-slides_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+![](dsc-slides_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 
 ]
 .pull-right[
@@ -4905,8 +5382,8 @@ as_vegaspec(plot)
 
 .pull-right[
 
-<div id="htmlwidget-d990dc0b7530d6819a2a" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d990dc0b7530d6819a2a">{"x":{
+<div id="htmlwidget-86f7095367c05076aa69" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-86f7095367c05076aa69">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "datasets": {
@@ -6025,8 +6502,8 @@ vl_encode_fill("Species:N")
 
 .pull-right[
 
-<div id="htmlwidget-95a94aa2bf74c0028768" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-95a94aa2bf74c0028768">{"x":{
+<div id="htmlwidget-da7ae41fd4e22c439666" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-da7ae41fd4e22c439666">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "datasets": {
