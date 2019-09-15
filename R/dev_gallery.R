@@ -12,7 +12,7 @@
 #' @keywords internal
 #' @export
 #'
-dev_gg_codeblock <- function(example) {
+ggv_example_codeblock <- function(example) {
 
   if (!requireNamespace("readr", quietly = TRUE)) {
     stop("need {readr} package")
@@ -26,14 +26,14 @@ dev_gg_codeblock <- function(example) {
   code_block
 }
 
-#' @rdname dev_gg_codeblock
+#' @rdname ggv_example_codeblock
 #'
 #' @keywords internal
 #' @export
 #'
-dev_gallery <- function(example, arrange = c("side", "top"),
-                           vl_width = 275, vl_height = 275,
-                           gg_width = 400, gg_height = 320) {
+ggv_dev_display <- function(example, arrange = c("side", "top"),
+                            vl_width = 275, vl_height = 275,
+                            gg_width = 400, gg_height = 320) {
 
   # note to include stacked arrangement of plots
 
@@ -43,7 +43,7 @@ dev_gallery <- function(example, arrange = c("side", "top"),
 
   tags <- htmltools::tags
 
-  print(dev_gg_codeblock(example))
+  print(ggv_example_codeblock(example))
 
   # knitr directory
   dir_files <-

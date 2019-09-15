@@ -68,3 +68,4 @@ reference:
   desc: Functions used to support the documentation
   contents:
   - ggv_example_display
+  - ggv_example_codeblock

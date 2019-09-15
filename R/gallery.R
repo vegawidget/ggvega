@@ -1,7 +1,7 @@
 #' Display ggplot example
 #'
 #'
-#' @inheritParams dev_gallery
+#' @inheritParams ggv_dev_display
 #' @param example `character` or `ggplot2` object, if `character`, uses
 #'   `gg_example()` to retrieve a ggplot2 object.
 #'

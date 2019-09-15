@@ -20,7 +20,7 @@ Also note that I have specified the `width` and `height` of the
 *rendering* of the vegaspec; this is *not* part of the translation.
 
 ``` r
-dev_gallery("barchart-mpg")
+ggv_dev_display("barchart-mpg")
 ```
 
 ``` r
@@ -306,13 +306,15 @@ In short, for now I think that we can use only the `default_aes` for the
 a `stat_expression` in the future. We will have to handle the `weight`
 aesthetic as a `field`.
 
+What can we do now to support `stat(count)` in the mapping?
+
 ### Translation
 
 For `StatCount`, we build a `y` encoding:
 
-  - `type: "quantitative"`
-  - `if (identical(weight, 1L))`, `agg: "count"`
-  - if `weight` is a field, `agg: "sum", field: "<field>"`
+  - add `type: "quantitative"`
+  - if `weight` is a value, add `agg: "count"`
+  - if `weight` is a field, add `agg: "sum", field: "<field>"`
 
 For `PositionStack`, we add to the `y` encoding:
 
@@ -337,7 +339,7 @@ It seems we have more examples to handle:
 ## Stacked bar-chart
 
 ``` r
-dev_gallery("barchart-stacked-mpg")
+ggv_dev_display("barchart-stacked-mpg")
 ```
 
 ``` r
@@ -556,7 +558,8 @@ vegaspec
         },
         "fill": {
           "field": "drv",
-          "type": "nominal"
+          "type": "nominal",
+          "title": "drv"
         }
       }
     }
@@ -579,7 +582,7 @@ vegaspec
 ## Weighted bar-chart
 
 ``` r
-dev_gallery("barchart-weighted-mpg")
+ggv_dev_display("barchart-weighted-mpg")
 ```
 
 ``` r
@@ -817,7 +820,7 @@ vegaspec
 ## Normalized bar-chart
 
 ``` r
-dev_gallery("barchart-normalized-mpg")
+ggv_dev_display("barchart-normalized-mpg")
 ```
 
 ``` r
@@ -1036,7 +1039,8 @@ vegaspec
         },
         "fill": {
           "field": "drv",
-          "type": "nominal"
+          "type": "nominal",
+          "title": "drv"
         }
       }
     }
@@ -1059,7 +1063,7 @@ vegaspec
 ## Flipped, stacked, weighted, normalized, bar-chart
 
 ``` r
-dev_gallery("barchart-flipped-weighted-normalized-mpg")
+ggv_dev_display("barchart-flipped-weighted-normalized-mpg")
 ```
 
 ``` r
@@ -1283,7 +1287,8 @@ vegaspec
         },
         "fill": {
           "field": "drv",
-          "type": "nominal"
+          "type": "nominal",
+          "title": "drv"
         }
       }
     }
