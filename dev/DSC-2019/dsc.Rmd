@@ -224,11 +224,11 @@ We are very restrictive on the expressions we will allow for aesthetic mappings 
 
 One of the inspirations for this project is the Altair Python library, which generates its functions automatically according to the Vega-Lite schema. As a result, when Vega-Lite updates, much of the Python code that makes up the Altair package can be updated automatically. 
 
-At the outset of our efforts (May 2019), we were not aware of tools that could generate R code automatically using a JSON schema as a blueprint. This changes with the development of {vlmetbuildr}, which we would consider using as it matures. 
+At the outset of our efforts (May 2019), we were not aware of tools that could generate R code automatically using a JSON schema as a blueprint. This changes with the development of {vlmetabuildr}, which we would consider using as it matures. 
 
 Although Python is accessible from R, there can be installation frustrations. 
 
-This leaves us with JavaScript. The {V8} package makes it very easy to call JavaScript code from R; the installation-process is much-less frustrating than Python. Our goal is compile a JSON object that follows one schema (ggschema) into a JSON object that follows another schema (Vega-Lite). In very broad terms, this is what Vega-Lite itself does. Like the Vega team, we use JavaScript's strongly-typed friend TypeScript to compose the code.
+This leaves us with JavaScript. The {V8} package makes it very easy to call JavaScript code from R; the installation-process is much-less frustrating than Python. Our goal is to compile a JSON object that follows one schema (ggschema) into a JSON object that follows another schema (Vega-Lite). In very broad terms, this is what Vega-Lite itself does. Like the Vega team, we use JavaScript's strongly-typed friend TypeScript to compose the code.
 
 JavaScript does present some complications, though. Although there are many versions of JavaScript, two loom large: ES5 and ES6. For example, all modern browsers support ES6; infamously, the last version of Internet Explorer supports only ES5. For the {V8} package, as of its latest CRAN release, supports ES6 for all platforms except some older Linux platforms, e.g. Ubuntu 16.04. This platform is still in wide usage, as it forms the foundation for RStudio Cloud.
 

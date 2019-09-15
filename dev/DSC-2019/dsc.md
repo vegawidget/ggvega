@@ -252,7 +252,8 @@ plot <- ggplot(iris) +
 as_vegaspec(plot)
 ```
 
-![](dsc_files/figure-gfm/unnamed-chunk-1-1.svg)<!-- -->
+    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
+    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
 
 Once the Vega-Lite specification has been created, we can use vlbuildr,
 another package within the vegawidget GitHub organization, to modify the
@@ -294,7 +295,7 @@ that makes up the Altair package can be updated automatically.
 
 At the outset of our efforts (May 2019), we were not aware of tools that
 could generate R code automatically using a JSON schema as a blueprint.
-This changes with the development of {vlmetbuildr}, which we would
+This changes with the development of {vlmetabuildr}, which we would
 consider using as it matures.
 
 Although Python is accessible from R, there can be installation
@@ -302,11 +303,11 @@ frustrations.
 
 This leaves us with JavaScript. The {V8} package makes it very easy to
 call JavaScript code from R; the installation-process is much-less
-frustrating than Python. Our goal is compile a JSON object that follows
-one schema (ggschema) into a JSON object that follows another schema
-(Vega-Lite). In very broad terms, this is what Vega-Lite itself does.
-Like the Vega team, we use JavaScript’s strongly-typed friend TypeScript
-to compose the code.
+frustrating than Python. Our goal is to compile a JSON object that
+follows one schema (ggschema) into a JSON object that follows another
+schema (Vega-Lite). In very broad terms, this is what Vega-Lite itself
+does. Like the Vega team, we use JavaScript’s strongly-typed friend
+TypeScript to compose the code.
 
 JavaScript does present some complications, though. Although there are
 many versions of JavaScript, two loom large: ES5 and ES6. For example,

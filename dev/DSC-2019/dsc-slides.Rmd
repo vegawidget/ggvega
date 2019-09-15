@@ -123,98 +123,34 @@ Our requirements for the JavaScript library:
 
 Designed to be a visualization grammar that is built for analysis
 
-Both Vega and Vega-lite use a JSON specification to create a visualization, with Vega-lite first compiling to
-Vega and then rendered using Vega’s compiler.
+Both Vega and Vega-lite use a JSON specification to create a visualization
 
-An implementation of visualization terms with the
-**grammar of graphics** at its core
+An implementation of visualization terms with the **grammar of graphics** at its core
 
----
-class: inverse, center, middle
-# Grammar of Graphics
-
----
-.left-third2[
-<!-- <img src="dsc_files/ggplot2.png" height="100"> -->
-
-#### A layered Grammar
-
-<!-- Four basic components that form a layer: -->
-
-<br />
-
-.salt[
-data
+--
+.center[
+.salt[data  ].fat[  stat  ].acid[  mapping  ].heat[  geom]  
 ]
-.fat[
-stat
+--
+.center[
+.salt[data  ].fat[  transform  ].acid[  encoding  ].heat[  mark  ]  
 ]
-.acid[
-mapping
-]
-.heat[
-geom
-]
-].left-third2[
-
-#### Vega-Lite’s relation to ggplot2
-<!-- <img src="dsc_files/vl2.png" height="100">
-
-Four basic components that ... -->
-
-<br />
-
-.salt[
-data
-]
-.fat[
-transform
-]
-.acid[
-encoding
-]
-.heat[
-mark
+--
+.center[
+.salt[salt  ].fat[  fat  ].acid[  acid  ].heat[  heat]
 ]
 
-].right-third2[
-
-#### Grammar-of-Graphics as Food
-
-<br />
-<!-- <img src="dsc_files/ggfood2.png" height="100"> -->
-
-<!-- Four basic factors that determine how good your food will taste: -->
-
-.salt[
-salt
-]
-.fat[
-fat
-]
-.acid[
-acid
-]
-.heat[
-heat
-]
-
-]
-
----
-class: inverse, center, middle
-# ggvega
 
 ---
 ### Motivating use-case for ggvega
 
-#### A data-scientist designs a visualization using R with ggplot2  
+A data-scientist designs a visualization using R with ggplot2  
 
-#### The ggplot2 object is translated to a Vega-Lite specification (using ggvega)  
+The ggplot2 object is translated to a Vega-Lite specification (using ggvega)  
 
-#### The Vega-Lite specification can be deployed to production, independently of the data used to design it. 
+The Vega-Lite specification can be deployed to production, independently of the data used to design it. 
 
-#### Vega provides the means to update Vega views with new data.
+Vega provides the means to update Vega views with new data.
 
 
 ---
@@ -238,7 +174,9 @@ class: inverse, center, middle
 ggvega seeks to capture the *intent* of a ggplot. This is distinct from the *implementation* of a ggplot (the path `ggplotly()` takes). Our idea is to let the powerful defaults of the two packages take care of most of the work. In addition, we anticipated (at some point in the (hopefully not-too-)distant future) creating a Vega-lite theme for the visual components.
 
 ---
-### Our approach
+.salt[ggplot2 ].fat[ -> ].acid[ ggspec ].fat[ -> ].heat[ vlspec]
+
+<br/>
 
 #### A 2 step process:
 
@@ -247,10 +185,9 @@ ggvega seeks to capture the *intent* of a ggplot. This is distinct from the *imp
 2. Convert a "ggspec" into a Vega-Lite specification or "vegaspec".
 
 <br/>
-<br/>
 
 .center[
-.salt[ggplot2 ].fat[ -> ].acid[ ggspec ].fat[ -> ].heat[ vlspec]
+
 ]
 
 ???
@@ -534,15 +471,69 @@ class: inverse, center, middle
 # Limitations
 
 ---
-### Issues
+### Issues: ES5 & ES6
 
+- ES6 is supported by all modern browsers, except, the last version of IE supports only ES5.  
+
+- The V8 package supports ES6 for all platforms, except some older Linux platforms  
+  - e.g. Ubuntu 16.04 (RStudio Cloud)
+
+#### Conclusions
+
+- We chose to write code that can be run on an ES5 JavaScript engine; however, as of version 3.0, Vega-Lite is written using ES6
+
+- If we had complete support for ES6, we could use the Vega-Lite classes to be converted into a schema.
+
+- Instead, we use "quicktype" to recover a set of Vega-Lite classes using the Vega-Lite schema, but they are not identical to the Vega-Lite classes
+
+- This "problem" will go away when we have sufficuent ES6 coverage for V8, or when we are able to recover faithfully the Vega-Lite classes in R.
+
+???
+
+The Vega-Lite team have made a tool to convert JavaScript classes into a schema; we use this to create ggschema from classes. We also need a way to recover the Vega-Lite classes from the schema. If we had complete support for ES6, we could use the Vega-Lite classes themselves. 
+
+Instead, because we have to use ES5, we use a JavaScript library called "quicktype" to recover a set of Vega-Lite classes using the Vega-Lite schema. However, the "recovered" classes from the schema are not identical to the Vega-Lite classes. This might be a little bit like a translating from English to French, then back to English, recovering different prose.
+
+This leads to quicktype giving some "Vega-Lite" classes some strange names due to its interpretation of the schema.
+
+This "problem" will go away when we have sufficuent ES6 coverage for {V8}, or when we are able to recover faithfully the Vega-Lite classes in R.
 
 ---
 ### Mismatches
 
+`geom_path()` is based on the order of the data vs. in Vega-Lite there is an order encoding  
+
+`positionDodge` and `positionJitter`  
+- Vega-Lite is working on implementing this (PR: vega/vega-lite#4969)
+
+The ordering of ordered factors and being extensible to new data. 
+- ex. bar chart of populations of cities  
+  - In ggplot2, use forcats package to order according to population size 
+  - We cannot capture this because it happens outside the ggplot object
+  - Can we use (or create?) a `stat_order()` to do this??
 
 ---
 ### Other limitations
+
+#### Expressions + aesthetic mappings:
+- We are *very* restrictive on the expressions we will allow for aesthetic mappings in ggplot. 
+- We currently support variable-names only; the only foreseeable exception to this will be to manage factors.
+
+#### Temporal values:
+- In R, a `POSIX.ct` object has access to a timezone database via the operating system.  
+- In JavaScript, a `Date` object has access only to the timezone of the browser and UTC.  
+- The Vega-Lite `temporal` type is based on the JavaScript `Date` type, so its access to timezone information is similarly limited. 
+
+#### Interactions/Selections: 
+- There is a lot of flexibility in specifying interactions (which is good), but not a lot of support for signifying the presence of interactivity or showing how it is expected to work. This is an area where Plotly has an advantage.  
+- Related, Vega-Lite selections do not work well on mobile devices.
+
+???
+
+
+This becomes a problem if the timezone of the data does not match the timezone of the browser; this would not be an uncommon situation. 
+
+There are workarounds, but they involve compromises.
 
 ---
 class: inverse, center, middle
@@ -551,8 +542,65 @@ class: inverse, center, middle
 ---
 ### Decisions, questions, etc.
 
+#### Should the transformations take place in R or put into the Vega-lite specification?
 
+**Option 1:** If the Vega-Lite spec does an aggregate, do the aggregation in R instead of JS so that the resulting htmlwidget has a much smaller data set. 
+
+**Option 2:** Have the output (the Vega-Lite specification) act as a component so that we can the change different data sets in and out of the Vega-Lite specification only.
+
+<br/>
+
+#### Can we write a specification such that the transformation is done *somewhere*?
+
+- a remote R session (using Shiny)
+- a remote SQL database 
+- the JavaScript client (the browser itself)
+
+???
+
+Then the questions could become:  
+
+- How do we write the Vega(-Lite) specification such that the transformation could be done anywhere?  
+- Given a Vega-Lite specification, how to we implement the transformation so that it will be made at a given place?  
 
 
 ---
-### Roadmap
+### What we can do now + what we will do next
+
+#### What we can do now:
+
+- `geom_point()` and `geom_bar()`
+- `stat_count()`
+- `position_stack()` and `position_fill()`
+- `coord_flip()`
+- labels
+- extract name from scales
+- if we have a single-layer ggplot object, we can create a single-view Vega-Lite specification
+
+#### What we will take on next:
+
+- `stat_bin()`, enabling histograms
+- `geom_line()`
+- `facet_grid()` and `facet_wrap()`
+- `geom_boxplot()` (`stat_boxplot()`)
+- scales (this will be an undertaking)
+- a framework to handle temporal values (another undertaking)
+
+
+---
+### New features on the horizon
+
+
+New to Vega-Lite 4.0 (currently in beta):
+
+- [regression](https://vega.github.io/vega-lite/docs/regression.html)
+- [loess](https://vega.github.io/vega-lite/docs/loess.html)
+- [density](https://vega.github.io/vega-lite/docs/density.html)
+
+
+As these new capabilities are released in Vega-Lite:
+
+- `geom_smooth()`
+- `geom_density()`
+- `position_dodge()` and `position_jitter()`
+
