@@ -52,15 +52,21 @@ data_init <- data_all[data_all$user_id <= n_obs, ]
 data_new <- data_all[data_all$user_id > n_obs, ]
 ```
 
-### ggvega
+### ggvega: from ggplot2 to Vega-Lite  
 
-Created to translate from ggplot2 to Vega-Lite  
+.pull-left[
+.center[
+<img src="dsc_files/barchart-mpg-gg.png" width="400"/>
+]]
+.pull-right[
 
-- inspired by the capability `plotly::ggplotly()` provides 
+<img src="dsc_files/barchart-mpg-vl.svg"/>
+
+]
 
 .pull-left[
 
-```{r echo=FALSE, fig.width=4, fig.height=3}
+```{r include=FALSE, fig.width=4, fig.height=3}
 p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
   geom_point(aes(color = Origin)) 
 
@@ -69,7 +75,7 @@ p
 ```
 ]
 .pull-right[
-```{r echo=FALSE, fig.asp=.65}
+```{r include=FALSE, fig.asp=.65}
 p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
   geom_point(aes(color = Origin)) 
 
@@ -90,12 +96,7 @@ class: inverse, center, middle
 ---
 ### Build & deploy visual components 
 
-
-A guiding principle for fundamental design choices was for the result to be extensible to new data.
-
-<br/>
-
-.center[
+.left-third[
 
 ```{r echo=FALSE}
 g <- ggplot(data_init, aes(x = value)) + geom_bar()
@@ -171,37 +172,46 @@ on_data();
 ```
 
 ]
+.right-two-thirds[
+
+We want to connect the data-scientists who design visualizations and the customers who use these visualizations
+
+We want the ability to take into account new data after visualization has been designed
+
+This goal, being **extensible to new data**, has been a guiding principle when making fundamental design choices.
+
+This factor distinguishes this effort from `plotly::ggplotly()`
+
+
+]
 
 ???
 
+
+
 ---
-### Build & deploy visual components
+### ggplot2 + Interactivity
 
-
-A guiding principle for fundamental design choices was for the result to be extensible to new data.  
-
-This distinguishes this effort from `plotly::ggplotly()`
-
+.left-third[
+.center[
 <br/>
+<br/>
+<br/>
+**(graphic here?)**
+]
+]
+.right-two-thirds[
 
+What we want in a JavaScript library:
 
-> Compared to `plot_ly()`, statistical queries (client-side) with `ggplotly()` are fundamentally limited. That’s because, the statistical R functions that ggplot2 relies on to generate the graphical layers can’t necessarily be recomputed with different input data in your web browser.
-
-
----
-### ggplot2 + interactivity
-
-Our requirements for the JavaScript library:
-
-  - has the grammar of graphics at its foundation  
-  
   - is open source  
   
-  - is easy to use  
+  - is "easy" to use
   
-  - is able to be linked with other preexisting htmlwidgets  
+  - has the grammar of graphics at its foundation  
   
   - can be tied to ggplot2  
+]
 
 ---
 ### Vega + Vega-Lite
@@ -213,15 +223,19 @@ Both Vega and Vega-lite use a JSON specification to create a visualization
 
 An implementation of visualization terms with the **grammar of graphics** at its core
 
+<br/>
+
 --
 .center[
-.salt[data  ].fat[  stat  ].acid[  mapping  ].heat[  geom]  
+.salt[data  ].fat[  stat  ].acid[  mapping  ].heat[  geom]
 ]
+
 --
 .center[
 .salt[data  ].fat[  transform  ].acid[  encoding  ].heat[  mark  ]  
 ]
 --
+
 .center[
 .salt[salt  ].fat[  fat  ].acid[  acid  ].heat[  heat]
 ]
@@ -238,6 +252,8 @@ The Vega-Lite specification can be deployed to production, independently of the 
 
 Vega provides the means to update Vega views with new data.
 
+<br/><br/>
+.heat[how to enhance this slide?]
 
 ---
 class: inverse, center, middle
@@ -246,23 +262,16 @@ class: inverse, center, middle
 ---
 ### Fundamental design choices
 
-**Design choice #1:** intention vs. implementation?
+**Design choice #1:**  Intention vs. Implementation?
 
-<br/>
+**Initial philosophy:** narrow scope built on a firm foundation.
 
-**Our initial philosophy:** A narrow scope built on a firm foundation.
 
-<br/>
+**Approach: ** a two-step process
 
-**Our approach:** A 2 step process
+1. ggplot2 -> ggspec: convert a ggplot2 object into a "ggspec", a JSON-serializable list  
 
-1. ggplot2 -> ggspec
-
-  - Convert a ggplot2 object into a "ggspec", a JSON-serializable list  
-
-2. ggspec -> vlspec
-
-  - Convert a "ggspec" into a Vega-Lite specification or "vegaspec".
+2. ggspec -> vlspec: convert a "ggspec" into a Vega-Lite specification or "vegaspec".
 
 <br/>
 
@@ -619,37 +628,43 @@ class: inverse, center, middle
 
 #### Conclusions
 
-- We chose to write code that can be run on an ES5 JavaScript engine; however, as of version 3.0, Vega-Lite is written using ES6
+- We chose ES5 even though Vega-Lite 3.0 is written using ES6
 
-- If we had complete support for ES6, we could use the Vega-Lite classes to be converted into a schema.
+- If we had complete support for ES6, the Vega-Lite classes could be converted into a schema.
 
-- Instead, we use "quicktype" to recover a set of Vega-Lite classes using the Vega-Lite schema, but they are not identical to the Vega-Lite classes
+- Instead, we use "quicktype", but they are not identical to the Vega-Lite classes
 
-- This "problem" will go away when we have sufficuent ES6 coverage for V8, or when we are able to recover faithfully the Vega-Lite classes in R.
 
-???
-
-The Vega-Lite team have made a tool to convert JavaScript classes into a schema; we use this to create ggschema from classes. We also need a way to recover the Vega-Lite classes from the schema. If we had complete support for ES6, we could use the Vega-Lite classes themselves. 
-
-Instead, because we have to use ES5, we use a JavaScript library called "quicktype" to recover a set of Vega-Lite classes using the Vega-Lite schema. However, the "recovered" classes from the schema are not identical to the Vega-Lite classes. This might be a little bit like a translating from English to French, then back to English, recovering different prose.
-
-This leads to quicktype giving some "Vega-Lite" classes some strange names due to its interpretation of the schema.
-
-This "problem" will go away when we have sufficuent ES6 coverage for {V8}, or when we are able to recover faithfully the Vega-Lite classes in R.
 
 ---
 ### Mismatches
 
-`geom_path()` is based on the order of the data vs. in Vega-Lite there is an order encoding  
+- `geom_path()` is based on the order of the data vs. Vega-Lite uses an order encoding  
 
-`positionDodge` and `positionJitter`  
-- Vega-Lite is working on implementing this (PR: vega/vega-lite#4969)
+- `positionDodge` and `positionJitter`  
+  - Vega-Lite is working on implementing this (PR: vega/vega-lite#4969)
 
-The ordering of ordered factors and being extensible to new data. 
-- ex. bar chart of populations of cities  
-  - In ggplot2, use forcats package to order according to population size 
-  - We cannot capture this because it happens outside the ggplot object
-  - Can we use (or create?) a `stat_order()` to do this??
+- Factors: Being extensible to new data and the ordering of ordered factors.
+
+
+
+```{r echo=FALSE, fig.height = 4.5}
+pops <- tribble(
+  ~city, ~population,
+  "Intanbul",         714,
+  "Tokyo",         541,
+  "Beijing",        509,
+  "Paris",         492,
+  "London",         442
+)
+pops$city <- factor(pops$city)
+
+ggplot(pops) + 
+  geom_bar(aes(x = forcats::fct_reorder(city, population, .desc = TRUE), weight = population)) +
+  labs(x = "", y = "Population (thousands)")
+```
+
+
 
 ---
 ### Other limitations
