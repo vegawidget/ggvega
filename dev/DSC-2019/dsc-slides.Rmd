@@ -265,26 +265,50 @@ class: inverse, center, middle
 
 ---
 ### .salt[ggplot2 ].fat[ -> ].acid[ ggspec ]
-
+.pull-left[
 
 - faithful to the ggplot2 object and philosophy
 
 - represents the range of "things" that we will be able to translate
 
 - provides the means to generate a JSON specification, given a ggplot2 object
+]
+.pull-right[
 
---
+```{r include=FALSE}
+p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
+  geom_point(aes(color = Origin)) 
 
-### .acid[ ggspec ].fat[ -> ].heat[ vegaspec]
+ggvega::gg2spec(p)
+```
 
-
-- inspired by Vega-Lite itself 
-
-- developed in TypeScript
-
-- compiled into ES5
-
-
+```json
+{
+  "data": {
+    "data-00": {
+      "metadata": {},
+      "observations": []
+    }
+  },
+  "layers": [
+    {
+      "data": "data-00",
+      "geom": {},
+      "geom_params": {},
+      "mapping": {},
+      "aes_params": {},
+      "stat": {},
+      "stat_params": {},
+      "position": {}
+    }
+  ],
+  "scales": [],
+  "labels": {},
+  "coordinates": {},
+  "facet": {}
+}
+```
+]
 
 
 ---
@@ -316,147 +340,24 @@ However, in the interests of "getting something done", we considered briefly the
 
 
 ---
-.salt[ggplot2 ]
-
-
-.pull-left[
-
-```{r fig.asp=.65}
-p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
-  geom_point(aes(color = Origin)) 
-
-p
-```
-
-]
-
----
-.salt[ggplot2 ].fat[ -> ].acid[ ggspec ]
-
+### .acid[ ggspec ].fat[ -> ].heat[ vegaspec]
 
 .pull-left[
 
-```{r fig.asp=.65}
-p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
-  geom_point(aes(color = Origin)) 
 
-p
-```
+- inspired by Vega-Lite itself 
+
+- developed in TypeScript
+
+- compiled into ES5
 
 ]
 .pull-right[
 
+```{r include = FALSE}
+p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
+  geom_point(aes(color = Origin))
 
-```{r eval=FALSE}
-ggvega::gg2spec(p)
-```
-
-```json
-{
-  "data": {
-    "data-00": {
-      "metadata": {},
-      "observations": []
-    }
-  },
-  "layers": [
-    {
-      "data": "data-00",
-      "geom": {},
-      "geom_params": {},
-      "mapping": {},
-      "aes_params": {},
-      "stat": {},
-      "stat_params": {},
-      "position": {}
-    }
-  ],
-  "scales": [],
-  "labels": {},
-  "coordinates": {},
-  "facet": {}
-}
-```
-]
-
-
----
-.acid[ggspec ]
-
-.pull-left[
-
-
-```{r eval=FALSE}
-ggvega::gg2spec(p)
-```
-
-```json
-{
-  "data": {
-    "data-00": {
-      "metadata": {},
-      "observations": []
-    }
-  },
-  "layers": [
-    {
-      "data": "data-00",
-      "geom": {},
-      "geom_params": {},
-      "mapping": {},
-      "aes_params": {},
-      "stat": {},
-      "stat_params": {},
-      "position": {}
-    }
-  ],
-  "scales": [],
-  "labels": {},
-  "coordinates": {},
-  "facet": {}
-}
-```
-]
-
----
-.acid[ggspec ].fat[ -> ].heat[ vegaspec]
-
-.pull-left[
-
-
-```{r eval=FALSE}
-ggvega::gg2spec(p)
-```
-
-```json
-{
-  "data": {
-    "data-00": {
-      "metadata": {},
-      "observations": []
-    }
-  },
-  "layers": [
-    {
-      "data": "data-00",
-      "geom": {},
-      "geom_params": {},
-      "mapping": {},
-      "aes_params": {},
-      "stat": {},
-      "stat_params": {},
-      "position": {}
-    }
-  ],
-  "scales": [],
-  "labels": {},
-  "coordinates": {},
-  "facet": {}
-}
-```
-]
-.pull-right[
-```{r eval = FALSE}
 ggvega::as_vegaspec(p)
 ```
 
@@ -482,16 +383,7 @@ ggvega::as_vegaspec(p)
 ```
 ]
 
----
-.heat[vegaspec]
 
-.pull-left[
-
-```{r}
-ggvega::as_vegaspec(p)
-```
-
-]
 
 
 ---
@@ -643,6 +535,7 @@ ggplot(pops) +
 #### Expressions + aesthetic mappings:
 - We are **very restrictive** on the expressions we will allow for aesthetic mappings in ggplot. 
 - We currently support **variable-names only**; the only foreseeable exception to this will be to manage factors.
+
 
 #### Temporal values:
 - In R, a `POSIX.ct` object has access to a timezone database via the operating system.  
