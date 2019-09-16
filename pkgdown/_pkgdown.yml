@@ -67,5 +67,5 @@ reference:
 - title: Internal
   desc: Functions used to support the documentation
   contents:
-  - ggv_example_display
   - ggv_dev
+  - ggv_dev_display
