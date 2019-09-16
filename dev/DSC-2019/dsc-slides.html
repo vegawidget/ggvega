@@ -522,10 +522,12 @@ This goal, being **extensible to new data**, has been a guiding principle when m
 This factor distinguishes this effort from `plotly::ggplotly()`
 
 
+
 ]
 
 ???
 
+&gt; Compared to `plot_ly()`, statistical queries (client-side) with `ggplotly()` are fundamentally limited. That’s because, the statistical R functions that ggplot2 relies on to generate the graphical layers can’t necessarily be recomputed with different input data in your web browser.
 
 
 ---
@@ -553,6 +555,9 @@ What we want in a JavaScript library:
 ]
 
 ---
+background-image: url(https://repository-images.githubusercontent.com/177215911/6cf7df00-c0dd-11e9-9559-c70f5ce9c8f0)
+background-size: 1200px
+background-position: 50% 85%
 ### Vega + Vega-Lite
 
 
@@ -564,16 +569,15 @@ An implementation of visualization terms with the **grammar of graphics** at its
 
 &lt;br/&gt;
 
---
+???
+
 .center[
 .salt[data  ].fat[  stat  ].acid[  mapping  ].heat[  geom]
 ]
 
---
 .center[
 .salt[data  ].fat[  transform  ].acid[  encoding  ].heat[  mark  ]  
 ]
---
 
 .center[
 .salt[salt  ].fat[  fat  ].acid[  acid  ].heat[  heat]
@@ -592,7 +596,9 @@ The Vega-Lite specification can be deployed to production, independently of the 
 Vega provides the means to update Vega views with new data.
 
 &lt;br/&gt;&lt;br/&gt;
-.heat[how to enhance this slide?]
+.center[
+**add graphic**
+]
 
 ---
 class: inverse, center, middle
@@ -610,7 +616,7 @@ class: inverse, center, middle
 
 1. ggplot2 -&gt; ggspec: convert a ggplot2 object into a "ggspec", a JSON-serializable list  
 
-2. ggspec -&gt; vlspec: convert a "ggspec" into a Vega-Lite specification or "vegaspec".
+2. ggspec -&gt; vegaspec: convert a "ggspec" into a Vega-Lite specification or "vegaspec".
 
 &lt;br/&gt;
 
@@ -644,13 +650,13 @@ The ideas for "ggspec" are
 
 .pull-right[
 
-.acid[ ggspec ].fat[ -&gt; ].heat[ vlspec]
+.acid[ ggspec ].fat[ -&gt; ].heat[ vegaspec]
 
 &lt;br/&gt;
 
 - took inspiration from Vega-Lite itself which translates a Vega-Lite specification into a Vega specification. 
 
-- this compiler is developed in TypeScript, then compiled into ECMAScript 6 (JavaScript), as described in the [Vega-Lite contribution guide](https://github.com/vega/vega-lite/blob/master/CONTRIBUTING.md#suggested-programming-environment).
+- this compiler is developed in TypeScript, then compiled into ECMAScript 5 (JavaScript), as described in the [Vega-Lite contribution guide](https://github.com/vega/vega-lite/blob/master/CONTRIBUTING.md#suggested-programming-environment).
 
 ]
 
@@ -795,7 +801,7 @@ ggvega::gg2spec(p)
 ]
 
 ---
-.acid[ggspec ].fat[ -&gt; ].heat[ vlspec]
+.acid[ggspec ].fat[ -&gt; ].heat[ vegaspec]
 
 .pull-left[
 
@@ -861,7 +867,7 @@ ggvega::as_vegaspec(p)
 ]
 
 ---
-.heat[vlspec]
+.heat[vegaspec]
 
 .pull-left[
 
