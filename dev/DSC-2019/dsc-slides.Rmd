@@ -6,6 +6,7 @@ output:
     lib_dir: libs
     css: ["default", "extra-theme.css"]
     nature:
+      beforeInit: "demo-aggregate.js"
       ratio: "16:9"
       highlightStyle: github
       highlightLines: true
@@ -103,7 +104,7 @@ g <- ggplot(data_init, aes(x = value)) + geom_bar()
 
 vs <- as_vegaspec(g)
 
-vegawidget(vs, elementId = "vis")
+vegawidget(vs, elementId = "demo-aggregate")
 ```
 
 ```{r control, echo=FALSE}
@@ -111,7 +112,7 @@ control <-
   tags$div(
     tags$span("dataset"),
     tags$select(
-      name = "dataset",
+      name = "demo-aggregate-dataset",
       tags$option(value = "data_init", "Initial"),
       tags$option(value = "data_new", "New")
     )
@@ -138,37 +139,6 @@ data_script <-
   )
 
 data_script
-```
-
-
-```{js echo=FALSE}
-// {js}
-function on_data() {
-
-  // get a local dataset
-  var data_local = data_all[data_choice.value];
-  
-  // change Vega chart
-  Vegawidget.findViewPromise('#vis').then(function(view) {
-    var changeSet = vega.changeset()
-                        .insert(data_local)
-                        .remove(vega.truthy);
-                          
-    view.change('data-00', changeSet).run();  
-  });  
-}
-```
-
-
-```{js echo=FALSE}
-// {js}
-var data_choice = document.querySelector("[name=dataset]");
-
-// whenever the input changes, run the updating function
-data_choice.addEventListener("input", on_data);
-
-// run the updating function *once* to initialize the input to the data
-on_data();
 ```
 
 ]
