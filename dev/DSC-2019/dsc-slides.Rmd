@@ -176,9 +176,9 @@ This factor distinguishes this effort from `plotly::ggplotly()`
 
 What we want in a JavaScript library:
 
-  - is open source  
+  - open source  
   
-  - is "easy" to use
+  - "easy" to use
   
   - has the grammar of graphics at its foundation  
   
@@ -194,9 +194,9 @@ background-position: 50% 85%
 
 Designed to be a visualization grammar that is built for analysis
 
-Both Vega and Vega-lite use a JSON specification to create a visualization
-
 An implementation of visualization terms with the **grammar of graphics** at its core
+
+Both Vega and Vega-lite use a JSON specification to create a visualization
 
 <br/>
 
@@ -264,32 +264,27 @@ class: inverse, center, middle
 - Should ggplot2 or Vega-Lite change, we hope that we could keep ggspec "fixed" such that we would have to adapt only that part of the translation process (ggplot2-to-ggspec or ggspec-to-Vega-Lite) that would be impacted by such a change.
 
 ---
-.pull-left[
-.salt[ggplot2 ].fat[ -> ].acid[ ggspec ]
+### .salt[ggplot2 ].fat[ -> ].acid[ ggspec ]
 
-<br/>
 
-The ideas for "ggspec" are 
+- faithful to the ggplot2 object and philosophy
 
-- to remain faithful to the ggplot2 object and philosophy
+- represents the range of "things" that we will be able to translate
 
-- to publish a JSON schema that represents the range of "things" that we will be able to translate
+- provides the means to generate a JSON specification, given a ggplot2 object
 
-- to provide the means to generate a JSON specification that meets this schema, given a ggplot2 object
+--
 
-]
+### .acid[ ggspec ].fat[ -> ].heat[ vegaspec]
 
-.pull-right[
 
-.acid[ ggspec ].fat[ -> ].heat[ vegaspec]
+- inspired by Vega-Lite itself 
 
-<br/>
+- developed in TypeScript
 
-- took inspiration from Vega-Lite itself which translates a Vega-Lite specification into a Vega specification. 
+- compiled into ES5
 
-- this compiler is developed in TypeScript, then compiled into ECMAScript 5 (JavaScript), as described in the [Vega-Lite contribution guide](https://github.com/vega/vega-lite/blob/master/CONTRIBUTING.md#suggested-programming-environment).
 
-]
 
 
 ---
