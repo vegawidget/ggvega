@@ -8,21 +8,16 @@
 ggv_dev_display(example, arrange = c("side", "top"), ...)
 
 ggv_example_display(example, arrange = c("side", "top"),
-  vl_width = 275, vl_height = 275, gg_width = 400, gg_height = 320)
+  file_root = NULL, ...)
 }
 \arguments{
-\item{example}{\code{character} or \code{ggplot2} object, if \code{character}, uses
-\code{ggv_example()} to retrieve a ggplot2 object.}
+\item{example}{\code{character}, uses
+\code{ggv_example()} to retrieve a ggplot2 object.
+For \code{ggv_example_display()}, this can also be a ggplot2 object}
 
 \item{arrange}{\code{character}, arrangement of plots}
 
-\item{vl_width}{\code{integer}, width of VL chart (px.)}
-
-\item{vl_height}{\code{integer}, height of VL chart (px.)}
-
-\item{gg_width}{\code{integer}, height of GG chart (px.)}
-
-\item{gg_height}{\code{integer}, width of GG chart (px.)}
+\item{...}{Arguments passed on to internal comprison function}
 }
 \value{
 Invisible \code{NULL}, called for side-effects

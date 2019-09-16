@@ -1,12 +1,10 @@
 #' Display examples
 #'
-#' @param example `character` or `ggplot2` object, if `character`, uses
+#' @param example `character`, uses
 #'   `ggv_example()` to retrieve a ggplot2 object.
+#'   For `ggv_example_display()`, this can also be a ggplot2 object
 #' @param arrange `character`, arrangement of plots
-#' @param vl_width `integer`, width of VL chart (px.)
-#' @param vl_height `integer`, height of VL chart (px.)
-#' @param gg_height `integer`, width of GG chart (px.)
-#' @param gg_width `integer`, height of GG chart (px.)
+#' @param ... Arguments passed on to internal comprison function
 #'
 #' @return Invisible `NULL`, called for side-effects
 #'
@@ -14,9 +12,6 @@
 #' @export
 #'
 ggv_dev_display <- function(example, arrange = c("side", "top"), ...) {
-
-
-  # note to include stacked arrangement of plots
 
   tags <- htmltools::tags
 
@@ -32,8 +27,7 @@ ggv_dev_display <- function(example, arrange = c("side", "top"), ...) {
   filename <- ggv_dev_path(example, type = "ggplot")
   text <- readr::read_lines(filename)
 
-  code_block <- as_codeblock(text)
-
+  div_codeblock <- tags$div(as_codeblock(text))
 
   # comparison
   plt <- ggv_dev(example, "ggplot")
@@ -97,7 +91,7 @@ ggv_dev_display <- function(example, arrange = c("side", "top"), ...) {
     )
 
   # print
-  print(code_block)
+  print(div_codeblock)
   print(div_compare)
   print(div_json)
 
@@ -110,9 +104,65 @@ ggv_dev_display <- function(example, arrange = c("side", "top"), ...) {
 #' @export
 #'
 ggv_example_display <- function(example, arrange = c("side", "top"),
-                                vl_width = 275, vl_height = 275,
-                                gg_width = 400, gg_height = 320) {
+                                file_root = NULL, ...) {
 
+
+  tags <- htmltools::tags
+
+  if (!requireNamespace("htmltools", quietly = TRUE)) {
+    stop("need {htmltools} package")
+  }
+
+  if (!requireNamespace("readr", quietly = TRUE)) {
+    stop("need {readr} package")
+  }
+
+  # if example is character, create codeblock
+  if (!is.character(example) && !inherits(example, "gg")) {
+    stop("example needs to be character or ggplot", call. = FALSE)
+  }
+
+  if (is.character(example)) {
+    plt <- ggv_example(example)
+    div_codeblock <-
+      example %>%
+      ggv_example_path() %>%
+      readr::read_lines() %>%
+      as_codeblock()  %>%
+      tags$div()
+  }
+
+  if (inherits(example, "gg")) {
+    plt <- example
+    div_codeblock <- tags$div()
+  }
+
+  # translate
+  spec <- as_vegaspec(plt)
+
+  # create comparison-table
+  dir_files <-
+    glue::glue("{tools::file_path_sans_ext(knitr::current_input())}_files")
+
+  fs::dir_create(dir_files)
+  file_root <- fs::path_join(c(dir_files, example))
+
+  # TODO: sort out fileroot
+  div_compare <- cmpre(plt, spec, file_root = file_root, use_svg = FALSE, ...)
+
+  # create examine
+  div_examine <-
+    tags$div(
+      tags$details(
+        tags$summary("Vega-Lite specification"),
+        ggv_examine()
+      )
+    )
+
+  # print
+  print(div_codeblock)
+  print(div_compare)
+  print(div_examine)
 }
 
 
@@ -187,11 +237,11 @@ cmpre <- function(plt, spec, file_root, arrange = c("side", "top"),
         tags$tr(
           tags$td(
             tags$img(src = file_gg, width = gg_width),
-            style = "border-width: 0px;"
+            style = "border-width: 0px; vertical-align: top;"
           ),
           tags$td(
             tag_vl,
-            style = "border-width: 0px;"
+            style = "border-width: 0px; vertical-align: top;"
           ),
           style = "border-width: 0px;"
         )
@@ -204,13 +254,13 @@ cmpre <- function(plt, spec, file_root, arrange = c("side", "top"),
         tags$tr(
           tags$td(
             tags$img(src = file_gg, width = gg_width),
-            style = "border-width: 0px;"
+            style = "border-width: 0px; vertical-align: top;"
           )
         ),
         tags$tr(
           tags$td(
             tag_vl,
-            style = "border-width: 0px;"
+            style = "border-width: 0px; vertical-align: top;"
           ),
           style = "border-width: 0px;"
         )

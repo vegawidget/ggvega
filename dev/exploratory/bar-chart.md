@@ -23,10 +23,14 @@ Also note that I have specified the `width` and `height` of the
 ggv_dev_display("barchart-mpg")
 ```
 
+<div>
+
 ``` r
   ggplot(data = mpg, aes(x = class)) +
   geom_bar()
 ```
+
+</div>
 
 <div>
 
@@ -34,13 +38,13 @@ ggv_dev_display("barchart-mpg")
 
 <tr style="border-width: 0px;">
 
-<td style="border-width: 0px;">
+<td style="border-width: 0px; vertical-align: top;">
 
 <img src="bar-chart_files/barchart-mpg-gg.png" width="400"/>
 
 </td>
 
-<td style="border-width: 0px;">
+<td style="border-width: 0px; vertical-align: top;">
 
 <img src="bar-chart_files/barchart-mpg-vl.svg"/>
 
@@ -342,10 +346,14 @@ It seems we have more examples to handle:
 ggv_dev_display("barchart-stacked-mpg")
 ```
 
+<div>
+
 ``` r
   ggplot(data = mpg, aes(x = class)) +
   geom_bar(aes(fill = drv))
 ```
+
+</div>
 
 <div>
 
@@ -353,13 +361,13 @@ ggv_dev_display("barchart-stacked-mpg")
 
 <tr style="border-width: 0px;">
 
-<td style="border-width: 0px;">
+<td style="border-width: 0px; vertical-align: top;">
 
 <img src="bar-chart_files/barchart-stacked-mpg-gg.png" width="400"/>
 
 </td>
 
-<td style="border-width: 0px;">
+<td style="border-width: 0px; vertical-align: top;">
 
 <img src="bar-chart_files/barchart-stacked-mpg-vl.svg"/>
 
@@ -585,10 +593,14 @@ vegaspec
 ggv_dev_display("barchart-weighted-mpg")
 ```
 
+<div>
+
 ``` r
   ggplot(data = mpg, aes(x = class, weight = displ)) +
   geom_bar()
 ```
+
+</div>
 
 <div>
 
@@ -596,13 +608,13 @@ ggv_dev_display("barchart-weighted-mpg")
 
 <tr style="border-width: 0px;">
 
-<td style="border-width: 0px;">
+<td style="border-width: 0px; vertical-align: top;">
 
 <img src="bar-chart_files/barchart-weighted-mpg-gg.png" width="400"/>
 
 </td>
 
-<td style="border-width: 0px;">
+<td style="border-width: 0px; vertical-align: top;">
 
 <img src="bar-chart_files/barchart-weighted-mpg-vl.svg"/>
 
@@ -823,10 +835,14 @@ vegaspec
 ggv_dev_display("barchart-normalized-mpg")
 ```
 
+<div>
+
 ``` r
   ggplot(data = mpg, aes(x = class)) +
   geom_bar(aes(fill = drv), position = "fill")
 ```
+
+</div>
 
 <div>
 
@@ -834,13 +850,13 @@ ggv_dev_display("barchart-normalized-mpg")
 
 <tr style="border-width: 0px;">
 
-<td style="border-width: 0px;">
+<td style="border-width: 0px; vertical-align: top;">
 
 <img src="bar-chart_files/barchart-normalized-mpg-gg.png" width="400"/>
 
 </td>
 
-<td style="border-width: 0px;">
+<td style="border-width: 0px; vertical-align: top;">
 
 <img src="bar-chart_files/barchart-normalized-mpg-vl.svg"/>
 
@@ -1066,11 +1082,15 @@ vegaspec
 ggv_dev_display("barchart-flipped-weighted-normalized-mpg")
 ```
 
+<div>
+
 ``` r
   ggplot(data = mpg, aes(x = class, weight = displ)) +
   geom_bar(aes(fill = drv), position = "fill") +
   coord_flip()
 ```
+
+</div>
 
 <div>
 
@@ -1078,13 +1098,13 @@ ggv_dev_display("barchart-flipped-weighted-normalized-mpg")
 
 <tr style="border-width: 0px;">
 
-<td style="border-width: 0px;">
+<td style="border-width: 0px; vertical-align: top;">
 
 <img src="bar-chart_files/barchart-flipped-weighted-normalized-mpg-gg.png" width="400"/>
 
 </td>
 
-<td style="border-width: 0px;">
+<td style="border-width: 0px; vertical-align: top;">
 
 <img src="bar-chart_files/barchart-flipped-weighted-normalized-mpg-vl.svg"/>
 
