@@ -121,6 +121,18 @@ control <-
 control
 ```
 
+```{r dataset, echo=FALSE}
+dataset <-
+  tags$pre(
+    tags$code(
+      name = "demo-aggregate-data",
+      class = "json hljs remark-code",
+      "{}"
+    )
+  )
+
+dataset
+```
 
 ```{r data, echo=FALSE}
 ser <- function(x) {

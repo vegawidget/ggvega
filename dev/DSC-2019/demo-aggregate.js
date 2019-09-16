@@ -7,6 +7,10 @@ var data_all = {'data_init': [{"user_id":1,"value":"a"},{"user_id":2,"value":"a"
 
 document.addEventListener("DOMContentLoaded", function(event){
 
+
+  var data_choice = document.querySelector("[name=demo-aggregate-dataset]");
+  var data_text = document.querySelector("[name=demo-aggregate-data]");
+
   // define function to call
   function on_data() {
     // get a local dataset
@@ -20,9 +24,10 @@ document.addEventListener("DOMContentLoaded", function(event){
 
       view.change('data-00', changeSet).run();
     });
-  }
 
-  var data_choice = document.querySelector("[name=demo-aggregate-dataset]");
+    // change data element
+    data_text.innerHTML = JSON.stringify(data_local.slice(0, 2), null, 2);
+  }
 
   // whenever the input changes, run the updating function
   data_choice.addEventListener("input", on_data);
