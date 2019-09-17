@@ -1,13 +1,14 @@
 document.addEventListener("DOMContentLoaded", function(event){
 
   var counter = -1;
+  var minimumX = -100;
+  var previousY = [5, 5, 5, 5];
 
   Vegawidget.findViewPromise('#demo-streaming').then(function(view) {
     /**
      * Generates a new tuple with random walk.
      */
     function newGenerator() {
-       var previousY = [5, 5, 5, 5];
       return function() {
         counter++;
         var newVals = previousY.map(function(v, c) {
@@ -25,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function(event){
     }
 
     var valueGenerator = newGenerator();
-    var minimumX = -100;
     window.setInterval(function() {
       minimumX++;
       var changeSet = vega
@@ -49,6 +49,8 @@ document.addEventListener("DOMContentLoaded", function(event){
 
       view.change('table', changeSet).run();
       counter = -1;
+      minimumX = -100;
+      previousY = [5, 5, 5, 5];
     });
 
   }
