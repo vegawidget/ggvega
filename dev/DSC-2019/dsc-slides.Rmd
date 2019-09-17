@@ -177,17 +177,8 @@ This factor distinguishes this effort from `plotly::ggplotly()`
 ---
 ### ggplot2 + Interactivity
 
-.left-third[
-.center[
-<br/>
-<br/>
-<br/>
-**(graphic here?)**
-]
-]
-.right-two-thirds[
 
-What we want in a JavaScript library:
+#### What we want in a JavaScript library:
 
   - open source  
   
@@ -196,7 +187,7 @@ What we want in a JavaScript library:
   - has the grammar of graphics at its foundation  
   
   - can be tied to ggplot2  
-]
+
 
 ---
 background-image: url(https://repository-images.githubusercontent.com/177215911/6cf7df00-c0dd-11e9-9559-c70f5ce9c8f0)
@@ -520,11 +511,74 @@ Once the Vega-Lite specification has been created, we can use vlbuildr, another 
 ---
 ### Add selections with vlbuildr!
 
+.pull-left[
+
+```{r eval=FALSE}
+# experimental syntax
+# – vl_at_last_layer() defined separately
+vl_petal <-
+  as_vegaspec(gg_petal, single_view = TRUE) %>%
+  vl_add_interval_selection("brush") %>%
+  vl_encode_opacity(value = 0.3) %>%
+  vl_condition_opacity(
+    selection = "brush",
+    value = 1
+  )
+# do the same with vl_sepal
+# concatenate
+vl_hconcat(vl_sepal, vl_petal)
+```
+
+]
+
+.pull-right[
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+gg_petal <- ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
+
+gg_sepal <- ggplot(iris) + 
+  geom_point(aes(x = Sepal.Width, y = Sepal.Length, colour = Species))
+
+# experimental syntax
+# – vl_at_last_layer() defined separately
+vl_petal <-
+  as_vegaspec(gg_petal, single_view = TRUE) %>%
+  vl_add_interval_selection("brush") %>%
+  vl_encode_opacity(value = 0.3) %>%
+  vl_condition_opacity(
+    selection = "brush",
+    value = 1
+  )
+
+# do the same with vl_sepal
+vl_sepal <-
+  as_vegaspec(gg_sepal, single_view = TRUE) %>%
+  vl_add_interval_selection("brush") %>%
+  vl_encode_opacity(value = 0.3) %>%
+  vl_condition_opacity(
+    selection = "brush",
+    value = 1
+  )
+
+# concatenate
+# vl_hconcat(vl_sepal, )
+vl_petal
+```
+
+]
 
 ???
 
 With vlbuildr, we can add selections and conditional encodings without addressing this issue in ggvega/ggplot2.
 
+---
+### Add selections with vlbuildr!
+
+```{r message=FALSE, warning=FALSE}
+# concatenate
+vl_hconcat(vl_sepal, vl_petal)
+```
 
 ---
 class: inverse, center, middle
