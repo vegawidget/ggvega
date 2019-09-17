@@ -6,7 +6,7 @@ output:
     lib_dir: libs
     css: ["default", "extra-theme.css"]
     nature:
-      beforeInit: "demo-aggregate.js"
+      beforeInit: ["demo-aggregate.js", "demo-streaming.js"]
       ratio: "16:9"
       highlightStyle: github
       highlightLines: true
@@ -122,6 +122,7 @@ control
 ```
 
 ```{r dataset, echo=FALSE}
+# this will get filled in using code from demo-aggregate.js
 dataset <-
   tags$pre(
     tags$code(
@@ -238,9 +239,45 @@ The Vega-Lite specification can be deployed to production, independently of the 
 
 Vega provides the means to update Vega views with new data.
 
-<br/><br/>
-.center[
-**add graphic**
+<br/>
+.pull-left[
+
+```{r demo-streaming, echo=FALSE}
+spec_table <-
+  list(
+    `$schema` = vega_schema(),
+    width = 400,
+    data = list(name = "table"),
+    mark = "line",
+    encoding = list(
+      x = list(
+        field = "x", 
+        type = "quantitative",
+        scale = list(zero =  FALSE)
+      ),
+      y = list(field = "y", type = "quantitative"),
+      color = list(field = "category", type = "nominal")
+    )
+  ) %>%
+  as_vegaspec()
+
+vegawidget(spec_table, elementId = "demo-streaming")
+```
+
+]
+
+.pull-right[
+
+Taken from [Vega-Lite streaming demo](https://vega.github.io/vega-lite/tutorials/streaming.html)
+
+```{r demo-streaming-button, echo=FALSE}
+tags$button(
+  name = "demo-streaming-reset",
+  type = "button",
+  "reset"
+)
+```
+
 ]
 
 ---

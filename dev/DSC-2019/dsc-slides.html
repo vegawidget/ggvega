@@ -598,9 +598,50 @@ The Vega-Lite specification can be deployed to production, independently of the 
 
 Vega provides the means to update Vega views with new data.
 
-&lt;br/&gt;&lt;br/&gt;
-.center[
-**add graphic**
+&lt;br/&gt;
+.pull-left[
+
+<div id="demo-streaming" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="demo-streaming">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "width": 400,
+    "data": {
+      "name": "table"
+    },
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "x",
+        "type": "quantitative",
+        "scale": {
+          "zero": false
+        }
+      },
+      "y": {
+        "field": "y",
+        "type": "quantitative"
+      },
+      "color": {
+        "field": "category",
+        "type": "nominal"
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script>
+
+]
+
+.pull-right[
+
+Taken from [Vega-Lite streaming demo](https://vega.github.io/vega-lite/tutorials/streaming.html)
+
+<button name="demo-streaming-reset" type="button">reset</button>
+
 ]
 
 ---
@@ -3141,6 +3182,7 @@ Then the questions could become:
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script src="demo-aggregate.js"></script>
+<script src="demo-streaming.js"></script>
 <script>var slideshow = remark.create({
 "ratio": "16:9",
 "highlightStyle": "github",
