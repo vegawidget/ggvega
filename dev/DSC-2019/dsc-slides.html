@@ -3031,14 +3031,15 @@ vl_encode_fill("Species:N")
 Once the Vega-Lite specification has been created, we can use vlbuildr, another package within the vegawidget GitHub organization, to modify the specification. vlbuildr is "a functional approach to building up specifications" and the package contains functions that can add various components to a specification.
 
 ---
-### Add selections with vlbuildr!
+### Add interactivity!
 
 .pull-left[
 
 
 ```r
-# experimental syntax
-# – vl_at_last_layer() defined separately
+gg_petal &lt;- ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
+
 vl_petal &lt;-
   as_vegaspec(gg_petal, single_view = TRUE) %&gt;%
   vl_add_interval_selection("brush") %&gt;%
@@ -3047,9 +3048,8 @@ vl_petal &lt;-
     selection = "brush",
     value = 1
   )
-# do the same with vl_sepal
-# concatenate
-vl_hconcat(vl_sepal, vl_petal)
+
+vl_petal
 ```
 
 ]
@@ -4163,11 +4163,12 @@ vl_hconcat(vl_sepal, vl_petal)
 With vlbuildr, we can add selections and conditional encodings without addressing this issue in ggvega/ggplot2.
 
 ---
-### Add selections with vlbuildr!
+### Add interactivity!
+
+
 
 
 ```r
-# concatenate
 vl_hconcat(vl_sepal, vl_petal)
 ```
 
@@ -5312,6 +5313,7 @@ vl_hconcat(vl_sepal, vl_petal)
   }
 },"evals":[],"jsHooks":[]}</script>
 
+
 ---
 class: inverse, center, middle
 # Limitations
@@ -5324,14 +5326,11 @@ class: inverse, center, middle
 - The V8 package supports ES6 for all platforms, except some older Linux platforms  
   - e.g. Ubuntu 16.04 (RStudio Cloud)
 
-#### Conclusions
+&lt;br/&gt;
+
+#### Conclusion
 
 - We chose ES5 even though Vega-Lite 3.0 is written using ES6
-
-- If we had complete support for ES6, the Vega-Lite classes could be converted into a schema.
-
-- Instead, we use "quicktype", but they are not identical to the Vega-Lite classes
-
 
 
 ---
@@ -5344,35 +5343,26 @@ class: inverse, center, middle
 
 - Factors: Being extensible to new data and the ordering of ordered factors.
 
-
+.center[
 
 ![](dsc-slides_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 
-
+]
 
 ---
 ### Other limitations
 
 #### Expressions + aesthetic mappings:
-- We are **very restrictive** on the expressions we will allow for aesthetic mappings in ggplot. 
-- We currently support **variable-names only**; the only foreseeable exception to this will be to manage factors.
+
+- We currently support **variable-names only**
 
 
+&lt;br/&gt;
 #### Temporal values:
-- In R, a `POSIX.ct` object has access to a timezone database via the operating system.  
-- In JavaScript, a `Date` object has access only to the timezone of the browser and UTC.  
-- The Vega-Lite `temporal` type is based on the JavaScript `Date` type, so its access to timezone information is similarly limited. 
 
-#### Interactions/Selections: 
-- There is a lot of flexibility in specifying interactions (which is good), but not a lot of support for signifying the presence of interactivity or showing how it is expected to work. This is an area where Plotly has an advantage.  
-- Related, Vega-Lite selections do not work well on mobile devices.
+- Potential issues if the timezone of the data does not match the timezone of the browser
 
-???
-
-
-This becomes a problem if the timezone of the data does not match the timezone of the browser; this would not be an uncommon situation. 
-
-There are workarounds, but they involve compromises.
+- There are workarounds, but they involve compromises.
 
 ---
 class: inverse, center, middle
@@ -5389,13 +5379,14 @@ class: inverse, center, middle
 
 &lt;br/&gt;
 
+???
+
 #### Can we write a specification such that the transformation is done *somewhere*?
 
 - a remote R session (using Shiny)
 - a remote SQL database 
 - the JavaScript client (the browser itself)
 
-???
 
 Then the questions could become:  
 

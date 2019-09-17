@@ -134,9 +134,11 @@ This compiler is developed in TypeScript, then compiled into ES5.
 
 ### Examples: ggvega in use
 
-vegawidget, an htmlwidget within the vegawidget GitHub organization, is used to render the specification created by ggvega. 
+#### ggvega
 
+To use ggvega, we will first build our chart in ggplot2. We then call the function `as_vegaspec()` to compose and render the Vega-lite JSON specification. `as_vegaspec()` is an S3 object from the vegawidget package. vegawidget is an htmlwidget that also lives within the vegawidget GitHub organization and is used to render the specification created by ggvega. 
 
+For this first example, you can that we have created a scatterplot in ggplot2 using the infamous iris dataset. The 'as_vegaspec()' function is used to take care of both the translation from ggplot2 to Vega-lite and the rendering of the Vega-lite JSON specification.
 
 ```{r}
 library("ggplot2")
@@ -147,7 +149,11 @@ plot <- ggplot(iris) +
 as_vegaspec(plot)
 ```
 
-Once the Vega-Lite specification has been created, we can use vlbuildr, another package within the vegawidget GitHub organization, to modify the specification. vlbuildr is "a functional approach to building up specifications" and the package contains functions that can add various components to a specification.
+#### ggvega + vlbuildr
+
+One of the neatest aspects of this project is that we can mix-and-match with other packages within the vegawidget GitHub organization for additional capabilities. For example, once the Vega-Lite specification has been created, we can use vlbuildr to modify the specification. vlbuildr, as you likely remember from Alicia's talk before mine, is "a functional approach to building up specifications" and the package contains functions that can add various components to a specification.
+
+In this example, we will take the chart from the previous slide but modify it using vlbuildr. Using `vl_encode_fill()` from vlbuildr we can modify the points so that they are now filled with the color of the iris species, rather than outlined circles.
 
 ```{r}
 library("ggplot2")
@@ -161,7 +167,15 @@ as_vegaspec(plot) %>%
 vl_encode_fill("Species:N")
 ```
 
-With vlbuildr, we can add selections and conditional encodings without addressing this issue in ggvega/ggplot2.
+#### add selections!
+
+With vlbuildr we are also able to add interactivity. We are very excited to be abe to add selections and conditional encodings without addressing this issue in ggvega/ggplot2.
+
+Using the first example as a starting point, we can add in encoding for opacity and a selection that specifies that if the point is selected, the opacity is 1 and if it is not selected, we want to opacity to be 0.3. 
+
+We'll then do all of these steps for a scatterplot for sepal width and length and concatenate the two specs. 
+
+So we started this journey in ggplot2 and ended up at point where we have a Vega-lite specification with interactivity that can be embedded or deployed outside of R.
 
 <br />
 
