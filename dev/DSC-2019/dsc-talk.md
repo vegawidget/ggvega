@@ -3,12 +3,6 @@ DSC prep
 
 <br />
 
-Hello\! My name is Haley Jeppson. I am a Statistics PhD student at Iowa
-State University working under the guidance of Heike Hofmann. My
-assistantship is with Schneider Electric where I work under Ian Lyttle.
-I am going to talk about the package Ian and I have been workng on over
-the last couple of months.
-
 ### GGVEGA
 
 The ggvega package was created to translate from ggplot2 to Vega-Lite,
@@ -20,10 +14,10 @@ from ggplot2 to plotly.
 #### 1\. build & deploy visual components
 
 The motivation for this project had 2 main parts. One was to being
-interactivity to gplot2 and the other was to have a method of deploying
+interactivity to ggplot2 and the other was to have a method of deploying
 visualizations designed in ggplot2 into production.
 
-Schneider Electric is interestng in providing a stronger connection
+Schneider Electric is interesting in providing a stronger connection
 between the data-scientists who design visualizations and the customers
 who use these visualizations.
 
@@ -52,7 +46,7 @@ to new data. For the data, 100 observations have been generated with the
 values “a”, “b”, “c”, “d”, or “e”. The bars then display the relative
 counts of the letters. We can see the first two observations of the data
 below the chart. What is important here is that the data contains the
-raw observations as opposed to containing the aggragation. This allows
+raw observations as opposed to containing the aggregation. This allows
 us to swap in a new set of observations, without modifying the chart
 itself – only the data will change.
 
@@ -152,7 +146,7 @@ range of “things” that we will be able to translate, and to provide the
 means to generate a JSON specification that meets this schema, given a
 ggplot2 object.
 
-ggspec is computed “under-the-hood” and is not secessarily something a
+ggspec is computed “under-the-hood” and is not necessarily something a
 user of ggvega would be aware of.
 
 The ggspec should record only those things that deviate from ggplot2
@@ -179,7 +173,7 @@ To use ggvega, we will first build our chart in ggplot2. We then call
 the function `as_vegaspec()` which will both translate from ggplot2 to
 Vega-lite and render the Vega-lite JSON specification. The
 `as_vegaspec()` generic has a method for ggplot2 objects and hails from
-the wgawidget package which is an htmlwidget that also lives within the
+the vegawidget package which is an htmlwidget that also lives within the
 vegawidget GitHub organization.
 
 **multi-view vs. single-view**
@@ -209,7 +203,7 @@ To begin I created a scatterplot in ggplot2 using the infamous iris
 dataset showing petal width on the x-axis and petal length on the y-axis
 and the points colored according to the iris species.
 
-The ‘as\_vegaspec()’ function is used to traslate from ggplot2 to
+The ‘as\_vegaspec()’ function is used to translate from ggplot2 to
 Vega-lite and then to render this Vega-lite JSON specification.
 
 #### ggvega + vlbuildr
@@ -298,7 +292,7 @@ because it happens outside the ggplot object.
 
 **Limitations in ggvega**:
 
-As for some of the current limitations in ggega,
+As for some of the current limitations in ggvega,
 
 We are very restrictive on the expressions we will allow for aesthetic
 mappings in ggplot. We currently support variable-names only; the only
@@ -319,11 +313,11 @@ One of the more interesting design choices so far is whether the
 transformations should take place in R or be put into the Vega-lite
 specification.
 
-One option is that if the Vega-Lite specfication would compute an
+One option is that if the Vega-Lite specification would compute an
 aggregation, we would instead do aggregation in R so that the resulting
 htmlwidget has a much smaller data set.
 
-The second option, the one we are curently in favor of, is to have the
+The second option, the one we are currently in favor of, is to have the
 Vega-Lite specification act as a component so that we can the change
 data sets in and out of the Vega-Lite specification.
 
@@ -350,7 +344,7 @@ following on the To-Do list.
 
 ### New features
 
-Additionally, ther are some new features set to be released with
+Additionally, there are some new features set to be released with
 Vega-Lite 4.0. As these capabilities are released in Vega-Lite, we
-forsee implementing `geom_smooth()`, `geom_density()`,
+foresee implementing `geom_smooth()`, `geom_density()`,
 `position_dodge()` and `position_jitter()`.

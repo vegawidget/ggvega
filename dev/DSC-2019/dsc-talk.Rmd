@@ -14,8 +14,6 @@ knitr::opts_chunk$set(
 
 <br />
 
-Hello! My name is Haley Jeppson. I am a Statistics PhD student at Iowa State University working under the guidance of Heike Hofmann. My assistantship is with Schneider Electric where I work under Ian Lyttle. I am going to talk about the package Ian and I have been workng on over the last couple of months.
-
 ### GGVEGA
 
 The ggvega package was created to translate from ggplot2 to Vega-Lite, inspired by the capability the R package plotly provides to translate from ggplot2 to plotly. 
@@ -26,9 +24,9 @@ The ggvega package was created to translate from ggplot2 to Vega-Lite, inspired 
 
 #### 1. build & deploy visual components
 
-The motivation for this project had 2 main parts. One was to being interactivity to gplot2 and the other was to have a method of deploying visualizations designed in ggplot2 into production.
+The motivation for this project had 2 main parts. One was to being interactivity to ggplot2 and the other was to have a method of deploying visualizations designed in ggplot2 into production.
 
-Schneider Electric is interestng in providing a stronger connection between the data-scientists who design visualizations and the customers who use these visualizations.
+Schneider Electric is interesting in providing a stronger connection between the data-scientists who design visualizations and the customers who use these visualizations.
 
 One of the challenges to the data-scientist is to design visualizations that take into account new data, and especially new data that the data-scientist may not have seen. The design of the visualization has to be extensible to new data; the implementation of the visualization also has to be extensible to new data.
 
@@ -38,7 +36,7 @@ This goal, being extensible to new data, has been a guiding principle when makin
 
 It should be noted that the statistical queries with `ggplotly()` are fundamentally limited because the statistical R functions that ggplot2 relies on to generate the graphical layers can’t necessarily be recomputed with different input data in your web browser.
 
-In contrast, we have an example here of a bar chart that is extensible to new data. For the data, 100 observations have been generated with the values "a", "b", "c", "d", or "e". The bars then display the relative counts of the letters. We can see the first two observations of the data below the chart. What is important here is that the data contains the raw observations as opposed to containing the aggragation. This allows us to swap in a new set of observations, without modifying the chart itself -- only the data will change. 
+In contrast, we have an example here of a bar chart that is extensible to new data. For the data, 100 observations have been generated with the values "a", "b", "c", "d", or "e". The bars then display the relative counts of the letters. We can see the first two observations of the data below the chart. What is important here is that the data contains the raw observations as opposed to containing the aggregation. This allows us to swap in a new set of observations, without modifying the chart itself -- only the data will change. 
 
 #### 2. ggplot2 + interactivity 
 
@@ -94,7 +92,7 @@ As well, should ggplot2 or Vega-Lite change, we hope that we could keep ggspec "
 
 The ideas for "ggspec" are for it to remain faithful to the ggplot2 object and philosophy, to publish a JSON schema that represents the range of "things" that we will be able to translate, and to provide the means to generate a JSON specification that meets this schema, given a ggplot2 object.
 
-ggspec is computed "under-the-hood" and is not secessarily something a user of ggvega would be aware of.
+ggspec is computed "under-the-hood" and is not necessarily something a user of ggvega would be aware of.
 
 The ggspec should record only those things that deviate from ggplot2 defaults; one should be able to take a ggspec and recreate the ggplot object that it came from.
 
@@ -110,7 +108,7 @@ This compiler is developed in TypeScript, then compiled into ES5.
 
 **ggplot2 -> vega-lite**
 
-To use ggvega, we will first build our chart in ggplot2. We then call the function `as_vegaspec()` which will both translate from ggplot2 to Vega-lite and render the Vega-lite JSON specification. The `as_vegaspec()` generic has a method for ggplot2 objects and hails from the wgawidget package which is an htmlwidget that also lives within the vegawidget GitHub organization.
+To use ggvega, we will first build our chart in ggplot2. We then call the function `as_vegaspec()` which will both translate from ggplot2 to Vega-lite and render the Vega-lite JSON specification. The `as_vegaspec()` generic has a method for ggplot2 objects and hails from the vegawidget package which is an htmlwidget that also lives within the vegawidget GitHub organization.
 
 **multi-view vs. single-view**
 
@@ -132,7 +130,7 @@ If we have a single-layer ggplot object, we can create a single-view Vega-Lite s
 
 To begin I created a scatterplot in ggplot2 using the infamous iris dataset showing petal width on the x-axis and petal length on the y-axis and the points colored according to the iris species. 
 
-The 'as_vegaspec()' function is used to traslate from ggplot2 to Vega-lite and then to render this Vega-lite JSON specification.
+The 'as_vegaspec()' function is used to translate from ggplot2 to Vega-lite and then to render this Vega-lite JSON specification.
 
 #### ggvega + vlbuildr
 
@@ -190,7 +188,7 @@ One of those is that if the forcats package is used to order a bar chart accordi
 
 **Limitations in ggvega**:
 
-As for some of the current limitations in ggega, 
+As for some of the current limitations in ggvega, 
 
 We are very restrictive on the expressions we will allow for aesthetic mappings in ggplot. We currently support variable-names only; the only foreseeable exception to this will be to manage factors.
 
@@ -202,9 +200,9 @@ There are workarounds, but they involve compromises.
 
 One of the more interesting design choices so far is whether the transformations should take place in R or be put into the Vega-lite specification.
 
-One option is that if the Vega-Lite specfication would compute an aggregation, we would instead do aggregation in R so that the resulting htmlwidget has a much smaller data set. 
+One option is that if the Vega-Lite specification would compute an aggregation, we would instead do aggregation in R so that the resulting htmlwidget has a much smaller data set. 
 
-The second option, the one we are curently in favor of, is to have the Vega-Lite specification act as a component so that we can the change data sets in and out of the Vega-Lite specification.
+The second option, the one we are currently in favor of, is to have the Vega-Lite specification act as a component so that we can the change data sets in and out of the Vega-Lite specification.
 
 We are interested to know if we could approach this topic more generally. That is, can we write a specification such that the transformation is done *somewhere*? For example somewhere could be a remote R session (using Shiny), a remote SQL database, or the JavaScript client which is to say the browser.
 
@@ -218,6 +216,6 @@ We next hope to enable histograms by implementing `stat_bin()`, and `geom_line()
 
 ### New features
 
-Additionally, ther are some new features set to be released with Vega-Lite 4.0. As these capabilities are released in Vega-Lite, we forsee implementing `geom_smooth()`, `geom_density()`, `position_dodge()` and `position_jitter()`.
+Additionally, there are some new features set to be released with Vega-Lite 4.0. As these capabilities are released in Vega-Lite, we foresee implementing `geom_smooth()`, `geom_density()`, `position_dodge()` and `position_jitter()`.
 
 
