@@ -312,6 +312,8 @@ class: inverse, center, middle
 - represents the range of "things" that we will be able to translate
 
 - provides the means to generate a JSON specification, given a ggplot2 object
+
+- completed "under-the-hood"
 ]
 .pull-right[
 
@@ -391,6 +393,8 @@ However, in the interests of "getting something done", we considered briefly the
 
 - compiled into ES5
 
+
+
 ]
 .pull-right[
 
@@ -424,6 +428,70 @@ ggvega::as_vegaspec(p)
 ]
 
 
+---
+### .salt[ ggplot2 ].fat[ -> ].heat[ Vega-Lite]
+
+
+
+```{r}
+p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
+  geom_point(aes(color = Origin))
+
+ggvega::as_vegaspec(p)
+```
+
+---
+### Multi-view vs. Single-view 
+
+.pull-left[
+```{r eval = FALSE}
+ggvega::as_vegaspec(p)
+```
+
+```json
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "datasets": {
+    "data-00": []
+  },
+  "layer": [
+    {
+      "data": {},
+      "mark": {},
+      "encoding": {
+        "x": {},
+        "y": {},
+        "stroke": {}
+      }
+    }
+  ]
+}
+```
+
+]
+.pull-right[
+```{r eval = FALSE}
+ggvega::as_vegaspec(p, single_view = TRUE)
+```
+
+```json
+  {
+  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "datasets": {
+    "data-00": []
+  },
+  "data": {
+    "name": "data-00"
+  },
+  "mark": {},
+  "encoding": {
+    "x": {},
+    "y": {},
+    "stroke": {}
+  }
+}
+```
+]
 
 
 ---
@@ -441,11 +509,11 @@ library("ggplot2")
 library("ggvega")
 
 
-plot <- ggplot(iris) + 
+gg_petal <- ggplot(iris) + 
   geom_point(aes(x = Petal.Width, y = Petal.Length, 
                  colour = Species))
 
-as_vegaspec(plot)
+as_vegaspec(gg_petal)
   
 
 ```
@@ -457,10 +525,10 @@ as_vegaspec(plot)
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
 library("ggplot2")
 library("ggvega")
-plot <- ggplot(iris) + 
+gg_petal <- ggplot(iris) + 
   geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
 
-as_vegaspec(plot)
+as_vegaspec(gg_petal)
 ```
 
 ]
@@ -478,12 +546,12 @@ library("ggplot2")
 library("ggvega")
 library("vlbuildr")
 
-plot <- ggplot(iris) + 
+gg_petal <- ggplot(iris) + 
   geom_point(aes(x = Petal.Width, y = Petal.Length, 
                  colour = Species))
 
-as_vegaspec(plot) %>%
-vl_encode_fill("Species:N")
+as_vegaspec(gg_petal) %>%
+  vl_encode_fill("Species:N")
 
 ```
 
@@ -496,17 +564,15 @@ library("ggplot2")
 library("ggvega")
 library("vlbuildr")
 
-plot <- ggplot(iris) + 
-  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
+gg_petal <- ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length, 
+                 colour = Species))
 
-as_vegaspec(plot) %>%
-vl_encode_fill("Species:N")
+as_vegaspec(gg_petal) %>%
+  vl_encode_fill("Species:N")
 ```
 
 ]
-
-???
-Once the Vega-Lite specification has been created, we can use vlbuildr, another package within the vegawidget GitHub organization, to modify the specification. vlbuildr is "a functional approach to building up specifications" and the package contains functions that can add various components to a specification.
 
 ---
 ### Add interactivity!
@@ -514,8 +580,13 @@ Once the Vega-Lite specification has been created, we can use vlbuildr, another 
 .pull-left[
 
 ```{r eval=FALSE}
+library("ggplot2")
+library("ggvega")
+library("vlbuildr")
+
 gg_petal <- ggplot(iris) + 
-  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
+  geom_point(aes(x = Petal.Width, y = Petal.Length, 
+                 colour = Species))
 
 vl_petal <-
   as_vegaspec(gg_petal, single_view = TRUE) %>%
@@ -566,10 +637,6 @@ vl_petal
 ```
 
 ]
-
-???
-
-With vlbuildr, we can add selections and conditional encodings without addressing this issue in ggvega/ggplot2.
 
 ---
 ### Add interactivity!
