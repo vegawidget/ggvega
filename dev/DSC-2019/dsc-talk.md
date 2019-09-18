@@ -3,6 +3,12 @@ DSC prep
 
 <br />
 
+Hello\! My name is Haley Jeppson. I am a Statistics PhD student at Iowa
+State University working under the guidance of Heike Hofmann. My
+assistantship is with Schneider Electric where I work under Ian Lyttle.
+I am going to talk about the package Ian and I have been workng on over
+the last couple of months.
+
 ### GGVEGA
 
 The ggvega package was created to translate from ggplot2 to Vega-Lite,
@@ -158,22 +164,6 @@ from the Vega-Lite defaults. Our goal is to capture the “essence” of the
 ggplot, its intentions, then to implement in a default Vega-Lite
 specification.
 
-#### Idealized vs. Actualized
-
-As we developed ggspec, we had a couple of idea about what it should be:
-
-  - the idealized version *could be* a JSON-serializable representation
-    of any possible ggplot object; that it could also be a loss-less
-    representation of any ggplot object.
-
-  - the actualized version *is* a JSON-serializable representation of a
-    ggplot object that we can translate into Vega-Lite.
-
-In an ideal world, we might have taken on the *idealized* ggspec, then
-defined an *actualized* subset. However, in the interests of “getting
-something done”, we considered briefly the first possibility, then went
-straight for the second possibility.
-
 **ggspec -\> vegaspec**
 
 The ggspec is then converted into a vegaspec.
@@ -187,50 +177,40 @@ This compiler is developed in TypeScript, then compiled into ES5.
 
 To use ggvega, we will first build our chart in ggplot2. We then call
 the function `as_vegaspec()` which will both translate from ggplot2 to
-Vega-lite and render the Vega-lite JSON specification. The vegawidget
-`as_vegaspec()` generic has a method for ggplot2 objects. vegawidget is
-an htmlwidget that also lives within the vegawidget GitHub organization.
+Vega-lite and render the Vega-lite JSON specification. The
+`as_vegaspec()` generic has a method for ggplot2 objects and hails from
+the wgawidget package which is an htmlwidget that also lives within the
+vegawidget GitHub organization.
 
 **multi-view vs. single-view**
 
-Given the layered nature of gplot2, we decide that, by default, ggvega
+Given the layered nature of ggplot2, we decide that, by default, ggvega
 will define a Vega-lite specification with layers.
 
-In the Vega-Lite-world, this is a type of view composition (the other
-options for view composition being `facet`, `concat`, and `repeat`)
-where the charts are superimposed on top of another. While this has
-become second nature to us in the ggplot2-world, Vega-Lite does not
-require a chart to be “layered”. There is a “single-view specification”
-where the encodings are specified at the top-level of the specification.
-Alternatively, in a layered chart, multiple specifications are placed
-into an array under the layer property.
+In the Vega-Lite-world, this is a type of view composition where the
+charts are superimposed on top of another. While this has become second
+nature to us in the ggplot2-world, Vega-Lite does not require a chart to
+be “layered”. There is a “single-view specification” where the encodings
+are specified at the top-level of the specification.
 
-This is what ggvega does by default, even if there is only one layer
-specified. If we have a single-layer ggplot object, we can create a
-single-view Vega-Lite specification using the `single_view = TRUE`
-option in `as_vegaspec()`.
+Alternatively, in a layered chart, multiple specifications are placed
+into an array under the “layer” property. This is what ggvega does by
+default, even if there is only one layer specified.
+
+If we have a single-layer ggplot object, we can create a single-view
+Vega-Lite specification using the `single_view = TRUE` option in
+`as_vegaspec()`.
 
 ### Examples: ggvega in use
 
 #### ggvega
 
 To begin I created a scatterplot in ggplot2 using the infamous iris
-dataset showing `Petal.Width` on the x-axis and `Petal.Length` on the
-y-axis and the points colored according to the iris species. The
-‘as\_vegaspec()’ function is used to both the translatie from ggplot2
-to Vega-lite and the render the Vega-lite JSON specification.
+dataset showing petal width on the x-axis and petal length on the y-axis
+and the points colored according to the iris species.
 
-``` r
-library("ggplot2")
-library("ggvega")
-plot <- ggplot(iris) + 
-  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
-
-as_vegaspec(plot)
-```
-
-    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
-    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
+The ‘as\_vegaspec()’ function is used to traslate from ggplot2 to
+Vega-lite and then to render this Vega-lite JSON specification.
 
 #### ggvega + vlbuildr
 
@@ -246,20 +226,6 @@ In this example, we will take the chart from the previous slide but
 modify it using vlbuildr. Using `vl_encode_fill()` from vlbuildr we can
 modify the points so that they are now filled with the color of the iris
 species, rather than outlined circles.
-
-``` r
-library("ggplot2")
-library("ggvega")
-library("vlbuildr")
-
-plot <- ggplot(iris) + 
-  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
-
-as_vegaspec(plot) %>%
-vl_encode_fill("Species:N")
-```
-
-![](dsc-talk_files/figure-gfm/unnamed-chunk-2-1.svg)<!-- -->
 
 #### add interactivity\!
 
@@ -290,48 +256,28 @@ embedded or deployed outside of R.
 
 ### Limitations
 
-Indeed, gvega does have its own set of limitations.
+Indeed, ggvega does have its own set of limitations.
 
 **Issues with ES5/ES6/V8/node.js**:
 
-<!--
-One of the inspirations for this project is the Altair Python library, which generates its functions automatically according to the Vega-Lite schema. As a result, when Vega-Lite updates, much of the Python code that makes up the Altair package can be updated automatically. 
-
-At the outset of our efforts (May 2019), we were not aware of tools that could generate R code automatically using a JSON schema as a blueprint. This changes with the development of {vlmetabuildr}, which we would consider using as it matures. 
-
-Although Python is accessible from R, there can be installation frustrations. 
-
-This leaves us with JavaScript. The {V8} package makes it very easy to call JavaScript code from R; the installation-process is much-less frustrating than Python. Our goal is to compile a JSON object that follows one schema (ggschema) into a JSON object that follows another schema (Vega-Lite). In very broad terms, this is what Vega-Lite itself does. Like the Vega team, we use JavaScript's strongly-typed friend TypeScript to compose the code.
-
-JavaScript does present some complications, though. -->
-
 One conundrum that we encountered is what version of JavaScript to use.
-While there aremany versions on JavaScript - 2 loom large: ES5 andES6.
+
+While there are many versions on JavaScript - 2 loom large: ES5 and ES6.
+
 While all modern browsers support ES6; infamously, the last version of
 Internet Explorer supports only ES5. As much of the Schneider Electric
-team usesa Internet Explorer, this was an issue for us.
+team uses Internet Explorer, this was an issue for us.
 
 Additionally, the V8 package, as of its latest CRAN release, supports
-ES6 for all platforms except some older Linux platforms, e.g. Ubuntu
-16.04. This platform is still in wide usage, as it forms the foundation
-for RStudio Cloud.
+ES6 for all platforms except some older Linux platforms. One of those
+being Ubuntu 16.04 which is still in wide usage, as it forms the
+foundation for RStudio Cloud.
 
-Therefore, we have to write code that can be run on an ES5 JavaScript
-engine even though as of version 3.0, Vega-Lite is written using ES6.
+Therefore, ggvega needs to written in ES5, even though, as of version
+3.0, Vega-Lite is written using ES6.
 
-This did make some of aspects of the package more difficult but will
+This did make some of aspects of the package more difficult, but it will
 likely not be an issue for too long.
-
-<!--
-The Vega-Lite team have made a tool to convert JavaScript classes into a schema; we use this to create ggschema from classes. We also need a way to recover the Vega-Lite classes from the schema. If we had complete support for ES6, we could use the Vega-Lite classes themselves. 
-
-Instead, because we have to use ES5, we use a JavaScript library called "quicktype" to recover a set of Vega-Lite classes using the Vega-Lite schema. However, the "recovered" classes from the schema are not identical to the Vega-Lite classes. This might be a little bit like a translating from English to French, then back to English, recovering different prose.
-
-This leads to quicktype giving some "Vega-Lite" classes some strange names due to its interpretation of the schema.
-
-This "problem" will go away when we have sufficient ES6 coverage for {V8}, or when we are able to recover faithfully the Vega-Lite classes in R.
-
--->
 
 **Mismatches between ggplot2 and Vega-Lite**:
 
@@ -339,15 +285,16 @@ There are some mismatches between ggplot2 and Vega-Lite. One being that
 `geom_path()` is based on the order of the data while in Vega-Lite there
 is an order encoding.
 
-Additionally, there are not currently working Vega-Lite implementations
-of `positionDodge` and `positionJitter` though the Vega-Lite is working
-on implementing this.
+Additionally, there are not currently Vega-Lite implementations of
+`positionDodge` and `positionJitter` though the Vega-Lite team is
+working on this.
 
-There is are some issues with the chart remaining extensible to new data
-when factors are involved that we have not quite worked out yet. One of
-those is that if the forcats package is used to order according to
-population size in a bar chart like this, we cannot capture this because
-it happens outside the ggplot object.
+There are some issues with the chart remaining extensible to new data
+when factors are involved that we have not quite worked out yet.
+
+One of those is that if the forcats package is used to order a bar chart
+according to size in an example like this, we cannot capture this
+because it happens outside the ggplot object.
 
 **Limitations in ggvega**:
 
@@ -373,28 +320,22 @@ transformations should take place in R or be put into the Vega-lite
 specification.
 
 One option is that if the Vega-Lite specfication would compute an
-aggregateion, we would instead do aggregation in R instead of JS so that
-the resulting htmlwidget has a much smaller data set.
+aggregation, we would instead do aggregation in R so that the resulting
+htmlwidget has a much smaller data set.
 
-The second option, is to have the Vega-Lite specification act as a
-component so that we can the change different data sets in and out of
-the Vega-Lite specification only.
+The second option, the one we are curently in favor of, is to have the
+Vega-Lite specification act as a component so that we can the change
+data sets in and out of the Vega-Lite specification.
 
 We are interested to know if we could approach this topic more
 generally. That is, can we write a specification such that the
 transformation is done *somewhere*? For example somewhere could be a
 remote R session (using Shiny), a remote SQL database, or the JavaScript
-client (the browser itself).
-
-Then the questions could become:  
-\- How do we write the Vega(-Lite) specification such that the
-transformation could be done anywhere?  
-\- Given a Vega-Lite specification, how to we implement the
-transformation so that it will be made at a given place?
+client which is to say the browser.
 
 Additionally, for other transformations, how can we translate an R
 expression into a JS expression so as to potentially create a general
-translation capability between dplyr and a set of Vega-Lite
+translation capability between, say, dplyr and a set of Vega-Lite
 transformations?
 
 #### What we can do now + what we will do next:
