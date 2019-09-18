@@ -97,7 +97,19 @@ class: inverse, center, middle
 ---
 ### Build & deploy visual components 
 
-.left-third[
+.teach-left[
+
+We want to connect the data-scientists who design visualizations and the customers who use these visualizations
+
+We want the ability to take into account new data after visualization has been designed
+
+This goal, being **extensible to new data**, has been a guiding principle when making fundamental design choices.
+
+This factor distinguishes this effort from `plotly::ggplotly()`
+
+]
+.teach-right[
+
 
 ```{r echo=FALSE}
 g <- ggplot(data_init, aes(x = value)) + geom_bar()
@@ -154,25 +166,8 @@ data_script <-
 data_script
 ```
 
-]
-.right-two-thirds[
-
-We want to connect the data-scientists who design visualizations and the customers who use these visualizations
-
-We want the ability to take into account new data after visualization has been designed
-
-This goal, being **extensible to new data**, has been a guiding principle when making fundamental design choices.
-
-This factor distinguishes this effort from `plotly::ggplotly()`
-
-
 
 ]
-
-???
-
-> Compared to `plot_ly()`, statistical queries (client-side) with `ggplotly()` are fundamentally limited. That’s because, the statistical R functions that ggplot2 relies on to generate the graphical layers can’t necessarily be recomputed with different input data in your web browser.
-
 
 ---
 ### ggplot2 + Interactivity
