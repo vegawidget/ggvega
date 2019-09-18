@@ -221,8 +221,7 @@ plot <- ggplot(iris) +
 as_vegaspec(plot)
 ```
 
-    ## [1] "Error printing vegawidget in non-HTML format:"                                                                                                     
-    ## [2] "parse error: premature EOF\n                                       {\"$schema\":\"https://vega.github\n                     (right here) ------^\n"
+![](dsc-talk_files/figure-gfm/unnamed-chunk-1-1.svg)<!-- -->
 
 #### ggvega + vlbuildr
 

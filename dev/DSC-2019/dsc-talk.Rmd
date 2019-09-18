@@ -116,9 +116,11 @@ To use ggvega, we will first build our chart in ggplot2. We then call the functi
 
 **multi-view vs. single-view**
 
+
 Given the layered nature of gplot2, we decide that, by default, ggvega will define a Vega-lite specification with layers. 
 
 In the Vega-Lite-world, this is a type of view composition (`facet`, `concat`, and `repeat` being the other options for view composition) where the charts on superimposed on top of another.  While this has become second nature to us in the ggplot2-world, Vega-Lite does not require a chart to be "layered". There is a "single-view specification" where the encodings are specified at the top-level of the specification. Alternatively, in a layered chart, multiple specifications are placed into an array under the layer property. 
+
 
 This is what ggvega does by default, even if there is only one layer specified. If we have a single-layer ggplot object, we can create a single-view Vega-Lite specification using the `single_view = TRUE` option in `as_vegaspec()`.
 
