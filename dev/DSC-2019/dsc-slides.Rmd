@@ -199,19 +199,6 @@ Both Vega and Vega-lite use a JSON specification to create a visualization
 
 <br/>
 
-???
-
-.center[
-.salt[data  ].fat[  stat  ].acid[  mapping  ].heat[  geom]
-]
-
-.center[
-.salt[data  ].fat[  transform  ].acid[  encoding  ].heat[  mark  ]  
-]
-
-.center[
-.salt[salt  ].fat[  fat  ].acid[  acid  ].heat[  heat]
-]
 
 
 ---
@@ -290,13 +277,6 @@ class: inverse, center, middle
 
 ]
 
-???
-
-#### Why 2 steps? 
-
-- We hope that the ggspec can be a useful abstraction to help us understand  "what is going on in ggplot2?" and "how does this intersect with Vega-Lite?". 
-
-- Should ggplot2 or Vega-Lite change, we hope that we could keep ggspec "fixed" such that we would have to adapt only that part of the translation process (ggplot2-to-ggspec or ggspec-to-Vega-Lite) that would be impacted by such a change.
 
 ---
 ### .salt[ggplot2 ].fat[ -> ].acid[ ggspec ]
@@ -500,8 +480,6 @@ as_vegaspec(gg_petal)
 
 ]
 
-???
-vegawidget, an htmlwidget within the vegawidget GitHub organization, is used to render the specification created by ggvega. 
 
 ---
 ### ggvega + vlbuildr
@@ -694,19 +672,6 @@ class: inverse, center, middle
 
 <br/>
 
-???
-
-#### Can we write a specification such that the transformation is done *somewhere*?
-
-- a remote R session (using Shiny)
-- a remote SQL database 
-- the JavaScript client (the browser itself)
-
-
-Then the questions could become:  
-
-- How do we write the Vega(-Lite) specification such that the transformation could be done anywhere?  
-- Given a Vega-Lite specification, how to we implement the transformation so that it will be made at a given place?  
 
 
 ---

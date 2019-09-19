@@ -112,7 +112,7 @@ creating (at some point in the (hopefully not-too-)distant future) a
 Vega-lite theme that can be applied to the visual components.
 
 **Our *initial* philosophy** was to manage a small set of plots (perhaps
-something like scatter-plots, line-charts, bar-charts, and histograms),
+something like scatter plots, line charts, bar charts, and histograms),
 but to manage these translations in a robust way that we can extend in
 the future. In other words, we sought to maintain **a narrow scope built
 on a firm foundation**.

@@ -72,7 +72,7 @@ There were some key design choices we made early on that made a large impact on 
 
 First, we decided that ggvega would seek to capture the *intent* of a ggplot. This is distinct from the *implementation* of a ggplot, the path `ggplotly()` takes. Our idea is to let the powerful defaults of the two packages take care of some of the work. In addition, we anticipate creating (at some point in the (hopefully not-too-)distant future) a Vega-lite theme that can be applied to the visual components.
 
-**Our  *initial* philosophy** was to manage a small set of plots (perhaps something like scatter-plots, line-charts, bar-charts, and histograms), but to manage these translations in a robust way that we can extend in the future. In other words, we sought to maintain **a narrow scope built on a firm foundation**.
+**Our *initial* philosophy** was to manage a small set of plots (perhaps something like scatter plots, line charts, bar charts, and histograms), but to manage these translations in a robust way that we can extend in the future. In other words, we sought to maintain **a narrow scope built on a firm foundation**.
 
 We hope that this foundation that we developed to support this subset of capabilities will serve us well as we expand ggvega's capabilities.
 
