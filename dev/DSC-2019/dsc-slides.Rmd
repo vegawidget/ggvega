@@ -662,6 +662,10 @@ vl_hconcat(vl_sepal, vl_petal)
 
 ---
 class: inverse, center, middle
+# [More Examples!](https://rstudio.cloud/project/688265)
+
+---
+class: inverse, center, middle
 # Limitations
 
 ---
@@ -780,10 +784,6 @@ class: inverse, center, middle
 - `geom_smooth()`
 - `geom_density()`
 - `position_dodge()` and `position_jitter()`
-
----
-class: inverse, center, middle
-# [More Examples!]()
 
 ---
 background-image: url(https://vegawidget.rbind.io/posts/2019-07-10-user-2019-presentation/diagram.png)
