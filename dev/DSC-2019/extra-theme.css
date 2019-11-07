@@ -13,12 +13,12 @@
   width: 20%;
 }
 .left-minus {
-  width: 40%;
+  width: 35%;
   float: left;
   padding-top: 1em;
 }
 .right-plus {
-  width: 57%;
+  width: 62%;
   float: right;
   padding-top: 1em;
 }
@@ -88,6 +88,13 @@
      .5px .5px 0 #353839;
 }
 
+.salt2 {
+  font-family: Montserrat, 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+  font-size: 25px;
+  font-weight: bold;
+  color: #78b0b4;
+}
+
 .fat {
     font-size: 50px;
     font-family: Londrina Solid;
@@ -102,6 +109,12 @@
      .5px .5px 0 #353839;
 }
 
+.fat2 {
+  font-family: Montserrat, 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+  font-size: 25px;
+  font-weight: bold;
+  color: #efba38;
+}
 .acid {
     font-size: 50px;
     font-family: Londrina Solid;
@@ -116,6 +129,12 @@
      .5px .5px 0 #353839;
 }
 
+.acid2 {
+  font-family: Montserrat, 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+  font-size: 25px;
+  font-weight: bold;
+  color: #bbbe4a;
+}
 .heat {
     font-size: 50px;
     font-family: Londrina Solid;
@@ -130,6 +149,12 @@
      .5px .5px 0 #353839;
 }
 
+.heat2 {
+  font-family: Montserrat, 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+  font-size: 25px;
+  font-weight: bold;
+  color: #f96c3b;
+}
 .other {
     font-size: 50px;
     font-family: Londrina Solid;

@@ -59,21 +59,20 @@ class: inverse, center, middle
 ---
 ### Build &amp; deploy visual components 
 
-.teach-left[
+
 
 We want to connect the data-scientists who design visualizations and the customers who use these visualizations
 
 We want the ability to take into account new data after visualization has been designed
 
-This goal, being **extensible to new data**, has been a guiding principle when making fundamental design choices.
+This goal, being **extensible to new data**, has influenced fundamental design choices.
 
 This factor distinguishes this effort from `plotly::ggplotly()`
 
-]
-.teach-right[
+.pull-left[
 
 
-<div id="demo-aggregate" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<div id="demo-aggregate" style="width:450px;height:300px;" class="vegawidget html-widget"></div>
 <script type="application/json" data-for="demo-aggregate">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
@@ -503,7 +502,19 @@ This factor distinguishes this effort from `plotly::ggplotly()`
           }
         }
       }
-    ]
+    ],
+    "width": 450,
+    "height": 300,
+    "config": {
+      "autosize": {
+        "type": "fit",
+        "contains": "padding"
+      },
+      "view": {
+        "width": 450,
+        "height": 300
+      }
+    }
   },
   "embed_options": {
     "defaultStyle": true,
@@ -511,6 +522,8 @@ This factor distinguishes this effort from `plotly::ggplotly()`
   }
 },"evals":[],"jsHooks":[]}</script>
 
+]
+.pull-right[
 <div>
 <span>dataset</span>
 <select name="demo-aggregate-dataset">
@@ -558,7 +571,1137 @@ Both Vega and Vega-lite use a JSON specification to create a visualization
 
 &lt;br/&gt;
 
+---
+background-image: url(https://vegawidget.rbind.io/posts/2019-07-10-user-2019-presentation/diagram.png)
+background-size: 1000px
+background-position: 35% 85%
+### Vegawidget
 
+
+htmlwidget that renders Vega(-Lite) specifications &amp; provides access to interactivity
+
+Intended as low-level package:   
+
+  - use other packages to **build** specifications  
+  
+  - use vegawidget to **render**
+
+&lt;br/&gt;
+
+
+---
+### vlbuildr
+
+builds API semi-automatically based on the Vega-Lite schema
+
+can build specifications using `%&gt;%`
+
+.pull-left[
+
+
+```r
+vl_chart() %&gt;%
+vl_add_data(values = iris) %&gt;%
+vl_mark_point() %&gt;%
+vl_encode_x(
+field = "Petal\\.Width:Q",
+title = "Petal.Width"
+) %&gt;%
+vl_encode_y(
+field = "Petal\\.Length:Q",
+title = "Petal.Length"
+) %&gt;%
+vl_encode_color("Species:N")
+```
+
+]
+
+.pull-right[
+
+
+<div id="htmlwidget-86f7095367c05076aa69" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-86f7095367c05076aa69">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "data": {
+      "values": [
+        {
+          "Sepal.Length": 5.1,
+          "Sepal.Width": 3.5,
+          "Petal.Length": 1.4,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.9,
+          "Sepal.Width": 3,
+          "Petal.Length": 1.4,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.7,
+          "Sepal.Width": 3.2,
+          "Petal.Length": 1.3,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.6,
+          "Sepal.Width": 3.1,
+          "Petal.Length": 1.5,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5,
+          "Sepal.Width": 3.6,
+          "Petal.Length": 1.4,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.4,
+          "Sepal.Width": 3.9,
+          "Petal.Length": 1.7,
+          "Petal.Width": 0.4,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.6,
+          "Sepal.Width": 3.4,
+          "Petal.Length": 1.4,
+          "Petal.Width": 0.3,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5,
+          "Sepal.Width": 3.4,
+          "Petal.Length": 1.5,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.4,
+          "Sepal.Width": 2.9,
+          "Petal.Length": 1.4,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.9,
+          "Sepal.Width": 3.1,
+          "Petal.Length": 1.5,
+          "Petal.Width": 0.1,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.4,
+          "Sepal.Width": 3.7,
+          "Petal.Length": 1.5,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.8,
+          "Sepal.Width": 3.4,
+          "Petal.Length": 1.6,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.8,
+          "Sepal.Width": 3,
+          "Petal.Length": 1.4,
+          "Petal.Width": 0.1,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.3,
+          "Sepal.Width": 3,
+          "Petal.Length": 1.1,
+          "Petal.Width": 0.1,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.8,
+          "Sepal.Width": 4,
+          "Petal.Length": 1.2,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.7,
+          "Sepal.Width": 4.4,
+          "Petal.Length": 1.5,
+          "Petal.Width": 0.4,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.4,
+          "Sepal.Width": 3.9,
+          "Petal.Length": 1.3,
+          "Petal.Width": 0.4,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.1,
+          "Sepal.Width": 3.5,
+          "Petal.Length": 1.4,
+          "Petal.Width": 0.3,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.7,
+          "Sepal.Width": 3.8,
+          "Petal.Length": 1.7,
+          "Petal.Width": 0.3,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.1,
+          "Sepal.Width": 3.8,
+          "Petal.Length": 1.5,
+          "Petal.Width": 0.3,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.4,
+          "Sepal.Width": 3.4,
+          "Petal.Length": 1.7,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.1,
+          "Sepal.Width": 3.7,
+          "Petal.Length": 1.5,
+          "Petal.Width": 0.4,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.6,
+          "Sepal.Width": 3.6,
+          "Petal.Length": 1,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.1,
+          "Sepal.Width": 3.3,
+          "Petal.Length": 1.7,
+          "Petal.Width": 0.5,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.8,
+          "Sepal.Width": 3.4,
+          "Petal.Length": 1.9,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5,
+          "Sepal.Width": 3,
+          "Petal.Length": 1.6,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5,
+          "Sepal.Width": 3.4,
+          "Petal.Length": 1.6,
+          "Petal.Width": 0.4,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.2,
+          "Sepal.Width": 3.5,
+          "Petal.Length": 1.5,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.2,
+          "Sepal.Width": 3.4,
+          "Petal.Length": 1.4,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.7,
+          "Sepal.Width": 3.2,
+          "Petal.Length": 1.6,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.8,
+          "Sepal.Width": 3.1,
+          "Petal.Length": 1.6,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.4,
+          "Sepal.Width": 3.4,
+          "Petal.Length": 1.5,
+          "Petal.Width": 0.4,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.2,
+          "Sepal.Width": 4.1,
+          "Petal.Length": 1.5,
+          "Petal.Width": 0.1,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.5,
+          "Sepal.Width": 4.2,
+          "Petal.Length": 1.4,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.9,
+          "Sepal.Width": 3.1,
+          "Petal.Length": 1.5,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5,
+          "Sepal.Width": 3.2,
+          "Petal.Length": 1.2,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.5,
+          "Sepal.Width": 3.5,
+          "Petal.Length": 1.3,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.9,
+          "Sepal.Width": 3.6,
+          "Petal.Length": 1.4,
+          "Petal.Width": 0.1,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.4,
+          "Sepal.Width": 3,
+          "Petal.Length": 1.3,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.1,
+          "Sepal.Width": 3.4,
+          "Petal.Length": 1.5,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5,
+          "Sepal.Width": 3.5,
+          "Petal.Length": 1.3,
+          "Petal.Width": 0.3,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.5,
+          "Sepal.Width": 2.3,
+          "Petal.Length": 1.3,
+          "Petal.Width": 0.3,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.4,
+          "Sepal.Width": 3.2,
+          "Petal.Length": 1.3,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5,
+          "Sepal.Width": 3.5,
+          "Petal.Length": 1.6,
+          "Petal.Width": 0.6,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.1,
+          "Sepal.Width": 3.8,
+          "Petal.Length": 1.9,
+          "Petal.Width": 0.4,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.8,
+          "Sepal.Width": 3,
+          "Petal.Length": 1.4,
+          "Petal.Width": 0.3,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.1,
+          "Sepal.Width": 3.8,
+          "Petal.Length": 1.6,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 4.6,
+          "Sepal.Width": 3.2,
+          "Petal.Length": 1.4,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5.3,
+          "Sepal.Width": 3.7,
+          "Petal.Length": 1.5,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 5,
+          "Sepal.Width": 3.3,
+          "Petal.Length": 1.4,
+          "Petal.Width": 0.2,
+          "Species": "setosa"
+        },
+        {
+          "Sepal.Length": 7,
+          "Sepal.Width": 3.2,
+          "Petal.Length": 4.7,
+          "Petal.Width": 1.4,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.4,
+          "Sepal.Width": 3.2,
+          "Petal.Length": 4.5,
+          "Petal.Width": 1.5,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.9,
+          "Sepal.Width": 3.1,
+          "Petal.Length": 4.9,
+          "Petal.Width": 1.5,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.5,
+          "Sepal.Width": 2.3,
+          "Petal.Length": 4,
+          "Petal.Width": 1.3,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.5,
+          "Sepal.Width": 2.8,
+          "Petal.Length": 4.6,
+          "Petal.Width": 1.5,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.7,
+          "Sepal.Width": 2.8,
+          "Petal.Length": 4.5,
+          "Petal.Width": 1.3,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.3,
+          "Sepal.Width": 3.3,
+          "Petal.Length": 4.7,
+          "Petal.Width": 1.6,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 4.9,
+          "Sepal.Width": 2.4,
+          "Petal.Length": 3.3,
+          "Petal.Width": 1,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.6,
+          "Sepal.Width": 2.9,
+          "Petal.Length": 4.6,
+          "Petal.Width": 1.3,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.2,
+          "Sepal.Width": 2.7,
+          "Petal.Length": 3.9,
+          "Petal.Width": 1.4,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5,
+          "Sepal.Width": 2,
+          "Petal.Length": 3.5,
+          "Petal.Width": 1,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.9,
+          "Sepal.Width": 3,
+          "Petal.Length": 4.2,
+          "Petal.Width": 1.5,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6,
+          "Sepal.Width": 2.2,
+          "Petal.Length": 4,
+          "Petal.Width": 1,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.1,
+          "Sepal.Width": 2.9,
+          "Petal.Length": 4.7,
+          "Petal.Width": 1.4,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.6,
+          "Sepal.Width": 2.9,
+          "Petal.Length": 3.6,
+          "Petal.Width": 1.3,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.7,
+          "Sepal.Width": 3.1,
+          "Petal.Length": 4.4,
+          "Petal.Width": 1.4,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.6,
+          "Sepal.Width": 3,
+          "Petal.Length": 4.5,
+          "Petal.Width": 1.5,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.8,
+          "Sepal.Width": 2.7,
+          "Petal.Length": 4.1,
+          "Petal.Width": 1,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.2,
+          "Sepal.Width": 2.2,
+          "Petal.Length": 4.5,
+          "Petal.Width": 1.5,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.6,
+          "Sepal.Width": 2.5,
+          "Petal.Length": 3.9,
+          "Petal.Width": 1.1,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.9,
+          "Sepal.Width": 3.2,
+          "Petal.Length": 4.8,
+          "Petal.Width": 1.8,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.1,
+          "Sepal.Width": 2.8,
+          "Petal.Length": 4,
+          "Petal.Width": 1.3,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.3,
+          "Sepal.Width": 2.5,
+          "Petal.Length": 4.9,
+          "Petal.Width": 1.5,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.1,
+          "Sepal.Width": 2.8,
+          "Petal.Length": 4.7,
+          "Petal.Width": 1.2,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.4,
+          "Sepal.Width": 2.9,
+          "Petal.Length": 4.3,
+          "Petal.Width": 1.3,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.6,
+          "Sepal.Width": 3,
+          "Petal.Length": 4.4,
+          "Petal.Width": 1.4,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.8,
+          "Sepal.Width": 2.8,
+          "Petal.Length": 4.8,
+          "Petal.Width": 1.4,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.7,
+          "Sepal.Width": 3,
+          "Petal.Length": 5,
+          "Petal.Width": 1.7,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6,
+          "Sepal.Width": 2.9,
+          "Petal.Length": 4.5,
+          "Petal.Width": 1.5,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.7,
+          "Sepal.Width": 2.6,
+          "Petal.Length": 3.5,
+          "Petal.Width": 1,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.5,
+          "Sepal.Width": 2.4,
+          "Petal.Length": 3.8,
+          "Petal.Width": 1.1,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.5,
+          "Sepal.Width": 2.4,
+          "Petal.Length": 3.7,
+          "Petal.Width": 1,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.8,
+          "Sepal.Width": 2.7,
+          "Petal.Length": 3.9,
+          "Petal.Width": 1.2,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6,
+          "Sepal.Width": 2.7,
+          "Petal.Length": 5.1,
+          "Petal.Width": 1.6,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.4,
+          "Sepal.Width": 3,
+          "Petal.Length": 4.5,
+          "Petal.Width": 1.5,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6,
+          "Sepal.Width": 3.4,
+          "Petal.Length": 4.5,
+          "Petal.Width": 1.6,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.7,
+          "Sepal.Width": 3.1,
+          "Petal.Length": 4.7,
+          "Petal.Width": 1.5,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.3,
+          "Sepal.Width": 2.3,
+          "Petal.Length": 4.4,
+          "Petal.Width": 1.3,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.6,
+          "Sepal.Width": 3,
+          "Petal.Length": 4.1,
+          "Petal.Width": 1.3,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.5,
+          "Sepal.Width": 2.5,
+          "Petal.Length": 4,
+          "Petal.Width": 1.3,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.5,
+          "Sepal.Width": 2.6,
+          "Petal.Length": 4.4,
+          "Petal.Width": 1.2,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.1,
+          "Sepal.Width": 3,
+          "Petal.Length": 4.6,
+          "Petal.Width": 1.4,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.8,
+          "Sepal.Width": 2.6,
+          "Petal.Length": 4,
+          "Petal.Width": 1.2,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5,
+          "Sepal.Width": 2.3,
+          "Petal.Length": 3.3,
+          "Petal.Width": 1,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.6,
+          "Sepal.Width": 2.7,
+          "Petal.Length": 4.2,
+          "Petal.Width": 1.3,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.7,
+          "Sepal.Width": 3,
+          "Petal.Length": 4.2,
+          "Petal.Width": 1.2,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.7,
+          "Sepal.Width": 2.9,
+          "Petal.Length": 4.2,
+          "Petal.Width": 1.3,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.2,
+          "Sepal.Width": 2.9,
+          "Petal.Length": 4.3,
+          "Petal.Width": 1.3,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.1,
+          "Sepal.Width": 2.5,
+          "Petal.Length": 3,
+          "Petal.Width": 1.1,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 5.7,
+          "Sepal.Width": 2.8,
+          "Petal.Length": 4.1,
+          "Petal.Width": 1.3,
+          "Species": "versicolor"
+        },
+        {
+          "Sepal.Length": 6.3,
+          "Sepal.Width": 3.3,
+          "Petal.Length": 6,
+          "Petal.Width": 2.5,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 5.8,
+          "Sepal.Width": 2.7,
+          "Petal.Length": 5.1,
+          "Petal.Width": 1.9,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 7.1,
+          "Sepal.Width": 3,
+          "Petal.Length": 5.9,
+          "Petal.Width": 2.1,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.3,
+          "Sepal.Width": 2.9,
+          "Petal.Length": 5.6,
+          "Petal.Width": 1.8,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.5,
+          "Sepal.Width": 3,
+          "Petal.Length": 5.8,
+          "Petal.Width": 2.2,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 7.6,
+          "Sepal.Width": 3,
+          "Petal.Length": 6.6,
+          "Petal.Width": 2.1,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 4.9,
+          "Sepal.Width": 2.5,
+          "Petal.Length": 4.5,
+          "Petal.Width": 1.7,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 7.3,
+          "Sepal.Width": 2.9,
+          "Petal.Length": 6.3,
+          "Petal.Width": 1.8,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.7,
+          "Sepal.Width": 2.5,
+          "Petal.Length": 5.8,
+          "Petal.Width": 1.8,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 7.2,
+          "Sepal.Width": 3.6,
+          "Petal.Length": 6.1,
+          "Petal.Width": 2.5,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.5,
+          "Sepal.Width": 3.2,
+          "Petal.Length": 5.1,
+          "Petal.Width": 2,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.4,
+          "Sepal.Width": 2.7,
+          "Petal.Length": 5.3,
+          "Petal.Width": 1.9,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.8,
+          "Sepal.Width": 3,
+          "Petal.Length": 5.5,
+          "Petal.Width": 2.1,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 5.7,
+          "Sepal.Width": 2.5,
+          "Petal.Length": 5,
+          "Petal.Width": 2,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 5.8,
+          "Sepal.Width": 2.8,
+          "Petal.Length": 5.1,
+          "Petal.Width": 2.4,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.4,
+          "Sepal.Width": 3.2,
+          "Petal.Length": 5.3,
+          "Petal.Width": 2.3,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.5,
+          "Sepal.Width": 3,
+          "Petal.Length": 5.5,
+          "Petal.Width": 1.8,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 7.7,
+          "Sepal.Width": 3.8,
+          "Petal.Length": 6.7,
+          "Petal.Width": 2.2,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 7.7,
+          "Sepal.Width": 2.6,
+          "Petal.Length": 6.9,
+          "Petal.Width": 2.3,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6,
+          "Sepal.Width": 2.2,
+          "Petal.Length": 5,
+          "Petal.Width": 1.5,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.9,
+          "Sepal.Width": 3.2,
+          "Petal.Length": 5.7,
+          "Petal.Width": 2.3,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 5.6,
+          "Sepal.Width": 2.8,
+          "Petal.Length": 4.9,
+          "Petal.Width": 2,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 7.7,
+          "Sepal.Width": 2.8,
+          "Petal.Length": 6.7,
+          "Petal.Width": 2,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.3,
+          "Sepal.Width": 2.7,
+          "Petal.Length": 4.9,
+          "Petal.Width": 1.8,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.7,
+          "Sepal.Width": 3.3,
+          "Petal.Length": 5.7,
+          "Petal.Width": 2.1,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 7.2,
+          "Sepal.Width": 3.2,
+          "Petal.Length": 6,
+          "Petal.Width": 1.8,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.2,
+          "Sepal.Width": 2.8,
+          "Petal.Length": 4.8,
+          "Petal.Width": 1.8,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.1,
+          "Sepal.Width": 3,
+          "Petal.Length": 4.9,
+          "Petal.Width": 1.8,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.4,
+          "Sepal.Width": 2.8,
+          "Petal.Length": 5.6,
+          "Petal.Width": 2.1,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 7.2,
+          "Sepal.Width": 3,
+          "Petal.Length": 5.8,
+          "Petal.Width": 1.6,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 7.4,
+          "Sepal.Width": 2.8,
+          "Petal.Length": 6.1,
+          "Petal.Width": 1.9,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 7.9,
+          "Sepal.Width": 3.8,
+          "Petal.Length": 6.4,
+          "Petal.Width": 2,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.4,
+          "Sepal.Width": 2.8,
+          "Petal.Length": 5.6,
+          "Petal.Width": 2.2,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.3,
+          "Sepal.Width": 2.8,
+          "Petal.Length": 5.1,
+          "Petal.Width": 1.5,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.1,
+          "Sepal.Width": 2.6,
+          "Petal.Length": 5.6,
+          "Petal.Width": 1.4,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 7.7,
+          "Sepal.Width": 3,
+          "Petal.Length": 6.1,
+          "Petal.Width": 2.3,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.3,
+          "Sepal.Width": 3.4,
+          "Petal.Length": 5.6,
+          "Petal.Width": 2.4,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.4,
+          "Sepal.Width": 3.1,
+          "Petal.Length": 5.5,
+          "Petal.Width": 1.8,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6,
+          "Sepal.Width": 3,
+          "Petal.Length": 4.8,
+          "Petal.Width": 1.8,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.9,
+          "Sepal.Width": 3.1,
+          "Petal.Length": 5.4,
+          "Petal.Width": 2.1,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.7,
+          "Sepal.Width": 3.1,
+          "Petal.Length": 5.6,
+          "Petal.Width": 2.4,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.9,
+          "Sepal.Width": 3.1,
+          "Petal.Length": 5.1,
+          "Petal.Width": 2.3,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 5.8,
+          "Sepal.Width": 2.7,
+          "Petal.Length": 5.1,
+          "Petal.Width": 1.9,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.8,
+          "Sepal.Width": 3.2,
+          "Petal.Length": 5.9,
+          "Petal.Width": 2.3,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.7,
+          "Sepal.Width": 3.3,
+          "Petal.Length": 5.7,
+          "Petal.Width": 2.5,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.7,
+          "Sepal.Width": 3,
+          "Petal.Length": 5.2,
+          "Petal.Width": 2.3,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.3,
+          "Sepal.Width": 2.5,
+          "Petal.Length": 5,
+          "Petal.Width": 1.9,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.5,
+          "Sepal.Width": 3,
+          "Petal.Length": 5.2,
+          "Petal.Width": 2,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 6.2,
+          "Sepal.Width": 3.4,
+          "Petal.Length": 5.4,
+          "Petal.Width": 2.3,
+          "Species": "virginica"
+        },
+        {
+          "Sepal.Length": 5.9,
+          "Sepal.Width": 3,
+          "Petal.Length": 5.1,
+          "Petal.Width": 1.8,
+          "Species": "virginica"
+        }
+      ]
+    },
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "Petal\\.Width",
+        "title": "Petal.Width",
+        "type": "quantitative"
+      },
+      "y": {
+        "field": "Petal\\.Length",
+        "title": "Petal.Length",
+        "type": "quantitative"
+      },
+      "color": {
+        "field": "Species",
+        "type": "nominal"
+      }
+    }
+  },
+  "embed_options": {
+    "defaultStyle": true,
+    "renderer": "canvas"
+  }
+},"evals":[],"jsHooks":[]}</script>
+
+]
 
 ---
 ### Motivating use-case for ggvega
@@ -616,10 +1759,11 @@ Taken from [Vega-Lite streaming demo](https://vega.github.io/vega-lite/tutorials
 <button name="demo-streaming-reset" type="button">reset</button>
 
 ]
-
 ---
 class: inverse, center, middle
 # Design Philosophy
+
+
 
 ---
 ### Fundamental design choices
@@ -742,8 +1886,8 @@ p &lt;- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
 ggvega::as_vegaspec(p)
 ```
 
-<div id="htmlwidget-da7ae41fd4e22c439666" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-da7ae41fd4e22c439666">{"x":{
+<div id="htmlwidget-8993e9ecad0c35383726" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8993e9ecad0c35383726">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "datasets": {
@@ -5333,8 +6477,8 @@ as_vegaspec(gg_petal)
 
 .pull-right[
 
-<div id="htmlwidget-8993e9ecad0c35383726" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8993e9ecad0c35383726">{"x":{
+<div id="htmlwidget-8c4caab6c4e34b6756fe" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8c4caab6c4e34b6756fe">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "datasets": {
@@ -6451,8 +7595,8 @@ as_vegaspec(gg_petal) %&gt;%
 
 .pull-right[
 
-<div id="htmlwidget-8c4caab6c4e34b6756fe" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8c4caab6c4e34b6756fe">{"x":{
+<div id="htmlwidget-6d631bba3766a02143ae" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6d631bba3766a02143ae">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "datasets": {
@@ -7582,8 +8726,8 @@ vl_petal
 
 .pull-right[
 
-<div id="htmlwidget-6d631bba3766a02143ae" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6d631bba3766a02143ae">{"x":{
+<div id="htmlwidget-fdd2ec873d7d7b13d574" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fdd2ec873d7d7b13d574">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "datasets": {
@@ -8694,8 +9838,8 @@ vl_petal
 vl_hconcat(vl_sepal, vl_petal)
 ```
 
-<div id="htmlwidget-fdd2ec873d7d7b13d574" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fdd2ec873d7d7b13d574">{"x":{
+<div id="htmlwidget-818bcf6706fcf0335341" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-818bcf6706fcf0335341">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "datasets": {
@@ -9867,7 +11011,7 @@ class: inverse, center, middle
 
 .center[
 
-![](dsc-slides_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+![](dsc-slides_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -9942,6 +11086,58 @@ class: inverse, center, middle
 - `geom_smooth()`
 - `geom_density()`
 - `position_dodge()` and `position_jitter()`
+
+---
+class: inverse, center, middle
+# [More Examples!]()
+
+---
+background-image: url(https://vegawidget.rbind.io/posts/2019-07-10-user-2019-presentation/diagram.png)
+background-size: 700px
+background-position: 45% 2.5%
+&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+
+
+.left-minus[
+.right[
+.salt[ Vega-Lite ]  
+
+&lt;br/&gt;  &lt;br/&gt;
+
+.fat[ vegawidget ]  
+
+&lt;br/&gt;
+
+.acid[ vlbuildr]  
+.acid[ ggvega]
+]
+]
+.right-plus[
+.salt2[
+- interactive grammar-of-graphics
+- JavaScript, rendered in the browser
+]
+&lt;br/&gt;&lt;br/&gt;
+.fat2[
+- htmlwidget, render Vega-Lite specifications
+- provides interactive access to Vega-Lite charts
+]
+&lt;br/&gt;
+.acid2[
+- compose Vega-Lite specifications
+]
+]
+
+---
+## Resources
+
+[Vega-Lite](https://vega.github.io/vega-lite)
+
+[vegawidget organization](https://github.com/vegawidget)
+
+[vlbuildr](https://vegawidget.github.io/vlbuildr)
+
+[ggvega](https://vegawidget.github.io/ggvega/)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

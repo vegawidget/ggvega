@@ -97,18 +97,17 @@ class: inverse, center, middle
 ---
 ### Build & deploy visual components 
 
-.teach-left[
+
 
 We want to connect the data-scientists who design visualizations and the customers who use these visualizations
 
 We want the ability to take into account new data after visualization has been designed
 
-This goal, being **extensible to new data**, has been a guiding principle when making fundamental design choices.
+This goal, being **extensible to new data**, has influenced fundamental design choices.
 
 This factor distinguishes this effort from `plotly::ggplotly()`
 
-]
-.teach-right[
+.pull-left[
 
 
 ```{r echo=FALSE}
@@ -116,9 +115,11 @@ g <- ggplot(data_init, aes(x = value)) + geom_bar()
 
 vs <- as_vegaspec(g)
 
-vegawidget(vs, elementId = "demo-aggregate")
+vegawidget(vs, elementId = "demo-aggregate", width = 450, height = 300)
 ```
 
+]
+.pull-right[
 ```{r control, echo=FALSE}
 control <- 
   tags$div(
@@ -199,7 +200,72 @@ Both Vega and Vega-lite use a JSON specification to create a visualization
 
 <br/>
 
+---
+background-image: url(https://vegawidget.rbind.io/posts/2019-07-10-user-2019-presentation/diagram.png)
+background-size: 1000px
+background-position: 35% 85%
+### Vegawidget
 
+
+htmlwidget that renders Vega(-Lite) specifications & provides access to interactivity
+
+Intended as low-level package:   
+
+  - use other packages to **build** specifications  
+  
+  - use vegawidget to **render**
+
+<br/>
+
+
+---
+### vlbuildr
+
+builds API semi-automatically based on the Vega-Lite schema
+
+can build specifications using `%>%`
+
+.pull-left[
+
+```{r eval=FALSE}
+vl_chart() %>%
+vl_add_data(values = iris) %>%
+vl_mark_point() %>%
+vl_encode_x(
+field = "Petal\\.Width:Q",
+title = "Petal.Width"
+) %>%
+vl_encode_y(
+field = "Petal\\.Length:Q",
+title = "Petal.Length"
+) %>%
+vl_encode_color("Species:N")
+
+```
+
+]
+
+.pull-right[
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+library(vlbuildr)
+
+vl_chart() %>%
+vl_add_data(values = iris) %>%
+vl_mark_point() %>%
+vl_encode_x(
+field = "Petal\\.Width:Q",
+title = "Petal.Width"
+) %>%
+vl_encode_y(
+field = "Petal\\.Length:Q",
+title = "Petal.Length"
+) %>%
+vl_encode_color("Species:N")
+```
+
+]
 
 ---
 ### Motivating use-case for ggvega
@@ -252,10 +318,11 @@ tags$button(
 ```
 
 ]
-
 ---
 class: inverse, center, middle
 # Design Philosophy
+
+
 
 ---
 ### Fundamental design choices
@@ -713,4 +780,60 @@ class: inverse, center, middle
 - `geom_smooth()`
 - `geom_density()`
 - `position_dodge()` and `position_jitter()`
+
+---
+class: inverse, center, middle
+# [More Examples!]()
+
+---
+background-image: url(https://vegawidget.rbind.io/posts/2019-07-10-user-2019-presentation/diagram.png)
+background-size: 700px
+background-position: 45% 2.5%
+<br/><br/><br/><br/><br/>
+
+
+.left-minus[
+.right[
+.salt[ Vega-Lite ]  
+
+<br/>  <br/>
+
+.fat[ vegawidget ]  
+
+<br/>
+
+.acid[ vlbuildr]  
+.acid[ ggvega]
+]
+]
+.right-plus[
+.salt2[
+- interactive grammar-of-graphics
+- JavaScript, rendered in the browser
+]
+<br/><br/>
+.fat2[
+- htmlwidget, render Vega-Lite specifications
+- provides interactive access to Vega-Lite charts
+]
+<br/>
+.acid2[
+- compose Vega-Lite specifications
+]
+]
+
+---
+## Resources
+
+[Vega-Lite](https://vega.github.io/vega-lite)
+
+[vegawidget organization](https://github.com/vegawidget)
+
+[vlbuildr](https://vegawidget.github.io/vlbuildr)
+
+[ggvega](https://vegawidget.github.io/ggvega/)
+
+
+
+
 
