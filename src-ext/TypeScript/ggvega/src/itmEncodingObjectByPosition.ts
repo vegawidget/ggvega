@@ -1,8 +1,7 @@
-import * as VL from './vlSpec';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import * as VLChanDef from 'vega-lite/src/channeldef';
 import * as GG from '../../ggschema/src/index';
-import {contains} from './utils';
 import {ItmEncodingObject} from './itmEncodingObject';
-
 
 /**
  * Modify an encoding object according to a ggspec position
@@ -37,8 +36,8 @@ export function itmEncodingObjectByPosition(
   };
 
   // validate
-  if (!contains(Object.keys(positionMap), ggPosition.class)) {
-    throw new Error('ggplot object contains unsupported stat: ' + ggPosition.class);
+  if (!Object.keys(positionMap).includes(ggPosition.class)) {
+    throw new Error(`ggplot object contains unsupported stat: ${ggPosition.class}`);
   }
 
   // translate
@@ -87,10 +86,11 @@ function itmEncodingObjectByPositionStack(
   itmEncodingObject: ItmEncodingObject,
   ggPosition: GG.Position
 ): ItmEncodingObject {
+  const y: VLChanDef.PositionFieldDef<VLChanDef.Field> = itmEncodingObject.y as VLChanDef.PositionFieldDef<
+    VLChanDef.Field
+  >;
 
-  var y: VL.YClass = itmEncodingObject.y as VL.YClass;
-
-  y.stack = 'zero' as VL.StackOffset;
+  y.stack = 'zero';
 
   itmEncodingObject.y = y;
 
@@ -115,10 +115,11 @@ function itmEncodingObjectByPositionFill(
   itmEncodingObject: ItmEncodingObject,
   ggPosition: GG.Position
 ): ItmEncodingObject {
+  const y: VLChanDef.PositionFieldDef<VLChanDef.Field> = itmEncodingObject.y as VLChanDef.PositionFieldDef<
+    VLChanDef.Field
+  >;
 
-  var y: VL.YClass = itmEncodingObject.y as VL.YClass;
-
-  y.stack = 'normalize' as VL.StackOffset;
+  y.stack = 'normalize';
 
   itmEncodingObject.y = y;
 

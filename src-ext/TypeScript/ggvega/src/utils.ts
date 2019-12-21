@@ -36,7 +36,7 @@ export function validateGs(spec: gs.TopLevelSpec) {
 export function removeEmpty(obj: any) {
   if (!(obj != null && typeof obj === 'object')) return;
 
-  Object.keys(obj).forEach(function (key) {
+  Object.keys(obj).forEach(function(key) {
     if (obj[key] && typeof obj[key] === 'object') {
       if (Object.keys(obj[key]).length === 0) {
         delete obj[key];
@@ -71,7 +71,7 @@ export function removeEmpty(obj: any) {
  * @returns `boolean`
  */
 export function contains(a: Array<any>, obj: any): boolean {
-  var i: number = a.length;
+  let i: number = a.length;
   while (i--) {
     if (a[i] === obj) {
       return true;

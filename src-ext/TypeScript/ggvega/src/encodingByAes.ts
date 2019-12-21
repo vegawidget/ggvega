@@ -1,5 +1,4 @@
-import {contains} from './utils';
-import * as VL from './vlSpec';
+import * as VLChanDef from 'vega-lite/src/channeldef';
 import {VLEncodingField} from './itmEncodingObject';
 import {GGEncodingKey} from './encodingNameByGeom';
 
@@ -37,8 +36,8 @@ export function encodingByAes(aesName: string): VLEncodingField {
   // keys are ggplot2 aesthetic names
   // values are Vega-Lite encoding constructor-functions for values
   const itmEncodingMap = {
-    x: encodingX,
-    y: encodingY,
+    x: encodingPosition,
+    y: encodingPosition,
     colour: encodingString,
     fill: encodingString,
     size: encodingNumber,
@@ -51,8 +50,8 @@ export function encodingByAes(aesName: string): VLEncodingField {
   };
 
   // validate
-  if (!contains(Object.keys(itmEncodingMap), aesName)) {
-    throw new Error('ggplot object contains unsupported aesthetic: ' + aesName);
+  if (!Object.keys(itmEncodingMap).includes(aesName)) {
+    throw new Error(`ggplot object contains unsupported aesthetic: ${aesName}`);
   }
 
   // return empty object
@@ -68,23 +67,9 @@ export function encodingByAes(aesName: string): VLEncodingField {
  *
  * @returns `VL.XClass`
  */
-function encodingX(): VL.XClass {
-  const encoding: VL.XClass = {};
-
-  return encoding;
-}
-
-/**
- * Create empty Y-encoding
- *
- * @remarks
- * **Called by**
- * @see encodingByAes
- *
- * @returns `VL.YClass`
- */
-function encodingY(): VL.YClass {
-  const encoding: VL.YClass = {};
+function encodingPosition(): VLChanDef.PositionFieldDef<VLChanDef.Field> {
+  // hoping it's possible to set `type` here, then change it later
+  const encoding: VLChanDef.PositionFieldDef<VLChanDef.Field> = {type: 'nominal'};
 
   return encoding;
 }
@@ -98,8 +83,8 @@ function encodingY(): VL.YClass {
  *
  * @returns `VL.DefWithConditionMarkPropFieldDefNumber`
  */
-function encodingNumber(): VL.DefWithConditionMarkPropFieldDefNumber {
-  const encoding: VL.DefWithConditionMarkPropFieldDefNumber = {};
+function encodingNumber(): VLChanDef.NumericFieldDefWithCondition<VLChanDef.Field> {
+  const encoding: VLChanDef.NumericFieldDefWithCondition<VLChanDef.Field> = {type: 'nominal'};
 
   return encoding;
 }
@@ -113,8 +98,8 @@ function encodingNumber(): VL.DefWithConditionMarkPropFieldDefNumber {
  *
  * @returns `VL.DefWithConditionMarkPropFieldDefStringNull`
  */
-function encodingString(): VL.DefWithConditionMarkPropFieldDefStringNull {
-  const encoding: VL.DefWithConditionMarkPropFieldDefStringNull = {};
+function encodingString(): VLChanDef.StringFieldDefWithCondition<VLChanDef.Field> {
+  const encoding: VLChanDef.StringFieldDefWithCondition<VLChanDef.Field> = {type: 'nominal'};
 
   return encoding;
 }
@@ -129,9 +114,9 @@ function encodingString(): VL.DefWithConditionMarkPropFieldDefStringNull {
  *
  * @returns `VL.TypedFieldDef`
  */
-function encodingDetail(): VL.TypedFieldDef {
+function encodingDetail(): VLChanDef.FieldDefWithoutScale<VLChanDef.Field> {
   //NOTE @wenyu: VL.Detail has to define the type - we think we can change this later
-  const encoding: VL.TypedFieldDef = {type: VL.StandardType.Nominal};
+  const encoding: VLChanDef.FieldDefWithoutScale<VLChanDef.Field> = {type: 'nominal'};
 
   return encoding;
 }
@@ -145,8 +130,8 @@ function encodingDetail(): VL.TypedFieldDef {
  *
  * @returns `VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull`
  */
-function encodingShape(): VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull {
-  const encoding: VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull = {};
+function encodingShape(): VLChanDef.ShapeFieldDefWithCondition<VLChanDef.Field> {
+  const encoding: VLChanDef.ShapeFieldDefWithCondition<VLChanDef.Field> = {type: 'nominal'};
 
   return encoding;
 }

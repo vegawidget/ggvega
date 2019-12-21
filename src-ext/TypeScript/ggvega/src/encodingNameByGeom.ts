@@ -1,5 +1,4 @@
 import * as GG from '../../ggschema/src/index';
-import {contains} from './utils';
 
 //NOTE @wenyu: keyof maybe a better way than enum. But it doesn't work for Vl.Encoding, because VL.Encoding has too many keys.
 export type GGEncodingKey = keyof GG.MappingObject;
@@ -61,7 +60,7 @@ export function encodingNameByGeom(aesName: GGEncodingKey, ggGeomSet: GG.GeomSet
   const encodingMap = encodingMapDefault;
 
   // validate
-  if (!contains(Object.keys(encodingMap), aesName)) {
+  if (!Object.keys(encodingMap).includes(aesName)) {
     throw new Error('ggplot object contains unsupported aesthetic: ' + aesName);
   }
 

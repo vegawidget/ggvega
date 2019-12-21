@@ -1,6 +1,7 @@
-import * as VL from './vlSpec';
+import * as VLMark from 'vega-lite/src/mark';
+import * as VLCompositeMark from 'vega-lite/src/compositemark';
+import * as VLBoxplot from 'vega-lite/src/compositemark/boxplot';
 import * as GG from '../../ggschema/src/index';
-import {contains} from './utils';
 
 /**
  * Create a `mark` using a `geom`
@@ -34,7 +35,10 @@ import {contains} from './utils';
  * @see {@link markByGeomBoxplot} for boxplots
  *
  */
-export function markByGeom(ggGeomSet: GG.GeomSet, ggStatSet: GG.StatSet): VL.MarkDefClass {
+export function markByGeom(
+  ggGeomSet: GG.GeomSet,
+  ggStatSet: GG.StatSet
+): VLMark.GenericMarkDef<VLMark.Mark | VLCompositeMark.CompositeMark> {
   // use this pattern for dispatch if we have only a few exceptions to the default
   // NOTE: we don't have Boxplot defined yet
   if (ggGeomSet.geom.class == 'GeomBoxplot') {
@@ -64,7 +68,7 @@ export function markByGeom(ggGeomSet: GG.GeomSet, ggStatSet: GG.StatSet): VL.Mar
  * @returns `VL.Mark`
  *
  */
-function markByGeomDefault(ggGeomSet: GG.GeomSet): VL.MarkDefClass {
+function markByGeomDefault(ggGeomSet: GG.GeomSet): VLMark.GenericMarkDef<VLMark.Mark | VLCompositeMark.CompositeMark> {
   // key: name of ggplot2 geom class
   // value: name of Vega-Lite mark type
   const markByGeomMap = {
@@ -75,13 +79,13 @@ function markByGeomDefault(ggGeomSet: GG.GeomSet): VL.MarkDefClass {
   };
 
   // validate
-  if (!contains(Object.keys(markByGeomMap), ggGeomSet.geom.class)) {
-    throw new Error('ggplot object contains unsupported geom: ' + ggGeomSet.geom.class);
+  if (!Object.keys(markByGeomMap).includes(ggGeomSet.geom.class)) {
+    throw new Error(`ggplot object contains unsupported geom: ${ggGeomSet.geom.class}`);
   }
 
   // translate
-  const mark: VL.MarkDefClass = {
-    type: markByGeomMap[ggGeomSet.geom.class] as VL.Mark
+  const mark: VLMark.GenericMarkDef<VLMark.Mark | VLCompositeMark.CompositeMark> = {
+    type: markByGeomMap[ggGeomSet.geom.class] as VLMark.Mark | VLCompositeMark.CompositeMark
   };
 
   return mark;
@@ -111,22 +115,23 @@ function markByGeomDefault(ggGeomSet: GG.GeomSet): VL.MarkDefClass {
  * @returns `VL.Mark`
  *
  */
-function markByGeomBoxplot(ggGeomSet: GG.GeomSet, ggStatSetBoxplot: GG.StatSetBoxplot): VL.MarkDefClass {
+function markByGeomBoxplot(ggGeomSet: GG.GeomSet, ggStatSetBoxplot: GG.StatSetBoxplot): VLBoxplot.BoxPlotDef {
   // I know we have not done boxplots yet, this is just to propose an
   // extension mechanism.
 
   // validate (look for GeomParams and StatParams we can't translate)
 
   // translate
-  const mark: VL.MarkDefClass = markByGeomDefault(ggGeomSet);
+  const mark = markByGeomDefault(ggGeomSet) as VLBoxplot.BoxPlotDef;
 
   // TODO: add geomParams
 
   //NOTE @wenyu: use VL.ExtentExtent.MinMax
 
-  function coef(coef: string | number | undefined): VL.ExtentExtent | number | undefined {
+  function coef(coef: string | number | undefined): 'min-max' | number | undefined {
+    // use this to catch `Inf` from R
     if (typeof coef == 'string') {
-      return VL.ExtentExtent.MinMax; // catch-all for "Inf"
+      return 'min-max';
     }
 
     return coef;

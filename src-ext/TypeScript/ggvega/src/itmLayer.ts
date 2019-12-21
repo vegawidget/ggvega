@@ -1,4 +1,5 @@
-import * as VL from './vlSpec';
+import * as VLMark from 'vega-lite/src/mark';
+import * as VLCompositeMark from 'vega-lite/src/compositemark';
 import * as GG from '../../ggschema/src/index';
 import {markByGeom} from './markByGeom';
 import {
@@ -60,7 +61,7 @@ export function itmLayer(ggLayer: GG.Layer, ggDatasetObject: GG.DatasetObject): 
   // translate
 
   // get the metadata for the data for this layer
-  var ggMetadataObject: GG.MetadataObject = ggDatasetObject[ggLayer.data].metadata;
+  const ggMetadataObject: GG.MetadataObject = ggDatasetObject[ggLayer.data].metadata;
 
   const itmLayer: ItmLayer = {
     data: {name: ggLayer.data},
@@ -90,7 +91,7 @@ export interface ItmLayer {
   // leave `geom` as a breadcrumb so that we can use encodingNameByGeom()
   // - will not be not included in vl.Layer
   geomSet: GG.GeomSet;
-  mark: VL.MarkDefClass;
+  mark: VLMark.GenericMarkDef<VLMark.Mark | VLCompositeMark.CompositeMark>;
   encoding: ItmEncodingObject;
 }
 
@@ -102,4 +103,3 @@ export function ggGeomSet(layer: GG.Layer): GG.GeomSet {
 export function ggStatSet(layer: GG.Layer): GG.StatSet {
   return {stat: layer.stat, stat_params: layer.stat_params} as GG.StatSet;
 }
-

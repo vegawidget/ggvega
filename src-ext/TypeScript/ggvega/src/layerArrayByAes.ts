@@ -1,4 +1,9 @@
-import * as VL from './vlSpec';
+import * as VLMark from 'vega-lite/src/mark';
+import * as VLCompositeMark from 'vega-lite/src/compositemark';
+import * as VLEncoding from 'vega-lite/src/encoding';
+import * as VLChanDef from 'vega-lite/src/channeldef';
+import * as VLLayerSpec from 'vega-lite/src/spec/layer';
+import * as VLSpec from 'vega-lite/src/spec';
 import * as GG from '../../ggschema/src/index';
 import {itmLayer, ItmLayer} from './itmLayer';
 import {itmLayerArrayByLabelsObject} from './itmLayerArrayByLabels';
@@ -76,7 +81,7 @@ export function layerArrayByAes(
   ggScaleArray: GG.Scale[],
   ggLabelObject: GG.LabelObject,
   ggCoordinates: GG.Coord
-): VL.LayerSpec[] {
+): VLLayerSpec.GenericLayerSpec<VLSpec.GenericUnitSpec<any, any>>[] {
   // validate
   if (ggLayerArray.length == 0) {
     throw new Error('ggplot object has no layers, requires at least one layer');
@@ -100,7 +105,7 @@ export function layerArrayByAes(
   itmLayerArray = itmLayerArrayByCoord(itmLayerArray, ggCoordinates);
 
   // change encoding-key namespace from ggplot2 to Vega-Lite
-  const layerArray: VL.LayerSpec[] = itmLayerArray.map(layerByItmLayer);
+  const layerArray = itmLayerArray.map(layerByItmLayer);
 
   return layerArray;
 }
@@ -129,49 +134,55 @@ export function layerArrayByAes(
  * @returns `VL.Layer`, Vega-Lite layer-object
  *
  */
-export function layerByItmLayer(itmLayer: ItmLayer): VL.LayerSpec {
+export function layerByItmLayer(
+  itmLayer: ItmLayer
+): VLSpec.GenericUnitSpec<
+  VLEncoding.Encoding<VLChanDef.Field>,
+  VLMark.GenericMarkDef<VLMark.Mark | VLCompositeMark.CompositeMark>
+> {
   // create new encoding
-  var encoding: VL.Encoding = {};
+  const encoding: VLEncoding.Encoding<VLChanDef.Field> = {};
 
   // loop over aesthetic names in itmLayerEncoding
   for (const aesName in itmLayer.encoding) {
-
     if (hasKey(itmLayer.encoding, aesName)) {
       // get the encoding name,and add to the encoding
 
       const encodingName = encodingNameByGeom(aesName as GGEncodingKey, itmLayer.geomSet);
 
       if (encodingName == 'x') {
-        encoding[encodingName] = itmLayer.encoding[aesName] as VL.XClass;
+        encoding[encodingName] = itmLayer.encoding[aesName] as VLChanDef.PositionFieldDef<VLChanDef.Field>;
       }
 
       if (encodingName == 'y') {
-        encoding[encodingName] = itmLayer.encoding[aesName] as VL.YClass;
+        encoding[encodingName] = itmLayer.encoding[aesName] as VLChanDef.PositionFieldDef<VLChanDef.Field>;
       }
 
-      if (encodingName == 'size' ||
-        encodingName == 'strokeWidth' ||
-        encodingName == 'opacity'
-      ) {
-        encoding[encodingName] = itmLayer.encoding[aesName] as VL.DefWithConditionMarkPropFieldDefNumber;
+      if (encodingName == 'size' || encodingName == 'strokeWidth' || encodingName == 'opacity') {
+        encoding[encodingName] = itmLayer.encoding[aesName] as
+          | VLChanDef.NumericFieldDefWithCondition<VLChanDef.Field>
+          | VLChanDef.NumericValueDefWithCondition<VLChanDef.Field>;
       }
 
-      if (encodingName == 'stroke' ||
-        encodingName == 'fill'
-      ) {
-        encoding[encodingName] = itmLayer.encoding[aesName] as VL.DefWithConditionMarkPropFieldDefStringNull;
+      if (encodingName == 'stroke' || encodingName == 'fill') {
+        encoding[encodingName] = itmLayer.encoding[aesName] as
+          | VLChanDef.StringFieldDefWithCondition<VLChanDef.Field>
+          | VLChanDef.StringValueDefWithCondition<VLChanDef.Field>;
       }
 
       if (encodingName == 'shape') {
-        encoding[encodingName] =
-          itmLayer.encoding[aesName] as VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull;
+        encoding[encodingName] = itmLayer.encoding[aesName] as
+          | VLChanDef.ShapeFieldDefWithCondition<VLChanDef.Field>
+          | VLChanDef.ShapeValueDefWithCondition<VLChanDef.Field>;
       }
-
     }
   }
 
-  const layer: VL.LayerSpec = {
-    data: itmLayer.data,
+  const layer: VLSpec.GenericUnitSpec<
+    VLEncoding.Encoding<VLChanDef.Field>,
+    VLMark.GenericMarkDef<VLMark.Mark | VLCompositeMark.CompositeMark>
+  > = {
+    data: itmLayer.data as ,
     mark: itmLayer.mark,
     encoding: encoding
   };

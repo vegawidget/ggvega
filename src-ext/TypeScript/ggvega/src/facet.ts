@@ -1,4 +1,4 @@
-import * as VL from './vlSpec';
+import * as VLFacet from 'vega-lite/src/spec/facet';
 import * as GG from '../../ggschema/src/index';
 
 /**
@@ -15,11 +15,12 @@ import * as GG from '../../ggschema/src/index';
  *
  * @returns `VL.Facet`
  */
-export function facet(ggFacet: GG.Facet): VL.Facet {
+export function facet(ggFacet: GG.Facet): VLFacet.FacetFieldDef<string> {
   // validate
   throw new Error('ggplot object contains unsupported facet: ' + ggFacet.class);
 
-  const facet: VL.Facet = {};
+  // setting `type` here, hopefully change later
+  const facet: VLFacet.FacetFieldDef<string> = {type: 'nominal'};
 
   return facet;
 }
