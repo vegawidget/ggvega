@@ -1,5 +1,4 @@
 import * as VLSpec from 'vega-lite/src/spec';
-import * as VLMark from 'vega-lite/src/mark';
 import * as VLUnitSpec from 'vega-lite/src/spec/unit';
 import * as GG from '../../ggschema/src/index';
 import {validateGs} from './utils';
@@ -117,6 +116,7 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec, singleView = false): VLSpec.TopLe
       $schema: vlschema, // vlschema defined in package.json
       title: title,
       datasets: datasets,
+      data: [], // giving it empty data to keep typescript happy...
       spec: {
         layer: layer
       },
@@ -136,8 +136,9 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec, singleView = false): VLSpec.TopLe
 
   // single-view not-faceted
   if (singleView) {
-    if (layer.length > 1) {
-      // warn that we cannot create a single view with more than one layer
+    // validate layer
+    const singleLayer = layer[0] as VLSpec.GenericUnitSpec<any, any>;
+    if (layer.length > 1 || !singleLayer.data) {
       console.warn('Cannot create single-view spec, returning spec with multiple layers.');
       return topLevelSpec;
     }
@@ -151,9 +152,9 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec, singleView = false): VLSpec.TopLe
       $schema: vlschema,
       title: title,
       datasets: datasets,
-      data: layer[0].data,
-      mark: layer[0].mark,
-      encoding: layer[0].encoding
+      data: singleLayer.data,
+      mark: singleLayer.mark,
+      encoding: singleLayer.encoding
     };
 
     Object.assign(topLevelSingleViewSpec, layer[0]);
