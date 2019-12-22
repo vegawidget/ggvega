@@ -1,5 +1,6 @@
 import {markByGeom} from '../src/markByGeom';
-import * as VL from '../src/vlSpec';
+import * as VLCompositeMark from 'vega-lite/src/compositemark';
+import * as VLMark from 'vega-lite/src/mark';
 import * as GG from '../../ggschema/src/index';
 
 describe('markByGeom/markByGeom', () => {
@@ -26,6 +27,8 @@ describe('markByGeom/markByGeom', () => {
       type: 'point'
     };
 
-    expect(markByGeom(ggGeomSet as GG.GeomSet, ggStatSet as GG.StatSet)).toEqual(vlMark as VL.MarkDefClass);
+    expect(markByGeom(ggGeomSet as GG.GeomSet, ggStatSet as GG.StatSet)).toEqual(vlMark as VLMark.GenericMarkDef<
+      VLMark.Mark | VLCompositeMark.CompositeMark
+    >);
   });
 });

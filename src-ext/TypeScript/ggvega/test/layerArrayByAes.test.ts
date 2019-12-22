@@ -1,14 +1,13 @@
+import * as VLSpec from 'vega-lite/src/spec';
 import {layerArrayByAes, layerByItmLayer} from '../src/layerArrayByAes';
 import * as GG from '../../ggschema/src/index';
-import * as VL from '../src/vlSpec';
 import * as ggSpec from './ggSpec';
 import * as itmSpec from './itmSpec';
 import * as vlSpec from './vlSpec';
-import {itmLayer, ItmLayer} from '../src/itmLayer';
+import {ItmLayer} from '../src/itmLayer';
 
 describe('layerArray', () => {
   it('should create an intermediate `encoding` object using a `mapping` object', () => {
-
     let ggDatasetObject;
     let ggLayerArray;
     let ggScaleArray;
@@ -31,7 +30,7 @@ describe('layerArray', () => {
         ggLabelsObject as GG.LabelObject,
         ggCoordCartesian as GG.CoordCartesian
       )
-    ).toEqual(vlLayerSpecArray as VL.LayerSpec[]);
+    ).toEqual(vlLayerSpecArray as VLSpec.GenericUnitSpec<any, any>[]);
 
     ggDatasetObject = ggSpec.iris02.data;
     ggLayerArray = ggSpec.iris02.layers;
@@ -48,18 +47,11 @@ describe('layerArray', () => {
         ggLabelsObject as GG.LabelObject,
         ggCoordCartesian as GG.CoordCartesian
       )
-    ).toEqual(vlLayerSpecArray as VL.LayerSpec[]);
-
+    ).toEqual(vlLayerSpecArray as VLSpec.GenericUnitSpec<any, any>[]);
   });
 });
 
-
 describe('layer', () => {
-
-  expect(
-    layerByItmLayer(itmSpec.barStackedMpg.layer[0] as ItmLayer)
-  ).toEqual(
-    vlSpec.barStackedMpg.layer[0] as VL.LayerSpec
-  );
-
+  expect(layerByItmLayer(itmSpec.barStackedMpg.layer[0] as ItmLayer)).toEqual(vlSpec.barStackedMpg
+    .layer[0] as VLSpec.GenericUnitSpec<any, any>);
 });

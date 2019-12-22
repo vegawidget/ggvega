@@ -73,7 +73,7 @@ function itmEncodingObjectByStatIdentity(
 function itmEncodingObjectByStatCount(itmEncodingObject: ItmEncodingObject, ggStatSet: GG.StatSet): ItmEncodingObject {
   // build y-encoding
   const y: VLChanDef.PositionFieldDef<VLChanDef.Field> = {
-    type: 'nominal'
+    type: 'quantitative'
   };
 
   // is weight an encoding?
