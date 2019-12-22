@@ -1,5 +1,3 @@
-import * as VLMark from 'vega-lite/src/mark';
-import * as VLCompositeMark from 'vega-lite/src/compositemark';
 import * as VLEncoding from 'vega-lite/src/encoding';
 import * as VLChanDef from 'vega-lite/src/channeldef';
 import * as VLLayerSpec from 'vega-lite/src/spec/layer';
@@ -81,7 +79,7 @@ export function layerArrayByAes(
   ggScaleArray: GG.Scale[],
   ggLabelObject: GG.LabelObject,
   ggCoordinates: GG.Coord
-): VLLayerSpec.GenericLayerSpec<VLSpec.GenericUnitSpec<any, any>>[] {
+): (VLLayerSpec.GenericLayerSpec<VLSpec.GenericUnitSpec<any, any>> | VLSpec.GenericUnitSpec<any, any>)[] {
   // validate
   if (ggLayerArray.length == 0) {
     throw new Error('ggplot object has no layers, requires at least one layer');
@@ -136,10 +134,7 @@ export function layerArrayByAes(
  */
 export function layerByItmLayer(
   itmLayer: ItmLayer
-): VLSpec.GenericUnitSpec<
-  VLEncoding.Encoding<VLChanDef.Field>,
-  VLMark.GenericMarkDef<VLMark.Mark | VLCompositeMark.CompositeMark>
-> {
+): VLSpec.GenericLayerSpec<VLSpec.GenericUnitSpec<any, any>> | VLSpec.GenericUnitSpec<any, any> {
   // create new encoding
   const encoding: VLEncoding.Encoding<VLChanDef.Field> = {};
 
@@ -178,11 +173,8 @@ export function layerByItmLayer(
     }
   }
 
-  const layer: VLSpec.GenericUnitSpec<
-    VLEncoding.Encoding<VLChanDef.Field>,
-    VLMark.GenericMarkDef<VLMark.Mark | VLCompositeMark.CompositeMark>
-  > = {
-    data: itmLayer.data as ,
+  const layer: VLSpec.GenericLayerSpec<VLSpec.GenericUnitSpec<any, any>> | VLSpec.GenericUnitSpec<any, any> = {
+    data: itmLayer.data,
     mark: itmLayer.mark,
     encoding: encoding
   };
