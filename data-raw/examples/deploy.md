@@ -301,5 +301,5 @@ dir_ls(pkgex_dir) %>% basename()
 
 ## Adding a new example
 
-TDDOD: Some words here on what goes into a new example, and how it
+TDDO: Some words here on what goes into a new example, and how it
 becomes “official”.

@@ -1,6 +1,6 @@
 list(
   `$schema` = vega_schema(),
-  datasets = list(`data-00` = flip(iris)),
+  datasets = list(`data-00` = ggvega:::flip(iris)),
   layer = list(
     list(
       data = list(name = "data-00"),

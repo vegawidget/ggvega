@@ -1,6 +1,6 @@
 list(
   `$schema` = vega_schema(),
-  datasets = list(`data-00` = flip(mpg)),
+  datasets = list(`data-00` = ggvega:::flip(mpg)),
   layer = list(
     list(
       data = list(name = "data-00"),
