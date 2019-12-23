@@ -56,8 +56,7 @@ ggv_example_path <- function(example = NULL) {
 #'   either a ggplot object, a ggspec, or a vegaspec}
 #' }
 #'
-#' @keywords internal
-#' @export
+#' @noRd
 #'
 ggv_dev <- function(example = NULL,
                     type = c("ggplot", "ggspec", "vegaspec")) {
@@ -66,16 +65,14 @@ ggv_dev <- function(example = NULL,
 }
 
 #' @rdname ggv_dev
-#' @keywords internal
-#' @export
+#' @noRd
 #'
 ggv_dev_names <- function(type = c("ggplot", "ggspec", "vegaspec")) {
   .example_names(type = type, source = "dev")
 }
 
 #' @rdname ggv_dev
-#' @keywords internal
-#' @export
+#' @noRd
 #'
 ggv_dev_path <- function(example = NULL,
                          type = c("ggplot", "ggspec", "vegaspec")) {

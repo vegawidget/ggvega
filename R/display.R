@@ -7,9 +7,7 @@
 #' @param ... Arguments passed on to internal comprison function
 #'
 #' @return Invisible `NULL`, called for side-effects
-#'
-#' @keywords internal
-#' @export
+#' @noRd
 #'
 ggv_dev_display <- function(example, arrange = c("side", "top"), ...) {
 
@@ -100,8 +98,7 @@ ggv_dev_display <- function(example, arrange = c("side", "top"), ...) {
 
 #' @rdname ggv_dev_display
 #'
-#' @keywords internal
-#' @export
+#' @noRd
 #'
 ggv_example_display <- function(example, arrange = c("side", "top"),
                                 file_root = NULL, ...) {
