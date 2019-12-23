@@ -1,7 +1,7 @@
-import * as VLEncoding from 'vega-lite/src/encoding';
-import * as VLChanDef from 'vega-lite/src/channeldef';
-import * as VLLayerSpec from 'vega-lite/src/spec/layer';
-import * as VLSpec from 'vega-lite/src/spec';
+import * as VLEncoding from 'vega-lite/build/src/encoding';
+import * as VLChanDef from 'vega-lite/build/src/channeldef';
+import * as VLLayerSpec from 'vega-lite/build/src/spec/layer';
+import * as VLSpec from 'vega-lite/build/src/spec';
 import * as GG from '../../ggschema/src/index';
 import {itmLayer, ItmLayer} from './itmLayer';
 import {itmLayerArrayByLabelsObject} from './itmLayerArrayByLabels';

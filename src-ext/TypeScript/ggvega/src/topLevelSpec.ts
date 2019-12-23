@@ -1,5 +1,5 @@
-import * as VLSpec from 'vega-lite/src/spec';
-import * as VLUnitSpec from 'vega-lite/src/spec/unit';
+import * as VLSpec from 'vega-lite/build/src/spec';
+import * as VLUnitSpec from 'vega-lite/build/src/spec/unit';
 import * as GG from '../../ggschema/src/index';
 import {validateGs} from './utils';
 import {vlschema} from '../package.json';

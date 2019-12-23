@@ -1,4 +1,4 @@
-import * as VLFacet from 'vega-lite/src/spec/facet';
+import * as VLFacet from 'vega-lite/build/src/spec/facet';
 import * as GG from '../../ggschema/src/index';
 
 /**

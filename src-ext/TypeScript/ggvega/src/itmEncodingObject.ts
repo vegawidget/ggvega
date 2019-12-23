@@ -1,5 +1,5 @@
-import * as VLType from 'vega-lite/src/type';
-import * as VLChanDef from 'vega-lite/src/channeldef';
+import * as VLType from 'vega-lite/build/src/type';
+import * as VLChanDef from 'vega-lite/build/src/channeldef';
 import * as GG from '../../ggschema/src/index';
 import {fieldName, hasKey} from './utils';
 import {encodingByAes} from './encodingByAes';

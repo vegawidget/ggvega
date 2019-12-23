@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import * as VLChanDef from 'vega-lite/src/channeldef';
+import * as VLChanDef from 'vega-lite/build/src/channeldef';
 import * as GG from '../../ggschema/src/index';
 import {ItmEncodingObject} from './itmEncodingObject';
 

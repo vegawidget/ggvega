@@ -1,4 +1,4 @@
-import * as VLChanDef from 'vega-lite/src/channeldef';
+import * as VLChanDef from 'vega-lite/build/src/channeldef';
 import {VLEncodingField} from './itmEncodingObject';
 import {GGEncodingKey} from './encodingNameByGeom';
 

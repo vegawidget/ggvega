@@ -1,6 +1,6 @@
-import * as VLMark from 'vega-lite/src/mark';
-import * as VLCompositeMark from 'vega-lite/src/compositemark';
-import * as VLBoxplot from 'vega-lite/src/compositemark/boxplot';
+import * as VLMark from 'vega-lite/build/src/mark';
+import * as VLCompositeMark from 'vega-lite/build/src/compositemark';
+import * as VLBoxplot from 'vega-lite/build/src/compositemark/boxplot';
 import * as GG from '../../ggschema/src/index';
 
 /**

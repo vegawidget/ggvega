@@ -1,4 +1,4 @@
-import * as VLData from 'vega-lite/src/data';
+import * as VLData from 'vega-lite/build/src/data';
 import * as GG from '../../ggschema/src/index';
 import {hasKey} from './utils';
 
