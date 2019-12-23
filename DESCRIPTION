@@ -1,6 +1,6 @@
 Package: ggvega
 Title: Translator from 'ggplot2' to 'Vega-Lite' 
-Version: 0.0.0.9014
+Version: 0.0.0.9016
 Authors@R:
     c(
       person(given = "Haley",
@@ -35,7 +35,7 @@ Depends:
     R (>= 2.10)
 Imports: 
     V8 (>= 2.2),
-    vegawidget (>= 0.2.1),
+    vegawidget (>= 0.3),
     jsonlite,
     magrittr,
     purrr,
@@ -61,3 +61,5 @@ Suggests:
     listviewer (>= 2.1.0),
     base64enc
 VignetteBuilder: knitr
+Remotes:
+    vegawidget/vegawidget

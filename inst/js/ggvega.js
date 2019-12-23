@@ -8702,22 +8702,22 @@
 
     function noop() {}
 
-    var ajv$1 = new ajv({
+    const ajv$1 = new ajv({
         validateSchema: true,
         allErrors: true,
         extendRefs: 'fail',
         schemaId: 'auto'
     });
-    var gsValidate = ajv$1.compile(ggSpecJsonSchema);
+    const gsValidate = ajv$1.compile(ggSpecJsonSchema);
     /**
      * This function is used to validate ggSpec
      * @param spec
      */
     function validateGs(spec) {
-        var valid = gsValidate(spec);
-        var errors = gsValidate.errors;
+        const valid = gsValidate(spec);
+        const errors = gsValidate.errors;
         if (errors)
-            errors.map(function (err) {
+            errors.map((err) => {
                 console.warn('ggSpec' + err.dataPath + ' ' + err.message);
                 // throw new Error('ggSpec' + err.dataPath + ' ' + err.message);
             });
@@ -8737,7 +8737,7 @@
      * @returns `boolean`
      */
     function contains$1(a, obj) {
-        var i = a.length;
+        let i = a.length;
         while (i--) {
             if (a[i] === obj) {
                 return true;
@@ -8797,1069 +8797,16 @@
             throw new Error('ggplot object has no datasets, requires at least one dataset');
         }
         // translate
-        var datasetObject = {};
+        const datasetObject = {};
         // iterate over object: https://stackoverflow.com/a/684692
         //NOTE @wenyu: https://eslint.org/docs/rules/no-prototype-builtins
-        for (var dataName in ggDatasetObject) {
+        for (const dataName in ggDatasetObject) {
             if (hasKey(ggDatasetObject, dataName)) {
                 datasetObject[dataName] = ggDatasetObject[dataName].observations;
             }
         }
         return datasetObject;
     }
-
-    /**
-     * The alignment to apply to symbol legends rows and columns. The supported string values
-     * are `"all"`, `"each"` (the default), and `none`. For more information, see the [grid
-     * layout documentation](https://vega.github.io/vega/docs/layout).
-     *
-     * __Default value:__ `"each"`.
-     */
-    var LayoutAlign;
-    (function (LayoutAlign) {
-        LayoutAlign["All"] = "all";
-        LayoutAlign["Each"] = "each";
-        LayoutAlign["None"] = "none";
-    })(LayoutAlign || (LayoutAlign = {}));
-    /**
-     * Determines how size calculation should be performed, one of `"content"` or `"padding"`.
-     * The default setting (`"content"`) interprets the width and height settings as the data
-     * rectangle (plotting) dimensions, to which padding is then added. In contrast, the
-     * `"padding"` setting includes the padding within the view size calculations, such that the
-     * width and height settings indicate the **total** intended size of the view.
-     *
-     * __Default value__: `"content"`
-     */
-    var Contains;
-    (function (Contains) {
-        Contains["Content"] = "content";
-        Contains["Padding"] = "padding";
-    })(Contains || (Contains = {}));
-    /**
-     * The sizing format type. One of `"pad"`, `"fit"` or `"none"`. See the [autosize
-     * type](https://vega.github.io/vega-lite/docs/size.html#autosize) documentation for
-     * descriptions of each.
-     *
-     * __Default value__: `"pad"`
-     */
-    var AutosizeType;
-    (function (AutosizeType) {
-        AutosizeType["Fit"] = "fit";
-        AutosizeType["None"] = "none";
-        AutosizeType["Pad"] = "pad";
-    })(AutosizeType || (AutosizeType = {}));
-    /**
-     * The bounds calculation method to use for determining the extent of a sub-plot. One of
-     * `full` (the default) or `flush`.
-     *
-     * - If set to `full`, the entire calculated bounds (including axes, title, and legend) will
-     * be used.
-     * - If set to `flush`, only the specified width and height values for the sub-view will be
-     * used. The `flush` setting can be useful when attempting to place sub-plots without axes
-     * or legends into a uniform grid structure.
-     *
-     * __Default value:__ `"full"`
-     */
-    var BoundsEnum;
-    (function (BoundsEnum) {
-        BoundsEnum["Flush"] = "flush";
-        BoundsEnum["Full"] = "full";
-    })(BoundsEnum || (BoundsEnum = {}));
-    /**
-     * Type of input data: `"json"`, `"csv"`, `"tsv"`, `"dsv"`.
-     *
-     * __Default value:__  The default format type is determined by the extension of the file
-     * URL.
-     * If no extension is detected, `"json"` will be used by default.
-     */
-    var DataFormatType;
-    (function (DataFormatType) {
-        DataFormatType["CSV"] = "csv";
-        DataFormatType["Dsv"] = "dsv";
-        DataFormatType["JSON"] = "json";
-        DataFormatType["Topojson"] = "topojson";
-        DataFormatType["Tsv"] = "tsv";
-    })(DataFormatType || (DataFormatType = {}));
-    /**
-     * An [aggregate operation](https://vega.github.io/vega-lite/docs/aggregate.html#ops) to
-     * perform on the field prior to sorting (e.g., `"count"`, `"mean"` and `"median"`).
-     * An aggregation is required when there are multiple values of the sort field for each
-     * encoded data field.
-     * The input data objects will be aggregated, grouped by the encoded data field.
-     *
-     * For a full list of operations, please see the documentation for
-     * [aggregate](https://vega.github.io/vega-lite/docs/aggregate.html#ops).
-     *
-     * __Default value:__ `"sum"` for stacked plots. Otherwise, `"mean"`.
-     *
-     * The aggregation operation to apply to the fields (e.g., sum, average or count).
-     * See the [full list of supported aggregation
-     * operations](https://vega.github.io/vega-lite/docs/aggregate.html#ops)
-     * for more information.
-     *
-     * The aggregation operation to apply (e.g., sum, average or count). See the list of all
-     * supported operations [here](https://vega.github.io/vega-lite/docs/aggregate.html#ops).
-     */
-    var AggregateOp;
-    (function (AggregateOp) {
-        AggregateOp["Argmax"] = "argmax";
-        AggregateOp["Argmin"] = "argmin";
-        AggregateOp["Average"] = "average";
-        AggregateOp["Ci0"] = "ci0";
-        AggregateOp["Ci1"] = "ci1";
-        AggregateOp["Count"] = "count";
-        AggregateOp["Distinct"] = "distinct";
-        AggregateOp["Max"] = "max";
-        AggregateOp["Mean"] = "mean";
-        AggregateOp["Median"] = "median";
-        AggregateOp["Min"] = "min";
-        AggregateOp["Missing"] = "missing";
-        AggregateOp["Q1"] = "q1";
-        AggregateOp["Q3"] = "q3";
-        AggregateOp["Stderr"] = "stderr";
-        AggregateOp["Stdev"] = "stdev";
-        AggregateOp["Stdevp"] = "stdevp";
-        AggregateOp["Sum"] = "sum";
-        AggregateOp["Valid"] = "valid";
-        AggregateOp["Values"] = "values";
-        AggregateOp["Variance"] = "variance";
-        AggregateOp["Variancep"] = "variancep";
-    })(AggregateOp || (AggregateOp = {}));
-    /**
-     * Time unit for the field to be filtered.
-     *
-     * Time unit (e.g., `year`, `yearmonth`, `month`, `hours`) for a temporal field.
-     * or [a temporal field that gets casted as
-     * ordinal](https://vega.github.io/vega-lite/docs/type.html#cast).
-     *
-     * __Default value:__ `undefined` (None)
-     *
-     * __See also:__ [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html)
-     * documentation.
-     *
-     * The timeUnit.
-     */
-    var TimeUnit;
-    (function (TimeUnit) {
-        TimeUnit["Date"] = "date";
-        TimeUnit["Day"] = "day";
-        TimeUnit["Hours"] = "hours";
-        TimeUnit["Hoursminutes"] = "hoursminutes";
-        TimeUnit["Hoursminutesseconds"] = "hoursminutesseconds";
-        TimeUnit["Milliseconds"] = "milliseconds";
-        TimeUnit["Minutes"] = "minutes";
-        TimeUnit["Minutesseconds"] = "minutesseconds";
-        TimeUnit["Month"] = "month";
-        TimeUnit["Monthdate"] = "monthdate";
-        TimeUnit["Monthdatehours"] = "monthdatehours";
-        TimeUnit["Quarter"] = "quarter";
-        TimeUnit["Quartermonth"] = "quartermonth";
-        TimeUnit["Seconds"] = "seconds";
-        TimeUnit["Secondsmilliseconds"] = "secondsmilliseconds";
-        TimeUnit["Utcdate"] = "utcdate";
-        TimeUnit["Utcday"] = "utcday";
-        TimeUnit["Utchours"] = "utchours";
-        TimeUnit["Utchoursminutes"] = "utchoursminutes";
-        TimeUnit["Utchoursminutesseconds"] = "utchoursminutesseconds";
-        TimeUnit["Utcmilliseconds"] = "utcmilliseconds";
-        TimeUnit["Utcminutes"] = "utcminutes";
-        TimeUnit["Utcminutesseconds"] = "utcminutesseconds";
-        TimeUnit["Utcmonth"] = "utcmonth";
-        TimeUnit["Utcmonthdate"] = "utcmonthdate";
-        TimeUnit["Utcmonthdatehours"] = "utcmonthdatehours";
-        TimeUnit["Utcquarter"] = "utcquarter";
-        TimeUnit["Utcquartermonth"] = "utcquartermonth";
-        TimeUnit["Utcseconds"] = "utcseconds";
-        TimeUnit["Utcsecondsmilliseconds"] = "utcsecondsmilliseconds";
-        TimeUnit["Utcyear"] = "utcyear";
-        TimeUnit["Utcyearmonth"] = "utcyearmonth";
-        TimeUnit["Utcyearmonthdate"] = "utcyearmonthdate";
-        TimeUnit["Utcyearmonthdatehours"] = "utcyearmonthdatehours";
-        TimeUnit["Utcyearmonthdatehoursminutes"] = "utcyearmonthdatehoursminutes";
-        TimeUnit["Utcyearmonthdatehoursminutesseconds"] = "utcyearmonthdatehoursminutesseconds";
-        TimeUnit["Utcyearquarter"] = "utcyearquarter";
-        TimeUnit["Utcyearquartermonth"] = "utcyearquartermonth";
-        TimeUnit["Year"] = "year";
-        TimeUnit["Yearmonth"] = "yearmonth";
-        TimeUnit["Yearmonthdate"] = "yearmonthdate";
-        TimeUnit["Yearmonthdatehours"] = "yearmonthdatehours";
-        TimeUnit["Yearmonthdatehoursminutes"] = "yearmonthdatehoursminutes";
-        TimeUnit["Yearmonthdatehoursminutesseconds"] = "yearmonthdatehoursminutesseconds";
-        TimeUnit["Yearquarter"] = "yearquarter";
-        TimeUnit["Yearquartermonth"] = "yearquartermonth";
-    })(TimeUnit || (TimeUnit = {}));
-    var RepeatEnum;
-    (function (RepeatEnum) {
-        RepeatEnum["Column"] = "column";
-        RepeatEnum["Repeat"] = "repeat";
-        RepeatEnum["Row"] = "row";
-    })(RepeatEnum || (RepeatEnum = {}));
-    /**
-     * The orientation of a non-stacked bar, tick, area, and line charts.
-     * The value is either horizontal (default) or vertical.
-     * - For bar, rule and tick, this determines whether the size of the bar and tick
-     * should be applied to x or y dimension.
-     * - For area, this property determines the orient property of the Vega output.
-     * - For line and trail marks, this property determines the sort order of the points in the
-     * line
-     * if `config.sortLineBy` is not specified.
-     * For stacked charts, this is always determined by the orientation of the stack;
-     * therefore explicitly specified value will be ignored.
-     *
-     * The default direction (`"horizontal"` or `"vertical"`) for gradient legends.
-     *
-     * __Default value:__ `"vertical"`.
-     *
-     * The default direction (`"horizontal"` or `"vertical"`) for symbol legends.
-     *
-     * __Default value:__ `"vertical"`.
-     *
-     * The direction of the legend, one of `"vertical"` or `"horizontal"`.
-     *
-     * __Default value:__
-     * - For top-/bottom-`orient`ed legends, `"horizontal"`
-     * - For left-/right-`orient`ed legends, `"vertical"`
-     * - For top/bottom-left/right-`orient`ed legends, `"horizontal"` for gradient legends and
-     * `"vertical"` for symbol legends.
-     *
-     * Orientation of the box plot.  This is normally automatically determined based on types of
-     * fields on x and y channels. However, an explicit `orient` be specified when the
-     * orientation is ambiguous.
-     *
-     * __Default value:__ `"vertical"`.
-     *
-     * Orientation of the error bar.  This is normally automatically determined, but can be
-     * specified when the orientation is ambiguous and cannot be automatically determined.
-     *
-     * Orientation of the error band. This is normally automatically determined, but can be
-     * specified when the orientation is ambiguous and cannot be automatically determined.
-     */
-    var Orientation;
-    (function (Orientation) {
-        Orientation["Horizontal"] = "horizontal";
-        Orientation["Vertical"] = "vertical";
-    })(Orientation || (Orientation = {}));
-    /**
-     * The format type for labels (`"number"` or `"time"`).
-     *
-     * __Default value:__
-     * - `"time"` for temporal fields and ordinal and nomimal fields with `timeUnit`.
-     * - `"number"` for quantitative fields as well as ordinal and nomimal fields without
-     * `timeUnit`.
-     */
-    var FormatType;
-    (function (FormatType) {
-        FormatType["Number"] = "number";
-        FormatType["Time"] = "time";
-    })(FormatType || (FormatType = {}));
-    /**
-     * The horizontal alignment of the text. One of `"left"`, `"right"`, `"center"`.
-     *
-     * Horizontal text alignment of axis tick labels, overriding the default setting for the
-     * current axis orientation.
-     *
-     * Horizontal text alignment of axis titles.
-     *
-     * Horizontal text alignment of header labels.
-     *
-     * Horizontal text alignment (to the anchor) of header titles.
-     *
-     * The alignment of the legend label, can be left, center, or right.
-     *
-     * Horizontal text alignment for legend titles.
-     *
-     * __Default value:__ `"left"`.
-     */
-    var Align;
-    (function (Align) {
-        Align["Center"] = "center";
-        Align["Left"] = "left";
-        Align["Right"] = "right";
-    })(Align || (Align = {}));
-    /**
-     * The vertical alignment of the text. One of `"top"`, `"middle"`, `"bottom"`.
-     *
-     * __Default value:__ `"middle"`
-     *
-     * Vertical text baseline of axis tick labels, overriding the default setting for the
-     * current axis orientation. Can be `"top"`, `"middle"`, `"bottom"`, or `"alphabetic"`.
-     *
-     * Vertical text baseline for axis titles.
-     *
-     * Vertical text baseline for the header title. One of `"top"`, `"bottom"`, `"middle"`.
-     *
-     * __Default value:__ `"middle"`
-     *
-     * The position of the baseline of legend label, can be `"top"`, `"middle"`, `"bottom"`, or
-     * `"alphabetic"`.
-     *
-     * __Default value:__ `"middle"`.
-     *
-     * Vertical text baseline for legend titles.
-     *
-     * __Default value:__ `"top"`.
-     *
-     * Vertical text baseline for title text. One of `"top"`, `"middle"`, `"bottom"`, or
-     * `"alphabetic"`.
-     */
-    var TextBaseline;
-    (function (TextBaseline) {
-        TextBaseline["Alphabetic"] = "alphabetic";
-        TextBaseline["Bottom"] = "bottom";
-        TextBaseline["Middle"] = "middle";
-        TextBaseline["Top"] = "top";
-    })(TextBaseline || (TextBaseline = {}));
-    var FontWeightEnum;
-    (function (FontWeightEnum) {
-        FontWeightEnum["Bold"] = "bold";
-        FontWeightEnum["Bolder"] = "bolder";
-        FontWeightEnum["Lighter"] = "lighter";
-        FontWeightEnum["Normal"] = "normal";
-    })(FontWeightEnum || (FontWeightEnum = {}));
-    var LabelOverlapEnum;
-    (function (LabelOverlapEnum) {
-        LabelOverlapEnum["Greedy"] = "greedy";
-        LabelOverlapEnum["Parity"] = "parity";
-    })(LabelOverlapEnum || (LabelOverlapEnum = {}));
-    /**
-     * The orientation of the legend, which determines how the legend is positioned within the
-     * scene. One of "left", "right", "top-left", "top-right", "bottom-left", "bottom-right",
-     * "none".
-     *
-     * __Default value:__ `"right"`
-     *
-     * The orientation of the legend, which determines how the legend is positioned within the
-     * scene. One of `"left"`, `"right"`, `"top"`, `"bottom"`, `"top-left"`, `"top-right"`,
-     * `"bottom-left"`, `"bottom-right"`, `"none"`.
-     *
-     * __Default value:__ `"right"`
-     */
-    var LegendOrient;
-    (function (LegendOrient) {
-        LegendOrient["Bottom"] = "bottom";
-        LegendOrient["BottomLeft"] = "bottom-left";
-        LegendOrient["BottomRight"] = "bottom-right";
-        LegendOrient["Left"] = "left";
-        LegendOrient["None"] = "none";
-        LegendOrient["Right"] = "right";
-        LegendOrient["Top"] = "top";
-        LegendOrient["TopLeft"] = "top-left";
-        LegendOrient["TopRight"] = "top-right";
-    })(LegendOrient || (LegendOrient = {}));
-    var TitleAnchor;
-    (function (TitleAnchor) {
-        TitleAnchor["End"] = "end";
-        TitleAnchor["Middle"] = "middle";
-        TitleAnchor["Start"] = "start";
-    })(TitleAnchor || (TitleAnchor = {}));
-    /**
-     * The orientation of the header label. One of `"top"`, `"bottom"`, `"left"` or `"right"`.
-     *
-     * The orientation of the header title. One of `"top"`, `"bottom"`, `"left"` or `"right"`.
-     *
-     * Orientation of the legend title.
-     *
-     * The orientation of the axis. One of `"top"`, `"bottom"`, `"left"` or `"right"`. The
-     * orientation can be used to further specialize the axis type (e.g., a y-axis oriented
-     * towards the right edge of the chart).
-     *
-     * __Default value:__ `"bottom"` for x-axes and `"left"` for y-axes.
-     */
-    var Orient;
-    (function (Orient) {
-        Orient["Bottom"] = "bottom";
-        Orient["Left"] = "left";
-        Orient["Right"] = "right";
-        Orient["Top"] = "top";
-    })(Orient || (Orient = {}));
-    /**
-     * The type of the legend. Use `"symbol"` to create a discrete legend and `"gradient"` for a
-     * continuous color gradient.
-     *
-     * __Default value:__ `"gradient"` for non-binned quantitative fields and temporal fields;
-     * `"symbol"` otherwise.
-     */
-    var LegendType;
-    (function (LegendType) {
-        LegendType["Gradient"] = "gradient";
-        LegendType["Symbol"] = "symbol";
-    })(LegendType || (LegendType = {}));
-    var Domain;
-    (function (Domain) {
-        Domain["Unaggregated"] = "unaggregated";
-    })(Domain || (Domain = {}));
-    var ScaleInterpolateParamsType;
-    (function (ScaleInterpolateParamsType) {
-        ScaleInterpolateParamsType["Cubehelix"] = "cubehelix";
-        ScaleInterpolateParamsType["CubehelixLong"] = "cubehelix-long";
-        ScaleInterpolateParamsType["RGB"] = "rgb";
-    })(ScaleInterpolateParamsType || (ScaleInterpolateParamsType = {}));
-    var ScaleInterpolate;
-    (function (ScaleInterpolate) {
-        ScaleInterpolate["Cubehelix"] = "cubehelix";
-        ScaleInterpolate["CubehelixLong"] = "cubehelix-long";
-        ScaleInterpolate["HCL"] = "hcl";
-        ScaleInterpolate["HCLLong"] = "hcl-long";
-        ScaleInterpolate["Hsl"] = "hsl";
-        ScaleInterpolate["HslLong"] = "hsl-long";
-        ScaleInterpolate["Lab"] = "lab";
-        ScaleInterpolate["RGB"] = "rgb";
-    })(ScaleInterpolate || (ScaleInterpolate = {}));
-    var NiceTime;
-    (function (NiceTime) {
-        NiceTime["Day"] = "day";
-        NiceTime["Hour"] = "hour";
-        NiceTime["Minute"] = "minute";
-        NiceTime["Month"] = "month";
-        NiceTime["Second"] = "second";
-        NiceTime["Week"] = "week";
-        NiceTime["Year"] = "year";
-    })(NiceTime || (NiceTime = {}));
-    /**
-     * The type of scale.  Vega-Lite supports the following categories of scale types:
-     *
-     * 1) [**Continuous Scales**](https://vega.github.io/vega-lite/docs/scale.html#continuous)
-     * -- mapping continuous domains to continuous output ranges
-     * ([`"linear"`](https://vega.github.io/vega-lite/docs/scale.html#linear),
-     * [`"pow"`](https://vega.github.io/vega-lite/docs/scale.html#pow),
-     * [`"sqrt"`](https://vega.github.io/vega-lite/docs/scale.html#sqrt),
-     * [`"symlog"`](https://vega.github.io/vega-lite/docs/scale.html#symlog),
-     * [`"log"`](https://vega.github.io/vega-lite/docs/scale.html#log),
-     * [`"time"`](https://vega.github.io/vega-lite/docs/scale.html#time),
-     * [`"utc"`](https://vega.github.io/vega-lite/docs/scale.html#utc).
-     *
-     * 2) [**Discrete Scales**](https://vega.github.io/vega-lite/docs/scale.html#discrete) --
-     * mapping discrete domains to discrete
-     * ([`"ordinal"`](https://vega.github.io/vega-lite/docs/scale.html#ordinal)) or continuous
-     * ([`"band"`](https://vega.github.io/vega-lite/docs/scale.html#band) and
-     * [`"point"`](https://vega.github.io/vega-lite/docs/scale.html#point)) output ranges.
-     *
-     * 3) [**Discretizing
-     * Scales**](https://vega.github.io/vega-lite/docs/scale.html#discretizing) -- mapping
-     * continuous domains to discrete output ranges
-     * [`"bin-ordinal"`](https://vega.github.io/vega-lite/docs/scale.html#bin-ordinal),
-     * [`"quantile"`](https://vega.github.io/vega-lite/docs/scale.html#quantile),
-     * [`"quantize"`](https://vega.github.io/vega-lite/docs/scale.html#quantize) and
-     * [`"threshold"`](https://vega.github.io/vega-lite/docs/scale.html#threshold).
-     *
-     * __Default value:__ please see the [scale type
-     * table](https://vega.github.io/vega-lite/docs/scale.html#type).
-     */
-    var ScaleType;
-    (function (ScaleType) {
-        ScaleType["Band"] = "band";
-        ScaleType["BinOrdinal"] = "bin-ordinal";
-        ScaleType["Linear"] = "linear";
-        ScaleType["Log"] = "log";
-        ScaleType["Ordinal"] = "ordinal";
-        ScaleType["Point"] = "point";
-        ScaleType["Pow"] = "pow";
-        ScaleType["Quantile"] = "quantile";
-        ScaleType["Quantize"] = "quantize";
-        ScaleType["Sqrt"] = "sqrt";
-        ScaleType["Symlog"] = "symlog";
-        ScaleType["Threshold"] = "threshold";
-        ScaleType["Time"] = "time";
-        ScaleType["UTC"] = "utc";
-    })(ScaleType || (ScaleType = {}));
-    /**
-     * The [encoding channel](https://vega.github.io/vega-lite/docs/encoding.html#channels) to
-     * sort by (e.g., `"x"`, `"y"`)
-     */
-    var SingleDefUnitChannel;
-    (function (SingleDefUnitChannel) {
-        SingleDefUnitChannel["Color"] = "color";
-        SingleDefUnitChannel["Fill"] = "fill";
-        SingleDefUnitChannel["FillOpacity"] = "fillOpacity";
-        SingleDefUnitChannel["Href"] = "href";
-        SingleDefUnitChannel["Key"] = "key";
-        SingleDefUnitChannel["Latitude"] = "latitude";
-        SingleDefUnitChannel["Latitude2"] = "latitude2";
-        SingleDefUnitChannel["Longitude"] = "longitude";
-        SingleDefUnitChannel["Longitude2"] = "longitude2";
-        SingleDefUnitChannel["Opacity"] = "opacity";
-        SingleDefUnitChannel["Shape"] = "shape";
-        SingleDefUnitChannel["Size"] = "size";
-        SingleDefUnitChannel["Stroke"] = "stroke";
-        SingleDefUnitChannel["StrokeOpacity"] = "strokeOpacity";
-        SingleDefUnitChannel["StrokeWidth"] = "strokeWidth";
-        SingleDefUnitChannel["Text"] = "text";
-        SingleDefUnitChannel["Tooltip"] = "tooltip";
-        SingleDefUnitChannel["X"] = "x";
-        SingleDefUnitChannel["X2"] = "x2";
-        SingleDefUnitChannel["Y"] = "y";
-        SingleDefUnitChannel["Y2"] = "y2";
-    })(SingleDefUnitChannel || (SingleDefUnitChannel = {}));
-    /**
-     * The sort order. One of `"ascending"` (default) or `"descending"`.
-     */
-    var SortOrder;
-    (function (SortOrder) {
-        SortOrder["Ascending"] = "ascending";
-        SortOrder["Descending"] = "descending";
-    })(SortOrder || (SortOrder = {}));
-    /**
-     * The encoded field's type of measurement (`"quantitative"`, `"temporal"`, `"ordinal"`, or
-     * `"nominal"`).
-     * It can also be a `"geojson"` type for encoding
-     * ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).
-     *
-     *
-     * __Note:__
-     *
-     * - Data values for a temporal field can be either a date-time string (e.g., `"2015-03-07
-     * 12:32:17"`, `"17:01"`, `"2015-03-16"`. `"2015"`) or a timestamp number (e.g.,
-     * `1552199579097`).
-     * - Data `type` describes the semantics of the data rather than the primitive data types
-     * (`number`, `string`, etc.). The same primitive data type can have different types of
-     * measurement. For example, numeric data can represent quantitative, ordinal, or nominal
-     * data.
-     * - When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type`
-     * property can be either `"quantitative"` (for using a linear bin scale) or [`"ordinal"`
-     * (for using an ordinal bin
-     * scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
-     * - When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the
-     * `type` property can be either `"temporal"` (for using a temporal scale) or [`"ordinal"`
-     * (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
-     * - When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html),
-     * the `type` property refers to the post-aggregation data type. For example, we can
-     * calculate count `distinct` of a categorical field `"cat"` using `{"aggregate":
-     * "distinct", "field": "cat", "type": "quantitative"}`. The `"type"` of the aggregate
-     * output is `"quantitative"`.
-     * - Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they
-     * have exactly the same type as their primary channels (e.g., `x`, `y`).
-     *
-     * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
-     */
-    var StandardType;
-    (function (StandardType) {
-        StandardType["Nominal"] = "nominal";
-        StandardType["Ordinal"] = "ordinal";
-        StandardType["Quantitative"] = "quantitative";
-        StandardType["Temporal"] = "temporal";
-    })(StandardType || (StandardType = {}));
-    var BinEnum;
-    (function (BinEnum) {
-        BinEnum["Binned"] = "binned";
-    })(BinEnum || (BinEnum = {}));
-    /**
-     * The encoded field's type of measurement (`"quantitative"`, `"temporal"`, `"ordinal"`, or
-     * `"nominal"`).
-     * It can also be a `"geojson"` type for encoding
-     * ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).
-     *
-     *
-     * __Note:__
-     *
-     * - Data values for a temporal field can be either a date-time string (e.g., `"2015-03-07
-     * 12:32:17"`, `"17:01"`, `"2015-03-16"`. `"2015"`) or a timestamp number (e.g.,
-     * `1552199579097`).
-     * - Data `type` describes the semantics of the data rather than the primitive data types
-     * (`number`, `string`, etc.). The same primitive data type can have different types of
-     * measurement. For example, numeric data can represent quantitative, ordinal, or nominal
-     * data.
-     * - When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type`
-     * property can be either `"quantitative"` (for using a linear bin scale) or [`"ordinal"`
-     * (for using an ordinal bin
-     * scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
-     * - When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the
-     * `type` property can be either `"temporal"` (for using a temporal scale) or [`"ordinal"`
-     * (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
-     * - When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html),
-     * the `type` property refers to the post-aggregation data type. For example, we can
-     * calculate count `distinct` of a categorical field `"cat"` using `{"aggregate":
-     * "distinct", "field": "cat", "type": "quantitative"}`. The `"type"` of the aggregate
-     * output is `"quantitative"`.
-     * - Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they
-     * have exactly the same type as their primary channels (e.g., `x`, `y`).
-     *
-     * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
-     */
-    var LatitudeType;
-    (function (LatitudeType) {
-        LatitudeType["Quantitative"] = "quantitative";
-    })(LatitudeType || (LatitudeType = {}));
-    /**
-     * The encoded field's type of measurement (`"quantitative"`, `"temporal"`, `"ordinal"`, or
-     * `"nominal"`).
-     * It can also be a `"geojson"` type for encoding
-     * ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).
-     *
-     *
-     * __Note:__
-     *
-     * - Data values for a temporal field can be either a date-time string (e.g., `"2015-03-07
-     * 12:32:17"`, `"17:01"`, `"2015-03-16"`. `"2015"`) or a timestamp number (e.g.,
-     * `1552199579097`).
-     * - Data `type` describes the semantics of the data rather than the primitive data types
-     * (`number`, `string`, etc.). The same primitive data type can have different types of
-     * measurement. For example, numeric data can represent quantitative, ordinal, or nominal
-     * data.
-     * - When using with [`bin`](https://vega.github.io/vega-lite/docs/bin.html), the `type`
-     * property can be either `"quantitative"` (for using a linear bin scale) or [`"ordinal"`
-     * (for using an ordinal bin
-     * scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
-     * - When using with [`timeUnit`](https://vega.github.io/vega-lite/docs/timeunit.html), the
-     * `type` property can be either `"temporal"` (for using a temporal scale) or [`"ordinal"`
-     * (for using an ordinal scale)](https://vega.github.io/vega-lite/docs/type.html#cast-bin).
-     * - When using with [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html),
-     * the `type` property refers to the post-aggregation data type. For example, we can
-     * calculate count `distinct` of a categorical field `"cat"` using `{"aggregate":
-     * "distinct", "field": "cat", "type": "quantitative"}`. The `"type"` of the aggregate
-     * output is `"quantitative"`.
-     * - Secondary channels (e.g., `x2`, `y2`, `xError`, `yError`) do not have `type` as they
-     * have exactly the same type as their primary channels (e.g., `x`, `y`).
-     *
-     * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
-     */
-    var TypeForShape;
-    (function (TypeForShape) {
-        TypeForShape["Geojson"] = "geojson";
-        TypeForShape["Nominal"] = "nominal";
-        TypeForShape["Ordinal"] = "ordinal";
-    })(TypeForShape || (TypeForShape = {}));
-    /**
-     * The imputation method to use for the field value of imputed data objects.
-     * One of `value`, `mean`, `median`, `max` or `min`.
-     *
-     * __Default value:__  `"value"`
-     */
-    var ImputeMethod;
-    (function (ImputeMethod) {
-        ImputeMethod["Max"] = "max";
-        ImputeMethod["Mean"] = "mean";
-        ImputeMethod["Median"] = "median";
-        ImputeMethod["Min"] = "min";
-        ImputeMethod["Value"] = "value";
-    })(ImputeMethod || (ImputeMethod = {}));
-    /**
-     * Default stack offset for stackable mark.
-     *
-     * Mode for stacking marks.
-     * __Default value:__ `"zero"`
-     */
-    var StackOffset;
-    (function (StackOffset) {
-        StackOffset["Center"] = "center";
-        StackOffset["Normalize"] = "normalize";
-        StackOffset["Zero"] = "zero";
-    })(StackOffset || (StackOffset = {}));
-    var XEnum;
-    (function (XEnum) {
-        XEnum["Width"] = "width";
-    })(XEnum || (XEnum = {}));
-    var YEnum;
-    (function (YEnum) {
-        YEnum["Height"] = "height";
-    })(YEnum || (YEnum = {}));
-    /**
-     * The mouse cursor used over the mark. Any valid [CSS cursor
-     * type](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor#Values) can be used.
-     */
-    var Cursor;
-    (function (Cursor) {
-        Cursor["Alias"] = "alias";
-        Cursor["AllScroll"] = "all-scroll";
-        Cursor["Auto"] = "auto";
-        Cursor["Cell"] = "cell";
-        Cursor["ColResize"] = "col-resize";
-        Cursor["ContextMenu"] = "context-menu";
-        Cursor["Copy"] = "copy";
-        Cursor["Crosshair"] = "crosshair";
-        Cursor["Default"] = "default";
-        Cursor["EResize"] = "e-resize";
-        Cursor["EwResize"] = "ew-resize";
-        Cursor["Grab"] = "grab";
-        Cursor["Grabbing"] = "grabbing";
-        Cursor["Help"] = "help";
-        Cursor["Move"] = "move";
-        Cursor["NResize"] = "n-resize";
-        Cursor["NSResize"] = "ns-resize";
-        Cursor["NeResize"] = "ne-resize";
-        Cursor["NeswResize"] = "nesw-resize";
-        Cursor["NoDrop"] = "no-drop";
-        Cursor["None"] = "none";
-        Cursor["NotAllowed"] = "not-allowed";
-        Cursor["NwResize"] = "nw-resize";
-        Cursor["NwseResize"] = "nwse-resize";
-        Cursor["Pointer"] = "pointer";
-        Cursor["Progress"] = "progress";
-        Cursor["RowResize"] = "row-resize";
-        Cursor["SEResize"] = "se-resize";
-        Cursor["SResize"] = "s-resize";
-        Cursor["SwResize"] = "sw-resize";
-        Cursor["Text"] = "text";
-        Cursor["VerticalText"] = "vertical-text";
-        Cursor["WResize"] = "w-resize";
-        Cursor["Wait"] = "wait";
-        Cursor["ZoomIn"] = "zoom-in";
-        Cursor["ZoomOut"] = "zoom-out";
-    })(Cursor || (Cursor = {}));
-    /**
-     * The direction of the text. One of `"ltr"` (left-to-right) or `"rtl"` (right-to-left).
-     * This property determines on which side is truncated in response to the limit parameter.
-     *
-     * __Default value:__ `"ltr"`
-     */
-    var Dir;
-    (function (Dir) {
-        Dir["LTR"] = "ltr";
-        Dir["RTL"] = "rtl";
-    })(Dir || (Dir = {}));
-    /**
-     * The line interpolation method to use for line and area marks. One of the following:
-     * - `"linear"`: piecewise linear segments, as in a polyline.
-     * - `"linear-closed"`: close the linear segments to form a polygon.
-     * - `"step"`: alternate between horizontal and vertical segments, as in a step function.
-     * - `"step-before"`: alternate between vertical and horizontal segments, as in a step
-     * function.
-     * - `"step-after"`: alternate between horizontal and vertical segments, as in a step
-     * function.
-     * - `"basis"`: a B-spline, with control point duplication on the ends.
-     * - `"basis-open"`: an open B-spline; may not intersect the start or end.
-     * - `"basis-closed"`: a closed B-spline, as in a loop.
-     * - `"cardinal"`: a Cardinal spline, with control point duplication on the ends.
-     * - `"cardinal-open"`: an open Cardinal spline; may not intersect the start or end, but
-     * will intersect other control points.
-     * - `"cardinal-closed"`: a closed Cardinal spline, as in a loop.
-     * - `"bundle"`: equivalent to basis, except the tension parameter is used to straighten the
-     * spline.
-     * - `"monotone"`: cubic interpolation that preserves monotonicity in y.
-     *
-     * The line interpolation method for the error band. One of the following:
-     * - `"linear"`: piecewise linear segments, as in a polyline.
-     * - `"linear-closed"`: close the linear segments to form a polygon.
-     * - `"step"`: a piecewise constant function (a step function) consisting of alternating
-     * horizontal and vertical lines. The y-value changes at the midpoint of each pair of
-     * adjacent x-values.
-     * - `"step-before"`: a piecewise constant function (a step function) consisting of
-     * alternating horizontal and vertical lines. The y-value changes before the x-value.
-     * - `"step-after"`: a piecewise constant function (a step function) consisting of
-     * alternating horizontal and vertical lines. The y-value changes after the x-value.
-     * - `"basis"`: a B-spline, with control point duplication on the ends.
-     * - `"basis-open"`: an open B-spline; may not intersect the start or end.
-     * - `"basis-closed"`: a closed B-spline, as in a loop.
-     * - `"cardinal"`: a Cardinal spline, with control point duplication on the ends.
-     * - `"cardinal-open"`: an open Cardinal spline; may not intersect the start or end, but
-     * will intersect other control points.
-     * - `"cardinal-closed"`: a closed Cardinal spline, as in a loop.
-     * - `"bundle"`: equivalent to basis, except the tension parameter is used to straighten the
-     * spline.
-     * - `"monotone"`: cubic interpolation that preserves monotonicity in y.
-     */
-    var Interpolate;
-    (function (Interpolate) {
-        Interpolate["Basis"] = "basis";
-        Interpolate["BasisClosed"] = "basis-closed";
-        Interpolate["BasisOpen"] = "basis-open";
-        Interpolate["Bundle"] = "bundle";
-        Interpolate["Cardinal"] = "cardinal";
-        Interpolate["CardinalClosed"] = "cardinal-closed";
-        Interpolate["CardinalOpen"] = "cardinal-open";
-        Interpolate["Linear"] = "linear";
-        Interpolate["LinearClosed"] = "linear-closed";
-        Interpolate["Monotone"] = "monotone";
-        Interpolate["Step"] = "step";
-        Interpolate["StepAfter"] = "step-after";
-        Interpolate["StepBefore"] = "step-before";
-    })(Interpolate || (Interpolate = {}));
-    /**
-     * The stroke cap for line ending style. One of `"butt"`, `"round"`, or `"square"`.
-     *
-     * __Default value:__ `"square"`
-     */
-    var StrokeCap;
-    (function (StrokeCap) {
-        StrokeCap["Butt"] = "butt";
-        StrokeCap["Round"] = "round";
-        StrokeCap["Square"] = "square";
-    })(StrokeCap || (StrokeCap = {}));
-    /**
-     * The stroke line join method. One of `"miter"`, `"round"` or `"bevel"`.
-     *
-     * __Default value:__ `"miter"`
-     */
-    var StrokeJoin;
-    (function (StrokeJoin) {
-        StrokeJoin["Bevel"] = "bevel";
-        StrokeJoin["Miter"] = "miter";
-        StrokeJoin["Round"] = "round";
-    })(StrokeJoin || (StrokeJoin = {}));
-    var Content;
-    (function (Content) {
-        Content["Data"] = "data";
-        Content["Encoding"] = "encoding";
-    })(Content || (Content = {}));
-    /**
-     * The extent of the band. Available options include:
-     * - `"ci"`: Extend the band to the confidence interval of the mean.
-     * - `"stderr"`: The size of band are set to the value of standard error, extending from the
-     * mean.
-     * - `"stdev"`: The size of band are set to the value of standard deviation, extending from
-     * the mean.
-     * - `"iqr"`: Extend the band to the q1 and q3.
-     *
-     * __Default value:__ `"stderr"`.
-     *
-     * The extent of the rule. Available options include:
-     * - `"ci"`: Extend the rule to the confidence interval of the mean.
-     * - `"stderr"`: The size of rule are set to the value of standard error, extending from the
-     * mean.
-     * - `"stdev"`: The size of rule are set to the value of standard deviation, extending from
-     * the mean.
-     * - `"iqr"`: Extend the rule to the q1 and q3.
-     *
-     * __Default value:__ `"stderr"`.
-     */
-    var ExtentExtent;
-    (function (ExtentExtent) {
-        ExtentExtent["Ci"] = "ci";
-        ExtentExtent["Iqr"] = "iqr";
-        ExtentExtent["MinMax"] = "min-max";
-        ExtentExtent["Stderr"] = "stderr";
-        ExtentExtent["Stdev"] = "stdev";
-    })(ExtentExtent || (ExtentExtent = {}));
-    var PointEnum;
-    (function (PointEnum) {
-        PointEnum["Transparent"] = "transparent";
-    })(PointEnum || (PointEnum = {}));
-    /**
-     * The mark type. This could a primitive mark type
-     * (one of `"bar"`, `"circle"`, `"square"`, `"tick"`, `"line"`,
-     * `"area"`, `"point"`, `"geoshape"`, `"rule"`, and `"text"`)
-     * or a composite mark type (`"boxplot"`, `"errorband"`, `"errorbar"`).
-     *
-     * All types of primitive marks.
-     */
-    var Mark;
-    (function (Mark) {
-        Mark["Area"] = "area";
-        Mark["Bar"] = "bar";
-        Mark["Boxplot"] = "boxplot";
-        Mark["Circle"] = "circle";
-        Mark["Errorband"] = "errorband";
-        Mark["Errorbar"] = "errorbar";
-        Mark["Geoshape"] = "geoshape";
-        Mark["Line"] = "line";
-        Mark["Point"] = "point";
-        Mark["Rect"] = "rect";
-        Mark["Rule"] = "rule";
-        Mark["Square"] = "square";
-        Mark["Text"] = "text";
-        Mark["Tick"] = "tick";
-        Mark["Trail"] = "trail";
-    })(Mark || (Mark = {}));
-    /**
-     * The cartographic projection to use. This value is case-insensitive, for example
-     * `"albers"` and `"Albers"` indicate the same projection type. You can find all valid
-     * projection types [in the
-     * documentation](https://vega.github.io/vega-lite/docs/projection.html#projection-types).
-     *
-     * __Default value:__ `mercator`
-     */
-    var ProjectionType;
-    (function (ProjectionType) {
-        ProjectionType["Albers"] = "albers";
-        ProjectionType["AlbersUsa"] = "albersUsa";
-        ProjectionType["AzimuthalEqualArea"] = "azimuthalEqualArea";
-        ProjectionType["AzimuthalEquidistant"] = "azimuthalEquidistant";
-        ProjectionType["ConicConformal"] = "conicConformal";
-        ProjectionType["ConicEqualArea"] = "conicEqualArea";
-        ProjectionType["ConicEquidistant"] = "conicEquidistant";
-        ProjectionType["Equirectangular"] = "equirectangular";
-        ProjectionType["Gnomonic"] = "gnomonic";
-        ProjectionType["Identity"] = "identity";
-        ProjectionType["Mercator"] = "mercator";
-        ProjectionType["NaturalEarth1"] = "naturalEarth1";
-        ProjectionType["Orthographic"] = "orthographic";
-        ProjectionType["Stereographic"] = "stereographic";
-        ProjectionType["TransverseMercator"] = "transverseMercator";
-    })(ProjectionType || (ProjectionType = {}));
-    var ResolveMode;
-    (function (ResolveMode) {
-        ResolveMode["Independent"] = "independent";
-        ResolveMode["Shared"] = "shared";
-    })(ResolveMode || (ResolveMode = {}));
-    /**
-     * Establishes a two-way binding between the interval selection and the scales
-     * used within the same view. This allows a user to interactively pan and
-     * zoom the view.
-     *
-     * __See also:__ [`bind`](https://vega.github.io/vega-lite/docs/bind.html) documentation.
-     */
-    var BindEnum;
-    (function (BindEnum) {
-        BindEnum["Scales"] = "scales";
-    })(BindEnum || (BindEnum = {}));
-    /**
-     * By default, `all` data values are considered to lie within an empty selection.
-     * When set to `none`, empty selections contain no data values.
-     */
-    var Empty;
-    (function (Empty) {
-        Empty["All"] = "all";
-        Empty["None"] = "none";
-    })(Empty || (Empty = {}));
-    /**
-     * With layered and multi-view displays, a strategy that determines how
-     * selections' data queries are resolved when applied in a filter transform,
-     * conditional encoding rule, or scale domain.
-     *
-     * __See also:__ [`resolve`](https://vega.github.io/vega-lite/docs/selection-resolve.html)
-     * documentation.
-     */
-    var SelectionResolution;
-    (function (SelectionResolution) {
-        SelectionResolution["Global"] = "global";
-        SelectionResolution["Intersect"] = "intersect";
-        SelectionResolution["Union"] = "union";
-    })(SelectionResolution || (SelectionResolution = {}));
-    /**
-     * Determines the default event processing and data query for the selection. Vega-Lite
-     * currently supports three selection types:
-     *
-     * - `single` -- to select a single discrete data value on `click`.
-     * - `multi` -- to select multiple discrete data value; the first value is selected on
-     * `click` and additional values toggled on shift-`click`.
-     * - `interval` -- to select a continuous range of data values on `drag`.
-     */
-    var SelectionDefType;
-    (function (SelectionDefType) {
-        SelectionDefType["Interval"] = "interval";
-        SelectionDefType["Multi"] = "multi";
-        SelectionDefType["Single"] = "single";
-    })(SelectionDefType || (SelectionDefType = {}));
-    /**
-     * The reference frame for the anchor position, one of `"bounds"` (to anchor relative to the
-     * full bounding box) or `"group"` (to anchor relative to the group width or height).
-     */
-    var TitleFrame;
-    (function (TitleFrame) {
-        TitleFrame["Bounds"] = "bounds";
-        TitleFrame["Group"] = "group";
-    })(TitleFrame || (TitleFrame = {}));
-    /**
-     * Default title orientation (`"top"`, `"bottom"`, `"left"`, or `"right"`)
-     */
-    var TitleOrient;
-    (function (TitleOrient) {
-        TitleOrient["Bottom"] = "bottom";
-        TitleOrient["Left"] = "left";
-        TitleOrient["None"] = "none";
-        TitleOrient["Right"] = "right";
-        TitleOrient["Top"] = "top";
-    })(TitleOrient || (TitleOrient = {}));
-    /**
-     * The window or aggregation operation to apply within a window (e.g.,`rank`, `lead`, `sum`,
-     * `average` or `count`). See the list of all supported operations
-     * [here](https://vega.github.io/vega-lite/docs/window.html#ops).
-     *
-     * An [aggregate operation](https://vega.github.io/vega-lite/docs/aggregate.html#ops) to
-     * perform on the field prior to sorting (e.g., `"count"`, `"mean"` and `"median"`).
-     * An aggregation is required when there are multiple values of the sort field for each
-     * encoded data field.
-     * The input data objects will be aggregated, grouped by the encoded data field.
-     *
-     * For a full list of operations, please see the documentation for
-     * [aggregate](https://vega.github.io/vega-lite/docs/aggregate.html#ops).
-     *
-     * __Default value:__ `"sum"` for stacked plots. Otherwise, `"mean"`.
-     *
-     * The aggregation operation to apply to the fields (e.g., sum, average or count).
-     * See the [full list of supported aggregation
-     * operations](https://vega.github.io/vega-lite/docs/aggregate.html#ops)
-     * for more information.
-     *
-     * The aggregation operation to apply (e.g., sum, average or count). See the list of all
-     * supported operations [here](https://vega.github.io/vega-lite/docs/aggregate.html#ops).
-     */
-    var Op;
-    (function (Op) {
-        Op["Argmax"] = "argmax";
-        Op["Argmin"] = "argmin";
-        Op["Average"] = "average";
-        Op["Ci0"] = "ci0";
-        Op["Ci1"] = "ci1";
-        Op["Count"] = "count";
-        Op["CumeDist"] = "cume_dist";
-        Op["DenseRank"] = "dense_rank";
-        Op["Distinct"] = "distinct";
-        Op["FirstValue"] = "first_value";
-        Op["Lag"] = "lag";
-        Op["LastValue"] = "last_value";
-        Op["Lead"] = "lead";
-        Op["Max"] = "max";
-        Op["Mean"] = "mean";
-        Op["Median"] = "median";
-        Op["Min"] = "min";
-        Op["Missing"] = "missing";
-        Op["NthValue"] = "nth_value";
-        Op["Ntile"] = "ntile";
-        Op["PercentRank"] = "percent_rank";
-        Op["Q1"] = "q1";
-        Op["Q3"] = "q3";
-        Op["Rank"] = "rank";
-        Op["RowNumber"] = "row_number";
-        Op["Stderr"] = "stderr";
-        Op["Stdev"] = "stdev";
-        Op["Stdevp"] = "stdevp";
-        Op["Sum"] = "sum";
-        Op["Valid"] = "valid";
-        Op["Values"] = "values";
-        Op["Variance"] = "variance";
-        Op["Variancep"] = "variancep";
-    })(Op || (Op = {}));
-    var ExtentEnum;
-    (function (ExtentEnum) {
-        ExtentEnum["MinMax"] = "min-max";
-    })(ExtentEnum || (ExtentEnum = {}));
-    /**
-     * The extent of the band. Available options include:
-     * - `"ci"`: Extend the band to the confidence interval of the mean.
-     * - `"stderr"`: The size of band are set to the value of standard error, extending from the
-     * mean.
-     * - `"stdev"`: The size of band are set to the value of standard deviation, extending from
-     * the mean.
-     * - `"iqr"`: Extend the band to the q1 and q3.
-     *
-     * __Default value:__ `"stderr"`.
-     *
-     * The extent of the rule. Available options include:
-     * - `"ci"`: Extend the rule to the confidence interval of the mean.
-     * - `"stderr"`: The size of rule are set to the value of standard error, extending from the
-     * mean.
-     * - `"stdev"`: The size of rule are set to the value of standard deviation, extending from
-     * the mean.
-     * - `"iqr"`: Extend the rule to the q1 and q3.
-     *
-     * __Default value:__ `"stderr"`.
-     */
-    var ErrorbandExtent;
-    (function (ErrorbandExtent) {
-        ErrorbandExtent["Ci"] = "ci";
-        ErrorbandExtent["Iqr"] = "iqr";
-        ErrorbandExtent["Stderr"] = "stderr";
-        ErrorbandExtent["Stdev"] = "stdev";
-    })(ErrorbandExtent || (ErrorbandExtent = {}));
-    /**
-     * Defines how Vega-Lite generates title for fields.  There are three possible styles:
-     * - `"verbal"` (Default) - displays function in a verbal style (e.g., "Sum of field",
-     * "Year-month of date", "field (binned)").
-     * - `"function"` - displays function using parentheses and capitalized texts (e.g.,
-     * "SUM(field)", "YEARMONTH(date)", "BIN(field)").
-     * - `"plain"` - displays only the field name without functions (e.g., "field", "date",
-     * "field").
-     */
-    var FieldTitle;
-    (function (FieldTitle) {
-        FieldTitle["Functional"] = "functional";
-        FieldTitle["Plain"] = "plain";
-        FieldTitle["Verbal"] = "verbal";
-    })(FieldTitle || (FieldTitle = {}));
-    var InvalidValues;
-    (function (InvalidValues) {
-        InvalidValues["Filter"] = "filter";
-    })(InvalidValues || (InvalidValues = {}));
 
     /**
      * Create a `mark` using a `geom`
@@ -9924,18 +8871,18 @@
     function markByGeomDefault(ggGeomSet) {
         // key: name of ggplot2 geom class
         // value: name of Vega-Lite mark type
-        var markByGeomMap = {
+        const markByGeomMap = {
             GeomPoint: 'point',
             GeomBar: 'bar',
             GeomBoxplot: 'boxplot',
             GeomLine: 'line'
         };
         // validate
-        if (!contains$1(Object.keys(markByGeomMap), ggGeomSet.geom.class)) {
-            throw new Error('ggplot object contains unsupported geom: ' + ggGeomSet.geom.class);
+        if (!Object.keys(markByGeomMap).includes(ggGeomSet.geom.class)) {
+            throw new Error(`ggplot object contains unsupported geom: ${ggGeomSet.geom.class}`);
         }
         // translate
-        var mark = {
+        const mark = {
             type: markByGeomMap[ggGeomSet.geom.class]
         };
         return mark;
@@ -9969,12 +8916,13 @@
         // extension mechanism.
         // validate (look for GeomParams and StatParams we can't translate)
         // translate
-        var mark = markByGeomDefault(ggGeomSet);
+        const mark = markByGeomDefault(ggGeomSet);
         // TODO: add geomParams
         //NOTE @wenyu: use VL.ExtentExtent.MinMax
         function coef(coef) {
+            // use this to catch `Inf` from R
             if (typeof coef == 'string') {
-                return ExtentExtent.MinMax; // catch-all for "Inf"
+                return 'min-max';
             }
             return coef;
         }
@@ -10014,9 +8962,9 @@
         // are all subclasses of VL.Encoding
         // keys are ggplot2 aesthetic names
         // values are Vega-Lite encoding constructor-functions for values
-        var itmEncodingMap = {
-            x: encodingX,
-            y: encodingY,
+        const itmEncodingMap = {
+            x: encodingPosition,
+            y: encodingPosition,
             colour: encodingString,
             fill: encodingString,
             size: encodingNumber,
@@ -10028,8 +8976,8 @@
             // NOTE: the weight aesthetic is used for stat calculations, it will not appear as an encoding key.
         };
         // validate
-        if (!contains$1(Object.keys(itmEncodingMap), aesName)) {
-            throw new Error('ggplot object contains unsupported aesthetic: ' + aesName);
+        if (!Object.keys(itmEncodingMap).includes(aesName)) {
+            throw new Error(`ggplot object contains unsupported aesthetic: ${aesName}`);
         }
         // return empty object
         return itmEncodingMap[aesName]();
@@ -10043,21 +8991,9 @@
      *
      * @returns `VL.XClass`
      */
-    function encodingX() {
-        var encoding = {};
-        return encoding;
-    }
-    /**
-     * Create empty Y-encoding
-     *
-     * @remarks
-     * **Called by**
-     * @see encodingByAes
-     *
-     * @returns `VL.YClass`
-     */
-    function encodingY() {
-        var encoding = {};
+    function encodingPosition() {
+        // hoping it's possible to set `type` here, then change it later
+        const encoding = { type: 'nominal' };
         return encoding;
     }
     /**
@@ -10070,7 +9006,7 @@
      * @returns `VL.DefWithConditionMarkPropFieldDefNumber`
      */
     function encodingNumber() {
-        var encoding = {};
+        const encoding = { type: 'nominal' };
         return encoding;
     }
     /**
@@ -10083,7 +9019,7 @@
      * @returns `VL.DefWithConditionMarkPropFieldDefStringNull`
      */
     function encodingString() {
-        var encoding = {};
+        const encoding = { type: 'nominal' };
         return encoding;
     }
     //NOTE @wenyu: Use VL.TypedFieldDef rather than VL.Details. Because we only use VL.TypedFieldDef
@@ -10098,7 +9034,7 @@
      */
     function encodingDetail() {
         //NOTE @wenyu: VL.Detail has to define the type - we think we can change this later
-        var encoding = { type: StandardType.Nominal };
+        const encoding = { type: 'nominal' };
         return encoding;
     }
     /**
@@ -10111,7 +9047,7 @@
      * @returns `VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull`
      */
     function encodingShape() {
-        var encoding = {};
+        const encoding = { type: 'nominal' };
         return encoding;
     }
 
@@ -10149,7 +9085,7 @@
     function encodingValueShape(shape) {
         shape = Number(shape);
         // TODO: think more about this map
-        var shapeMap = {
+        const shapeMap = {
             0: 'circle',
             1: 'square',
             3: 'cross',
@@ -10160,8 +9096,8 @@
             8: 'triangle-left'
         };
         // validate
-        if (!contains$1(Object.keys(shapeMap), shape)) {
-            throw new Error('ggplot object contains unsupported shape: ' + shape);
+        if (!Object.keys(shapeMap).includes(String(shape))) {
+            throw new Error(`ggplot object contains unsupported shape: ${shape}`);
         }
         // translate
         return shapeMap[shape];
@@ -10203,7 +9139,7 @@
             return color;
         }
         // translate
-        var colorNew = color.replace(/[0-9]+$/, '');
+        const colorNew = color.replace(/[0-9]+$/, '');
         // TODO validate - check that color is in Vega-Lite colors
         // if (!validColorNew) {
         //   throw new Error('ggplot object contains unsupported color: ' + color);
@@ -10256,7 +9192,7 @@
     function itmEncodingObjectByMappingObject(ggMappingObject, ggMetadataObject) {
         // translate
         // create empty itmEncodingObject
-        var itmEncodingObject = {};
+        const itmEncodingObject = {};
         // TODO: if the type is `ordinal`, and we have level,
         // we should set the scale domain according to the levels.
         //
@@ -10268,18 +9204,18 @@
         //   - create Encoding
         //   - populate Encoding
         //   - put Encoding into itmEncodingObject
-        for (var aesName in ggMappingObject) {
+        for (const aesName in ggMappingObject) {
             if (hasKey(ggMappingObject, aesName)) {
                 // do we have a type/class for `mapping`?
                 // extract information from mapping object, metatdata
-                var mapping = ggMappingObject[aesName];
+                const mapping = ggMappingObject[aesName];
                 // TODO: we need to handle the situation where the mapping is a
                 // `stat` instead of a `field`
                 // NOTE @wenyu: Define `type` before we change the value of `field`
-                var type = ggMetadataObject[mapping.field].type;
-                var field = fieldName(mapping.field);
+                const type = ggMetadataObject[mapping.field].type;
+                const field = fieldName(mapping.field);
                 // create Encoding
-                var encoding = encodingByAes(aesName);
+                const encoding = encodingByAes(aesName);
                 // popuate Encoding
                 encoding.field = field;
                 encoding.type = type;
@@ -10341,7 +9277,7 @@
         //   - create ItmEncoding
         //   - populate ItmEncoding
         //   - put ItmEncoding into itmEncodingObject
-        var itmEncodingByAesParamsMap = {
+        const itmEncodingByAesParamsMap = {
             shape: encodingValueShape,
             colour: encodingValueColor,
             fill: encodingValueColor,
@@ -10349,11 +9285,11 @@
             stroke: encodingValueStroke,
             alpha: encodingValueAlpha
         };
-        for (var aesName in ggAesParamsObject) {
+        for (const aesName in ggAesParamsObject) {
             if (hasKey(ggAesParamsObject, aesName)) {
                 // extract information from aes_params
                 // NOTE @wenyu: Maybe the `value` can have other types
-                var value = ggAesParamsObject[aesName];
+                let value = ggAesParamsObject[aesName];
                 /**
                  * keep in mind that values are interpreted
                  * in the "visual" space, not the "data" space
@@ -10365,20 +9301,18 @@
                  * PR: https://github.com/vega/vega-lite/pull/4201
                  */
                 // tranlsate
-                if (contains$1(Object.keys(itmEncodingByAesParamsMap), aesName)) {
+                if (Object.keys(itmEncodingByAesParamsMap).includes(aesName)) {
                     // NOTE: we will likely need the Geom, which I think we can get
                     // from the `geom` breadcrumb included with the itmEncoding
                     value = itmEncodingByAesParamsMap[aesName](value);
                 }
                 // create Encoding
-                var encoding = {};
+                const encoding = { value: value };
                 //NOTE @wenyu: The encoding can only have the encoding property and the aes_params will take precedence
                 // over mapping. In ggplot, we can specify aes_params only in the layer - so this should take precedence
                 // over a mapping made in the ggplot() call.
                 //  VL encodings based on value should not have titles!
                 //  https://github.com/vega/vega-lite/blob/master/src/encoding.ts#L170
-                // populate Encoding
-                encoding.value = value;
                 // put Encoding into ItmEncodingObject
                 itmEncodingObject[aesName] = encoding;
             }
@@ -10411,17 +9345,17 @@
      * @returns itmEncodingObject
      */
     function itmEncodingObjectByStat(itmEncodingObject, ggStatSet) {
-        var statMap = {
+        const statMap = {
             StatIdentity: itmEncodingObjectByStatIdentity,
             StatCount: itmEncodingObjectByStatCount,
             StatBoxplot: itmEncodingObjectByStatBoxplot
         };
         // validate
-        if (!contains$1(Object.keys(statMap), ggStatSet.stat.class)) {
-            throw new Error('ggplot object contains unsupported stat: ' + ggStatSet.stat.class);
+        if (!Object.keys(statMap).includes(ggStatSet.stat.class)) {
+            throw new Error(`ggplot object contains unsupported stat: ${ggStatSet.stat.class}`);
         }
         // translate
-        var functionTranslate = statMap[ggStatSet.stat.class];
+        const functionTranslate = statMap[ggStatSet.stat.class];
         return functionTranslate(itmEncodingObject, ggStatSet);
     }
     /**
@@ -10444,18 +9378,20 @@
     }
     function itmEncodingObjectByStatCount(itmEncodingObject, ggStatSet) {
         // build y-encoding
-        var y = {
+        const y = {
             type: 'quantitative'
         };
         // is weight an encoding?
         if (hasKey(itmEncodingObject, 'weight')) {
-            y.aggregate = "sum";
-            y.field = itmEncodingObject.weight.field;
+            // need to insist on which type this is
+            const weight = itmEncodingObject.weight;
+            y.aggregate = 'sum';
+            y.field = weight.field;
             // remove weight from encoding-object
             delete itmEncodingObject.weight;
         }
         else {
-            y.aggregate = "count";
+            y.aggregate = 'count';
         }
         // put encoding into encoding object
         itmEncodingObject.y = y;
@@ -10489,17 +9425,17 @@
      * @returns itmEncodingObject
      */
     function itmEncodingObjectByPosition(itmEncodingObject, ggPosition) {
-        var positionMap = {
+        const positionMap = {
             PositionIdentity: itmEncodingObjectByPositionIdentity,
             PositionStack: itmEncodingObjectByPositionStack,
             PositionFill: itmEncodingObjectByPositionFill
         };
         // validate
-        if (!contains$1(Object.keys(positionMap), ggPosition.class)) {
-            throw new Error('ggplot object contains unsupported stat: ' + ggPosition.class);
+        if (!Object.keys(positionMap).includes(ggPosition.class)) {
+            throw new Error(`ggplot object contains unsupported stat: ${ggPosition.class}`);
         }
         // translate
-        var functionTranslate = positionMap[ggPosition.class];
+        const functionTranslate = positionMap[ggPosition.class];
         return functionTranslate(itmEncodingObject, ggPosition);
     }
     /**
@@ -10535,7 +9471,7 @@
      * @return itmEncodingObject
      */
     function itmEncodingObjectByPositionStack(itmEncodingObject, ggPosition) {
-        var y = itmEncodingObject.y;
+        const y = itmEncodingObject.y;
         y.stack = 'zero';
         itmEncodingObject.y = y;
         return itmEncodingObject;
@@ -10555,7 +9491,7 @@
      * @return itmEncodingObject
      */
     function itmEncodingObjectByPositionFill(itmEncodingObject, ggPosition) {
-        var y = itmEncodingObject.y;
+        const y = itmEncodingObject.y;
         y.stack = 'normalize';
         itmEncodingObject.y = y;
         return itmEncodingObject;
@@ -10611,8 +9547,8 @@
     function itmLayer(ggLayer, ggDatasetObject) {
         // translate
         // get the metadata for the data for this layer
-        var ggMetadataObject = ggDatasetObject[ggLayer.data].metadata;
-        var itmLayer = {
+        const ggMetadataObject = ggDatasetObject[ggLayer.data].metadata;
+        const itmLayer = {
             data: { name: ggLayer.data },
             //NOTE @wenyu: Use GeomSet as breadcrumb?
             // leave `geom` as a breadcrumb so that we can use encodingNameByGeom()
@@ -10674,15 +9610,16 @@
         //NOTE@ian consider deleting labels that have keys that begin with `x` or `y` but are not `x` or `y`
         //NOTE@ian - I think the position aesthetics are different in that we want to consider only those
         //  labels associated with 'x' or 'y', but we want to associate an `y` label with a `ymin` aesthetic.
-        itmLayerArray.map(function (itmLayer) {
-            for (var encodingKey in itmLayer.encoding) {
+        itmLayerArray.map((itmLayer) => {
+            for (const encodingKey in itmLayer.encoding) {
                 if (hasKey(itmLayer.encoding, encodingKey)) {
-                    if (itmLayer.encoding[encodingKey].value)
+                    if (hasKey(itmLayer.encoding[encodingKey], 'value'))
                         continue;
-                    for (var labelKey in ggLabelObject) {
+                    for (const labelKey in ggLabelObject) {
                         if (hasKey(ggLabelObject, labelKey)) {
                             if (keyMatch(labelKey, encodingKey)) {
-                                itmLayer.encoding[encodingKey].title = ggLabelObject[labelKey];
+                                itmLayer.encoding[encodingKey].title =
+                                    ggLabelObject[labelKey];
                                 delete ggLabelObject[labelKey];
                             }
                         }
@@ -10728,15 +9665,15 @@
      * @returns `ItmLayer[]`
      */
     function itmLayerArrayByScalesArray(itmLayerArray, ggScaleArray) {
-        var scaleMap = {
+        const scaleMap = {
             ScaleContinuousPosition: scaleContinuousPosition
         };
-        itmLayerArray.map(function (itmLayer) {
-            var _loop_1 = function (encodingKey) {
+        itmLayerArray.map((itmLayer) => {
+            for (const encodingKey in itmLayer.encoding) {
                 if (hasKey(itmLayer.encoding, encodingKey)) {
-                    ggScaleArray.map(function (ggScale) {
+                    ggScaleArray.map((ggScale) => {
                         //NOTE @wenyu:https://love2dev.com/blog/javascript-remove-from-array/
-                        for (var i = 0; i < ggScale.aesthetics.length; i++) {
+                        for (let i = 0; i < ggScale.aesthetics.length; i++) {
                             if (keyMatch$1(ggScale.aesthetics[i], encodingKey)) {
                                 //NOTE @wenyu: define name onlu when ggScale has a name
                                 if (ggScale.name)
@@ -10752,9 +9689,6 @@
                         }
                     });
                 }
-            };
-            for (var encodingKey in itmLayer.encoding) {
-                _loop_1(encodingKey);
             }
         });
         // suspect we will need metadata
@@ -10778,6 +9712,7 @@
         //if (labelKey[0] === encodingKey) return true;
         return false;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function scaleContinuousPosition(vlEncodingField, ggScale) {
         //TODO：translate the ScaleContinuousPosition
     }
@@ -10800,12 +9735,12 @@
     function itmLayerArrayByCoord(itmLayerArray, ggCoord) {
         // keys: class names
         // values: function to call
-        var CoordMap = {
+        const CoordMap = {
             CoordCartesian: itmLayerArrayByCoordCartesian,
             CoordFlip: itmLayerArrayByCoordFlip
         };
         // validate
-        var className = ggCoord.class;
+        const className = ggCoord.class;
         if (!contains$1(Object.keys(CoordMap), className)) {
             throw new Error('ggplot object contains unsupported coordinates: ' + className);
         }
@@ -10826,6 +9761,7 @@
      *
      * @returns `ItmLayer[]`
      */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function itmLayerArrayByCoordCartesian(itmLayerArray, gsCoord) {
         // do nothing
         return itmLayerArray;
@@ -10844,12 +9780,13 @@
      *
      * @returns `ItmLayer[]`
      */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function itmLayerArrayByCoordFlip(itmLayerArray, gsCoord) {
         // exchange encoding.x+ and encoding.y+
-        itmLayerArray.map(function (itmLayer) {
+        itmLayerArray.map(itmLayer => {
             //NOTE @wenyu: Copy the encoding. Use Object.assign() to  keep safe. Because object is mutable
-            var encoding = copy$1(itmLayer.encoding);
-            for (var aesName in itmLayer.encoding) {
+            const encoding = copy$1(itmLayer.encoding);
+            for (const aesName in itmLayer.encoding) {
                 if (hasKey(itmLayer.encoding, aesName)) {
                     itmLayer.encoding[replaceXY(aesName)] = encoding[aesName];
                 }
@@ -10871,8 +9808,8 @@
     }
     //NOTE@wenyu: Since Object.assign() is not a part of es5. Use this function to copy. Can be moved to ./utils.ts
     function copy$1(mainObj) {
-        var objCopy = {}; // objCopy will store a copy of the mainObj
-        for (var key in mainObj) {
+        const objCopy = {}; // objCopy will store a copy of the mainObj
+        for (const key in mainObj) {
             objCopy[key] = mainObj[key]; // copies each property to the objCopy object
         }
         return objCopy;
@@ -10880,7 +9817,7 @@
 
     // keys: names of ggplot2 aesthetics
     // values: names of Vega-Lite encodings
-    var encodingMapDefault = {
+    const encodingMapDefault = {
         x: 'x',
         y: 'y',
         colour: 'stroke',
@@ -10911,9 +9848,9 @@
         // keys: names of ggplot2 aesthetics
         // values: names of Vega-Lite encodings
         //NOTE @wenyu: Add `stroke`, What's `weight`
-        var encodingMap = encodingMapDefault;
+        const encodingMap = encodingMapDefault;
         // validate
-        if (!contains$1(Object.keys(encodingMap), aesName)) {
+        if (!Object.keys(encodingMap).includes(aesName)) {
             throw new Error('ggplot object contains unsupported aesthetic: ' + aesName);
         }
         // translate
@@ -10998,7 +9935,7 @@
         // translate
         // start intermediate layers according to ggLayerArray
         // could this work?
-        var itmLayerArray = ggLayerArray.map(function (ggLayer) {
+        let itmLayerArray = ggLayerArray.map((ggLayer) => {
             return itmLayer(ggLayer, ggDatasetObject);
         });
         // incorporate labels
@@ -11008,7 +9945,7 @@
         // incorporate coordinates
         itmLayerArray = itmLayerArrayByCoord(itmLayerArray, ggCoordinates);
         // change encoding-key namespace from ggplot2 to Vega-Lite
-        var layerArray = itmLayerArray.map(layerByItmLayer);
+        const layerArray = itmLayerArray.map(layerByItmLayer);
         return layerArray;
     }
     /**
@@ -11037,34 +9974,30 @@
      */
     function layerByItmLayer(itmLayer) {
         // create new encoding
-        var encoding = {};
+        const encoding = {};
         // loop over aesthetic names in itmLayerEncoding
-        for (var aesName in itmLayer.encoding) {
+        for (const aesName in itmLayer.encoding) {
             if (hasKey(itmLayer.encoding, aesName)) {
                 // get the encoding name,and add to the encoding
-                var encodingName = encodingNameByGeom(aesName, itmLayer.geomSet);
+                const encodingName = encodingNameByGeom(aesName, itmLayer.geomSet);
                 if (encodingName == 'x') {
                     encoding[encodingName] = itmLayer.encoding[aesName];
                 }
                 if (encodingName == 'y') {
                     encoding[encodingName] = itmLayer.encoding[aesName];
                 }
-                if (encodingName == 'size' ||
-                    encodingName == 'strokeWidth' ||
-                    encodingName == 'opacity') {
+                if (encodingName == 'size' || encodingName == 'strokeWidth' || encodingName == 'opacity') {
                     encoding[encodingName] = itmLayer.encoding[aesName];
                 }
-                if (encodingName == 'stroke' ||
-                    encodingName == 'fill') {
+                if (encodingName == 'stroke' || encodingName == 'fill') {
                     encoding[encodingName] = itmLayer.encoding[aesName];
                 }
                 if (encodingName == 'shape') {
-                    encoding[encodingName] =
-                        itmLayer.encoding[aesName];
+                    encoding[encodingName] = itmLayer.encoding[aesName];
                 }
             }
         }
-        var layer = {
+        const layer = {
             data: itmLayer.data,
             mark: itmLayer.mark,
             encoding: encoding
@@ -11089,21 +10022,21 @@
     function facet(ggFacet) {
         // validate
         throw new Error('ggplot object contains unsupported facet: ' + ggFacet.class);
-        var facet = {};
+        // setting `type` here, hopefully change later
+        const facet = { type: 'nominal' };
         return facet;
     }
 
-    function spec2vl(spec, singleView) {
-        if (singleView === void 0) { singleView = false; }
-        var ggSpec = ggValidate(spec);
-        var vlSpec = topLevelSpec(ggSpec, singleView);
+    function spec2vl(spec, singleView = false) {
+        const ggSpec = ggValidate(spec);
+        const vlSpec = topLevelSpec(ggSpec, singleView);
         return vlSpec;
     }
     function ggValidate(spec) {
         // validate here
         //NOTE @wenyu: This function throw warnings and return true(validated) or false(not validated).
         validateGs(spec);
-        var ggSpec = spec;
+        const ggSpec = spec;
         return ggSpec;
     }
     /**
@@ -11176,25 +10109,24 @@
      * @returns `VL.TopLevelSpec`, Vega-Lite specification
      *
      */
-    function topLevelSpec(ggSpec, singleView) {
+    function topLevelSpec(ggSpec, singleView = false) {
         // The structure of a Vega-Lite specification depends on whether or not
         // it is faceted.
-        if (singleView === void 0) { singleView = false; }
         // Want to specify this URL exactly **one** place in the project
         // also - what mechanism do we use to update the Vega-Lite schema?
         // const schema = 'https://vega.github.io/schema/vega-lite/v3.json';
-        var topLevelSpec = {};
-        var title = ggSpec.labels.title || undefined;
-        var datasets = datasetObject(ggSpec.data);
-        var layer = layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates);
+        const title = ggSpec.labels.title || undefined;
+        const datasets = datasetObject(ggSpec.data);
+        const layer = layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates);
         // faceted
         if (ggSpec.facet.class != 'FacetNull') {
             // at the moment, this code will not run because
             // `facet()`, by design, throws an error
-            topLevelSpec = {
+            const topLevelSpec = {
                 $schema: vlschema,
                 title: title,
                 datasets: datasets,
+                data: [],
                 spec: {
                     layer: layer
                 },
@@ -11203,7 +10135,7 @@
             return topLevelSpec;
         }
         // not faceted
-        topLevelSpec = {
+        const topLevelSpec = {
             $schema: vlschema,
             title: title,
             datasets: datasets,
@@ -11211,8 +10143,9 @@
         };
         // single-view not-faceted
         if (singleView) {
-            if (layer.length > 1) {
-                // warn that we cannot create a single view with more than one layer
+            // validate layer
+            const singleLayer = layer[0];
+            if (layer.length > 1 || !singleLayer.data) {
                 console.warn('Cannot create single-view spec, returning spec with multiple layers.');
                 return topLevelSpec;
             }
@@ -11221,14 +10154,15 @@
             // `data`, `mark`. and `encoding`. It would be nice not to have
             // to name explicitly all the elements of `layer[0]`, but `Object.assign()`
             // works only in ES6
-            var topLevelSingleViewSpec = {
+            const topLevelSingleViewSpec = {
                 $schema: vlschema,
                 title: title,
                 datasets: datasets,
-                data: layer[0].data,
-                mark: layer[0].mark,
-                encoding: layer[0].encoding
+                data: singleLayer.data,
+                mark: singleLayer.mark,
+                encoding: singleLayer.encoding
             };
+            Object.assign(topLevelSingleViewSpec, layer[0]);
             return topLevelSingleViewSpec;
         }
         return topLevelSpec;

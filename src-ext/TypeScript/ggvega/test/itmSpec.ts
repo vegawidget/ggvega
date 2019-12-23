@@ -71,7 +71,7 @@ export const barStackedMpg = {
       },
       geomSet: {
         geom: {
-          class: "GeomBar"
+          class: 'GeomBar'
         },
         geom_params: {
           'na.rm': false

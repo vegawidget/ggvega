@@ -241,85 +241,85 @@ export const iris03 = {
 };
 
 // duplicate the layer
-export let iris04 = JSON.parse(JSON.stringify(iris03));
+export const iris04 = JSON.parse(JSON.stringify(iris03));
 iris04.layers.push(JSON.parse(JSON.stringify(iris04.layers[0])));
 //console.log(iris04);
 
-export let barMpg = {
+export const barMpg = {
   data: {
     'data-00': {
       metadata: {
         manufacturer: {
-          type: "nominal"
+          type: 'nominal'
         },
         model: {
-          type: "nominal"
+          type: 'nominal'
         },
         displ: {
-          type: "quantitative"
+          type: 'quantitative'
         },
         year: {
-          type: "quantitative"
+          type: 'quantitative'
         },
         cyl: {
-          type: "quantitative"
+          type: 'quantitative'
         },
         trans: {
-          type: "nominal"
+          type: 'nominal'
         },
         drv: {
-          type: "nominal"
+          type: 'nominal'
         },
         cty: {
-          type: "quantitative"
+          type: 'quantitative'
         },
         hwy: {
-          type: "quantitative"
+          type: 'quantitative'
         },
         fl: {
-          type: "nominal"
+          type: 'nominal'
         },
         class: {
-          type: "nominal"
+          type: 'nominal'
         }
       },
       observations: [
         {
-          manufacturer: "audi",
-          model: "a4",
+          manufacturer: 'audi',
+          model: 'a4',
           displ: 1.8,
           year: 1999,
           cyl: 4,
-          trans: "auto(l5)",
-          drv: "f",
+          trans: 'auto(l5)',
+          drv: 'f',
           cty: 18,
           hwy: 29,
-          fl: "p",
-          class: "compact"
+          fl: 'p',
+          class: 'compact'
         }
       ]
     }
   },
   layers: [
     {
-      data: "data-00",
+      data: 'data-00',
       geom: {
-        class: "GeomBar"
+        class: 'GeomBar'
       },
       geom_params: {
         'na.rm': false
       },
       mapping: {
         x: {
-          field: "class"
+          field: 'class'
         }
       },
       aes_params: {},
       stat: {
-        class: "StatCount",
+        class: 'StatCount',
         default_aes: {
           y: {
-            stat: "count"
+            stat: 'count'
           },
           weight: 1
         }
@@ -328,102 +328,102 @@ export let barMpg = {
         'na.rm': false
       },
       position: {
-        class: "PositionStack"
+        class: 'PositionStack'
       }
     }
   ],
   scales: [],
   labels: {
-    x: "class",
-    y: "count",
-    weight: "weight"
+    x: 'class',
+    y: 'count',
+    weight: 'weight'
   },
   coordinates: {
-    class: "CoordCartesian"
+    class: 'CoordCartesian'
   },
   facet: {
-    class: "FacetNull"
+    class: 'FacetNull'
   }
 };
 
-export let barStackedMpg = {
+export const barStackedMpg = {
   data: {
     'data-00': {
       metadata: {
         manufacturer: {
-          type: "nominal"
+          type: 'nominal'
         },
         model: {
-          type: "nominal"
+          type: 'nominal'
         },
         displ: {
-          type: "quantitative"
+          type: 'quantitative'
         },
         year: {
-          type: "quantitative"
+          type: 'quantitative'
         },
         cyl: {
-          type: "quantitative"
+          type: 'quantitative'
         },
         trans: {
-          type: "nominal"
+          type: 'nominal'
         },
         drv: {
-          type: "nominal"
+          type: 'nominal'
         },
         cty: {
-          type: "quantitative"
+          type: 'quantitative'
         },
         hwy: {
-          type: "quantitative"
+          type: 'quantitative'
         },
         fl: {
-          type: "nominal"
+          type: 'nominal'
         },
         class: {
-          type: "nominal"
+          type: 'nominal'
         }
       },
       observations: [
         {
-          manufacturer: "audi",
-          model: "a4",
+          manufacturer: 'audi',
+          model: 'a4',
           displ: 1.8,
           year: 1999,
           cyl: 4,
-          trans: "auto(l5)",
-          drv: "f",
+          trans: 'auto(l5)',
+          drv: 'f',
           cty: 18,
           hwy: 29,
-          fl: "p",
-          class: "compact"
+          fl: 'p',
+          class: 'compact'
         }
       ]
     }
   },
   layers: [
     {
-      data: "data-00",
+      data: 'data-00',
       geom: {
-        class: "GeomBar"
+        class: 'GeomBar'
       },
       geom_params: {
         'na.rm': false
       },
       mapping: {
         x: {
-          field: "class"
+          field: 'class'
         },
         fill: {
-          field: "drv"
+          field: 'drv'
         }
       },
       aes_params: {},
       stat: {
-        class: "StatCount",
+        class: 'StatCount',
         default_aes: {
           y: {
-            stat: "count"
+            stat: 'count'
           },
           weight: 1
         }
@@ -432,21 +432,21 @@ export let barStackedMpg = {
         'na.rm': false
       },
       position: {
-        class: "PositionStack"
+        class: 'PositionStack'
       }
     }
   ],
   scales: [],
   labels: {
-    x: "class",
-    y: "count",
-    weight: "weight",
-    fill: "drv"
+    x: 'class',
+    y: 'count',
+    weight: 'weight',
+    fill: 'drv'
   },
   coordinates: {
-    class: "CoordCartesian"
+    class: 'CoordCartesian'
   },
   facet: {
-    class: "FacetNull"
+    class: 'FacetNull'
   }
 };

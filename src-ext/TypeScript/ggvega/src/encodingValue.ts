@@ -1,4 +1,3 @@
-import {contains} from './utils';
 /**
  * Translate a ggplot2 size to a Vega-Lite size
  *
@@ -46,8 +45,8 @@ export function encodingValueShape(shape: string | number | undefined): string {
   };
 
   // validate
-  if (!contains(Object.keys(shapeMap), shape)) {
-    throw new Error('ggplot object contains unsupported shape: ' + shape);
+  if (!Object.keys(shapeMap).includes(String(shape))) {
+    throw new Error(`ggplot object contains unsupported shape: ${shape}`);
   }
 
   // translate

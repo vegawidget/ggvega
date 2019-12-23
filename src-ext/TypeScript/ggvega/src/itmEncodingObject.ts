@@ -1,6 +1,7 @@
-import * as VL from './vlSpec';
+import * as VLType from 'vega-lite/build/src/type';
+import * as VLChanDef from 'vega-lite/build/src/channeldef';
 import * as GG from '../../ggschema/src/index';
-import {fieldName, hasKey, contains} from './utils';
+import {fieldName, hasKey} from './utils';
 import {encodingByAes} from './encodingByAes';
 import {GGEncodingKey} from './encodingNameByGeom';
 import {
@@ -78,7 +79,7 @@ export function itmEncodingObjectByMappingObject(
       // `stat` instead of a `field`
 
       // NOTE @wenyu: Define `type` before we change the value of `field`
-      const type: VL.StandardType = ggMetadataObject[mapping.field].type;
+      const type: VLType.StandardType = ggMetadataObject[mapping.field].type;
       const field: string = fieldName(mapping.field);
 
       // create Encoding
@@ -182,14 +183,14 @@ export function itmEncodingObjectByAesParamsObject(
        */
 
       // tranlsate
-      if (contains(Object.keys(itmEncodingByAesParamsMap), aesName)) {
+      if (Object.keys(itmEncodingByAesParamsMap).includes(aesName)) {
         // NOTE: we will likely need the Geom, which I think we can get
         // from the `geom` breadcrumb included with the itmEncoding
         value = itmEncodingByAesParamsMap[aesName as keyof GG.AesParams](value);
       }
 
       // create Encoding
-      const encoding: VLEncodingValue = {};
+      const encoding: VLEncodingValue = {value: value} as VLEncodingValue;
 
       //NOTE @wenyu: The encoding can only have the encoding property and the aes_params will take precedence
       // over mapping. In ggplot, we can specify aes_params only in the layer - so this should take precedence
@@ -197,9 +198,6 @@ export function itmEncodingObjectByAesParamsObject(
 
       //  VL encodings based on value should not have titles!
       //  https://github.com/vega/vega-lite/blob/master/src/encoding.ts#L170
-
-      // populate Encoding
-      encoding.value = value;
 
       // put Encoding into ItmEncodingObject
       itmEncodingObject[aesName] = encoding;
@@ -212,21 +210,21 @@ export function itmEncodingObjectByAesParamsObject(
 
 //NOTE @wenyu: Define itmEncodingObject
 export interface ItmEncodingObject {
-  [key: string]: VLEncodingField | VL.TypedFieldDef;
+  [key: string]: VLEncodingField | VLEncodingValue;
 }
 
 //NOTE @wenyu: Remove VL.TypedFieldDef from Mapping. Because VL.TypedFieldDef doesn't have `value` and `scale`. We only add scale and value to VLMapping
 export type VLEncodingField =
-  | VL.XClass
-  | VL.YClass
-  | VL.DefWithConditionMarkPropFieldDefNumber
-  | VL.DefWithConditionMarkPropFieldDefStringNull
-  | VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull;
+  | VLChanDef.PositionFieldDef<VLChanDef.Field>
+  | VLChanDef.NumericFieldDefWithCondition<VLChanDef.Field>
+  | VLChanDef.StringFieldDefWithCondition<VLChanDef.Field>
+  | VLChanDef.FieldDefWithoutScale<VLChanDef.Field>
+  | VLChanDef.ShapeFieldDefWithCondition<VLChanDef.Field>;
 
 //NOTE @wenyu: Only used for AesParam
 //NOTE @ian - if Vega-Lite enables datum to specify a value in data-space,
 // we could add VL.XClass and VL.YClass
 export type VLEncodingValue =
-  | VL.DefWithConditionMarkPropFieldDefNumber
-  | VL.DefWithConditionMarkPropFieldDefStringNull
-  | VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull;
+  | VLChanDef.StringValueDefWithCondition<VLChanDef.Field>
+  | VLChanDef.NumericValueDefWithCondition<VLChanDef.Field>
+  | VLChanDef.ShapeValueDefWithCondition<VLChanDef.Field>;
