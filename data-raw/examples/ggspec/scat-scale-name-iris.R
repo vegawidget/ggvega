@@ -11,7 +11,7 @@ list(
           levels = list("setosa", "versicolor", "virginica")
         )
       ),
-      observations = flip(iris)
+      observations = ggvega:::flip(iris)
     )
   ),
   layers = list(
