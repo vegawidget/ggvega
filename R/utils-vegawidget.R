@@ -74,28 +74,6 @@ NULL
 #'
 NULL
 
-#### shiny functions ####
 
-#' Shiny-output for vegawidget
-#'
-#' See \code{vegawidget::\link[vegawidget]{vegawidgetOutput}} for details.
-#'
-#' @name vegawidgetOutput
-#' @rdname vegawidgetOutput
-#' @importFrom vegawidget vegawidgetOutput
-#' @export
-#'
-NULL
-
-#' Render shiny-output for vegawidget
-#'
-#' See \code{vegawidget::\link[vegawidget]{renderVegawidget}} for details.
-#'
-#' @name renderVegawidget
-#' @rdname renderVegawidget
-#' @importFrom vegawidget renderVegawidget
-#' @export
-#'
-NULL
 
 
