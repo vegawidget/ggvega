@@ -2,13 +2,10 @@
 % Please edit documentation in R/example.R
 \name{ggv_example}
 \alias{ggv_example}
-\alias{ggv_example_names}
 \alias{ggv_example_path}
 \title{Use ggplot examples}
 \usage{
 ggv_example(example = NULL)
-
-ggv_example_names()
 
 ggv_example_path(example = NULL)
 }

@@ -29,16 +29,13 @@ ggv_example <- function(example = NULL) {
 #' @rdname ggv_example
 #' @export
 #'
-ggv_example_names <- function() {
-  .example_names(type = "ggplot", source = "pkg")
-}
-
-#' @rdname ggv_example
-#' @export
-#'
 ggv_example_path <- function(example = NULL) {
 
   .example_path(example, type = "ggplot", source = "pkg")
+}
+
+ggv_example_names <- function() {
+  .example_names(type = "ggplot", source = "pkg")
 }
 
 #' Use development examples
