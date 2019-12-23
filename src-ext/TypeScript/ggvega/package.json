@@ -8,16 +8,14 @@
     "Wenyu Yang <wenyuyang@gwu.edu>"
   ],
   "description": "This package aspires to do for 'Vega-Lite' what the 'plotly' package does for 'plotly'.",
-  "vlschema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "vlschema": "https://vega.github.io/schema/vega-lite/v4.json",
   "license": "MIT",
   "scripts": {
     "build": "npm run build:only && npm run copy",
     "build:only": "tsc && rollup -c",
     "copy": "copyfiles -f build/ggvega.js ../../../inst/js",
     "test": "jest test/",
-    "doc": "typedoc --out docs ./src --mode modules",
-    "schema2ts": "quicktype -s schema $npm_package_vlschema -o src/vlSpec.ts --top-level TopLevelSpec --just-types  --explicit-unions  && node fixbug.js",
-    "winschema2ts": "quicktype -s schema %npm_package_vlschema% -o src/vlSpec.ts --top-level TopLevelSpec --just-types --explicit-unions && node fixbug.js"
+    "doc": "typedoc --out docs ./src --mode modules"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",

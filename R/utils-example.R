@@ -51,9 +51,7 @@ head_data <- function(x, n = 1L){
 #' @param x `data.frame`
 #'
 #' @return `list`
-#'
-#' @keywords internal
-#' @export
+#' @noRd
 #'
 flip <- function(x) {
 

@@ -14,7 +14,7 @@ list(
         fl = list(type = "nominal"),
         class = list(type = "nominal")
       ),
-      observations = flip(mpg)
+      observations = ggvega:::flip(mpg)
     )
   ),
   layers = list(

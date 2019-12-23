@@ -3,7 +3,6 @@
 S3method(as_vegaspec,gg)
 export("%>%")
 export(as_vegaspec)
-export(flip)
 export(gg2spec)
 export(ggv_dev)
 export(ggv_dev_display)
