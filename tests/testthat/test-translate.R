@@ -44,12 +44,12 @@ expect_vegaspec <- function(name) {
 
 test_that("gg2spec works", {
   names_test <- intersect(names_ggplot, names_ggspec)
-  map(names_test, expect_ggspec)
+  walk(names_test, expect_ggspec)
 })
 
 test_that("spec2vl works", {
   names_test <- intersect(names_ggspec, names_vegaspec)
-  map(names_test, expect_vegaspec)
+  walk(names_test, expect_vegaspec)
 })
 
 test_that("single_view works", {
