@@ -156,7 +156,7 @@ deploy_test_ggspec <- function(example, dir) {
   ggspec <- source(path)$value
   
   # truncate data
-  ggspec <- truncate_data_ggspec(ggspec)
+  ggspec <- ggvega:::truncate_data_ggspec(ggspec)
   
   ggspec_json <- ggvega:::to_json(ggspec) 
   

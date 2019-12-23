@@ -69,9 +69,7 @@ flip <- function(x) {
 #' @param ggspec, ggspec (does this have an S3 class?)
 #'
 #' @return modified copy of `ggspec`
-#'
-#' @keywords internal
-#' @export
+#' @noRd
 #'
 truncate_data_ggspec <- function(ggspec) {
 
@@ -95,9 +93,7 @@ truncate_data_ggspec <- function(ggspec) {
 #' @param vegaspec, vegaspec (does this have an S3 class?)
 #'
 #' @return modified copy of `vegaspec`
-#'
-#' @keywords internal
-#' @export
+#' @noRd
 #'
 truncate_data_vegaspec <- function(vegaspec) {
 
