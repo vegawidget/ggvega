@@ -64,3 +64,33 @@ You can install the development version from [GitHub](https://github.com/) with:
 devtools::install_github("vegawidget/ggvega")
 ```
 
+Internally, this package uses [V8](https://cran.r-project.org/package=V8) to run JavaScript code. This package uses a "modern" version of JavaScript (ES6); it requires that V8 use a modern JS engine. You can check this using:
+
+``` r
+V8::engine_info()
+```
+
+Here's a good response:
+
+```
+$version
+[1] "7.2.502.24"
+```
+
+This response means you need to upgrade your V8 engine:
+
+```
+$version
+[1] "3.14.5.9"
+```
+
+The upgrade-procedure varies according to your OS:
+
+- Windows and Mac OS-X: should [just work](https://github.com/jeroen/V8#installation).
+
+- Ubuntu: [update using](https://github.com/jeroen/V8#debian--ubuntu) `sudo apt-get install -y libv8-dev`
+
+  - **note**: as of Dec. 2019, the [RStudio Cloud](https://rstudio.cloud) image uses the `3.14` (old) engine. We, as users, do not have access to `sudo`. Unfortunately, for now, you cannot run this package on RStudio Cloud.
+  
+  
+  
