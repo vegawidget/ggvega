@@ -1,16 +1,16 @@
-import * as VL from './vlSpec';
+import * as VLSpec from 'vega-lite/build/src/spec';
+import * as VLUnitSpec from 'vega-lite/build/src/spec/unit';
 import * as GG from '../../ggschema/src/index';
 import {validateGs} from './utils';
 import {vlschema} from '../package.json';
 import {datasetObject} from './datasetObject';
 import {layerArrayByAes} from './layerArrayByAes';
 import {facet} from './facet';
-import {hasKey} from './utils';
 
-export function spec2vl(spec: any, singleView = false): VL.TopLevelSpec {
+export function spec2vl(spec: any, singleView = false): VLSpec.TopLevelSpec {
   const ggSpec: GG.TopLevelSpec = ggValidate(spec);
 
-  const vlSpec: VL.TopLevelSpec = topLevelSpec(ggSpec, singleView);
+  const vlSpec: VLSpec.TopLevelSpec = topLevelSpec(ggSpec, singleView);
 
   return vlSpec;
 }
@@ -96,7 +96,7 @@ function ggValidate(spec: any): GG.TopLevelSpec {
  * @returns `VL.TopLevelSpec`, Vega-Lite specification
  *
  */
-function topLevelSpec(ggSpec: GG.TopLevelSpec, singleView = false): VL.TopLevelSpec {
+function topLevelSpec(ggSpec: GG.TopLevelSpec, singleView = false): VLSpec.TopLevelSpec {
   // The structure of a Vega-Lite specification depends on whether or not
   // it is faceted.
 
@@ -104,21 +104,19 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec, singleView = false): VL.TopLevelS
   // also - what mechanism do we use to update the Vega-Lite schema?
   // const schema = 'https://vega.github.io/schema/vega-lite/v3.json';
 
-  let topLevelSpec: VL.TopLevelSpec = {};
-
-  let title = ggSpec.labels.title || undefined;
-  let datasets = datasetObject(ggSpec.data);
-  let layer = layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates);
+  const title = ggSpec.labels.title || undefined;
+  const datasets = datasetObject(ggSpec.data);
+  const layer = layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates);
 
   // faceted
   if (ggSpec.facet.class != 'FacetNull') {
-
     // at the moment, this code will not run because
     // `facet()`, by design, throws an error
-    topLevelSpec = {
+    const topLevelSpec: VLSpec.TopLevelFacetSpec = {
       $schema: vlschema, // vlschema defined in package.json
       title: title,
       datasets: datasets,
+      data: [], // giving it empty data to keep typescript happy...
       spec: {
         layer: layer
       },
@@ -129,7 +127,7 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec, singleView = false): VL.TopLevelS
   }
 
   // not faceted
-  topLevelSpec = {
+  const topLevelSpec = {
     $schema: vlschema,
     title: title,
     datasets: datasets,
@@ -138,9 +136,9 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec, singleView = false): VL.TopLevelS
 
   // single-view not-faceted
   if (singleView) {
-
-    if (layer.length > 1) {
-      // warn that we cannot create a single view with more than one layer
+    // validate layer
+    const singleLayer = layer[0] as VLSpec.GenericUnitSpec<any, any>;
+    if (layer.length > 1 || !singleLayer.data) {
       console.warn('Cannot create single-view spec, returning spec with multiple layers.');
       return topLevelSpec;
     }
@@ -150,14 +148,16 @@ function topLevelSpec(ggSpec: GG.TopLevelSpec, singleView = false): VL.TopLevelS
     // `data`, `mark`. and `encoding`. It would be nice not to have
     // to name explicitly all the elements of `layer[0]`, but `Object.assign()`
     // works only in ES6
-    let topLevelSingleViewSpec: VL.TopLevelSpec = {
+    const topLevelSingleViewSpec: VLUnitSpec.TopLevelUnitSpec = {
       $schema: vlschema,
       title: title,
       datasets: datasets,
-      data: layer[0].data,
-      mark: layer[0].mark,
-      encoding: layer[0].encoding
-    }
+      data: singleLayer.data,
+      mark: singleLayer.mark,
+      encoding: singleLayer.encoding
+    };
+
+    Object.assign(topLevelSingleViewSpec, layer[0]);
 
     return topLevelSingleViewSpec;
   }

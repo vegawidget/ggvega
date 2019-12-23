@@ -44,11 +44,12 @@ export function itmLayerArrayByLabelsObject(itmLayerArray: ItmLayer[], ggLabelOb
   itmLayerArray.map((itmLayer: ItmLayer) => {
     for (const encodingKey in itmLayer.encoding) {
       if (hasKey(itmLayer.encoding, encodingKey)) {
-        if ((itmLayer.encoding[encodingKey] as VLEncodingField).value) continue;
+        if (hasKey(itmLayer.encoding[encodingKey], 'value')) continue;
         for (const labelKey in ggLabelObject) {
           if (hasKey(ggLabelObject, labelKey)) {
             if (keyMatch(labelKey, encodingKey)) {
-              itmLayer.encoding[encodingKey].title = ggLabelObject[labelKey as keyof GG.LabelObject];
+              (itmLayer.encoding[encodingKey] as VLEncodingField).title =
+                ggLabelObject[labelKey as keyof GG.LabelObject];
               delete ggLabelObject[labelKey as keyof GG.LabelObject];
             }
           }

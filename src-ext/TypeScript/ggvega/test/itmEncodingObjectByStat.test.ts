@@ -1,26 +1,23 @@
 import {cp} from '../src/utils';
-import {itmEncodingObjectByMappingObject, ItmEncodingObject} from '../src/itmEncodingObject';
+import {ItmEncodingObject} from '../src/itmEncodingObject';
 import {itmEncodingObjectByStat} from '../src/itmEncodingObjectByStat';
-import * as VL from '../src/vlSpec';
 import * as GG from '../../ggschema/src/index';
-import * as ggSpec from './ggSpec';
-import * as itmLayer from './itmSpec';
 
 const itmEncObj = {
   x: {
-    field: "class",
-    type: "nominal" as VL.StandardType
+    field: 'class',
+    type: 'nominal'
   }
 } as ItmEncodingObject;
 
 const itmEncObjWeight = {
   x: {
-    field: "class",
-    type: "nominal" as VL.StandardType
+    field: 'class',
+    type: 'nominal'
   },
   weight: {
-    field: "displ",
-    type: "quantitiative" as VL.StandardType
+    field: 'displ',
+    type: 'quantitative'
   }
 } as ItmEncodingObject;
 
@@ -45,44 +42,38 @@ const statSetCount = {
 } as GG.StatSetCount;
 
 describe('itmEncodingObject/itmEncodingObjectByMappingObject', () => {
-
   it('should work with StatSetIdentity', () => {
-    expect(itmEncodingObjectByStat(cp(itmEncObj), statSetIdentity)).
-      toEqual(itmEncObj);
+    expect(itmEncodingObjectByStat(cp(itmEncObj), statSetIdentity)).toEqual(itmEncObj);
 
-    expect(itmEncodingObjectByStat(cp(itmEncObjWeight), statSetIdentity)).
-      toEqual(itmEncObjWeight);
+    expect(itmEncodingObjectByStat(cp(itmEncObjWeight), statSetIdentity)).toEqual(itmEncObjWeight);
   });
 
   const itmEncObjCount = {
     x: {
-      field: "class",
-      type: "nominal" as VL.StandardType
+      field: 'class',
+      type: 'nominal'
     },
     y: {
-      aggregate: "count" as VL.AggregateOp,
-      type: "quantitative" as VL.StandardType
+      aggregate: 'count',
+      type: 'quantitative'
     }
   } as ItmEncodingObject;
 
   const itmEncObjCountWeight = {
     x: {
-      field: "class",
-      type: "nominal" as VL.StandardType
+      field: 'class',
+      type: 'nominal'
     },
     y: {
-      aggregate: "sum" as VL.AggregateOp,
-      field: "displ",
-      type: "quantitative" as VL.StandardType
+      aggregate: 'sum',
+      field: 'displ',
+      type: 'quantitative'
     }
   } as ItmEncodingObject;
 
   it('should work with StatSetCount', () => {
-    expect(itmEncodingObjectByStat(cp(itmEncObj), statSetCount)).
-      toEqual(itmEncObjCount);
+    expect(itmEncodingObjectByStat(cp(itmEncObj), statSetCount)).toEqual(itmEncObjCount);
 
-    expect(itmEncodingObjectByStat(cp(itmEncObjWeight), statSetCount)).
-      toEqual(itmEncObjCountWeight);
+    expect(itmEncodingObjectByStat(cp(itmEncObjWeight), statSetCount)).toEqual(itmEncObjCountWeight);
   });
-
 });

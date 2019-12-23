@@ -1,8 +1,7 @@
-import * as VL from './vlSpec';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import * as VLChanDef from 'vega-lite/build/src/channeldef';
 import * as GG from '../../ggschema/src/index';
-import {contains} from './utils';
 import {ItmEncodingObject} from './itmEncodingObject';
-import {KEYS} from 'eslint-visitor-keys';
 import {hasKey} from './utils';
 
 /**
@@ -39,8 +38,8 @@ export function itmEncodingObjectByStat(
   };
 
   // validate
-  if (!contains(Object.keys(statMap), ggStatSet.stat.class)) {
-    throw new Error('ggplot object contains unsupported stat: ' + ggStatSet.stat.class);
+  if (!Object.keys(statMap).includes(ggStatSet.stat.class)) {
+    throw new Error(`ggplot object contains unsupported stat: ${ggStatSet.stat.class}`);
   }
 
   // translate
@@ -71,27 +70,24 @@ function itmEncodingObjectByStatIdentity(
   return itmEncodingObject;
 }
 
-function itmEncodingObjectByStatCount(
-  itmEncodingObject: ItmEncodingObject,
-  ggStatSet: GG.StatSet
-): ItmEncodingObject {
-
+function itmEncodingObjectByStatCount(itmEncodingObject: ItmEncodingObject, ggStatSet: GG.StatSet): ItmEncodingObject {
   // build y-encoding
-  var y: VL.YClass = {
-    type: 'quantitative' as VL.StandardType
+  const y: VLChanDef.PositionFieldDef<VLChanDef.Field> = {
+    type: 'quantitative'
   };
 
   // is weight an encoding?
   if (hasKey(itmEncodingObject, 'weight')) {
+    // need to insist on which type this is
+    const weight = itmEncodingObject.weight as VLChanDef.NumericFieldDefWithCondition<VLChanDef.Field>;
 
-    y.aggregate = "sum" as VL.AggregateOp;
-    y.field = itmEncodingObject.weight.field;
+    y.aggregate = 'sum';
+    y.field = weight.field;
 
     // remove weight from encoding-object
     delete itmEncodingObject.weight;
-
   } else {
-    y.aggregate = "count" as VL.AggregateOp;
+    y.aggregate = 'count';
   }
 
   // put encoding into encoding object

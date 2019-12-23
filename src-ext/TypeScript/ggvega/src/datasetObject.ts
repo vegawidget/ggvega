@@ -1,4 +1,4 @@
-import * as VL from './vlSpec';
+import * as VLData from 'vega-lite/build/src/data';
 import * as GG from '../../ggschema/src/index';
 import {hasKey} from './utils';
 
@@ -20,7 +20,7 @@ import {hasKey} from './utils';
  *
  */
 
-export function datasetObject(ggDatasetObject: GG.DatasetObject): {[key: string]: VL.InlineDataset} {
+export function datasetObject(ggDatasetObject: GG.DatasetObject): {[key: string]: VLData.InlineDataset} {
   // validate
   if (Object.keys(ggDatasetObject).length == 0) {
     // error messages should refer to the ggplot object; end-user is not expected to know
@@ -29,7 +29,7 @@ export function datasetObject(ggDatasetObject: GG.DatasetObject): {[key: string]
   }
 
   // translate
-  const datasetObject: {[key: string]: VL.InlineDataset} = {};
+  const datasetObject: {[key: string]: VLData.InlineDataset} = {};
 
   // iterate over object: https://stackoverflow.com/a/684692
 

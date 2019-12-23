@@ -1,19 +1,16 @@
 import {cp} from '../src/utils';
-import {itmEncodingObjectByMappingObject, ItmEncodingObject} from '../src/itmEncodingObject';
+import {ItmEncodingObject} from '../src/itmEncodingObject';
 import {itmEncodingObjectByPosition} from '../src/itmEncodingObjectByPosition';
-import * as VL from '../src/vlSpec';
 import * as GG from '../../ggschema/src/index';
-import * as ggSpec from './ggSpec';
-import * as itmLayer from './itmSpec';
 
 const itmEncObj = {
   x: {
     field: 'class',
-    type: 'nominal' as VL.StandardType
+    type: 'nominal'
   },
   y: {
     aggregate: 'count',
-    type: 'quantitative' as VL.StandardType
+    type: 'quantitative'
   }
 } as ItmEncodingObject;
 
@@ -30,44 +27,39 @@ const positionFill = {
 } as GG.PositionFill;
 
 describe('itmEncodingObject/itmEncodingObjectByMappingObject', () => {
-
   it('should work with PositionIdentity', () => {
-    expect(itmEncodingObjectByPosition(cp(itmEncObj), positionIdentity)).
-      toEqual(itmEncObj);
+    expect(itmEncodingObjectByPosition(cp(itmEncObj), positionIdentity)).toEqual(itmEncObj);
   });
 
   const itmEncObjStack = {
     x: {
       field: 'class',
-      type: 'nominal' as VL.StandardType
+      type: 'nominal'
     },
     y: {
       aggregate: 'count',
       stack: 'zero',
-      type: 'quantitative' as VL.StandardType
+      type: 'quantitative'
     }
   } as ItmEncodingObject;
 
   it('should work with PositionStack', () => {
-    expect(itmEncodingObjectByPosition(cp(itmEncObj), positionStack)).
-      toEqual(itmEncObjStack);
+    expect(itmEncodingObjectByPosition(cp(itmEncObj), positionStack)).toEqual(itmEncObjStack);
   });
 
   const itmEncObjFill = {
     x: {
       field: 'class',
-      type: 'nominal' as VL.StandardType
+      type: 'nominal'
     },
     y: {
       aggregate: 'count',
       stack: 'normalize',
-      type: 'quantitative' as VL.StandardType
+      type: 'quantitative'
     }
   } as ItmEncodingObject;
 
   it('should work with PositionFill', () => {
-    expect(itmEncodingObjectByPosition(cp(itmEncObj), positionFill)).
-      toEqual(itmEncObjFill);
+    expect(itmEncodingObjectByPosition(cp(itmEncObj), positionFill)).toEqual(itmEncObjFill);
   });
-
 });

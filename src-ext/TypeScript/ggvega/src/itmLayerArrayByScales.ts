@@ -37,7 +37,7 @@ export function itmLayerArrayByScalesArray(itmLayerArray: ItmLayer[], ggScaleArr
           for (let i = 0; i < ggScale.aesthetics.length; i++) {
             if (keyMatch(ggScale.aesthetics[i], encodingKey)) {
               //NOTE @wenyu: define name onlu when ggScale has a name
-              if (ggScale.name) itmLayer.encoding[encodingKey].title = ggScale.name;
+              if (ggScale.name) (itmLayer.encoding[encodingKey] as VLEncodingField).title = ggScale.name;
 
               //NOTE @wenyu: validate
               if (!contains(Object.keys(scaleMap), ggScale.class)) {
@@ -45,7 +45,7 @@ export function itmLayerArrayByScalesArray(itmLayerArray: ItmLayer[], ggScaleArr
               }
 
               //NOTE @wenyu: use function dispatch
-              scaleMap[ggScale.class](itmLayer.encoding[encodingKey], ggScale);
+              scaleMap[ggScale.class](itmLayer.encoding[encodingKey] as VLEncodingField, ggScale);
 
               ggScale.aesthetics.splice(i, 1);
             }
@@ -81,6 +81,7 @@ function keyMatch(scaleKey: string, encodingKey: string): boolean {
   return false;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function scaleContinuousPosition(vlEncodingField: VLEncodingField, ggScale: GG.ScaleContinuousPosition) {
   //TODO：translate the ScaleContinuousPosition
 }

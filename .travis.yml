@@ -15,12 +15,11 @@ matrix:
       skip_cleanup: true
   - r: oldrel
 
-
+dist: xenial
 addons:
   apt:
     packages:
-      - libv8-dev       # for V8
-      - valgrind        # for V8
+      - libnode-dev       # for V8
 
 # managing node in a project for another language
 # https://austinpray.com/ops/2015/09/20/change-travis-node-version.html

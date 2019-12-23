@@ -49,6 +49,7 @@ export function itmLayerArrayByCoord(itmLayerArray: ItmLayer[], ggCoord: GG.Coor
  *
  * @returns `ItmLayer[]`
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function itmLayerArrayByCoordCartesian(itmLayerArray: ItmLayer[], gsCoord: GG.Coord): ItmLayer[] {
   // do nothing
   return itmLayerArray;
@@ -68,6 +69,7 @@ function itmLayerArrayByCoordCartesian(itmLayerArray: ItmLayer[], gsCoord: GG.Co
  *
  * @returns `ItmLayer[]`
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function itmLayerArrayByCoordFlip(itmLayerArray: ItmLayer[], gsCoord: GG.Coord): ItmLayer[] {
   // exchange encoding.x+ and encoding.y+
 

@@ -5,7 +5,6 @@ import * as itmSpec from './itmSpec';
 
 describe('itmLayer/itmLayer', () => {
   it('should create intermediate layer', () => {
-
     let ggLayer: any;
     let ggDatasets: any;
     let itmLayerObject: any;
@@ -28,11 +27,8 @@ describe('itmLayer/itmLayer', () => {
     itmLayerObject.encoding.y.title = undefined;
     itmLayerObject.encoding.fill.title = undefined;
 
-    expect(
-      itmLayer(ggSpec.barStackedMpg.layers[0] as GG.Layer, ggSpec.barStackedMpg.data as GG.DatasetObject)
-    ).toEqual(itmLayerObject);
-
+    expect(itmLayer(ggSpec.barStackedMpg.layers[0] as GG.Layer, ggSpec.barStackedMpg.data as GG.DatasetObject)).toEqual(
+      itmLayerObject
+    );
   });
 });
-
-
