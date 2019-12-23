@@ -8702,22 +8702,22 @@
 
     function noop() {}
 
-    var ajv$1 = new ajv({
+    const ajv$1 = new ajv({
         validateSchema: true,
         allErrors: true,
         extendRefs: 'fail',
         schemaId: 'auto'
     });
-    var gsValidate = ajv$1.compile(ggSpecJsonSchema);
+    const gsValidate = ajv$1.compile(ggSpecJsonSchema);
     /**
      * This function is used to validate ggSpec
      * @param spec
      */
     function validateGs(spec) {
-        var valid = gsValidate(spec);
-        var errors = gsValidate.errors;
+        const valid = gsValidate(spec);
+        const errors = gsValidate.errors;
         if (errors)
-            errors.map(function (err) {
+            errors.map((err) => {
                 console.warn('ggSpec' + err.dataPath + ' ' + err.message);
                 // throw new Error('ggSpec' + err.dataPath + ' ' + err.message);
             });
@@ -8737,7 +8737,7 @@
      * @returns `boolean`
      */
     function contains$1(a, obj) {
-        var i = a.length;
+        let i = a.length;
         while (i--) {
             if (a[i] === obj) {
                 return true;
@@ -8797,10 +8797,10 @@
             throw new Error('ggplot object has no datasets, requires at least one dataset');
         }
         // translate
-        var datasetObject = {};
+        const datasetObject = {};
         // iterate over object: https://stackoverflow.com/a/684692
         //NOTE @wenyu: https://eslint.org/docs/rules/no-prototype-builtins
-        for (var dataName in ggDatasetObject) {
+        for (const dataName in ggDatasetObject) {
             if (hasKey(ggDatasetObject, dataName)) {
                 datasetObject[dataName] = ggDatasetObject[dataName].observations;
             }
@@ -8871,7 +8871,7 @@
     function markByGeomDefault(ggGeomSet) {
         // key: name of ggplot2 geom class
         // value: name of Vega-Lite mark type
-        var markByGeomMap = {
+        const markByGeomMap = {
             GeomPoint: 'point',
             GeomBar: 'bar',
             GeomBoxplot: 'boxplot',
@@ -8879,10 +8879,10 @@
         };
         // validate
         if (!Object.keys(markByGeomMap).includes(ggGeomSet.geom.class)) {
-            throw new Error("ggplot object contains unsupported geom: " + ggGeomSet.geom.class);
+            throw new Error(`ggplot object contains unsupported geom: ${ggGeomSet.geom.class}`);
         }
         // translate
-        var mark = {
+        const mark = {
             type: markByGeomMap[ggGeomSet.geom.class]
         };
         return mark;
@@ -8916,7 +8916,7 @@
         // extension mechanism.
         // validate (look for GeomParams and StatParams we can't translate)
         // translate
-        var mark = markByGeomDefault(ggGeomSet);
+        const mark = markByGeomDefault(ggGeomSet);
         // TODO: add geomParams
         //NOTE @wenyu: use VL.ExtentExtent.MinMax
         function coef(coef) {
@@ -8962,7 +8962,7 @@
         // are all subclasses of VL.Encoding
         // keys are ggplot2 aesthetic names
         // values are Vega-Lite encoding constructor-functions for values
-        var itmEncodingMap = {
+        const itmEncodingMap = {
             x: encodingPosition,
             y: encodingPosition,
             colour: encodingString,
@@ -8977,7 +8977,7 @@
         };
         // validate
         if (!Object.keys(itmEncodingMap).includes(aesName)) {
-            throw new Error("ggplot object contains unsupported aesthetic: " + aesName);
+            throw new Error(`ggplot object contains unsupported aesthetic: ${aesName}`);
         }
         // return empty object
         return itmEncodingMap[aesName]();
@@ -8993,7 +8993,7 @@
      */
     function encodingPosition() {
         // hoping it's possible to set `type` here, then change it later
-        var encoding = { type: 'nominal' };
+        const encoding = { type: 'nominal' };
         return encoding;
     }
     /**
@@ -9006,7 +9006,7 @@
      * @returns `VL.DefWithConditionMarkPropFieldDefNumber`
      */
     function encodingNumber() {
-        var encoding = { type: 'nominal' };
+        const encoding = { type: 'nominal' };
         return encoding;
     }
     /**
@@ -9019,7 +9019,7 @@
      * @returns `VL.DefWithConditionMarkPropFieldDefStringNull`
      */
     function encodingString() {
-        var encoding = { type: 'nominal' };
+        const encoding = { type: 'nominal' };
         return encoding;
     }
     //NOTE @wenyu: Use VL.TypedFieldDef rather than VL.Details. Because we only use VL.TypedFieldDef
@@ -9034,7 +9034,7 @@
      */
     function encodingDetail() {
         //NOTE @wenyu: VL.Detail has to define the type - we think we can change this later
-        var encoding = { type: 'nominal' };
+        const encoding = { type: 'nominal' };
         return encoding;
     }
     /**
@@ -9047,7 +9047,7 @@
      * @returns `VL.DefWithConditionMarkPropFieldDefTypeForShapeStringNull`
      */
     function encodingShape() {
-        var encoding = { type: 'nominal' };
+        const encoding = { type: 'nominal' };
         return encoding;
     }
 
@@ -9085,7 +9085,7 @@
     function encodingValueShape(shape) {
         shape = Number(shape);
         // TODO: think more about this map
-        var shapeMap = {
+        const shapeMap = {
             0: 'circle',
             1: 'square',
             3: 'cross',
@@ -9097,7 +9097,7 @@
         };
         // validate
         if (!Object.keys(shapeMap).includes(String(shape))) {
-            throw new Error("ggplot object contains unsupported shape: " + shape);
+            throw new Error(`ggplot object contains unsupported shape: ${shape}`);
         }
         // translate
         return shapeMap[shape];
@@ -9139,7 +9139,7 @@
             return color;
         }
         // translate
-        var colorNew = color.replace(/[0-9]+$/, '');
+        const colorNew = color.replace(/[0-9]+$/, '');
         // TODO validate - check that color is in Vega-Lite colors
         // if (!validColorNew) {
         //   throw new Error('ggplot object contains unsupported color: ' + color);
@@ -9192,7 +9192,7 @@
     function itmEncodingObjectByMappingObject(ggMappingObject, ggMetadataObject) {
         // translate
         // create empty itmEncodingObject
-        var itmEncodingObject = {};
+        const itmEncodingObject = {};
         // TODO: if the type is `ordinal`, and we have level,
         // we should set the scale domain according to the levels.
         //
@@ -9204,18 +9204,18 @@
         //   - create Encoding
         //   - populate Encoding
         //   - put Encoding into itmEncodingObject
-        for (var aesName in ggMappingObject) {
+        for (const aesName in ggMappingObject) {
             if (hasKey(ggMappingObject, aesName)) {
                 // do we have a type/class for `mapping`?
                 // extract information from mapping object, metatdata
-                var mapping = ggMappingObject[aesName];
+                const mapping = ggMappingObject[aesName];
                 // TODO: we need to handle the situation where the mapping is a
                 // `stat` instead of a `field`
                 // NOTE @wenyu: Define `type` before we change the value of `field`
-                var type = ggMetadataObject[mapping.field].type;
-                var field = fieldName(mapping.field);
+                const type = ggMetadataObject[mapping.field].type;
+                const field = fieldName(mapping.field);
                 // create Encoding
-                var encoding = encodingByAes(aesName);
+                const encoding = encodingByAes(aesName);
                 // popuate Encoding
                 encoding.field = field;
                 encoding.type = type;
@@ -9277,7 +9277,7 @@
         //   - create ItmEncoding
         //   - populate ItmEncoding
         //   - put ItmEncoding into itmEncodingObject
-        var itmEncodingByAesParamsMap = {
+        const itmEncodingByAesParamsMap = {
             shape: encodingValueShape,
             colour: encodingValueColor,
             fill: encodingValueColor,
@@ -9285,11 +9285,11 @@
             stroke: encodingValueStroke,
             alpha: encodingValueAlpha
         };
-        for (var aesName in ggAesParamsObject) {
+        for (const aesName in ggAesParamsObject) {
             if (hasKey(ggAesParamsObject, aesName)) {
                 // extract information from aes_params
                 // NOTE @wenyu: Maybe the `value` can have other types
-                var value = ggAesParamsObject[aesName];
+                let value = ggAesParamsObject[aesName];
                 /**
                  * keep in mind that values are interpreted
                  * in the "visual" space, not the "data" space
@@ -9307,7 +9307,7 @@
                     value = itmEncodingByAesParamsMap[aesName](value);
                 }
                 // create Encoding
-                var encoding = { value: value };
+                const encoding = { value: value };
                 //NOTE @wenyu: The encoding can only have the encoding property and the aes_params will take precedence
                 // over mapping. In ggplot, we can specify aes_params only in the layer - so this should take precedence
                 // over a mapping made in the ggplot() call.
@@ -9345,17 +9345,17 @@
      * @returns itmEncodingObject
      */
     function itmEncodingObjectByStat(itmEncodingObject, ggStatSet) {
-        var statMap = {
+        const statMap = {
             StatIdentity: itmEncodingObjectByStatIdentity,
             StatCount: itmEncodingObjectByStatCount,
             StatBoxplot: itmEncodingObjectByStatBoxplot
         };
         // validate
         if (!Object.keys(statMap).includes(ggStatSet.stat.class)) {
-            throw new Error("ggplot object contains unsupported stat: " + ggStatSet.stat.class);
+            throw new Error(`ggplot object contains unsupported stat: ${ggStatSet.stat.class}`);
         }
         // translate
-        var functionTranslate = statMap[ggStatSet.stat.class];
+        const functionTranslate = statMap[ggStatSet.stat.class];
         return functionTranslate(itmEncodingObject, ggStatSet);
     }
     /**
@@ -9378,13 +9378,13 @@
     }
     function itmEncodingObjectByStatCount(itmEncodingObject, ggStatSet) {
         // build y-encoding
-        var y = {
+        const y = {
             type: 'quantitative'
         };
         // is weight an encoding?
         if (hasKey(itmEncodingObject, 'weight')) {
             // need to insist on which type this is
-            var weight = itmEncodingObject.weight;
+            const weight = itmEncodingObject.weight;
             y.aggregate = 'sum';
             y.field = weight.field;
             // remove weight from encoding-object
@@ -9425,17 +9425,17 @@
      * @returns itmEncodingObject
      */
     function itmEncodingObjectByPosition(itmEncodingObject, ggPosition) {
-        var positionMap = {
+        const positionMap = {
             PositionIdentity: itmEncodingObjectByPositionIdentity,
             PositionStack: itmEncodingObjectByPositionStack,
             PositionFill: itmEncodingObjectByPositionFill
         };
         // validate
         if (!Object.keys(positionMap).includes(ggPosition.class)) {
-            throw new Error("ggplot object contains unsupported stat: " + ggPosition.class);
+            throw new Error(`ggplot object contains unsupported stat: ${ggPosition.class}`);
         }
         // translate
-        var functionTranslate = positionMap[ggPosition.class];
+        const functionTranslate = positionMap[ggPosition.class];
         return functionTranslate(itmEncodingObject, ggPosition);
     }
     /**
@@ -9471,7 +9471,7 @@
      * @return itmEncodingObject
      */
     function itmEncodingObjectByPositionStack(itmEncodingObject, ggPosition) {
-        var y = itmEncodingObject.y;
+        const y = itmEncodingObject.y;
         y.stack = 'zero';
         itmEncodingObject.y = y;
         return itmEncodingObject;
@@ -9491,7 +9491,7 @@
      * @return itmEncodingObject
      */
     function itmEncodingObjectByPositionFill(itmEncodingObject, ggPosition) {
-        var y = itmEncodingObject.y;
+        const y = itmEncodingObject.y;
         y.stack = 'normalize';
         itmEncodingObject.y = y;
         return itmEncodingObject;
@@ -9547,8 +9547,8 @@
     function itmLayer(ggLayer, ggDatasetObject) {
         // translate
         // get the metadata for the data for this layer
-        var ggMetadataObject = ggDatasetObject[ggLayer.data].metadata;
-        var itmLayer = {
+        const ggMetadataObject = ggDatasetObject[ggLayer.data].metadata;
+        const itmLayer = {
             data: { name: ggLayer.data },
             //NOTE @wenyu: Use GeomSet as breadcrumb?
             // leave `geom` as a breadcrumb so that we can use encodingNameByGeom()
@@ -9610,12 +9610,12 @@
         //NOTE@ian consider deleting labels that have keys that begin with `x` or `y` but are not `x` or `y`
         //NOTE@ian - I think the position aesthetics are different in that we want to consider only those
         //  labels associated with 'x' or 'y', but we want to associate an `y` label with a `ymin` aesthetic.
-        itmLayerArray.map(function (itmLayer) {
-            for (var encodingKey in itmLayer.encoding) {
+        itmLayerArray.map((itmLayer) => {
+            for (const encodingKey in itmLayer.encoding) {
                 if (hasKey(itmLayer.encoding, encodingKey)) {
                     if (hasKey(itmLayer.encoding[encodingKey], 'value'))
                         continue;
-                    for (var labelKey in ggLabelObject) {
+                    for (const labelKey in ggLabelObject) {
                         if (hasKey(ggLabelObject, labelKey)) {
                             if (keyMatch(labelKey, encodingKey)) {
                                 itmLayer.encoding[encodingKey].title =
@@ -9665,15 +9665,15 @@
      * @returns `ItmLayer[]`
      */
     function itmLayerArrayByScalesArray(itmLayerArray, ggScaleArray) {
-        var scaleMap = {
+        const scaleMap = {
             ScaleContinuousPosition: scaleContinuousPosition
         };
-        itmLayerArray.map(function (itmLayer) {
-            var _loop_1 = function (encodingKey) {
+        itmLayerArray.map((itmLayer) => {
+            for (const encodingKey in itmLayer.encoding) {
                 if (hasKey(itmLayer.encoding, encodingKey)) {
-                    ggScaleArray.map(function (ggScale) {
+                    ggScaleArray.map((ggScale) => {
                         //NOTE @wenyu:https://love2dev.com/blog/javascript-remove-from-array/
-                        for (var i = 0; i < ggScale.aesthetics.length; i++) {
+                        for (let i = 0; i < ggScale.aesthetics.length; i++) {
                             if (keyMatch$1(ggScale.aesthetics[i], encodingKey)) {
                                 //NOTE @wenyu: define name onlu when ggScale has a name
                                 if (ggScale.name)
@@ -9689,9 +9689,6 @@
                         }
                     });
                 }
-            };
-            for (var encodingKey in itmLayer.encoding) {
-                _loop_1(encodingKey);
             }
         });
         // suspect we will need metadata
@@ -9738,12 +9735,12 @@
     function itmLayerArrayByCoord(itmLayerArray, ggCoord) {
         // keys: class names
         // values: function to call
-        var CoordMap = {
+        const CoordMap = {
             CoordCartesian: itmLayerArrayByCoordCartesian,
             CoordFlip: itmLayerArrayByCoordFlip
         };
         // validate
-        var className = ggCoord.class;
+        const className = ggCoord.class;
         if (!contains$1(Object.keys(CoordMap), className)) {
             throw new Error('ggplot object contains unsupported coordinates: ' + className);
         }
@@ -9786,10 +9783,10 @@
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function itmLayerArrayByCoordFlip(itmLayerArray, gsCoord) {
         // exchange encoding.x+ and encoding.y+
-        itmLayerArray.map(function (itmLayer) {
+        itmLayerArray.map(itmLayer => {
             //NOTE @wenyu: Copy the encoding. Use Object.assign() to  keep safe. Because object is mutable
-            var encoding = copy$1(itmLayer.encoding);
-            for (var aesName in itmLayer.encoding) {
+            const encoding = copy$1(itmLayer.encoding);
+            for (const aesName in itmLayer.encoding) {
                 if (hasKey(itmLayer.encoding, aesName)) {
                     itmLayer.encoding[replaceXY(aesName)] = encoding[aesName];
                 }
@@ -9811,8 +9808,8 @@
     }
     //NOTE@wenyu: Since Object.assign() is not a part of es5. Use this function to copy. Can be moved to ./utils.ts
     function copy$1(mainObj) {
-        var objCopy = {}; // objCopy will store a copy of the mainObj
-        for (var key in mainObj) {
+        const objCopy = {}; // objCopy will store a copy of the mainObj
+        for (const key in mainObj) {
             objCopy[key] = mainObj[key]; // copies each property to the objCopy object
         }
         return objCopy;
@@ -9820,7 +9817,7 @@
 
     // keys: names of ggplot2 aesthetics
     // values: names of Vega-Lite encodings
-    var encodingMapDefault = {
+    const encodingMapDefault = {
         x: 'x',
         y: 'y',
         colour: 'stroke',
@@ -9851,7 +9848,7 @@
         // keys: names of ggplot2 aesthetics
         // values: names of Vega-Lite encodings
         //NOTE @wenyu: Add `stroke`, What's `weight`
-        var encodingMap = encodingMapDefault;
+        const encodingMap = encodingMapDefault;
         // validate
         if (!Object.keys(encodingMap).includes(aesName)) {
             throw new Error('ggplot object contains unsupported aesthetic: ' + aesName);
@@ -9938,7 +9935,7 @@
         // translate
         // start intermediate layers according to ggLayerArray
         // could this work?
-        var itmLayerArray = ggLayerArray.map(function (ggLayer) {
+        let itmLayerArray = ggLayerArray.map((ggLayer) => {
             return itmLayer(ggLayer, ggDatasetObject);
         });
         // incorporate labels
@@ -9948,7 +9945,7 @@
         // incorporate coordinates
         itmLayerArray = itmLayerArrayByCoord(itmLayerArray, ggCoordinates);
         // change encoding-key namespace from ggplot2 to Vega-Lite
-        var layerArray = itmLayerArray.map(layerByItmLayer);
+        const layerArray = itmLayerArray.map(layerByItmLayer);
         return layerArray;
     }
     /**
@@ -9977,12 +9974,12 @@
      */
     function layerByItmLayer(itmLayer) {
         // create new encoding
-        var encoding = {};
+        const encoding = {};
         // loop over aesthetic names in itmLayerEncoding
-        for (var aesName in itmLayer.encoding) {
+        for (const aesName in itmLayer.encoding) {
             if (hasKey(itmLayer.encoding, aesName)) {
                 // get the encoding name,and add to the encoding
-                var encodingName = encodingNameByGeom(aesName, itmLayer.geomSet);
+                const encodingName = encodingNameByGeom(aesName, itmLayer.geomSet);
                 if (encodingName == 'x') {
                     encoding[encodingName] = itmLayer.encoding[aesName];
                 }
@@ -10000,7 +9997,7 @@
                 }
             }
         }
-        var layer = {
+        const layer = {
             data: itmLayer.data,
             mark: itmLayer.mark,
             encoding: encoding
@@ -10026,21 +10023,20 @@
         // validate
         throw new Error('ggplot object contains unsupported facet: ' + ggFacet.class);
         // setting `type` here, hopefully change later
-        var facet = { type: 'nominal' };
+        const facet = { type: 'nominal' };
         return facet;
     }
 
-    function spec2vl(spec, singleView) {
-        if (singleView === void 0) { singleView = false; }
-        var ggSpec = ggValidate(spec);
-        var vlSpec = topLevelSpec(ggSpec, singleView);
+    function spec2vl(spec, singleView = false) {
+        const ggSpec = ggValidate(spec);
+        const vlSpec = topLevelSpec(ggSpec, singleView);
         return vlSpec;
     }
     function ggValidate(spec) {
         // validate here
         //NOTE @wenyu: This function throw warnings and return true(validated) or false(not validated).
         validateGs(spec);
-        var ggSpec = spec;
+        const ggSpec = spec;
         return ggSpec;
     }
     /**
@@ -10113,21 +10109,20 @@
      * @returns `VL.TopLevelSpec`, Vega-Lite specification
      *
      */
-    function topLevelSpec(ggSpec, singleView) {
+    function topLevelSpec(ggSpec, singleView = false) {
         // The structure of a Vega-Lite specification depends on whether or not
         // it is faceted.
-        if (singleView === void 0) { singleView = false; }
         // Want to specify this URL exactly **one** place in the project
         // also - what mechanism do we use to update the Vega-Lite schema?
         // const schema = 'https://vega.github.io/schema/vega-lite/v3.json';
-        var title = ggSpec.labels.title || undefined;
-        var datasets = datasetObject(ggSpec.data);
-        var layer = layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates);
+        const title = ggSpec.labels.title || undefined;
+        const datasets = datasetObject(ggSpec.data);
+        const layer = layerArrayByAes(ggSpec.data, ggSpec.layers, ggSpec.scales, ggSpec.labels, ggSpec.coordinates);
         // faceted
         if (ggSpec.facet.class != 'FacetNull') {
             // at the moment, this code will not run because
             // `facet()`, by design, throws an error
-            var topLevelSpec_1 = {
+            const topLevelSpec = {
                 $schema: vlschema,
                 title: title,
                 datasets: datasets,
@@ -10137,10 +10132,10 @@
                 },
                 facet: facet(ggSpec.facet)
             };
-            return topLevelSpec_1;
+            return topLevelSpec;
         }
         // not faceted
-        var topLevelSpec = {
+        const topLevelSpec = {
             $schema: vlschema,
             title: title,
             datasets: datasets,
@@ -10149,7 +10144,7 @@
         // single-view not-faceted
         if (singleView) {
             // validate layer
-            var singleLayer = layer[0];
+            const singleLayer = layer[0];
             if (layer.length > 1 || !singleLayer.data) {
                 console.warn('Cannot create single-view spec, returning spec with multiple layers.');
                 return topLevelSpec;
@@ -10159,7 +10154,7 @@
             // `data`, `mark`. and `encoding`. It would be nice not to have
             // to name explicitly all the elements of `layer[0]`, but `Object.assign()`
             // works only in ES6
-            var topLevelSingleViewSpec = {
+            const topLevelSingleViewSpec = {
                 $schema: vlschema,
                 title: title,
                 datasets: datasets,
