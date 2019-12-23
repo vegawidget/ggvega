@@ -17,7 +17,6 @@ ggv_example_path(example = NULL)
 \describe{
 \item{\code{ggv_example()}}{S3 object with classes \code{gg} and \code{ggplot};
 a ggplot2 object, identified by \code{example}}
-\item{\code{ggv_example_names()}}{\code{character}, names of examples}
 \item{\code{ggv_example_path()}}{S3 object with class \code{fs_path}
 (wraps \code{character}), path to R file identified by \code{example}}
 }
@@ -28,7 +27,7 @@ of ggvega. As more capabilities are developed, more examples will be added.
 }
 \examples{
   library("ggplot2")
-  ggv_example_names()
+  ggv_example()
   ggv_example_path("scatterplot-iris")
   ggv_example("scatterplot-iris")
   ggv_example("scatterplot-iris") \%>\% as_vegaspec()

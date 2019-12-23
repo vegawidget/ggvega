@@ -9,14 +9,13 @@
 #' @return \describe{
 #'   \item{`ggv_example()`}{S3 object with classes `gg` and `ggplot`;
 #'     a ggplot2 object, identified by `example`}
-#'   \item{`ggv_example_names()`}{`character`, names of examples}
 #'   \item{`ggv_example_path()`}{S3 object with class `fs_path`
 #'     (wraps `character`), path to R file identified by `example`}
 #' }
 #'
 #' @examples
 #'   library("ggplot2")
-#'   ggv_example_names()
+#'   ggv_example()
 #'   ggv_example_path("scatterplot-iris")
 #'   ggv_example("scatterplot-iris")
 #'   ggv_example("scatterplot-iris") %>% as_vegaspec()
