@@ -20,7 +20,7 @@ Also note that I have specified the `width` and `height` of the
 *rendering* of the vegaspec; this is *not* part of the translation.
 
 ``` r
-ggv_dev_display("barchart-mpg")
+ggvega:::dev_display("bar_mpg")
 ```
 
 <div>
@@ -40,13 +40,13 @@ ggv_dev_display("barchart-mpg")
 
 <td style="border-width: 0px; vertical-align: top;">
 
-<img src="bar-chart_files/barchart-mpg-gg.png" width="400"/>
+<img src="bar-chart_files/bar_mpg-gg.png" width="400"/>
 
 </td>
 
 <td style="border-width: 0px; vertical-align: top;">
 
-<img src="bar-chart_files/barchart-mpg-vl.svg"/>
+<img src="bar-chart_files/bar_mpg-vl.svg"/>
 
 </td>
 
@@ -199,7 +199,7 @@ vegaspec
 
 ``` json
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "datasets": {
     "data-00": [
       {
@@ -343,7 +343,7 @@ It seems we have more examples to handle:
 ## Stacked bar-chart
 
 ``` r
-ggv_dev_display("barchart-stacked-mpg")
+ggvega:::dev_display("bar_stack_mpg")
 ```
 
 <div>
@@ -363,13 +363,13 @@ ggv_dev_display("barchart-stacked-mpg")
 
 <td style="border-width: 0px; vertical-align: top;">
 
-<img src="bar-chart_files/barchart-stacked-mpg-gg.png" width="400"/>
+<img src="bar-chart_files/bar_stack_mpg-gg.png" width="400"/>
 
 </td>
 
 <td style="border-width: 0px; vertical-align: top;">
 
-<img src="bar-chart_files/barchart-stacked-mpg-vl.svg"/>
+<img src="bar-chart_files/bar_stack_mpg-vl.svg"/>
 
 </td>
 
@@ -526,7 +526,7 @@ vegaspec
 
 ``` json
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "datasets": {
     "data-00": [
       {
@@ -590,7 +590,7 @@ vegaspec
 ## Weighted bar-chart
 
 ``` r
-ggv_dev_display("barchart-weighted-mpg")
+ggvega:::dev_display("bar_weight_mpg")
 ```
 
 <div>
@@ -610,13 +610,13 @@ ggv_dev_display("barchart-weighted-mpg")
 
 <td style="border-width: 0px; vertical-align: top;">
 
-<img src="bar-chart_files/barchart-weighted-mpg-gg.png" width="400"/>
+<img src="bar-chart_files/bar_weight_mpg-gg.png" width="400"/>
 
 </td>
 
 <td style="border-width: 0px; vertical-align: top;">
 
-<img src="bar-chart_files/barchart-weighted-mpg-vl.svg"/>
+<img src="bar-chart_files/bar_weight_mpg-vl.svg"/>
 
 </td>
 
@@ -772,7 +772,7 @@ vegaspec
 
 ``` json
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "datasets": {
     "data-00": [
       {
@@ -832,7 +832,7 @@ vegaspec
 ## Normalized bar-chart
 
 ``` r
-ggv_dev_display("barchart-normalized-mpg")
+ggvega:::dev_display("bar_norm_mpg")
 ```
 
 <div>
@@ -852,13 +852,13 @@ ggv_dev_display("barchart-normalized-mpg")
 
 <td style="border-width: 0px; vertical-align: top;">
 
-<img src="bar-chart_files/barchart-normalized-mpg-gg.png" width="400"/>
+<img src="bar-chart_files/bar_norm_mpg-gg.png" width="400"/>
 
 </td>
 
 <td style="border-width: 0px; vertical-align: top;">
 
-<img src="bar-chart_files/barchart-normalized-mpg-vl.svg"/>
+<img src="bar-chart_files/bar_norm_mpg-vl.svg"/>
 
 </td>
 
@@ -1015,7 +1015,7 @@ vegaspec
 
 ``` json
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "datasets": {
     "data-00": [
       {
@@ -1079,7 +1079,7 @@ vegaspec
 ## Flipped, stacked, weighted, normalized, bar-chart
 
 ``` r
-ggv_dev_display("barchart-flipped-weighted-normalized-mpg")
+ggvega:::dev_display("bar_flip_weight_norm_mpg")
 ```
 
 <div>
@@ -1100,13 +1100,13 @@ ggv_dev_display("barchart-flipped-weighted-normalized-mpg")
 
 <td style="border-width: 0px; vertical-align: top;">
 
-<img src="bar-chart_files/barchart-flipped-weighted-normalized-mpg-gg.png" width="400"/>
+<img src="bar-chart_files/bar_flip_weight_norm_mpg-gg.png" width="400"/>
 
 </td>
 
 <td style="border-width: 0px; vertical-align: top;">
 
-<img src="bar-chart_files/barchart-flipped-weighted-normalized-mpg-vl.svg"/>
+<img src="bar-chart_files/bar_flip_weight_norm_mpg-vl.svg"/>
 
 </td>
 
@@ -1266,7 +1266,7 @@ vegaspec
 
 ``` json
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "datasets": {
     "data-00": [
       {

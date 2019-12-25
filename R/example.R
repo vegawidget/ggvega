@@ -16,9 +16,9 @@
 #' @examples
 #'   library("ggplot2")
 #'   ggv_example()
-#'   ggv_example_path("scatterplot-iris")
-#'   ggv_example("scatterplot-iris")
-#'   ggv_example("scatterplot-iris") %>% as_vegaspec()
+#'   ggv_example_path("scat_iris")
+#'   ggv_example("scat_iris")
+#'   ggv_example("scat_iris") %>% as_vegaspec()
 #' @export
 #'
 ggv_example <- function(example = NULL) {

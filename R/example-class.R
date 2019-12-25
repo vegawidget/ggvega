@@ -32,7 +32,7 @@
       if (!missing(value)) {
         stop("`$plot` is read only", call. = FALSE)
       }
-      private$.path
+      source(private$.code)$value
     }
   )
 )

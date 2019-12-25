@@ -113,8 +113,7 @@ As such, we have two collections:
     translation
 
 Examples that appear in a skip collection are not copied into that
-testing
-directory.
+testing directory.
 
 ``` r
 # Use this chunk to moderate which examples are copied into the testing directories.
@@ -198,7 +197,7 @@ deploy_test_ggspec <- function(example, dir) {
   ggspec <- source(path)$value
   
   # truncate data
-  ggspec <- truncate_data_ggspec(ggspec)
+  ggspec <- ggvega:::truncate_data_ggspec(ggspec)
   
   ggspec_json <- ggvega:::to_json(ggspec) 
   
@@ -234,7 +233,7 @@ deploy_test_vegaspec <- function(example, dir) {
   vegaspec <- source(path)$value
   
   # truncate data
-  vegaspec <- truncate_data_vegaspec(vegaspec)
+  vegaspec <- ggvega:::truncate_data_vegaspec(vegaspec)
   
   vegaspec_json <- ggvega:::to_json(vegaspec) 
   
@@ -290,14 +289,10 @@ Finally, to confirm, we list the files in the package-source directory
 dir_ls(pkgex_dir) %>% basename()
 ```
 
-    ## [1] "barchart-flipped-weighted-normalized-mpg.R"
-    ## [2] "barchart-mpg.R"                            
-    ## [3] "barchart-normalized-mpg.R"                 
-    ## [4] "barchart-stacked-mpg.R"                    
-    ## [5] "barchart-weighted-mpg.R"                   
-    ## [6] "scat-coord-flip-iris.R"                    
-    ## [7] "scat-scale-name-iris.R"                    
-    ## [8] "scatterplot-iris.R"
+    ## [1] "bar_flip_weight_norm_mpg.R" "bar_mpg.R"                 
+    ## [3] "bar_norm_mpg.R"             "bar_stack_mpg.R"           
+    ## [5] "bar_weight_mpg.R"           "scat_flip_iris.R"          
+    ## [7] "scat_iris.R"                "scat_scale_name_iris.R"
 
 ## Adding a new example
 

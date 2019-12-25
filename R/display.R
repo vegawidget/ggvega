@@ -9,7 +9,7 @@
 #' @return Invisible `NULL`, called for side-effects
 #' @noRd
 #'
-ggv_dev_display <- function(example, arrange = c("side", "top"), ...) {
+dev_display <- function(example, arrange = c("side", "top"), ...) {
 
   tags <- htmltools::tags
 

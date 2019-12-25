@@ -57,7 +57,7 @@ test_that("single_view works", {
   # we are takng a single-layer spec and making sure that
   # it converts properly to a single-view spec
 
-  name <- "scatterplot-iris"
+  name <- "scat_iris"
 
   ggspec_test <- ggspec_ref(name, dir = dir_ex)
 

@@ -189,7 +189,7 @@ deploy_test_vegaspec <- function(example, dir) {
   vegaspec <- source(path)$value
   
   # truncate data
-  vegaspec <- truncate_data_vegaspec(vegaspec)
+  vegaspec <- ggvega:::truncate_data_vegaspec(vegaspec)
   
   vegaspec_json <- ggvega:::to_json(vegaspec) 
   

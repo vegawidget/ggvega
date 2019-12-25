@@ -18,7 +18,7 @@ The is the simplest bar chart we can imagine. On the `x`-axis, we have the `clas
 Also note that I have specified the `width` and `height` of the *rendering* of the vegaspec; this is *not* part of the translation.
 
 ```{r results='asis'}
-ggv_dev_display("barchart-mpg")
+ggvega:::dev_display("bar_mpg")
 ```
 
 One thing to note is that the `stat` contains a `default_aes` elementm which we would use in the absence of an explicit aesthetic-mapping for `y`:
@@ -86,23 +86,23 @@ It seems we have more examples to handle:
 ## Stacked bar-chart
 
 ```{r results='asis'}
-ggv_dev_display("barchart-stacked-mpg")
+ggvega:::dev_display("bar_stack_mpg")
 ```
 
 ## Weighted bar-chart
 
 ```{r results='asis'}
-ggv_dev_display("barchart-weighted-mpg")
+ggvega:::dev_display("bar_weight_mpg")
 ```
 
 ## Normalized bar-chart
 
 ```{r results='asis'}
-ggv_dev_display("barchart-normalized-mpg")
+ggvega:::dev_display("bar_norm_mpg")
 ```
 
 ## Flipped, stacked, weighted, normalized, bar-chart
 
 ```{r results='asis'}
-ggv_dev_display("barchart-flipped-weighted-normalized-mpg")
+ggvega:::dev_display("bar_flip_weight_norm_mpg")
 ```
