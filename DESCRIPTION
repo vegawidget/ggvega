@@ -44,7 +44,8 @@ Imports:
     ggplot2,
     glue,
     fs,
-    utils
+    utils,
+    R6
 Suggests: 
     testthat (>= 2.1.0),
     pkgdown,

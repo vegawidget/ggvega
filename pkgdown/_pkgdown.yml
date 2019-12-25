@@ -52,7 +52,6 @@ reference:
   - spec2vl
 - title: Examples
   contents:
-  - ggv_example_names
 - title: Rendering
   desc: Functions exported from vegawidget package
   contents:
@@ -60,12 +59,6 @@ reference:
   - vegawidget
   - image
   - knit_print.vegaspec
-  - renderVegawidget
-  - vegawidgetOutput
   - vega_embed
   - vw_as_json
-- title: Internal
-  desc: Functions used to support the documentation
-  contents:
-  - ggv_dev
-  - ggv_dev_display
+
