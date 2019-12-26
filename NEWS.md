@@ -1,5 +1,7 @@
 # ggvega  0.0.0 (development version) 
 
+* Introduce `ggvega_examples`: a list of example-objects. Each object has a `plot`, `code`, and `as_vegaspec()`
+
 * Update to Vega-Lite 4.0.2. (#79)
 
 * Internal change to use "modern" V8 engine and Vega-Lite classes directly. (#77)

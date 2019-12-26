@@ -52,6 +52,7 @@ reference:
   - spec2vl
 - title: Examples
   contents:
+  - ggvega_examples
 - title: Rendering
   desc: Functions exported from vegawidget package
   contents:

@@ -9,6 +9,36 @@
 ggvega_examples
 }
 \description{
-Examples
+A list of example objects. In addition to showing the types of plots we can
+translate, we use these examples in our test suite and in our documentation
+to make sure things continue to work as we expect.
+}
+\details{
+This is a named list; each name refers to an example. Each element is an R6
+object with accessors:
+
+\describe{
+\item{\code{$plot}}{returns the ggplot object.}
+\item{\code{$path}}{returns the path to the R file containing ggplot2 code.}
+\item{\code{$code}}{returns the code that builds the ggplot object.}
+\item{\code{$as_vegaspec()}}{returns the Vega-Lite translation.}
+\item{\code{$display()}}{used in documentation, works only with knitr.}
+}
+
+The naming convention is to start with the geom being used, e.g. \code{point}, \code{bar}.
+You can use \code{names(ggvega_examples)} to return the names of all the examples.
+Because this is a list of R6 objects, in the RStudio IDE you can use
+autocomplete with the \code{$} operator.
+}
+\examples{
+  library("ggplot2")
+  # print method
+  # ggvega_examples$scat_iris$plot returns the ggplot object
+  ggvega_examples$scat_iris
+  # return the ggplot code
+  ggvega_examples$scat_iris$code
+  # translate to Vega-Lite
+  ggvega_examples$scat_iris$as_vegaspec()
+
 }
 \keyword{datasets}
