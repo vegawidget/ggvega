@@ -60,7 +60,8 @@ Suggests:
     htmltools,
     shiny,
     listviewer (>= 2.1.0),
-    base64enc
+    base64enc,
+    highlight
 VignetteBuilder: knitr
 Remotes:
     vegawidget/vegawidget

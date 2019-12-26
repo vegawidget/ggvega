@@ -7,6 +7,7 @@ ggv_examine <- function(listdata, ...) {
   listviewer::reactjson(
     listdata,
     displayDataTypes = FALSE,
+    displayObjectSize = FALSE,
     name = NULL,
     ...
   )

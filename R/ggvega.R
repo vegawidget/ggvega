@@ -67,7 +67,10 @@ spec2vl <- function(ggspec, single_view = FALSE) {
 
   ct$assign("ggspec", V8::JS("JSON.parse(ggspec)"))
 
-  singleView <- ifelse(single_view, "true", "false")
+  singleView <- "false"
+  if (identical(single_view, TRUE)) {
+    singleView <- "true"
+  }
 
   vlspec <-
     ct$get(

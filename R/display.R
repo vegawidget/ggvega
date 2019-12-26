@@ -175,12 +175,8 @@ as_codeblock <- function(text) {
 
 remove_comments <- function(text) {
 
-  if (!requireNamespace("stringr", quietly = TRUE)) {
-    stop("need {stringr} package")
-  }
-
   # replace all comment lines with empty strings
-  text <- stringr::str_replace(text, "^\\s*#.*", "")
+  text <- gsub("^\\s*#.*", "", text)
 
   # remove empty strings
   text <- purrr::discard(text, ~identical(.x, ""))
@@ -225,15 +221,16 @@ cmpre <- function(plt, spec, file_root, arrange = c("side", "top"),
     vw_write_svg(spec, path = file_vl)
     tag_vl <- tags$img(src = file_vl)
   } else {
-    tav_vl <- vegawidget(spec)
+    tag_vl <- vegawidget(spec)
   }
+
 
   div_compare_side <-
     tags$div(
       tags$table(
         tags$tr(
           tags$td(
-            tags$img(src = file_gg, width = gg_width),
+            tags$img(src = base64enc::dataURI(file = file_gg), width = gg_width),
             style = "border-width: 0px; vertical-align: top;"
           ),
           tags$td(
@@ -250,7 +247,7 @@ cmpre <- function(plt, spec, file_root, arrange = c("side", "top"),
       tags$table(
         tags$tr(
           tags$td(
-            tags$img(src = file_gg, width = gg_width),
+            tags$img(src = base64enc::dataURI(file = file_gg), width = gg_width),
             style = "border-width: 0px; vertical-align: top;"
           )
         ),

@@ -19,17 +19,16 @@
 #'   ggv_example_path("scat_iris")
 #'   ggv_example("scat_iris")
 #'   ggv_example("scat_iris") %>% as_vegaspec()
-#' @export
+#' @noRd
 #'
 ggv_example <- function(example = NULL) {
   .example_obj(example, type = "ggplot", source = "pkg")
 }
 
 #' @rdname ggv_example
-#' @export
+#' @noRd
 #'
 ggv_example_path <- function(example = NULL) {
-
   .example_path(example, type = "ggplot", source = "pkg")
 }
 
