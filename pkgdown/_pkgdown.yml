@@ -25,6 +25,8 @@ navbar:
           href: articles/ggplot2/geom/geom_point.html
         - text: bar
           href: articles/ggplot2/geom/geom_bar.html
+      - text: aes
+        href: articles/ggplot2/aes/aesthetics.html
       - text: stat
         menu:
         - text: count

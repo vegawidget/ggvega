@@ -1,0 +1,73 @@
+---
+title: "Aesthetics"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library("ggplot2")
+library("ggvega")
+```
+
+The *aesthetics* in ggplot2 are called *encodings* in Vega-Lite. For most aesthetics, there is a one-to-one correspondance with an encoding, but there are exceptions.
+
+There is an important "gotcha". 
+
+In ggplot2, when we hard-code the value for an aesthetic, for a position aestheitic we provide the value in terms of the data, i.e. the value for `x` or `y` in *data*-space. For other aesthetics, like color, we hard-code the value in terms of *visual* space, e.g. `color = "red"`.
+
+In Vega-Lite, when we specify the value for an encoding, it is interpreted in *visual* space, providing a gotcha for position-encodings.
+
+## Position
+
+The position aesthetics in ggplot2, `x` and `y`, have direct correspondance to the `x` and `y` encodings in Vega-Lite.
+
+The "gotcha" described above is under consideration as a [Vega-Lite issue](https://github.com/vega/vega-lite/issues/1601).
+
+## Fill & Colour
+
+The aesthetics `fill` and `colour` correspond to the encodings `fill` and `stroke`, respectively.
+
+Hex codes (without alpha-channel) work great in both systems, [we can codify this](https://github.com/vegawidget/ggvega/issues/81).
+
+## Alpha
+
+The aesthetic `alpha` corresponds to the encoding `opacity`.
+
+## Size & Stroke
+
+The translation of the aesthetic `size` depends on the geom under consideration.
+
+For point geometries, the aesthetic `size` corresponds to the encoding `size`: the size of the overall geometry. When specified as a value:
+
+ - in ggplot2, `size` [refers](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html#colour-and-fill-1) to the width of the point in mm.
+ - in Vega-Lite, `size` [refers](https://vega.github.io/vega-lite/docs/point.html#properties) to the pixel area of points.
+
+For point geometries, the aesthetic `stroke` corresponds to the encoding `strokeWidth`. For other geometries, such as line and bar, the aesthetic `size` corresponds to the encoding `strokeWidth`. When specified as a value:
+
+ - in ggplot2, `size` (`stroke` for points) [refer](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html#colour-and-fill-1) to the line-width in mm.
+ - in Vega-Lite, `strokeWidth` [refers](https://vega.github.io/vega-lite/docs/mark.html#stroke) to the line-width in pixels. 
+
+Given a standard DPI (dots-per-inch) of 72, [we ought to be able](https://github.com/vegawidget/ggvega/issues/80) to provide a first-order translation of these values.
+
+## Linetype
+
+This aesthetic provides us dotted and dashed lines. Currently there is no corresponding encoding in Vega-Lite, but it is [under consideration](https://github.com/vega/vega-lite/issues/1855).
+
+## Shape
+
+The aesthetic `shape` corresponds to the encoding `shape`, but the shapes are different between the two systems.
+
+This becomes tricky when specifying a shape. Our thought, for now, is to [take a guess](https://github.com/vegawidget/ggvega/issues/82).
+
+## Group
+
+The aesthetic `group` corresponds to the encoding `detail`.
+
+## Weight
+
+Does not correspond directly, but used to specify an aggregation in Vega-Lite.
