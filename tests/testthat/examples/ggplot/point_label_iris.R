@@ -2,4 +2,8 @@
 #
 ggplot(head(iris, 1), aes(x = Sepal.Width, y = Sepal.Length)) +
   geom_point(aes(color = Species)) +
-  scale_y_log10(name = "test name")
+  labs(
+    title = "Iris",
+    x = "Sepal Width",
+    y = "Sepal Length"
+  )

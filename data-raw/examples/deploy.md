@@ -30,13 +30,13 @@ In the interests of consistency, the directory for a particular type of
 example is named after the type of object it creates:
 
     ggplot/
-      scatterplot-iris.R
+      point_iris.R
       ...
     ggspec/ 
-      scatterplot-iris.R
+      point_iris.R
       ...
     vegaspec/
-      scatterplot-iris.R
+      point_iris.R
       ...
 
 Each example consists of the R source code used to create the particular
@@ -44,7 +44,7 @@ object. We, the developers, create these examples by hand, as we specify
 new features.
 
 In the R code, each example is referred-to using the `example` keyword.
-Above, `example` is `"scatterplot-iris"`.
+Above, `example` is `"point_iris"`.
 
 ``` r
 library("conflicted")
@@ -113,7 +113,8 @@ As such, we have two collections:
     translation
 
 Examples that appear in a skip collection are not copied into that
-testing directory.
+testing
+directory.
 
 ``` r
 # Use this chunk to moderate which examples are copied into the testing directories.
@@ -159,7 +160,7 @@ Next, we need a function that will:
 ``` r
 deploy_test_ggplot <- function(example, dir) {
   
-  path <- ggv_dev_path(example, "ggplot")
+  path <- ggvega:::ggv_dev_path(example, "ggplot")
   new_path <- 
     fs::path_join(c(dir, "ggplot", glue::glue("{example}.R")))
   
@@ -171,7 +172,7 @@ deploy_test_ggplot <- function(example, dir) {
 ```
 
 ``` r
-examples <- ggv_dev_names("ggplot")
+examples <- ggvega:::ggv_dev_names("ggplot")
 
 walk(examples, deploy_test_ggplot, dir = test_example_dir)
 ```
@@ -190,7 +191,7 @@ that will:
 ``` r
 deploy_test_ggspec <- function(example, dir) {
 
-  path <- ggv_dev_path(example, "ggspec")
+  path <- ggvega:::ggv_dev_path(example, "ggspec")
   new_path <- 
     fs::path_join(c(dir, "ggspec", glue::glue("{example}.gg.json")))
   
@@ -206,7 +207,7 @@ deploy_test_ggspec <- function(example, dir) {
 ```
 
 ``` r
-examples <- ggv_dev_names("ggspec")
+examples <- ggvega:::ggv_dev_names("ggspec")
 examples <- examples[!examples %in% skip_ggspec]
 
 walk(examples, deploy_test_ggspec, dir = test_example_dir)
@@ -226,7 +227,7 @@ that will:
 ``` r
 deploy_test_vegaspec <- function(example, dir) {
 
-  path <- ggv_dev_path(example, "vegaspec")
+  path <- ggvega:::ggv_dev_path(example, "vegaspec")
   new_path <- 
     fs::path_join(c(dir, "vegaspec", glue::glue("{example}.vl.json")))
   
@@ -242,7 +243,7 @@ deploy_test_vegaspec <- function(example, dir) {
 ```
 
 ``` r
-examples <- ggv_dev_names("vegaspec")
+examples <- ggvega:::ggv_dev_names("vegaspec")
 examples <- examples[!examples %in% skip_vegaspec]
 
 walk(examples, deploy_test_vegaspec, dir = test_example_dir)
@@ -291,8 +292,9 @@ dir_ls(pkgex_dir) %>% basename()
 
     ## [1] "bar_flip_weight_norm_mpg.R" "bar_mpg.R"                 
     ## [3] "bar_norm_mpg.R"             "bar_stack_mpg.R"           
-    ## [5] "bar_weight_mpg.R"           "scat_flip_iris.R"          
-    ## [7] "scat_iris.R"                "scat_scale_name_iris.R"
+    ## [5] "bar_weight_mpg.R"           "point_flip_iris.R"         
+    ## [7] "point_iris.R"               "point_label_iris.R"        
+    ## [9] "point_scale_name_iris.R"
 
 ## Adding a new example
 

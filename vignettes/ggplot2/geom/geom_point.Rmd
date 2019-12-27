@@ -1,8 +1,5 @@
 ---
 title: "geom_point"
-output: 
-  html_document:
-    keep_md: yes
 ---
 
 ```{r, include = FALSE}
@@ -13,16 +10,29 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library("ggvega")
 library("ggplot2")
+library("ggvega")
 ```
 
-```{r results='asis'}
-ggvega_examples$scat_iris$display()
+```{r point_iris, results='asis'}
+ggvega_examples$point_iris$display()
 ```
 
 ---
 
-```{r results='asis'}
-ggvega_examples$scat_flip_iris$display()
+```{r point_flip_iris, results='asis'}
+ggvega_examples$point_flip_iris$display()
 ```
+
+---
+
+```{r point_label_iris, results='asis'}
+ggvega_examples$point_label_iris$display()
+```
+
+---
+
+```{r point_scale_name_iris, results='asis'}
+ggvega_examples$point_scale_name_iris$display()
+```
+

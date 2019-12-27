@@ -1,0 +1,25 @@
+---
+title: "coord_flip"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library("ggplot2")
+library("ggvega")
+```
+
+```{r point_flip_iris, results='asis'}
+ggvega_examples$point_flip_iris$display()
+```
+
+---
+
+```{r bar_flip_weight_norm_mpg, results='asis'}
+ggvega_examples$bar_flip_weight_norm_mpg$display()
+```

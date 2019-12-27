@@ -41,7 +41,7 @@ ggvega_example <- R6::R6Class("ggvega_example",
           htmltools::tags$summary("ggplot2 code"),
           htmltools::tags$div(
             style = "margin-top: 10px;",
-            htmltools::htmlEscape(as_codeblock(self$code))
+            as_codeblock(self$code)
           )
         )
       )
@@ -53,18 +53,18 @@ ggvega_example <- R6::R6Class("ggvega_example",
           vegaspec,
           arrange = arrange,
           file_root = file_root
-        ),
+        )
 
       # twistie with vegaspec
-        htmltools::tags$details(
-          style = "margin-bottom: 10px;",
-          htmltools::tags$summary("Vega-Lite specification"),
-          htmltools::div(
-            style = "margin-top: 10px;",
-            vegawidget::vw_examine(vegaspec, mode = "view", width = "100%")
-          )
-
-        )
+        # htmltools::tags$details(
+        #   style = "margin-bottom: 10px;",
+        #   htmltools::tags$summary("Vega-Lite specification"),
+        #   htmltools::div(
+        #     style = "margin-top: 10px;",
+        #     vegawidget::vw_examine(vegaspec, mode = "view", width = "100%")
+        #   )
+        #
+        # )
       )
     }
   ),

@@ -21,19 +21,19 @@ Our examples appear in the contexts of ggplot2, ggspec, and Vega-Lite. In the in
 
 ```
 ggplot/
-  scatterplot-iris.R
+  point_iris.R
   ...
 ggspec/ 
-  scatterplot-iris.R
+  point_iris.R
   ...
 vegaspec/
-  scatterplot-iris.R
+  point_iris.R
   ...
 ```
 
 Each example consists of the R source code used to create the particular object. We, the developers, create these examples by hand, as we specify new features.
 
-In the R code, each example is referred-to using the `example` keyword. Above, `example ` is `"scatterplot-iris"`.
+In the R code, each example is referred-to using the `example` keyword. Above, `example ` is `"point_iris"`.
 
 
 ```{r setup}
@@ -121,7 +121,7 @@ Next, we need a function that will:
 ```{r}
 deploy_test_ggplot <- function(example, dir) {
   
-  path <- ggv_dev_path(example, "ggplot")
+  path <- ggvega:::ggv_dev_path(example, "ggplot")
   new_path <- 
     fs::path_join(c(dir, "ggplot", glue::glue("{example}.R")))
   
@@ -133,7 +133,7 @@ deploy_test_ggplot <- function(example, dir) {
 ```
 
 ```{r}
-examples <- ggv_dev_names("ggplot")
+examples <- ggvega:::ggv_dev_names("ggplot")
 
 walk(examples, deploy_test_ggplot, dir = test_example_dir)
 ```
@@ -149,7 +149,7 @@ Given a ggspec `example` and a directory to put it, we want a function that will
 ```{r}
 deploy_test_ggspec <- function(example, dir) {
 
-  path <- ggv_dev_path(example, "ggspec")
+  path <- ggvega:::ggv_dev_path(example, "ggspec")
   new_path <- 
     fs::path_join(c(dir, "ggspec", glue::glue("{example}.gg.json")))
   
@@ -165,7 +165,7 @@ deploy_test_ggspec <- function(example, dir) {
 ```
 
 ```{r}
-examples <- ggv_dev_names("ggspec")
+examples <- ggvega:::ggv_dev_names("ggspec")
 examples <- examples[!examples %in% skip_ggspec]
 
 walk(examples, deploy_test_ggspec, dir = test_example_dir)
@@ -182,7 +182,7 @@ Given a vegaspec `example` and a directory to put it, we want a function that wi
 ```{r}
 deploy_test_vegaspec <- function(example, dir) {
 
-  path <- ggv_dev_path(example, "vegaspec")
+  path <- ggvega:::ggv_dev_path(example, "vegaspec")
   new_path <- 
     fs::path_join(c(dir, "vegaspec", glue::glue("{example}.vl.json")))
   
@@ -198,7 +198,7 @@ deploy_test_vegaspec <- function(example, dir) {
 ```
 
 ```{r}
-examples <- ggv_dev_names("vegaspec")
+examples <- ggvega:::ggv_dev_names("vegaspec")
 examples <- examples[!examples %in% skip_vegaspec]
 
 walk(examples, deploy_test_vegaspec, dir = test_example_dir)

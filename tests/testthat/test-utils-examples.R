@@ -51,7 +51,7 @@ test_that("truncate_data functions work", {
   # test only if the data-raw directory is available
   skip_if_not(fs::dir_exists(here::here("data-raw")))
 
-  example <- "scat_iris"
+  example <- "point_iris"
 
   gg_scatter <- source(ggv_dev_path(example, "ggspec"))$value
 
@@ -80,15 +80,15 @@ test_that(".example_ functions work", {
   skip_if_not(fs::dir_exists(here::here("data-raw")))
 
   names <- .example_names("ggplot", "dev")
-  expect_true("scat_iris" %in% names)
+  expect_true("point_iris" %in% names)
 
   expect_is(
-    .example_obj("scat_iris", type = "ggplot", source = "dev"),
+    .example_obj("point_iris", type = "ggplot", source = "dev"),
     "gg"
   )
 
   expect_is(
-    .example_obj("scat_iris", type = "vegaspec", source = "dev"),
+    .example_obj("point_iris", type = "vegaspec", source = "dev"),
     "vegaspec"
   )
 

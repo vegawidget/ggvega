@@ -1,0 +1,22 @@
+---
+title: "labs"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library("ggplot2")
+library("ggvega")
+```
+
+
+```{r point_label_iris, results='asis'}
+ggvega_examples$point_label_iris$display()
+```
+
+

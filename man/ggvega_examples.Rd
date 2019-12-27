@@ -4,7 +4,7 @@
 \name{ggvega_examples}
 \alias{ggvega_examples}
 \title{Examples}
-\format{An object of class \code{list} of length 8.}
+\format{An object of class \code{list} of length 9.}
 \usage{
 ggvega_examples
 }
@@ -33,12 +33,12 @@ autocomplete with the \code{$} operator.
 \examples{
   library("ggplot2")
   # print method
-  # ggvega_examples$scat_iris$plot returns the ggplot object
-  ggvega_examples$scat_iris
+  # ggvega_examples$point_iris$plot returns the ggplot object
+  ggvega_examples$point_iris
   # return the ggplot code
-  ggvega_examples$scat_iris$code
+  ggvega_examples$point_iris$code
   # translate to Vega-Lite
-  ggvega_examples$scat_iris$as_vegaspec()
+  ggvega_examples$point_iris$as_vegaspec()
 
 }
 \keyword{datasets}

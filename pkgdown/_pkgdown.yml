@@ -15,34 +15,46 @@ navbar:
       text: ggplot2 features
       menu:
       - text: overview
+        href: articles/ggplot2/overview.html
       - text: ---
       - text: data
+        href: articles/ggplot2/data/data.html
       - text: geom
         menu:
         - text: point
           href: articles/ggplot2/geom/geom_point.html
         - text: bar
+          href: articles/ggplot2/geom/geom_bar.html
       - text: stat
         menu:
         - text: count
+          href: articles/ggplot2/stat/stat_count.html
       - text: position
         menu:
         - text: stack
+          href: articles/ggplot2/position/position_stack.html
         - text: fill
+          href: articles/ggplot2/position/position_fill.html
       - text: scales
+        menu:
+        - text: names
+          href: articles/ggplot2/scales/scale_name.html
       - text: facet
       - text: coordinates
         menu:
         - text: flip
+          href: articles/ggplot2/coord/coord_flip.html
       - text: labels
+        href: articles/ggplot2/labels/labs.html
     articles:
       text: Articles
       menu:
-        - text: Gallery
         - text: Limitations
-        - text: Roadmap
+          href: articles/limitations.html
         - text: Design Philosophy
-
+          href: articles/design-philosophy.html
+        - text: Roadmap
+          href: articles/roadmap.html
 reference:
 - title: Translation
   desc: Functions to translate to Vega-Lite
