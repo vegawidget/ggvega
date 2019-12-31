@@ -14,6 +14,8 @@ library("ggplot2")
 library("ggvega")
 ```
 
+As you know, we use `geom_point()` to build scatterplots: 
+
 ```{r point_iris, results='asis'}
 ggvega_examples$point_iris$display()
 ```
