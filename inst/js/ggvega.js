@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
     (global = global || self, factory(global.ggvega = {}));
-}(this, function (exports) { 'use strict';
+}(this, (function (exports) { 'use strict';
 
     var $ref = "#/definitions/TopLevelSpec";
     var $schema = "http://json-schema.org/draft-07/schema#";
@@ -1574,6 +1574,7 @@
     };
 
     var ggSpecJsonSchema = /*#__PURE__*/Object.freeze({
+        __proto__: null,
         $ref: $ref,
         $schema: $schema,
         definitions: definitions,
@@ -7982,6 +7983,7 @@
     };
 
     var jsonSchemaDraft07$1 = /*#__PURE__*/Object.freeze({
+        __proto__: null,
         $schema: $schema$1,
         $id: $id,
         title: title,
@@ -8204,6 +8206,7 @@
     };
 
     var data$2 = /*#__PURE__*/Object.freeze({
+        __proto__: null,
         $schema: $schema$2,
         $id: $id$1,
         description: description,
@@ -10024,7 +10027,6 @@
         throw new Error('ggplot object contains unsupported facet: ' + ggFacet.class);
         // setting `type` here, hopefully change later
         const facet = { type: 'nominal' };
-        return facet;
     }
 
     function spec2vl(spec, singleView = false) {
@@ -10172,5 +10174,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=ggvega.js.map
