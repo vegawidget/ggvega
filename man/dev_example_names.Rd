@@ -9,8 +9,7 @@
 \usage{
 dev_example_names(type = c("ggplot", "ggspec", "vegaspec"))
 
-dev_example_path(example = NULL, type = c("ggplot", "ggspec",
-  "vegaspec"))
+dev_example_path(example = NULL, type = c("ggplot", "ggspec", "vegaspec"))
 
 dev_example(example = NULL, type = c("ggplot", "ggspec", "vegaspec"))
 
