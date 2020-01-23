@@ -7,8 +7,14 @@
 \usage{
 dev_gg_codeblock(example)
 
-dev_gallery(example, arrange = c("side", "top"), vl_width = 275,
-  vl_height = 275, gg_width = 400, gg_height = 320)
+dev_gallery(
+  example,
+  arrange = c("side", "top"),
+  vl_width = 275,
+  vl_height = 275,
+  gg_width = 400,
+  gg_height = 320
+)
 }
 \arguments{
 \item{example}{\code{character}, name of the example,
