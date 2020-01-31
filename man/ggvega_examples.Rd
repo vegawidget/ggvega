@@ -18,11 +18,11 @@ This is a named list; each name refers to an example. Each element is an R6
 object with accessors:
 
 \describe{
-\item{\code{$plot}}{returns the ggplot object.}
-\item{\code{$path}}{returns the path to the R file containing ggplot2 code.}
-\item{\code{$code}}{returns the code that builds the ggplot object.}
-\item{\code{$as_vegaspec()}}{returns the Vega-Lite translation.}
-\item{\code{$display()}}{used in documentation, works only with knitr.}
+\item{\verb{$plot}}{returns the ggplot object.}
+\item{\verb{$path}}{returns the path to the R file containing ggplot2 code.}
+\item{\verb{$code}}{returns the code that builds the ggplot object.}
+\item{\verb{$as_vegaspec()}}{returns the Vega-Lite translation.}
+\item{\verb{$display()}}{used in documentation, works only with knitr.}
 }
 
 The naming convention is to start with the geom being used, e.g. \code{point}, \code{bar}.

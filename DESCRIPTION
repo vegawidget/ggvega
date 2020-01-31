@@ -30,12 +30,12 @@ LazyData: true
 URL: https://github.com/vegawidget/ggvega
 BugReports: https://github.com/vegawidget/ggvega/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Depends:
     R (>= 2.10)
 Imports: 
     V8 (>= 2.2),
-    vegawidget (>= 0.3),
+    vegawidget (>= 0.3.1),
     jsonlite,
     magrittr,
     purrr,
@@ -63,5 +63,3 @@ Suggests:
     base64enc,
     highlight
 VignetteBuilder: knitr
-Remotes:
-    vegawidget/vegawidget
