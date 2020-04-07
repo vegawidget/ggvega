@@ -1,0 +1,40 @@
+---
+title: "geom_point"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library("ggplot2")
+library("ggvega")
+```
+
+As you know, we use `geom_point()` to build scatterplots: 
+
+```{r point_iris, results='asis'}
+ggvega_examples$point_iris$display()
+```
+
+---
+
+```{r point_flip_iris, results='asis'}
+ggvega_examples$point_flip_iris$display()
+```
+
+---
+
+```{r point_label_iris, results='asis'}
+ggvega_examples$point_label_iris$display()
+```
+
+---
+
+```{r point_scale_name_iris, results='asis'}
+ggvega_examples$point_scale_name_iris$display()
+```
+

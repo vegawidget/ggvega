@@ -8774,7 +8774,7 @@
         return Object.prototype.hasOwnProperty.call(obj, key);
     }
 
-    var vlschema = "https://vega.github.io/schema/vega-lite/v3.json";
+    var vlschema = "https://vega.github.io/schema/vega-lite/v4.json";
 
     //NOTE @wenyu: After discussion with @ian, we decide to use GG.DatasetsObject to substitute GG.Datasets
     /**

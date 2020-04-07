@@ -44,7 +44,8 @@ Imports:
     ggplot2,
     glue,
     fs,
-    utils
+    utils,
+    R6
 Suggests: 
     testthat (>= 2.1.0),
     pkgdown,
@@ -58,6 +59,7 @@ Suggests:
     withr,
     htmltools,
     shiny,
-    listviewer,
-    base64enc
+    listviewer (>= 2.1.0),
+    base64enc,
+    highlight
 VignetteBuilder: knitr

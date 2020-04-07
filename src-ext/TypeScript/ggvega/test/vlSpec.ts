@@ -1,5 +1,5 @@
 export const iris01 = {
-  $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+  $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
   datasets: {
     'data-00': [
       {
@@ -39,7 +39,7 @@ export const iris01 = {
 };
 
 export const iris02 = {
-  $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+  $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
   datasets: {
     'data-00': [
       {
@@ -79,7 +79,7 @@ export const iris02 = {
 };
 
 export const iris03 = {
-  $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+  $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
   datasets: {
     'data-00': [
       {
@@ -121,7 +121,7 @@ export const iris03 = {
 };
 
 export const iris03Single = {
-  $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+  $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
   datasets: {
     'data-00': [
       {
@@ -156,19 +156,18 @@ export const iris03Single = {
       title: 'Species'
     }
   }
-
 };
 
 // duplicate the layer
-export let iris04 = JSON.parse(JSON.stringify(iris03));
+export const iris04 = JSON.parse(JSON.stringify(iris03));
 iris04.layer.push(JSON.parse(JSON.stringify(iris04.layer[0])));
 // remove titles from second layer
 iris04.layer[1].encoding.x.title = undefined;
 iris04.layer[1].encoding.y.title = undefined;
 iris04.layer[1].encoding.stroke.title = undefined;
 
-export let barMpg = {
-  $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+export const barMpg = {
+  $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
   datasets: {
     'data-00': [
       {
@@ -211,8 +210,8 @@ export let barMpg = {
   ]
 };
 
-export let barStackedMpg = {
-  $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+export const barStackedMpg = {
+  $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
   datasets: {
     'data-00': [
       {

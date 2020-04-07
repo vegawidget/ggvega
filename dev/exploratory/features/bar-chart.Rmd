@@ -1,0 +1,108 @@
+---
+title: bar chart
+output: github_document
+---
+
+```{r message=FALSE}
+library("ggvega")
+library("ggplot2")
+library("vegawidget")
+```
+
+The purpose of this document is to show how bar-chart examples can be translated.
+
+## "Simple" bar chart
+
+The is the simplest bar chart we can imagine. On the `x`-axis, we have the `class` of the car; on the `y`-axis we have the number of cars (obsewrvations) in each class.
+
+Also note that I have specified the `width` and `height` of the *rendering* of the vegaspec; this is *not* part of the translation.
+
+```{r results='asis'}
+ggvega:::dev_display("bar_mpg")
+```
+
+One thing to note is that the `stat` contains a `default_aes` elementm which we would use in the absence of an explicit aesthetic-mapping for `y`:
+
+```{r}
+g <- last_plot()
+
+g$layers[[1]]$stat$default_aes
+```
+
+For example, we could define the aesthetic mapping for `y`:
+
+```{r}
+  g <- ggplot(data = mpg, aes(x = class, y = stat(count) + 100)) +
+  geom_bar()
+
+  g
+```
+
+This formulation specifies an aesthetic mapping using (what we call) a `stat_expression`, which we do not yet support.
+
+```{r}
+g$mapping$y
+```
+
+However, we would be able to support (once we support `StatBin`) specifying the type of stat explicitly, using its `default_aes`.
+
+
+```{r}
+g <- ggplot(data = mpg, aes(x = displ)) +
+  geom_bar(stat = "bin")
+
+g
+```
+
+In short, for now I think that we can use only the `default_aes` for the `y` aesthetic, but we need to keep in mind that it could be overriden by a `stat_expression` in the future. We will have to handle the `weight` aesthetic as a `field`.
+
+What can we do now to support `stat(count)` in the mapping?
+
+### Translation
+
+For `StatCount`, we build a `y` encoding:
+
+- add `type: "quantitative"`
+- if `weight` is a value, add `agg: "count"`
+- if `weight` is a field, add `agg: "sum", field: "<field>"`
+
+For `PositionStack`, we add to the `y` encoding:
+
+- `stack: "zero"`
+
+For `PositionFill`, we add to the `y` encoding:
+
+- `stack: "normalize"`
+
+We should also note that the functions `position_stack()` and `position_fill()` each have two parameters:
+
+- `vjust`: numeric, default `1`
+- `reverse`: logical, default `FALSE`
+
+For the time being, we will not handle these parameters. (I suspect that we can use vjust only with `geom_text()`, so I don't look forward to having to handle that interaction between `Geom` and `Position`)
+
+It seems we have more examples to handle:
+
+## Stacked bar-chart
+
+```{r results='asis'}
+ggvega:::dev_display("bar_stack_mpg")
+```
+
+## Weighted bar-chart
+
+```{r results='asis'}
+ggvega:::dev_display("bar_weight_mpg")
+```
+
+## Normalized bar-chart
+
+```{r results='asis'}
+ggvega:::dev_display("bar_norm_mpg")
+```
+
+## Flipped, stacked, weighted, normalized, bar-chart
+
+```{r results='asis'}
+ggvega:::dev_display("bar_flip_weight_norm_mpg")
+```

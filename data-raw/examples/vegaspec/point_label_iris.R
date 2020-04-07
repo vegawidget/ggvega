@@ -1,0 +1,29 @@
+list(
+  `$schema` = vega_schema(),
+  title = "Iris",
+  datasets = list(`data-00` = ggvega:::flip(iris)),
+  layer = list(
+    list(
+      data = list(name = "data-00"),
+      mark = list(type = "point"),
+      encoding = list(
+        x = list(
+          field = "Sepal\\.Width",
+          type = "quantitative",
+          title = "Sepal Width"
+        ),
+        y = list(
+          field = "Sepal\\.Length",
+          type = "quantitative",
+          title = "Sepal Length"
+        ),
+        stroke = list(
+          field = "Species",
+          type = "nominal",
+          title = "Species"
+        )
+      )
+    )
+  )
+) %>%
+  as_vegaspec()

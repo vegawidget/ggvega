@@ -21,7 +21,7 @@ as_vegaspec.gg <- function(spec, single_view = FALSE, ...) {
   spec2vl(ggspec, single_view)
 }
 
-#' Translate ggplot2 object into a ggspec
+#' Translate ggplot2 object to ggspec
 #'
 #' @param plt A ggplot2 object.
 #'
@@ -56,7 +56,6 @@ gg2spec <- function(plt){
 #' @inherit vegawidget::as_vegaspec return
 #'
 #' @export
-#' @keywords internal
 #'
 spec2vl <- function(ggspec, single_view = FALSE) {
 
@@ -68,7 +67,10 @@ spec2vl <- function(ggspec, single_view = FALSE) {
 
   ct$assign("ggspec", V8::JS("JSON.parse(ggspec)"))
 
-  singleView <- ifelse(single_view, "true", "false")
+  singleView <- "false"
+  if (identical(single_view, TRUE)) {
+    singleView <- "true"
+  }
 
   vlspec <-
     ct$get(

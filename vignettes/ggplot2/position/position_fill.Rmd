@@ -1,0 +1,27 @@
+---
+title: "position_fill"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library("ggplot2")
+library("ggvega")
+```
+
+
+```{r bar_norm_mpg, results='asis'}
+ggvega_examples$bar_norm_mpg$display()
+```
+
+---
+
+
+```{r bar_flip_weight_norm_mpg, results='asis'}
+ggvega_examples$bar_flip_weight_norm_mpg$display()
+```

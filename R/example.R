@@ -7,43 +7,33 @@
 #'   `NULL` prints message containing names of all examples
 #'
 #' @return \describe{
-#'   \item{`gg_example_names()`}{`character`, names of examples}
-#'   \item{`gg_example()`}{S3 object with classes `gg` and `ggplot`;
+#'   \item{`ggv_example()`}{S3 object with classes `gg` and `ggplot`;
 #'     a ggplot2 object, identified by `example`}
+#'   \item{`ggv_example_path()`}{S3 object with class `fs_path`
+#'     (wraps `character`), path to R file identified by `example`}
 #' }
 #'
 #' @examples
 #'   library("ggplot2")
-#'   gg_example_names()
-#'   gg_example_path("scatterplot-iris")
-#'   gg_example("scatterplot-iris")
-#'   gg_example("scatterplot-iris") %>% as_vegaspec()
-#' @export
+#'   ggv_example()
+#'   ggv_example_path("point_iris")
+#'   ggv_example("point_iris")
+#'   ggv_example("point_iris") %>% as_vegaspec()
+#' @noRd
 #'
-gg_example_names <- function() {
-  .example_names(type = "ggplot", source = "pkg")
-}
-
-#' @rdname gg_example_names
-#' @export
-#'
-gg_example <- function(example = NULL) {
+ggv_example <- function(example = NULL) {
   .example_obj(example, type = "ggplot", source = "pkg")
 }
 
-#' Use ggplot examples
+#' @rdname ggv_example
+#' @noRd
 #'
-#' @inheritParams gg_example_names
-#'
-#' @return S3 object with class `fs_path` (wraps `character`),
-#'    path to R file identified by `example`
-#'
-#' @keywords internal
-#' @export
-#'
-gg_example_path <- function(example = NULL) {
-
+ggv_example_path <- function(example = NULL) {
   .example_path(example, type = "ggplot", source = "pkg")
+}
+
+ggv_example_names <- function() {
+  .example_names(type = "ggplot", source = "pkg")
 }
 
 #' Use development examples
@@ -51,47 +41,41 @@ gg_example_path <- function(example = NULL) {
 #' Note that for `dev_translation()`, `type` refers to the type *to* which
 #' the translation is made.
 #'
-#' @inheritParams gg_example_names
+#' @inheritParams ggv_example_names
 #'
 #' @return \describe{
-#'   \item{`dev_example_names()`}{`character`, names of examples}
-#'   \item{`dev_example_path()`}{S3 object with class `fs_path`
+#'   \item{`ggv_dev_names()`}{`character`, names of examples}
+#'   \item{`ggv_dev_path()`}{S3 object with class `fs_path`
 #'     (wraps `character`), path to R file identified by `example`}
-#'   \item{`dev_example()`}{not type-stable, depending on `type`, returns
+#'   \item{`ggv_dev()`}{not type-stable, depending on `type`, returns
 #'   either a ggplot object, a ggspec, or a vegaspec}
 #' }
 #'
-#' @keywords internal
-#' @export
+#' @noRd
 #'
-dev_example_names <- function(type = c("ggplot", "ggspec", "vegaspec")) {
-  .example_names(type = type, source = "dev")
-}
-
-#' @rdname dev_example_names
-#' @keywords internal
-#' @export
-#'
-dev_example_path <- function(example = NULL,
-                             type = c("ggplot", "ggspec", "vegaspec")) {
-
-  .example_path(example, type = type, source = "dev")
-}
-
-#' @rdname dev_example_names
-#' @keywords internal
-#' @export
-#'
-dev_example <- function(example = NULL,
-                        type = c("ggplot", "ggspec", "vegaspec")) {
+ggv_dev <- function(example = NULL,
+                    type = c("ggplot", "ggspec", "vegaspec")) {
 
   .example_obj(example, type = type, source = "dev")
 }
 
-#' @rdname dev_example_names
-#' @keywords internal
-#' @export
+#' @rdname ggv_dev
+#' @noRd
 #'
+ggv_dev_names <- function(type = c("ggplot", "ggspec", "vegaspec")) {
+  .example_names(type = type, source = "dev")
+}
+
+#' @rdname ggv_dev
+#' @noRd
+#'
+ggv_dev_path <- function(example = NULL,
+                         type = c("ggplot", "ggspec", "vegaspec")) {
+
+  .example_path(example, type = type, source = "dev")
+}
+
+
 dev_translation <- function(example = NULL,
                             type = c("ggspec", "vegaspec")) {
 
@@ -102,7 +86,7 @@ dev_translation <- function(example = NULL,
     vegaspec = "ggspec"
   )
 
-  source_obj <- dev_example(example, type = source_type[[type]])
+  source_obj <- ggv_dev(example, type = source_type[[type]])
 
   fn_translate <- list(
     ggspec = gg2spec,
