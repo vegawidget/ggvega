@@ -30,7 +30,7 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
     "jest": "^24.8.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "prettier": "^1.17.1",
     "quicktype": "^15.0.199",
     "rollup": "^1.14.3",
