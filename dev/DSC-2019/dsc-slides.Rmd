@@ -1,0 +1,839 @@
+---
+title: "ggvega"
+subtitle: "ggplot2 to Vega-Lite translator"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "extra-theme.css"]
+    nature:
+      beforeInit: ["demo-aggregate.js", "demo-streaming.js"]
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+options(htmltools.dir.version = FALSE)
+library(tidyverse)
+library(htmltools)
+library(ggvega)
+library(vegawidget)
+```
+
+```{r setupmore, include=FALSE}
+cars <- jsonlite::fromJSON("https://vega.github.io/vega-lite/data/cars.json")
+
+set.seed(314)
+n_obs <- 100
+
+toy_prob <- tribble(
+  ~value, ~probability,
+  "a",         0.35,
+  "b",         0.25,
+  "c",         0.10,
+  "d",         0.10,
+  "e",         0.1
+)
+
+data_all <- 
+  tibble(
+    user_id = seq(1, 2 * n_obs),
+    value = 
+      sample(
+        toy_prob$value, 
+        size = 2 * n_obs, 
+        replace = TRUE, 
+        prob = toy_prob$probability
+      )
+  )  
+
+data_init <- data_all[data_all$user_id <= n_obs, ]
+data_new <- data_all[data_all$user_id > n_obs, ]
+```
+
+### ggvega: from ggplot2 to Vega-Lite  
+
+.pull-left[
+.center[
+<img src="dsc_files/barchart-mpg-gg.png" width="400"/>
+]]
+.pull-right[
+
+<img src="dsc_files/barchart-mpg-vl.svg"/>
+
+]
+
+.pull-left[
+
+```{r include=FALSE, fig.width=4, fig.height=3}
+p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
+  geom_point(aes(color = Origin)) 
+
+p
+# ggvega::dev_gallery()
+```
+]
+.pull-right[
+```{r include=FALSE, fig.asp=.65}
+p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
+  geom_point(aes(color = Origin)) 
+
+as_vegaspec(p)
+```
+]
+
+
+.footnote[
+This project has been supported by Iowa State University, Schneider Electric, and GSOC.
+]
+
+---
+class: inverse, center, middle
+# Motivation
+
+
+---
+### Build & deploy visual components 
+
+
+
+We want to connect the data-scientists who design visualizations and the customers who use these visualizations
+
+We want the ability to take into account new data after visualization has been designed
+
+This goal, being **extensible to new data**, has influenced fundamental design choices.
+
+This factor distinguishes this effort from `plotly::ggplotly()`
+
+.pull-left[
+
+
+```{r echo=FALSE}
+g <- ggplot(data_init, aes(x = value)) + geom_bar()
+
+vs <- as_vegaspec(g)
+
+vegawidget(vs, elementId = "demo-aggregate", width = 450, height = 300)
+```
+
+]
+.pull-right[
+```{r control, echo=FALSE}
+control <- 
+  tags$div(
+    tags$span("dataset"),
+    tags$select(
+      name = "demo-aggregate-dataset",
+      tags$option(value = "data_init", "Initial"),
+      tags$option(value = "data_new", "New")
+    )
+  )
+
+control
+```
+
+```{r dataset, echo=FALSE}
+# this will get filled in using code from demo-aggregate.js
+dataset <-
+  tags$pre(
+    tags$code(
+      name = "demo-aggregate-data",
+      class = "json hljs remark-code",
+      "{}"
+    )
+  )
+
+dataset
+```
+
+```{r data, echo=FALSE}
+ser <- function(x) {
+  x <- purrr::transpose(x)
+  x <- jsonlite::toJSON(x, auto_unbox = TRUE)
+  
+  x
+}
+
+data_script <- 
+  tags$script(
+    type = "text/javascript",
+    glue_js(
+      "var data_all = {'data_init': ${ser(data_init)}, 'data_new': ${ser(data_new)}};"
+    )
+  )
+
+data_script
+```
+
+
+]
+
+---
+### ggplot2 + Interactivity
+
+
+#### What we want in a JavaScript library:
+
+  - open source  
+  
+  - "easy" to use
+  
+  - has the grammar of graphics at its foundation  
+  
+  - can be tied to ggplot2  
+
+
+---
+background-image: url(https://repository-images.githubusercontent.com/177215911/6cf7df00-c0dd-11e9-9559-c70f5ce9c8f0)
+background-size: 1200px
+background-position: 50% 85%
+### Vega + Vega-Lite
+
+
+Designed to be a visualization grammar that is built for analysis
+
+An implementation of visualization terms with the **grammar of graphics** at its core
+
+Both Vega and Vega-lite use a JSON specification to create a visualization
+
+<br/>
+
+---
+background-image: url(https://vegawidget.rbind.io/posts/2019-07-10-user-2019-presentation/diagram.png)
+background-size: 1000px
+background-position: 35% 85%
+### Vegawidget
+
+
+htmlwidget that renders Vega(-Lite) specifications & provides access to interactivity
+
+Intended as low-level package:   
+
+  - use other packages to **build** specifications  
+  
+  - use vegawidget to **render**
+
+<br/>
+
+
+---
+### vlbuildr
+
+builds API semi-automatically based on the Vega-Lite schema
+
+can build specifications using `%>%`
+
+.pull-left[
+
+```{r eval=FALSE}
+vl_chart() %>%
+vl_add_data(values = iris) %>%
+vl_mark_point() %>%
+vl_encode_x(
+field = "Petal\\.Width:Q",
+title = "Petal.Width"
+) %>%
+vl_encode_y(
+field = "Petal\\.Length:Q",
+title = "Petal.Length"
+) %>%
+vl_encode_color("Species:N")
+
+```
+
+]
+
+.pull-right[
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+library(vlbuildr)
+
+vl_chart() %>%
+vl_add_data(values = iris) %>%
+vl_mark_point() %>%
+vl_encode_x(
+field = "Petal\\.Width:Q",
+title = "Petal.Width"
+) %>%
+vl_encode_y(
+field = "Petal\\.Length:Q",
+title = "Petal.Length"
+) %>%
+vl_encode_color("Species:N")
+```
+
+]
+
+---
+### Motivating use-case for ggvega
+
+A data-scientist designs a visualization using R with ggplot2  
+
+The ggplot2 object is translated to a Vega-Lite specification (using ggvega)  
+
+The Vega-Lite specification can be deployed to production, independently of the data used to design it. 
+
+Vega provides the means to update Vega views with new data.
+
+<br/>
+.pull-left[
+
+```{r demo-streaming, echo=FALSE}
+spec_table <-
+  list(
+    `$schema` = vega_schema(),
+    width = 400,
+    data = list(name = "table"),
+    mark = "line",
+    encoding = list(
+      x = list(
+        field = "x", 
+        type = "quantitative",
+        scale = list(zero =  FALSE)
+      ),
+      y = list(field = "y", type = "quantitative"),
+      color = list(field = "category", type = "nominal")
+    )
+  ) %>%
+  as_vegaspec()
+
+vegawidget(spec_table, elementId = "demo-streaming")
+```
+
+]
+
+.pull-right[
+
+Taken from [Vega-Lite streaming demo](https://vega.github.io/vega-lite/tutorials/streaming.html)
+
+```{r demo-streaming-button, echo=FALSE}
+tags$button(
+  name = "demo-streaming-reset",
+  type = "button",
+  "reset"
+)
+```
+
+]
+---
+class: inverse, center, middle
+# Design Philosophy
+
+
+
+---
+### Fundamental design choices
+
+**Design choice #1:**  Intention vs. Implementation?
+
+**Initial philosophy:** narrow scope built on a firm foundation.
+
+
+**Approach: ** a two-step process
+
+1. ggplot2 -> ggspec: convert a ggplot2 object into a "ggspec", a JSON-serializable list  
+
+2. ggspec -> vegaspec: convert a "ggspec" into a Vega-Lite specification or "vegaspec".
+
+<br/>
+
+.center[
+
+]
+
+
+---
+### .salt[ggplot2 ].fat[ -> ].acid[ ggspec ]
+.pull-left[
+
+- faithful to the ggplot2 object and philosophy
+
+- represents the range of "things" that we will be able to translate
+
+- provides the means to generate a JSON specification, given a ggplot2 object
+
+- completed "under-the-hood"
+]
+.pull-right[
+
+```{r include=FALSE}
+p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
+  geom_point(aes(color = Origin)) 
+
+ggvega::gg2spec(p)
+```
+
+```json
+{
+  "data": {
+    "data-00": {
+      "metadata": {},
+      "observations": []
+    }
+  },
+  "layers": [
+    {
+      "data": "data-00",
+      "geom": {},
+      "geom_params": {},
+      "mapping": {},
+      "aes_params": {},
+      "stat": {},
+      "stat_params": {},
+      "position": {}
+    }
+  ],
+  "scales": [],
+  "labels": {},
+  "coordinates": {},
+  "facet": {}
+}
+```
+]
+
+
+---
+### .acid[ ggspec ].fat[ -> ].heat[ vegaspec]
+
+.pull-left[
+
+
+- inspired by Vega-Lite itself 
+
+- developed in TypeScript
+
+- compiled into ES5
+
+
+
+]
+.pull-right[
+
+```{r include = FALSE}
+p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
+  geom_point(aes(color = Origin))
+
+ggvega::as_vegaspec(p)
+```
+
+
+```json
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "datasets": {
+    "data-00": []
+  },
+  "layer": [
+    {
+      "data": {},
+      "mark": {},
+      "encoding": {
+        "x": {},
+        "y": {},
+        "stroke": {}
+      }
+    }
+  ]
+}
+```
+]
+
+
+---
+### .salt[ ggplot2 ].fat[ -> ].heat[ Vega-Lite]
+
+
+
+```{r}
+p <- ggplot(cars, aes(x = Horsepower, y = Miles_per_Gallon)) +
+  geom_point(aes(color = Origin))
+
+ggvega::as_vegaspec(p)
+```
+
+---
+### Multi-view vs. Single-view 
+
+.pull-left[
+```{r eval = FALSE}
+ggvega::as_vegaspec(p)
+```
+
+```json
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "datasets": {
+    "data-00": []
+  },
+  "layer": [
+    {
+      "data": {},
+      "mark": {},
+      "encoding": {
+        "x": {},
+        "y": {},
+        "stroke": {}
+      }
+    }
+  ]
+}
+```
+
+]
+.pull-right[
+```{r eval = FALSE}
+ggvega::as_vegaspec(p, single_view = TRUE)
+```
+
+```json
+  {
+  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "datasets": {
+    "data-00": []
+  },
+  "data": {
+    "name": "data-00"
+  },
+  "mark": {},
+  "encoding": {
+    "x": {},
+    "y": {},
+    "stroke": {}
+  }
+}
+```
+]
+
+
+---
+class: inverse, center, middle
+# Examples
+
+---
+### ggvega
+
+
+.pull-left[
+
+```{r eval=FALSE}
+library("ggplot2")
+library("ggvega")
+
+
+gg_petal <- ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length, 
+                 colour = Species))
+
+as_vegaspec(gg_petal)
+  
+
+```
+
+]
+
+.pull-right[
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+library("ggplot2")
+library("ggvega")
+gg_petal <- ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
+
+as_vegaspec(gg_petal)
+```
+
+]
+
+
+---
+### ggvega + vlbuildr
+
+.pull-left[
+
+```{r eval=FALSE}
+library("ggplot2")
+library("ggvega")
+library("vlbuildr")
+
+gg_petal <- ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length, 
+                 colour = Species))
+
+as_vegaspec(gg_petal) %>%
+  vl_encode_fill("Species:N")
+
+```
+
+]
+
+.pull-right[
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+library("ggplot2")
+library("ggvega")
+library("vlbuildr")
+
+gg_petal <- ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length, 
+                 colour = Species))
+
+as_vegaspec(gg_petal) %>%
+  vl_encode_fill("Species:N")
+```
+
+]
+
+---
+### Add interactivity!
+
+.pull-left[
+
+```{r eval=FALSE}
+library("ggplot2")
+library("ggvega")
+library("vlbuildr")
+
+gg_petal <- ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length, 
+                 colour = Species))
+
+vl_petal <-
+  as_vegaspec(gg_petal, single_view = TRUE) %>%
+  vl_add_interval_selection("brush") %>%
+  vl_encode_opacity(value = 0.3) %>%
+  vl_condition_opacity(
+    selection = "brush",
+    value = 1
+  )
+
+vl_petal
+```
+
+]
+
+.pull-right[
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+gg_petal <- ggplot(iris) + 
+  geom_point(aes(x = Petal.Width, y = Petal.Length, colour = Species))
+
+gg_sepal <- ggplot(iris) + 
+  geom_point(aes(x = Sepal.Width, y = Sepal.Length, colour = Species))
+
+
+vl_petal <-
+  as_vegaspec(gg_petal, single_view = TRUE) %>%
+  vl_add_interval_selection("brush") %>%
+  vl_encode_opacity(value = 0.3) %>%
+  vl_condition_opacity(
+    selection = "brush",
+    value = 1
+  )
+
+# do the same with vl_sepal
+vl_sepal <-
+  as_vegaspec(gg_sepal, single_view = TRUE) %>%
+  vl_add_interval_selection("brush") %>%
+  vl_encode_opacity(value = 0.3) %>%
+  vl_condition_opacity(
+    selection = "brush",
+    value = 1
+  )
+
+# concatenate
+# vl_hconcat(vl_sepal, )
+vl_petal
+```
+
+]
+
+---
+### Add interactivity!
+
+
+
+```{r message=FALSE, warning=FALSE}
+vl_hconcat(vl_sepal, vl_petal)
+```
+
+
+---
+class: inverse, center, middle
+# [More Examples!](https://rstudio.cloud/project/688265)
+
+---
+class: inverse, center, middle
+# Limitations
+
+---
+### Issues: ES5 & ES6
+
+- ES6 is supported by all modern browsers, except, the last version of IE supports only ES5.  
+
+- The V8 package supports ES6 for all platforms, except some older Linux platforms  
+  - e.g. Ubuntu 16.04 (RStudio Cloud)
+
+<br/>
+
+#### Conclusion
+
+- We chose ES5 even though Vega-Lite 3.0 is written using ES6
+
+
+---
+### Mismatches
+
+- `geom_path()` is based on the order of the data vs. Vega-Lite uses an order encoding  
+
+- `positionDodge` and `positionJitter`  
+  - Vega-Lite is working on implementing this (PR: vega/vega-lite#4969)
+
+- Factors: Being extensible to new data and the ordering of ordered factors.
+
+.center[
+
+```{r echo=FALSE, fig.height = 4.5}
+pops <- tribble(
+  ~city, ~population,
+  "Istanbul",         714,
+  "Tokyo",         541,
+  "Beijing",        509,
+  "Paris",         492,
+  "London",         442
+)
+pops$city <- factor(pops$city)
+
+ggplot(pops) + 
+  geom_bar(aes(x = forcats::fct_reorder(city, population, .desc = TRUE), weight = population)) +
+  labs(x = "", y = "Population (thousands)")
+```
+
+]
+
+---
+### Other limitations
+
+#### Expressions + aesthetic mappings:
+
+- We currently support **variable-names only**
+
+
+<br/>
+#### Temporal values:
+
+- Potential issues if the timezone of the data does not match the timezone of the browser
+
+- There are workarounds, but they involve compromises.
+
+---
+class: inverse, center, middle
+# Future Work
+
+---
+### Decisions, questions, etc.
+
+#### Should the transformations take place in R or put into the Vega-lite specification?
+
+**Option 1:** If the Vega-Lite spec does an aggregate, do the aggregation in R instead of JS so that the resulting htmlwidget has a much smaller data set. 
+
+**Option 2:** Have the output (the Vega-Lite specification) act as a component so that we can the change different data sets in and out of the Vega-Lite specification only.
+
+<br/>
+
+
+
+---
+### What we can do now + what we will do next
+
+#### What we can do now:
+
+- `geom_point()` and `geom_bar()`
+- `stat_count()`
+- `position_stack()` and `position_fill()`
+- `coord_flip()`
+- labels
+- extract name from scales
+- if we have a single-layer ggplot object, we can create a single-view Vega-Lite specification
+
+#### What we will take on next:
+
+- `stat_bin()`, enabling histograms
+- `geom_line()`
+- `facet_grid()` and `facet_wrap()`
+- `geom_boxplot()` (`stat_boxplot()`)
+- scales (this will be an undertaking)
+- a framework to handle temporal values (another undertaking)
+
+
+---
+### New features on the horizon?
+
+
+#### New to Vega-Lite 4.0 (currently in beta):
+
+- [regression](https://vega.github.io/vega-lite/docs/regression.html)
+- [loess](https://vega.github.io/vega-lite/docs/loess.html)
+- [density](https://vega.github.io/vega-lite/docs/density.html)
+
+
+#### As these new capabilities are released in Vega-Lite:
+
+- `geom_smooth()`
+- `geom_density()`
+- `position_dodge()` and `position_jitter()`
+
+---
+background-image: url(https://vegawidget.rbind.io/posts/2019-07-10-user-2019-presentation/diagram.png)
+background-size: 700px
+background-position: 45% 2.5%
+<br/><br/><br/><br/><br/>
+
+
+.left-minus[
+.right[
+.salt[ Vega-Lite ]  
+
+<br/>  <br/>
+
+.fat[ vegawidget ]  
+
+<br/>
+
+.acid[ vlbuildr]  
+.acid[ ggvega]
+]
+]
+.right-plus[
+.salt2[
+- interactive grammar-of-graphics
+- JavaScript, rendered in the browser
+]
+<br/><br/>
+.fat2[
+- htmlwidget, render Vega-Lite specifications
+- provides interactive access to Vega-Lite charts
+]
+<br/>
+.acid2[
+- compose Vega-Lite specifications
+]
+]
+
+---
+## Resources
+
+[Vega-Lite](https://vega.github.io/vega-lite)
+
+[vegawidget organization](https://github.com/vegawidget)
+
+[vlbuildr](https://vegawidget.github.io/vlbuildr)
+
+[ggvega](https://vegawidget.github.io/ggvega/)
+
+
+
+
+

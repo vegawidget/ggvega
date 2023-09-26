@@ -1,0 +1,255 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,400i);
+@import url(https://fonts.googleapis.com/css?family=Inconsolata);
+@import url(https://fonts.googleapis.com/css?family=Londrina+Solid:100);
+
+/* extra */
+
+.teach-left {
+  float: left;
+  width: 75%;
+}
+.teach-right {
+  float: right;
+  width: 20%;
+}
+.left-minus {
+  width: 35%;
+  float: left;
+  padding-top: 1em;
+}
+.right-plus {
+  width: 62%;
+  float: right;
+  padding-top: 1em;
+}
+.left-plus {
+  width: 57%;
+  float: left;
+  padding-top: 1em;
+}
+.right-minus {
+  width: 40%;
+  float: right;
+  padding-top: 1em;
+}
+.left-minus-tall {
+  width: 40%;
+  height: 92%;
+  float: left;
+}
+.right-plus-tall {
+  width: 57%;
+  height: 92%;
+  float: right;
+}
+.left-third {
+  width: 30%;
+  float: left;
+  padding-top: 1em;
+}
+.right-two-thirds {
+  width: 70%;
+  float: right;
+  padding-top: 1em;
+}
+
+.left-column-small {
+  width: 12%;
+  height: 92%;
+  float: left;
+}
+.right-column-large {
+  width: 82%;
+  height: 92%;
+  float: right;
+}
+.left-third2 {
+  width: 30%;
+  float: left;
+  padding-right: 1.5em;
+}
+.right-third2 {
+  width: 30%;
+  float: right;
+}
+
+
+.salt {
+    font-size: 50px;
+    font-family: Londrina Solid;
+  font-weight: bold;
+  color: #78b0b4;
+  letter-spacing: 4px;
+  text-shadow:
+  .5px .5px 0 #353839,
+   -.5px -.5px 0 #353839,
+    .5px -.5px 0 #353839,
+    -.5px .5px 0 #353839,
+     .5px .5px 0 #353839;
+}
+
+.salt2 {
+  font-family: Montserrat, 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+  font-size: 25px;
+  font-weight: bold;
+  color: #78b0b4;
+}
+
+.fat {
+    font-size: 50px;
+    font-family: Londrina Solid;
+  font-weight: bold;
+  color: #efba38;
+  letter-spacing: 4px;
+  text-shadow:
+  .5px .5px 0 #353839,
+   -.5px -.5px 0 #353839,
+    .5px -.5px 0 #353839,
+    -.5px .5px 0 #353839,
+     .5px .5px 0 #353839;
+}
+
+.fat2 {
+  font-family: Montserrat, 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+  font-size: 25px;
+  font-weight: bold;
+  color: #efba38;
+}
+.acid {
+    font-size: 50px;
+    font-family: Londrina Solid;
+  font-weight: bold;
+  color: #bbbe4a;
+  letter-spacing: 4px;
+  text-shadow:
+  .5px .5px 0 #353839,
+   -.5px -.5px 0 #353839,
+    .5px -.5px 0 #353839,
+    -.5px .5px 0 #353839,
+     .5px .5px 0 #353839;
+}
+
+.acid2 {
+  font-family: Montserrat, 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+  font-size: 25px;
+  font-weight: bold;
+  color: #bbbe4a;
+}
+.heat {
+    font-size: 50px;
+    font-family: Londrina Solid;
+  font-weight: bold;
+  color: #f96c3b;
+  letter-spacing: 4px;
+  text-shadow:
+  .5px .5px 0 #353839,
+   -.5px -.5px 0 #353839,
+    .5px -.5px 0 #353839,
+    -.5px .5px 0 #353839,
+     .5px .5px 0 #353839;
+}
+
+.heat2 {
+  font-family: Montserrat, 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+  font-size: 25px;
+  font-weight: bold;
+  color: #f96c3b;
+}
+.other {
+    font-size: 50px;
+    font-family: Londrina Solid;
+  font-weight: bold;
+  color: #f5ab4d;
+  letter-spacing: 4px;
+  text-shadow:
+  .5px .5px 0 #353839,
+   -.5px -.5px 0 #353839,
+    .5px -.5px 0 #353839,
+    -.5px .5px 0 #353839,
+     .5px .5px 0 #353839;
+}
+
+/* Modifications */
+
+body {
+  font-family: Montserrat, 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+  font-weight: 400;
+  color: #657b83;
+}
+h1, h2, h3 {
+  font-family: Londrina Solid;
+  font-weight: normal;
+  color: #78b0b4;
+  letter-spacing: 5px;
+  text-shadow:
+  1px 1px 0 #353839,
+   -1px -1px 0 #353839,
+    1px -1px 0 #353839,
+    -1px 1px 0 #353839,
+     1px 1px 0 #353839;
+}
+
+.remark-slide-content .large p {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.remark-slide-content .small p {
+    font-size: 15px;
+}
+.remark-code, .remark-inline-code {
+  font-family: Inconsolata, 'Lucida Console', Monaco, monospace;
+}
+.remark-code {
+  font-size: 0.9em;
+}
+.remark-inline-code {
+  font-size: 1.1em;
+  color: #f96c3b;
+}
+
+strong{color:#bbbe4a;}
+a, a > code {
+  color: #f5ab4d;
+  text-decoration: none;
+}
+
+.inverse {
+  background-color: #fafafa;
+  color: #fdf6e3;
+  text-shadow: none;
+}
+.inverse h1, .inverse h2, .inverse h3 {
+  color: #f5ab4d;
+  font-size: 120px;
+  letter-spacing: 4px;
+  text-shadow:
+  1px 1px 0 #353839,
+   -1px -1px 0 #353839,
+    1px -1px 0 #353839,
+    -1px 1px 0 #353839,
+     1px 1px 0 #353839;
+}
+.title-slide h2, .title-slide h3 {
+  color: #efba38;
+  font-size: 51px;
+  letter-spacing: 4px;
+}
+.title-slide {
+  background-color: #fafafa;
+}
+.title-slide h1{
+  font-size: 121px;
+  letter-spacing: 8px;
+  color: #f96c3b;
+  text-shadow:
+  1px 1px 0 #353839,
+   -1px -1px 0 #353839,
+    1px -1px 0 #353839,
+    -1px 1px 0 #353839,
+     1px 1px 0 #353839;
+}
+
+.remark-slide-content h3 {
+    font-size: 48px;
+}
